@@ -14,3 +14,12 @@
 | ADR                 | `ADR`                | Architecture Decision Record for durable decisions.                          | Required for lasting boundary changes.              | `RandomNote`                |
 | Topic               | `Topic`              | A subfield of Computer Science about which material is written.              | A topic contains 1 set of notes.                    | `idea`                      |
 | Notes               | `Notes`              | The set of all the material about a particular topic.                        | It contains only HTML files, extracted from notion. | `Content`                   |
+| Notion Ingestion Context | `NotionIngestionContext` | Context that pulls raw note structure from Notion and normalizes it. | Owns Notion API adapters and normalization only. | `Fetcher` |
+| Notes Content Context | `NotesContentContext` | Context that transforms normalized topic data into publishable note artifacts. | Must consume only normalized inputs and emit sanitized outputs. | `RendererService` |
+| Site Styling Context | `SiteStylingContext` | Context that owns visual tokens, typography, and layout primitives. | Must not depend on Notion or topic retrieval concerns. | `ThemeUtils` |
+| Topic Manifest | `TopicManifest` | Registry mapping topic metadata to source and output routing. | Adding a topic should be manifest-first. | `RouteList` |
+| Sanitized Notes HTML | `SanitizedNotesHtml` | HTML output that is cleaned through an allowlist before publishing. | Required for clean and safe rendering reliability. | `RawHtml` |
+| Pages Publish Contract | `PagesPublishContract` | Explicit output contract consumed by Cloudflare Pages deployment. | Build artifacts must be deterministic and static-ready. | `DeployStuff` |
+| Formatting Fidelity | `FormattingFidelity` | Requirement that Notion-authored formatting is preserved exactly in published output. | Takes precedence over convenience transformations. | `CloseEnoughFormatting` |
+| LaTeX Fidelity | `LaTeXFidelity` | Preservation of mathematical expressions from Notion source to rendered output. | Must remain semantically and visually equivalent. | `ApproximateMath` |
+| Code Block Fidelity | `CodeBlockFidelity` | Preservation of code block boundaries, language metadata, and indentation from source notes. | Must not alter executable meaning or readability. | `PrettyCodeRewrite` |
