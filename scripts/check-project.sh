@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Extension point for project-specific checks once a runtime/toolchain exists.
-# Keep this deterministic and fail-fast when commands are added.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_BUILD_DIR="$(mktemp -d)"
+trap 'rm -rf "${TMP_BUILD_DIR}"' EXIT
 
-printf "check-project: no project-specific checks configured (OK)\n"
+printf "check-project: running fidelity tests\n"
+node --test \
+  "${ROOT_DIR}/tests/notes-content-fidelity.test.js" \
+  "${ROOT_DIR}/tests/notion-ingestion-fidelity.test.js"
 
+printf "check-project: running static build smoke check\n"
+node "${ROOT_DIR}/scripts/build-pages.js" \
+  --manifest "${ROOT_DIR}/content/topic-manifest.json" \
+  --out "${TMP_BUILD_DIR}/dist"
+
+printf "check-project: OK\n"

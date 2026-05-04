@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "algorithms",
+    "title": "Algorithms",
+    "description": "Recurrences, asymptotics, and design techniques.",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/algorithms.normalized.json"
+    }
+  }
+]
+

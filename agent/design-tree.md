@@ -15,7 +15,7 @@ Formatting fidelity is a hard requirement: notion-authored structure, especially
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
-| Notion extraction strategy | `[A] Full custom parser`, `[B] Existing parser + normalization adapter` | `[B]` | Reduces parser edge-case risk while preserving boundary control. |
+| Notion extraction strategy | `[A] Strict Notion API adapter + custom normalizer`, `[B] Existing parser + normalization adapter` | `[A]` | First vertical slice now implements strict normalization with fail-fast behavior for unsupported blocks. |
 | Clean-render guarantee strategy | `[A] Trust parser output`, `[B] Enforce sanitizer allowlist before publish` | `[B]` | Reliability requires deterministic, sanitized HTML output with fidelity protections for LaTeX and code blocks. |
 | Topic onboarding model | `[A] Hardcoded routes`, `[B] Manifest-driven topic registry` | `[B]` | Adding new topics should be metadata-only in most cases. |
 | Search index generation | `[A] Build-time static index`, `[B] Runtime remote index` | `[A]` | Keeps Pages static and avoids runtime dependency failures. |
@@ -27,6 +27,7 @@ Formatting fidelity is a hard requirement: notion-authored structure, especially
 | Context split for delivery | Keep `notion-ingestion`, `notes-content`, and `site-styling` as separate contexts with explicit public entry points. | 2026-05-04 | n/a |
 | Cloudflare Pages interface direction | Use a static artifact contract for Pages deployment outputs. | 2026-05-04 | n/a |
 | Rendering priority | Treat formatting fidelity as first-class: if LaTeX or code block fidelity cannot be preserved, do not publish degraded output. | 2026-05-04 | n/a |
+| First delivery slice | Build from `TopicManifest` and emit static Pages artifacts using the three context entry points. | 2026-05-04 | n/a |
 
 ## Pressure Points
 

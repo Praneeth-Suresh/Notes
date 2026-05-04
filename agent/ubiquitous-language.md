@@ -23,3 +23,4 @@
 | Formatting Fidelity | `FormattingFidelity` | Requirement that Notion-authored formatting is preserved exactly in published output. | Takes precedence over convenience transformations. | `CloseEnoughFormatting` |
 | LaTeX Fidelity | `LaTeXFidelity` | Preservation of mathematical expressions from Notion source to rendered output. | Must remain semantically and visually equivalent. | `ApproximateMath` |
 | Code Block Fidelity | `CodeBlockFidelity` | Preservation of code block boundaries, language metadata, and indentation from source notes. | Must not alter executable meaning or readability. | `PrettyCodeRewrite` |
+| Strict Fidelity Mode | `StrictFidelityMode` | Fail-fast mode where unsupported Notion block types are rejected instead of downgraded. | Prevents silent formatting loss at publish time. | `BestEffortRendering` |

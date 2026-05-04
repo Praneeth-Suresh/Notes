@@ -7,12 +7,13 @@
 | Markdown sanity | `./scripts/check-md.sh` | available | Unclosed fences and tabs |
 | Test manifest immutability check | `./scripts/check-tests-unchanged.sh` | available | Detects changes in configured test scope from `agent/test-manifest.conf` |
 | Aggregate deterministic gate | `./scripts/check.sh` | available | Runs all deterministic checks |
+| Project checks | `./scripts/check-project.sh` | available | Runs fidelity tests and static build smoke checks |
 | Format | `not available yet` | unavailable | No formatter configured yet |
 | Lint | `not available yet` | unavailable | No linter configured yet |
 | Typecheck | `not available yet` | unavailable | No typed code configured yet |
-| Unit tests | `not available yet` | unavailable | No test runner configured yet |
+| Unit tests | `node --test tests/notes-content-fidelity.test.js tests/notion-ingestion-fidelity.test.js` | available | Verifies LaTeX/code fidelity and strict unsupported-block handling |
 | Integration tests | `not available yet` | unavailable | No integration harness yet |
-| E2E smoke | `not available yet` | unavailable | No application runtime yet |
+| E2E smoke | `node scripts/build-pages.js --manifest content/topic-manifest.json --out <tmp-dir>` | available | Deterministic static build smoke check for Pages artifacts |
 
 ## Default Loop
 

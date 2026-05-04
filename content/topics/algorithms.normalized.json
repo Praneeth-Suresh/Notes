@@ -1,0 +1,121 @@
+{
+  "source": {
+    "kind": "fixture",
+    "origin": "notion"
+  },
+  "title": "Algorithms",
+  "description": "Core notes with mathematical notation and executable pseudocode.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Master Theorem Quick Reference",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "richText": [
+        {
+          "type": "text",
+          "content": "For recurrences of the form ",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        },
+        {
+          "type": "equation",
+          "expression": "T(n)=aT\\left(\\frac{n}{b}\\right)+f(n)"
+        },
+        {
+          "type": "text",
+          "content": ", compare ",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        },
+        {
+          "type": "equation",
+          "expression": "f(n)"
+        },
+        {
+          "type": "text",
+          "content": " with ",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        },
+        {
+          "type": "equation",
+          "expression": "n^{\\log_b a}"
+        },
+        {
+          "type": "text",
+          "content": ".",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "type": "equation",
+      "expression": "T(n)=2T\\left(\\frac{n}{2}\\right)+n\\log n"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Reference Implementation",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        }
+      ]
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "code": "def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n\n    merged = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            merged.append(left[i])\n            i += 1\n        else:\n            merged.append(right[j])\n            j += 1\n\n    merged.extend(left[i:])\n    merged.extend(right[j:])\n    return merged\n"
+    }
+  ]
+}
+
