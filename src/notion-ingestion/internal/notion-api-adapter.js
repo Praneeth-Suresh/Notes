@@ -2,6 +2,9 @@
 
 const NOTION_API_BASE_URL = "https://api.notion.com/v1";
 const DEFAULT_NOTION_VERSION = "2022-06-28";
+const DEFAULT_MAX_REQUEST_RETRIES = 3;
+const DEFAULT_RETRY_DELAY_MS = 500;
+const MAX_RETRY_AFTER_DELAY_MS = 30000;
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -19,33 +22,221 @@ function buildNotionHeaders({ notionToken, notionVersion }) {
   };
 }
 
-async function notionRequest({ fetchImpl, path, notionToken, notionVersion }) {
+function createNotionApiError({ status, statusText, path, body }) {
+  let guidance = "";
+  if (status === 401) {
+    guidance = " Check NOTION_API_TOKEN.";
+  } else if (status === 403 || status === 404) {
+    guidance = " Check the Notion page ID and confirm the integration has access to the page.";
+  } else if (status === 429) {
+    guidance = " Notion rate limit persisted after retries.";
+  }
+
+  const message = `Notion API request failed (${status} ${statusText}) for ${path}: ${body}${guidance}`;
+  const error = new Error(message);
+  error.name = "NotionApiError";
+  error.status = status;
+  error.path = path;
+  return error;
+}
+
+function getHeader(headers, headerName) {
+  if (!headers || typeof headers.get !== "function") {
+    return null;
+  }
+
+  return headers.get(headerName);
+}
+
+function parseRetryAfterMs(value) {
+  if (typeof value !== "string" || value.trim() === "") {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  const seconds = Number(trimmed);
+  if (Number.isFinite(seconds) && seconds >= 0) {
+    return Math.min(seconds * 1000, MAX_RETRY_AFTER_DELAY_MS);
+  }
+
+  const retryAt = Date.parse(trimmed);
+  if (Number.isNaN(retryAt)) {
+    return null;
+  }
+
+  return Math.min(Math.max(retryAt - Date.now(), 0), MAX_RETRY_AFTER_DELAY_MS);
+}
+
+function isRetryableStatus(status) {
+  return status === 429 || status === 408 || status === 500 || status === 502 || status === 503 || status === 504;
+}
+
+function isRetryableFetchError(error) {
+  return (
+    error instanceof TypeError ||
+    error?.code === "ETIMEDOUT" ||
+    error?.code === "ECONNRESET" ||
+    error?.code === "ENOTFOUND" ||
+    error?.code === "EAI_AGAIN"
+  );
+}
+
+function calculateRetryDelayMs({ attempt, response, retryDelayMs }) {
+  const retryAfterMs = parseRetryAfterMs(getHeader(response?.headers, "retry-after"));
+  if (retryAfterMs !== null) {
+    return retryAfterMs;
+  }
+
+  return retryDelayMs * 2 ** attempt;
+}
+
+function createReadWarning({ operation, blockId, pageId, error }) {
+  const target = blockId ? `block ${blockId}` : `page ${pageId}`;
+  return `Warning: Notion read failed while running ${operation} for ${target}: ${error.message}`;
+}
+
+async function requestReadAction({
+  handleReadError,
+  operation,
+  blockId,
+  pageId,
+  error,
+}) {
+  if (typeof handleReadError !== "function") {
+    throw error;
+  }
+
+  const warning = createReadWarning({ operation, blockId, pageId, error });
+  const action = await handleReadError({
+    operation,
+    blockId,
+    pageId,
+    error,
+    warning,
+    choices: ["retry", "skip", "abort"],
+  });
+  const normalizedAction = typeof action === "string" ? action.trim().toLowerCase() : "";
+
+  if (
+    normalizedAction !== "retry" &&
+    normalizedAction !== "skip" &&
+    normalizedAction !== "abort"
+  ) {
+    throw new Error(`Invalid Notion read recovery action: ${action}`);
+  }
+
+  if (normalizedAction === "abort") {
+    throw error;
+  }
+
+  return normalizedAction;
+}
+
+async function runRecoverableRead({
+  operation,
+  blockId,
+  pageId,
+  requestOptions,
+  skipValue,
+  read,
+}) {
+  while (true) {
+    try {
+      return await read();
+    } catch (error) {
+      const action = await requestReadAction({
+        handleReadError: requestOptions?.handleReadError,
+        operation,
+        blockId,
+        pageId,
+        error,
+      });
+
+      if (action === "skip") {
+        return skipValue;
+      }
+    }
+  }
+}
+
+async function defaultDelay(ms) {
+  await new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function notionRequest({
+  fetchImpl,
+  path,
+  notionToken,
+  notionVersion,
+  maxRequestRetries = DEFAULT_MAX_REQUEST_RETRIES,
+  retryDelayMs = DEFAULT_RETRY_DELAY_MS,
+  delayImpl = defaultDelay,
+}) {
   if (typeof fetchImpl !== "function") {
     throw new Error("fetchImpl must be a function.");
   }
 
-  const response = await fetchImpl(`${NOTION_API_BASE_URL}${path}`, {
-    method: "GET",
-    headers: buildNotionHeaders({ notionToken, notionVersion }),
-  });
+  let lastRetryableError = null;
 
-  if (!response.ok) {
+  for (let attempt = 0; attempt <= maxRequestRetries; attempt += 1) {
+    let response;
+
+    try {
+      response = await fetchImpl(`${NOTION_API_BASE_URL}${path}`, {
+        method: "GET",
+        headers: buildNotionHeaders({ notionToken, notionVersion }),
+      });
+    } catch (error) {
+      if (attempt >= maxRequestRetries || !isRetryableFetchError(error)) {
+        throw error;
+      }
+
+      lastRetryableError = error;
+      await delayImpl(calculateRetryDelayMs({ attempt, retryDelayMs }));
+      continue;
+    }
+
+    if (response.ok) {
+      return response.json();
+    }
+
     const body = await response.text();
-    throw new Error(
-      `Notion API request failed (${response.status} ${response.statusText}) for ${path}: ${body}`,
-    );
+    const apiError = createNotionApiError({
+      status: response.status,
+      statusText: response.statusText,
+      path,
+      body,
+    });
+
+    if (attempt >= maxRequestRetries || !isRetryableStatus(response.status)) {
+      throw apiError;
+    }
+
+    lastRetryableError = apiError;
+    await delayImpl(calculateRetryDelayMs({ attempt, response, retryDelayMs }));
   }
 
-  return response.json();
+  throw lastRetryableError ?? new Error(`Notion API request failed for ${path}.`);
 }
 
-async function getPage({ fetchImpl, pageId, notionToken, notionVersion }) {
+async function getPage({ fetchImpl, pageId, notionToken, notionVersion, requestOptions }) {
   const encodedPageId = encodeURIComponent(assertNonEmptyString(pageId, "pageId"));
-  return notionRequest({
-    fetchImpl,
-    path: `/pages/${encodedPageId}`,
-    notionToken,
-    notionVersion,
+  const normalizedPageId = assertNonEmptyString(pageId, "pageId");
+  return runRecoverableRead({
+    operation: "getPage",
+    pageId: normalizedPageId,
+    requestOptions,
+    skipValue: null,
+    read: () =>
+      notionRequest({
+        fetchImpl,
+        path: `/pages/${encodedPageId}`,
+        notionToken,
+        notionVersion,
+        ...requestOptions,
+      }),
   });
 }
 
@@ -55,6 +246,7 @@ async function listBlockChildrenPage({
   notionToken,
   notionVersion,
   startCursor,
+  requestOptions,
 }) {
   const encodedBlockId = encodeURIComponent(assertNonEmptyString(blockId, "blockId"));
   const params = new URLSearchParams({ page_size: "100" });
@@ -68,25 +260,41 @@ async function listBlockChildrenPage({
     path: `/blocks/${encodedBlockId}/children?${params.toString()}`,
     notionToken,
     notionVersion,
+    ...requestOptions,
   });
 }
 
-async function listAllBlockChildren({ fetchImpl, blockId, notionToken, notionVersion }) {
+async function listAllBlockChildren({ fetchImpl, blockId, notionToken, notionVersion, requestOptions }) {
   const results = [];
   let cursor;
 
   while (true) {
-    const page = await listBlockChildrenPage({
-      fetchImpl,
+    const page = await runRecoverableRead({
+      operation: "listBlockChildren",
       blockId,
-      notionToken,
-      notionVersion,
-      startCursor: cursor,
-    });
+      requestOptions,
+      skipValue: {
+        results: [],
+        has_more: false,
+        next_cursor: null,
+      },
+      read: async () => {
+        const page = await listBlockChildrenPage({
+          fetchImpl,
+          blockId,
+          notionToken,
+          notionVersion,
+          startCursor: cursor,
+          requestOptions,
+        });
 
-    if (!Array.isArray(page.results)) {
-      throw new Error(`Notion API children response for block ${blockId} is invalid.`);
-    }
+        if (!Array.isArray(page.results)) {
+          throw new Error(`Notion API children response for block ${blockId} is invalid.`);
+        }
+
+        return page;
+      },
+    });
 
     results.push(...page.results);
 
@@ -100,12 +308,13 @@ async function listAllBlockChildren({ fetchImpl, blockId, notionToken, notionVer
   return results;
 }
 
-async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVersion }) {
+async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVersion, requestOptions }) {
   const children = await listAllBlockChildren({
     fetchImpl,
     blockId,
     notionToken,
     notionVersion,
+    requestOptions,
   });
 
   const withNestedChildren = [];
@@ -117,6 +326,7 @@ async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVer
         blockId: child.id,
         notionToken,
         notionVersion,
+        requestOptions,
       });
 
       withNestedChildren.push({
@@ -168,4 +378,3 @@ module.exports = {
   getBlockChildrenTree,
   getPage,
 };
-

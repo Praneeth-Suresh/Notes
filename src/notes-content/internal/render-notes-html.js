@@ -43,6 +43,19 @@ function sanitizeHref(href) {
   return parsedUrl.toString();
 }
 
+function sanitizeAssetUrl(url) {
+  const sanitized = sanitizeHref(url);
+  if (!sanitized) {
+    throw new Error("Asset URL must be a non-empty URL.");
+  }
+
+  if (sanitized.startsWith("mailto:")) {
+    throw new Error("Asset URL must use http, https, or a site-relative path.");
+  }
+
+  return sanitized;
+}
+
 function wrapWithAnnotations(content, annotations) {
   const resolved = annotations && typeof annotations === "object" ? annotations : {};
   let output = content;
@@ -106,6 +119,26 @@ function renderRichText(richText) {
   return richText.map((node) => renderInlineNode(node)).join("");
 }
 
+function plainTextFromRichText(richText) {
+  if (!Array.isArray(richText)) {
+    return "";
+  }
+
+  return richText
+    .map((node) => {
+      if (node?.type === "text" && typeof node.content === "string") {
+        return node.content;
+      }
+
+      if (node?.type === "equation" && typeof node.expression === "string") {
+        return node.expression;
+      }
+
+      return "";
+    })
+    .join("");
+}
+
 function normalizeLanguageClass(language) {
   const normalized = typeof language === "string" ? language.trim().toLowerCase() : "plain-text";
   const safe = normalized.replace(/[^a-z0-9#+-]/g, "-");
@@ -144,9 +177,105 @@ function renderBlock(block) {
       const language = normalizeLanguageClass(block.language);
       return `<pre class="note-code-block" data-language="${escapeHtml(language)}"><code class="language-${escapeHtml(language)}">${escapeHtml(block.code)}</code></pre>`;
     }
+    case "table":
+      return renderTable(block);
+    case "child_database":
+      return renderChildDatabase(block);
+    case "asset":
+      return renderAsset(block);
+    case "toggle":
+      return renderToggle(block);
+    case "callout":
+      return renderCallout(block);
     default:
       throw new Error(`Unsupported block type "${block.type}" in notes-content renderer.`);
   }
+}
+
+function renderNestedChildren(block) {
+  if (!Array.isArray(block.children) || block.children.length === 0) {
+    return "";
+  }
+
+  return renderBlocks(block.children);
+}
+
+function renderToggle(block) {
+  return `<details class="note-toggle"><summary>${renderRichText(block.richText ?? [])}</summary>${renderNestedChildren(block)}</details>`;
+}
+
+function renderCalloutIcon(icon) {
+  if (!icon || typeof icon !== "object") {
+    return "";
+  }
+
+  if (typeof icon.emoji === "string") {
+    return `<span class="note-callout-icon" aria-hidden="true">${escapeHtml(icon.emoji)}</span>`;
+  }
+
+  return "";
+}
+
+function renderCallout(block) {
+  const icon = renderCalloutIcon(block.icon);
+  return `<aside class="note-callout">${icon}<div class="note-callout-body">${renderRichText(block.richText ?? [])}${renderNestedChildren(block)}</div></aside>`;
+}
+
+function renderTableCell(cell, tag) {
+  if (!Array.isArray(cell)) {
+    throw new Error("Table cell must be a rich text array.");
+  }
+
+  return `<${tag}>${renderRichText(cell)}</${tag}>`;
+}
+
+function renderTable(block) {
+  if (!Array.isArray(block.rows)) {
+    throw new Error("Table block is missing rows.");
+  }
+
+  const rows = block.rows.map((row, rowIndex) => {
+    if (!row || !Array.isArray(row.cells)) {
+      throw new Error("Table row is missing cells.");
+    }
+
+    const cellTag = block.hasColumnHeader && rowIndex === 0 ? "th" : "td";
+    const cells = row.cells.map((cell, cellIndex) => {
+      const tag = block.hasRowHeader && cellIndex === 0 ? "th" : cellTag;
+      return renderTableCell(cell, tag);
+    });
+
+    return `<tr>${cells.join("")}</tr>`;
+  });
+
+  return `<table class="note-table"><tbody>${rows.join("")}</tbody></table>`;
+}
+
+function renderChildDatabase(block) {
+  const title = typeof block.title === "string" && block.title.trim() !== ""
+    ? block.title
+    : "Linked database";
+  const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
+  return `<section class="note-child-database"${blockId}><h3>${escapeHtml(title)}</h3></section>`;
+}
+
+function renderAsset(block) {
+  const url = sanitizeAssetUrl(block.url);
+  const caption = Array.isArray(block.caption) && block.caption.length > 0
+    ? `<figcaption>${renderRichText(block.caption)}</figcaption>`
+    : "";
+
+  if (block.kind === "image") {
+    const alt = escapeHtml(plainTextFromRichText(block.caption));
+    return `<figure class="note-asset note-asset-image"><img src="${escapeHtml(url)}" alt="${alt}" />${caption}</figure>`;
+  }
+
+  if (block.kind === "file") {
+    const name = typeof block.name === "string" && block.name.trim() !== "" ? block.name : url;
+    return `<figure class="note-asset note-asset-file"><a href="${escapeHtml(url)}" rel="noreferrer noopener">${escapeHtml(name)}</a>${caption}</figure>`;
+  }
+
+  throw new Error(`Unsupported asset kind "${block.kind}".`);
 }
 
 function renderListItem(item) {
@@ -226,6 +355,35 @@ function collectSearchTextFromBlocks(blocks, pieces) {
       pieces.push(block.expression);
     }
 
+    if (block.type === "table" && Array.isArray(block.rows)) {
+      for (const row of block.rows) {
+        for (const cell of row.cells ?? []) {
+          for (const inlineNode of cell) {
+            collectSearchTextFromInline(inlineNode, pieces);
+          }
+        }
+      }
+    }
+
+    if (block.type === "asset" && Array.isArray(block.caption)) {
+      for (const inlineNode of block.caption) {
+        collectSearchTextFromInline(inlineNode, pieces);
+      }
+    }
+
+    if (block.type === "child_database" && typeof block.title === "string") {
+      pieces.push(block.title);
+    }
+
+    if (
+      (block.type === "toggle" || block.type === "callout") &&
+      Array.isArray(block.richText)
+    ) {
+      for (const inlineNode of block.richText) {
+        collectSearchTextFromInline(inlineNode, pieces);
+      }
+    }
+
     if (Array.isArray(block.children) && block.children.length > 0) {
       collectSearchTextFromBlocks(block.children, pieces);
     }
@@ -268,4 +426,3 @@ module.exports = {
   createSearchEntry,
   renderTopicBody,
 };
-

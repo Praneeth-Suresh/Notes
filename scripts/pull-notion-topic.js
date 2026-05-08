@@ -2,6 +2,7 @@
 "use strict";
 
 const path = require("node:path");
+const readline = require("node:readline/promises");
 
 const { createNotionIngestionContext } = require("../src/notion-ingestion");
 
@@ -69,6 +70,50 @@ function parseArgs(argv) {
   return args;
 }
 
+function createCliReadErrorPrompt() {
+  let rl;
+
+  async function handleReadError(event) {
+    console.warn(event.warning);
+
+    if (!rl) {
+      rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+      rl.once("close", () => {
+        rl = null;
+      });
+    }
+
+    while (true) {
+      const answer = await rl.question("Choose an action: retry, skip, or abort: ");
+      const action = answer.trim().toLowerCase();
+
+      if (action === "retry" || action === "skip" || action === "abort") {
+        if (action === "abort") {
+          rl.close();
+        }
+        return action;
+      }
+
+      console.warn("Invalid action. Enter retry, skip, or abort.");
+    }
+  }
+
+  function close() {
+    if (rl) {
+      rl.close();
+      rl = null;
+    }
+  }
+
+  return {
+    close,
+    handleReadError,
+  };
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const notionToken = process.env.NOTION_API_TOKEN;
@@ -77,11 +122,18 @@ async function main() {
     throw new Error("NOTION_API_TOKEN is required to pull from Notion.");
   }
 
-  const notionContext = createNotionIngestionContext();
-  const topicDocument = await notionContext.pullTopicFromNotion({
-    pageId: args.pageId,
-    notionToken,
+  const readErrorPrompt = createCliReadErrorPrompt();
+  const notionContext = createNotionIngestionContext({
+    handleReadError: readErrorPrompt.handleReadError,
   });
+  const topicDocument = await notionContext
+    .pullTopicFromNotion({
+      pageId: args.pageId,
+      notionToken,
+    })
+    .finally(() => {
+      readErrorPrompt.close();
+    });
 
   if (args.title) {
     topicDocument.title = args.title;
@@ -101,4 +153,3 @@ if (require.main === module) {
     process.exitCode = 1;
   });
 }
-

@@ -68,7 +68,7 @@ Page ID:
 
 ## Notion Ingestion Script Usage
 
-Use the Notion ingestion script (you referred to it as injection) to pull a page and store a normalized topic file.
+Use the Notion ingestion script to pull a page and store a normalized topic file.
 
 ```bash
 node scripts/pull-notion-topic.js \

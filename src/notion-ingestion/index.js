@@ -43,10 +43,24 @@ async function readJsonFromFile(absolutePath) {
   }
 }
 
-function createNotionIngestionContext({ fetchImpl = globalThis.fetch, strictMode = true } = {}) {
+function createNotionIngestionContext({
+  fetchImpl = globalThis.fetch,
+  strictMode = true,
+  maxRequestRetries,
+  retryDelayMs,
+  delayImpl,
+  handleReadError,
+} = {}) {
   if (typeof fetchImpl !== "function") {
     throw new Error("A fetch implementation is required for Notion ingestion.");
   }
+
+  const requestOptions = {
+    maxRequestRetries,
+    retryDelayMs,
+    delayImpl,
+    handleReadError,
+  };
 
   async function pullTopicFromNotion({
     pageId,
@@ -60,6 +74,7 @@ function createNotionIngestionContext({ fetchImpl = globalThis.fetch, strictMode
       pageId: normalizedPageId,
       notionToken: normalizedToken,
       notionVersion,
+      requestOptions,
     });
 
     const title = extractPageTitle(page) ?? normalizedPageId;
@@ -68,6 +83,7 @@ function createNotionIngestionContext({ fetchImpl = globalThis.fetch, strictMode
       blockId: normalizedPageId,
       notionToken: normalizedToken,
       notionVersion,
+      requestOptions,
     });
 
     return normalizeNotionTopic({
@@ -112,4 +128,3 @@ function createNotionIngestionContext({ fetchImpl = globalThis.fetch, strictMode
 module.exports = {
   createNotionIngestionContext,
 };
-

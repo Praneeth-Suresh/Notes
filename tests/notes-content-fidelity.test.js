@@ -54,17 +54,108 @@ test("preserves code block content and escapes HTML-sensitive characters", () =>
   assert.ok(html.includes("if (a &lt; b) {\n  return a;\n}\n"));
 });
 
-test("throws on unsupported block types to avoid silent fidelity loss", () => {
+test("renders normalized notion tables and assets", () => {
   const notesContext = createNotesContentContext();
   const topic = makeTopic([
     {
       type: "table",
+      hasColumnHeader: true,
+      rows: [
+        {
+          cells: [
+            [{ type: "text", content: "Term", annotations: { bold: true }, href: null }],
+            [{ type: "text", content: "Meaning", annotations: {}, href: null }],
+          ],
+        },
+        {
+          cells: [
+            [{ type: "text", content: "DP", annotations: {}, href: null }],
+            [{ type: "equation", expression: "O(n^2)" }],
+          ],
+        },
+      ],
+    },
+    {
+      type: "child_database",
+      title: "Reading List",
+      blockId: "database-1",
+    },
+    {
+      type: "asset",
+      kind: "image",
+      url: "https://example.com/diagram.png",
+      caption: [{ type: "text", content: "State diagram", annotations: {}, href: null }],
+    },
+    {
+      type: "asset",
+      kind: "file",
+      name: "proof.pdf",
+      url: "https://example.com/proof.pdf",
+      caption: [{ type: "text", content: "Full proof", annotations: {}, href: null }],
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+
+  assert.ok(html.includes("<table"));
+  assert.ok(html.includes("<th><strong>Term</strong></th>"));
+  assert.ok(html.includes("\\(O(n^2)\\)"));
+  assert.ok(html.includes('class="note-child-database"'));
+  assert.ok(html.includes("Reading List"));
+  assert.ok(html.includes('<img src="https://example.com/diagram.png" alt="State diagram"'));
+  assert.ok(html.includes('href="https://example.com/proof.pdf"'));
+  assert.ok(html.includes("proof.pdf"));
+});
+
+test("renders normalized toggle and callout blocks with nested content", () => {
+  const notesContext = createNotesContentContext();
+  const topic = makeTopic([
+    {
+      type: "toggle",
+      richText: [{ type: "text", content: "Why this works", annotations: {}, href: null }],
+      children: [
+        {
+          type: "paragraph",
+          richText: [{ type: "text", content: "Nested explanation", annotations: {}, href: null }],
+        },
+      ],
+    },
+    {
+      type: "callout",
+      icon: { emoji: "!" },
+      richText: [{ type: "text", content: "Important detail", annotations: {}, href: null }],
+      children: [
+        {
+          type: "paragraph",
+          richText: [{ type: "text", content: "Callout child", annotations: {}, href: null }],
+        },
+      ],
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+  const searchEntry = notesContext.createSearchEntry({ slug: "topic", topicDocument: topic });
+
+  assert.ok(html.includes("<details"));
+  assert.ok(html.includes("<summary>Why this works</summary>"));
+  assert.ok(html.includes("Nested explanation"));
+  assert.ok(html.includes('class="note-callout"'));
+  assert.ok(html.includes('class="note-callout-icon"'));
+  assert.ok(html.includes("Important detail"));
+  assert.ok(searchEntry.searchableText.includes("Nested explanation"));
+  assert.ok(searchEntry.searchableText.includes("Important detail"));
+});
+
+test("throws on unsupported block types to avoid silent fidelity loss", () => {
+  const notesContext = createNotesContentContext();
+  const topic = makeTopic([
+    {
+      type: "unsupported_embed",
     },
   ]);
 
   assert.throws(
     () => notesContext.renderTopicBody(topic),
-    /Unsupported block type "table"/,
+    /Unsupported block type "unsupported_embed"/,
   );
 });
-

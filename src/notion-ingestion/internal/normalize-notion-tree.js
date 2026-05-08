@@ -9,6 +9,7 @@ function normalizeAnnotations(input) {
     strikethrough: Boolean(annotations.strikethrough),
     underline: Boolean(annotations.underline),
     code: Boolean(annotations.code),
+    color: annotations.color ?? "default",
   };
 }
 
@@ -30,14 +31,9 @@ function normalizeRichTextNode(node, index) {
       };
     }
     case "equation": {
-      const expression = node.equation?.expression;
-      if (typeof expression !== "string") {
-        throw new Error(`Equation rich text at index ${index} is missing expression.`);
-      }
-
       return {
         type: "equation",
-        expression,
+        expression: node.equation?.expression ?? "",
       };
     }
     case "mention": {
@@ -102,7 +98,120 @@ function normalizeHeadingLevel(type) {
     return 3;
   }
 
+  if (type === "heading_4") {
+    return 4;
+  }
+
   throw new Error(`Unsupported heading type: ${type}`);
+}
+
+function blockId(block) {
+  return block.id ?? null;
+}
+
+function blockColor(payload) {
+  return payload?.color ?? "default";
+}
+
+function normalizeIcon(icon) {
+  if (!icon || typeof icon !== "object") {
+    return null;
+  }
+
+  return icon;
+}
+
+function normalizeTableRows(children) {
+  if (!Array.isArray(children)) {
+    return [];
+  }
+
+  return children
+    .filter((child) => child?.type === "table_row")
+    .map((row) => ({
+      cells: Array.isArray(row.table_row?.cells)
+        ? row.table_row.cells.map((cell) => normalizeRichTextArray(cell))
+        : [],
+    }));
+}
+
+function extractNotionFileUrl(filePayload) {
+  if (!filePayload || typeof filePayload !== "object") {
+    return null;
+  }
+
+  if (filePayload.type === "external") {
+    return filePayload.external?.url ?? null;
+  }
+
+  if (filePayload.type === "file") {
+    return filePayload.file?.url ?? null;
+  }
+
+  return filePayload.external?.url ?? filePayload.file?.url ?? null;
+}
+
+function normalizeAssetBlock({ block, kind, payload }) {
+  const url = extractNotionFileUrl(payload);
+  const normalized = {
+    type: "asset",
+    kind,
+    blockId: blockId(block),
+    url,
+    caption: normalizeRichTextArray(payload?.caption),
+  };
+
+  if (kind === "file") {
+    normalized.name = payload?.name ?? filenameFromUrl(url);
+  }
+
+  return normalized;
+}
+
+function normalizeLinkBlock({ block, type, payload }) {
+  return {
+    type,
+    blockId: blockId(block),
+    url: payload?.url ?? null,
+    caption: normalizeRichTextArray(payload?.caption),
+  };
+}
+
+function normalizeMeetingNotesBlock(block) {
+  const payload = block[block.type] ?? {};
+  const children = payload.children && typeof payload.children === "object"
+    ? payload.children
+    : {};
+
+  return {
+    type: "meeting_notes",
+    notionType: block.type,
+    blockId: blockId(block),
+    title: normalizeRichTextArray(payload.title),
+    status: payload.status ?? null,
+    sectionBlockIds: {
+      summary: children.summary_block_id ?? null,
+      notes: children.notes_block_id ?? null,
+      transcript: children.transcript_block_id ?? null,
+    },
+    calendarEvent: payload.calendar_event ?? null,
+    recording: payload.recording ?? null,
+  };
+}
+
+function filenameFromUrl(url) {
+  if (typeof url !== "string" || url.trim() === "") {
+    return "file";
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const lastSegment = parsedUrl.pathname.split("/").filter(Boolean).at(-1);
+    return lastSegment ? decodeURIComponent(lastSegment) : "file";
+  } catch (error) {
+    const lastSegment = url.split("/").filter(Boolean).at(-1);
+    return lastSegment || "file";
+  }
 }
 
 function normalizeBlockCore(block, strictMode) {
@@ -114,54 +223,187 @@ function normalizeBlockCore(block, strictMode) {
     case "paragraph":
       return {
         type: "paragraph",
+        blockId: blockId(block),
         richText: normalizeRichTextArray(block.paragraph?.rich_text),
+        color: blockColor(block.paragraph),
       };
     case "heading_1":
     case "heading_2":
     case "heading_3":
+    case "heading_4":
       return {
         type: "heading",
+        notionType: block.type,
+        blockId: blockId(block),
         level: normalizeHeadingLevel(block.type),
         richText: normalizeRichTextArray(block[block.type]?.rich_text),
+        color: blockColor(block[block.type]),
+        isToggleable: Boolean(block[block.type]?.is_toggleable),
       };
     case "quote":
       return {
         type: "quote",
+        blockId: blockId(block),
         richText: normalizeRichTextArray(block.quote?.rich_text),
+        color: blockColor(block.quote),
       };
     case "divider":
       return {
         type: "divider",
+        blockId: blockId(block),
       };
     case "equation": {
-      const expression = block.equation?.expression;
-      if (typeof expression !== "string") {
-        throw new Error(`Equation block ${block.id ?? "(unknown)"} is missing expression.`);
-      }
-
       return {
         type: "equation",
-        expression,
+        blockId: blockId(block),
+        expression: block.equation?.expression ?? "",
       };
     }
     case "code":
       return {
         type: "code",
+        blockId: blockId(block),
         language: block.code?.language ?? "plain text",
         code: flattenCodeText(block.code?.rich_text),
+        caption: normalizeRichTextArray(block.code?.caption),
       };
     case "bulleted_list_item":
       return {
         type: "list_item",
+        notionType: block.type,
+        blockId: blockId(block),
         ordered: false,
         richText: normalizeRichTextArray(block.bulleted_list_item?.rich_text),
+        color: blockColor(block.bulleted_list_item),
       };
     case "numbered_list_item":
       return {
         type: "list_item",
+        notionType: block.type,
+        blockId: blockId(block),
         ordered: true,
         richText: normalizeRichTextArray(block.numbered_list_item?.rich_text),
+        color: blockColor(block.numbered_list_item),
       };
+    case "audio":
+      return normalizeAssetBlock({ block, kind: "audio", payload: block.audio });
+    case "bookmark":
+      return normalizeLinkBlock({ block, type: "bookmark", payload: block.bookmark });
+    case "breadcrumb":
+      return {
+        type: "breadcrumb",
+        blockId: blockId(block),
+      };
+    case "callout":
+      return {
+        type: "callout",
+        blockId: blockId(block),
+        richText: normalizeRichTextArray(block.callout?.rich_text),
+        icon: normalizeIcon(block.callout?.icon),
+        color: blockColor(block.callout),
+      };
+    case "child_page":
+      return {
+        type: "child_page",
+        blockId: blockId(block),
+        title: block.child_page?.title ?? "",
+      };
+    case "column_list":
+      return {
+        type: "column_list",
+        blockId: blockId(block),
+      };
+    case "column":
+      return {
+        type: "column",
+        blockId: blockId(block),
+        widthRatio: typeof block.column?.width_ratio === "number" ? block.column.width_ratio : null,
+      };
+    case "embed":
+      return normalizeLinkBlock({ block, type: "embed", payload: block.embed });
+    case "table":
+      return {
+        type: "table",
+        blockId: blockId(block),
+        hasColumnHeader: Boolean(block.table?.has_column_header),
+        hasRowHeader: Boolean(block.table?.has_row_header),
+        rows: normalizeTableRows(block.children),
+      };
+    case "table_row":
+      return {
+        type: "table_row",
+        blockId: blockId(block),
+        cells: Array.isArray(block.table_row?.cells)
+          ? block.table_row.cells.map((cell) => normalizeRichTextArray(cell))
+          : [],
+      };
+    case "child_database":
+      return {
+        type: "child_database",
+        blockId: blockId(block),
+        title: block.child_database?.title ?? "",
+      };
+    case "file":
+      return normalizeAssetBlock({ block, kind: "file", payload: block.file });
+    case "image":
+      return normalizeAssetBlock({ block, kind: "image", payload: block.image });
+    case "link_preview":
+      return {
+        type: "link_preview",
+        blockId: blockId(block),
+        url: block.link_preview?.url ?? null,
+      };
+    case "meeting_notes":
+    case "transcription":
+      return normalizeMeetingNotesBlock(block);
+    case "pdf":
+      return normalizeAssetBlock({ block, kind: "pdf", payload: block.pdf });
+    case "synced_block":
+      return {
+        type: "synced_block",
+        blockId: blockId(block),
+        syncedFrom: block.synced_block?.synced_from ?? null,
+      };
+    case "table_of_contents":
+      return {
+        type: "table_of_contents",
+        blockId: blockId(block),
+        color: blockColor(block.table_of_contents),
+      };
+    case "tab":
+      return {
+        type: "tab",
+        blockId: blockId(block),
+      };
+    case "template":
+      return {
+        type: "template",
+        blockId: blockId(block),
+        richText: normalizeRichTextArray(block.template?.rich_text),
+      };
+    case "to_do":
+      return {
+        type: "to_do",
+        blockId: blockId(block),
+        richText: normalizeRichTextArray(block.to_do?.rich_text),
+        checked: Boolean(block.to_do?.checked),
+        color: blockColor(block.to_do),
+      };
+    case "toggle":
+      return {
+        type: "toggle",
+        blockId: blockId(block),
+        richText: normalizeRichTextArray(block.toggle?.rich_text),
+        color: blockColor(block.toggle),
+      };
+    case "unsupported":
+      return {
+        type: "unsupported",
+        blockId: blockId(block),
+        blockType: block.unsupported?.block_type ?? "unknown",
+      };
+    case "video":
+      return normalizeAssetBlock({ block, kind: "video", payload: block.video });
     default:
       if (strictMode) {
         throw new Error(
@@ -185,7 +427,7 @@ function normalizeBlocks(blocks, strictMode) {
       continue;
     }
 
-    const children = Array.isArray(block.children)
+    const children = normalized.type !== "table" && Array.isArray(block.children)
       ? normalizeBlocks(block.children, strictMode)
       : [];
 
@@ -221,4 +463,3 @@ function normalizeNotionTopic({ pageId, title, blocks, strictMode = true }) {
 module.exports = {
   normalizeNotionTopic,
 };
-
