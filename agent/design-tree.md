@@ -10,6 +10,7 @@ Use three bounded contexts with a Cloudflare Pages composition boundary:
 
 The Pages build contract composes these contexts into static deploy artifacts so reliability and scalability are handled at build time, not runtime.
 Formatting fidelity is a hard requirement: notion-authored structure, especially LaTeX and code blocks, must be preserved exactly through publish artifacts.
+The home page should express a minimalist academic library aesthetic while making topic discovery and navigation the dominant interaction.
 
 ## Open Decisions
 
@@ -23,6 +24,7 @@ Formatting fidelity is a hard requirement: notion-authored structure, especially
 | Clean-render guarantee strategy | `[A] Trust parser output`, `[B] Enforce sanitizer allowlist before publish` | `[B]` | Reliability requires deterministic, sanitized HTML output with fidelity protections for LaTeX and code blocks. |
 | Topic onboarding model | `[A] Hardcoded routes`, `[B] Manifest-driven topic registry` | `[B]` | Adding new topics should be metadata-only in most cases. |
 | Search index generation | `[A] Build-time static index`, `[B] Runtime remote index` | `[A]` | Keeps Pages static and avoids runtime dependency failures. |
+| Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement`, `[B] Decorative landing page before topic links`, `[C] Client-side routed application` | `[A]` | Navigability is now a primary workflow, and the site must remain static and clear without JavaScript. |
 
 ## Settled Decisions
 

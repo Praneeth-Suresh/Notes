@@ -1,6 +1,4 @@
-"use strict";
 
-const SITE_CSS = `
 :root {
   color-scheme: light dark;
   --bg: #f7f4ed;
@@ -472,8 +470,3 @@ input:focus-visible {
     display: none;
   }
 }
-`;
-
-module.exports = {
-  SITE_CSS,
-};

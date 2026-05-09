@@ -12,6 +12,7 @@ This website embraces a  **minimalist academic aesthetic** , prioritizing readab
 2. **Search**: User should be able to search for a topic and retrieve the notes about the topic they want.
 3. **Upload notes**: I (maintainer) will provide a link to a notion page (top level page about topic) and the topic it corresponds to. The page should be recursively read (with notion API) to re-populate the HTML page for the topic.
 4. **Home Page**: This is a minimalist canvas that feels like stepping into a quiet, sunlit library—where every element invites reflection. The design blends artistic subtlety with  intellectual curiosity , using visual metaphors to hint at your identity as a creator, thinker, and builder.
+5. **Navigate from the Home Page**: User should immediately understand where they are, search or scan available topics, and move from the home page to topic pages with clear links, labels, and keyboard-friendly focus states.
 
 ## Reliability Priorities
 
