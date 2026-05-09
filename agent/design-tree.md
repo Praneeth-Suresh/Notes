@@ -24,6 +24,8 @@ The home page should express a minimalist academic library aesthetic while makin
 | Clean-render guarantee strategy | `[A] Trust parser output`, `[B] Enforce sanitizer allowlist before publish` | `[B]` | Reliability requires deterministic, sanitized HTML output with fidelity protections for LaTeX and code blocks. |
 | Topic onboarding model | `[A] Hardcoded routes`, `[B] Manifest-driven topic registry` | `[B]` | Adding new topics should be metadata-only in most cases. |
 | Search index generation | `[A] Build-time static index`, `[B] Runtime remote index` | `[A]` | Keeps Pages static and avoids runtime dependency failures. |
+| Notion subpage publishing | `[A] Flatten child pages into static nested routes`, `[B] Inline child pages into the parent topic`, `[C] Ignore child pages until manually promoted to topics` | `[A]` | Notion subpages are part of the notes hierarchy and must remain navigable and searchable without runtime services. |
+| Browser math rendering | `[A] Emit TeX delimiters and load MathJax in the page shell`, `[B] Show TeX source only`, `[C] Custom-render a small LaTeX subset` | `[A]` | Existing notes-content output preserves source expressions; a proven browser renderer is needed to satisfy LaTeX fidelity visually. |
 | Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement`, `[B] Decorative landing page before topic links`, `[C] Client-side routed application` | `[A]` | Navigability is now a primary workflow, and the site must remain static and clear without JavaScript. |
 
 ## Settled Decisions
@@ -39,6 +41,7 @@ The home page should express a minimalist academic library aesthetic while makin
 
 - Sanitization rules must preserve technical formatting (especially code blocks and LaTeX) while stripping unsafe markup.
 - Topic manifest, navigation tree, and search index must stay consistent as topics grow.
+- Static child-page route slugs are derived from Notion child page titles, so duplicate sibling titles need deterministic disambiguation.
 - Cross-context imports must remain one-way through public entry points only.
 
 ## Recording Rule (Design Tree vs ADR)

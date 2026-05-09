@@ -21,7 +21,10 @@
 # # Deterministic check state that should not be part of the codebase logic
 # /tests/.manifest.sha256
 
-# # Secrets
+# Secrets
 .env
 .env.local
 .env.*.local
+
+# MCP Artefacts
+.playwright-mcp

@@ -8,7 +8,8 @@ trap 'rm -rf "${TMP_BUILD_DIR}"' EXIT
 printf "check-project: running fidelity tests\n"
 node --test \
   "${ROOT_DIR}/tests/notes-content-fidelity.test.js" \
-  "${ROOT_DIR}/tests/notion-ingestion-fidelity.test.js"
+  "${ROOT_DIR}/tests/notion-ingestion-fidelity.test.js" \
+  "${ROOT_DIR}/tests/pages-build-subpages.test.js"
 
 printf "check-project: running static build smoke check\n"
 node "${ROOT_DIR}/scripts/build-pages.js" \

@@ -146,6 +146,32 @@ test("renders normalized toggle and callout blocks with nested content", () => {
   assert.ok(searchEntry.searchableText.includes("Important detail"));
 });
 
+test("renders child page links and includes subpage titles in search text", () => {
+  const notesContext = createNotesContentContext();
+  const topic = makeTopic([
+    {
+      type: "child_page",
+      blockId: "child-page-1",
+      title: "Dynamic Programming",
+      href: "/topics/algorithms/dynamic-programming/",
+    },
+    {
+      type: "child_page",
+      blockId: "child-page-2",
+      title: "",
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+  const searchEntry = notesContext.createSearchEntry({ slug: "algorithms", topicDocument: topic });
+
+  assert.ok(html.includes('class="note-child-page-link"'));
+  assert.ok(html.includes('href="/topics/algorithms/dynamic-programming/"'));
+  assert.ok(html.includes("Dynamic Programming"));
+  assert.ok(html.includes("Untitled subpage"));
+  assert.ok(searchEntry.searchableText.includes("Dynamic Programming"));
+});
+
 test("throws on unsupported block types to avoid silent fidelity loss", () => {
   const notesContext = createNotesContentContext();
   const topic = makeTopic([

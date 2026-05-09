@@ -317,6 +317,13 @@ input:focus-visible {
   font-size: 0.95rem;
 }
 
+.topic-card-parent {
+  margin: 0.35rem 0 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
 .topic-search {
   width: 100%;
   margin: 0;
@@ -338,6 +345,13 @@ input:focus-visible {
 .topic-meta {
   color: var(--muted);
   margin: 0.25rem 0 1rem;
+}
+
+.topic-parent {
+  margin: 0.25rem 0 0;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .note-heading {
@@ -415,6 +429,37 @@ input:focus-visible {
   border: none;
   border-top: 1px solid var(--border);
   margin: 1.2rem 0;
+}
+
+.note-child-page {
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+}
+
+.note-child-page h3 {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  font-family: "Lora", "Times New Roman", serif;
+  font-size: 1.05rem;
+}
+
+.note-child-page-link {
+  display: block;
+  padding: 0.85rem 1rem;
+  color: var(--accent-strong);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.note-child-page-link::after {
+  content: " ->";
+}
+
+.note-child-page-link:hover,
+.note-child-page-link:focus-visible {
+  background: var(--surface-soft);
 }
 
 .topic-nav {

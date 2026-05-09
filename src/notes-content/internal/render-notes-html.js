@@ -181,6 +181,8 @@ function renderBlock(block) {
       return renderTable(block);
     case "child_database":
       return renderChildDatabase(block);
+    case "child_page":
+      return renderChildPage(block);
     case "asset":
       return renderAsset(block);
     case "toggle":
@@ -257,6 +259,20 @@ function renderChildDatabase(block) {
     : "Linked database";
   const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
   return `<section class="note-child-database"${blockId}><h3>${escapeHtml(title)}</h3></section>`;
+}
+
+function renderChildPage(block) {
+  const title = typeof block.title === "string" && block.title.trim() !== ""
+    ? block.title.trim()
+    : "Untitled subpage";
+  const href = sanitizeHref(block.href ?? null);
+  const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
+
+  if (!href) {
+    return `<section class="note-child-page"${blockId}><h3>${escapeHtml(title)}</h3></section>`;
+  }
+
+  return `<section class="note-child-page"${blockId}><a class="note-child-page-link" href="${escapeHtml(href)}">${escapeHtml(title)}</a></section>`;
 }
 
 function renderAsset(block) {
@@ -372,6 +388,10 @@ function collectSearchTextFromBlocks(blocks, pieces) {
     }
 
     if (block.type === "child_database" && typeof block.title === "string") {
+      pieces.push(block.title);
+    }
+
+    if (block.type === "child_page" && typeof block.title === "string") {
       pieces.push(block.title);
     }
 

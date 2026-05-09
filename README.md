@@ -5,7 +5,7 @@
 ![Notion API](https://img.shields.io/badge/Notion-API-000000?logo=notion&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)
 
-Static Computer Science notes site built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity (especially LaTeX and code blocks).
+Static ![Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity (especially LaTeX and code blocks).
 
 ## Repository Architecture
 
@@ -150,6 +150,14 @@ Run deterministic checks:
 ./scripts/check.sh
 ```
 
+To check what the page looks like while doing local development, use:
+
+```
+python3 -m http.server 4173 --directory /tmp/notes-pages-home-check
+```
+
+and then navigate to `localhost:4173`.
+
 ## Deploy to Cloudflare Pages (Git Integration)
 
 1. Push this repo to GitHub.
@@ -157,19 +165,19 @@ Run deterministic checks:
 3. Select this repository.
 4. Configure build settings:
 
-| Setting | Value |
-| --- | --- |
-| Framework preset | None |
-| Build command | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Computer Science Notes"` |
-| Build output directory | `dist` |
-| Root directory | `/` |
+| Setting                | Value                                                                                                                   |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Framework preset       | None                                                                                                                    |
+| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Computer Science Notes"` |
+| Build output directory | `dist`                                                                                                                |
+| Root directory         | `/`                                                                                                                   |
 
 5. Configure environment variables in Cloudflare Pages project:
 
-| Variable | Required | Why |
-| --- | --- | --- |
+| Variable             | Required                                             | Why                                |
+| -------------------- | ---------------------------------------------------- | ---------------------------------- |
 | `NOTION_API_TOKEN` | Required only if any topic source is `notion-page` | Allows build-time read from Notion |
-| `NODE_VERSION` | Recommended (`20`) | Keeps build runtime predictable |
+| `NODE_VERSION`     | Recommended (`20`)                                 | Keeps build runtime predictable    |
 
 6. Save and deploy.
 
@@ -199,4 +207,3 @@ Use this when you want manual deploys from local output.
 - LaTeX is preserved into render-ready math wrappers.
 - Code blocks preserve language metadata, boundaries, and indentation.
 - Deterministic checks run in CI via `.github/workflows/deterministic-checks.yml`.
-

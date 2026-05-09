@@ -22,7 +22,18 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(pageTitle)}</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["\\\\(", "\\\\)"]],
+          displayMath: [["\\\\[", "\\\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   </head>
   <body${classAttribute}>
     <a class="skip-link" href="#main-content">Skip to notes</a>
@@ -41,7 +52,8 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
 function renderTopicNav({ topics, currentSlug }) {
   const links = topics
     .map((topic) => {
-      const activeClass = topic.slug === currentSlug ? "active" : "";
+      const isActive = topic.slug === currentSlug || currentSlug.startsWith(`${topic.slug}/`);
+      const activeClass = isActive ? "active" : "";
       const currentAttribute = topic.slug === currentSlug ? ` aria-current="page"` : "";
       return `<a class="${activeClass}" href="/topics/${escapeHtml(topic.slug)}/"${currentAttribute}>${escapeHtml(topic.title)}</a>`;
     })
@@ -55,11 +67,16 @@ function renderTopicPage({ siteTitle, topic, topicContentHtml, topics }) {
     topic.description && topic.description.trim() !== ""
       ? `<p class="topic-meta">${escapeHtml(topic.description)}</p>`
       : "";
+  const parentHtml =
+    topic.parentTitle && topic.parentTitle.trim() !== ""
+      ? `<p class="topic-parent">Subpage of ${escapeHtml(topic.parentTitle)}</p>`
+      : "";
 
   const content = `
     ${renderTopicNav({ topics, currentSlug: topic.slug })}
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">${escapeHtml(topic.title)}</h1>
+      ${parentHtml}
       ${descriptionHtml}
       ${topicContentHtml}
     </section>
@@ -72,7 +89,7 @@ function renderTopicPage({ siteTitle, topic, topicContentHtml, topics }) {
   });
 }
 
-function renderHomePage({ siteTitle, topics }) {
+function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
   const topicCount = topics.length;
   const topicWord = topicCount === 1 ? "topic" : "topics";
   const firstTopicLink =
@@ -93,7 +110,27 @@ function renderHomePage({ siteTitle, topics }) {
       slug: topic.slug,
       title: topic.title,
       description: topic.description ?? "",
+      urlPath: `/topics/${topic.slug}/`,
     })),
+  );
+  const searchPayload = safeJsonForScript(
+    searchEntries.length > 0
+      ? searchEntries.map((entry) => ({
+          slug: entry.slug,
+          title: entry.title,
+          description: entry.description ?? "",
+          searchableText: entry.searchableText ?? "",
+          urlPath: entry.urlPath ?? `/topics/${entry.slug}/`,
+          parentTitle: entry.parentTitle ?? "",
+        }))
+      : topics.map((topic) => ({
+          slug: topic.slug,
+          title: topic.title,
+          description: topic.description ?? "",
+          searchableText: `${topic.title} ${topic.description ?? ""}`,
+          urlPath: `/topics/${topic.slug}/`,
+          parentTitle: "",
+        })),
   );
 
   const content = `
@@ -130,6 +167,7 @@ function renderHomePage({ siteTitle, topics }) {
     </section>
     <script>
       const topics = ${topicsPayload};
+      const searchEntries = ${searchPayload};
       const input = document.getElementById("topic-search");
       const grid = document.getElementById("topic-grid");
       const status = document.getElementById("topic-search-status");
@@ -145,12 +183,13 @@ function renderHomePage({ siteTitle, topics }) {
 
       function render(items) {
         grid.innerHTML = items.map((topic) => \`
-          <a class="topic-card" href="/topics/\${topic.slug}/">
+          <a class="topic-card" href="\${topic.urlPath}">
             <h3 class="topic-card-title">\${escapeHtml(topic.title)}</h3>
+            \${topic.parentTitle ? \`<p class="topic-card-parent">\${escapeHtml(topic.parentTitle)}</p>\` : ""}
             <p class="topic-card-description">\${escapeHtml(topic.description)}</p>
           </a>
         \`).join("");
-        const word = items.length === 1 ? "topic" : "topics";
+        const word = items.length === 1 ? "result" : "results";
         status.textContent = \`\${items.length} \${word} shown.\`;
       }
 
@@ -161,9 +200,11 @@ function renderHomePage({ siteTitle, topics }) {
           return;
         }
 
-        const filtered = topics.filter((topic) =>
+        const filtered = searchEntries.filter((topic) =>
           topic.title.toLowerCase().includes(query) ||
-          topic.description.toLowerCase().includes(query)
+          topic.description.toLowerCase().includes(query) ||
+          topic.searchableText.toLowerCase().includes(query) ||
+          topic.parentTitle.toLowerCase().includes(query)
         );
         render(filtered);
       });
