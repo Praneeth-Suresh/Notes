@@ -22,7 +22,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const contentDir = path.join(root, "content");
     const topicsDir = path.join(contentDir, "topics");
     const outDir = path.join(root, "dist");
+    const mathJaxSourcePath = path.join(root, "mathjax-source.js");
     await fs.mkdir(topicsDir, { recursive: true });
+    await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
 
     const topicDocument = {
       title: "Algorithms",
@@ -74,6 +76,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
       manifestPath: path.join(contentDir, "topic-manifest.json"),
       outputDir: outDir,
       siteTitle: "Computer Science Notes",
+      mathJaxSourcePath,
     });
 
     const parentHtml = await fs.readFile(
@@ -87,13 +90,19 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
     );
+    const mathJaxAsset = await fs.readFile(
+      path.join(outDir, "assets", "vendor", "mathjax", "tex-svg-full.js"),
+      "utf8",
+    );
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(childHtml.includes("<h1 class=\"site-title\">Dynamic Programming</h1>"));
     assert.ok(childHtml.includes("Optimal substructure"));
-    assert.ok(childHtml.includes("MathJax"));
+    assert.ok(childHtml.includes('src="/assets/vendor/mathjax/tex-svg-full.js"'));
+    assert.ok(!childHtml.includes("cdn.jsdelivr.net"));
     assert.ok(childHtml.includes("\\[dp[i]=\\min_j(dp[j]+c)\\]"));
+    assert.equal(mathJaxAsset, "window.MathJax = window.MathJax || {};\n");
     assert.deepEqual(
       searchIndex.map((entry) => entry.slug),
       ["algorithms", "algorithms/dynamic-programming"],

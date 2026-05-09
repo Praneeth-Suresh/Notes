@@ -5,7 +5,7 @@
 ![Notion API](https://img.shields.io/badge/Notion-API-000000?logo=notion&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)
 
-Static ![Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity (especially LaTeX and code blocks).
+Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity (especially LaTeX and code blocks).
 
 ## Repository Architecture
 

@@ -26,6 +26,9 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
         tex: {
           inlineMath: [["\\\\(", "\\\\)"]],
           displayMath: [["\\\\[", "\\\\]"]]
@@ -33,7 +36,7 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
         svg: { fontCache: "global" }
       };
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body${classAttribute}>
     <a class="skip-link" href="#main-content">Skip to notes</a>

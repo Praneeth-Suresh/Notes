@@ -8,6 +8,15 @@ const { createNotionIngestionContext } = require("../src/notion-ingestion");
 const { createNotesContentContext } = require("../src/notes-content");
 const { createSiteStylingContext } = require("../src/site-styling");
 
+const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
+  __dirname,
+  "..",
+  "vendor",
+  "mathjax",
+  "tex-svg-full.js",
+);
+const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
+
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
     throw new Error(`${label} must be a non-empty string.`);
@@ -271,7 +280,24 @@ async function writeUtf8File(absolutePath, content) {
   await fs.writeFile(absolutePath, content, "utf8");
 }
 
-async function buildPagesSite({ manifestPath, outputDir, siteTitle }) {
+async function copyFileToOutput({ sourcePath, outputDir, outputRelativePath, label }) {
+  const absoluteSourcePath = path.resolve(process.cwd(), sourcePath);
+  const absoluteDestinationPath = path.join(outputDir, outputRelativePath);
+
+  try {
+    await fs.mkdir(path.dirname(absoluteDestinationPath), { recursive: true });
+    await fs.copyFile(absoluteSourcePath, absoluteDestinationPath);
+  } catch (error) {
+    throw new Error(`Failed to copy ${label} from ${absoluteSourcePath}: ${error.message}`);
+  }
+}
+
+async function buildPagesSite({
+  manifestPath,
+  outputDir,
+  siteTitle,
+  mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
+}) {
   const absoluteManifestPath = path.resolve(process.cwd(), manifestPath);
   const manifestDir = path.dirname(absoluteManifestPath);
   const absoluteOutputDir = path.resolve(process.cwd(), outputDir);
@@ -307,6 +333,12 @@ async function buildPagesSite({ manifestPath, outputDir, siteTitle }) {
 
   const cssPath = path.join(absoluteOutputDir, "assets", "site.css");
   await writeUtf8File(cssPath, stylingContext.getSiteCss());
+  await copyFileToOutput({
+    sourcePath: mathJaxSourcePath,
+    outputDir: absoluteOutputDir,
+    outputRelativePath: MATHJAX_ASSET_PATH,
+    label: "MathJax vendor asset",
+  });
 
   const searchIndex = [];
 

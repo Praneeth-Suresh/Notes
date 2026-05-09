@@ -25,7 +25,7 @@ The home page should express a minimalist academic library aesthetic while makin
 | Topic onboarding model | `[A] Hardcoded routes`, `[B] Manifest-driven topic registry` | `[B]` | Adding new topics should be metadata-only in most cases. |
 | Search index generation | `[A] Build-time static index`, `[B] Runtime remote index` | `[A]` | Keeps Pages static and avoids runtime dependency failures. |
 | Notion subpage publishing | `[A] Flatten child pages into static nested routes`, `[B] Inline child pages into the parent topic`, `[C] Ignore child pages until manually promoted to topics` | `[A]` | Notion subpages are part of the notes hierarchy and must remain navigable and searchable without runtime services. |
-| Browser math rendering | `[A] Emit TeX delimiters and load MathJax in the page shell`, `[B] Show TeX source only`, `[C] Custom-render a small LaTeX subset` | `[A]` | Existing notes-content output preserves source expressions; a proven browser renderer is needed to satisfy LaTeX fidelity visually. |
+| Browser math rendering | `[A] Emit TeX delimiters and load self-hosted MathJax from Pages assets`, `[B] Show TeX source only`, `[C] Custom-render a small LaTeX subset`, `[D] Load MathJax from a third-party CDN` | `[A]` | Existing notes-content output preserves source expressions; self-hosting avoids Cloudflare CSP, ad-blocking, and third-party CDN failures. |
 | Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement`, `[B] Decorative landing page before topic links`, `[C] Client-side routed application` | `[A]` | Navigability is now a primary workflow, and the site must remain static and clear without JavaScript. |
 
 ## Settled Decisions
