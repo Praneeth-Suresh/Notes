@@ -354,24 +354,42 @@ input:focus-visible {
   font-weight: 700;
 }
 
-.note-heading {
+.notion-page-content {
+  color: var(--text);
+}
+
+.notion-block {
+  min-width: 0;
+}
+
+.notion-heading {
   font-family: "Lora", "Times New Roman", serif;
   line-height: 1.3;
   margin: 1.2rem 0 0.5rem;
 }
 
+.notion-heading-1,
 .note-heading-1 {
   font-size: 1.9rem;
 }
 
+.notion-heading-2,
 .note-heading-2 {
   font-size: 1.5rem;
 }
 
+.notion-heading-3,
 .note-heading-3 {
   font-size: 1.25rem;
 }
 
+.notion-heading-4,
+.notion-heading-5,
+.notion-heading-6 {
+  font-size: 1.08rem;
+}
+
+.notion-paragraph,
 .note-paragraph {
   margin: 0.75rem 0;
 }
@@ -385,11 +403,92 @@ input:focus-visible {
   margin: 0.35rem 0;
 }
 
+.notion-rich-text {
+  border-radius: 3px;
+  padding: 0 0.06rem;
+}
+
+.notion-color-gray {
+  color: #787774;
+}
+
+.notion-color-brown {
+  color: #9f6b53;
+}
+
+.notion-color-orange {
+  color: #d9730d;
+}
+
+.notion-color-yellow {
+  color: #cb912f;
+}
+
+.notion-color-green {
+  color: #448361;
+}
+
+.notion-color-blue {
+  color: #337ea9;
+}
+
+.notion-color-purple {
+  color: #9065b0;
+}
+
+.notion-color-pink {
+  color: #c14c8a;
+}
+
+.notion-color-red {
+  color: #d44c47;
+}
+
+.notion-color-gray_background {
+  background: #f1f1ef;
+}
+
+.notion-color-brown_background {
+  background: #f4eeee;
+}
+
+.notion-color-orange_background {
+  background: #faebdd;
+}
+
+.notion-color-yellow_background {
+  background: #fbf3db;
+}
+
+.notion-color-green_background {
+  background: #edf3ec;
+}
+
+.notion-color-blue_background {
+  background: #e7f3f8;
+}
+
+.notion-color-purple_background {
+  background: #f4f0f7;
+}
+
+.notion-color-pink_background {
+  background: #f9eef3;
+}
+
+.notion-color-red_background {
+  background: #fdebec;
+}
+
 .note-inline-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   background: var(--inline-code-bg);
   border-radius: 6px;
   padding: 0.1rem 0.35rem;
+}
+
+.notion-code {
+  margin: 1rem 0;
 }
 
 .note-code-block {
@@ -406,29 +505,136 @@ input:focus-visible {
   white-space: pre;
 }
 
-.note-equation,
+.notion-caption {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.notion-equation,
 .note-inline-equation {
   font-family: "Times New Roman", serif;
 }
 
-.note-equation {
+.notion-equation {
   margin: 1rem 0;
   padding: 0.6rem 0.8rem;
   border-left: 3px solid var(--accent);
   background: color-mix(in oklab, var(--surface) 88%, transparent);
 }
 
-.note-quote {
+.notion-quote {
   border-left: 3px solid var(--border);
   margin: 1rem 0;
   padding: 0.3rem 0.9rem;
   color: var(--muted);
 }
 
-.note-divider {
+.notion-divider {
   border: none;
   border-top: 1px solid var(--border);
   margin: 1.2rem 0;
+}
+
+.notion-table {
+  width: 100%;
+  margin: 1rem 0;
+  border-collapse: collapse;
+  overflow-x: auto;
+}
+
+.notion-table th,
+.notion-table td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.notion-table th {
+  background: var(--surface-soft);
+  font-weight: 700;
+}
+
+.notion-toggle {
+  margin: 0.75rem 0;
+}
+
+.notion-toggle summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.notion-to-do {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  margin: 0.55rem 0;
+}
+
+.notion-to-do-checkbox {
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.35rem;
+  accent-color: var(--accent-strong);
+}
+
+.notion-to-do-checked .notion-to-do-body {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.notion-column-list {
+  display: flex;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin: 1rem 0;
+}
+
+.notion-column {
+  flex: var(--notion-column-width, 1) 1 0;
+}
+
+.notion-bookmark,
+.notion-embed,
+.notion-link-preview,
+.notion-synced-block,
+.notion-template,
+.notion-table-of-contents {
+  margin: 1rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+}
+
+.note-callout {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  background: var(--surface-soft);
+}
+
+.note-callout-icon {
+  flex: none;
+}
+
+.note-callout-body {
+  min-width: 0;
+}
+
+.note-asset {
+  margin: 1rem 0;
+}
+
+.note-asset img,
+.note-asset video,
+.note-asset object {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
 }
 
 .note-child-page {
@@ -515,6 +721,11 @@ input:focus-visible {
   .shelf-row,
   .shelf-note {
     display: none;
+  }
+
+  .notion-column-list {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
 `;

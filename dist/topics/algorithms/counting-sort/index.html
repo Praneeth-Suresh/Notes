@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Counting Sort · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Counting Sort</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8016-beca-c64174b25b19">Counting Sort runs in <span class="note-inline-equation" data-latex="O(n+k)">\(O(n+k)\)</span> time and <span class="note-inline-equation" data-latex="O(k)">\(O(k)\)</span> space in all cases, where <span class="note-inline-equation" data-latex="n">\(n\)</span> is the number of elements and <span class="note-inline-equation" data-latex="k">\(k\)</span> is the range of possible values; it’s efficient when <span class="note-inline-equation" data-latex="k">\(k\)</span> is not much larger than <span class="note-inline-equation" data-latex="n">\(n\)</span>. It avoids comparisons by directly counting occurrences of each integer and reconstructing the sorted array.</p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-80a0-a60f-d5d97875aaa5">Here is the idea:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-8094-a9da-fb8d3ee37688">Create an array <code class="note-inline-code">histo</code> of size c, initialised to all 0.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-80d5-8300-cf9d25960124">For every element x in the array, increment <code class="note-inline-code">histo</code> by 1.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-80f6-bcd5-c906c70cfb11">Iterate on v from 0 to c-1:
+Output v as many times specified by <code class="note-inline-code">histo</code>[v]</li></ol><table class="notion-block notion-table" data-notion-block-id="32dd3a21-bb2d-80c3-afd8-c213b1fb3d62"><tbody><tr><th>Case</th><th>Time Complexity</th><th>Space Complexity</th><th>Notes</th></tr><tr><td><strong>Best</strong></td><td><span class="note-inline-equation" data-latex="O(n+k)">\(O(n+k)\)</span></td><td><span class="note-inline-equation" data-latex="O(k)">\(O(k)\)</span></td><td>Even if all elements are identical, initialization of the count array requires (O(k)).</td></tr><tr><td><strong>Average</strong></td><td><span class="note-inline-equation" data-latex="O(n+k)">\(O(n+k)\)</span></td><td><span class="note-inline-equation" data-latex="O(k)">\(O(k)\)</span></td><td>Dominated by both scanning input and reconstructing output.</td></tr><tr><td><strong>Worst</strong></td><td><span class="note-inline-equation" data-latex="O(n+k)">\(O(n+k)\)</span></td><td><span class="note-inline-equation" data-latex="O(k)">\(O(k)\)</span></td><td>Same as average; performance depends on (k).</td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-80e5-bf55-cc574ca098c5"><strong>Stable sorting</strong> is possible if implemented carefully.</p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-802d-aee6-f87e6b4c6bb7">To make counting sort stable we use the following ideas:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-807e-9239-cc51125cc0fc">We store the range of indices where each key will fall in the sorted array</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-80f3-b236-f8a20c05a63d">We can traverse from the back of the initial array and put the elements in the ranges stored</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-80f6-a547-ddea1a190f75">Now the question is how to get the range of indices. This is easy: just calculate the prefix-sum of the <code class="note-inline-code">histo</code> array. This tells us to max index an element with that key could occupy.</p><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8047-9e0d-f090c4e54415"><strong>Limitation:</strong> Not suitable when <span class="note-inline-equation" data-latex="k \gg n">\(k \gg n\)</span>.</p><figure class="notion-block notion-code" data-notion-block-id="32dd3a21-bb2d-804f-bcf0-d55f0324711a"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">function counting_sort(array A):
+    let n = length(A)
+    let k = maximum value in A
+
+    create count[0..k] initialized to 0
+
+    for each element x in A:
+        count[x] += 1
+
+    create output array B of size n
+    index = 0
+    for value from 0 to k:
+        while count[value] &gt; 0:
+            B[index] = value
+            index += 1
+            count[value] -= 1
+
+    return B</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-801f-89fb-fbd5c00062dd"><strong>Explanation:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-800a-8200-ec5407064bad">Count how many times each integer occurs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-80ae-921f-c28c9ee7b46d">Walk through the count array and emit each integer the number of times it appeared.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-80d0-b5e2-df600464b06b">Result is sorted without comparisons.</li></ul><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="32dd3a21-bb2d-80a9-b302-fa19743d8ea3">Example Problems</h1><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-80d7-b3d6-e6efe86c7645">Counting Sort is particularly useful in problems where:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-802a-866b-fb060f5bdaad">Input values are <strong>bounded integers</strong> (e.g., scores, frequencies, colors).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-8080-9293-c2603cb3502a">Range (k) is <strong>small relative to (n)</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-803b-9387-d5a7c1c58270">Sorting must be <strong>fast and stable</strong>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8089-a48b-d72042d1bd23">Here are some examples:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-80a6-a8f1-c7bc75610094"><strong>HackerEarth – Shil and Birthday Present</strong><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8034-9de1-ce8d6c3eaa95">Problem involves distributing gifts with bounded integer values; Counting Sort is the optimal way to sort and count efficiently.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-8074-8a96-ce576de5b02f"><strong>Finding Pairs</strong><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-806e-b174-f23a9b353559">Requires sorting bounded integers to quickly find valid pairs; Counting Sort avoids the overhead of comparison-based sorting.</p></li></ol></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

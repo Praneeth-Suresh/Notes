@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minmax Path Problem · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Minmax Path Problem</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8027-b30c-eba97189fa0d">The <strong>minimax path problem</strong> is a classic in graph theory. The minimax path problem (also called the <em>bottleneck shortest path</em> problem) is a wonderful sandbox because it admits solutions ranging from brute force to deeply elegant. </p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80bd-bde8-fca7d95b9b43">You’re given a weighted, undirected graph (G = (V, E)). For any path between two nodes (s) and (t), define the <strong>path cost</strong> as the <strong>maximum edge weight</strong> along that path. The <strong>minimax path problem</strong> asks:</p><blockquote class="notion-block notion-quote" data-notion-block-id="33dd3a21-bb2d-8058-be70-e1e6f9d292cb">Find a path from (s) to (t) such that this maximum edge weight is minimized.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8086-aa0f-eeed732ed145">So instead of minimizing the <em>sum</em> of edge weights (like Dijkstra), we minimize the <em>largest</em> edge weight encountered. This has a number of interesting solutions that are all useful under different scenarios:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-802b-84f0-e1c0592228ed">Naive SSSP Approaches</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80f5-97e7-f69a3602cbc6">These try to adapt shortest-path algorithms. Here is one possibility:</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80f0-84c6-d19ced79336f"><strong>Modified Dijkstra (max-based relaxation)</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8056-b801-c4d03c014aed">Instead of <code class="note-inline-code">dist[v] = dist[u] + w(u,v)</code>, use:</p><div class="notion-block notion-equation" data-notion-block-id="33dd3a21-bb2d-8097-a2e7-d9389fb9e00a" data-latex="dist[v] = \min(dist[v], \max(dist[u], w(u,v)))">\[dist[v] = \min(dist[v], \max(dist[u], w(u,v)))\]</div><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80c3-962a-d7d87f6fc3d9">This works but is inefficient if you need multiple queries, since you’d have to recompute for each source.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-80a0-8881-d834d916ec43">Naive Spanning Tree Approaches</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80f3-86e8-cd9e64ec916a">These exploit the fact that minimax paths are closely tied to <strong>Minimum Spanning Trees (MSTs)</strong>. This can be expressed in the following property:</p><blockquote class="notion-block notion-quote" data-notion-block-id="33dd3a21-bb2d-80eb-bbeb-e3293447f65e"><strong>The minimax path between any two nodes u and v in a graph lies on the Minimum Spanning Tree (MST).</strong></blockquote><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ad-be73-d527b5a4557f"><em>Why?</em> Kruskal&#39;s algorithm greedily adds the smallest edge that connects two components. If a non-MST edge were needed for a minimax path, it would have a weight ≥ the largest MST edge on the same path. So the MST path is always at least as good. </p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8056-ba17-d5b7a78fc1c1"><strong>Key insight:</strong> Since the minimax path lies on the MST, we only need to store the MST (V−1 edges = O(V) space). For each query we simply traverse the unique tree path.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80ed-b61a-e078e6ada702"><pre class="note-code-block" data-language="python"><code class="language-python">preprocess(graph):
+    run Kruskal&#39;s algorithm to build the MST
+    store MST as a tree adjacency list: mst_adj[V]
+    // Space: O(V)
+
+queryMinimax(s, t):
+    // DFS on the MST from s, tracking max edge weight seen so far
+    // Returns the max edge on the unique s→t tree path
+
+    stack = [(s, parent=-1, max_so_far=0)]
+    while stack not empty:
+        (node, par, cur_max) = stack.pop()
+        if node == t:
+            return cur_max
+        for (neighbour, edge_weight) in mst_adj[node]:
+            if neighbour != par:
+                stack.push((neighbour, node,
+                             max(cur_max, edge_weight)))
+    // t unreachable (disconnected graph) → return ∞</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e5-ae24-c9aea7bf3412"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8021-b4ab-db96611cc9c5">Preprocess: <strong>O(E log E)</strong> Kruskal; <strong>O(V)</strong> MST space.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80cd-827a-e0fe3c4356f8">Query: <strong>O(V)</strong> — the path on a tree can span the whole tree.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8092-ae82-ead54d8c26d6">This is extremely space-efficient but each query is linear. Good when queries are rare.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80b4-8072-e0d7991d4b5e">Full Answer Table </h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ad-ba1d-c28cd059a528"><strong>Key insight:</strong> When Kruskal merges component A with component B via an edge of weight w, <strong>every pair (a ∈ A, b ∈ B) has exactly that minimax value w</strong> — because this is the <em>first</em> moment they became connected in Kruskal&#39;s order. We can fill an answer matrix during the merge.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8047-82bd-daf65c794aa7"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    sort edges ascending → sorted_edges[0 .. E-1]
+    initialise UFDS with V nodes
+    initialise ans[V][V] = ∞
+    for v in 0..V-1: ans[v][v] = 0
+
+    // Also maintain explicit member lists per component
+    members[v] = {v} for each v
+
+    for (u, v, w) in sorted_edges:
+        ru = find(u),  rv = find(v)
+        if ru == rv: continue
+
+        // Every pair across the two merging components gets answer w
+        for each a in members[ru]:
+            for each b in members[rv]:
+                ans[a][b] = w
+                ans[b][a] = w
+
+        // Merge smaller component into larger (union by size)
+        if |members[ru]| &lt; |members[rv]|: swap(ru, rv)
+        members[ru] = members[ru] ∪ members[rv]
+        union(ru, rv)
+
+queryMinimax(s, t):
+    return ans[s][t]</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ea-8ce5-f6f62638ecbc"><strong>Why is the total work O(V²)?</strong> </p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8019-af95-d91b44ea8d5e"><strong>Each unordered pair (a, b) is written into the answer table exactly once</strong> — at the precise step in Kruskal&#39;s process when a&#39;s component and b&#39;s component first merge. Since there are exactly V(V−1)/2 unordered pairs, the total number of writes is Θ(V²).</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80bc-8b50-f9829e98b883"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-807d-a9e3-c338681003fb">Preprocess: <strong>O(V² + E log E)</strong> time and <strong>O(V²)</strong> space.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80cd-af8f-de3d2836fd21">Query: <strong>O(1).</strong></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-8004-9601-c16373cf6ec5">Dynamic Programming Algorithm (Modified Bellman-Ford)</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ed-839c-e83b0c87e7d9">This is a single-source DP that generalises Bellman-Ford to the minimax objective. It is structurally different from Floyd-Warshall (which is all-pairs) and different from the SSSP Dijkstra approach (which uses a priority queue).</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-80b6-bafc-d5b6b80f6936">The DP Formulation</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8081-aec1-e2641047eac7"><strong>State:</strong> <code class="note-inline-code">dp[v]</code> = the current best-known minimax cost from source <code class="note-inline-code">s</code> to node <code class="note-inline-code">v</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8028-a49c-d3ab90b96736">More formally, after pass <code class="note-inline-code">p</code>, <code class="note-inline-code">dp[v]</code> = the minimum possible maximum edge weight on any path from <code class="note-inline-code">s</code> to <code class="note-inline-code">v</code> using <strong>at most p edges</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-800d-ab8e-f8323677e0b4"><strong>Base case:</strong></p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8000-b8ef-cc3e439c27ee"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">dp[s] = 0
+dp[v] = ∞  for all v ≠ s</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-802c-9c54-d99257918eca"><strong>Transition</strong> (applied in each pass over all edges):</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8021-b6cc-c8fbcd313ca7"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">For each edge (u, v, w):
+    dp[v] = min(dp[v], max(dp[u], w))   // relax v via u
+    dp[u] = min(dp[u], max(dp[v], w))   // relax u via v (undirected)</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8047-aae2-fffb9e3e1a8d"><strong>Termination:</strong> After at most <code class="note-inline-code">V−1</code> passes (since any simple path uses at most V−1 edges). Early termination when a full pass produces no update.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8075-b9f5-faf4109b764d">Pseudocode</h3><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-809e-833d-e1bb319e408b"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    sort all edges by weight ascending → sorted_edges[0..E-1]
+    // Sorting is optional but enables early termination in practice
+
+queryMinimax(s, t):
+    dp[v] = ∞ for all v
+    dp[s] = 0
+
+    for pass = 1 to V-1:
+        updated = false
+        for each edge (u, v, w) in sorted_edges:
+            // Attempt to improve the minimax path to v via u
+            candidate_v = max(dp[u], w)
+            if candidate_v &lt; dp[v]:
+                dp[v] = candidate_v
+                updated = true
+            // Same in reverse (undirected graph)
+            candidate_u = max(dp[v], w)
+            if candidate_u &lt; dp[u]:
+                dp[u] = candidate_u
+                updated = true
+        if not updated:
+            break   // converged early
+
+    return dp[t]</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8058-b5a7-f3119b6faa93">Why Correctness Requires V−1 Passes</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ae-8441-c13e8c722885">Consider a graph with edges processed in the wrong order in a single pass:</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80a0-96d3-d4005eda16ec"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">Nodes: A, B, C    Source: A
+Edges (sorted by weight): (B-C, w=1), (A-B, w=2)
+
+Pass 1, edge (B-C, w=1): dp[C] = max(dp[B], 1) = max(∞, 1) = ∞  (dp[B] not yet set)
+Pass 1, edge (A-B, w=2): dp[B] = max(dp[A], 2) = max(0, 2) = 2   ✓
+→ After pass 1: dp[B]=2, dp[C]=∞   WRONG (correct dp[C] = 2)
+
+Pass 2, edge (B-C, w=1): dp[C] = max(dp[B], 1) = max(2, 1) = 2   ✓
+→ After pass 2: dp[C] = 2   CORRECT</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8036-a05c-e005aae47249">A second pass is required because the minimax path A→B→C is only discovered once B&#39;s value is set. In general, a path of k edges requires k passes to propagate correctly from the source. Since simple paths have at most V−1 edges, V−1 passes guarantee convergence.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-80f6-afb8-c7d1ef6ce09d">Complexity Analysis</h3><table class="notion-block notion-table" data-notion-block-id="33dd3a21-bb2d-80ad-969a-d280a7258d9b"><tbody><tr><th></th><th>Cost</th></tr><tr><td>Preprocess</td><td>O(E log E) for sorting</td></tr><tr><td>Space</td><td>O(V + E)</td></tr><tr><td>Query</td><td><strong>O(VE)</strong> per query, O(E) best case with early exit</td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80fe-88b2-fef9bf4f669e">The query is much slower than modified Dijkstra (O(E log V)) or binary lifting (O(log V)), but this is the natural DP formulation with explicit state-and-transition structure. Its main theoretical value is that it extends cleanly to directed graphs and handles negative weights (neither binary lifting nor MST-based approaches work for directed minimax).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80a8-8eff-cfab077c6789">Binary Search on the Answer Space</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e4-b029-c0c9c93d6ed4"><strong>Key insight:</strong> The answer must be one of the E distinct edge weights. So instead of solving a continuous optimisation, we can <em>search</em> over the sorted edge weights for the minimum threshold that still connects s to t.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ab-ac53-d123ad2f052c">The goal is to solve the reverse problem. Instead of finding <code class="note-inline-code">query(u,v)</code> directly, we find <code class="note-inline-code">valid(u, v, cost)</code> which is a boolean that is true if it is possible to go from <code class="note-inline-code">u</code> to <code class="note-inline-code">v</code> while staying under cost <code class="note-inline-code">cost</code>.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80f5-b0d8-d6aca6467a3a"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    extract all edges with weights → edge_list
+    sort edge_list by weight ascending → sorted_edges[0 .. E-1]
+    store the full adjacency list for connectivity checks
+
+queryMinimax(s, t):
+    lo = 0
+    hi = E - 1
+
+    while lo &lt; hi:
+        mid = (lo + hi) / 2
+
+        // Is s reachable from t using only edges
+        // with weight ≤ sorted_edges[mid].weight?
+        reachable = BFS or DFS on graph,
+                    ignoring edges heavier than sorted_edges[mid].weight,
+                    starting at s, looking for t
+
+        if reachable:
+            hi = mid          // answer is ≤ this threshold; try smaller
+        else:
+            lo = mid + 1      // threshold too small; try larger
+
+    return sorted_edges[lo].weight</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8041-b5e0-e0077c4cd106"><strong>Correctness:</strong> We are binary-searching for the <em>leftmost</em> index in sorted_edges where s and t become connected. At that index, the weight of the edge is the minimax bottleneck.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80c2-a6bf-cd495bc53758"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8097-a7c0-e535d3193d6b">Preprocess: O(E log E) for sorting; O(E) space.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80a9-90cf-c68d1947ac9b">Query: O(log E) iterations × O(V + E) per BFS = <strong>O((V + E) log E)</strong> per query.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-803f-9de7-d8e6d6fdbfd2">This is the entry point to the &quot;search&quot; family of solutions. The structure is clean but per-query cost is high.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80b8-a115-ee7d8d365e29">UFDS Snapshot Table </h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80c3-85e2-cb7573d5f8f4"><strong>Key insight:</strong> Rather than re-running BFS for every binary search step, we can <em>precompute</em> the connectivity structure at every stage of Kruskal&#39;s algorithm and store it. Then a query becomes a binary search over those snapshots. </p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ab-96ff-f4a81dc0437e">This is just the binary search algorithm but with a better data structure.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8021-ac90-f0321b563eb4"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    sort edges ascending by weight → sorted_edges[0 .. E-1]
+    initialise UFDS with V nodes
+
+    // comp[v][k] = representative of v&#39;s component
+    //              after the first k edges have been added
+    allocate comp[V][E]
+
+    for k = 0 to E-1:
+        (u, v, w) = sorted_edges[k]
+        union(u, v)
+        for each node x in 0 .. V-1:
+            comp[x][k] = find(x)       // snapshot the whole UFDS
+
+queryMinimax(s, t):
+    if s == t: return 0
+
+    // Binary search for first k where s and t share a component
+    lo = 0, hi = E - 1
+    while lo &lt; hi:
+        mid = (lo + hi) / 2
+        if comp[s][mid] == comp[t][mid]:
+            hi = mid
+        else:
+            lo = mid + 1
+
+    return sorted_edges[lo].weight</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8068-80d0-c156333fa05a"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8018-819e-ddf695d7d2fc">Preprocess: O(E log E) sort + O(VE) to fill the snapshot table → <strong>O(VE) time and O(VE) space</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-800e-afab-c2e64399d1e1">Query: <strong>O(log E)</strong> — a simple binary search over two rows of the table.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80f0-983d-c33d7df3dcc6"><em>Note on path compression:</em> For snapshots to be consistent, you should call <code class="note-inline-code">find</code> with path compression after each union to get stable representatives. In practice you use union-by-rank too.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-805e-9fc2-c1c2030ae98b">MST + Binary Lifting</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ec-bd77-dd6a3dc75a9b"><strong>Key insight:</strong> The DFS-per-query approach visits redundant nodes repeatedly. Binary lifting lets us skip 2^k ancestors at a time, answering &quot;max edge on a root-to-node path segment&quot; in O(log V) jumps. To handle arbitrary s→t queries, we reduce to an LCA query.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-800d-a62a-f67aafc8da69">What is an LCA?</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8051-8699-dca286e62553">Given a <strong>rooted tree</strong> T, a node <code class="note-inline-code">a</code> is an <strong>ancestor</strong> of node <code class="note-inline-code">b</code> if <code class="note-inline-code">a</code> lies on the unique path from the root to <code class="note-inline-code">b</code>. The <strong>Lowest Common Ancestor</strong> of two nodes <code class="note-inline-code">u</code> and <code class="note-inline-code">v</code>, written <code class="note-inline-code">LCA(u, v)</code>, is the <strong>deepest node that is simultaneously an ancestor of both</strong>.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80a4-9ada-fb2e6cdfce40"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">           1 (root, depth 0)
+          / \
+         2   3  (depth 1)
+        / \    \
+       4   5    6  (depth 2)
+          / \
+         7   8  (depth 3)</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8054-8114-d8ddeb4d2e17"><code class="note-inline-code">LCA(7, 8) = 5</code> — both share 5 as deepest common ancestor</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8095-84eb-e415dbc618c8"><code class="note-inline-code">LCA(7, 6) = 1</code> — the only common ancestor is the root</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80ea-bb9d-db70b0cc20a5"><code class="note-inline-code">LCA(4, 8) = 2</code> — 2 is the deepest common ancestor</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80a2-b3fc-c053779d42d6"><code class="note-inline-code">LCA(5, 2) = 2</code> — because 5 is a descendant of 2, so the LCA is 2 itself</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8027-8694-c36fd8861aaf"><strong>Critical structural fact:</strong> In any tree, the <strong>unique path from u to v passes through </strong><strong><code class="note-inline-code">LCA(u,v)</code></strong>. Specifically:</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8031-a924-ead67618c6f5"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">path(u, v) = path(u → LCA(u,v)) + path(LCA(u,v) → v)</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-80fe-b7f4-d386e033cd38">Naive LCA — O(V) Per Query</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-809e-932a-d0db795c18d4">The simplest approach: from each node, keep climbing toward the root until the paths meet.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-805c-81ce-e4ca3aaed84f"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">naiveLCA(u, v):
+    // Equalise depths
+    while depth[u] &gt; depth[v]: u = parent[u]
+    while depth[v] &gt; depth[u]: v = parent[v]
+    // Climb together
+    while u ≠ v:
+        u = parent[u]
+        v = parent[v]
+    return u</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80d6-8138-fc53765fc458">This is O(depth of tree) = O(V) in the worst case (a degenerate chain tree).</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8044-95db-db7895adb3e1">Euler Tour + RMQ Reduction — O(1) Query</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80a0-9076-ec2882d2816e">A fundamentally different approach: encode LCA as a <strong>Range Minimum Query</strong> on the Euler tour.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8016-99f9-fad2acc3a7a2">Perform a DFS, recording every node you visit (including re-visits when backtracking): this produces an array of length <strong>2V−1</strong> called the <strong>Euler tour</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8059-a442-c81ecb1ea5ef">Record the <strong>depth</strong> of each visited node in this tour.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80a5-9b50-c55d178173da">Also record the <strong>first occurrence</strong> of each node in the tour.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-805f-8d7d-c6e14393eeb6"><strong>Key lemma:</strong> <code class="note-inline-code">LCA(u, v)</code> = the node with minimum depth in the Euler tour between positions <code class="note-inline-code">first[u]</code> and <code class="note-inline-code">first[v]</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8066-a029-da01930ee8f0"><em>Intuition:</em> During the DFS, you visit u, eventually recurse into all of u&#39;s subtree, then backtrack. The shallowest node you visit between u and v in the tour is their LCA — because you must pass through it going up on the way from u&#39;s subtree to v&#39;s subtree.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80c0-907b-e181efe07e8a"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">Example Euler tour for the tree above:
+  1, 2, 4, 2, 5, 7, 5, 8, 5, 2, 1, 3, 6, 3, 1
+  depths:
+  0, 1, 2, 1, 2, 3, 2, 3, 2, 1, 0, 1, 2, 1, 0
+
+first[4] = 2,  first[8] = 7
+Range depths[2..7] = [2,1,2,3,2,3] → minimum = 1 at index 3 → node = 2
+LCA(4, 8) = 2  ✓</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80cc-9061-d785c5b0971e">With a <strong>Sparse Table</strong> for static RMQ: O(V log V) preprocessing, <strong>O(1)</strong> query.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-805f-839d-d3b6881111a4">Why LCA Is Central to Minimax on the MST</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e6-b0c2-f7e911be8df1">Once the MST is built and rooted:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8078-aafe-c34612a8d7f4">The <strong>path from u to v in the MST is unique</strong> (trees have no cycles).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80db-ba94-f4370e5d1fd1">That path goes exactly through <code class="note-inline-code">LCA(u, v)</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80a2-b505-cefb8f3c62a0">The <strong>minimax value = max edge weight on u → LCA → v</strong>.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80db-83e2-ff8682cedff1">Now, the idea is that when we traverse up a tree to find the LCA, we can use the process of Binary Lifting (see below). Usually, if we wanted to traverse a tree we would do in in <span class="note-inline-equation" data-latex="O(V)">\(O(V)\)</span> time but since we are only traversing towards the root when we go towards the LCA, we can add a few shortcut edges on the way to the root. </p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80b7-b655-c0060df5c441">Binary Lifting</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8080-bffb-cc52dbe3aacf">Any integer <code class="note-inline-code">d</code> can be written uniquely as a sum of powers of two (its binary representation). For example, to climb 13 steps: 13 = 8 + 4 + 1, so we make <strong>3 jumps</strong> instead of 13.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-804a-bb85-ee2866b03616">Binary lifting precomputes the table:</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-804f-bd9e-eb99ff930cdb"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">up[v][k] = the 2^k-th ancestor of v
+maxW[v][k] = the maximum edge weight on the path from v to its 2^k-th ancestor</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-804b-a494-dd2933ee4c6f"><strong>Building the table bottom-up:</strong></p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80c1-979a-d3c45976317f"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">// Base case: 1-step (2^0) ancestor
+up[v][0] = parent[v]
+maxW[v][0] = weight(v, parent[v])
+
+// Inductive step: 2^k ancestors = two 2^(k-1) jumps
+up[v][k] = up[ up[v][k-1] ][k-1]
+maxW[v][k] = max( maxW[v][k-1], maxW[ up[v][k-1] ][k-1] )</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-802d-93ad-d25a81ba1108">Each entry is computed from two previously computed entries in <strong>O(1)</strong>. Total entries: V × log V → <strong>O(V log V)</strong> preprocessing.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8039-abd0-d973e3c52ba7">Why the Query is O(log V)</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8019-8278-e75bc70b1261"><strong>Phase 1 — Depth equalisation.</strong> Let <code class="note-inline-code">diff = depth[s] − depth[t]</code>. Write <code class="note-inline-code">diff</code> in binary. For each set bit at position k, jump <code class="note-inline-code">s</code> up by <code class="note-inline-code">2^k</code> and accumulate the max edge weight. This takes exactly <strong>popcount(diff) ≤ log V</strong> jumps.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-806f-9d42-ea003ef3d1ff"><strong>Phase 2 — Simultaneous climb to LCA.</strong> Now s and t are at the same depth. We scan k from high to low: if <code class="note-inline-code">up[s][k] ≠ up[t][k]</code>, then the LCA is strictly above both <code class="note-inline-code">up[s][k]</code> and <code class="note-inline-code">up[t][k]</code>, so we safely make both jumps. This binary search property ensures we make exactly <strong>O(log V)</strong> jumps total.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e9-b9e4-c8b93e6528e2"><strong>Analogy:</strong> The naive approach is like counting down from 1000 one at a time. Binary lifting is like binary search — you always halve the remaining distance with each operation, so you reach the target in O(log V) steps.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-807b-ac78-f2056c6323dd"><strong>Why is this better than just storing all ancestor distances directly?</strong> Storing all <code class="note-inline-code">O(V²)</code> ancestor distances would give O(1) queries but O(V²) space. Binary lifting achieves O(log V) query with only O(V log V) space — a logarithmic compression in space with only a logarithmic cost in query time.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e1-bd86-cd518291aeb5">This allows us to write the following pseudocode:</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-801b-aaf4-e4a4b550aee2"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    run Kruskal&#39;s → MST
+    root the MST at node 0; compute depth[v] for all v via DFS
+
+    LOG = ⌈log₂(V)⌉
+
+    // Base case: 1-step ancestor and its edge weight
+    for each node v (≠ root):
+        up[v][0]   = parent of v in rooted MST
+        maxW[v][0] = weight of edge(v, parent(v))
+    up[root][0]   = root
+    maxW[root][0] = 0
+
+    // Fill the lifting table bottom-up
+    for k = 1 to LOG:
+        for each node v:
+            up[v][k]   = up[ up[v][k-1] ][k-1]
+            maxW[v][k] = max( maxW[v][k-1],
+                              maxW[ up[v][k-1] ][k-1] )
+
+queryMinimax(s, t):
+    result = 0
+
+    // Step 1: lift the deeper node up to the same depth as the shallower
+    if depth[s] &lt; depth[t]: swap s and t
+    diff = depth[s] - depth[t]
+    for k = 0 to LOG:
+        if (diff &gt;&gt; k) &amp; 1:
+            result = max(result, maxW[s][k])
+            s = up[s][k]
+
+    // If t was an ancestor of s, we&#39;re done
+    if s == t: return result
+
+    // Step 2: lift both simultaneously until one step below their LCA
+    for k = LOG down to 0:
+        if up[s][k] ≠ up[t][k]:
+            result = max(result, maxW[s][k], maxW[t][k])
+            s = up[s][k]
+            t = up[t][k]
+
+    // s and t are now children of the LCA; take one final step
+    result = max(result, maxW[s][0], maxW[t][0])
+    return result</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-806c-b4f1-cbf275a079e9"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8015-8ea2-da3e4cb4eaf9">Preprocess: O(E log E) + O(V log V) → <strong>O(E log E)</strong> time; <strong>O(V log V)</strong> space.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-800d-a17e-f095255f0c4a">Query: <strong>O(log V).</strong></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80d7-89be-f841ea5c00a4">This is the &quot;production standard&quot; approach: the preprocessing is affordable, the space is very manageable, and O(log V) queries are fast in practice.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80e2-862c-e0e83146cd78">Kruskal&#39;s Reconstruction Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8047-9435-dcb5e1f5fef4">This is perhaps the most <em>elegant</em> approach, and it&#39;s less commonly taught. Instead of building the MST and then doing LCA on top of it, we fold both steps into a single unified data structure during Kruskal&#39;s algorithm.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80f3-a7c5-e43ba124c050"><strong>Key idea:</strong> Every time Kruskal merges two components via an edge of weight w, instead of simply linking them in the UFDS, we <em>create a new tree node</em> with weight w and make the two component roots its children. The leaf nodes are the original V graph nodes. This creates a complete binary tree of 2V−1 nodes (the <em>Kruskal reconstruction tree</em>), and the minimax query between any two original nodes u and v is simply the <strong>weight stored at their LCA</strong> in this tree.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8055-91bd-f58b5a7907db"><strong>Why does this work?</strong> The LCA of u and v in the reconstruction tree is the node created when u&#39;s and v&#39;s components first merged — that merge used the smallest edge that could connect them, which is exactly the minimax bottleneck.</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8012-b949-c48b337e6723"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    sort edges ascending → sorted_edges[0 .. E-1]
+    initialise UFDS with nodes 0 .. V-1
+    next_id = V    // internal nodes will be numbered V, V+1, ...
+
+    // Each node in the reconstruction tree has: weight, parent
+    node_weight[0..V-1] = 0   // original nodes are leaves, weight = 0
+    ufds_root[v] = v for each v  // which recon-tree node represents component
+
+    for (u, v, w) in sorted_edges:
+        ru = ufds_root[find(u)]
+        rv = ufds_root[find(v)]
+        if ru == rv: continue
+
+        // Create new internal node
+        node_weight[next_id] = w
+        parent[ru] = next_id
+        parent[rv] = next_id
+        children[next_id] = [ru, rv]
+
+        // The new component&#39;s representative in the recon tree is next_id
+        ufds_root[union(u, v)] = next_id
+        next_id++
+
+    reconstruction_tree_root = next_id - 1
+
+    // Preprocess standard O(V log V) binary lifting LCA
+    //   on the reconstruction tree (which has 2V-1 nodes)
+    preprocess_LCA(reconstruction_tree, root=reconstruction_tree_root)
+
+queryMinimax(s, t):
+    if s == t: return 0
+    lca_node = LCA(s, t)   // on the reconstruction tree
+    return node_weight[lca_node]</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8064-b99d-d04323a1f3c3"><strong>Concrete example:</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8006-97ed-e6bcd3872e31">Suppose we have edges sorted: (A-B, w=2), (C-D, w=3), (B-C, w=5).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8061-8ce8-dfefc6d32f72">Merge A and B → create node N₁ (weight=2), children={A, B}</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-80f1-a249-d250e1d3945c">Merge C and D → create node N₂ (weight=3), children={C, D}</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-804c-864f-fef2de998807">Merge {A,B} and {C,D} → create node N₃ (weight=5), children={N₁, N₂}</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e4-88e1-fcebb3ff1aea">Now: minimax(A, D) = weight(LCA(A,D)) = weight(N₃) = <strong>5</strong> ✓
+And: minimax(A, B) = weight(LCA(A,B)) = weight(N₁) = <strong>2</strong> ✓</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80c8-8ae8-fc55afd06ca3"><strong>Complexity:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-8020-838d-c91addd7c824">Preprocess: O(E log E) sort + O(V α(V)) UFDS + O(V log V) LCA → <strong>O(E log E)</strong> time; <strong>O(V log V)</strong> space.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="33dd3a21-bb2d-801b-ae80-c37bb5a63ab4">Query: <strong>O(log V)</strong> with binary lifting LCA, or <strong>O(1)</strong> with Farach-Colton-Bender LCA (O(V) preprocessing).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80bf-a062-f382298154ca">The reconstruction tree is superior to plain binary lifting on the MST because the query logic is <em>dead simple</em>: just find the LCA and read a field. There is no edge-weight accumulation during the query itself.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-8056-9aee-dd1c226aa77f"><strong>Kruskal Reconstruction Tree</strong> with <strong>Heavy-Light Decomposition</strong> </h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8087-b36f-ef7692d8b13e">Binary lifting on the MST achieves O(log V) query but requires <strong>O(V log V) space</strong> for the lifting table. Can we replace binary lifting with something that uses only O(V) space?</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8041-98f8-dc9ae8cad8ce">With the Kruskal reconstruction tree, the minimax query becomes: <em>find LCA(s, t) in the reconstruction tree and return its stored weight</em>. There is <strong>no range-max computation required during the query at all</strong> — the weight is already stored at the LCA node. This means we can use any O(log V)-per-query LCA algorithm, including ones that use only O(V) space.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8085-a8ab-d206f9b815a0">Heavy-Light Decomposition achieves exactly this.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8067-8a48-f1f5f54b91e0">Heavy-Light Decomposition (HLD) for LCA — O(V) Space</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-809a-93bb-ec7563ae46d6"><strong>Decomposition step:</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8070-91f9-cba3fece4ba6">For each node, define its <strong>heavy child</strong> as the child with the largest subtree (break ties arbitrarily). A <strong>heavy path</strong> (or chain) is a maximal path following heavy children downward. Every other child edge is a <strong>light edge</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e7-a7df-d127fc1610f4"><strong>Key property:</strong> Any root-to-leaf path crosses at most <strong>O(log V) light edges</strong>. <em>Proof:</em> Each light edge leads to a child whose subtree is strictly less than half the parent&#39;s subtree (by definition of heavy child), so the subtree size at least halves with each light edge. Starting from V nodes, we can halve at most log V times.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80d1-b961-e108c8ef2011">Store per node: <code class="note-inline-code">chain_head[v]</code> (top of v&#39;s chain), <code class="note-inline-code">depth[v]</code>, <code class="note-inline-code">parent[v]</code>. Total: O(V) space.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80fb-ade0-d2e33363852e"><strong>LCA via HLD:</strong></p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8065-bd86-cccf5ea5efdb"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">LCA_HLD(u, v):
+    while chain_head[u] ≠ chain_head[v]:
+        // Move the node whose chain head is deeper
+        if depth[chain_head[u]] &lt; depth[chain_head[v]]:
+            swap(u, v)
+        // Jump from u to the parent of its chain&#39;s head
+        // (this crosses exactly one light edge)
+        u = parent[chain_head[u]]
+
+    // Now u and v are on the same chain
+    // The one with smaller depth is the LCA
+    if depth[u] ≤ depth[v]:
+        return u
+    else:
+        return v</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80d9-9778-d83d150b3aa0">Each iteration of the while loop crosses one light edge upward. Since any path has O(log V) light edges, the loop runs <strong>O(log V) times</strong>. Each iteration is O(1). Total: <strong>O(log V) per LCA query</strong>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-809d-8a5a-cef8ce64b80d">The Full Algorithm</h3><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-80a3-a4c7-d9ef242d1189"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">preprocess(graph):
+    // Step 1: Kruskal&#39;s process to build the reconstruction tree
+    sort all edges ascending → sorted_edges[0..E-1]
+    initialise UFDS with nodes 0..V-1
+    next_id = V   // internal nodes of reconstruction tree start here
+    node_weight[0..V-1] = 0
+    comp_root[v] = v for each v  // which recon-tree node represents component
+
+    for (u, v, w) in sorted_edges:
+        ru = comp_root[find(u)]
+        rv = comp_root[find(v)]
+        if ru == rv: continue
+
+        // Create new internal node for this merge
+        node_weight[next_id] = w
+        recon_parent[ru] = next_id
+        recon_parent[rv] = next_id
+        recon_children[next_id] = {ru, rv}
+
+        // The merged component is now represented by next_id
+        new_root = union(u, v)     // UFDS union; returns new UFDS root
+        comp_root[new_root] = next_id
+        next_id++
+
+    recon_root = next_id - 1
+    // Reconstruction tree has 2V-1 nodes rooted at recon_root
+
+    // Step 2: Heavy-Light Decomposition on the reconstruction tree
+    // DFS to compute subtree sizes, depths, parents, heavy children
+    DFS_subtree_sizes(recon_root, parent=-1, depth=0)
+
+    for each node v in reconstruction tree (by DFS order):
+        heavy_child[v] = child of v with largest subtree_size
+                         (null if leaf)
+
+    // Assign chain heads: follow heavy children downward
+    assign_chains(recon_root, head=recon_root)
+        // chain_head[v] = head of v&#39;s heavy chain
+
+    // Space: O(V) for all arrays (reconstruction tree has 2V-1 ≈ O(V) nodes)
+
+queryMinimax(s, t):
+    if s == t: return 0
+    lca_node = LCA_HLD(s, t)      // O(log V), operates on reconstruction tree
+    return node_weight[lca_node]  // O(1) lookup</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-80ac-9725-e482f1d22d3b">Complexity Analysis</h3><table class="notion-block notion-table" data-notion-block-id="33dd3a21-bb2d-80b8-9e32-edf38f4df6a4"><tbody><tr><th>Step</th><th>Time</th><th>Space</th></tr><tr><td>Sort edges</td><td>O(E log E)</td><td>O(E)</td></tr><tr><td>UFDS + reconstruction tree</td><td>O(E α(V))</td><td>O(V)</td></tr><tr><td>HLD preprocessing</td><td>O(V)</td><td>O(V)</td></tr><tr><td><strong>Total preprocessing</strong></td><td><strong>O(E log E)</strong></td><td><strong>O(V)</strong></td></tr><tr><td><strong>Query</strong></td><td><strong>O(log V)</strong></td><td>—</td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80c0-bc16-d2dca576ac32">For sparse graphs where E = O(V): preprocessing reduces to <strong>O(V log V)</strong>, matching the target exactly. The space is <strong>O(V)</strong> — better than binary lifting&#39;s O(V log V) — because HLD requires only O(1) values per node.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-80be-9d7e-d22aab7ba398">Summary Table</h2><table class="notion-block notion-table" data-notion-block-id="33dd3a21-bb2d-8013-b90e-ef7401029b10"><tbody><tr><th>Approach</th><th>Preprocess Time</th><th>Space</th><th>Query Time</th></tr><tr><td>Modified SSSP (Dijkstra, per source)</td><td>O(V · E log V)</td><td>O(V+E)</td><td>O(1) per source</td></tr><tr><td>Floyd-Warshall ASSP</td><td>O(V³)</td><td>O(V²)</td><td>O(1)</td></tr><tr><td>MST + DFS per query</td><td>O(E log E)</td><td>O(V)</td><td>O(V)</td></tr><tr><td>Binary search on edges</td><td>O(E log E)</td><td>O(E)</td><td>O((V+E) log E)</td></tr><tr><td>UFDS snapshot table</td><td>O(VE)</td><td>O(VE)</td><td>O(log E)</td></tr><tr><td>Full answer table (V²)</td><td>O(V² + E log E)</td><td>O(V²)</td><td>O(1)</td></tr><tr><td>MST + Binary Lifting</td><td>O(E log E)</td><td>O(V log V)</td><td>O(log V)</td></tr><tr><td>Kruskal reconstruction tree + Binary Lifting</td><td>O(E log E)</td><td>O(V log V)</td><td>O(log V)</td></tr><tr><td><strong>Modified Bellman-Ford DP</strong> (new)</td><td>O(E log E)</td><td>O(V+E)</td><td><strong>O(VE)</strong></td></tr><tr><td><strong>Kruskal reconstruction tree + HLD</strong> (new)</td><td>O(E log E)</td><td><strong>O(V)</strong></td><td><strong>O(log V)</strong></td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80ee-a775-ff35bdeeb964">The bottom row represents the <strong>Pareto frontier</strong> for the preprocess-space-query tradeoff: it achieves the same O(log V) query as binary lifting but with strictly less space. In settings where memory is the bottleneck (large V, memory-constrained systems, cache performance), this is the superior choice. The reconstruction tree + HLD is also arguably simpler to reason about correctness for, since the query reduces to a pure LCA computation with a single weight lookup rather than an accumulated max over a tree path.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="33dd3a21-bb2d-8091-90f3-ca5a8b4da6cc">Comparing the Approaches in Practice</h2><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8091-8c34-d21a8a3d0aea">The &quot;right&quot; answer depends on the regime you are operating in:</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-801d-81ab-db9adee61f75"><strong>Few queries, sparse graph (competitive programming style):</strong> Modified Dijkstra or MST + DFS per query. Dijkstra with a priority queue is extremely fast in practice and needs no preprocessing.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-801c-84cc-e9a2efb4786d"><strong>Dense graph, all-pairs needed:</strong> Floyd-Warshall or the V² answer table. The V² table via Kruskal is faster in practice than Floyd-Warshall (O(V²) vs O(V³)) and gives the same O(1) query.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-807b-9433-c898cda30edd"><strong>Many queries, memory constrained:</strong> MST + binary lifting. It gives O(log V) query with only O(V log V) space, which is typically a few megabytes even for V = 10⁶. In competitive programming, this is the go-to for online query problems.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80e7-88c8-d3b0c33308aa"><strong>Elegance and extensibility:</strong> Kruskal&#39;s reconstruction tree. This structure generalises immediately to other &quot;merging&quot; queries (e.g., the maximum flow between two nodes also equals the maximum-weight LCA in the <em>reverse</em> Kruskal tree, where edges are sorted descending). If you are building a library, this is the cleanest abstraction.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-80a1-8fec-dd5416eb0e17"><strong>Offline query processing:</strong> The UFDS snapshot table or binary search approach works well when queries arrive offline and you can afford O(VE) preprocessing for O(log E) online answers — useful when E is small but V is large.</p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8036-b589-d3d2b0384fd1"></p><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-806b-bba9-f93ea9d3a8cc"></p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="33dd3a21-bb2d-8019-be55-e1112192da90">Binary Lifting — Missing Guard for s == t Mid-Equalisation</h3><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-8007-8bde-f6b1e9fd65e3">After equalising depths, if <code class="note-inline-code">s == t</code> we have already found the LCA and the max edge is whatever was accumulated in the equalisation phase. The original code only checks <code class="note-inline-code">if s == t: return result</code> at the end of equalisation, which is correct — but the final step <code class="note-inline-code">result = max(result, maxW[s][0], maxW[t][0])</code> should only execute if <code class="note-inline-code">s ≠ t</code> at that point, otherwise we&#39;d add the edge from s (= LCA) to its parent spuriously. The original code handles this because the <code class="note-inline-code">for k = LOG down to 0</code> loop only advances when <code class="note-inline-code">up[s][k] ≠ up[t][k]</code>, so if they are already equal, the loop does nothing. However, the final line outside the loop is only reached when they are one step below the LCA. The code is structurally correct but should have an explicit guard comment:</p><figure class="notion-block notion-code" data-notion-block-id="33dd3a21-bb2d-8082-b238-dc7912549a92"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">    // After the simultaneous lift, s and t are children of LCA
+    // (guaranteed by the invariant of the loop above).
+    // If s == t was caught before the loop, we return early.
+    result = max(result, maxW[s][0], maxW[t][0])
+    return result</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="33dd3a21-bb2d-803e-9b97-d39962ec0451">No algorithmic change needed — just a clarification that the <code class="note-inline-code">if s == t: return result</code> guard mid-equalisation correctly short-circuits before the loop.</p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

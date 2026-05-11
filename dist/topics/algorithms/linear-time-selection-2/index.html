@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Linear-time selection · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Linear-time selection</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-806d-ae01-fef8cc57f22b">We will look at two approaches. We start with expected <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> time and then try to achieve worst-case <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> time.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-800f-b72e-e23deacbaedc">The problem a median-finding algorithm solves is the following:</p><blockquote class="notion-block notion-quote" data-notion-block-id="318d3a21-bb2d-80aa-8545-c920bc103b19">Given an array <span class="note-inline-equation" data-latex="A=[1,...,n]">\(A=[1,...,n]\)</span> of <span class="note-inline-equation" data-latex="n">\(n\)</span> numbers and an index <span class="note-inline-equation" data-latex="i">\(i\)</span>, where <span class="note-inline-equation" data-latex="1≤i≤n">\(1≤i≤n\)</span>, find the <span class="note-inline-equation" data-latex="ith">\(ith\)</span> smallest element of <span class="note-inline-equation" data-latex="A">\(A\)</span>.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-80a9-8ca0-f5647c22fef3">This problem can certainly be solved using a <a href="https://brilliant.org/wiki/sorting-algorithms/" rel="noreferrer noopener">sorting algorithm</a> to sort a list of numbers and return the value at the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> index. However, many sorting algorithms can’t go faster than <span class="note-inline-equation" data-latex="n \log n">\(n \log n\)</span><em> </em>time. A median-finding algorithm can find the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> smallest element in a list in <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> time.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="318d3a21-bb2d-8069-8fe4-c5febff47dc3">Quickselect</h1><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-807c-abfd-e42f378e5c2f">This algorithm uses partitioning but in a different way from quicksort.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-80db-9928-df92a8935d74">It is still a recursive algorithm but it has fewer recursive calls than quicksort. Here is how it works:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8031-afbb-f6052bc43ec6">Partition the array</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8027-a96e-fb8f3b128016">If the pivot ends up at position k, you&#39;re done</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-80cd-975a-c01f586be2e8">If k is smaller, recurse on the left part</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8038-a918-d11ef54ebd23">If k is larger, recurse on the right part</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8058-8399-e405abb9cdf7">Unlike quicksort where you recurse on both sides, you only recurse on one side. In the best case, this makes the recurrence <span class="note-inline-equation" data-latex="T(n) = T(n/2) + O(n)">\(T(n) = T(n/2) + O(n)\)</span>, which solves to <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-80e3-8e28-ec93439acbb7">The recursion tree can be seen as a geometric series which we can sum.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-80e5-93bc-cd115790eae0"><strong>Note</strong> that this assumes that we are lucky and partition roughly in half. In reality, the size of the partition depends on the pivot element so the overall efficiency of the algorithm depends on how we choose the pivot element.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="318d3a21-bb2d-802e-ba13-ce2f4b565241"><strong>The Median-of-medians Algorithm</strong></h1><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-802b-b5b9-cd58cbeae0d7">The median-of-medians algorithm is a deterministic linear-time selection algorithm. </p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8033-9a75-d9bcdb87b287">The algorithm works by:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8079-acfb-ff0d34333720">Divide a list into sublists and then determine the approximate median in each of the sublists.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8069-8430-f18e0443daef">Take those medians and puts them into a list and finds the median of that list. We use that median value as a <strong>pivot</strong> and compares other elements of the list against the pivot. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-8003-a262-e9486aee6758">If an element is less than the pivot value, the element is placed to the left of the pivot, and if the element has a value greater than the pivot, it is placed to the right. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="318d3a21-bb2d-807c-bf8e-ea776a6ebe29">The algorithm recurses on the list, honing in on the value it is looking for.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8060-8ac2-d74bfda78838">This implementation works on lists that have unique elements (no repeated elements).</p><figure class="notion-block notion-code" data-notion-block-id="318d3a21-bb2d-80e5-960f-e67379092816"><pre class="note-code-block" data-language="python"><code class="language-python">def median_of_medians(A, i):
+
+    #divide A into sublists of len 5
+    sublists = [A[j:j+5] for j in range(0, len(A), 5)]
+    medians = [sorted(sublist)[len(sublist)/2] for sublist in sublists]
+    if len(medians) &lt;= 5:
+        pivot = sorted(medians)[len(medians)/2]
+    else:
+        #the pivot is the median of the medians
+        pivot = median_of_medians(medians, len(medians)/2)
+
+    #partitioning step
+    low = [j for j in A if j &lt; pivot]
+    high = [j for j in A if j &gt; pivot]
+
+    k = len(low)
+    if i &lt; k:
+        return median_of_medians(low,i)
+    elif i &gt; k:
+        return median_of_medians(high,i-k-1)
+    else: #pivot = k
+        return pivot</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-80c8-9b34-fc8a42dfbf44">The time for dividing lists, finding the medians of the sublists, and partitioning takes <span class="note-inline-equation" data-latex="T(n)=T(5n)+O(n)">\(T(n)=T(5n)+O(n)\)</span> time, and with the recursion factored in, the overall recurrence to describe the median-of-medians algorithm is</p><div class="notion-block notion-equation" data-notion-block-id="318d3a21-bb2d-801c-b6c4-e0727f890787" data-latex="T(n)≤T(\frac{n}{5})+T(\frac{7n}{10})+O(n)">\[T(n)≤T(\frac{n}{5})+T(\frac{7n}{10})+O(n)\]</div><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8081-a993-caa23d61f91e">The <a href="https://brilliant.org/wiki/master-theorem/" rel="noreferrer noopener">master theorem</a> can be used to show that this recurrence equals <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-807f-a94e-ec6efb4f8099"><strong>Why 5?</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8022-8b7a-fd4e2b682374">The median-of-medians divides a list into sublists of length five to get an optimal running time. Remember, finding the median of small lists by brute force (sorting) takes a small amount of time, so the length of the sublists must be fairly small.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-801b-b249-dc759345261e">If the algorithm divided the list into sublists of length three, <span class="note-inline-equation" data-latex="p">\(p\)</span> would be greater than approximately <span class="note-inline-equation" data-latex="\frac{n}{3}">\(\frac{n}{3}\)</span>elements and it would be smaller than approximately <span class="note-inline-equation" data-latex="\frac{n}{3}">\(\frac{n}{3}\)</span> elements. This would cause a worst case <span class="note-inline-equation" data-latex="\frac{2n}{3}">\(\frac{2n}{3}\)</span> recursions, yielding the recurrence <span class="note-inline-equation" data-latex="T(n)=T(\frac{n}{3})+T(\frac{2n}{3})+O(n)">\(T(n)=T(\frac{n}{3})+T(\frac{2n}{3})+O(n)\)</span> which by the master theorem is <span class="note-inline-equation" data-latex="O(n \log⁡ n)">\(O(n \log⁡ n)\)</span>, which is slower than linear time.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8067-92b9-e1c84e371612">The algorithm needs a sublist size greater than 5 but we need to keep the sublist size as small as we can so that sorting the sublists can be done in what is effectively constant time.</p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

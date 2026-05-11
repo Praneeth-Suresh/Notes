@@ -24,6 +24,82 @@ function jsonResponse({ status = 200, statusText = "OK", body, headers = {} }) {
   };
 }
 
+test("recursively pulls pages from a child database", async () => {
+  const fetchImpl = async (url) => {
+    if (url.includes("/pages/page-db")) {
+      return jsonResponse({
+        body: {
+          properties: {
+            Name: { type: "title", title: [{ plain_text: "Database Topic" }] },
+          },
+        },
+      });
+    }
+
+    if (url.includes("/blocks/page-db/children")) {
+      return jsonResponse({
+        body: {
+          results: [
+            {
+              id: "database-1",
+              type: "child_database",
+              child_database: { title: "Subtopics" },
+            },
+          ],
+          has_more: false,
+        },
+      });
+    }
+
+    if (url.includes("/databases/database-1/query")) {
+      return jsonResponse({
+        body: {
+          results: [
+            {
+              id: "entry-1",
+              properties: {
+                Name: { type: "title", title: [{ plain_text: "Database Entry 1" }] },
+              },
+            },
+          ],
+          has_more: false,
+        },
+      });
+    }
+
+    if (url.includes("/blocks/entry-1/children")) {
+      return jsonResponse({
+        body: {
+          results: [
+            {
+              id: "block-entry-1",
+              type: "paragraph",
+              paragraph: {
+                rich_text: [{ type: "text", text: { content: "Entry Content" } }],
+              },
+            },
+          ],
+          has_more: false,
+        },
+      });
+    }
+
+    throw new Error(`Unexpected URL: ${url}`);
+  };
+
+  const notionContext = createNotionIngestionContext({ fetchImpl });
+
+  const normalized = await notionContext.pullTopicFromNotion({
+    pageId: "page-db",
+    notionToken: "secret",
+  });
+
+  assert.equal(normalized.blocks[0].type, "child_database");
+  assert.equal(normalized.blocks[0].children[0].type, "child_page");
+  assert.equal(normalized.blocks[0].children[0].title, "Database Entry 1");
+  assert.equal(normalized.blocks[0].children[0].children[0].richText[0].content, "Entry Content");
+});
+
 test("normalizes code and equation blocks from notion payload", () => {
   const notionContext = createNotionIngestionContext({
     fetchImpl: async () => {

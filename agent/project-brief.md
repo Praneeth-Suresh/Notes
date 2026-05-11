@@ -8,7 +8,7 @@ This website embraces a  **minimalist academic aesthetic** , prioritizing readab
 
 ## Primary Workflows
 
-1. **Go through notes**: User should navigate from home page with different topics I write about (Algorithms, Data Structures, Operating Systems, Agentic Coding, etc.) to the topic page from which they can navigate to pages lower down in the hierarchy (more granular topics such as Dynamic Programming).
+1. **Go through notes**: User should navigate from home page with different topics I write about (Algorithms, Data Structures, Operating Systems, Agentic Coding, etc.) to the topic page from which they can navigate to pages lower down in the hierarchy (more granular topics such as Dynamic Programming). These are accessible as notion sub-pages and navigation by clicking on the sub-pages should be preserved in the site.
 2. **Search**: User should be able to search for a topic and retrieve the notes about the topic they want.
 3. **Upload notes**: I (maintainer) will provide a link to a notion page (top level page about topic) and the topic it corresponds to. The page should be recursively read (with notion API) to re-populate the HTML page for the topic.
 4. **Home Page**: This is a minimalist canvas that feels like stepping into a quiet, sunlit library—where every element invites reflection. The design blends artistic subtlety with  intellectual curiosity , using visual metaphors to hint at your identity as a creator, thinker, and builder.
@@ -17,7 +17,7 @@ This website embraces a  **minimalist academic aesthetic** , prioritizing readab
 ## Reliability Priorities
 
 1. **Formatting fidelity is highest priority**: Notion formatting must be carried over exactly in published notes.
-2. **LaTeX fidelity is mandatory**: Mathematical notation must preserve source intent without degradation.
+2. **LaTeX fidelity is mandatory**: Mathematical notation must preserve source intent without degradation (when deployed on CloudFlare pages).
 3. **Code block fidelity is mandatory**: Language tags, indentation, and block boundaries must remain intact.
 
 ## Non-Goals

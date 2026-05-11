@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Primality Tests · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Primality Tests</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80a0-8918-f7e9bba75340">A prime number is a natural number (greater than 1) that has exactly two factors, <code class="note-inline-code">1</code> and itself. In order to check if a number is prime or not, we can count the number of factors. </p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80fd-b3e0-ca769cdaeb95">The basic techniques to checking for primes include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8012-8b76-dab05c3069d7">Brute Force to count the number of factors a number has</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8032-9fc4-da71cf36d6e6">Find all the factors from 1 to <span class="note-inline-equation" data-latex="\sqrt n">\(\sqrt n\)</span></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-803f-95f0-ca60bc1e79f1">Sieve of Eratosthenes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-806b-8c81-db7fc5a3467a">This method is useful to search for <strong>all</strong> prime numbers in a given range and it works as follows:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80da-82f6-db6595523ccb">Iterate from <code class="note-inline-code">2</code> to <code class="note-inline-code">sqrt(N)</code>, call it <code class="note-inline-code">i</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8001-9c9c-e61608805e40">For each <code class="note-inline-code">i</code>, we cross out all the multiples of <code class="note-inline-code">i</code>, i.e. <code class="note-inline-code">2*i</code>, <code class="note-inline-code">3*i</code> .. and so on</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80c8-903c-c75fc902ed48">If <code class="note-inline-code">i</code> is already crossed out, we don’t do anything, because if <code class="note-inline-code">i</code> is already crossed out, we are ensured that all multiples of <code class="note-inline-code">i</code> are already crossed out in our previous iterations</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80f4-8f51-e3882aeb869a">In the end, we print out all the numbers that are not crossed out</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-80c2-a254-c59bd721b59e">Miller-Rabin Test</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-809d-b077-f731aa3bb035">The Miller-Rabin primality test is a fast, probabilistic algorithm used to determine if a large number <span class="note-inline-equation" data-latex="n">\(n\)</span> is &quot;probably prime&quot;. It is widely used in cryptography and computer science because it is significantly faster than deterministic tests (such as AKS) for large numbers, with a complexity of <span class="note-inline-equation" data-latex="O(k \log^3 n)">\(O(k \log^3 n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8096-865c-f06d785794a7">Here is an overview of how it works:</p><figure class="notion-block notion-code" data-notion-block-id="35bd3a21-bb2d-802e-9055-df200daca54f"><pre class="note-code-block" data-language="c"><code class="language-c">let s &gt; 0 and d odd &gt; 0 such that n − 1 = 2sd  # by factoring out powers of 2 from n − 1
+repeat k times:
+    a ← random(2, n − 2)  # n is always a probable prime to base 1 and n − 1
+    x ← ad mod n
+    repeat s times:
+        y ← x2 mod n
+        if y = 1 and x ≠ 1 and x ≠ n − 1 then # nontrivial square root of 1 modulo n
+            return “composite”
+        x ← y
+    if y ≠ 1 then
+        return “composite”
+return “probably prime”</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8064-8492-f13a5a4607c3">Here are some of the features of the algorithm to remember:</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-801f-a86f-f2b93d7233f3"><strong>Speed:</strong> It is highly efficient for very large numbers.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80f0-a96b-c7a0a1800d27"><strong>Probabilistic:</strong> It can prove a number is composite, but only that it is &quot;probably&quot; prime.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8005-9fb0-fd35b5b0618a"><strong>Deterministic Variant:</strong> If the generalized Riemann hypothesis is assumed, the test can be made deterministic for all numbers.</p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

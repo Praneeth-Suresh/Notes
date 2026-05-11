@@ -118,3 +118,186 @@ test("builds child_page routes and makes subpages searchable", async () => {
     );
   });
 });
+
+test("builds database child pages with unique sibling routes and search entries", async () => {
+  await withTempDir(async (root) => {
+    const contentDir = path.join(root, "content");
+    const topicsDir = path.join(contentDir, "topics");
+    const outDir = path.join(root, "dist");
+    const mathJaxSourcePath = path.join(root, "mathjax-source.js");
+    await fs.mkdir(topicsDir, { recursive: true });
+    await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
+
+    const topicDocument = {
+      title: "Algorithms",
+      description: "Algorithm notes",
+      blocks: [
+        {
+          type: "child_page",
+          blockId: "direct-scheduling",
+          title: "Scheduling",
+          children: [
+            {
+              type: "paragraph",
+              richText: [
+                { type: "text", content: "Direct scheduling notes", annotations: {}, href: null },
+              ],
+            },
+          ],
+        },
+        {
+          type: "child_database",
+          blockId: "database-1",
+          title: "Subtopics",
+          children: [
+            {
+              type: "child_page",
+              blockId: "database-scheduling",
+              title: "Scheduling",
+              children: [
+                {
+                  type: "paragraph",
+                  richText: [
+                    {
+                      type: "text",
+                      content: "Database scheduling notes",
+                      annotations: {},
+                      href: null,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "child_page",
+              blockId: "database-flows",
+              title: "Network Flows",
+              children: [
+                {
+                  type: "equation",
+                  expression: "f(u,v)=-f(v,u)",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    await fs.writeFile(
+      path.join(topicsDir, "algorithms.normalized.json"),
+      `${JSON.stringify(topicDocument, null, 2)}\n`,
+      "utf8",
+    );
+    await fs.writeFile(
+      path.join(contentDir, "topic-manifest.json"),
+      `${JSON.stringify([
+        {
+          slug: "algorithms",
+          title: "Algorithms",
+          description: "Algorithm notes",
+          source: { kind: "normalized-file", path: "topics/algorithms.normalized.json" },
+        },
+      ], null, 2)}\n`,
+      "utf8",
+    );
+
+    await buildPagesSite({
+      manifestPath: path.join(contentDir, "topic-manifest.json"),
+      outputDir: outDir,
+      siteTitle: "Computer Science Notes",
+      mathJaxSourcePath,
+    });
+
+    const parentHtml = await fs.readFile(
+      path.join(outDir, "topics", "algorithms", "index.html"),
+      "utf8",
+    );
+    const directChildHtml = await fs.readFile(
+      path.join(outDir, "topics", "algorithms", "scheduling", "index.html"),
+      "utf8",
+    );
+    const databaseChildHtml = await fs.readFile(
+      path.join(outDir, "topics", "algorithms", "scheduling-2", "index.html"),
+      "utf8",
+    );
+    const searchIndex = JSON.parse(
+      await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
+    );
+
+    assert.ok(parentHtml.includes('href="/topics/algorithms/scheduling/"'));
+    assert.ok(parentHtml.includes('href="/topics/algorithms/scheduling-2/"'));
+    assert.ok(parentHtml.includes('href="/topics/algorithms/network-flows/"'));
+    assert.ok(parentHtml.includes("Subtopics"));
+    assert.ok(directChildHtml.includes("Direct scheduling notes"));
+    assert.ok(databaseChildHtml.includes("Database scheduling notes"));
+    assert.deepEqual(
+      searchIndex.map((entry) => entry.slug),
+      [
+        "algorithms",
+        "algorithms/scheduling",
+        "algorithms/scheduling-2",
+        "algorithms/network-flows",
+      ],
+    );
+    assert.ok(
+      searchIndex
+        .find((entry) => entry.slug === "algorithms/scheduling-2")
+        .searchableText.includes("Database scheduling notes"),
+    );
+  });
+});
+
+test("does not replace an existing output directory when page rendering fails", async () => {
+  await withTempDir(async (root) => {
+    const contentDir = path.join(root, "content");
+    const topicsDir = path.join(contentDir, "topics");
+    const outDir = path.join(root, "dist");
+    const mathJaxSourcePath = path.join(root, "mathjax-source.js");
+    await fs.mkdir(topicsDir, { recursive: true });
+    await fs.mkdir(outDir, { recursive: true });
+    await fs.writeFile(path.join(outDir, "index.html"), "previous build\n", "utf8");
+    await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
+
+    const topicDocument = {
+      title: "Algorithms",
+      blocks: [
+        {
+          type: "asset",
+          kind: "image",
+          url: "javascript:alert(1)",
+          caption: [],
+        },
+      ],
+    };
+
+    await fs.writeFile(
+      path.join(topicsDir, "algorithms.normalized.json"),
+      `${JSON.stringify(topicDocument, null, 2)}\n`,
+      "utf8",
+    );
+    await fs.writeFile(
+      path.join(contentDir, "topic-manifest.json"),
+      `${JSON.stringify([
+        {
+          slug: "algorithms",
+          title: "Algorithms",
+          source: { kind: "normalized-file", path: "topics/algorithms.normalized.json" },
+        },
+      ], null, 2)}\n`,
+      "utf8",
+    );
+
+    await assert.rejects(
+      () =>
+        buildPagesSite({
+          manifestPath: path.join(contentDir, "topic-manifest.json"),
+          outputDir: outDir,
+          siteTitle: "Computer Science Notes",
+          mathJaxSourcePath,
+        }),
+      /Unsupported URL protocol in asset URL: javascript:/,
+    );
+    assert.equal(await fs.readFile(path.join(outDir, "index.html"), "utf8"), "previous build\n");
+  });
+});

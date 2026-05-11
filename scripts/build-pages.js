@@ -101,6 +101,15 @@ function uniqueSegment(baseSegment, usedSegments) {
   return candidate;
 }
 
+async function pathExists(absolutePath) {
+  try {
+    await fs.access(absolutePath);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 function validateManifestEntry(entry) {
   if (!entry || typeof entry !== "object") {
     throw new Error("Each manifest entry must be an object.");
@@ -209,13 +218,22 @@ function cloneBlockForPage(block, childPageRecords, parentUrlPath) {
 function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescription }) {
   const childPageRecords = new Map();
   const pageRecords = [];
+  const usedSegmentsByParentRoute = new Map();
+
+  function usedSegmentsForParent(parentSegments) {
+    const key = parentSegments.join("/");
+    if (!usedSegmentsByParentRoute.has(key)) {
+      usedSegmentsByParentRoute.set(key, new Set());
+    }
+
+    return usedSegmentsByParentRoute.get(key);
+  }
 
   function collectChildPages(blocks, parentSegments, parentTitle, parentDescription) {
     if (!Array.isArray(blocks)) {
       return;
     }
 
-    const usedSegments = new Set();
     for (const block of blocks) {
       if (block.type !== "child_page") {
         collectChildPages(block.children, parentSegments, parentTitle, parentDescription);
@@ -223,7 +241,10 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
       }
 
       const fallback = block.blockId ? slugifyPathSegment(block.blockId, "subpage") : "subpage";
-      const segment = uniqueSegment(slugifyPathSegment(block.title, fallback), usedSegments);
+      const segment = uniqueSegment(
+        slugifyPathSegment(block.title, fallback),
+        usedSegmentsForParent(parentSegments),
+      );
       const routeSegments = [...parentSegments, segment];
       const title = typeof block.title === "string" && block.title.trim() !== ""
         ? block.title.trim()
@@ -292,6 +313,30 @@ async function copyFileToOutput({ sourcePath, outputDir, outputRelativePath, lab
   }
 }
 
+async function replaceDirectoryAtomically({ sourceDir, targetDir }) {
+  const parentDir = path.dirname(targetDir);
+  const baseName = path.basename(targetDir);
+  const backupDir = path.join(parentDir, `.${baseName}.previous-${process.pid}-${Date.now()}`);
+  const hadExistingTarget = await pathExists(targetDir);
+
+  if (hadExistingTarget) {
+    await fs.rename(targetDir, backupDir);
+  }
+
+  try {
+    await fs.rename(sourceDir, targetDir);
+  } catch (error) {
+    if (hadExistingTarget) {
+      await fs.rename(backupDir, targetDir);
+    }
+    throw error;
+  }
+
+  if (hadExistingTarget) {
+    await fs.rm(backupDir, { recursive: true, force: true });
+  }
+}
+
 async function buildPagesSite({
   manifestPath,
   outputDir,
@@ -301,6 +346,8 @@ async function buildPagesSite({
   const absoluteManifestPath = path.resolve(process.cwd(), manifestPath);
   const manifestDir = path.dirname(absoluteManifestPath);
   const absoluteOutputDir = path.resolve(process.cwd(), outputDir);
+  const outputParentDir = path.dirname(absoluteOutputDir);
+  const outputBaseName = path.basename(absoluteOutputDir);
 
   const manifest = await readJsonFromFile(absoluteManifestPath, "topic manifest");
   if (!Array.isArray(manifest)) {
@@ -328,68 +375,80 @@ async function buildPagesSite({
     });
   }
 
-  await fs.rm(absoluteOutputDir, { recursive: true, force: true });
-  await fs.mkdir(absoluteOutputDir, { recursive: true });
+  await fs.mkdir(outputParentDir, { recursive: true });
+  const buildOutputDir = await fs.mkdtemp(path.join(outputParentDir, `.${outputBaseName}.tmp-`));
+  let committedOutput = false;
 
-  const cssPath = path.join(absoluteOutputDir, "assets", "site.css");
-  await writeUtf8File(cssPath, stylingContext.getSiteCss());
-  await copyFileToOutput({
-    sourcePath: mathJaxSourcePath,
-    outputDir: absoluteOutputDir,
-    outputRelativePath: MATHJAX_ASSET_PATH,
-    label: "MathJax vendor asset",
-  });
-
-  const searchIndex = [];
-
-  for (const topic of topics) {
-    const pageRecords = collectPageRecords({
-      rootDocument: topic.topicDocument,
-      topicSlug: topic.slug,
-      topicTitle: topic.title,
-      topicDescription: topic.description,
+  try {
+    const cssPath = path.join(buildOutputDir, "assets", "site.css");
+    await writeUtf8File(cssPath, stylingContext.getSiteCss());
+    await copyFileToOutput({
+      sourcePath: mathJaxSourcePath,
+      outputDir: buildOutputDir,
+      outputRelativePath: MATHJAX_ASSET_PATH,
+      label: "MathJax vendor asset",
     });
 
-    for (const pageRecord of pageRecords) {
-      const topicBodyHtml = notesContentContext.renderTopicBody(pageRecord.topicDocument);
-      const topicPageHtml = stylingContext.renderTopicPage({
-        siteTitle,
-        topic: {
-          ...topic,
-          slug: pageRecord.slug,
-          title: pageRecord.title,
-          description: pageRecord.description,
+    const searchIndex = [];
+
+    for (const topic of topics) {
+      const pageRecords = collectPageRecords({
+        rootDocument: topic.topicDocument,
+        topicSlug: topic.slug,
+        topicTitle: topic.title,
+        topicDescription: topic.description,
+      });
+
+      for (const pageRecord of pageRecords) {
+        const topicBodyHtml = notesContentContext.renderTopicBody(pageRecord.topicDocument);
+        const topicPageHtml = stylingContext.renderTopicPage({
+          siteTitle,
+          topic: {
+            ...topic,
+            slug: pageRecord.slug,
+            title: pageRecord.title,
+            description: pageRecord.description,
+            parentTitle: pageRecord.parentTitle,
+          },
+          topicContentHtml: topicBodyHtml,
+          topics,
+        });
+
+        const topicPath = path.join(buildOutputDir, ...pageRecord.outputSegments, "index.html");
+        await writeUtf8File(topicPath, topicPageHtml);
+
+        searchIndex.push({
+          ...notesContentContext.createSearchEntry({
+            slug: pageRecord.slug,
+            topicDocument: pageRecord.topicDocument,
+          }),
+          urlPath: pageRecord.urlPath,
           parentTitle: pageRecord.parentTitle,
-        },
-        topicContentHtml: topicBodyHtml,
-        topics,
-      });
+        });
+      }
+    }
 
-      const topicPath = path.join(absoluteOutputDir, ...pageRecord.outputSegments, "index.html");
-      await writeUtf8File(topicPath, topicPageHtml);
+    const indexHtml = stylingContext.renderHomePage({
+      siteTitle,
+      topics,
+      searchEntries: searchIndex,
+    });
 
-      searchIndex.push({
-        ...notesContentContext.createSearchEntry({
-          slug: pageRecord.slug,
-          topicDocument: pageRecord.topicDocument,
-        }),
-        urlPath: pageRecord.urlPath,
-        parentTitle: pageRecord.parentTitle,
-      });
+    await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
+    await writeUtf8File(
+      path.join(buildOutputDir, "search-index.json"),
+      `${JSON.stringify(searchIndex, null, 2)}\n`,
+    );
+    await replaceDirectoryAtomically({
+      sourceDir: buildOutputDir,
+      targetDir: absoluteOutputDir,
+    });
+    committedOutput = true;
+  } finally {
+    if (!committedOutput) {
+      await fs.rm(buildOutputDir, { recursive: true, force: true });
     }
   }
-
-  const indexHtml = stylingContext.renderHomePage({
-    siteTitle,
-    topics,
-    searchEntries: searchIndex,
-  });
-
-  await writeUtf8File(path.join(absoluteOutputDir, "index.html"), indexHtml);
-  await writeUtf8File(
-    path.join(absoluteOutputDir, "search-index.json"),
-    `${JSON.stringify(searchIndex, null, 2)}\n`,
-  );
 }
 
 if (require.main === module) {

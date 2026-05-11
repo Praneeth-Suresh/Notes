@@ -5,12 +5,12 @@
 ![Notion API](https://img.shields.io/badge/Notion-API-000000?logo=notion&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)
 
-Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity (especially LaTeX and code blocks).
+Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity, LaTeX fidelity, code block fidelity, subpage navigation, and static search.
 
 ## Repository Architecture
 
-- `src/notion-ingestion`: Notion adapter + strict normalization.
-- `src/notes-content`: fidelity-safe notes rendering.
+- `src/notion-ingestion`: Notion adapter + strict normalization, including child pages nested inside Notion databases.
+- `src/notes-content`: fidelity-safe notes rendering, including Notion-like formatting and safe asset handling.
 - `src/site-styling`: page shell and CSS.
 - `scripts/pull-notion-topic.js`: pulls a Notion page into normalized topic JSON.
 - `scripts/build-pages.js`: builds static Pages output into `dist/`.
@@ -48,11 +48,21 @@ set +a
 echo "${NOTION_API_TOKEN:+NOTION_API_TOKEN is set}"
 ```
 
-## Notion Setup (Required for ingestion)
+## Notion Setup
 
 1. In Notion, create an integration and copy its token.
 2. Share each source page with that integration.
-3. Copy the page ID from the Notion URL.
+3. Share any nested databases with the same integration if their pages should be published.
+4. Copy the page ID from the Notion URL.
+
+The ingestion step recursively reads:
+
+- top-level page blocks
+- nested child pages
+- pages inside child databases
+- children inside those database pages
+
+That is what allows database-backed subpages to become static routes and search entries.
 
 Example URL:
 
@@ -66,9 +76,9 @@ Page ID:
 0123456789abcdef0123456789abcdef
 ```
 
-## Notion Ingestion Script Usage
+## Load Notes from Notion
 
-Use the Notion ingestion script to pull a page and store a normalized topic file.
+Use the ingestion script when you want to refresh the checked-in normalized JSON for a topic.
 
 ```bash
 node scripts/pull-notion-topic.js \
@@ -77,13 +87,22 @@ node scripts/pull-notion-topic.js \
   --title "Algorithms"
 ```
 
-Output defaults to:
+By default this writes:
 
 ```text
 content/topics/<slug>.normalized.json
 ```
 
-Override output path:
+For the Algorithms page, the command shape is:
+
+```bash
+node scripts/pull-notion-topic.js \
+  --page-id 2c0d3a21bb2d8031bb05f06833e69bd3 \
+  --slug algorithms \
+  --title "Algorithms"
+```
+
+You can override the output path when needed:
 
 ```bash
 node scripts/pull-notion-topic.js \
@@ -91,6 +110,8 @@ node scripts/pull-notion-topic.js \
   --slug algorithms \
   --out content/topics/algorithms.normalized.json
 ```
+
+If a nested Notion read fails, the CLI warns and asks whether to `retry`, `skip`, or `abort`. Choose `abort` when fidelity matters and you do not want to publish a partial topic.
 
 ## Topic Manifest Configuration
 
@@ -112,7 +133,9 @@ Each topic entry supports two source kinds:
 }
 ```
 
-### 2. Direct Notion source (build-time fetch)
+Use this mode when you want repeatable builds from committed normalized files.
+
+### 2. Direct Notion source
 
 ```json
 {
@@ -126,9 +149,11 @@ Each topic entry supports two source kinds:
 }
 ```
 
-If any manifest entry uses `"kind": "notion-page"`, `NOTION_API_TOKEN` must be set during build.
+Use this mode when the build should fetch directly from Notion. If any manifest entry uses `"kind": "notion-page"`, `NOTION_API_TOKEN` must be set during build.
 
-## Build Locally
+## Build the Site
+
+The build reads `content/topic-manifest.json`, renders all topic pages and subpages, writes a static search index, and copies the self-hosted MathJax asset.
 
 ```bash
 node scripts/build-pages.js \
@@ -141,22 +166,48 @@ Generated output:
 
 - `dist/index.html`
 - `dist/topics/<slug>/index.html`
+- `dist/topics/<slug>/<subpage>/index.html`
 - `dist/assets/site.css`
 - `dist/search-index.json`
 
-Run deterministic checks:
+The build uses a temporary output directory and replaces `dist/` only after rendering succeeds. If rendering fails, the previous output directory is left in place.
+
+## Preview Locally
+
+Build the site, then serve the generated `dist/` directory:
+
+```bash
+node scripts/build-pages.js --manifest content/topic-manifest.json --out dist
+python3 -m http.server 4173 --directory dist
+```
+
+Open:
+
+```text
+http://localhost:4173/
+```
+
+Useful manual checks:
+
+- Home page search should find root topics and subpages.
+- `/topics/algorithms/` should include links for child pages from the Algorithms database.
+- Child pages should be available at static routes such as `/topics/algorithms/sorting/`.
+- LaTeX and code blocks should render without losing source formatting.
+
+## Verify Changes
+
+Run the deterministic gate before committing:
 
 ```bash
 ./scripts/check.sh
 ```
 
-To check what the page looks like while doing local development, use:
+If you intentionally changed tests, update the test manifest:
 
+```bash
+./scripts/update-test-manifest.sh
+./scripts/check.sh
 ```
-python3 -m http.server 4173 --directory /tmp/notes-pages-home-check
-```
-
-and then navigate to `localhost:4173`.
 
 ## Deploy to Cloudflare Pages (Git Integration)
 
@@ -192,18 +243,23 @@ npx wrangler pages deploy dist --project-name <your-pages-project-name>
 
 Use this when you want manual deploys from local output.
 
-## Out-of-the-Box Checklist
+## Standard Maintainer Workflow
 
-1. `NOTION_API_TOKEN` configured locally.
-2. Notion pages shared with your integration.
-3. `content/topic-manifest.json` updated with your topics.
-4. `node scripts/pull-notion-topic.js ...` run for normalized-file topics (or use notion-page entries).
-5. `node scripts/build-pages.js ...` produces `dist/`.
-6. Cloudflare Pages build settings and variables configured.
+1. Set `NOTION_API_TOKEN` locally.
+2. Share the source Notion page and any nested databases with the integration.
+3. Pull or refresh normalized topic JSON with `node scripts/pull-notion-topic.js ...`.
+4. Confirm `content/topic-manifest.json` points at the normalized file or direct Notion page.
+5. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
+6. Preview with `python3 -m http.server 4173 --directory dist`.
+7. Run `./scripts/check.sh`.
+8. Deploy through Cloudflare Pages.
 
 ## Reliability and Fidelity Guarantees
 
 - Unsupported Notion block types fail fast in strict mode (no silent degradation).
 - LaTeX is preserved into render-ready math wrappers.
 - Code blocks preserve language metadata, boundaries, and indentation.
+- Child pages, including pages nested inside Notion databases, are flattened into static routes.
+- Search covers root topics and generated subpages.
+- Safe raster Notion image assets are preserved, while unsafe links and asset URLs are rejected.
 - Deterministic checks run in CI via `.github/workflows/deterministic-checks.yml`.
