@@ -1,9 +1,13 @@
 "use strict";
 
 const ALLOWED_URL_PROTOCOLS = new Set(["http:", "https:", "mailto:"]);
+const ALLOWED_ASSET_URL_PROTOCOLS = new Set(["http:", "https:"]);
+const ALLOWED_RASTER_DATA_IMAGE_PATTERN =
+  /^data:image\/(?:gif|png|jpe?g|webp);base64,[a-z0-9+/]+={0,2}$/iu;
 const NOTION_COLOR_PATTERN = /^[a-z]+(?:_background)?$/u;
 const CHILD_AWARE_RENDERERS = new Set([
   "callout",
+  "child_database",
   "column",
   "column_list",
   "synced_block",
@@ -54,17 +58,44 @@ function sanitizeHref(href) {
   return parsedUrl.toString();
 }
 
-function sanitizeAssetUrl(url) {
-  const sanitized = sanitizeHref(url);
-  if (!sanitized) {
+function sanitizeAssetUrl(url, { allowDataImage = false } = {}) {
+  if (url == null) {
     throw new Error("Asset URL must be a non-empty URL.");
   }
 
-  if (sanitized.startsWith("mailto:")) {
-    throw new Error("Asset URL must use http, https, or a site-relative path.");
+  if (typeof url !== "string") {
+    throw new Error("Asset URL must be a string.");
   }
 
-  return sanitized;
+  const trimmed = url.trim();
+  if (trimmed === "") {
+    throw new Error("Asset URL must be a non-empty URL.");
+  }
+
+  if (trimmed.startsWith("/")) {
+    return trimmed;
+  }
+
+  if (trimmed.toLowerCase().startsWith("data:")) {
+    if (!allowDataImage || !ALLOWED_RASTER_DATA_IMAGE_PATTERN.test(trimmed)) {
+      throw new Error("Unsupported asset data URL.");
+    }
+
+    return trimmed;
+  }
+
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(trimmed);
+  } catch (error) {
+    throw new Error(`Invalid asset URL: ${trimmed}`);
+  }
+
+  if (!ALLOWED_ASSET_URL_PROTOCOLS.has(parsedUrl.protocol)) {
+    throw new Error(`Unsupported URL protocol in asset URL: ${parsedUrl.protocol}`);
+  }
+
+  return parsedUrl.toString();
 }
 
 function notionColorClass(color) {
@@ -351,7 +382,7 @@ function renderChildDatabase(block) {
     ? block.title
     : "Linked database";
   const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
-  return `<section class="note-child-database"${blockId}><h3>${escapeHtml(title)}</h3></section>`;
+  return `<section class="note-child-database"${blockId}><h3>${escapeHtml(title)}</h3><div class="note-database-entries">${renderNestedChildren(block)}</div></section>`;
 }
 
 function renderChildPage(block) {
@@ -369,7 +400,7 @@ function renderChildPage(block) {
 }
 
 function renderAsset(block) {
-  const url = sanitizeAssetUrl(block.url);
+  const url = sanitizeAssetUrl(block.url, { allowDataImage: block.kind === "image" });
   const caption = Array.isArray(block.caption) && block.caption.length > 0
     ? `<figcaption>${renderRichText(block.caption)}</figcaption>`
     : "";

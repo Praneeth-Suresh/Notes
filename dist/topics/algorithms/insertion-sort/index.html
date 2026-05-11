@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Insertion Sort · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Insertion Sort</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8020-b451-ef5ccd08c9ee">This is an <strong>in-pace</strong> sorting algorithm (<span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span> space) that works for small input sizes. </p><blockquote class="notion-block notion-quote" data-notion-block-id="2efd3a21-bb2d-80ad-a65f-e73fc965fb30">Recall that a sorting algorithm sorts in place if only a constant number of elements of the input array are ever stored outside the array.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8097-b867-cb1be0c6ce4f">The invariant that insertion sort maintains is that at the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements in the array are sorted. </p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-809a-a1f4-f900eda11518">To maintain this, we need to do the following in the inner loop. We do this by looping within the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements till we reach the element where we can insert the <span class="note-inline-equation" data-latex="i+1">\(i+1\)</span> element.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8058-b3bc-d0db48259123">The inner invariant can be stated as ensuring that in the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, we need to ensure that all elements in the sub-list <span class="note-inline-equation" data-latex="[j+1, i]">\([j+1, i]\)</span> are greater than the <span class="note-inline-equation" data-latex="j^{th}">\(j^{th}\)</span> element. If this is not true, then we can remedy it by pushing the last element forward with a swap.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-80b3-94f8-e1987f604f29">Here is how this algorithm can be illustrated using pseudocode:</p><figure class="notion-block notion-code" data-notion-block-id="2efd3a21-bb2d-802b-afa5-eb047b022624"><pre class="note-code-block" data-language="c"><code class="language-c">procedure insertionSort(array A)
+    n = length(A)
+    // Iterate from the second element to the last
+    for i = 1 to n - 1
+        // Store the current element to be inserted
+        key = A[i]
+        // Start comparing key with elements to its left
+        j = i - 1
+
+        // Move elements of A[0..i-1], that are greater than key, 
+        // to one position ahead of their current position
+        while j &gt;= 0 and A[j] &gt; key
+            A[j + 1] = A[j]
+            j = j - 1
+        
+        // Insert the key into its correct position
+        A[j + 1] = key
+    end for
+end procedure</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8065-862c-fa24b4fd44c5">This leads to an algorithm that sorts in worst case <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span> time. However, here are the different cases:</p><table class="notion-block notion-table" data-notion-block-id="2efd3a21-bb2d-803e-a3c1-e5c4b14deb3f"><tbody><tr><th><strong>Case</strong></th><th><strong>Time Complexity</strong></th><th><strong>Description</strong></th></tr><tr><td><strong>Best Case</strong></td><td><strong>O(n)</strong></td><td>Occurs when the array is already sorted. The algorithm makes a single comparison for each element, resulting in linear time.</td></tr><tr><td><strong>Average Case</strong></td><td><strong>O(n²)</strong></td><td>Occurs when the elements are in a random or jumbled order. The number of comparisons and shifts grows quadratically with the input size.</td></tr><tr><td><strong>Worst Case</strong></td><td><strong>O(n²)</strong></td><td>Occurs when the array is sorted in reverse order. Every new element must be compared and swapped with all elements in the already sorted portion.</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="2f0d3a21-bb2d-803c-ac89-c2af0c2d2349" /><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-80f9-863b-ccc47afa5874">In Java, this can be condensed down into the following algorithm. This is a classic insertion sort algorithm with a slightly different structure than you might typically see:</p><figure class="notion-block notion-code" data-notion-block-id="2f0d3a21-bb2d-803f-9010-f656d1b35146"><pre class="note-code-block" data-language="java"><code class="language-java">void insertionSort(int arr[], int n){
+    for (int i = 1; i &lt; n; ++i) {
+        for (int j = i; j &gt;= 1 &amp;&amp; arr[j-1] &gt; arr[j]; --j) {
+            int temp = arr[j-1];
+            arr[j-1] = arr[j];
+						arr[j] = temp;
+        }
+    }
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-80a6-b899-cf46fd894164"><strong>The outer loop</strong> (<code class="note-inline-code">for int i = 1; i &lt; n; ++i</code>) moves through the array from the second element to the end. The variable <code class="note-inline-code">i</code> represents the current element we&#39;re trying to insert into the already-sorted portion of the array (everything to the left of <code class="note-inline-code">i</code>).</p><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-80ab-9a6d-c5738ee8b88f"><strong>The inner loop</strong> (<code class="note-inline-code">for int j = i; j &gt;= 1 &amp;&amp; arr[j-1] &gt; arr[j]; ++j</code>) is where the insertion happens. 
+With <code class="note-inline-code">--j</code>, the element at position <code class="note-inline-code">i</code> gets swapped leftward repeatedly until it finds its correct position in the already-sorted portion of the array. </p><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-8067-a0c0-fe8a316da21d">That&#39;s how insertion sort is supposed to work - you take each element and &quot;bubble&quot; it leftward into its proper place among the elements that came before it.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-80f1-9972-d82dac779b88">Because of its efficiency with small data, many advanced sorting algorithms like TimSort and IntroSort use insertion sort as a subroutine to sort small partitions of data.</p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

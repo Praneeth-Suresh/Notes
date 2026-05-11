@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Convex Hull Trick · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Convex Hull Trick</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="345d3a21-bb2d-80d5-84d5-efaf069313e2">Convex Hull Problem</h1><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8091-a915-c9f307be890f">Here is the Convex Hull problem.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8024-bf34-fac319171e0b"><strong>Definition</strong>: Given a finite set of points <span class="note-inline-equation" data-latex="S">\(S\)</span> in the plane, the <strong>convex hull</strong> is the smallest convex polygon that contains all points in <span class="note-inline-equation" data-latex="S">\(S\)</span>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8047-9bce-cadcb5ee815d"><strong>Formalization</strong>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8009-b765-c41e33df7eda">A convex set is one where, for any two points inside it, the line segment connecting them is also inside.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-80a2-a2fb-d23360f41ad3">The convex hull of <span class="note-inline-equation" data-latex="S">\(S\)</span>, denoted <span class="note-inline-equation" data-latex="\text{CH}(S)">\(\text{CH}(S)\)</span>, is the intersection of all convex sets containing <span class="note-inline-equation" data-latex="S">\(S\)</span>.</li></ul></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-80e6-8724-dc74da6102bb">Here is an intuitive way to think about it: imagine stretching a rubber band around the set of points; when released, it snaps to the convex hull.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="345d3a21-bb2d-8056-bc9a-d267f1d95302">Naive Algorithm (Brute Force)</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-80b9-a57f-eb0b827186c9">Idea</h3><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-80b9-ba9c-f480bbf54b62">Check every pair of points to see if they form an edge of the convex hull.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-807f-93bf-c0fe174fe549">Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8096-8edd-daf860cee7cb">For each pair of points <span class="note-inline-equation" data-latex="(p_i, p_j)">\((p_i, p_j)\)</span>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-809f-9d28-cafe5f098f52">Consider the line through them.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-80c3-ae09-d728b2f79eb4">Check whether all other points lie on one side of the line (or on the line itself).</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-80af-adc6-ee4633318540">If true, then <span class="note-inline-equation" data-latex="(p_i, p_j)">\((p_i, p_j)\)</span> is an edge of the convex hull.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8013-aba7-eb02f5bb5311">Collect all such edges and order them to form the polygon.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-80a9-8433-dc539c47929b">Complexity</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-805f-b4b0-cc4bf8755ad5"><strong>Time</strong>: <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span> (since for each of the <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span> pairs, we check <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> points).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-80f3-8a1b-f301f27be29c"><strong>Space</strong>: <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8077-af33-ef5df1ceb643">This is extremely inefficient. How can we do better?</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="345d3a21-bb2d-808f-9d22-f2fbc0ec8e10">Divide and Conquer Algorithm</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-8032-996d-ea9c1a0da8fe">Idea</h3><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8028-9997-c733f270a6ee">Split the set of points into halves, compute convex hulls recursively, and merge them.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-802e-abbf-eb425115e72a">Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8067-94c8-f41687fc49ec"><strong>Sort</strong> points by x-coordinate.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8061-8193-f2a0b6c8bdb8"><strong>Divide</strong> into two halves: left and right.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-808e-9822-e1cfce8ebf4a"><strong>Recursively compute</strong> convex hulls for each half.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8088-8d33-cf4e6e8d8658"><strong>Merge step</strong>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8068-9f43-debc0ad65d2d">Find the upper and lower tangents between the two hulls.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8033-a2f5-cd06d7a11a4d">Combine them to form the overall convex hull.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8019-adad-f0edbe8091c7">The merge step is the key stroke of genius in this algorithm:</p><figure class="notion-block notion-code" data-notion-block-id="345d3a21-bb2d-80cb-af54-de0706fbaadc"><pre class="note-code-block" data-language="python"><code class="language-python">MERGE(leftHull, rightHull):
+    # Step 1: Find the rightmost point of leftHull and leftmost point of rightHull
+    pL = rightmost_point(leftHull)
+    pR = leftmost_point(rightHull)
+
+    # Step 2: Find upper tangent
+    while not is_upper_tangent(pL, pR, leftHull, rightHull):
+        if slope(pL, pR) &lt; slope(next_point(leftHull, pL), pR):
+            pL = next_point(leftHull, pL)
+        else:
+            pR = prev_point(rightHull, pR)
+
+    upperL = pL
+    upperR = pR
+
+    # Step 3: Find lower tangent
+    pL = rightmost_point(leftHull)
+    pR = leftmost_point(rightHull)
+    while not is_lower_tangent(pL, pR, leftHull, rightHull):
+        if slope(pL, pR) &gt; slope(prev_point(leftHull, pL), pR):
+            pL = prev_point(leftHull, pL)
+        else:
+            pR = next_point(rightHull, pR)
+
+    lowerL = pL
+    lowerR = pR
+
+    # Step 4: Construct merged hull
+    mergedHull = points_between(upperL, lowerL, leftHull) +
+                 points_between(lowerR, upperR, rightHull)
+
+    return mergedHull
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-803b-8fcb-e295b74aadc7">Here, the merge step takes worst case <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> which leads to the merge sort recurrence. Even with binary search, we will still have the same complexity.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="345d3a21-bb2d-8027-b5a4-edafee523e90">Complexity</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-8082-b2c0-d13cd243486e"><strong>Time</strong>: <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="345d3a21-bb2d-80d5-8cb1-e95e849c8125"><strong>Space</strong>: <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</li></ul><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="345d3a21-bb2d-80aa-983f-f835750a5f93">Convex Hull Trick</h1><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8012-aa9d-ecb348c29b3a">Refer to <a href="https://cp-algorithms.com/geometry/convex_hull_trick.html" rel="noreferrer noopener">https://cp-algorithms.com/geometry/convex_hull_trick.html</a></p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

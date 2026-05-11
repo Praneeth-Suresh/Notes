@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Merge Sort · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Merge Sort</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8038-80bb-c627334e18b9">There is a key note to be made about the implementation of merge sort: it is ideal if we write the function to change the array in place. </p><p class="notion-block notion-paragraph" data-notion-block-id="30bd3a21-bb2d-8083-8831-cf4781b4f326">The merge sort function itself will not return an array (instead it will modify the input array in place) but the merge procedure will create a copy of the two halves of the array to merge them.</p><p class="notion-block notion-paragraph" data-notion-block-id="30cd3a21-bb2d-801b-a422-d5134e3792bf">Here is a canonical implementation:</p><figure class="notion-block notion-code" data-notion-block-id="30cd3a21-bb2d-80a5-8e02-c9f0bb76fe78"><pre class="note-code-block" data-language="java"><code class="language-java">def mergeSort(array):
+    if len(array) &gt; 1:
+        mid = len(array) // 2
+        L = array[:mid]
+        M = array[mid:]
+
+        mergeSort(L)
+        mergeSort(M)
+
+        i = 0
+        j = 0
+        k = 0
+
+        while i &lt; len(L) and j &lt; len(M):
+            if L[i] &lt; M[j]:
+                array[k] = L[i]
+                i += 1
+            else:
+                array[k] = M[j]
+                j += 1
+            k += 1
+
+        while i &lt; len(L):
+            array[k] = L[i]
+            i += 1
+            k += 1
+
+        while j &lt; len(M):
+            array[k] = M[j]
+            j += 1
+            k += 1
+
+if __name__ == &#39;__main__&#39;:
+    array = [6, 5, 12, 10, 9, 1]
+    mergeSort(array)
+    print(&quot;Sorted array is: &quot;, end=&quot;&quot;)
+    for i in range(len(array)):
+        print(array[i], end=&quot; &quot;)
+    print()
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8013-b278-cda172650e15"><strong>Time Complexity</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8046-a542-c88e6fa05a57">Merge sort is an algorithm where a bulk of the work is done in the conquer (merge) step, leading to the recurrence:</p><div class="notion-block notion-equation" data-notion-block-id="30bd3a21-bb2d-80ad-af8e-cf0031e2789b" data-latex="T(n)=2T(n/2)+n">\[T(n)=2T(n/2)+n\]</div><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80af-9b04-e7f5b24136c0"><strong>Space Complexity</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8085-adf8-ff9629b12993">The auxiliary space complexity will be <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="30cd3a21-bb2d-8048-aa1e-eade7a50f15c">Example Problems</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-80fb-8bc0-eaec48e24807"><a href="https://www.google.com/search?q=Linked%20List%20Sorting&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAB" rel="noreferrer noopener"><strong>Linked List Sorting</strong></a><strong>:</strong> Merge sort is preferred for linked lists because it can efficiently sort them with <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span> time without requiring random access, which other algorithms like QuickSort lack.<p class="notion-block notion-paragraph" data-notion-block-id="30cd3a21-bb2d-80a3-a942-fbd35e7861a3">Ideal for linked lists because it doesn&#39;t require random access and can be implemented with <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span> stack space).</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="30cd3a21-bb2d-809b-9825-cba4c19e5660"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" /></figure><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="30cd3a21-bb2d-8090-af21-f3dcc3d33320"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" /></figure><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="30cd3a21-bb2d-80fd-bbf8-f03932c20507"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" /></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-80a9-9919-e466e42d096b"><a href="https://www.google.com/search?q=External%20Sorting&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAE" rel="noreferrer noopener"><strong>External Sorting</strong></a><strong>:</strong> When datasets are too large to fit in RAM (e.g., large file sorting on hard drives), merge sort is used to sort chunks of data, which are then merged.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-8044-b199-d0d29810b8ea"><a href="https://www.google.com/search?q=Parallel%20Computing&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAL" rel="noreferrer noopener"><strong>Parallel Computing</strong></a><strong>:</strong> Merge sort is highly parallelizable, allowing subarrays to be sorted independently in parallel, making it suitable for distributed systems.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-8007-9898-ee945428c0e6"><a href="https://www.google.com/search?q=Stability%20Requirements&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAN" rel="noreferrer noopener"><strong>Stability Requirements</strong></a><strong>:</strong> In applications where the relative order of equal elements must be maintained (stability), merge sort is favored over quicksort.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-8029-b650-e93dbc9e7c3d"><a href="https://www.google.com/search?q=Inversion%20Counting&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAP" rel="noreferrer noopener"><strong>Inversion Counting</strong></a><strong>:</strong> It is specifically used to solve problems involving counting inversions, &quot;Count Smaller on Right&quot; problems, and finding the union/intersection of sorted arrays.<p class="notion-block notion-paragraph notion-color-yellow_background" data-notion-block-id="30cd3a21-bb2d-8051-98e8-cf134bcaee4b">The key ideas is that if an element from the right subarray is smaller than an element from the left subarray, it forms an inversion with all remaining elements in the left subarray.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="30cd3a21-bb2d-8042-96cf-e4608d019a6d"><a href="https://www.google.com/search?q=Inverted%20File%20Indices&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA6wxveAU9UMGqV4FfyK9MKKeEBh5bWJGQOlYrbnFduCFOUvYaXHH-C7Mq6n9HjPe4RXWIYA8rC9hyH3Vl-5uLjaDIVeFukwh_34Ijfg7tR7_5yW_ckm-ObKMgOgnAdVv4HwVKpf4xyrYMqZUAzdyGfoZMRruwSgieaSbSJS7jybdOBU4u_nbAq0oNdUb375H3zIGmAUQLT1qHG6wFxCQKkfFgtFPGRooskm568g3BKsYZHzA8IBkfVKsLTabkKZxH0-AbG1kAcjU8_POZNdKD1&amp;csui=3&amp;ved=2ahUKEwj4zt_loOSSAxWXhGMGHW2jLVkQgK4QegQIBhAR" rel="noreferrer noopener"><strong>Inverted File Indices</strong></a><strong>:</strong> It is used in building data structures for search engines, helping to quickly return documents containing specific keywords.<figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="30cd3a21-bb2d-80e0-a4f2-e7559e4a1b55"><img src="data:image/png;base64,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" alt="" /></figure></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="314d3a21-bb2d-8022-8671-e14925c8bc71"></p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

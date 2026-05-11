@@ -107,6 +107,57 @@ test("renders normalized notion tables and assets", () => {
   assert.ok(html.includes("proof.pdf"));
 });
 
+test("allows safe raster data image assets without relaxing rich text links", () => {
+  const notesContext = createNotesContentContext();
+  const safeDataImage =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+  const topic = makeTopic([
+    {
+      type: "asset",
+      kind: "image",
+      url: safeDataImage,
+      caption: [{ type: "text", content: "Inline Notion image", annotations: {}, href: null }],
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+
+  assert.ok(html.includes(`src="${safeDataImage}"`));
+  assert.throws(
+    () =>
+      notesContext.renderTopicBody(
+        makeTopic([
+          {
+            type: "paragraph",
+            richText: [
+              {
+                type: "text",
+                content: "unsafe link",
+                annotations: {},
+                href: safeDataImage,
+              },
+            ],
+          },
+        ]),
+      ),
+    /Unsupported URL protocol in rich text href: data:/,
+  );
+  assert.throws(
+    () =>
+      notesContext.renderTopicBody(
+        makeTopic([
+          {
+            type: "asset",
+            kind: "image",
+            url: "data:image/svg+xml;base64,PHN2Zy8+",
+            caption: [],
+          },
+        ]),
+      ),
+    /Unsupported asset data URL/,
+  );
+});
+
 test("renders normalized toggle and callout blocks with nested content", () => {
   const notesContext = createNotesContentContext();
   const topic = makeTopic([

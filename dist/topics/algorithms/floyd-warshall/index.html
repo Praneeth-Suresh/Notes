@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Floyd-Warshall · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="active" href="/topics/algorithms/">Algorithms</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Floyd-Warshall</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ddd3a21-bb2d-8026-abbf-c39bd6394ba8">Floyd-Warshall is designed to solve the all pairs shortest path problem. This is the SSSP solved n times. Using Bellman-Ford, this would take <span class="note-inline-equation" data-latex="O(n^4)">\(O(n^4)\)</span> time on sparse graphs. Thus, we need a more efficient approach.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2ddd3a21-bb2d-802f-a6a0-ff6a6fff894f">Outline</h1><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ddd3a21-bb2d-803d-a1fe-d597e50f4100">Input: A weighted directed graph with (n) vertices.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ddd3a21-bb2d-80a8-aa59-e5d25175ef3f">Goal: Compute shortest paths between <strong>all pairs of vertices</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ddd3a21-bb2d-806f-b22d-e49c2b10d673">Key idea: We create subproblems by limiting the number of vertices we are allowed to look at. This allows us to do the processing of each sub-problem in constant time.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ddd3a21-bb2d-808c-b18d-e477bd2f208b"><strong>Defining subproblems</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="2ddd3a21-bb2d-8030-908c-ceb3a4e5397e">Define <span class="note-inline-equation" data-latex="D^{(k)}[i][j]">\(D^{(k)}[i][j]\)</span>: the shortest path distance from vertex (i) to vertex (j) <strong>using only intermediate vertices from the set </strong><span class="note-inline-equation" data-latex="{1, 2, \dots, k}">\({1, 2, \dots, k}\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ddd3a21-bb2d-80c6-a272-f5adfd0e1fdd"><strong>Base case</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-806d-9cfb-cf66cce7b07b"><span class="note-inline-equation" data-latex="D^{(0)}[i][j] = w(i, j)">\(D^{(0)}[i][j] = w(i, j)\)</span>
+where <span class="note-inline-equation" data-latex="w(i, j)">\(w(i, j)\)</span> is the direct edge weight (or <span class="note-inline-equation" data-latex="\infty">\(\infty\)</span> if no edge exists).</p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-80d2-8c9f-c4e774606fed"><strong>Recursive Step</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-80b7-bb6e-c8df1acbdca1"><span class="note-inline-equation" data-latex="D^{(k)}[i][j]= \min (D^{(k-1)}[i][j], D^{(k-1)}[i][k] + D^{(k-1)}[i][k])">\(D^{(k)}[i][j]= \min (D^{(k-1)}[i][j], D^{(k-1)}[i][k] + D^{(k-1)}[i][k])\)</span></p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-80dc-95d5-f181950ba291">Here is how this may be implemented:</p><figure class="notion-block notion-code" data-notion-block-id="34bd3a21-bb2d-804b-a2df-d3c9d92f328f"><pre class="note-code-block" data-language="c"><code class="language-c">procedure FloydWarshall(Graph):
+    // Let Graph be represented as adjacency matrix dist[][]
+    // dist[i][j] = weight of edge (i, j), or ∞ if no edge
+
+    n = number of vertices in Graph
+
+    // Initialize distance matrix (Handle Base Cases)
+    for i from 1 to n:
+        for j from 1 to n:
+            if i == j:
+                dist[i][j] = 0
+            else if edge(i, j) exists:
+                dist[i][j] = weight(i, j)
+            else:
+                dist[i][j] = ∞
+
+    // Main triple loop (Recursive Steps)
+    for k from 1 to n:                // intermediate vertex
+        for i from 1 to n:            // source vertex
+            for j from 1 to n:        // destination vertex
+                if dist[i][k] + dist[k][j] &lt; dist[i][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+
+    return dist</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="2ddd3a21-bb2d-8012-bd4d-eded16e64018"><strong>Complexity</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ddd3a21-bb2d-80ec-8afa-f971458b7199">Time: <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span> (triple nested loop over <span class="note-inline-equation" data-latex="k, i, j">\(k, i, j\)</span>).<p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-8082-8677-fa2848a17805">Reasoning in a different way, there are <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span> states and each state takes <span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span> time to compute.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ddd3a21-bb2d-80fd-af0b-c499b1ea368a">Space: <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span> (distance matrix).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ddd3a21-bb2d-8026-82cd-d3bd094f7f92">Whether it is possible to come up with an algorithm for the all pairs shortest path problem that works in less than <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span> time is an open problem.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="33ad3a21-bb2d-8072-b262-ddb9a879d312">Example Problems</h1><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8095-be8c-fcda276aa4b2"><strong>All-pairs reachability problem</strong> </h2><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8078-a1d7-cdc92d46bf51">Given a directed graph, return a matrix M such that M [u][v] = 1 if u can reach v, 0 otherwise. Floyd-Warshall leads to the classic <span class="note-inline-equation" data-latex="O(V^3)">\(O(V^3)\)</span> approach, where you repeatedly update reachability using an intermediate-vertex recurrence. It is easy to implement and works well for dense graphs conceptually, but it is cubic time.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8016-b5cf-f4bd77128cfc">However, there is a faster approach to this problem using matrices.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="342d3a21-bb2d-80bc-9767-cef05c8810f5">Diameter</h2><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-809d-99b5-c1f1b94037db">The diameter of the graph is defined as follows:</p><blockquote class="notion-block notion-quote" data-notion-block-id="342d3a21-bb2d-80c2-8c35-d31b59437430">The diameter of a graph (sometimes called the width) is the number of edges/total weight on the longest path between two nodes in the graph.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8043-aaee-c9c8234e25b3">There are multiple ways to approach this problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80c3-9aa2-db3fb1a289d4">For a general graph, the diameter of a graph can be computed by using a <a href="https://en.wikipedia.org/wiki/Shortest_path_problem" rel="noreferrer noopener">shortest path algorithm</a> to compute shortest paths between all pairs of vertices, and then taking the maximum of the distances that it computes.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80b6-b18b-c23bcecc6c4c">For a general, weighted graph with arbitrary positive or negative weights, the best choice is Floyd-Warshall in <span class="note-inline-equation" data-latex="O(V^3)">\(O(V^3)\)</span> time. However, in the following circuimstances, simplications can be made:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-8044-814f-f6531abfab74">In a graph with positive edge weights, repeatedly use <a href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm" rel="noreferrer noopener"><strong>Dijkstra&#39;s algorithm</strong></a> , once for each possible starting vertex. In a graph with <span class="note-inline-equation" data-latex="n">\(n\)</span> vertices and <span class="note-inline-equation" data-latex="m">\(m\)</span> edges, this takes time <span class="note-inline-equation" data-latex="O(mn+n^2 \log⁡n)">\(O(mn+n^2 \log⁡n)\)</span>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-8091-ba3c-cbc3c8126018">In an unweighted-graph, Dijkstra&#39;s algorithm may be replaced by a <a href="https://en.wikipedia.org/wiki/Breadth-first_search" rel="noreferrer noopener"><strong>breadth-first search</strong></a>, giving time <span class="note-inline-equation" data-latex="O(nm)">\(O(nm)\)</span></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-801f-a6e0-cc03ef6a32eb">In an undirected tree, we first perform a <strong>DFS (or BFS)</strong> from any node to find the farthest node, which becomes one endpoint of the longest path. Then, starting from this farthest node, we perform another DFS to find the node farthest from it.  <p class="notion-block notion-paragraph" data-notion-block-id="349d3a21-bb2d-80e8-8677-d539b7ddb385">Refer to <a href="https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de#326d3a21bb2d80b892b8c96e804cd9d7" rel="noreferrer noopener">Graph Diameter Calculation</a> for the algorithm.</p></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-801c-88d9-f2be3980cd9f">Alternatively, the diameter may be computed using an algorithm based on <a href="https://en.wikipedia.org/wiki/Fast_matrix_multiplication" rel="noreferrer noopener">fast matrix multiplication</a>, in time proportional to the time for multiplying <span class="note-inline-equation" data-latex="n \times n">\(n \times n\)</span> matrices (approximately <span class="note-inline-equation" data-latex="O(n^{2.37})">\(O(n^{2.37})\)</span>).</p><p class="notion-block notion-paragraph" data-notion-block-id="345d3a21-bb2d-8076-ae5c-f306322058ef"></p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

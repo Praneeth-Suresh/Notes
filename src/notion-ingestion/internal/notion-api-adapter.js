@@ -168,6 +168,8 @@ async function defaultDelay(ms) {
 async function notionRequest({
   fetchImpl,
   path,
+  method = "GET",
+  body,
   notionToken,
   notionVersion,
   maxRequestRetries = DEFAULT_MAX_REQUEST_RETRIES,
@@ -185,8 +187,9 @@ async function notionRequest({
 
     try {
       response = await fetchImpl(`${NOTION_API_BASE_URL}${path}`, {
-        method: "GET",
+        method,
         headers: buildNotionHeaders({ notionToken, notionVersion }),
+        body,
       });
     } catch (error) {
       if (attempt >= maxRequestRetries || !isRetryableFetchError(error)) {
@@ -202,12 +205,12 @@ async function notionRequest({
       return response.json();
     }
 
-    const body = await response.text();
+    const errorBody = await response.text();
     const apiError = createNotionApiError({
       status: response.status,
       statusText: response.statusText,
       path,
-      body,
+      body: errorBody,
     });
 
     if (attempt >= maxRequestRetries || !isRetryableStatus(response.status)) {
@@ -308,6 +311,76 @@ async function listAllBlockChildren({ fetchImpl, blockId, notionToken, notionVer
   return results;
 }
 
+async function listDatabasePagesPage({
+  fetchImpl,
+  databaseId,
+  notionToken,
+  notionVersion,
+  startCursor,
+  requestOptions,
+}) {
+  const encodedDatabaseId = encodeURIComponent(assertNonEmptyString(databaseId, "databaseId"));
+  const body = { page_size: 100 };
+
+  if (startCursor) {
+    body.start_cursor = startCursor;
+  }
+
+  return notionRequest({
+    fetchImpl,
+    path: `/databases/${encodedDatabaseId}/query`,
+    method: "POST",
+    body: JSON.stringify(body),
+    notionToken,
+    notionVersion,
+    ...requestOptions,
+  });
+}
+
+async function listAllDatabasePages({ fetchImpl, databaseId, notionToken, notionVersion, requestOptions }) {
+  const results = [];
+  let cursor;
+
+  while (true) {
+    const page = await runRecoverableRead({
+      operation: "queryDatabase",
+      pageId: databaseId,
+      requestOptions,
+      skipValue: {
+        results: [],
+        has_more: false,
+        next_cursor: null,
+      },
+      read: async () => {
+        const page = await listDatabasePagesPage({
+          fetchImpl,
+          databaseId,
+          notionToken,
+          notionVersion,
+          startCursor: cursor,
+          requestOptions,
+        });
+
+        if (!Array.isArray(page.results)) {
+          throw new Error(`Notion API database query response for database ${databaseId} is invalid.`);
+        }
+
+        return page;
+      },
+    });
+
+    results.push(...page.results);
+
+    if (!page.has_more) {
+      break;
+    }
+
+    cursor = page.next_cursor;
+  }
+
+  return results;
+}
+
 async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVersion, requestOptions }) {
   const children = await listAllBlockChildren({
     fetchImpl,
@@ -320,7 +393,47 @@ async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVer
   const withNestedChildren = [];
 
   for (const child of children) {
-    if (child && child.has_children) {
+    if (!child) {
+      continue;
+    }
+
+    if (child.type === "child_database") {
+      const databasePages = await listAllDatabasePages({
+        fetchImpl,
+        databaseId: child.id,
+        notionToken,
+        notionVersion,
+        requestOptions,
+      });
+
+      const syntheticChildren = [];
+      for (const page of databasePages) {
+        const title = extractPageTitle(page) ?? "Untitled Database Entry";
+        const blocks = await getBlockChildrenTree({
+          fetchImpl,
+          blockId: page.id,
+          notionToken,
+          notionVersion,
+          requestOptions,
+        });
+
+        syntheticChildren.push({
+          id: page.id,
+          type: "child_page",
+          child_page: { title },
+          has_children: blocks.length > 0,
+          children: blocks,
+        });
+      }
+
+      withNestedChildren.push({
+        ...child,
+        children: syntheticChildren,
+      });
+      continue;
+    }
+
+    if (child.has_children) {
       const nestedChildren = await getBlockChildrenTree({
         fetchImpl,
         blockId: child.id,
