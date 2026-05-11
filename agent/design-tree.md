@@ -16,17 +16,7 @@ The home page should express a minimalist academic library aesthetic while makin
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
-| Notion extraction strategy | `[A] Strict Notion API adapter + custom normalizer`, `[B] Existing parser + normalization adapter` | `[A]` | First vertical slice now implements strict normalization with fail-fast behavior for unsupported blocks. |
-| Notion block normalization coverage | `[A] Explicit canonical mapping for all documented Notion API block types`, `[B] Best-effort generic object passthrough`, `[C] Only render-supported blocks` | `[A]` | Formatting fidelity requires preserving structure and metadata for documented block types while strict-failing brand-new unknown API types. |
-| Notion API retrieval resilience | `[A] Bounded adapter retries for transient failures and 429`, `[B] Single-shot API calls`, `[C] Interactive retry prompt inside adapter` | `[A]` | Keeps transient connectivity/rate-limit recovery behind the Notion API adapter while preserving immediate failures for authorization and access errors. |
-| Notion read-error intervention | `[A] Public recovery callback with CLI prompt`, `[B] Adapter-owned terminal prompt`, `[C] Abort-only failures` | `[A]` | Maintainer uploads now warn and ask for retry, skip, or abort while keeping terminal I/O outside the adapter and deterministic tests inside the public ingestion boundary. |
-| Structured Notion content coverage | `[A] Normalize supported Notion tables, child databases, image assets, and file assets into canonical blocks`, `[B] Keep strict-mode failures for all non-text blocks`, `[C] Skip unsupported blocks by default` | `[A]` | Preserves more source information without relaxing strict failures for genuinely unknown block types. |
-| Clean-render guarantee strategy | `[A] Trust parser output`, `[B] Enforce sanitizer allowlist before publish` | `[B]` | Reliability requires deterministic, sanitized HTML output with fidelity protections for LaTeX and code blocks. |
-| Topic onboarding model | `[A] Hardcoded routes`, `[B] Manifest-driven topic registry` | `[B]` | Adding new topics should be metadata-only in most cases. |
-| Search index generation | `[A] Build-time static index`, `[B] Runtime remote index` | `[A]` | Keeps Pages static and avoids runtime dependency failures. |
-| Notion subpage publishing | `[A] Flatten child pages into static nested routes`, `[B] Inline child pages into the parent topic`, `[C] Ignore child pages until manually promoted to topics` | `[A]` | Notion subpages are part of the notes hierarchy and must remain navigable and searchable without runtime services. |
-| Browser math rendering | `[A] Emit TeX delimiters and load self-hosted MathJax from Pages assets`, `[B] Show TeX source only`, `[C] Custom-render a small LaTeX subset`, `[D] Load MathJax from a third-party CDN` | `[A]` | Existing notes-content output preserves source expressions; self-hosting avoids Cloudflare CSP, ad-blocking, and third-party CDN failures. |
-| Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement`, `[B] Decorative landing page before topic links`, `[C] Client-side routed application` | `[A]` | Navigability is now a primary workflow, and the site must remain static and clear without JavaScript. |
+| n/a | n/a | n/a | No open design decisions are currently blocking the first formatting-fidelity slice. |
 
 ## Settled Decisions
 
@@ -36,6 +26,18 @@ The home page should express a minimalist academic library aesthetic while makin
 | Cloudflare Pages interface direction | Use a static artifact contract for Pages deployment outputs. | 2026-05-04 | n/a |
 | Rendering priority | Treat formatting fidelity as first-class: if LaTeX or code block fidelity cannot be preserved, do not publish degraded output. | 2026-05-04 | n/a |
 | First delivery slice | Build from `TopicManifest` and emit static Pages artifacts using the three context entry points. | 2026-05-04 | n/a |
+| Formatting fidelity architecture | `[B] Community library-based block rendering through the notes-content public entry point; current slice uses a local adapter-compatible renderer until package management is introduced.` | 2026-05-11 | n/a |
+| Notion extraction strategy | `[A] Strict Notion API adapter + custom normalizer` | 2026-05-11 | n/a |
+| Notion block normalization coverage | `[A] Explicit canonical mapping for all documented Notion API block types` | 2026-05-11 | n/a |
+| Notion API retrieval resilience | `[A] Bounded adapter retries for transient failures and 429` | 2026-05-11 | n/a |
+| Notion read-error intervention | `[A] Public recovery callback with CLI prompt` | 2026-05-11 | n/a |
+| Structured Notion content coverage | `[A] Normalize supported Notion tables, child databases, image assets, and file assets into canonical blocks` | 2026-05-11 | n/a |
+| Clean-render guarantee strategy | `[B] Enforce sanitizer allowlist before publish` | 2026-05-11 | n/a |
+| Topic onboarding model | `[B] Manifest-driven topic registry` | 2026-05-11 | n/a |
+| Search index generation | `[A] Build-time static index` | 2026-05-11 | n/a |
+| Notion subpage publishing | `[A] Flatten child pages into static nested routes` | 2026-05-11 | n/a |
+| Browser math rendering | `[A] Emit TeX delimiters and load self-hosted MathJax from Pages assets` | 2026-05-11 | n/a |
+| Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement` | 2026-05-11 | n/a |
 
 ## Pressure Points
 

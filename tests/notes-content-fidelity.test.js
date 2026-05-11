@@ -146,6 +146,86 @@ test("renders normalized toggle and callout blocks with nested content", () => {
   assert.ok(searchEntry.searchableText.includes("Important detail"));
 });
 
+test("renders notion-compatible formatting structure for layout and annotations", () => {
+  const notesContext = createNotesContentContext();
+  const topic = makeTopic([
+    {
+      type: "heading",
+      level: 4,
+      blockId: "heading-4",
+      color: "blue_background",
+      richText: [{ type: "text", content: "Detailed Aside", annotations: {}, href: null }],
+    },
+    {
+      type: "paragraph",
+      color: "gray",
+      richText: [
+        {
+          type: "text",
+          content: "Colored emphasis",
+          annotations: { bold: true, color: "red" },
+          href: null,
+        },
+      ],
+    },
+    {
+      type: "to_do",
+      blockId: "todo-1",
+      checked: true,
+      richText: [{ type: "text", content: "Verify proof", annotations: {}, href: null }],
+    },
+    {
+      type: "column_list",
+      children: [
+        {
+          type: "column",
+          widthRatio: 0.35,
+          children: [
+            {
+              type: "paragraph",
+              richText: [{ type: "text", content: "Left column", annotations: {}, href: null }],
+            },
+          ],
+        },
+        {
+          type: "column",
+          widthRatio: 0.65,
+          children: [
+            {
+              type: "paragraph",
+              richText: [{ type: "text", content: "Right column", annotations: {}, href: null }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "code",
+      language: "javascript",
+      code: "const x = 1;\n",
+      caption: [{ type: "text", content: "Executable sketch", annotations: {}, href: null }],
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+  const searchEntry = notesContext.createSearchEntry({ slug: "topic", topicDocument: topic });
+
+  assert.ok(html.includes('class="note-article notion-page-content"'));
+  assert.ok(html.includes('data-notion-block-id="heading-4"'));
+  assert.ok(html.includes('class="notion-block notion-heading notion-heading-4 notion-color-blue_background"'));
+  assert.ok(html.includes('class="notion-rich-text notion-color-red"'));
+  assert.ok(html.includes('class="notion-block notion-paragraph notion-color-gray"'));
+  assert.ok(html.includes('class="notion-block notion-to-do notion-to-do-checked"'));
+  assert.ok(html.includes('type="checkbox" checked disabled'));
+  assert.ok(html.includes('class="notion-column-list"'));
+  assert.ok(html.includes('style="--notion-column-width: 35%;"'));
+  assert.ok(html.includes('style="--notion-column-width: 65%;"'));
+  assert.ok(html.includes('<figcaption class="notion-caption">Executable sketch</figcaption>'));
+  assert.ok(searchEntry.searchableText.includes("Executable sketch"));
+  assert.ok(searchEntry.searchableText.includes("Left column"));
+  assert.ok(searchEntry.searchableText.includes("Verify proof"));
+});
+
 test("renders child page links and includes subpage titles in search text", () => {
   const notesContext = createNotesContentContext();
   const topic = makeTopic([
