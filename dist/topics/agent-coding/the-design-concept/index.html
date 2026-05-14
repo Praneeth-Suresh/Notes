@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Design Concept · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="" href="/topics/algorithms/">Algorithms</a><a class="active" href="/topics/agent-coding/">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">The Design Concept</h1>
+      <p class="topic-parent">Subpage of Agentic Coding</p>
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80bb-81be-fd63da441a5d">This idea originates from Fred Brooks.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-806e-a6a4-e802294b5028">When you have more than one person working on something, there is some idea or invisible theory. Good systems are guided by a coherent underlying idea shared by the people building them. In agentic programming, the agent needs access to that concept before it starts generating implementation details.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="352d3a21-bb2d-807d-b723-e80c92233b7f">The Design Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80e8-bf5e-f0262c8f02c7">The traditional &quot;rational model&quot; assumes a complete design tree (a tree of decisions) can be drawn upfront, which Brooks argues is rarely true for novel systems.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80d0-abd3-df2b791fd332">Unlike routine design, original design involves evolving, interconnected constraints where the &quot;desiderata&quot; (desired outcomes) change, making it difficult to fully map the tree of choices.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-801e-8795-d295f54828f1">Instead of fully mapping a decision tree beforehand, design is a process of co-evolution, where the problem and the solution are understood more deeply through constant iteration.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80c9-adfa-c9d370b2f7e6">This is what you want to do during the first stage of coding anything with an agent: you need to co-design it and try to come up with better and better versions of the decision tree.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80e0-8aff-e5c37f99bb65">Fix 1: <code class="note-inline-code">/grill-me</code></h1><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-802f-b3aa-fa8cb5006c15">The idea of using this skill is that it forces a shared design concept to exist before implementation.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-808b-9aaa-ec115d4989b6">Just using plan mode is not enough: you really need to put in a lot of effort to get the details communicated to the agent and ensure that there is not details that you leave for the agent to figure out itself.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8000-bd62-e2cd4170d5f2"><strong>Implementation</strong>: Before any code is written, the agent must run a <code class="note-inline-code">grill-me</code> sub-task where it critiques its own proposed plan.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8076-b1de-e02912c3bbb3"><strong>Criteria</strong>: The review must evaluate the plan for:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80e2-b972-c40097ca0fb3"><strong>Reliability</strong>: How will it handle tool failures or ambiguous LLM outputs?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808d-b7a4-fcbde28306d2"><strong>Context Management</strong>: Is the plan efficient with token usage and state persistence?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80c4-81de-eb02e489a5d2"><strong>Security</strong>: Does it protect credentials and system integrity?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808c-b583-e83810615fba"><strong>Scalability</strong>: How does the design hold up as task complexity increases?</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-805e-b4ad-d277d16fa01a"><strong>Outcome</strong>: The agent cannot proceed until it has answered its own &quot;grilling&quot; questions and updated the design tree accordingly.</li></ul></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

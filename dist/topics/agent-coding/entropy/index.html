@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Entropy · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/">Computer Science Notes</a>
+        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a><a class="" href="/topics/algorithms/">Algorithms</a><a class="active" href="/topics/agent-coding/">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Entropy</h1>
+      <p class="topic-parent">Subpage of Agentic Coding</p>
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80ee-9416-d82ed38d838e">AI increases throughput. It also increases the speed at which teams can manufacture entropy. Better agentic programming is therefore mostly a problem of decreasing entropy as much as possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80f6-a233-f0580cce9462">The idea of entropy is from <em>The Pragmatic Programmer</em>. Roughly, the idea is that entropy in code (like in physics) increases over time due to small structural compromises accumulate until the next change becomes harder, riskier, and more confusing than the last.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8008-96ea-f1e653927f26">High software entropy is characterized by hugely complex code bases.</p><blockquote class="notion-block notion-quote" data-notion-block-id="352d3a21-bb2d-80d6-8322-f16889e9c8d9">Complexity is anything related to the structure of a software system that makes it hard to understand and modify the system.</blockquote><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80ab-b807-f1a12300a044">Fix 1: Track &quot;entropy hotspots”</h1><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8055-a8d3-ffa211ada2a5">files with high churn</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8035-b54c-f8ca951be137">files touched by many unrelated features</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80c8-8ec6-de8f218c7373">modules with wide import graphs</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80b9-849e-c8f1ea86a613">modules nobody can test without a full environment</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8079-b45e-c900cdfaeeb9"></p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

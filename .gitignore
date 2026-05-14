@@ -28,3 +28,6 @@
 
 # MCP Artefacts
 .playwright-mcp
+
+# Scripts for ingestion
+ingest-details.md
