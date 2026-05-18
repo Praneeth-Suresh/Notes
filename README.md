@@ -78,7 +78,7 @@ Page ID:
 
 ## Load Notes from Notion
 
-Use the ingestion script when you want to refresh the checked-in normalized JSON for a topic.
+Use the ingestion script when you want to add a new topic or refresh the checked-in normalized JSON for an existing topic.
 
 ```bash
 node scripts/pull-notion-topic.js \
@@ -87,10 +87,44 @@ node scripts/pull-notion-topic.js \
   --title "Algorithms"
 ```
 
-By default this writes:
+This command now does two things:
+
+- writes `content/topics/<slug>.normalized.json`
+- adds or updates the matching entry in `content/topic-manifest.json`
+
+By default the normalized topic file is written to:
 
 ```text
 content/topics/<slug>.normalized.json
+```
+
+To make the generated site output include the new topic, rebuild after the pull:
+
+```bash
+node scripts/build-pages.js \
+  --manifest content/topic-manifest.json \
+  --out dist \
+  --site-title "Computer Science Notes"
+```
+
+For a brand-new topic, the command sequence is:
+
+```bash
+node scripts/pull-notion-topic.js \
+  --page-id 0123456789abcdef0123456789abcdef \
+  --slug operating-systems \
+  --title "Operating Systems"
+
+node scripts/build-pages.js \
+  --manifest content/topic-manifest.json \
+  --out dist \
+  --site-title "Computer Science Notes"
+```
+
+After that build completes, the topic is rendered at:
+
+```text
+dist/topics/<slug>/index.html
 ```
 
 For the Algorithms page, the command shape is:
@@ -248,7 +282,7 @@ Use this when you want manual deploys from local output.
 1. Set `NOTION_API_TOKEN` locally.
 2. Share the source Notion page and any nested databases with the integration.
 3. Pull or refresh normalized topic JSON with `node scripts/pull-notion-topic.js ...`.
-4. Confirm `content/topic-manifest.json` points at the normalized file or direct Notion page.
+4. The pull command writes the normalized topic file and updates `content/topic-manifest.json` for that slug.
 5. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
 6. Preview with `python3 -m http.server 4173 --directory dist`.
 7. Run `./scripts/check.sh`.

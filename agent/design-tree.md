@@ -10,13 +10,14 @@ Use three bounded contexts with a Cloudflare Pages composition boundary:
 
 The Pages build contract composes these contexts into static deploy artifacts so reliability and scalability are handled at build time, not runtime.
 Formatting fidelity is a hard requirement: notion-authored structure, especially LaTeX and code blocks, must be preserved exactly through publish artifacts.
-The home page should express a minimalist academic library aesthetic while making topic discovery and navigation the dominant interaction.
+The home page should express a minimalist technical hub aesthetic, borrowing static-friendly cues from Stripe.dev while making topic discovery and navigation the dominant interaction.
 
 ## Open Decisions
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
-| n/a | n/a | n/a | No open design decisions are currently blocking the first formatting-fidelity slice. |
+| Stripe-inspired motion depth | CSS-only generated motifs vs. JS/canvas animation vs. remote asset reproduction | CSS-only generated motifs | Cloudflare Pages static compatibility and reduced-motion support make CSS-only motion the safest first slice. |
+| Topic feed density | Card grid vs. compact blog-feed rows | Hybrid feed cards | Preserves the existing topic scan UX while moving visual rhythm closer to Stripe.dev's developer feed. |
 
 ## Settled Decisions
 
@@ -38,6 +39,8 @@ The home page should express a minimalist academic library aesthetic while makin
 | Notion subpage publishing | `[A] Flatten child pages into static nested routes` | 2026-05-11 | n/a |
 | Browser math rendering | `[A] Emit TeX delimiters and load self-hosted MathJax from Pages assets` | 2026-05-11 | n/a |
 | Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement` | 2026-05-11 | n/a |
+| Stripe-inspired styling boundary | Keep Stripe.dev cues inside `site-styling`; do not change `notes-content` block HTML for this slice. | 2026-05-18 | n/a |
+| Static asset policy for styling | Use local CSS, system font stacks, and generated decoration; do not add remote fonts or remote animation dependencies. | 2026-05-18 | n/a |
 
 ## Pressure Points
 
@@ -45,6 +48,22 @@ The home page should express a minimalist academic library aesthetic while makin
 - Topic manifest, navigation tree, and search index must stay consistent as topics grow.
 - Static child-page route slugs are derived from Notion child page titles, so duplicate sibling titles need deterministic disambiguation.
 - Cross-context imports must remain one-way through public entry points only.
+- Stripe-inspired visual density must not make technical notes harder to read, especially wide tables, code blocks, toggles, child databases, and LaTeX output.
+- Generated motion must respect static deployment and should avoid distracting users who prefer reduced motion.
+
+## Active Feature Slices
+
+| Slice ID | Bounded Context | Status | Goal | Next |
+| --- | --- | --- | --- | --- |
+| site-styling-stripe-static-001 | `site-styling` | done | Restyle the generated static home/topic shell toward Stripe.dev while preserving notes structure and fidelity. | Review UX changes and tune if needed. |
+| site-styling-polish-002 | `site-styling` | planned | Review the first slice for refinements after UX review, especially feed density and animation restraint. | Await review of documented UX changes. |
+
+## UX Changes For Review
+
+- Home page visual metaphor changed from a quiet library/shelf mark to a Stripe.dev-inspired developer hub with bracket labels, large sans-serif title, compact actions, and generated line-work motion.
+- Topic discovery changed from soft cards in a panel to a bordered feed grid with numbered topic entries and a `/ Feed` section label.
+- Header and topic navigation now use compact mono labels with bracketed hotkey-style prefixes for faster scanning; these are visual labels only, not keyboard shortcut handlers.
+- Topic pages use a narrower technical reading panel, stronger rectangular borders, and mono treatment for child-page/database affordances while preserving the same Notion block structure.
 
 ## Recording Rule (Design Tree vs ADR)
 

@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Putting it together · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <p class="site-subtitle">Static field notes for Computer Science.</p>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Putting it together</h1>
+      <p class="topic-parent">Subpage of Agentic Coding</p>
+      
+      <article class="note-article notion-page-content"><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-8148-b614-f51fd5caea67">Putting it together</h1><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8106-be75-c99ebb9a945b">The goal is not to make agents write more code. The goal is to make agents produce code that remains understandable, testable, and easy to change after the first generation.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8124-9114-f88dd0835d4b">This is the practical gameplan for building a sophisticated working application with agents. We use the idea of shared design concept, skills, ubiquitous language, feedback loops, entropy control, modularity, TDD, coupling management, and DDD.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-812e-a7e5-c666c49048d2">The Core Operating Rule</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8175-b45e-e1cefe42b20c">Agents are fast, but speed only helps when the feedback loops are stronger than the generation loop.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81c1-a07a-f4c2aa693f9c">Every agent task should therefore follow this shape:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d3-b49f-ddf57c0d9d9c">Clarify the design concept.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-817e-9b6d-d0f1ad0e5fde">Write or update the smallest useful design artifact.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c7-b76a-da3ac7e41656">Implement one vertical slice.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-811c-84fd-cd67f661c012">Run deterministic checks.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-811f-a97b-c73fef3f828f">Repair based on tool output.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81da-90e0-fdc66f02f78b">Record the design decision if it changes architecture or language.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8188-9d2c-e67ecba5a507">Do not ask the agent to “build the app” in one large pass. Ask it to build one behavior, through one module boundary, with one testable outcome.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-813f-b2bd-c8a294b4a389">Step 1: Create The Agent Control Plane</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-817a-afaf-d2ac7cd31375">Add an <code class="note-inline-code">agent/</code> directory to the repo. This becomes the shared source of truth for all coding agents.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e8-833a-e2bbcbd770a3">Recommended structure:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8187-8635-fb88bba5cb1c"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">agent/
+  README.md
+  project-brief.md
+  design-tree.md
+  ubiquitous-language.md
+  architecture.md
+  testing-policy.md
+  security-policy.md
+  agent-rules.md
+  tool-instruction-template.md
+  mcp.json
+  skills/
+    grilling-design/
+      SKILL.md
+    testing-vertical-slices/
+      SKILL.md
+    improving-architecture/
+      SKILL.md
+    tracking-entropy/
+      SKILL.md
+  scripts/
+    agent-doctor.sh
+    sync-agent-env.sh
+    entropy-hotspots.sh
+  adr/
+    0001-record-architecture-decisions.md</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81ed-9517-e0a5ddb73b56">Why this matters: agents need a stable memory layer that lives in the repo, not in one person’s chat history or local tool configuration.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-810c-b4bf-ecc0f022c090">Keep these files short enough to be loaded frequently. Move long references, examples, schemas, and checklists into separate files that agents load only when needed.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a3-beb0-d01b4b979012">Then generate tool-specific instruction files from the canonical <code class="note-inline-code">agent/</code> files. Common targets:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81b2-855b-eb8155d22abc"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">AGENTS.md
+CLAUDE.md
+.cursor/rules/agent-rules.md
+.github/copilot-instructions.md
+.codex/AGENTS.md</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8174-b083-daea6184e924">Treat these as generated shims. The real source of truth stays in <code class="note-inline-code">agent/</code>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817e-a6a4-c48a7d3d2a98">Tool-Specific Instruction Prompt</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81ce-817a-e49f5676bffe">Add this exact prompt to <code class="note-inline-code">agent/tool-instruction-template.md</code>, then copy it into each tool-specific instruction file, including <code class="note-inline-code">AGENTS.md</code>, <code class="note-inline-code">CLAUDE.md</code>, <code class="note-inline-code">.cursor/rules/agent-rules.md</code>, <code class="note-inline-code">.github/copilot-instructions.md</code>, and <code class="note-inline-code">.codex/AGENTS.md</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e7-8de8-c94e7ae6f3c4">The prompt is deliberately short. Its job is not to repeat every rule. Its job is to make each agent load the canonical repo files, obey their precedence, and keep its work inside deterministic feedback loops.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81d8-8622-d060efb1f91f"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Agent Operating Instructions
+
+This tool-specific instruction file is a generated shim. Do not edit this copy manually. Update `agent/tool-instruction-template.md` and rerun `agent/scripts/sync-agent-env.sh`.
+
+You are working in this repository as an implementation agent. Treat the repository files as the source of truth. Do not rely on hidden chat history, memory, or assumptions when a repo-owned instruction file answers the question.
+
+## Instruction Precedence
+
+1.Follow explicit user instructions for the current task.
+2.Follow the canonical files in `agent/`.
+3.Follow this tool-specific shim.
+4.Follow existing code, tests, and local conventions.
+
+If this shim conflicts with files under `agent/`, treat this shim as stale, follow the `agent/` files, and mention the conflict in your final response.
+
+## Required Context Before Editing
+
+Before changing code or tests, read the smallest relevant set of canonical files:
+
+-`agent/project-brief.md` for product goals, users, workflows, non-goals, and definition of done.
+-`agent/design-tree.md` for the current design concept, open decisions, settled decisions, and pressure points.
+-`agent/architecture.md` for bounded contexts, module ownership, public interfaces, adapters, and forbidden imports.
+-`agent/ubiquitous-language.md` for domain terms, technical symbols, definitions, constraints, and names to avoid.
+-`agent/testing-policy.md` for required test levels, mocking rules, and when tests may change.
+-`agent/agent-rules.md` for the day-to-day implementation workflow.
+
+Load additional files only when they are relevant to the task. Keep context focused.
+
+## Skill Use
+
+Skills live under `agent/skills/&lt;skill-name&gt;/SKILL.md`. Use a skill when its name or purpose matches the task.
+
+Default triggers:
+
+-Use `grilling-design` before non-trivial features, architecture changes, cross-context changes, or ambiguous bug fixes.
+-Use `testing-vertical-slices` for feature work and bug fixes that need behavior verification.
+-Use `improving-architecture` when a change exposes shallow modules, unclear ownership, repeated coupling, or hard-to-test structure.
+-Use `tracking-entropy` when asked to assess maintainability, hotspots, churn, complexity, or refactoring priority.
+
+When using a skill, read its `SKILL.md`, follow its process, and load only the referenced supporting files needed for the current task.
+
+## Default Work Loop
+
+For every implementation task:
+
+1.Restate the requested behavior and identify the bounded context.
+2.Identify the intended public interface and the files likely to change.
+3.Add or identify the smallest test or deterministic check that proves the behavior.
+4.Implement one vertical slice at a time.
+5.Run the narrowest relevant check first, then the broader relevant suite.
+6.Repair based on actual tool output, not guesswork.
+7.Update `agent/ubiquitous-language.md`, `agent/design-tree.md`, `agent/architecture.md`, or `agent/adr/` if the change alters domain language, boundaries, or durable design decisions.
+
+## Engineering Rules
+
+-Prefer existing project patterns over new abstractions.
+-Keep public interfaces small and explicit.
+-Do not import another bounded context&#39;s internals.
+-Put external systems behind adapters; do not leak API clients, ORM records, HTTP objects, or UI state into domain logic.
+-Use domain names from `agent/ubiquitous-language.md`; add new domain terms when needed.
+-Write types or interfaces before implementation when the language supports it.
+-Do not weaken tests to make implementation pass.
+-Do not edit unrelated files.
+-Do not store secrets in code, tests, logs, prompts, or instruction files.
+
+## Verification
+
+Run the checks required by `agent/testing-policy.md` and the local toolchain. If a required check cannot run, explain why and state the risk.
+
+Your final response must include:
+
+-What changed.
+-Which checks ran.
+-Which checks were skipped or unavailable.
+-Any design files, glossary entries, or ADRs updated.</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8165-8aa5-faabbc66477e">Step 2: Write The Minimum Useful Instruction Files</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a1-87e5-ddb81e97c405">Create these files before serious implementation starts.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8101-90a4-c818e8b0a44f"><code class="note-inline-code">agent/project-brief.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8106-bb84-fef40cef9d9f">Purpose: define what the application is trying to become.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d6-8c81-f47776237f04">Include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815f-97c3-f6328f1584a8">Product goal.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f7-8e06-d71a2e9ae7fc">Primary users.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81cf-8a87-c81c9ac15307">The 3 to 5 workflows that must feel excellent.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-816e-ad92-db8a470cf9fd">Non-goals.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8137-8a46-fa8aeadf9119">External systems the app depends on.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d8-bf5b-df08ca182c78">What “done” means for a feature.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8120-952c-c8253d5b7fd3">Template:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8118-80fa-ed92920bf226"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Project Brief
+
+## Product Goal
+
+Build [application] for [users] so they can [core outcome].
+
+## Primary Workflows
+
+1.[Workflow name]: [user goal]
+2.[Workflow name]: [user goal]
+3.[Workflow name]: [user goal]
+
+## Non-Goals
+
+-[Explicit thing not being built yet]
+
+## External Systems
+
+-[API/database/service] used for [reason]
+
+## Definition Of Done
+
+A feature is complete only when it has:
+
+-A small design note or updated design artifact.
+-Types/interfaces for the new boundary.
+-Tests for the intended behavior and at least one edge case.
+-Passing formatter, linter, typecheck, and relevant tests.
+-No new illegal imports across bounded contexts.</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8166-b5a1-d00bf3a85372"><code class="note-inline-code">agent/design-tree.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-819a-8798-f64ef39e0c65">Purpose: keep the shared design concept visible.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8108-90d6-c7168c49e7c1">This is not a giant upfront plan. It is a living decision tree that improves through implementation.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d0-bd3b-c6c33702ae98">Use this format:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8174-b96b-f7debbb84e7c"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Design Tree
+
+## Current Design Concept
+
+[One paragraph describing the organizing idea of the system.]
+
+## Open Decisions
+
+| Decision | Options | Current Lean | Why |
+| --- | --- | --- | --- |
+| [Question] | [A, B, C] | [A] | [Reason] |
+
+## Settled Decisions
+
+| Decision | Choice | Date | ADR |
+| --- | --- | --- | --- |
+| [Question] | [Choice] | [YYYY-MM-DD] | [ADR link] |
+
+## Pressure Points
+
+-[Constraint, ambiguity, or tradeoff that keeps affecting implementation.]</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8167-9662-d799b731c25d">Agent rule: before making architectural changes, the agent must update <code class="note-inline-code">Open Decisions</code> or create an ADR.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ba-aed3-d71942297f1f"><code class="note-inline-code">agent/ubiquitous-language.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816a-8779-ca9a34e2cd6b">Purpose: make domain vocabulary explicit so agents do not invent sloppy names.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d2-90c5-ee7773524b8b">Use this table:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81d8-b75a-e28a7107d5d7"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Ubiquitous Language
+
+| Business Term | Technical Symbol | Definition | Constraints | Avoid |
+| --- | --- | --- | --- | --- |
+| Account | `Account` | Organization or person that owns work in the app. | Has stable identity. | `UserAccount`, `CustomerData` |
+| Member | `Member` | Human user inside an account. | Belongs to exactly one account. | `User`, unless auth-specific |</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8166-9610-d58ecf3d0360">Practical rule: if a new domain noun appears in code, it should be added here in the same PR.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8157-892b-f719b63dfc9d"><code class="note-inline-code">agent/architecture.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8150-bab7-d3b5c92f9aca">Purpose: tell agents where code belongs.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81f6-ba26-ea5e02ecaffa">Include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819a-9093-c2eae394308c">Bounded contexts.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819f-9713-d23934b61b8e">Module responsibilities.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-816c-a0be-d3c2814d0946">Public interfaces.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ab-9843-d2ea2db8bd29">Forbidden imports.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ff-8689-e3a1b986796e">Where adapters live.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-818b-9d7f-ecefa844ebe9">Where domain logic must not leak.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8162-b96c-fcb9c363d997">Example:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8100-a918-fa030d5704b0"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Architecture
+
+## Bounded Contexts
+
+| Context | Owns | Does Not Own |
+| --- | --- | --- |
+| Billing | Plans, invoices, subscription state | Authentication, notification delivery |
+| Identity | Login, sessions, members, roles | Product billing rules |
+
+## Boundary Rules
+
+-Contexts may import from their own public entry point.
+-Contexts must not import another context&#39;s internal files.
+-External APIs are accessed through adapters, not directly from domain logic.
+-Domain objects must not depend on HTTP request objects, ORM records, or UI state.
+
+## Public Interface Rule
+
+Each context exposes one public entry point:
+
+-TypeScript: `src/&lt;context&gt;/index.ts`
+-Python: `src/&lt;context&gt;/__init__.py`
+-Go: `internal/&lt;context&gt;` plus explicit exported symbols</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8115-8160-c8d658f1931e"><code class="note-inline-code">agent/testing-policy.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8196-bce7-cff2affc0952">Purpose: prevent agents from treating tests as optional or moving the goal posts.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8104-97c0-e57330d35eda">Include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c0-b305-c523a27faadd">Test pyramid expectations.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a8-8d88-ee8f2a58febd">What counts as a unit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8112-b9a7-ec4ed4c0c271">What to mock.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8199-90ba-c21aaf614ffe">What not to mock.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8194-8db5-e928ab2d217f">When integration and E2E tests are required.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8136-8f74-fa81b4746fa9">Whether tests may be edited during a bug fix.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8160-bb16-d474941d0aa2">Recommended policy:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8194-b38d-cbee22d7f296"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Testing Policy
+
+## Default Loop
+
+1.Add or identify the failing behavior.
+2.Write the smallest test that captures it.
+3.Implement the fix.
+4.Run the narrow test.
+5.Run the broader relevant suite.
+
+## Test Modification Rule
+
+Existing tests may not be weakened to make implementation pass.
+
+During bug fixes, tests can be added. Existing test assertions can be changed only if the design artifact or ADR explains why the expected behavior changed.
+
+## What To Mock
+
+-Mock external services, clocks, randomness, payment providers, email, and network calls.
+-Do not mock domain logic inside the same bounded context.
+
+## Required Checks
+
+-Formatter
+-Linter
+-Typecheck
+-Unit tests
+-Relevant integration tests
+-E2E smoke test for user-facing workflow changes</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8148-ae11-de27f5f60346"><code class="note-inline-code">agent/agent-rules.md</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e1-8835-ea404863689d">Purpose: make the agent’s day-to-day behavior explicit.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8160-aa5f-da83f6bbdce9">Recommended rules:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8184-af13-d2a9d7b70e30"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Agent Rules
+
+## Before Coding
+
+-Read `agent/project-brief.md`, `agent/design-tree.md`, `agent/architecture.md`, and `agent/ubiquitous-language.md`.
+-Identify the bounded context being changed.
+-State the intended public interface.
+-Run the `grilling-design` skill for non-trivial changes.
+
+## While Coding
+
+-Work in one vertical slice at a time.
+-Prefer existing project patterns over new abstractions.
+-Define types and interfaces before implementation.
+-Keep public interfaces small.
+-Do not reach into another context&#39;s internals.
+-Do not weaken tests to pass implementation.
+
+## Before Finishing
+
+-Run formatter, linter, typecheck, and relevant tests.
+-Explain which checks ran and which did not.
+-Update the glossary, design tree, or ADRs if the design changed.</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8131-95f7-ef12eada395e">Step 3: Add Skills That Encode Repeatable Work</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8125-b646-e4302a00a124">Skills should be small, named by capability, and loaded only when relevant. Do not make one giant “coding” skill.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81e1-9531-ca3016312214">Skill 1: <code class="note-inline-code">grilling-design</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8168-88af-c9739b94ef5b">Create <code class="note-inline-code">agent/skills/grilling-design/SKILL.md</code>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8128-9b1a-f0b9c8aed27f"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Grilling Design
+
+Use before implementation of non-trivial features, architecture changes, or ambiguous bug fixes.
+
+## Process
+
+1.Restate the requested outcome in one paragraph.
+2.Identify the bounded context and public interface.
+3.List the main design options.
+4.Critique the current plan for:
+   -Reliability
+   -Context management
+   -Security
+   -Scalability
+   -Testability
+   -Coupling
+5.Ask: &quot;What assumption would make this implementation wrong?&quot;
+6.Revise the plan.
+7.Write the final implementation slice.
+
+## Output
+
+-Chosen approach
+-Rejected alternatives
+-Risks
+-Checks to run
+-Files likely to change</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8146-b5ab-d9c5033d4cc8">Actionable insight: make the agent argue against its own first plan before it edits files. This catches vague boundaries and hidden coupling early.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817b-a0c6-f030203beb7c">Skill 2: <code class="note-inline-code">testing-vertical-slices</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8134-8250-f95b149ba913">Create <code class="note-inline-code">agent/skills/testing-vertical-slices/SKILL.md</code>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-817e-b0ef-edbdf7334901"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Testing Vertical Slices
+
+Use when implementing a feature or bug fix.
+
+## Process
+
+1.Define the behavior in domain language.
+2.Pick the smallest useful test level:
+   -Unit for pure domain rules.
+   -Integration for persistence, adapters, or cross-module behavior.
+   -E2E for critical user workflows.
+3.Write or identify the failing test first.
+4.Implement only enough code to pass it.
+5.Refactor after the test is green.
+6.Add one edge-case test for the behavior the agent was most likely to miss.
+
+## Rules
+
+-Do not mock code from the same bounded context.
+-Do mock external systems.
+-Do not weaken existing tests without updating a design artifact.</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d5-9cf0-f18266a7d691">Actionable insight: agents behave better when the unit of work is a tested behavior, not a file list.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81d6-9e89-e7005e40be52">Skill 3: <code class="note-inline-code">improving-architecture</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8171-89d9-eb7a13beb7d2">Create <code class="note-inline-code">agent/skills/improving-architecture/SKILL.md</code>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81db-b85a-f8c2af051fcd"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Improving Architecture
+
+Use when code feels hard to change, a feature crosses too many files, or a module boundary is unclear.
+
+## Process
+
+1.Identify the friction point.
+2.Name the domain concept being hidden by the current structure.
+3.Find shallow modules that only pass arguments through.
+4.Propose a smaller public interface.
+5.Move implementation detail behind that interface.
+6.Add or update boundary tests.
+7.Record the decision in an ADR if the boundary changes.
+
+## Output
+
+-Current problem
+-Proposed boundary
+-Public API
+-Internal files
+-Tests protecting the boundary</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8107-84c6-efbaf219cd80">Actionable insight: the best refactors for agents are boundary refactors. They reduce the amount of context future agents need.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8164-80e1-d8b71f3b6494">Skill 4: <code class="note-inline-code">tracking-entropy</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-810a-b922-d2899152f276">Create <code class="note-inline-code">agent/skills/tracking-entropy/SKILL.md</code>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8143-8d83-cd0bc0eb163e"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># Tracking Entropy
+
+Use weekly, before large features, or when a file keeps getting changed by unrelated tasks.
+
+## Process
+
+1.Run `agent/scripts/entropy-hotspots.sh`.
+2.Identify files with both high churn and high complexity.
+3.For the top hotspot, ask:
+   -Which concepts are mixed together?
+   -Which imports reveal illegal coupling?
+   -Which tests would protect a split?
+4.Create one small refactoring issue.
+5.Do not refactor opportunistically inside unrelated feature work.</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81fb-864b-dac7ef44e041">Actionable insight: AI increases entropy when every feature touches the same central files. Track churn so refactoring work is aimed at the real risk.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-819e-8bfc-daef221f9717">Step 4: Connect Deterministic Tools And MCP Servers</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81da-9939-f68908313b4c">Agents need deterministic tools more than they need longer prompts.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8142-b473-f79e234979f9">Create <code class="note-inline-code">agent/mcp.json</code> as the desired MCP inventory. Exact server names vary by agent platform, but this is the target capability set:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-817c-935a-de539bcd0b45"><pre class="note-code-block" data-language="json"><code class="language-json">{
+  &quot;required&quot;: [
+    {
+      &quot;name&quot;: &quot;filesystem&quot;,
+      &quot;purpose&quot;: &quot;Read and edit repository files with explicit workspace limits&quot;
+    },
+    {
+      &quot;name&quot;: &quot;git&quot;,
+      &quot;purpose&quot;: &quot;Inspect diffs, history, branches, and changed files&quot;
+    },
+    {
+      &quot;name&quot;: &quot;fetch&quot;,
+      &quot;purpose&quot;: &quot;Fetch external documentation as markdown when current docs are required&quot;
+    },
+    {
+      &quot;name&quot;: &quot;browser&quot;,
+      &quot;purpose&quot;: &quot;Run Playwright or Puppeteer checks for web UI behavior&quot;
+    }
+  ],
+  &quot;optional&quot;: [
+    {
+      &quot;name&quot;: &quot;database-readonly&quot;,
+      &quot;purpose&quot;: &quot;Inspect schemas and safe sample data without mutation&quot;
+    },
+    {
+      &quot;name&quot;: &quot;logs-readonly&quot;,
+      &quot;purpose&quot;: &quot;Read production errors from Sentry, Datadog, CloudWatch, or equivalent&quot;
+    },
+    {
+      &quot;name&quot;: &quot;docs-search&quot;,
+      &quot;purpose&quot;: &quot;Search internal docs, ADRs, runbooks, and product specs&quot;
+    }
+  ]
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8122-8b66-d82883950e66">Practical security rules:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8175-8d00-c01af2017c80">Give agents read-only access by default.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ee-b5eb-ffd0cf5dd753">Use separate credentials for agent tooling.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-810b-a93a-dc9b68050ca6">Never place secrets in instruction files.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c9-8fdd-e436b9241235">Prefer local <code class="note-inline-code">.env.example</code> plus a secret manager over shared <code class="note-inline-code">.env</code> files.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8148-82eb-eaa91acfe920">For database MCP access, start with schema-only or read-only mode.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8190-91c3-ce0950c627cc">Require human approval for migrations, destructive shell commands, production writes, and dependency upgrades.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81ee-bb85-de4238c05d5a">Step 5: Standardize Local Commands</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-813b-8df0-eb9f7b9f43d9">Agents need one obvious command for each feedback loop.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-9791-ff685a65c1b1">Add these package scripts, Make targets, or task runner commands:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8196-9af3-fc588f7abf87"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">format
+lint
+typecheck
+test
+test:unit
+test:integration
+test:e2e
+check
+dev
+build</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8129-be67-d944d6b0121a"><code class="note-inline-code">check</code> should run the normal pre-PR gate:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8131-92ca-c9d7549512fd"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">format -&gt; lint -&gt; typecheck -&gt; unit tests -&gt; relevant integration tests</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818c-8d69-d0a36b7fb9ab">For web apps, add a Playwright smoke test for the most important workflow. This gives agents visual/runtime feedback instead of relying only on static code.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81d0-b2e0-c9c8f1c6ecd3">Step 6: Add Practical Scripts</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-814d-9fc9-d60a030e237b"><code class="note-inline-code">agent/scripts/agent-doctor.sh</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8173-861a-ecf6e9d47bb9">Purpose: quickly tell whether an environment is ready for agent work.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81b1-a52e-d3061e738689"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+echo &quot;Checking agent workspace...&quot;
+
+test -f agent/project-brief.md
+test -f agent/design-tree.md
+test -f agent/ubiquitous-language.md
+test -f agent/architecture.md
+test -f agent/testing-policy.md
+test -f agent/agent-rules.md
+test -f agent/tool-instruction-template.md
+
+command -v git &gt;/dev/null
+
+echo &quot;Agent instruction files present.&quot;
+echo &quot;Git available.&quot;
+echo &quot;Now run the project-specific check command.&quot;</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817d-a47b-db6cc76309fb"><code class="note-inline-code">agent/scripts/sync-agent-env.sh</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8112-85fb-db6c8ce8916d">Purpose: sync repo-owned instructions into local agent-specific locations.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8133-8785-c5c025c6cdd1">Keep the source of truth in <code class="note-inline-code">agent/</code>. The script should copy from the repo into each tool’s expected config directory, never the other way around.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816a-82d9-d8e160986095">Example:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-813f-9302-fe1244369ea6"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/../..&quot; &amp;&amp; pwd)&quot;
+SHIM=&quot;$ROOT/agent/tool-instruction-template.md&quot;
+
+mkdir -p &quot;$ROOT/.codex&quot;
+mkdir -p &quot;$ROOT/.cursor/rules&quot;
+mkdir -p &quot;$ROOT/.github&quot;
+
+cp &quot;$SHIM&quot; &quot;$ROOT/AGENTS.md&quot;
+cp &quot;$SHIM&quot; &quot;$ROOT/CLAUDE.md&quot;
+cp &quot;$SHIM&quot; &quot;$ROOT/.codex/AGENTS.md&quot;
+cp &quot;$SHIM&quot; &quot;$ROOT/.cursor/rules/agent-rules.md&quot;
+cp &quot;$SHIM&quot; &quot;$ROOT/.github/copilot-instructions.md&quot;
+
+echo &quot;Synced generated tool instruction shims from agent/ into local agent config files.&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-819d-bf9f-ddecd0ed0c22">Practical note: if multiple tools need small format differences, keep <code class="note-inline-code">agent/tool-instruction-template.md</code> as the shared shim and generate tool-specific versions from it. Do not manually maintain five divergent instruction files.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8149-8346-d98e5f017762"><code class="note-inline-code">agent/scripts/entropy-hotspots.sh</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81ae-beca-fb71c7b417de">Purpose: find files that deserve architectural attention.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8124-ad8a-d6a1fcaf767a"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+SINCE=&quot;${1:-12.month}&quot;
+
+git log --format=format: --name-only --since=&quot;$SINCE&quot; \
+  | sed &#39;/^$/d&#39; \
+  | sort \
+  | uniq -c \
+  | sort -nr \
+  | head -20</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81ff-9c4a-e7c4fa986363">Start with churn. Add complexity tooling later only if the churn list is too noisy.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8138-a1f7-c669abd420dd"><code class="note-inline-code">scripts/check-tests-unchanged.sh</code></h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81ec-aa5c-ca92c7a45137">Purpose: detect whether the test suite changed since the last approved test manifest.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8171-b6a0-c8916cadf48c">This does not make tests impossible to edit. It makes test changes explicit, deterministic, and easy to review. The check compares files under <code class="note-inline-code">tests/</code> against a committed SHA-256 manifest at <code class="note-inline-code">tests/.manifest.sha256</code>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8182-921f-ef36b80e057a"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/..&quot; &amp;&amp; pwd)&quot;
+TESTS_DIR=&quot;${ROOT_DIR}/tests&quot;
+MANIFEST=&quot;${TESTS_DIR}/.manifest.sha256&quot;
+
+fail() {
+  printf &quot;ERROR: %s\n&quot; &quot;$*&quot; &gt;&amp;2
+  exit 1
+}
+
+if [[ ! -d &quot;${TESTS_DIR}&quot; ]]; then
+  printf &quot;check-tests: no tests/ directory (skipping)\n&quot;
+  exit 0
+fi
+
+if [[ ! -f &quot;${MANIFEST}&quot; ]]; then
+  fail &quot;check-tests: missing${MANIFEST}. Run scripts/update-test-manifest.sh to create it.&quot;
+fi
+
+if command -v sha256sum &gt;/dev/null 2&gt;&amp;1; then
+  SHA=&quot;sha256sum&quot;
+elif command -v shasum &gt;/dev/null 2&gt;&amp;1; then
+  SHA=&quot;shasum -a 256&quot;
+else
+  fail &quot;check-tests: need sha256sum or shasum.&quot;
+fi
+
+tmp=&quot;$(mktemp)&quot;
+trap &#39;rm -f &quot;$tmp&quot;&#39; EXIT
+
+(
+  cd &quot;${TESTS_DIR}&quot;
+  find . -type f -print0 \
+    | LC_ALL=C sort -z \
+    | while IFS= read -r -d &#39;&#39; p; do
+        [[ &quot;$p&quot; == &quot;./.manifest.sha256&quot; ]] &amp;&amp; continue
+        rel=&quot;${p#./}&quot;
+        ${SHA} &quot;$rel&quot;
+      done
+) &gt;&quot;$tmp&quot;
+
+normalize() {
+  awk &#39;{print $1&quot; &quot;$2}&#39; &quot;$1&quot;
+}
+
+if !diff -u &lt;(normalize &quot;${MANIFEST}&quot;) &lt;(normalize &quot;$tmp&quot;) &gt;/dev/null; then
+  fail &quot;check-tests: tests/ contents differ from manifest. If intentional, run scripts/update-test-manifest.sh and commit the updated manifest.&quot;
+fi
+
+printf &quot;check-tests: OK (manifest matches)\n&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-8a1f-d8891e4f2be0">Pair it with <code class="note-inline-code">scripts/update-test-manifest.sh</code>, which is only run when a test change is intentional:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8155-bcb1-f703cc2ba455"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/..&quot; &amp;&amp; pwd)&quot;
+TESTS_DIR=&quot;${ROOT_DIR}/tests&quot;
+MANIFEST=&quot;${TESTS_DIR}/.manifest.sha256&quot;
+
+fail() {
+  printf &quot;ERROR: %s\n&quot; &quot;$*&quot; &gt;&amp;2
+  exit 1
+}
+
+mkdir -p &quot;${TESTS_DIR}&quot;
+
+if command -v sha256sum &gt;/dev/null 2&gt;&amp;1; then
+  SHA=&quot;sha256sum&quot;
+elif command -v shasum &gt;/dev/null 2&gt;&amp;1; then
+  SHA=&quot;shasum -a 256&quot;
+else
+  fail &quot;update-manifest: need sha256sum or shasum.&quot;
+fi
+
+tmp=&quot;$(mktemp)&quot;
+trap &#39;rm -f &quot;$tmp&quot;&#39; EXIT
+
+(
+  cd &quot;${TESTS_DIR}&quot;
+  find . -type f -print0 \
+    | LC_ALL=C sort -z \
+    | while IFS= read -r -d &#39;&#39; p; do
+        [[ &quot;$p&quot; == &quot;./.manifest.sha256&quot; ]] &amp;&amp; continue
+        rel=&quot;${p#./}&quot;
+        ${SHA} &quot;$rel&quot;
+      done
+) &gt;&quot;$tmp&quot;
+
+mv &quot;$tmp&quot; &quot;${MANIFEST}&quot;
+printf &quot;Wrote %s\n&quot; &quot;${MANIFEST}&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8116-8349-cce1b53ef651">Expose all deterministic checks through one manual command:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81eb-9db9-f757fdb4eb1e"><pre class="note-code-block" data-language="bash"><code class="language-bash">#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)/..&quot; &amp;&amp; pwd)&quot;
+
+&quot;${ROOT_DIR}/scripts/check-md.sh&quot;
+&quot;${ROOT_DIR}/scripts/check-tests-unchanged.sh&quot;
+
+printf &quot;OK\n&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81be-8b90-db71af3cc9f6">Run this command whenever you want assurance that the repo still satisfies the deterministic checks:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81e1-a9e5-edb96b9df20d"><pre class="note-code-block" data-language="bash"><code class="language-bash">./scripts/check.sh</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-810f-bd0f-db29faa07795">Step 7: Enforce Boundaries With Tooling</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81af-8015-fc9da5fc0852">Use the lightest tool that catches real mistakes.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81f0-97af-f5d18c46394d">For TypeScript:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8195-8ef1-e47e1b080446"><code class="note-inline-code">strict: true</code> in <code class="note-inline-code">tsconfig.json</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812c-9eda-d44d90437230"><code class="note-inline-code">eslint-plugin-import</code> or <code class="note-inline-code">dependency-cruiser</code> to block imports into another context’s internals.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d7-b62c-fbd39c88f480"><code class="note-inline-code">eslint</code> naming rules for banned vague names like <code class="note-inline-code">Data</code>, <code class="note-inline-code">Manager</code>, <code class="note-inline-code">Helper</code>, <code class="note-inline-code">Util</code>, and <code class="note-inline-code">Base</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fc-b7ba-da090e2ad9af"><code class="note-inline-code">fast-check</code> for property-based tests where invariants matter.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8117-9200-e961ad12ccf1">For Python:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-813d-81a6-df1f7d51dd49"><code class="note-inline-code">pyright</code> or <code class="note-inline-code">mypy</code> in strict mode where practical.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f7-bb00-e14713804373"><code class="note-inline-code">ruff</code> for linting and import rules.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e1-b9d8-d0a91a06b0c6"><code class="note-inline-code">pytest</code> for tests.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815e-949f-c3c83f78bcb5"><code class="note-inline-code">hypothesis</code> for property-based tests.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ce-b529-d164f6c9d6ea">package <code class="note-inline-code">__init__.py</code> files that expose public APIs deliberately.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81bc-8ce1-f3b84a511dd0">For Go:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81bf-9cb5-cc6a0576059e"><code class="note-inline-code">go test ./...</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8169-baa8-cc5261d006d6"><code class="note-inline-code">internal/</code> packages for hidden implementation.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e5-8bb2-d1daabed2159"><code class="note-inline-code">golangci-lint</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f8-bbb1-c90ba75046ee">interfaces at boundaries where substitution is actually needed.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8199-ac20-e626eed81ef4">Do not add complex governance before the app has real shape. Start with typecheck, tests, and import boundaries. Add custom lint rules only after you see repeated naming or coupling failures.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81ff-83c3-cffe89b5732a">Step 8: Use The Feature Workflow Every Time</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8127-9855-c76360f7b88b">This is the default agent workflow for building one feature.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8164-8f43-dbf365de5465">1. Intake</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81bf-bdf1-cd9b10d9e273">The human or lead agent writes a small feature brief:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-8164-8d08-c18f91f206ec"><pre class="note-code-block" data-language="markdown"><code class="language-markdown">## Feature
+
+[What user can now do.]
+
+## Domain Language
+
+[Terms from `agent/ubiquitous-language.md`.]
+
+## Bounded Context
+
+[Context being changed.]
+
+## Expected Behavior
+
+-[Behavior]
+-[Edge case]
+
+## Checks
+
+-[Relevant test command]
+-[Relevant typecheck/lint command]</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-819c-b47e-e323f2b55b80">2. Pre-flight Design Review</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81f7-b086-f43a2fc05f9b">Run the <code class="note-inline-code">grilling-design</code> skill.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-813a-8988-d0fb0b011d40">Required output:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-814f-b3bb-dd11c35bdc50">Chosen design.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815e-b7b6-f7e2038b8231">Rejected alternatives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b4-8023-d092776c2abe">Main risk.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-813a-aff8-dea4c070ca73">Public interface.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b0-840d-d87df5eb2191">Test strategy.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-810b-ac9a-cd44f27a2a2d">For small changes, this can be five bullets. For architectural changes, it should update <code class="note-inline-code">agent/design-tree.md</code> or create an ADR.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8134-a214-c6a69d597e5b">3. Type And Interface First</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8109-a41e-e43348122c00">Before implementation, define:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e4-ad65-feb4b1a05641">Domain types.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819d-a435-ddb38d7cbf00">Value objects for important primitives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-817b-8207-f2c76788f341">Public function/class/component boundary.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a6-9423-c048969d5f92">Adapter interface for external systems.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8199-8aa3-ec763adb7b45">This narrows the agent’s search space and gives the compiler something useful to check.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817e-be2b-dc69ea9bf17f">4. Test The Behavior</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-a68a-cd6156d71441">Use the smallest test that proves the behavior.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8159-ac92-fadff97be055">Testing choice:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8163-9bae-c5c244e1a67f">Pure rule: unit test.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8171-ab18-c74b66565122">Database or adapter behavior: integration test.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f2-bf7f-eaf6c8f5fd94">User workflow: E2E smoke test.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ae-86dc-c5beaad2a3ed">Invariant-heavy logic: property-based test.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8121-a88e-d30c8773b578">Add one edge case that targets the easiest agent mistake.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8181-8103-f35ece30002e">5. Implement The Slice</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-813d-8735-d8221fb7dd44">Rules:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812f-87ef-fe5be5464e99">Touch the fewest bounded contexts possible.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-810f-8d9c-fda474c592d9">Keep external systems behind adapters.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b8-9f79-ec7639b03fd2">Keep domain logic away from UI, HTTP, ORM, and vendor SDK details.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8110-8c76-cbacb58f2e89">Do not create generic helpers until two or three real call sites prove the shape.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-813f-9224-db44b7aecf34">Prefer deep modules with small public APIs.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81db-b61c-e4836d998522">6. Run Generate-Check-Fix</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e2-a45e-ed6ce2303b25">The agent runs:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81e8-9920-fe3168b8c522"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">format
+lint
+typecheck
+targeted test
+broader relevant test</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8154-b7dd-cc97a5f52c74">The agent should paste the failing output back into its reasoning and fix the actual cause. It should not guess from memory when deterministic output is available.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81b6-a553-caee522784ee">7. Close The Loop</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818d-b307-c557231df7cb">Before finishing, update:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b3-9101-c0fd34e820ca"><code class="note-inline-code">agent/ubiquitous-language.md</code> if new domain terms were introduced.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b4-9084-f7aadf5f92c0"><code class="note-inline-code">agent/design-tree.md</code> if a design decision moved from open to settled.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b1-b49e-f0f4983c5838"><code class="note-inline-code">agent/architecture.md</code> if a boundary changed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-814d-a2bb-fa2483ad5960"><code class="note-inline-code">agent/adr/</code> if the change affects future implementation choices.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-817a-a064-dbcdb210f95e">Step 9: Use ADRs For Decisions That Future Agents Must Remember</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e9-8030-da47fc03a39f">Create ADRs only for decisions that will matter later. Do not write an ADR for every tiny implementation detail.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81b1-8daa-d7c3ba499ca7">Template:</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81d2-ac2c-e0dc2bf46e7c"><pre class="note-code-block" data-language="markdown"><code class="language-markdown"># ADR N: [Decision Name]
+
+## Status
+
+Accepted
+
+## Context
+
+[What forced this decision?]
+
+## Decision
+
+[What did we choose?]
+
+## Consequences
+
+-[Benefit]
+-[Tradeoff]
+-[Follow-up]</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815b-9225-f313cf1bdba8">Good ADR triggers:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8169-b7a2-fa4f1cd6a3fc">Choosing a bounded context boundary.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c4-b242-d5e9e8f397f5">Choosing where domain logic lives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a7-91cd-c82fb488cee4">Introducing a new adapter.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819a-9df2-f0549aa7abc4">Changing persistence shape.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8154-b340-e30e673bbff9">Changing test strategy.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8158-a658-e361f0664344">Adding a cross-cutting abstraction.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81fa-af32-da810db8ae11">Step 10: Review Agents Like Junior Engineers With Perfect Typing Speed</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81b5-8beb-e475c6470d5e">Agent output should be reviewed for design drift, not just syntax.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-811e-9db4-c14664c8b093">Review checklist:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8160-91a2-e1a3c3d11ab1">Does the code use the ubiquitous language?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c0-b698-d9838ba2c62d">Did it change only the intended bounded context?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812c-9e39-e0067dc5eeb0">Are public interfaces smaller than implementations?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8157-bd9e-e9543c4b1473">Are external systems behind adapters?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8150-bf65-cee186dd3b17">Are tests checking behavior rather than implementation trivia?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8119-a2b4-f0598d7508ef">Did it add new generic helpers without enough evidence?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8120-b8e7-d1e3514c53a5">Did it weaken or delete tests?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8144-9128-c6097108c479">Did it leave instruction files stale?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8145-b872-f39576f82167">Did it increase coupling by importing internals from another module?</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e8-b10e-f8ed1bad7ed3">The most important review question is: “Will the next agent need less context or more context because of this change?”</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81c7-a89c-dce4be19172e">Practical Rollout Plan</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e3-9ceb-d9a67409aaf5">Do this in order. Each phase should leave behind a repo-owned artifact, a deterministic command, or both. The point is to turn agent behavior into a repeatable engineering system instead of a collection of good prompts.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8197-8eab-e665fe430bf6">Day 0: Bootstrap</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818d-a34a-e82a8fd31f16">Goal: create the control plane before asking agents to build features.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c3-ae84-dd5bc098900e">Create <code class="note-inline-code">agent/</code> with the canonical files listed in Step 1. Keep each file short enough that an agent can load it at the start of work.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a8-8ffa-ef6c10d97bd3">Fill <code class="note-inline-code">agent/project-brief.md</code> with the product goal, primary workflows, non-goals, external systems, and definition of done. Do not start implementation until the primary workflows are named.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d0-8402-e0cb64eb74c6">Create <code class="note-inline-code">agent/ubiquitous-language.md</code> as a table of <code class="note-inline-code">Business Term | Technical Symbol | Definition | Constraints</code>. Pull the first terms from <code class="note-inline-code">Plan.md</code>: design concept, design tree, bounded context, ubiquitous language, feedback loop, entropy hotspot, vertical slice, adapter, seam, and ADR.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812c-8a66-fe40bfcc4c7b">Create <code class="note-inline-code">agent/design-tree.md</code> with three sections: <code class="note-inline-code">Open Decisions</code>, <code class="note-inline-code">Settled Decisions</code>, and <code class="note-inline-code">Pressure Points</code>. The first version can be rough, but it must name the choices that are still uncertain.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8134-8ed2-cd53249f9335">Run the <code class="note-inline-code">grill-me</code> pre-flight review from <code class="note-inline-code">Plan.md</code> before creating architecture rules. In this repo, implement that as the <code class="note-inline-code">grilling-design</code> skill or a <code class="note-inline-code">grill-me</code> alias that loads <code class="note-inline-code">agent/skills/grilling-design/SKILL.md</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b5-acf6-d9418c91d3d7">During <code class="note-inline-code">grill-me</code>, make the agent critique the proposed design for reliability, context management, security, and scalability. Require short answers to: “What is unclear?”, “What will agents likely misunderstand?”, “What test proves the first behavior?”, and “What decision must be recorded now?”</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d7-bbad-f863b6cc8e60">Update <code class="note-inline-code">agent/design-tree.md</code> and <code class="note-inline-code">agent/ubiquitous-language.md</code> based on the grilling output. The review is not complete until the repo files change or the agent states that no change is needed and why.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fd-9f81-e0af58f6db0a">Add <code class="note-inline-code">agent-rules.md</code>, <code class="note-inline-code">tool-instruction-template.md</code>, <code class="note-inline-code">architecture.md</code>, and <code class="note-inline-code">testing-policy.md</code>. These files should tell agents what to read, which bounded context they may touch, when tests may change, and which checks must run.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e7-8dbb-c282b7fa6a93">Add the four skills: <code class="note-inline-code">grilling-design</code>, <code class="note-inline-code">testing-vertical-slices</code>, <code class="note-inline-code">improving-architecture</code>, and <code class="note-inline-code">tracking-entropy</code>. Each skill should include trigger conditions, required inputs, required output, and which repo files it may update.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8192-a033-f35d299ebbc8">Add <code class="note-inline-code">agent-doctor.sh</code>, <code class="note-inline-code">sync-agent-env.sh</code>, <code class="note-inline-code">entropy-hotspots.sh</code>, <code class="note-inline-code">scripts/check.sh</code>, <code class="note-inline-code">scripts/check-md.sh</code>, <code class="note-inline-code">scripts/check-tests-unchanged.sh</code>, and <code class="note-inline-code">scripts/update-test-manifest.sh</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a2-8302-d7a8eca5ec09">Run <code class="note-inline-code">agent/scripts/agent-doctor.sh</code> and <code class="note-inline-code">./scripts/check.sh</code>. Fix missing files before starting feature work.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817b-bfa0-ec1d2ca57e23">Week 1: Make Feedback Deterministic</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8172-8ae7-f81dc8d1dffa">Goal: make every agent change pass through the same local checks.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819c-b6f3-d143f8bd99ed">Choose the project commands and write them into <code class="note-inline-code">agent/testing-policy.md</code>: <code class="note-inline-code">format</code>, <code class="note-inline-code">lint</code>, <code class="note-inline-code">typecheck</code>, <code class="note-inline-code">unit test</code>, <code class="note-inline-code">integration test</code>, <code class="note-inline-code">e2e smoke</code>, and <code class="note-inline-code">check</code>. If a command does not exist yet, write <code class="note-inline-code">not available yet</code> and the reason.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-813d-9d25-ffaaf7aa1340">Make <code class="note-inline-code">./scripts/check.sh</code> the manual one-command gate. It should call Markdown checks, test-manifest checks, and any project-specific commands that exist.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812a-949c-c546b95d744d">Add <code class="note-inline-code">tests/.manifest.sha256</code> by running <code class="note-inline-code">./scripts/update-test-manifest.sh</code>. From this point forward, <code class="note-inline-code">./scripts/check-tests-unchanged.sh</code> tells you whether tests changed since the last approved manifest.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81cb-b039-db3947294939">Define the test-change rule in <code class="note-inline-code">agent/testing-policy.md</code>: existing tests must not be weakened during implementation; intentional test changes require a matching manifest update and a short explanation in the final response.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e8-98b3-e9005716b423">Turn on strict typechecking as far as the current codebase allows. If strict mode creates too much noise, document the relaxed rule and the plan to tighten it.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-810b-82fd-f704a5623466">Add import-boundary rules for the highest-value bounded contexts first. Start with one or two forbidden imports that catch real mistakes rather than a large policy that nobody understands.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8177-97cb-fd5fdf6d74d7">Add one E2E smoke test for the most important workflow. Keep it thin: it should prove the app starts and the primary path works, not exhaustively test every variant.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f9-a14a-d4e845c8d126">Update <code class="note-inline-code">agent/agent-rules.md</code> so every agent final response includes checks passed, checks skipped, and whether tests were changed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815a-aef4-cd1291cc5085">Run <code class="note-inline-code">./scripts/check.sh</code> manually before and after feature work. This replaces continuous watching; you decide when you want assurance.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81c6-b9bb-cfc4876cbfa3">Week 2: Improve Agent Memory</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8127-8aa4-e643cac56f63">Goal: move repeated explanations out of chat and into files agents can read.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815c-9f87-c3d625fe3a80">Review the last few feature discussions, bug reports, or design notes. Extract repeated domain terms into <code class="note-inline-code">agent/ubiquitous-language.md</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815f-a677-f604a3eca763">Use <code class="note-inline-code">grilling-design</code> whenever a term is ambiguous. The skill should ask whether the term belongs to the business domain, technical implementation, UI copy, or external-system vocabulary.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ef-b33d-d90a8588ad86">Add ADRs for decisions that repeatedly confuse agents: bounded context ownership, persistence shape, adapter boundaries, test strategy, and naming conventions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8142-bf0c-c7bba7fdb959">Move long prompt paragraphs into <code class="note-inline-code">agent/</code> files. A good rule: if you paste the same instruction twice, it belongs in the repo.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ae-967d-d7b93e709a97">Run <code class="note-inline-code">agent/scripts/sync-agent-env.sh</code> so <code class="note-inline-code">AGENTS.md</code>, <code class="note-inline-code">CLAUDE.md</code>, <code class="note-inline-code">.cursor/rules/agent-rules.md</code>, <code class="note-inline-code">.github/copilot-instructions.md</code>, and <code class="note-inline-code">.codex/AGENTS.md</code> are generated from the same source.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8174-81af-c4f1144dcc48">Run <code class="note-inline-code">agent-doctor.sh</code> after syncing. It should fail if a canonical file is missing or if a generated shim is stale.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-813a-9a05-d0c891d0370d">Update <code class="note-inline-code">agent/skills/*/SKILL.md</code> when a repeated workflow appears. Keep each skill focused: one trigger, one process, one expected output.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81a8-8e2e-c11c6bd71373">Week 3: Reduce Entropy</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a4-9320-df0ae1ce578d">Goal: use agents to make the codebase easier to change, not just larger.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-818c-8648-d8f314ad50f4">Run <code class="note-inline-code">agent/scripts/entropy-hotspots.sh</code> and pick one file or module with high churn. Do not start with the worst file if it is too broad; choose the smallest hotspot that affects current work.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8117-b58f-e8d56b8a68f1">Run the <code class="note-inline-code">tracking-entropy</code> skill. Required output: why the file changes often, which concepts are mixed together, what tests currently protect it, and what change would reduce future context needs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-810e-8ea4-cc1e2a64d545">Run <code class="note-inline-code">improving-architecture</code> on the chosen hotspot. Ask it to identify shallow modules, hidden domain concepts, unclear ownership, and imports that cross boundaries.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-810a-bbd6-ffdd886b6c5f">Choose one small refactor: extract a domain concept, move adapter code behind an interface, shrink a public API, or merge shallow pass-through modules.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812d-8890-fe7367e06b3a">Before refactoring, run <code class="note-inline-code">testing-vertical-slices</code> to identify the smallest behavior test that protects the boundary. Add or identify that test before implementation.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c5-a238-ef197337b12e">Make the refactor in one vertical slice. Avoid broad cleanup unless it directly supports the new boundary.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-811e-9b75-c278290f498b">Run targeted tests first, then <code class="note-inline-code">./scripts/check.sh</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-818a-810c-e927abd261c8">Record the decision in an ADR if future agents need to preserve the boundary. Update <code class="note-inline-code">agent/architecture.md</code> if imports or ownership changed.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-815d-bd7e-f549adff1acb">Ongoing: Per Feature</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e3-b0f6-c5cdd8df6156">Goal: make every feature follow the same generate-check-fix loop.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8148-abae-d3f0d5b47ef2">Write a feature brief with <code class="note-inline-code">Feature</code>, <code class="note-inline-code">Domain Language</code>, <code class="note-inline-code">Bounded Context</code>, <code class="note-inline-code">Expected Behavior</code>, and <code class="note-inline-code">Checks</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8133-a7fc-c74aa2df1526">Load the relevant canonical files: <code class="note-inline-code">project-brief.md</code>, <code class="note-inline-code">design-tree.md</code>, <code class="note-inline-code">architecture.md</code>, <code class="note-inline-code">ubiquitous-language.md</code>, <code class="note-inline-code">testing-policy.md</code>, and <code class="note-inline-code">agent-rules.md</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8140-8d66-f14f7fd5d47b">Run <code class="note-inline-code">grilling-design</code> for non-trivial work, ambiguous bug fixes, architecture changes, cross-context changes, or security-sensitive changes. For tiny changes, write the five-bullet version: chosen design, rejected alternative, main risk, public interface, and test strategy.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8101-944b-d9e740a6b341">Run <code class="note-inline-code">testing-vertical-slices</code> before implementation. It should choose the narrowest useful test level: unit for pure rules, integration for adapters or persistence, E2E smoke for user workflows, and property-based tests for invariants.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81db-b164-cc8106e7e141">Define types, interfaces, and public boundaries first. Use names from <code class="note-inline-code">agent/ubiquitous-language.md</code>; add new terms before using them widely.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-817b-b0bf-e2ea369db23a">Write or identify the smallest useful test. If the test suite must change, run <code class="note-inline-code">./scripts/update-test-manifest.sh</code> after the intentional edit and explain why the manifest changed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-817e-9b27-dd6552cc633f">Implement one vertical slice. Keep external systems behind adapters and avoid importing another bounded context’s internals.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ae-bb67-eea6bf176fce">Run the narrowest check first, then broader checks, then <code class="note-inline-code">./scripts/check.sh</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c4-ba57-eebd40db3c96">If checks fail, repair from actual tool output. Do not weaken tests unless the feature brief explicitly says the expected behavior changed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8148-bbae-ed289c7f3c9b">Close the loop by updating <code class="note-inline-code">ubiquitous-language.md</code>, <code class="note-inline-code">design-tree.md</code>, <code class="note-inline-code">architecture.md</code>, or an ADR when the change creates durable knowledge.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8101-8742-ca410d6759d0">Final response must state: what changed, which skill was used, which checks ran, whether tests changed, and whether the manifest changed.</li></ol><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8136-b42b-cc4c14925e1e">What To Avoid</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fb-9f3a-c22a1d4af772">Do not let agents implement across the whole repo from a vague prompt.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8109-bb7c-ca55b3139677">Do not store important instructions only in chat.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81aa-bb38-d0b644e209a5">Do not give write access to production systems through MCP.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ea-b309-c3fb8dd2e2d5">Do not let agents weaken tests during implementation.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8105-9781-ebb89224abaf">Do not create generic <code class="note-inline-code">utils</code>, <code class="note-inline-code">helpers</code>, <code class="note-inline-code">managers</code>, or <code class="note-inline-code">services</code> without a domain name.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8132-860e-d704506d5f8c">Do not split modules by framework layer when the domain boundary is clearer.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-812a-bc6f-cca854ba0044">Do not add heavyweight process for every small change. Use stronger ceremony only when the change affects architecture, security, data, or critical workflows.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81ef-9992-edadfab8ae3a">The Practical Standard</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-817f-a046-dbd71cea602f">A codebase is agent-ready when a new agent can answer these questions from repo files and tools, without relying on hidden conversation history:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a2-8c3f-dd714bab81f9">What is this app trying to do?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8107-b749-c23b286120bd">What domain words should I use?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8104-b45d-e954973237a5">Which bounded context am I changing?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a9-8559-ec1fed1adaa0">What public interface should I respect?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ef-8302-e1b811cc752a">Which tests prove the behavior?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ff-ab0e-d2faa74326f9">Which commands tell me I broke something?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8179-8a69-ce20b122c9e2">Where do I record a design decision?</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a1-b94b-c58ea7a94fdc">If those answers are easy to find, agents will produce smaller, safer, more coherent changes. If those answers are missing, agents will compensate by inventing structure, and that is where entropy accelerates.</p></article>
+    </section>
+  
+    </main>
+  </body>
+</html>

@@ -29,6 +29,9 @@
 # MCP Artefacts
 .playwright-mcp
 
+# Scripts for ingestion
+ingest-details.md
+
 # wrangler files
 .wrangler
 .dev.vars*

@@ -7,6 +7,14 @@
       "kind": "normalized-file",
       "path": "topics/algorithms.normalized.json"
     }
+  },
+  {
+    "slug": "agent-coding",
+    "title": "Agentic Coding",
+    "description": "",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/agent-coding.normalized.json"
+    }
   }
 ]
-

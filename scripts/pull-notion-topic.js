@@ -2,6 +2,7 @@
 "use strict";
 
 const path = require("node:path");
+const fs = require("node:fs/promises");
 const readline = require("node:readline/promises");
 
 const { createNotionIngestionContext } = require("../src/notion-ingestion");
@@ -19,6 +20,7 @@ function parseArgs(argv) {
     slug: null,
     out: null,
     title: null,
+    manifest: "content/topic-manifest.json",
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -48,6 +50,12 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (item === "--manifest") {
+      args.manifest = assertNonEmptyString(argv[index + 1], "--manifest value");
+      index += 1;
+      continue;
+    }
+
     throw new Error(`Unknown argument: ${item}`);
   }
 
@@ -68,6 +76,76 @@ function parseArgs(argv) {
   }
 
   return args;
+}
+
+async function readTopicManifest(absoluteManifestPath) {
+  let raw;
+
+  try {
+    raw = await fs.readFile(absoluteManifestPath, "utf8");
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
+
+  const manifest = JSON.parse(raw);
+  if (!Array.isArray(manifest)) {
+    throw new Error("Topic manifest must be an array.");
+  }
+
+  return manifest;
+}
+
+async function upsertTopicManifest({
+  manifestPath,
+  slug,
+  title,
+  description,
+  normalizedTopicPath,
+}) {
+  const normalizedSlug = assertNonEmptyString(slug, "slug");
+  const normalizedTitle = assertNonEmptyString(title, "title");
+  const absoluteManifestPath = path.resolve(
+    process.cwd(),
+    assertNonEmptyString(manifestPath, "manifestPath"),
+  );
+  const absoluteTopicPath = path.resolve(
+    process.cwd(),
+    assertNonEmptyString(normalizedTopicPath, "normalizedTopicPath"),
+  );
+  const manifestDir = path.dirname(absoluteManifestPath);
+  const sourcePath = path
+    .relative(manifestDir, absoluteTopicPath)
+    .split(path.sep)
+    .join(path.posix.sep);
+  const manifest = await readTopicManifest(absoluteManifestPath);
+  const existingIndex = manifest.findIndex((entry) => entry?.slug === normalizedSlug);
+  const existingEntry = existingIndex === -1 ? null : manifest[existingIndex];
+  const normalizedDescription =
+    typeof description === "string" && description.trim() !== ""
+      ? description.trim()
+      : existingEntry?.description ?? "";
+  const nextEntry = {
+    ...(existingEntry ?? {}),
+    slug: normalizedSlug,
+    title: normalizedTitle,
+    description: normalizedDescription,
+    source: {
+      kind: "normalized-file",
+      path: sourcePath,
+    },
+  };
+
+  if (existingIndex === -1) {
+    manifest.push(nextEntry);
+  } else {
+    manifest[existingIndex] = nextEntry;
+  }
+
+  await fs.mkdir(manifestDir, { recursive: true });
+  await fs.writeFile(absoluteManifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
 
 function createCliReadErrorPrompt() {
@@ -143,8 +221,16 @@ async function main() {
     topicDocument,
     filePath: args.out,
   });
+  await upsertTopicManifest({
+    manifestPath: args.manifest,
+    slug: args.slug,
+    title: topicDocument.title,
+    description: topicDocument.description ?? "",
+    normalizedTopicPath: args.out,
+  });
 
   console.log(`Wrote normalized topic file: ${args.out}`);
+  console.log(`Updated topic manifest: ${args.manifest}`);
 }
 
 if (require.main === module) {
@@ -153,3 +239,8 @@ if (require.main === module) {
     process.exitCode = 1;
   });
 }
+
+module.exports = {
+  parseArgs,
+  upsertTopicManifest,
+};
