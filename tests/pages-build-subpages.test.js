@@ -87,6 +87,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
       path.join(outDir, "topics", "algorithms", "dynamic-programming", "index.html"),
       "utf8",
     );
+    const homeHtml = await fs.readFile(path.join(outDir, "index.html"), "utf8");
+    const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
     );
@@ -97,6 +99,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
+    assert.ok(homeHtml.includes('class="stripe-field"'));
+    assert.ok(homeHtml.includes('data-hotkey="T"'));
+    assert.ok(siteCss.includes("@keyframes stripe-drift"));
+    assert.ok(siteCss.includes("@media (prefers-reduced-motion: reduce)"));
     assert.ok(childHtml.includes("<h1 class=\"site-title\">Dynamic Programming</h1>"));
     assert.ok(childHtml.includes("Optimal substructure"));
     assert.ok(childHtml.includes('src="/assets/vendor/mathjax/tex-svg-full.js"'));

@@ -24,43 +24,42 @@
     <a class="skip-link" href="#main-content">Skip to notes</a>
     <main class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/">Computer Science Notes</a>
-        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <p class="site-subtitle">Static field notes for Computer Science.</p>
       </header>
       
     <section class="home-hero" aria-labelledby="home-title">
       <div class="home-hero-copy">
-        <p class="home-kicker">Field notes in Computer Science</p>
+        <p class="home-kicker">[ Field notes ]</p>
         <h1 id="home-title" class="home-title">Computer Science Notes</h1>
-        <p class="home-intro">A quiet index of algorithms, systems, data structures, and agentic coding notes, arranged for focused reading.</p>
+        <p class="home-intro">A static developer-style index of algorithms, systems, data structures, and agentic coding notes, arranged for focused reading.</p>
         <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content">Browse topics</a>
-          <a class="secondary-action" href="#topic-search">Search notes</a>
+          <a class="primary-action" href="#main-content" data-hotkey="T">Browse topics</a>
+          <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
         </div>
       </div>
-      <div class="library-mark" aria-hidden="true">
-        <span class="shelf-line"></span>
-        <span class="shelf-row">
-          <span></span><span></span><span></span><span></span>
-        </span>
-        <span class="shelf-note">CS</span>
+      <div class="stripe-field" aria-hidden="true">
+        <span class="stripe-field-label">[ Fig. 01 ]</span>
+        <span class="stripe-field-title">notes.dev</span>
+        <span class="stripe-field-grid"></span>
+        <span class="stripe-field-orbit"></span>
       </div>
     </section>
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>
-          <p class="section-kicker">2 topics</p>
-          <h2 id="topics-title" class="section-title">Browse the shelves</h2>
+          <p class="section-kicker">/ Feed</p>
+          <h2 id="topics-title" class="section-title">Topics <sup>(2)</sup></h2>
         </div>
         <a class="topic-index-link" href="/topics/algorithms/">Start reading</a>
       </div>
       <label class="topic-search-label" for="topic-search">Search topics</label>
       <input id="topic-search" class="topic-search" type="search" placeholder="Try algorithms, systems, coding..." aria-describedby="topic-search-status" />
       <p id="topic-search-status" class="topic-search-status" aria-live="polite">2 topics available.</p>
-      <div id="topic-grid" class="topic-grid"><a class="topic-card" href="/topics/algorithms/">
+      <div id="topic-grid" class="topic-grid"><a class="topic-card" href="/topics/algorithms/" data-index="01">
   <h3 class="topic-card-title">Algorithms</h3>
   <p class="topic-card-description">Recurrences, asymptotics, and design techniques.</p>
-</a><a class="topic-card" href="/topics/agent-coding/">
+</a><a class="topic-card" href="/topics/agent-coding/" data-index="02">
   <h3 class="topic-card-title">Agentic Coding</h3>
   <p class="topic-card-description"></p>
 </a></div>
@@ -82,8 +81,8 @@
       }
 
       function render(items) {
-        grid.innerHTML = items.map((topic) => `
-          <a class="topic-card" href="${topic.urlPath}">
+        grid.innerHTML = items.map((topic, index) => `
+          <a class="topic-card" href="${topic.urlPath}" data-index="${String(index + 1).padStart(2, "0")}">
             <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
             ${topic.parentTitle ? `<p class="topic-card-parent">${escapeHtml(topic.parentTitle)}</p>` : ""}
             <p class="topic-card-description">${escapeHtml(topic.description)}</p>

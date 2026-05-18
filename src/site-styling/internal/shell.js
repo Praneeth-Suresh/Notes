@@ -42,8 +42,8 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
     <a class="skip-link" href="#main-content">Skip to notes</a>
     <main class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/">${escapeHtml(siteTitle)}</a>
-        <p class="site-subtitle">Minimalist notes for Computer Science enthusiasts.</p>
+        <a class="brand-link" href="/" data-hotkey="H">${escapeHtml(siteTitle)}</a>
+        <p class="site-subtitle">Static field notes for Computer Science.</p>
       </header>
       ${contentHtml}
     </main>
@@ -54,15 +54,16 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
 
 function renderTopicNav({ topics, currentSlug }) {
   const links = topics
-    .map((topic) => {
+    .map((topic, index) => {
       const isActive = topic.slug === currentSlug || currentSlug.startsWith(`${topic.slug}/`);
       const activeClass = isActive ? "active" : "";
       const currentAttribute = topic.slug === currentSlug ? ` aria-current="page"` : "";
-      return `<a class="${activeClass}" href="/topics/${escapeHtml(topic.slug)}/"${currentAttribute}>${escapeHtml(topic.title)}</a>`;
+      const hotkeyAttribute = index < 9 ? ` data-hotkey="${index + 1}"` : "";
+      return `<a class="${activeClass}" href="/topics/${escapeHtml(topic.slug)}/"${hotkeyAttribute}${currentAttribute}>${escapeHtml(topic.title)}</a>`;
     })
     .join("");
 
-  return `<nav class="topic-nav" aria-label="Topic navigation"><a href="/">Home</a>${links}</nav>`;
+  return `<nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a>${links}</nav>`;
 }
 
 function renderTopicPage({ siteTitle, topic, topicContentHtml, topics }) {
@@ -101,7 +102,7 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
       : "";
   const cards = topics
     .map(
-      (topic) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/">
+      (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
   <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
   <p class="topic-card-description">${escapeHtml(topic.description ?? "")}</p>
 </a>`,
@@ -139,27 +140,26 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
   const content = `
     <section class="home-hero" aria-labelledby="home-title">
       <div class="home-hero-copy">
-        <p class="home-kicker">Field notes in Computer Science</p>
+        <p class="home-kicker">[ Field notes ]</p>
         <h1 id="home-title" class="home-title">${escapeHtml(siteTitle)}</h1>
-        <p class="home-intro">A quiet index of algorithms, systems, data structures, and agentic coding notes, arranged for focused reading.</p>
+        <p class="home-intro">A static developer-style index of algorithms, systems, data structures, and agentic coding notes, arranged for focused reading.</p>
         <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content">Browse topics</a>
-          <a class="secondary-action" href="#topic-search">Search notes</a>
+          <a class="primary-action" href="#main-content" data-hotkey="T">Browse topics</a>
+          <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
         </div>
       </div>
-      <div class="library-mark" aria-hidden="true">
-        <span class="shelf-line"></span>
-        <span class="shelf-row">
-          <span></span><span></span><span></span><span></span>
-        </span>
-        <span class="shelf-note">CS</span>
+      <div class="stripe-field" aria-hidden="true">
+        <span class="stripe-field-label">[ Fig. 01 ]</span>
+        <span class="stripe-field-title">notes.dev</span>
+        <span class="stripe-field-grid"></span>
+        <span class="stripe-field-orbit"></span>
       </div>
     </section>
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>
-          <p class="section-kicker">${topicCount} ${topicWord}</p>
-          <h2 id="topics-title" class="section-title">Browse the shelves</h2>
+          <p class="section-kicker">/ Feed</p>
+          <h2 id="topics-title" class="section-title">Topics <sup>(${topicCount})</sup></h2>
         </div>
         ${firstTopicLink}
       </div>
@@ -185,8 +185,8 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
       }
 
       function render(items) {
-        grid.innerHTML = items.map((topic) => \`
-          <a class="topic-card" href="\${topic.urlPath}">
+        grid.innerHTML = items.map((topic, index) => \`
+          <a class="topic-card" href="\${topic.urlPath}" data-index="\${String(index + 1).padStart(2, "0")}">
             <h3 class="topic-card-title">\${escapeHtml(topic.title)}</h3>
             \${topic.parentTitle ? \`<p class="topic-card-parent">\${escapeHtml(topic.parentTitle)}</p>\` : ""}
             <p class="topic-card-description">\${escapeHtml(topic.description)}</p>
