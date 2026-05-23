@@ -50,6 +50,54 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
       </header>
       ${contentHtml}
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
 `;
@@ -105,7 +153,7 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
       : "";
   const cards = topics
     .map(
-      (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
+      (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}"${index < 9 ? ` data-hotkey="${index + 1}"` : ""}>
   <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
   <p class="topic-card-description">${escapeHtml(topic.description ?? "")}</p>
 </a>`,
@@ -189,7 +237,7 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
 
       function render(items) {
         grid.innerHTML = items.map((topic, index) => \`
-          <a class="topic-card" href="\${topic.urlPath}" data-index="\${String(index + 1).padStart(2, "0")}">
+          <a class="topic-card" href="\${topic.urlPath}" data-index="\${String(index + 1).padStart(2, "0")}"\${index < 9 ? \` data-hotkey="\${index + 1}"\` : ""}>
             <h3 class="topic-card-title">\${escapeHtml(topic.title)}</h3>
             \${topic.parentTitle ? \`<p class="topic-card-parent">\${escapeHtml(topic.parentTitle)}</p>\` : ""}
             <p class="topic-card-description">\${escapeHtml(topic.description)}</p>

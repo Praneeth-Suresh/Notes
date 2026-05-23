@@ -75,7 +75,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | site-styling-portfolio-polish-004 | `site-styling` | planned | Tune portfolio content density and visual hierarchy after first browser review. | Wait for the first slice checks and screenshot/accessibility findings. |
 | site-styling-ui-polish-005 | `site-styling` | done | Improve highlight readability, portfolio copy, source-note replacement, and homepage graphic continuity. | Completed generated output checks, Playwright verification, and `Finishing UI Updates` commit checkpoint. |
 | site-styling-portfolio-refresh-006 | `site-styling` | done | Add local GitHub repository refresh data and subtitle update tooling while preserving static Pages deployment. | Completed local scripts, static JSON build input, README workflow, deterministic tests, and browser check. |
-| site-styling-keyboard-nav-007 | `site-styling` | planned | Make visible hotkey labels navigate home, portfolio, notes/search, and numbered topic entries. | Start after repository/subtitle tooling commit. |
+| site-styling-keyboard-nav-007 | `site-styling` | done | Make visible hotkey labels navigate home, portfolio, notes/search, and numbered topic entries. | Completed generated-output tests, full gate, and Playwright shortcut verification. |
 | notion-ingestion-labels-008 | `notion-ingestion` | planned | Normalize configured Notion database select/multi-select labels and render them on generated page links/search entries. | Start after keyboard navigation commit. |
 
 ## UX Changes For Review

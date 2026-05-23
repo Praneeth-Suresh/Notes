@@ -134,7 +134,11 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes('href="/about/"'));
+    assert.ok(homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
+    assert.ok(homeHtml.includes('document.addEventListener("keydown"'));
+    assert.ok(homeHtml.includes('target.tagName === "INPUT"'));
+    assert.ok(homeHtml.includes('searchInput.focus();'));
     assert.ok(personalHtml.includes("Praneeth Suresh"));
     assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
