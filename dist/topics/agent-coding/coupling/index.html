@@ -21,11 +21,14 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
@@ -33,9 +36,58 @@
       <h1 class="site-title">Coupling</h1>
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
+      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8081-a1d2-ea54f946b401">Seams and adapters are the practical machinery that makes agentic code safe.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8063-9370-ff994828e831">Now, we need to understand what these concepts refer to. </p><blockquote class="notion-block notion-quote" data-notion-block-id="352d3a21-bb2d-805f-9efd-d4f31acf8767">a seam is a place where you can alter behavior in your program without editing in that place</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8051-8fa7-d9e0688af66f">Essentially, a seam is a change point that lets you substitute behavior.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-802c-90bb-f41cd607bc77">In agentic programming, these patterns matter because the agent should be able to change implementation at the edges without corrupting the core model.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8079-af65-c39f852029e6">Without seams and adapters, external details leak into the domain.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80f6-a9f3-d29a9265c450">Fix 1: Improve architecture</h1><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8053-bafa-e54a419c37c0">A skill that works to make design better over time is the following: <a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md" rel="noreferrer noopener">https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md</a></p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80b9-9eee-e30d5d1bf131">It provides a rigorous framework to manage coupling effectively in large projects.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8097-9a4a-d8b047796d33"></p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

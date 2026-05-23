@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Savitch&#39;s algorithm</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8008-a0be-d51431b8a0c4">This solves the STCON (s-t connectivity) problem—finding a path between two nodes in a directed graph using <span class="note-inline-equation" data-latex="O(\log ^2 n)">\(O(\log ^2 n)\)</span> space.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-be13-e76e79538958">It defines a function Path<span class="note-inline-equation" data-latex="(u,v,k)">\((u,v,k)\)</span> to check if there is a path from <span class="note-inline-equation" data-latex="u">\(u\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span> of length at most <span class="note-inline-equation" data-latex="2^k">\(2^k\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8015-9445-d3eaec004f56">To compute Path(a, b, k), it uses the following divide and conquer technique:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80ea-bbad-c909d079bdbd"><strong>Base case</strong>: If k = 0, return true if (a, b) is an edge or a = b (0-length path).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80e3-afc3-d9bf32d132f9"><strong>Recursive case</strong>: For each possible intermediate node w (iterate over all n nodes), check if Path(a, w, k/2) and Path(w, b, k/2). Return true if any w works.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8032-b31a-f717c6d78890">The pseudo code can be written as:</p><figure class="notion-block notion-code" data-notion-block-id="342d3a21-bb2d-805b-9bb4-d553a068dc75"><pre class="note-code-block" data-language="python"><code class="language-python">reachable_within_t_steps(u, v, t): # letting this be the recurrence
 	if u == v: return true
@@ -41,9 +45,57 @@
 	if reachable_within_t_steps(u, m, floor(t/2)) and
 			reachable_within_t_steps(m, v, ceil(t/2)))
 		return true
-	return false</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8013-8393-f762288b0281">The algorithm works on the idea that there must be an intermediate node <span class="note-inline-equation" data-latex="m">\(m\)</span>.</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="342d3a21-bb2d-8070-a6de-d48ee9bfe45b"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/6c764775-995b-44f3-b882-01ba3a807663/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466Y4SKSIWN%2F20260511%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260511T070449Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEEYaCXVzLXdlc3QtMiJHMEUCIF4Ra%2F07kwKHcJuJU%2BtNagF8GKZwWjRdqkuDRW6dpbDuAiEAusBTzhIKrkFMY3MGUrrw9f5eDzfjfwToMM1udLc8%2BMYq%2FwMIDxAAGgw2Mzc0MjMxODM4MDUiDEZGjy6dZTAor6JL1CrcA%2FwDqA80LZiGRoMuXa53UsZoPOmekCRthTOsq6obw4bVLNWm5w6RdhqaSmvGa7SQBERr7AOY6GHfFS%2B7bibJ66WVYoEXZ7aOHfJE57tRfkqjgHU5s%2Bfj3v7UFFz6pK4BZkgqdkfALrJMZHLYvDHoQ5X6qvF25ASaVBaSSQNY2sAnB8G%2F5rygW6JNZOBIR04VnZb49%2FN3UPqopQsPy%2BphoXU5hPb5xHqevbkoa9ZYw%2BZOomlVoVF%2BnE8ivud%2BegSnQO4R51djeDJo1gddkbvtydvFEcn79yg3RaxzqoKX2mDwBoeMAWY1Yz8RDh2vwNtCtyr3%2BnaSvaBgB6JAc8PcPyk6kjUMRg15d0aIuHoGF5Hn3p%2BULnrte420e%2Fbz4iYCvI2IWHbJ%2BwlrQYpHS0kYmZr92QK4a1qYy47uuMxsBzwMkbuOVy5XGZUG8Bn%2BW90GZB9gPSzbWyQ4cs1CkGc%2FGIuuLxHCuZ6lzjGyG2PJh8xSTI6yntMt19kNlNHmpQYXbxu%2Bd4%2FHzoSQlqANShXP86gc7edw516f7WdNM8BnlBvgXAjqAzUi4JHl6kgLHnySYNCgFYJ5ziIar%2F5zM27pkLwycloFdKdhn48747FSVO%2F9FCMAb2XF36lcDV0rMIDchdAGOqUB8vKpikI8FPMaXxBhwT7wci9oDu9Y3%2B3kSN0%2Fa4rD5Hs1t5SVyAP7KjP73JJ1d7LfV6PHkJwqOkLOYRFfTKIEg%2FzQZ5UE1%2F%2BYimaHBnufSjs8mu54EXDhILeKVnX3OgHFg8b9ekBsoQG22NNh7rGjPU%2BiUYEGWpuip6ApfqKrzLPEqnieoyX3bpXgE11WFrRUJNXPDlES220JKuBVUjsWuoCaT7%2Fq&amp;X-Amz-Signature=29d593d5a87252e358e85180fb63af6e2f618ddb9ed624c26bc281b650a3f168&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" /></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-803c-82ba-ce70ed28c3ac">The algorithm is not efficient in terms of time complexity. It achieves a time complexity of <span class="note-inline-equation" data-latex="O(n^{\log n})">\(O(n^{\log n})\)</span> which is superpolynomial. However, this is the most space optimal algorithm available to solve the connectivity problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80da-a16a-e245a4926419">Node indices and k need O(log n) bits each.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-802f-99e2-f6238f5e0237">Recursion stack has depth O(log n), so total space is <span class="note-inline-equation" data-latex="O(\log² n)">\(O(\log² n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-bc30-d5790f2858ea">No extra graph storage beyond adjacency list access (read-only).</p></article>
+	return false</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8013-8393-f762288b0281">The algorithm works on the idea that there must be an intermediate node <span class="note-inline-equation" data-latex="m">\(m\)</span>.</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="342d3a21-bb2d-8070-a6de-d48ee9bfe45b"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/6c764775-995b-44f3-b882-01ba3a807663/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4665NAAB365%2F20260523%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260523T040313Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGQaCXVzLXdlc3QtMiJGMEQCIB7GX%2B%2F5UViYDK%2FzpZjMuDyJqpzeMtxPPAQIR0F%2BLbwDAiBBJFUZrMY2oezVEXiuxcT6Zms5n%2FQTOLyTpGvNzzYx9Cr%2FAwgtEAAaDDYzNzQyMzE4MzgwNSIMhPWEUNw5Me2u1juoKtwDiDiG3aZhcWEa%2FXTzyxmuQhQHfGkrt7yiHMAlbratvr0ak21kzc3Gc0U2i3iyCRfY8Hvwar%2F%2F6mpDbpDTbZ%2BnS4yr0ST2R%2BbDPf4%2B078PpMDeqzc50FiCJdZJSibOz1SmYwCZVgTMPzrw5F0QYolZXIA6kAPcYBDMwOjz0pLLdIHytHsZJTManABfqMJjaW1nNigNksc7c1JtUjx%2FUzD2A0H%2BeIbwAbyZhwItaP6U2jqx85llsV5N489NzAsIRDWAMIxBpOfz7JX0YqN6%2BIEb2Ukpigotzo56DBX%2FhJQDTb9zT%2F%2BA0puaaiTMpjqnzAcRPabhXFLkYtoLzMywvN1GhPWtK5TpojORWFTvuSoZIOB919w6r337vsOtkJh%2FRKmm8zIydByMUPcq%2BR%2FzHm2zuxr5t47aaWRRuK26PlrdQDR0KB4U96btjC3hn5rR%2Fq14D93Zu%2Fb58V7XFEBS%2BJiyBASA0brg%2BJ66FarabT6wlk0iWA2C1GkVG33zzBqoIIIXN6M%2BkmegVQSGNzV2HC7AoSpid2nuJTR%2F%2FFjd9cS%2BcOdWbiGZoUqffR9%2BCHIEH3RhfyPpA5u9%2Fp0KduIFbV%2B0bumHc%2FIhSl5A01uAvMBkNUdmJnSCQU%2BF0nzGMeQwgsvE0AY6pgFlbt8BPIfp1Ho3iATIB%2Bd%2BV9TgS8x7hY0VglVOR723PjG4FVTHRwl%2BhfYxEUz5TvepFVjF8kJQ1XPnCC0uWzMwssvSpprRC2yZzEZNIrWUhotUEv7maptf5BVP%2F9TmwIzYt7nWs%2BSUX%2BA6W77RVt1xlk1pL8wwXFQRuNUMMSCdfTPejdsgKhBA78rm6vmYMvZFBzdCcKkINFQPWyvPv6cu0mzkrT1x&amp;X-Amz-Signature=710394e1d59ef00c039e3fe333d66d8cc16c92a42ab5368a88210291225fa6d9&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" /></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-803c-82ba-ce70ed28c3ac">The algorithm is not efficient in terms of time complexity. It achieves a time complexity of <span class="note-inline-equation" data-latex="O(n^{\log n})">\(O(n^{\log n})\)</span> which is superpolynomial. However, this is the most space optimal algorithm available to solve the connectivity problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80da-a16a-e245a4926419">Node indices and k need O(log n) bits each.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-802f-99e2-f6238f5e0237">Recursion stack has depth O(log n), so total space is <span class="note-inline-equation" data-latex="O(\log² n)">\(O(\log² n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-bc30-d5790f2858ea">No extra graph storage beyond adjacency list access (read-only).</p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

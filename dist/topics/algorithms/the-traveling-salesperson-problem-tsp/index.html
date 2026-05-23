@@ -21,21 +21,73 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">The Traveling Salesperson Problem (TSP)</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="33bd3a21-bb2d-8019-bfad-c35fcb3db6e7">The travelling salesman problem (often abbreviated as TSP) is one of the most famous problems in combinatorial optimization. Like many good problems, it is a simple question that is easy to state.</p><p class="notion-block notion-paragraph" data-notion-block-id="33bd3a21-bb2d-8067-84d2-d3c8d79a8708">You are given a set of cities <span class="note-inline-equation" data-latex="v_0, v_1, . . . , v_n">\(v_0, v_1, . . . , v_n\)</span>. You know the distance between any pair of cities. What is the fastest route that visits every city exactly once, and then returns to where you started?</p><p class="notion-block notion-paragraph" data-notion-block-id="33bd3a21-bb2d-8004-9026-e0e2845c4c7a">The travelling salesman problem has a reputation for being very hard: it is well-known to be NP-hard, meaning that there is no polynomial time algorithm that can find an optimal tour unless <span class="note-inline-equation" data-latex="P = NP">\(P = NP\)</span>. </p><p class="notion-block notion-paragraph" data-notion-block-id="33bd3a21-bb2d-8058-b74b-ee2e53219591">In reality, though, the travelling salesman problem is not that difficult: we can efficiently calculate solutions that are pretty good. That is, for a given set of cities, we can find a tour that is approximately as good as the best tour.</p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

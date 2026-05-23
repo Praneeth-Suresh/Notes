@@ -21,21 +21,73 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Matrix Based Solutions</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80b8-bacb-d6e27abae3ae">Thinking in matrices is useful because it turns graph problems into algebraic ones, where composition of paths becomes multiplication and “either/or” reachability becomes boolean matrix operations. </p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f4-937d-d43b9e10c7e2">On dense graphs especially, that viewpoint lets you use highly optimized matrix kernels and even asymptotically faster matrix-multiplication algorithms in some problems.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8033-b4d8-d006e81dc89d">For dense graphs, this is often especially attractive because adjacency matrices already take <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span>space, and matrix algorithms can exploit cache locality, bitsets, or subcubic algebraic methods.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="341d3a21-bb2d-8061-9d3e-e47ca5012af2">Example Problems</h1><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8063-8865-dc4f05ef7981"><strong>Transitive closure / reachability matrix</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ec-a109-ffc7625ff281">You want <span class="note-inline-equation" data-latex="M[u][v]=1">\(M[u][v]=1\)</span> iff <em>u</em> can reach <em>v</em>. This is the boolean transitive closure of the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8012-88fe-e8a2787c696c">A standard solution is Warshall/Floyd-Warshall style dynamic programming in <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span>, while more advanced approaches use boolean matrix multiplication or fast algebraic matrix multiplication to improve asymptotic performance in dense settings.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80f1-9f50-d4a75e1d3071"><strong>Counting paths of fixed length k</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ca-8769-e6fd0aae9a5b">If <em>A</em> is the adjacency matrix, then <span class="note-inline-equation" data-latex="(A^k)[u][v]">\((A^k)[u][v]\)</span> gives the number of walks of length exactly k<em>k</em> from u<em>u</em> to v<em>v</em> under ordinary integer multiplication and addition.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-b0af-c37caa1d3e3b">The solution is to compute <span class="note-inline-equation" data-latex="A^k">\(A^k\)</span> by fast exponentiation in <span class="note-inline-equation" data-latex="O(\log k)">\(O(\log k)\)</span> matrix multiplications (see <a href="https://www.notion.so/341d3a21bb2d80e08982cee065f176f3#341d3a21bb2d809ea918c0d151c71514" rel="noreferrer noopener">Fast Exponentiation</a>), or use repeated squaring with a fast matrix-multiply subroutine.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8004-a274-cab14faa8dfd"><strong>All-pairs shortest paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-803e-9a7e-d133f4266cd9">For weighted graphs, the problem can be expressed with the min-plus semiring instead of ordinary arithmetic. Matrix products are then replaced by “distance multiplication,” where multiplication becomes addition of edge weights and addition becomes taking minima.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8083-a4bc-e5fb6826f6eb">This leads to APSP algorithms based on repeated min-plus products, and in some dense-graph regimes, fast matrix multiplication gives subcubic methods.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8088-a3c7-fad9a4214766"><strong>Bottleneck / maximum-capacity paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8073-ac64-ef1515a70e93">For each pair u,v<em>u</em>,<em>v</em>, you may want the path that maximizes the minimum edge capacity along the route. This is the all-pairs bottleneck paths problem, which can be formulated using (max⁡,min⁡)(max,min)-style matrix products.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-ba1d-e7786d4adba7">Then the graph problem becomes computing a transitive closure under that semiring, and fast matrix methods apply to the corresponding matrix product.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80de-b544-c2a58123113e">Triangle Detection</h2><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80d1-a68c-f59525ae074a">Given an undirected graph 𝐺 in the form of an adjacency matrix, the goal is to count the number of triangles in the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8018-9cfb-e5f7ef25a659">Using matrices, we take the adjacency matrix, compute <span class="note-inline-equation" data-latex="M^3">\(M^3\)</span> (subtracting invalid &quot;triangles&quot; like self-loops and whatnot), divide by 6.</p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

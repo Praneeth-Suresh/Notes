@@ -116,6 +116,41 @@ function notionBlockIdAttribute(block) {
     : "";
 }
 
+function notionLabelColorClass(color) {
+  const normalized = typeof color === "string" && color.trim() !== "" ? color.trim() : "default";
+  if (!NOTION_COLOR_PATTERN.test(normalized)) {
+    throw new Error(`Unsupported Notion label color value: ${color}`);
+  }
+
+  return ` notion-label-color-${normalized}`;
+}
+
+function renderLabels(labels) {
+  if (!Array.isArray(labels) || labels.length === 0) {
+    return "";
+  }
+
+  const items = labels
+    .map((label) => {
+      if (!label || typeof label !== "object") {
+        return "";
+      }
+
+      const name = typeof label.name === "string" && label.name.trim() !== ""
+        ? label.name.trim()
+        : "";
+      if (!name) {
+        return "";
+      }
+
+      return `<span class="note-label${notionLabelColorClass(label.color)}">${escapeHtml(name)}</span>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  return items ? `<span class="note-labels">${items}</span>` : "";
+}
+
 function notionBlockClass(block, notionType, extraClasses = "") {
   return `notion-block notion-${notionType}${extraClasses}${notionColorClass(block.color)}`;
 }
@@ -393,10 +428,10 @@ function renderChildPage(block) {
   const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
 
   if (!href) {
-    return `<section class="note-child-page"${blockId}><h3>${escapeHtml(title)}</h3></section>`;
+    return `<section class="note-child-page"${blockId}><h3>${escapeHtml(title)}</h3>${renderLabels(block.labels)}</section>`;
   }
 
-  return `<section class="note-child-page"${blockId}><a class="note-child-page-link" href="${escapeHtml(href)}">${escapeHtml(title)}</a></section>`;
+  return `<section class="note-child-page"${blockId}><a class="note-child-page-link" href="${escapeHtml(href)}">${escapeHtml(title)}</a>${renderLabels(block.labels)}</section>`;
 }
 
 function renderAsset(block) {
@@ -545,6 +580,14 @@ function collectSearchTextFromBlocks(blocks, pieces) {
       pieces.push(block.title);
     }
 
+    if (block.type === "child_page" && Array.isArray(block.labels)) {
+      for (const label of block.labels) {
+        if (typeof label?.name === "string") {
+          pieces.push(label.name);
+        }
+      }
+    }
+
     if (
       (block.type === "toggle" || block.type === "callout") &&
       Array.isArray(block.richText)
@@ -582,6 +625,13 @@ function createSearchEntry({ slug, topicDocument }) {
   }
 
   const pieces = [topicDocument.title ?? "", topicDocument.description ?? ""];
+  if (Array.isArray(topicDocument.labels)) {
+    for (const label of topicDocument.labels) {
+      if (typeof label?.name === "string") {
+        pieces.push(label.name);
+      }
+    }
+  }
   collectSearchTextFromBlocks(topicDocument.blocks, pieces);
 
   return {

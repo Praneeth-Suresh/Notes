@@ -18,6 +18,10 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | --- | --- | --- | --- |
 | Stripe-inspired motion depth | CSS-only generated motifs vs. JS/canvas animation vs. remote asset reproduction | CSS-only generated motifs | Cloudflare Pages static compatibility and reduced-motion support make CSS-only motion the safest first slice. |
 | Topic feed density | Card grid vs. compact blog-feed rows | Hybrid feed cards | Preserves the existing topic scan UX while moving visual rhythm closer to Stripe.dev's developer feed. |
+| Portfolio source fidelity | Static curated facts from approved profile/repo pages vs. runtime profile fetch vs. user-authenticated scrape | Static curated facts from approved public GitHub pages, with LinkedIn unavailable if auth-walled | Keeps Cloudflare Pages static and avoids inventing inaccessible LinkedIn-only details. |
+| Portfolio repository refresh source | Manual local GitHub API refresh vs. Pages Function runtime fetch vs. Cloudflare Worker trigger | Manual local GitHub API refresh | The maintainer wants manual local triggering; Cloudflare Pages builds must consume checked-in static JSON and never call GitHub directly. |
+| Notion database label rendering | Render all database properties vs. manifest-configured select/multi-select properties vs. infer labels from page text | Manifest-configured select/multi-select properties | Keeps labels explicit, avoids noisy database metadata, and preserves Notion property intent. |
+| Keyboard shortcut scope | Global single-key navigation vs. modifier-based shortcuts vs. no executable shortcuts | Global single-key navigation outside editable controls | Matches visible hotkey labels while protecting search and text input. |
 
 ## Settled Decisions
 
@@ -41,6 +45,11 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Home page topic discovery | `[A] Static-first topic hub with search/filter enhancement` | 2026-05-11 | n/a |
 | Stripe-inspired styling boundary | Keep Stripe.dev cues inside `site-styling`; do not change `notes-content` block HTML for this slice. | 2026-05-18 | n/a |
 | Static asset policy for styling | Use local CSS, system font stacks, and generated decoration; do not add remote fonts or remote animation dependencies. | 2026-05-18 | n/a |
+| Personal page placement | Emit a separate `/about/` static page, linked from the home page and header, outside the topic hierarchy. | 2026-05-22 | n/a |
+| Portfolio refresh deployment model | Repository data is refreshed by a manual local script into checked-in static JSON, then Cloudflare Pages deploys after a push to `main`; Cloudflare builds do not fetch GitHub. | 2026-05-23 | n/a |
+| Topic subtitle source | Topic subtitles remain manifest `description` fields, with developer tooling that updates only `content/topic-manifest.json` descriptions instead of hand-editing generated HTML. | 2026-05-23 | n/a |
+| Notion highlight presentation | Notion background-color blocks remain fidelity-marked by class but render with readable translucent red highlights. | 2026-05-23 | n/a |
+| Database label configuration boundary | Manifest entries may declare label property names; `notion-ingestion` emits normalized label strings and colors only, never raw Notion property payloads. | 2026-05-23 | n/a |
 
 ## Pressure Points
 
@@ -50,6 +59,11 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Cross-context imports must remain one-way through public entry points only.
 - Stripe-inspired visual density must not make technical notes harder to read, especially wide tables, code blocks, toggles, child databases, and LaTeX output.
 - Generated motion must respect static deployment and should avoid distracting users who prefer reduced motion.
+- The personal portfolio must not overclaim beyond public GitHub/LinkedIn source evidence; LinkedIn may remain unavailable behind an auth wall.
+- The portfolio layout should feel distinct from topic pages while reusing the same design tokens and static-friendly visual language.
+- Local portfolio refresh must not commit secrets or rely on unauthenticated browser scraping; public GitHub API fields are the preferred evidence source and the generated JSON is the Pages build input.
+- Keyboard shortcuts must not fire while users type in search fields or other editable controls.
+- Database labels must cross the Notion boundary as normalized data, not raw vendor property payloads.
 
 ## Active Feature Slices
 
@@ -57,13 +71,21 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | --- | --- | --- | --- | --- |
 | site-styling-stripe-static-001 | `site-styling` | done | Restyle the generated static home/topic shell toward Stripe.dev while preserving notes structure and fidelity. | Review UX changes and tune if needed. |
 | site-styling-polish-002 | `site-styling` | planned | Review the first slice for refinements after UX review, especially feed density and animation restraint. | Await review of documented UX changes. |
+| site-styling-portfolio-003 | `site-styling` | done | Add a separate static personal portfolio page sourced from approved public profile/repository pages and linked from the home page. | Completed `/about/`, home access, narrow generation tests, and Playwright navigation verification. |
+| site-styling-portfolio-polish-004 | `site-styling` | planned | Tune portfolio content density and visual hierarchy after first browser review. | Wait for the first slice checks and screenshot/accessibility findings. |
+| site-styling-ui-polish-005 | `site-styling` | done | Improve highlight readability, portfolio copy, source-note replacement, and homepage graphic continuity. | Completed generated output checks, Playwright verification, and `Finishing UI Updates` commit checkpoint. |
+| site-styling-portfolio-refresh-006 | `site-styling` | done | Add local GitHub repository refresh data and subtitle update tooling while preserving static Pages deployment. | Completed local scripts, static JSON build input, README workflow, deterministic tests, and browser check. |
+| site-styling-keyboard-nav-007 | `site-styling` | done | Make visible hotkey labels navigate home, portfolio, notes/search, and numbered topic entries. | Completed generated-output tests, full gate, and Playwright shortcut verification. |
+| notion-ingestion-labels-008 | `notion-ingestion` | done | Normalize configured Notion database select/multi-select labels and render them on generated page links/search entries. | Completed manifest config, adapter extraction, normalized rendering/search, docs, deterministic tests, and topic browser smoke. |
 
 ## UX Changes For Review
 
 - Home page visual metaphor changed from a quiet library/shelf mark to a Stripe.dev-inspired developer hub with bracket labels, large sans-serif title, compact actions, and generated line-work motion.
 - Topic discovery changed from soft cards in a panel to a bordered feed grid with numbered topic entries and a `/ Feed` section label.
-- Header and topic navigation now use compact mono labels with bracketed hotkey-style prefixes for faster scanning; these are visual labels only, not keyboard shortcut handlers.
+- Header and topic navigation now use compact mono labels with bracketed hotkey-style prefixes for faster scanning; labels map to real keyboard shortcuts outside editable controls.
 - Topic pages use a narrower technical reading panel, stronger rectangular borders, and mono treatment for child-page/database affordances while preserving the same Notion block structure.
+- Home page navigation will include a portfolio entry point to a separate `/about/` page.
+- The personal page will present the maintainer as a software engineer and AI developer/researcher through a distinct portfolio layout using the same typography, borders, color tokens, and CSS-only generated visual language.
 
 ## Recording Rule (Design Tree vs ADR)
 

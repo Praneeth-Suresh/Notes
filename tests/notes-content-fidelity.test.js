@@ -285,6 +285,10 @@ test("renders child page links and includes subpage titles in search text", () =
       blockId: "child-page-1",
       title: "Dynamic Programming",
       href: "/topics/algorithms/dynamic-programming/",
+      labels: [
+        { name: "Graphs", color: "blue" },
+        { name: "Reviewed", color: "green" },
+      ],
     },
     {
       type: "child_page",
@@ -299,8 +303,11 @@ test("renders child page links and includes subpage titles in search text", () =
   assert.ok(html.includes('class="note-child-page-link"'));
   assert.ok(html.includes('href="/topics/algorithms/dynamic-programming/"'));
   assert.ok(html.includes("Dynamic Programming"));
+  assert.ok(html.includes('class="note-label notion-label-color-blue"'));
+  assert.ok(html.includes(">Graphs</span>"));
   assert.ok(html.includes("Untitled subpage"));
   assert.ok(searchEntry.searchableText.includes("Dynamic Programming"));
+  assert.ok(searchEntry.searchableText.includes("Reviewed"));
 });
 
 test("throws on unsupported block types to avoid silent fidelity loss", () => {

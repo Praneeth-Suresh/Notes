@@ -11,7 +11,7 @@
 | Format | `not available yet` | unavailable | No formatter configured yet |
 | Lint | `not available yet` | unavailable | No linter configured yet |
 | Typecheck | `not available yet` | unavailable | No typed code configured yet |
-| Unit tests | `node --test tests/notes-content-fidelity.test.js tests/notion-ingestion-fidelity.test.js` | available | Verifies LaTeX/code fidelity and strict unsupported-block handling |
+| Unit tests | `node --test tests/notes-content-fidelity.test.js tests/notion-ingestion-fidelity.test.js tests/portfolio-repositories.test.js tests/update-topic-subtitle.test.js` | available | Verifies LaTeX/code fidelity, strict unsupported-block handling, local repository refresh data, and subtitle manifest updates |
 | Integration tests | `not available yet` | unavailable | No integration harness yet |
 | E2E smoke | `node scripts/build-pages.js --manifest content/topic-manifest.json --out <tmp-dir>` | available | Deterministic static build smoke check for Pages artifacts |
 

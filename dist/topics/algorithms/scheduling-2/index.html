@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scheduling · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Scheduling</h1>
+      <p class="topic-parent">Subpage of Algorithms</p>
+      
+      <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80f2-be6b-ee06f5f1a2e1">Not all scheduling problems can be solved using greedy methods. Greedy algorithms work when there are <strong>optimal substructure</strong> properties.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8037-9ad8-d2a128e31f9d">The scheduling problems that have these properties include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8086-ab68-c8f239efdc13">Activity Selection Problem: Selecting the maximum number of non-overlapping activities by always picking the one that finishes earliest.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8019-b514-ef06197bd02d">Interval Partitioning: Minimizing resources (like rooms) needed by greedily assigning intervals to available resources, which is optimal because it matches the &quot;depth&quot; (maximum overlaps). </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-807d-b593-ca30d5d69e2d">However, not all scheduling problems have the optimal substructure property. Examples include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-80de-98f9-fa2ca2004e48">General Job Sequencing with Deadlines: Picking the highest profit job first might block other profitable jobs that could have been scheduled, leading to a lower total profit than an optimal solution (which requires considering all possibilities).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8012-b5ef-eb11b0fad2b9">Shortest Processing Time (SPT) for all tasks: If the goal is to minimize total completion time, simply processing shortest jobs first isn&#39;t always optimal; it depends on the exact objective and constraints. </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8001-854a-e98509b6f90b">Thus, as with all other greedy algorithms, a proof of correctness is a step that cannot be skipped.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80d8-8d82-df7bfaeecb9b">When greedy approaches fail, the best bet is to turn to<strong> dynamic programming</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-806f-a14e-ddf5956f567f">Scheduling problems leads to canonical greedy algorithms. The proof of the greedy approach to a scheduling problem is outlined in <a href="https://www.notion.so/2cdd3a21bb2d8065aa34c81dee6a8175#2cdd3a21bb2d8022b694eec222315b40" rel="noreferrer noopener">A simple illustrative case is the scheduling problem. The greedy approach picks the task that has the earliest deadline.</a>.</p><p class="notion-block notion-paragraph" data-notion-block-id="351d3a21-bb2d-8035-802e-da6077bca1dd"></p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -21,11 +21,14 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
@@ -33,9 +36,58 @@
       <h1 class="site-title">Domain Driven Design</h1>
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
+      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80a4-b78d-da6ecfcc12f7">Domain-Driven Design (DDD) is <strong>a software development approach that places the core business domain (the problem area) and its logic at the heart of software design</strong>. It focuses on modeling complex systems based on a &quot;Ubiquitous Language&quot; shared by technical and business experts, rather than organizing primarily around technical infrastructure.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-803a-a907-ca202f9910e8">Domain-Driven Design becomes more valuable in the AI era because it gives agents a stable map of the problem space.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-801a-8b3a-ed7825fe48ba">Here is the key idea behind this approach:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="352d3a21-bb2d-800f-a65a-dc798826bd3c">focus on the core domain</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="352d3a21-bb2d-8091-9552-faf3646b8812">explore models collaboratively</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="352d3a21-bb2d-8060-9386-c5ffa1dc14bf">speak a ubiquitous language within an explicitly bounded context</li></ol><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-803b-b571-dcb09b1a0ef1">Fix 1: Define Domain Boundaries</h1><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80a8-a58d-fff26ac885d0">This should be very clear in the problem specification phase. </p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8019-88c6-cc510d46ae29">We need to set out the entities, identities and objects we are going to work with. Based on this, we build models of how entities should be operating in the problem space we want to solve.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8070-b418-da8f3ac06ad6"></p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

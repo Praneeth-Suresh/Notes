@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Fibonacci</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8063-8d83-d8255fab00a1">There are multiple paradigms to compute the nth Fibonacci number, ranging from exponential-time recursion to logarithmic-time matrix exponentiation and even closed-form formulas. </p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80b3-8bbb-efe3457d299b">The different approaches reveal different approaches used across the board in the study of algorithms.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8083-bf9c-f96671475398">Each approach highlights different trade-offs in time and space complexity, and analyzing them requires careful reasoning about recurrence relations, dynamic programming states, and asymptotic growth.</p><table class="notion-block notion-table" data-notion-block-id="341d3a21-bb2d-80ed-8096-c594a8d757e5"><tbody><tr><th><strong>Method</strong></th><th><strong>Idea</strong></th><th><strong>Time Complexity</strong></th><th><strong>Space Complexity</strong></th><th><strong>Analysis Notes</strong></th></tr><tr><td><strong>Naïve Recursion</strong></td><td>Directly use definition <span class="note-inline-equation" data-latex="F(n) = F(n-1) + F(n-2)">\(F(n) = F(n-1) + F(n-2)\)</span>.</td><td><span class="note-inline-equation" data-latex="O(2^n)">\(O(2^n)\)</span></td><td><span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> (stack depth)</td><td>Exponential blow-up due to repeated recomputation of subproblems. Complexity derived from recurrence <span class="note-inline-equation" data-latex="T(n) = T(n-1) + T(n-2) + O(1)">\(T(n) = T(n-1) + T(n-2) + O(1)\)</span>.</td></tr><tr><td><strong>Dynamic Programming (Tabulation)</strong></td><td>Iteratively build array from base cases up to <span class="note-inline-equation" data-latex="n">\(n\)</span>.</td><td><span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span></td><td><span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span></td><td>Each state computed once, linear scan. Complexity comes from summing constant work across (n) steps.</td></tr><tr><td><strong>Dynamic Programming (Space-Optimized)</strong></td><td>Only store last two values.</td><td><span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span></td><td><span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span></td><td>Same recurrence, but memory reduced by discarding unused states.</td></tr><tr><td><strong>Matrix Exponentiation</strong></td><td>Use identity: <span class="note-inline-equation" data-latex="\begin{bmatrix}1 &amp; 1 \ 1 &amp; 0\end{bmatrix}^n = \begin{bmatrix}F_{n+1} &amp; F_n \ F_n &amp; F_{n-1}\end{bmatrix}">\(\begin{bmatrix}1 &amp; 1 \ 1 &amp; 0\end{bmatrix}^n = \begin{bmatrix}F_{n+1} &amp; F_n \ F_n &amp; F_{n-1}\end{bmatrix}\)</span>.</td><td><span class="note-inline-equation" data-latex="O(\log n)">\(O(\log n)\)</span></td><td><span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span></td><td>Fast exponentiation via repeated squaring. Complexity from halving exponent each step.</td></tr><tr><td><strong>Fast Doubling Method</strong></td><td>Use formulas: 
 <span class="note-inline-equation" data-latex="F(2k) = F(k)[2F(k+1) - F(k)])">\(F(2k) = F(k)[2F(k+1) - F(k)])\)</span>, 
@@ -52,5 +56,53 @@
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

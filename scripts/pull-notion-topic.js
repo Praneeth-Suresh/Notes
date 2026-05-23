@@ -21,6 +21,7 @@ function parseArgs(argv) {
     out: null,
     title: null,
     manifest: "content/topic-manifest.json",
+    databaseLabelProperties: [],
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -52,6 +53,12 @@ function parseArgs(argv) {
 
     if (item === "--manifest") {
       args.manifest = assertNonEmptyString(argv[index + 1], "--manifest value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--label-property") {
+      args.databaseLabelProperties.push(assertNonEmptyString(argv[index + 1], "--label-property value"));
       index += 1;
       continue;
     }
@@ -104,6 +111,7 @@ async function upsertTopicManifest({
   title,
   description,
   normalizedTopicPath,
+  databaseLabelProperties,
 }) {
   const normalizedSlug = assertNonEmptyString(slug, "slug");
   const normalizedTitle = assertNonEmptyString(title, "title");
@@ -127,6 +135,12 @@ async function upsertTopicManifest({
     typeof description === "string" && description.trim() !== ""
       ? description.trim()
       : existingEntry?.description ?? "";
+  const normalizedLabelProperties =
+    Array.isArray(databaseLabelProperties) && databaseLabelProperties.length > 0
+      ? databaseLabelProperties
+          .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
+          .map((propertyName) => propertyName.trim())
+      : existingEntry?.databaseLabelProperties;
   const nextEntry = {
     ...(existingEntry ?? {}),
     slug: normalizedSlug,
@@ -137,6 +151,12 @@ async function upsertTopicManifest({
       path: sourcePath,
     },
   };
+
+  if (Array.isArray(normalizedLabelProperties) && normalizedLabelProperties.length > 0) {
+    nextEntry.databaseLabelProperties = normalizedLabelProperties;
+  } else {
+    delete nextEntry.databaseLabelProperties;
+  }
 
   if (existingIndex === -1) {
     manifest.push(nextEntry);
@@ -208,6 +228,7 @@ async function main() {
     .pullTopicFromNotion({
       pageId: args.pageId,
       notionToken,
+      databaseLabelProperties: args.databaseLabelProperties,
     })
     .finally(() => {
       readErrorPrompt.close();
@@ -227,6 +248,7 @@ async function main() {
     title: topicDocument.title,
     description: topicDocument.description ?? "",
     normalizedTopicPath: args.out,
+    databaseLabelProperties: args.databaseLabelProperties,
   });
 
   console.log(`Wrote normalized topic file: ${args.out}`);

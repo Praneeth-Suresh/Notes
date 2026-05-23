@@ -6,7 +6,7 @@ const fs = require("node:fs/promises");
 const os = require("node:os");
 const path = require("node:path");
 
-const { upsertTopicManifest } = require("../scripts/pull-notion-topic");
+const { parseArgs, upsertTopicManifest } = require("../scripts/pull-notion-topic");
 
 async function withTempDir(callback) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "notes-pull-manifest-"));
@@ -31,6 +31,7 @@ test("adds a pulled topic to the topic manifest", async () => {
       title: "Operating Systems",
       description: "",
       normalizedTopicPath: topicPath,
+      databaseLabelProperties: ["Tags", "Status"],
     });
 
     const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
@@ -39,6 +40,7 @@ test("adds a pulled topic to the topic manifest", async () => {
         slug: "operating-systems",
         title: "Operating Systems",
         description: "",
+        databaseLabelProperties: ["Tags", "Status"],
         source: {
           kind: "normalized-file",
           path: "topics/operating-systems.normalized.json",
@@ -62,6 +64,7 @@ test("updates an existing topic manifest entry without duplicating it", async ()
             slug: "algorithms",
             title: "Old Algorithms",
             description: "Keep this description",
+            databaseLabelProperties: ["Tags"],
             source: { kind: "normalized-file", path: "topics/old-algorithms.normalized.json" },
           },
         ],
@@ -85,10 +88,34 @@ test("updates an existing topic manifest entry without duplicating it", async ()
       slug: "algorithms",
       title: "Algorithms",
       description: "Keep this description",
+      databaseLabelProperties: ["Tags"],
       source: {
         kind: "normalized-file",
         path: "topics/algorithms.normalized.json",
       },
     });
   });
+});
+
+test("parses repeated database label property arguments", () => {
+  assert.deepEqual(
+    parseArgs([
+      "--page-id",
+      "page-1",
+      "--slug",
+      "algorithms",
+      "--label-property",
+      "Tags",
+      "--label-property",
+      "Status",
+    ]),
+    {
+      pageId: "page-1",
+      slug: "algorithms",
+      out: path.join("content", "topics", "algorithms.normalized.json"),
+      title: null,
+      manifest: "content/topic-manifest.json",
+      databaseLabelProperties: ["Tags", "Status"],
+    },
+  );
 });

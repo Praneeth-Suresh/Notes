@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Bellman-Ford</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80d8-abf4-d0aa660f2670">This solves the Single Source Shortest Path problem for a graph with <strong>negative edges</strong>. With negative edges the problem need to be constrained because the presence of negative cycles introduces scope for inconsistency.</p><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80d5-bcd8-d475b4faba52">If there is a negative cycle there is an arbitrage opportunity using which we can get shorter and shorter paths (infinitely many of them). If a negative cycle exist, the shortest paths approach <span class="note-inline-equation" data-latex="-\infin">\(-\infin\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80c1-9a2d-dae8c0e2568d">Thus, the output of the SSSP is either:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2dad3a21-bb2d-8098-a1e2-f3b2493b9cb3">A list of the shortest distances from the start point to every vertex</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2dad3a21-bb2d-806c-a751-e5ffd2085058">A statement that the graph contains a negative cycle</li></ol><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="31ed3a21-bb2d-8073-a07d-cc20a6c627b3">Development</h2><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8018-9c3c-c64a9602d5b3">To develop this algorithm, we make the observation that to find the shortest distance to node <span class="note-inline-equation" data-latex="t">\(t\)</span>, all we need to know is</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="31ed3a21-bb2d-8039-b5cc-f9ea2bda0111">The weights (<span class="note-inline-equation" data-latex="w_x">\(w_x\)</span>) of all the incoming connections to node <span class="note-inline-equation" data-latex="t">\(t\)</span></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="31ed3a21-bb2d-8055-b957-e910591beb17">The shortest distance (<span class="note-inline-equation" data-latex="d_x">\(d_x\)</span>) from the source node to all the nodes <span class="note-inline-equation" data-latex="x">\(x\)</span> which have a edge that leads to <span class="note-inline-equation" data-latex="t">\(t\)</span> </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-802e-ad1f-e7897bee0b77">Then, the shortest path is <span class="note-inline-equation" data-latex="\min(w_x+d_x)">\(\min(w_x+d_x)\)</span>. If there was a shorter distance to each of the nodes <span class="note-inline-equation" data-latex="x">\(x\)</span> that <span class="note-inline-equation" data-latex="d_x">\(d_x\)</span> that would constitute the shortest path. So we use already found shortest paths to find shortest paths for subsequent nodes. These shortest paths that we know have <span class="note-inline-equation" data-latex="i">\(i\)</span> edges if the shortest path to </p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80a3-84aa-d58693bd725d">Another fact we know is that a shortest path uses at most <span class="note-inline-equation" data-latex="n-1">\(n-1\)</span> edges (we can show this easily by contradiction: if there are more edges, there must be repeated vertices in the path).</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80ec-b592-e7296278f0fc">These are the main ideas underlying the Bellman-Ford algorithm.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80f4-a481-eac92bd33209">It suggests that we should iterate on the maximum number of edges used by a path. At the node itself, we store the estimated distance to that node. Initially, this is set of <span class="note-inline-equation" data-latex="\inf">\(\inf\)</span>. This estimate is updated repeatedly every time we encounter a shorter path that leads to the node.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80f9-94ef-d311abaff59d">We call this update the <strong>relax</strong> operation.</p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-8081-9020-c0f535570545">The relax operation (or &quot;edge relaxation&quot;) is the fundamental procedure used to update the shortest known distance to a vertex by checking if a better path exists through an adjacent vertex.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80a0-bd82-ff763edc62fe">Now, all we need to figure out is the order in which to call these relax operations so that we can get the actual shortest path in the most efficient manner possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-805a-b6bc-e4c7492178bc">The invariant we want to maintain is that after <span class="note-inline-equation" data-latex="i">\(i\)</span> iterations, the shortest path to a node that is at most length <span class="note-inline-equation" data-latex="i">\(i\)</span> has been identified.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8064-aad2-fd3a8b3fb8ec">This makes the code very simple:</p><figure class="notion-block notion-code" data-notion-block-id="31ed3a21-bb2d-80e9-bf3d-cae4c9047350"><pre class="note-code-block" data-language="python"><code class="language-python">def bellman–ford(G, s):
 	dist_est = [an array of all ∞]; set dist_est[s] = 0
@@ -66,5 +70,53 @@
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

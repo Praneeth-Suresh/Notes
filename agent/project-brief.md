@@ -14,12 +14,18 @@ This website embraces a **minimalist technical notes aesthetic**, prioritizing r
 4. **Home Page**: This is a static technical hub inspired by Stripe.dev: a compact developer-oriented header, large typographic introduction, generated line-work motion, and a topic feed that makes scanning and searching notes feel immediate.
 5. **Navigate from the Home Page**: User should immediately understand where they are, search or scan available topics, and move from the home page to topic pages with clear links, labels, keyboard-friendly focus states, and no dependency on non-static runtime services.
 6. **Read in the Stripe-inspired shell**: User should read topic pages in a clean, developer-blog-like shell while all Notion-derived blocks, including toggles, databases, LaTeX, code, tables, and assets, keep their rendered structure.
+7. **Explore the maintainer portfolio**: User should navigate from the home page to a separate personal portfolio page that uses the same visual language but a distinct layout, then return to the home page or continue into notes without losing orientation.
+8. **Refresh portfolio repository evidence**: I (maintainer) should be able to run a local deterministic repository refresh command that retrieves my current public GitHub repositories, writes checked-in portfolio data, and lets Cloudflare Pages publish the refreshed personal page through the normal Git push-to-main flow.
+9. **Use keyboard navigation intentionally**: User should be able to use the visible hotkey labels to move between home, portfolio, notes/search, and numbered topic entries without those shortcuts interfering with text entry.
 
 ## Success Conditions
 
 1. The home page and topic pages visibly align with the Stripe developer blog through typography, color, compact navigation, rectangular panels, micro labels, and static-compatible generated motion.
 2. The core notes structure is preserved: topic hierarchy, child-page routes, search, and all supported Notion block renderers continue to work.
 3. The generated site remains deployable as static Cloudflare Pages artifacts without remote font, animation, or API dependencies.
+4. The personal portfolio page truthfully presents Praneeth Suresh's public software engineering, AI research/development, project, and philosophy signals using only the approved LinkedIn and GitHub sources; inaccessible source details must not be invented.
+5. Portfolio repository listings can be refreshed from public GitHub data without adding runtime dependencies to the deployed static site.
+6. Visible hotkey labels correspond to real keyboard behavior and remain safe for search/input fields.
 
 ## Reliability Priorities
 
@@ -50,3 +56,6 @@ A feature is complete only when it has all of the following:
 6. Fidelity checks explicitly cover LaTeX and code block rendering.
 7. Browser verification with Playwright MCP confirms the generated static UI for any HTML/CSS-facing change.
 8. UX changes are documented when presentation or navigation copy changes.
+9. Personal page changes include deterministic generation checks and Playwright navigation verification for home-to-portfolio and portfolio-to-home paths.
+10. Repository refresh features include deterministic script tests, avoid storing secrets, and document the maintainer workflow for refreshing generated portfolio data before pushing.
+11. Keyboard navigation changes include generated markup checks and Playwright verification that shortcuts route correctly while not hijacking text input.

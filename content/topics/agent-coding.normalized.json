@@ -72,8 +72,1372 @@
       "children": [
         {
           "type": "child_page",
+          "blockId": "363d3a21-bb2d-80e3-8045-f72b16cf7772",
+          "title": "Harnesses",
+          "labels": [],
+          "children": [
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-80a0-af2b-e30d852c48bb",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "A harness is a tool that keeps the agent working, even after a failure.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80e4-8db3-dfea9d413a8b",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Harness Engineering is about building the scaffolding around agents so they can work safely and effectively beyond a single local chat session.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          ]
+        },
+        {
+          "type": "child_page",
+          "blockId": "363d3a21-bb2d-80ad-8703-d9177f4cc009",
+          "title": "Code Review",
+          "labels": [],
+          "children": [
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-807f-a6bf-db17dd9b4156",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Code review is one way to monitor code and flag out issues that arise with the code. It is possible to set up an agent to do code review yourself however there are a bunch of platforms that do sophisticated code review for you. ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-80e8-a5f6-f710ad8f68e4",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Below are a few code review platforms to check out:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-8003-9265-c0d53771be2d",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Code Rabbit",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-80c9-be25-e7bbf9df9ee2",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Greptile",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-80bd-b551-de4a0e49c62f",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Gitlab Duo",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-8083-94c2-e6e3dfa11d56",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Codex review",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-807d-bd49-c61c926b5813",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Devin review",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "363d3a21-bb2d-801b-bac1-c1b329d0eafc",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Cubic",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          ]
+        },
+        {
+          "type": "child_page",
+          "blockId": "363d3a21-bb2d-8004-8fa4-d75a54b9fd77",
+          "title": "Security Issues",
+          "labels": [],
+          "children": [
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-800b-8d42-ed9f82c94785",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The following are potential ways in which AI agents can be exploited:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "363d3a21-bb2d-805e-9e8a-dbd4b223bb2d",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Slop Squatting: Models can hallucinate names, such as package names, leading to a possibility for malicious code to get injected.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "363d3a21-bb2d-8047-9e80-df522f37de07",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Prompt Injection: This involves hiding malicious instructions inside files/pages that AI would read.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "363d3a21-bb2d-8072-bf98-e874116801ee",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Confused Deputy: This is related to prompt injection as a technique where an attacker gains escalated privilege and performs unintended actions.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-80f5-9551-f9fa634ffffe",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "For all of these reasons, it is important to ensure that the agent is sandboxed: it needs its own execution environment with everything it needs to work but nothing more.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_1",
+              "blockId": "364d3a21-bb2d-80f3-a37f-e0a2336b678b",
+              "level": 1,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Fix 1: Sandboxes",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-806b-99fe-c6cdea9727ca",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Local sandboxes are a ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "damage-limiting layer",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": " for AI coding agents. They let the agent run commands, install packages, edit files, and test code inside a constrained environment instead of directly on your host OS.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-801a-99dc-d4e18cfb7faa",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Docker containers isolate filesystem, networking, and process trees from the host by default, but bind mounts can still let container processes modify host files, so mount only the project directory and prefer read-only mounts where possible. (",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "Docker Documentation",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": "https://docs.docker.com/engine/containers/run/?utm_source=chatgpt.com"
+                },
+                {
+                  "type": "text",
+                  "content": ")",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "364d3a21-bb2d-8070-8b32-f022f2da8ff8",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Basic setup",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80b9-abb9-c32da1ac8bdb",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Create a project-specific container:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-80c4-bda8-c2c3de2eae54",
+              "language": "bash",
+              "code": "mkdir my-project\ncd my-project",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8021-9276-f8768487316a",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Add a ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "Dockerfile",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ":",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-804b-af40-f15a50c57efb",
+              "language": "plain text",
+              "code": "FROM node:22-bookworm\n\nRUN useradd -m coder\nUSER coder\n\nWORKDIR /workspace",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80d3-a05d-cdff3a566865",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Run the agent inside it:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-804b-9468-d9e33ca6e750",
+              "language": "bash",
+              "code": "docker build -t ai-coding-sandbox .\ndocker run --rm -it \\\n  --name ai-coding-sandbox \\\n  --mount type=bind,src=\"$PWD\",dst=/workspace \\\n  --network none \\\n  ai-coding-sandbox bash",
+              "caption": []
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "364d3a21-bb2d-8003-b7f6-fe0f96b4a2ce",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "-network none",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": " removes external networking except loopback, which is useful when the agent does not need internet access. (",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "Docker Documentation",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": "https://docs.docker.com/engine/network/drivers/none/?utm_source=chatgpt.com"
+                },
+                {
+                  "type": "text",
+                  "content": ")",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "364d3a21-bb2d-803b-8297-df11336c3be4",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Safer practical version",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8040-9b00-ee1dae9fd661",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Use this when the agent needs to read code but should not freely rewrite everything:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-8062-b7b0-ee6a4c0e1229",
+              "language": "bash",
+              "code": "docker run --rm -it \\\n  --mount type=bind,src=\"$PWD\",dst=/workspace,readonly \\\n  --mount type=volume,src=agent-tmp,dst=/tmp/agent \\\n  --network none \\\n  ai-coding-sandbox bash",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8094-a387-cfa3d7f5bf3c",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Then copy only approved changes back to the host.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "364d3a21-bb2d-8030-8a10-efe96348d743",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Dev Container setup",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80fb-b871-e7986cf09f47",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "For VS Code/Cursor-style workflows, create ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ".devcontainer/devcontainer.json",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ":",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-8039-b543-eab7169df1b7",
+              "language": "json",
+              "code": "{\n  \"name\": \"AI Coding Sandbox\",\n  \"build\": {\n    \"dockerfile\": \"Dockerfile\"\n  },\n  \"workspaceFolder\": \"/workspace\",\n  \"remoteUser\": \"coder\",\n  \"runArgs\": [\n    \"--network=none\"\n  ],\n  \"mounts\": [\n    \"source=${localWorkspaceFolder},target=/workspace,type=bind\"\n  ]\n}",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80bc-b5f5-fea4a4c6ea72",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Dev Containers are meant to provide a full development environment around a codebase, with source code mounted into the container. (",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "Dev Containers",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": "https://devcontainers.github.io/implementors/spec/?utm_source=chatgpt.com"
+                },
+                {
+                  "type": "text",
+                  "content": ")",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "364d3a21-bb2d-809b-a708-eb28a65ad744",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Rules for using local sandboxes with AI agents",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80e0-a6a8-c3c313c2cca4",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Give the agent access only to the project folder, not your home directory, SSH keys, browser profile, cloud credentials, or ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ".env",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": " files.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-802b-a20f-d07d7491fbb8",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Use a non-root container user. Avoid ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "--privileged",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": true,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ", host networking, Docker socket mounts, and Docker-in-Docker unless absolutely necessary.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8008-968e-cf9c4953e579",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Keep secrets outside the sandbox. When secrets are required, pass short-lived, least-privilege tokens.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8029-a7be-daa0b1f79cfb",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Disable network by default. Enable it only for dependency installation or API calls, then turn it off again.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80a6-8ab0-cc9489ab339e",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Review diffs before applying changes:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-8012-841b-e888de16a81d",
+              "language": "bash",
+              "code": "git diff\ngit status",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8065-b04f-c8d0e3d24468",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Run tests inside the sandbox:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-8039-bbe5-e49dd958d851",
+              "language": "bash",
+              "code": "npm test\npytest\ngo test ./...",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80a7-bd83-cae0198ed979",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Commit only after inspection.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "364d3a21-bb2d-80fa-a3fa-c169937baa01",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "What this protects against",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-80bb-9d9c-cdfe34073243",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "A sandbox helps contain bad commands like:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "364d3a21-bb2d-801f-a241-c7f6c9f40fed",
+              "language": "bash",
+              "code": "rm -rf ~\ncat ~/.ssh/id_rsa\ncurl malicious-script | bash",
+              "caption": []
+            },
+            {
+              "type": "paragraph",
+              "blockId": "364d3a21-bb2d-8004-a662-d7763c1e0452",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "But it is not perfect. If you mount sensitive host directories, expose Docker’s socket, run privileged containers, or give the agent real credentials, the sandbox can be bypassed in practice.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            }
+          ]
+        },
+        {
+          "type": "child_page",
+          "blockId": "361d3a21-bb2d-8057-8723-f269a7ca10f1",
+          "title": "Prompting Basics",
+          "labels": [],
+          "children": [
+            {
+              "type": "paragraph",
+              "blockId": "361d3a21-bb2d-80d0-878f-dafa5e6cb549",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Here are some of the very basic techniques to write better prompts, that you can use as a guide:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "361d3a21-bb2d-8085-a6f7-c483a6c6b9f6",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The Role, Goal, Context Framework",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "361d3a21-bb2d-802b-b6c6-c59ae27311aa",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "Roles are useful are useful but they don’t direct every part of the behaviour. Goals are essential for the task at hand. Context is all the information surrounding the ",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "361d3a21-bb2d-8023-b5d5-ecb117d4295b",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Learn the Key Words",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "361d3a21-bb2d-80a7-928f-d671700c1000",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "If you just ask the agent to implement a feature/fix, it will go ahead and implement it in the most generic way possible. This is why you need to have an exhaustive understanding of the solution space at a high level so that you can specify what it needs to build.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "361d3a21-bb2d-80cf-a659-c21b9286fb4d",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Few Shot Prompting",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "362d3a21-bb2d-80a7-8cea-cea57550e010",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "This is presenting examples to the model to explain what the intended output looks like. This is useful when you want to repeat a pattern, refactor code, reference documentation or reference existing work.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
+            },
+            {
+              "type": "list_item",
+              "notionType": "bulleted_list_item",
+              "blockId": "362d3a21-bb2d-801e-a647-f31396d49836",
+              "ordered": false,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Iterative Prompting",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "362d3a21-bb2d-8064-832f-f55ef8c40415",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "Use each completed step to ground the next one. We need a way to break down the problem, with two possible approaches including breaking down the feature and prototyping.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                },
+                {
+                  "type": "paragraph",
+                  "blockId": "362d3a21-bb2d-805c-9b3d-f59b06146d4f",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "One very powerful example of iterative prompting is planning where agents give you a plan where you can catch misunderstandings early. Use planning for all big tasks where it would be expensive to go down the wrong track.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "child_page",
           "blockId": "353d3a21-bb2d-8023-a400-dfa5a30e2276",
           "title": "Skills",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -94,6 +1458,48 @@
                 }
               ],
               "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "363d3a21-bb2d-8028-999c-d10fef9cb570",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Skills and MCP behave in similar ways but when using Skills, the full instruction becomes part of context only when the skill is being used.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "363d3a21-bb2d-8046-b644-dd9a06baa826",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "For MCP tools, the full instruction will be in context for the tools that are exposed to the model. There can be more available tools overall which are not exposed to the model. ",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
             },
             {
               "type": "heading",
@@ -629,6 +2035,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-8040-999e-fd82ea9e1e88",
           "title": "Putting it together",
+          "labels": [],
           "children": [
             {
               "type": "heading",
@@ -10181,12 +11588,14 @@
         {
           "type": "child_page",
           "blockId": "352d3a21-bb2d-8085-876c-c5466be0868a",
-          "title": "Leverage and Locality"
+          "title": "Leverage and Locality",
+          "labels": []
         },
         {
           "type": "child_page",
           "blockId": "352d3a21-bb2d-8087-aa6e-ca59447d5fe6",
           "title": "Domain Driven Design",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -10417,6 +11826,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-809a-85e3-ed5440b47744",
           "title": "Coupling",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -10626,6 +12036,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-80ae-8703-cf3800edba58",
           "title": "Test Driven Development",
+          "labels": [],
           "children": [
             {
               "type": "quote",
@@ -10866,7 +12277,7 @@
                 },
                 {
                   "type": "text",
-                  "content": " (fast, isolated, cheap to write and run).",
+                  "content": " (fast, isolated, cheap to write and run). These provide tight feedback loops because they are easier to run repeatedly during development.",
                   "annotations": {
                     "bold": false,
                     "italic": false,
@@ -12410,6 +13821,30 @@
               "color": "default"
             },
             {
+              "type": "callout",
+              "blockId": "363d3a21-bb2d-8037-9c40-ff432c74548e",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "One more property of good tests is coverage: a good percentage of source code should be run by the tests. ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "icon": {
+                "type": "emoji",
+                "emoji": "💡"
+              },
+              "color": "default_background"
+            },
+            {
               "type": "heading",
               "notionType": "heading_1",
               "blockId": "353d3a21-bb2d-8019-a4de-f48dd8f87273",
@@ -12464,6 +13899,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-806c-84cf-d50131b2ed95",
           "title": "Modularity ",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -12750,6 +14186,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-8042-863a-ff555ca8a221",
           "title": "Entropy",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -12980,6 +14417,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-80bf-b0ea-ebc07044c077",
           "title": "Feedback Loops",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -13194,6 +14632,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-808b-b241-e9b0fe662e2b",
           "title": "Shared Language",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -13356,6 +14795,7 @@
           "type": "child_page",
           "blockId": "352d3a21-bb2d-80c7-be4d-efb0ba74f27b",
           "title": "The Design Concept",
+          "labels": [],
           "children": [
             {
               "type": "paragraph",
@@ -14446,6 +15886,818 @@
         {
           "type": "text",
           "content": "This is why agentic engineering is not mainly about making software generation faster. Some of the value is speed, but the deeper change is that new kinds of systems become possible. Agents can inspect a codebase, form a plan, use tools, recover from intermediate failures, and adapt their approach to the environment. That is qualitatively different from ordinary automation.",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "divider",
+      "blockId": "360d3a21-bb2d-8027-bd80-e358545adeba"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "360d3a21-bb2d-805a-84d2-faf884e218ca",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Here are other things to add on into this guide to take this to the next level:",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default",
+      "children": [
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "360d3a21-bb2d-801b-af72-dc3d175fcc21",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Use image generation to have Codex create an image before doing the generation. This allows us it to do the UI/UX generation based on the image so it aligns better.",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "360d3a21-bb2d-80ea-991e-c25ee88fbd38",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Figure out how to code faster because that is the main bottleneck at this point.",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "363d3a21-bb2d-8092-ae8d-ecd2306c23b4",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Figma MCP server to visualise code",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "363d3a21-bb2d-80d7-8b08-e31c78188501",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Add the ",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            },
+            {
+              "type": "text",
+              "content": "https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": "https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md"
+            },
+            {
+              "type": "text",
+              "content": " grill-me skill",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "363d3a21-bb2d-8060-938b-da8af6ca4054",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Use a Skill to go from PRD (Product Requirement Document) to Issues. The main idea behind this step is to break up the task into thin vertical slices and set up dependencies between them. Use an issue tracker such as Linear or Beads.",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "363d3a21-bb2d-8043-abc9-dbec90042a03",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Record videos of the feature working from the browser use tool",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "363d3a21-bb2d-803c-83d9-fb0079368ff2",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Set up logging to receive a history of errors and avoid the need to copy paste error messages",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "364d3a21-bb2d-80bf-88ad-c4e972e5a968",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Use an MCP server to access documentation so that agent can actually reference module specs. Tools include DeepWiki, ZReader and Better Context.",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        },
+        {
+          "type": "list_item",
+          "notionType": "bulleted_list_item",
+          "blockId": "368d3a21-bb2d-80b7-9481-d22b3aadda12",
+          "ordered": false,
+          "richText": [
+            {
+              "type": "text",
+              "content": "Compact the memory files once they exceed a given limit by creating hierarchy and pushing submodules lower into the repo",
+              "annotations": {
+                "bold": false,
+                "italic": false,
+                "strikethrough": false,
+                "underline": false,
+                "code": false,
+                "color": "default"
+              },
+              "href": null
+            }
+          ],
+          "color": "default"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "notionType": "heading_1",
+      "blockId": "365d3a21-bb2d-8059-b413-e0befdd2a6ca",
+      "level": 1,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Coding tools",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default",
+      "isToggleable": false
+    },
+    {
+      "type": "heading",
+      "notionType": "heading_2",
+      "blockId": "365d3a21-bb2d-801c-b593-e9b3b893c062",
+      "level": 2,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Kiro",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default",
+      "isToggleable": false
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-80c0-b5c6-caaa7c1d64b2",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Here, I go through Hacks & Tips for using Kiro:",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-805d-81bd-d1ee01228162",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Productivity:",
+          "annotations": {
+            "bold": true,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8055-9f2a-db7b9c51926d",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Type your next message while I'm still working — messages queue automatically (Activity Tray: Ctrl+X)",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8023-9507-e8b7d8959a68",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Ctrl+R for reverse history search across sessions",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8086-965c-e7ddf2d202f2",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "@ in input for async file search with autocomplete",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8060-8891-f2151941b41c",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "/spawn to run parallel agent sessions",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-805d-96a8-cc6482431f29",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Get better results:",
+          "annotations": {
+            "bold": true,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8050-b9ef-d70a57ff33a6",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Create custom agents (.kiro/agents/my-agent.json) with focused prompts, restricted tools, and pre-loaded context files",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80f4-aeb7-ee9bca8d13f9",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Use resources in agent config to auto-load relevant files into context",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8008-818a-ec309cf8ba6d",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Use skill:// resources for on-demand loading of large reference docs",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80e5-96df-c8e5977eff05",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Use hooks (agentSpawn, userPromptSubmit) to inject dynamic context (git status, env info)",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80e6-8653-fef5a19e60a7",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Index your docs with knowledge bases so I can search them semantically: ask me to \"add ./docs to knowledge\"",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-8064-aab4-dee10d38724e",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Trust & speed:",
+          "annotations": {
+            "bold": true,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-801f-ac71-db03e525b2ce",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "-trust-all-tools or --trust-tools=fs_read,fs_write,execute_bash to skip approval prompts",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80f1-a4a7-fc537ebee617",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Set allowedTools in agent config for permanent auto-approval",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-802f-a14d-fa04a22b3b15",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "chat.enableThinking true for complex reasoning tasks",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-80a0-a0f2-eef21117cb43",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Automation:",
+          "annotations": {
+            "bold": true,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-8045-b011-e83d56d328fe",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Headless mode: kiro-cli chat --no-interactive --trust-all-tools \"run tests and fix failures\"",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80b1-a96c-d144c543ef17",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Save/load sessions: /chat save and /chat load for resumable work",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80ac-a41e-cbadc2f6f6e4",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "-resume to pick up where you left off",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "paragraph",
+      "blockId": "365d3a21-bb2d-80a7-a78b-fae8bae6041c",
+      "richText": [
+        {
+          "type": "text",
+          "content": "Code intelligence:",
+          "annotations": {
+            "bold": true,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80f4-8d0c-f4fa0336cbca",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Run /code init once per project to enable LSP features",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80ab-9f2d-c0fa8b951d46",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "Use /code overview to quickly understand unfamiliar codebases",
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false,
+            "color": "default"
+          },
+          "href": null
+        }
+      ],
+      "color": "default"
+    },
+    {
+      "type": "list_item",
+      "notionType": "bulleted_list_item",
+      "blockId": "365d3a21-bb2d-80cf-87e1-dc2dfc42ac7e",
+      "ordered": false,
+      "richText": [
+        {
+          "type": "text",
+          "content": "AST pattern search/rewrite for structural refactoring across files",
           "annotations": {
             "bold": false,
             "italic": false,

@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Primality Tests</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80a0-8918-f7e9bba75340">A prime number is a natural number (greater than 1) that has exactly two factors, <code class="note-inline-code">1</code> and itself. In order to check if a number is prime or not, we can count the number of factors. </p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80fd-b3e0-ca769cdaeb95">The basic techniques to checking for primes include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8012-8b76-dab05c3069d7">Brute Force to count the number of factors a number has</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8032-9fc4-da71cf36d6e6">Find all the factors from 1 to <span class="note-inline-equation" data-latex="\sqrt n">\(\sqrt n\)</span></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-803f-95f0-ca60bc1e79f1">Sieve of Eratosthenes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-806b-8c81-db7fc5a3467a">This method is useful to search for <strong>all</strong> prime numbers in a given range and it works as follows:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80da-82f6-db6595523ccb">Iterate from <code class="note-inline-code">2</code> to <code class="note-inline-code">sqrt(N)</code>, call it <code class="note-inline-code">i</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8001-9c9c-e61608805e40">For each <code class="note-inline-code">i</code>, we cross out all the multiples of <code class="note-inline-code">i</code>, i.e. <code class="note-inline-code">2*i</code>, <code class="note-inline-code">3*i</code> .. and so on</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80c8-903c-c75fc902ed48">If <code class="note-inline-code">i</code> is already crossed out, we don’t do anything, because if <code class="note-inline-code">i</code> is already crossed out, we are ensured that all multiples of <code class="note-inline-code">i</code> are already crossed out in our previous iterations</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80f4-8f51-e3882aeb869a">In the end, we print out all the numbers that are not crossed out</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-80c2-a254-c59bd721b59e">Miller-Rabin Test</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-809d-b077-f731aa3bb035">The Miller-Rabin primality test is a fast, probabilistic algorithm used to determine if a large number <span class="note-inline-equation" data-latex="n">\(n\)</span> is &quot;probably prime&quot;. It is widely used in cryptography and computer science because it is significantly faster than deterministic tests (such as AKS) for large numbers, with a complexity of <span class="note-inline-equation" data-latex="O(k \log^3 n)">\(O(k \log^3 n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8096-865c-f06d785794a7">Here is an overview of how it works:</p><figure class="notion-block notion-code" data-notion-block-id="35bd3a21-bb2d-802e-9055-df200daca54f"><pre class="note-code-block" data-language="c"><code class="language-c">let s &gt; 0 and d odd &gt; 0 such that n − 1 = 2sd  # by factoring out powers of 2 from n − 1
 repeat k times:
@@ -48,5 +52,53 @@ return “probably prime”</code></pre></figure><p class="notion-block notion-p
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

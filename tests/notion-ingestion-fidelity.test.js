@@ -59,6 +59,21 @@ test("recursively pulls pages from a child database", async () => {
               id: "entry-1",
               properties: {
                 Name: { type: "title", title: [{ plain_text: "Database Entry 1" }] },
+                Tags: {
+                  type: "multi_select",
+                  multi_select: [
+                    { id: "tag-1", name: "Graphs", color: "blue" },
+                    { id: "tag-2", name: "Dynamic Programming", color: "red" },
+                  ],
+                },
+                Status: {
+                  type: "select",
+                  select: { id: "status-1", name: "Reviewed", color: "green" },
+                },
+                Ignored: {
+                  type: "rich_text",
+                  rich_text: [{ plain_text: "Do not publish" }],
+                },
               },
             },
           ],
@@ -92,11 +107,17 @@ test("recursively pulls pages from a child database", async () => {
   const normalized = await notionContext.pullTopicFromNotion({
     pageId: "page-db",
     notionToken: "secret",
+    databaseLabelProperties: ["Tags", "Status", "Missing", "Ignored"],
   });
 
   assert.equal(normalized.blocks[0].type, "child_database");
   assert.equal(normalized.blocks[0].children[0].type, "child_page");
   assert.equal(normalized.blocks[0].children[0].title, "Database Entry 1");
+  assert.deepEqual(normalized.blocks[0].children[0].labels, [
+    { name: "Graphs", color: "blue" },
+    { name: "Dynamic Programming", color: "red" },
+    { name: "Reviewed", color: "green" },
+  ]);
   assert.equal(normalized.blocks[0].children[0].children[0].richText[0].content, "Entry Content");
 });
 
@@ -618,7 +639,12 @@ test("normalizes all documented notion block types without silent fidelity loss"
       { id: "bookmark-1", type: "bookmark", bookmark: { url: "https://example.com", caption: richText("Bookmark") } },
       { id: "breadcrumb-1", type: "breadcrumb", breadcrumb: {} },
       { id: "callout-1", type: "callout", callout: { rich_text: richText("Callout"), icon: { emoji: "!" }, color: "yellow_background" } },
-      { id: "child-page-1", type: "child_page", child_page: { title: "Child Page" } },
+      {
+        id: "child-page-1",
+        type: "child_page",
+        child_page: { title: "Child Page" },
+        labels: [{ name: "Label", color: "purple" }],
+      },
       { id: "column-list-1", type: "column_list", column_list: {}, children: [{ id: "column-1", type: "column", column: { width_ratio: 0.5 } }] },
       { id: "embed-1", type: "embed", embed: { url: "https://example.com/embed" } },
       { id: "heading-4-1", type: "heading_4", heading_4: { rich_text: richText("Heading 4"), color: "green", is_toggleable: true } },
@@ -647,6 +673,7 @@ test("normalizes all documented notion block types without silent fidelity loss"
   assert.equal(byId.get("callout-1").icon.emoji, "!");
   assert.equal(byId.get("callout-1").richText[0].annotations.color, "blue");
   assert.equal(byId.get("child-page-1").title, "Child Page");
+  assert.deepEqual(byId.get("child-page-1").labels, [{ name: "Label", color: "purple" }]);
   assert.equal(byId.get("column-list-1").children[0].type, "column");
   assert.equal(byId.get("column-list-1").children[0].widthRatio, 0.5);
   assert.equal(byId.get("embed-1").url, "https://example.com/embed");

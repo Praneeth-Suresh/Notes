@@ -21,11 +21,14 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
@@ -33,9 +36,58 @@
       <h1 class="site-title">Entropy</h1>
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
+      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80ee-9416-d82ed38d838e">AI increases throughput. It also increases the speed at which teams can manufacture entropy. Better agentic programming is therefore mostly a problem of decreasing entropy as much as possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80f6-a233-f0580cce9462">The idea of entropy is from <em>The Pragmatic Programmer</em>. Roughly, the idea is that entropy in code (like in physics) increases over time due to small structural compromises accumulate until the next change becomes harder, riskier, and more confusing than the last.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-8008-96ea-f1e653927f26">High software entropy is characterized by hugely complex code bases.</p><blockquote class="notion-block notion-quote" data-notion-block-id="352d3a21-bb2d-80d6-8322-f16889e9c8d9">Complexity is anything related to the structure of a software system that makes it hard to understand and modify the system.</blockquote><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80ab-b807-f1a12300a044">Fix 1: Track &quot;entropy hotspots”</h1><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8055-a8d3-ffa211ada2a5">files with high churn</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8035-b54c-f8ca951be137">files touched by many unrelated features</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80c8-8ec6-de8f218c7373">modules with wide import graphs</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80b9-849e-c8f1ea86a613">modules nobody can test without a full environment</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8079-b45e-c900cdfaeeb9"></p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

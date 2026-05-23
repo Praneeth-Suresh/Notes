@@ -21,21 +21,73 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Rabin-Karp</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="303d3a21-bb2d-80c0-beb5-f77c72daf1e9">The Rabin-Karp algorithm is <strong>an efficient string-searching algorithm that uses </strong><a href="https://www.google.com/search?q=hashing&amp;oq=rabin%20kar%20al&amp;sourceid=chrome&amp;ie=UTF-8&amp;ved=2ahUKEwjYjaXSsM6SAxVh1jgGHed1HqEQgK4QegQIARAC" rel="noreferrer noopener"><strong>hashing</strong></a><strong> to find all occurrences of a pattern string within a larger text</strong>. </p><p class="notion-block notion-paragraph" data-notion-block-id="303d3a21-bb2d-809a-81f5-d176532c0ab3">Here is the problem we are trying to solve:</p><blockquote class="notion-block notion-quote" data-notion-block-id="303d3a21-bb2d-80df-b5ef-c91aa0653647">If we have text string S and pattern string P, we want to determine whether or not P is found in S, i.e. P is a substring of S.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="303d3a21-bb2d-8040-8e31-d67d59775984">The naive algorithm for this problem would involve sliding the sub-string over the string. If the length of the sub-string in <span class="note-inline-equation" data-latex="m">\(m\)</span> and the length of the string in <span class="note-inline-equation" data-latex="n">\(n\)</span>, we will need <span class="note-inline-equation" data-latex="O(nm)">\(O(nm)\)</span> time because string comparision has time complexity in line with the length of the string.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="312d3a21-bb2d-8036-96c9-e2a2b67e63c3">Core Idea</h2><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-803a-a7e1-d6eeb7de40da">It uses <strong>hashing</strong> instead of direct character-by-character comparison:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80e1-b58e-f9a4821c428a"><strong>Hash Calculation</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80f9-90d9-d8c702c7c11d">Compute hash of the pattern.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80dc-b8de-e2cc6bf3d52e">Compute hash of the first window of text.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8046-9732-d0a3a8353f25"><strong>Rolling Hash Update</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8025-a7d8-f8be59517514">Efficiently update hash when sliding the window:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80bf-91a8-cd207fbd3b68">Remove leading character’s contribution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8085-a4a0-caa3f6f9ec6c">Multiply by base (d).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80bf-b50a-c5edfb900951">Add trailing character’s contribution.</li></ul></li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8086-9be6-d84407639b56"><strong>Comparison</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-808a-a5fc-c1c686197b3f">If hash values match, check characters directly.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8046-bd31-f0a841a68707">Continue until all windows are checked.</li></ul></li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="312d3a21-bb2d-8059-933e-c5c0286c4bfa">Rolling Hash</h3><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-809b-a86e-dd56a80e73a5">We treat the string as a number in a chosen base (d) (often the alphabet size, e.g., 256 for ASCII).</p><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-801b-8e9e-dc2bae24cbb4">We also choose a large prime (q) to reduce collisions by taking results modulo (q).</p><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-801d-b2f7-ce2b5270a80b">For a substring <span class="note-inline-equation" data-latex="S = s_0 s_1 \dots s_{m-1}">\(S = s_0 s_1 \dots s_{m-1}\)</span>, its hash is:</p><div class="notion-block notion-equation" data-notion-block-id="312d3a21-bb2d-8095-8980-d4a157c46427" data-latex="h(S) = \big( s_0 \cdot d^{m-1} + s_1 \cdot d^{m-2} + \dots + s_{m-1} \cdot d^0 \big) \bmod q">\[h(S) = \big( s_0 \cdot d^{m-1} + s_1 \cdot d^{m-2} + \dots + s_{m-1} \cdot d^0 \big) \bmod q\]</div><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-8039-aaf0-f9e80c3437c0">Here:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80bf-90ff-e73085d127d3"><span class="note-inline-equation" data-latex="s_i">\(s_i\)</span> is the integer code of the character.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-802d-a5ac-f91c17dad388"><span class="note-inline-equation" data-latex="d">\(d\)</span> is the base.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-802f-98bb-f37237d62cf4"><span class="note-inline-equation" data-latex="q">\(q\)</span> is the modulus.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-809e-bbda-d95b4a09148f">Suppose we have the hash of substring <span class="note-inline-equation" data-latex="T[i \dots i+m-1]">\(T[i \dots i+m-1]\)</span>, and we want the hash of the next window <span class="note-inline-equation" data-latex="T[i+1 \dots i+m]">\(T[i+1 \dots i+m]\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-8078-a06d-e7e8a48c61a2">Let:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80ec-93ab-ecec6ac86e78"><span class="note-inline-equation" data-latex="h_i">\(h_i\)</span> = hash of window starting at position <span class="note-inline-equation" data-latex="i">\(i\)</span>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8069-b666-d001000c2ff9"><span class="note-inline-equation" data-latex="h_{i+1}">\(h_{i+1}\)</span> = hash of window starting at position <span class="note-inline-equation" data-latex="i+1">\(i+1\)</span>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-8077-bfbd-c9e4b89060c4">We can compute <span class="note-inline-equation" data-latex="h_{i+1}">\(h_{i+1}\)</span> from <span class="note-inline-equation" data-latex="h_i">\(h_i\)</span> in <strong>constant time</strong>:</p><div class="notion-block notion-equation" data-notion-block-id="312d3a21-bb2d-8045-974e-e101d7b7d633" data-latex="h_{i+1} = \big( d \cdot (h_i - s_i \cdot d^{m-1}) + s_{i+m} \big) \bmod q">\[h_{i+1} = \big( d \cdot (h_i - s_i \cdot d^{m-1}) + s_{i+m} \big) \bmod q\]</div><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-808b-ac24-d5d34ce50751">For this, all we have the store is the first character in the segment.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="312d3a21-bb2d-80d2-8faf-c8e6cbce485f">Complexity Analysis</h2><table class="notion-block notion-table" data-notion-block-id="312d3a21-bb2d-8049-9100-e9209c7a129f"><tbody><tr><th>Case</th><th>Time Complexity</th><th>Explanation</th></tr><tr><td><strong>Best / Average Case</strong></td><td><span class="note-inline-equation" data-latex="O(n + m)">\(O(n + m)\)</span></td><td>Hash comparisons are fast; collisions are rare. Expected linear time.</td></tr><tr><td><strong>Worst Case</strong></td><td><span class="note-inline-equation" data-latex="O(n \cdot m)">\(O(n \cdot m)\)</span></td><td>If many hash collisions occur, each requires full character comparison.</td></tr><tr><td><strong>Space Complexity</strong></td><td><span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span></td><td>Only a few integer variables for hashes and constants.</td></tr></tbody></table><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-8030-9f8d-dfe18295ce0f"><strong>Expected performance</strong>: Linear in practice, because good hash functions minimize collisions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="312d3a21-bb2d-80a9-b438-e799e85185d1"><strong>Worst-case performance</strong>: Quadratic, but rare in real-world applications.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="312d3a21-bb2d-80a0-a9d1-c167bbbaedb9">Example problems</h2><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-808b-aa52-e3e695238c6d">It is efficient for <strong>multiple pattern matching</strong> (can hash multiple patterns and check simultaneously).</p><p class="notion-block notion-paragraph" data-notion-block-id="312d3a21-bb2d-80dd-a87a-ce3499af436a">As a result, it is useful in plagiarism detection, search engines, and DNA sequence analysis.</p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

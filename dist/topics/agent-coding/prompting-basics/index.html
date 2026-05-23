@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prompting Basics · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Prompting Basics</h1>
+      <p class="topic-parent">Subpage of Agentic Coding</p>
+      
+      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80d0-878f-dafa5e6cb549">Here are some of the very basic techniques to write better prompts, that you can use as a guide:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8085-a6f7-c483a6c6b9f6">The Role, Goal, Context Framework<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-802b-b6c6-c59ae27311aa">Roles are useful are useful but they don’t direct every part of the behaviour. Goals are essential for the task at hand. Context is all the information surrounding the </p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8023-b5d5-ecb117d4295b">Learn the Key Words<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80a7-928f-d671700c1000">If you just ask the agent to implement a feature/fix, it will go ahead and implement it in the most generic way possible. This is why you need to have an exhaustive understanding of the solution space at a high level so that you can specify what it needs to build.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-80cf-a659-c21b9286fb4d">Few Shot Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-80a7-8cea-cea57550e010">This is presenting examples to the model to explain what the intended output looks like. This is useful when you want to repeat a pattern, refactor code, reference documentation or reference existing work.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="362d3a21-bb2d-801e-a647-f31396d49836">Iterative Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-8064-832f-f55ef8c40415">Use each completed step to ground the next one. We need a way to break down the problem, with two possible approaches including breaking down the feature and prototyping.</p><p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-805c-9b3d-f59b06146d4f">One very powerful example of iterative prompting is planning where agents give you a plan where you can catch misunderstandings early. Use planning for all big tasks where it would be expensive to go down the wrong track.</p></li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

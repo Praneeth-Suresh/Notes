@@ -66,6 +66,7 @@ function createNotionIngestionContext({
     pageId,
     notionToken,
     notionVersion = DEFAULT_NOTION_VERSION,
+    databaseLabelProperties = [],
   }) {
     const normalizedPageId = assertNonEmptyString(pageId, "pageId");
     const normalizedToken = assertNonEmptyString(notionToken, "notionToken");
@@ -84,6 +85,7 @@ function createNotionIngestionContext({
       notionToken: normalizedToken,
       notionVersion,
       requestOptions,
+      databaseLabelProperties,
     });
 
     return normalizeNotionTopic({

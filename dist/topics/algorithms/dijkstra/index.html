@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Dijkstra</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80b2-a4c7-db90eda76761">The Dijkstra algorithm is the famous solution to the <strong>single source shortest path (SSSP)</strong> problem where given a directed graph <span class="note-inline-equation" data-latex="G">\(G\)</span> and a starting vertex <span class="note-inline-equation" data-latex="s">\(s\)</span>, our goal is to find the length of the shortest path from <span class="note-inline-equation" data-latex="s">\(s\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span> for all <span class="note-inline-equation" data-latex="s">\(s\)</span> and <span class="note-inline-equation" data-latex="v">\(v\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80d3-a9da-cda64bf79752">In the case where all edges have lengths that are <strong>positive integers</strong>, the problem can be <u>reduced</u> into breadth-first search where all edges of length <span class="note-inline-equation" data-latex="n">\(n\)</span> are replaced with <span class="note-inline-equation" data-latex="n">\(n\)</span> edges of length 1. However, this is an inefficient solution when edges become very long. However, we want an efficient (preferably linear time in <span class="note-inline-equation" data-latex="|V|">\(|V|\)</span> and <span class="note-inline-equation" data-latex="|E|">\(|E|\)</span> solution) to the single source shortest path problem.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cbd3a21-bb2d-80b2-a7ab-db14ba9af1e2">Working</h1><p class="notion-block notion-paragraph" data-notion-block-id="2cbd3a21-bb2d-8035-afdb-ea4dc038a217">The key idea behind Dijkstra, is that at some stage, we can say for certain that some distance is indeed the shortest distance to a vertex. </p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-806e-ac60-c45446d87998">This is because the shortest edge going out from vertex A is also the shortest path from vertex A to the vertex the shortest path leads to.</p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-8070-8ba3-e265269cf95c">The key invariant is that at any step, all the nodes explored have an SSSP distance smaller than the distance of the current node. This means they don&#39;t need to be revisited, allowing us to do linear work.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80fd-bbd4-fc1bf92c0510">To keep track of nearest vertices, we keep track of a <strong>Dijkstra Score</strong>. It is the shortest distance (or cost/time) calculated by Dijkstra&#39;s algorithm from the source node to all other reachable nodes in a weighted graph with non-negative edge weights.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ed-aa17-cb52d081ad3c">The next edge we add is the edge with the smallest Dijkstra Score.</p><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="32bd3a21-bb2d-805d-bd4d-ecbcd989efb1"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">The reason we do this may not be obvious.<p class="notion-block notion-paragraph" data-notion-block-id="32bd3a21-bb2d-80ff-80be-e532dd65c23f">Its about second order effects: relaxing too early can propagate wrong values. We need to be certain that the vertices on the shortest path have been labelled with the shortest distance.</p></div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="2cbd3a21-bb2d-803c-87db-cfb694fb08b4">Then, we can iteratively apply is procedure for finding the true shortest path for every vertex to solve the SSSP problem.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cad3a21-bb2d-8023-af5f-ee269ff486c8">Implementation</h1><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80d0-942f-fee394682fab">Below is the standard progression of Dijkstra implementations, from worst to best, culminating in the linear‑time version.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-8043-a2fb-f33e174846ac">Only the first implementation uses an adjacency matrix representation. </p><table class="notion-block notion-table" data-notion-block-id="2cad3a21-bb2d-8012-a128-edbcd1b2ae17"><tbody><tr><th>Implementation</th><th>Data Structure</th><th>Edge Weight Type</th><th>Time Complexity</th></tr><tr><td>Matrix + linear scan</td><td>Adjacency Matrix</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(V^2)">\(O(V^2)\)</span></td></tr><tr><td>Brute force Dijkstra</td><td>Adjacency List</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(VE)">\(O(VE)\)</span></td></tr><tr><td>List + Unsorted Priority Queue</td><td>Array</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(V^2+E)">\(O(V^2+E)\)</span></td></tr><tr><td>Binary heap</td><td>Binary heap</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O((V+E)\log V)">\(O((V+E)\log V)\)</span></td></tr><tr><td>Fibonacci heap</td><td>Fib heap</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(E + V\log V)">\(O(E + V\log V)\)</span></td></tr><tr><td>Dial’s algorithm</td><td>Buckets</td><td>Small integers</td><td><span class="note-inline-equation" data-latex="O(V + E + C)">\(O(V + E + C)\)</span></td></tr><tr><td>0–1 BFS</td><td>Deque</td><td>0/1 weights</td><td><span class="note-inline-equation" data-latex="O(V + E)">\(O(V + E)\)</span></td></tr><tr><td>Radix heap</td><td>Radix buckets</td><td>Integers</td><td><span class="note-inline-equation" data-latex="O(E + V\log C)">\(O(E + V\log C)\)</span></td></tr><tr><td>Thorup’s algorithm</td><td>Hierarchical buckets</td><td>Positive integers</td><td><span class="note-inline-equation" data-latex="O(V + E)">\(O(V + E)\)</span></td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-804d-bc04-c749e945c9aa">Below we go through how each of these approaches work.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2ccd3a21-bb2d-8030-9d09-e5a6617e0ebe">Binary Heap</h2><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80bc-8bdd-dbe265673f52">Here, we are presented with two choice for what to store in the heap:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-8062-9fe1-f4f675d3bf7c">Edges (so that we can extract the shortest edge)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-803f-b357-e90fa7affbf5">Vertices (so that we can identify the vertex with the smallest Dijkstra Score)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ac-a173-efe922205045">It turns out that the latter is much easier to implement because the set of vertices only becomes smaller with iterations of the algorithm. On the other hand, the edges change completely from step to step based on which edge we are starting from.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80b7-942b-d7c1dcc8a887">The <strong>invariant</strong> in the heap is that it is going to contain all the unvisited vertices and their updated Dijkstra scores.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-8021-bed9-e06b4a06f8f6">With this decided, here is how we implement the algorithm:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80b6-83c0-eb435fdd5a50">Initialize a set <span class="note-inline-equation" data-latex="X">\(X\)</span> of the vertices for which the shortest distance is confirmed (initially empty), and an empty heap <span class="note-inline-equation" data-latex="H">\(H\)</span> (initially with all vertices with keys as the Dijkstra score)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-8046-9d52-d00cf052d1a6">Until <span class="note-inline-equation" data-latex="H">\(H\)</span> is empty: [the loop runs <span class="note-inline-equation" data-latex="|V|">\(|V|\)</span> times]<ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80d9-85d8-ceac73e4bce7">Remove the vertex with the smallest Dijkstra score from <span class="note-inline-equation" data-latex="H">\(H\)</span> and add it to <span class="note-inline-equation" data-latex="X">\(X\)</span> [Time complexity <span class="note-inline-equation" data-latex="O(\log{|V|})">\(O(\log{|V|})\)</span>]</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80fc-952b-d3b16ad72c3d">Assign the shortest distance to the vertex moved as the Dijkstra score of the vertex [Constant time operation]</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80d1-8c4f-f3303a38f1d0">Update the heap so that the Dijkstra scores are updated based on the new set <span class="note-inline-equation" data-latex="X">\(X\)</span> [The time complexity changes each loop so instead we analyse the total number of times heap updates are done. This happens <span class="note-inline-equation" data-latex="2|E|">\(2|E|\)</span> times because each outgoing edge from each vertex is only processed once.]</li></ol></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="328d3a21-bb2d-8025-8ca9-dc23aca824e5">The intuition between Dijkstra is that it repeatedly picks the closest unvisited node.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ec-b0cf-fe1f5820ab53">Overall time complexity:</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-8037-b005-cc522cd99441">As the loop runs, the time complexity of 2a will be <span class="note-inline-equation" data-latex="O(|V|\log{|V|})">\(O(|V|\log{|V|})\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80e3-a5ec-e38131ed9d9f">The total time complexity of 2c will be <span class="note-inline-equation" data-latex="O(|E|\log{|V|})">\(O(|E|\log{|V|})\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80be-8462-c59690b76b11">Thus, overall, we have <span class="note-inline-equation" data-latex="O((V+E)\log V)">\(O((V+E)\log V)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8045-8491-ca84f8e33851">This can be expressed in pseudo-code as follows:</p><figure class="notion-block notion-code" data-notion-block-id="31ed3a21-bb2d-80c5-afc5-de869760fb0c"><pre class="note-code-block" data-language="python"><code class="language-python">def dijkstra(G, s):
 	dist_est = [an array of all ∞]; set dist_est[s] = 0
@@ -47,5 +51,53 @@ end</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -21,21 +21,73 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Scheduling</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80f2-be6b-ee06f5f1a2e1">Not all scheduling problems can be solved using greedy methods. Greedy algorithms work when there are <strong>optimal substructure</strong> properties.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8037-9ad8-d2a128e31f9d">The scheduling problems that have these properties include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8086-ab68-c8f239efdc13">Activity Selection Problem: Selecting the maximum number of non-overlapping activities by always picking the one that finishes earliest.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8019-b514-ef06197bd02d">Interval Partitioning: Minimizing resources (like rooms) needed by greedily assigning intervals to available resources, which is optimal because it matches the &quot;depth&quot; (maximum overlaps). </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-807d-b593-ca30d5d69e2d">However, not all scheduling problems have the optimal substructure property. Examples include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-80de-98f9-fa2ca2004e48">General Job Sequencing with Deadlines: Picking the highest profit job first might block other profitable jobs that could have been scheduled, leading to a lower total profit than an optimal solution (which requires considering all possibilities).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8012-b5ef-eb11b0fad2b9">Shortest Processing Time (SPT) for all tasks: If the goal is to minimize total completion time, simply processing shortest jobs first isn&#39;t always optimal; it depends on the exact objective and constraints. </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8001-854a-e98509b6f90b">Thus, as with all other greedy algorithms, a proof of correctness is a step that cannot be skipped.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80d8-8d82-df7bfaeecb9b">When greedy approaches fail, the best bet is to turn to<strong> dynamic programming</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-806f-a14e-ddf5956f567f">Scheduling problems leads to canonical greedy algorithms. The proof of the greedy approach to a scheduling problem is outlined in <a href="https://www.notion.so/2cdd3a21bb2d8065aa34c81dee6a8175#2cdd3a21bb2d8022b694eec222315b40" rel="noreferrer noopener">A simple illustrative case is the scheduling problem. The greedy approach picks the task that has the earliest deadline.</a>.</p><p class="notion-block notion-paragraph" data-notion-block-id="351d3a21-bb2d-8035-802e-da6077bca1dd"></p></article>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80b3-95db-f73ee6e85490">This is often called “Greedy Scheduling with Deadlines” or “Interval Scheduling with Profits.”</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="365d3a21-bb2d-80f1-931c-dab789701196">Core idea</h3><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-804d-9422-f8b1fa63cfe3">You have a set of jobs/tasks/customers, each with:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80d6-b821-dc0d7a78f528">a <strong>value</strong></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80bf-bbed-ca2094f68fd3"><strong>constraint(s)</strong> (deadline, duration, resource availability, etc.).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-809f-8f47-dfd32fc0a2b5">You want to maximize total profit subject to deadlines. The <strong>standard greedy approach</strong> is:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8041-b3e3-f7e883655f86"><strong>Sort jobs by deadline</strong> (or group them by deadline).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-804a-bf7e-f438c657716f"><strong>Iterate backwards in time</strong> (from the last slot to the first).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8031-be6b-e7d428552e88">At each slot, consider all jobs that could still be scheduled (deadline ≥ current slot).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8024-b89c-d01cdb19e82a"><strong>Pick the job with maximum profit</strong> among those eligible.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80c9-9254-f4a61f152048">Assign it to the slot, remove it from consideration, and continue.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-8008-8c62-f7a441fb3021">This is implemented efficiently with a <strong>max‑heap</strong> (priority queue) to reconcile “time filtration” (deadline constraint) with “profit maximization.”</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="365d3a21-bb2d-8036-a147-d12d378c9b47">Proof of Correctness</h2><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80ac-8754-eb9dddae4820">The proof uses an <strong>exchange argument</strong>:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8091-84fe-f19408f2b336"><strong>Feasibility:</strong><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80c2-a783-c647aa2446a7">By construction, each slot gets at most one job, and every job is scheduled at or before its deadline. So the greedy schedule is feasible.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-808e-b56e-ce01c14b8820"><strong>Optimality:</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80b6-94b6-e945da37a5b8">Suppose there exists an optimal schedule that differs from the greedy one.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8067-b9d9-fa9cf96f2dab">Consider the latest slot where they differ. The optimal schedule has some job (J), but the greedy picked a job (G) with profit ≥ profit((J)).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80b3-8dd4-d40a7fd71c37">Swap (J) out and put (G) in. This preserves feasibility (since (G)’s deadline ≥ current slot) and does not reduce profit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8047-9482-d7a074774b27">Repeat this process slot by slot. Eventually, the optimal schedule is transformed into the greedy schedule without loss of profit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-806e-a7e5-cdc8c27d9ee7">Therefore, the greedy schedule is optimal.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80eb-98e2-cffe081bc7a0">This is the classic <strong>deadline scheduling exchange argument</strong>: greedy always picks the richest feasible job for each slot, and any deviation can be “repaired” without harm.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="365d3a21-bb2d-807d-862c-f416fd12bd99">Example Problems</h2><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-807c-a178-debece415192">Here are problems that can be solved using a general version of this strategy:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-804e-85a3-c127cca14518"><strong>Bank Queue (Kattis):</strong> maximize money with deadlines → greedy backwards with heap.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80c3-bb93-e7665e11379a"><strong>Job Sequencing with Deadlines (classic):</strong> same structure, maximize profit.<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8087-8742-e9e562cac322">Each job has a profit and deadline; schedule jobs to maximize profit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8096-8506-f166ed38c857">Use a heap‑based greedy solution.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8065-9281-c9a19a379011"><strong>Interval Scheduling (maximize number of jobs):</strong> greedy by earliest finish time.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80de-9ebe-da8896e5ad1c"><strong>Huffman Coding:</strong> greedy by merging lowest weights → optimal prefix code.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80bb-8a95-f4c55e5dd675"><strong>Minimum Spanning Tree (Kruskal/Prim):</strong> greedy by smallest edge weight → optimal spanning tree.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8093-95eb-f763efd5c116"><strong>Activity Selection:</strong> greedy by earliest finish time → maximum set of non‑overlapping activities.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80da-ab71-f0edc72a6d80"><strong>Task Scheduling with Penalties:</strong> greedy by highest penalty first → minimize missed deadlines.<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-809f-ad30-d225c7553f17">Each task has a deadline and penalty if late.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-804a-84f0-ce209276f1f6">Greedy can minimize penalties by prioritizing tasks with higher penalties earlier.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8076-b870-e7562072d98b"><strong>Resource allocation in operating systems: </strong>Assign processes to CPU slots before deadlines to maximize throughput or minimize missed deadlines.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80b4-b6f1-c8bd7b0fd66a"></p></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

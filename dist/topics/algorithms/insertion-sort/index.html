@@ -21,17 +21,21 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Insertion Sort</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8020-b451-ef5ccd08c9ee">This is an <strong>in-pace</strong> sorting algorithm (<span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span> space) that works for small input sizes. </p><blockquote class="notion-block notion-quote" data-notion-block-id="2efd3a21-bb2d-80ad-a65f-e73fc965fb30">Recall that a sorting algorithm sorts in place if only a constant number of elements of the input array are ever stored outside the array.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8097-b867-cb1be0c6ce4f">The invariant that insertion sort maintains is that at the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements in the array are sorted. </p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-809a-a1f4-f900eda11518">To maintain this, we need to do the following in the inner loop. We do this by looping within the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements till we reach the element where we can insert the <span class="note-inline-equation" data-latex="i+1">\(i+1\)</span> element.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8058-b3bc-d0db48259123">The inner invariant can be stated as ensuring that in the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, we need to ensure that all elements in the sub-list <span class="note-inline-equation" data-latex="[j+1, i]">\([j+1, i]\)</span> are greater than the <span class="note-inline-equation" data-latex="j^{th}">\(j^{th}\)</span> element. If this is not true, then we can remedy it by pushing the last element forward with a swap.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-80b3-94f8-e1987f604f29">Here is how this algorithm can be illustrated using pseudocode:</p><figure class="notion-block notion-code" data-notion-block-id="2efd3a21-bb2d-802b-afa5-eb047b022624"><pre class="note-code-block" data-language="c"><code class="language-c">procedure insertionSort(array A)
     n = length(A)
@@ -64,5 +68,53 @@ With <code class="note-inline-code">--j</code>, the element at position <code cl
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

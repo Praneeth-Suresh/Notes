@@ -23,6 +23,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const topicsDir = path.join(contentDir, "topics");
     const outDir = path.join(root, "dist");
     const mathJaxSourcePath = path.join(root, "mathjax-source.js");
+    const portfolioDataPath = path.join(contentDir, "portfolio-repositories.json");
     await fs.mkdir(topicsDir, { recursive: true });
     await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
 
@@ -38,6 +39,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
           type: "child_page",
           blockId: "child-page-1",
           title: "Dynamic Programming",
+          labels: [
+            { name: "Graphs", color: "blue" },
+            { name: "Reviewed", color: "green" },
+          ],
           children: [
             {
               type: "paragraph",
@@ -71,12 +76,43 @@ test("builds child_page routes and makes subpages searchable", async () => {
       ], null, 2)}\n`,
       "utf8",
     );
+    await fs.writeFile(
+      portfolioDataPath,
+      `${JSON.stringify(
+        {
+          generatedAt: "2026-05-23T00:00:00.000Z",
+          source: { provider: "github", username: "Praneeth-Suresh" },
+          reviewedRepositoryCount: 1,
+          portfolioProjects: [
+            {
+              name: "NewRepo",
+              href: "https://github.com/Praneeth-Suresh/NewRepo",
+              kind: "Applied software tool",
+              language: "TypeScript",
+              summary: "A newly refreshed public repository.",
+            },
+          ],
+          repositoryGroups: [
+            {
+              label: "Software and app systems",
+              repos: [
+                { name: "NewRepo", href: "https://github.com/Praneeth-Suresh/NewRepo" },
+              ],
+            },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+      "utf8",
+    );
 
     await buildPagesSite({
       manifestPath: path.join(contentDir, "topic-manifest.json"),
       outputDir: outDir,
       siteTitle: "Computer Science Notes",
       mathJaxSourcePath,
+      portfolioDataPath,
     });
 
     const parentHtml = await fs.readFile(
@@ -88,6 +124,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     const homeHtml = await fs.readFile(path.join(outDir, "index.html"), "utf8");
+    const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
@@ -99,9 +136,35 @@ test("builds child_page routes and makes subpages searchable", async () => {
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
+    assert.ok(parentHtml.includes('class="note-label notion-label-color-blue"'));
+    assert.ok(childHtml.includes('aria-label="Page labels"'));
+    assert.ok(childHtml.includes("Reviewed"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
+    assert.ok(homeHtml.includes('href="/about/"'));
+    assert.ok(homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
+    assert.ok(homeHtml.includes('document.addEventListener("keydown"'));
+    assert.ok(homeHtml.includes('target.tagName === "INPUT"'));
+    assert.ok(homeHtml.includes('searchInput.focus();'));
+    assert.ok(personalHtml.includes("Praneeth Suresh"));
+    assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
+    assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
+    assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
+    assert.ok(personalHtml.includes("NewRepo"));
+    assert.ok(personalHtml.includes("A newly refreshed public repository."));
+    assert.ok(personalHtml.includes("<span>1</span>"));
+    assert.ok(personalHtml.includes("href=\"/\" data-hotkey=\"H\""));
+    assert.ok(personalHtml.includes("href=\"/#main-content\" data-hotkey=\"N\""));
+    assert.ok(personalHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
+    assert.ok(!personalHtml.includes("Praneeth describes himself"));
+    assert.ok(!personalHtml.includes("Source note: LinkedIn required authentication"));
+    assert.ok(!homeHtml.includes("notes.dev"));
     assert.ok(siteCss.includes("@keyframes stripe-drift"));
+    assert.ok(siteCss.includes("background: rgb(212 76 71 / 0.18);"));
+    assert.ok(siteCss.includes("50% {\n    transform: translateX(18%) skewY(-10deg);"));
+    assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
+    assert.ok(siteCss.includes(".portfolio-quote"));
+    assert.ok(siteCss.includes(".portfolio-hero"));
     assert.ok(siteCss.includes("@media (prefers-reduced-motion: reduce)"));
     assert.ok(childHtml.includes("<h1 class=\"site-title\">Dynamic Programming</h1>"));
     assert.ok(childHtml.includes("Optimal substructure"));
@@ -121,6 +184,18 @@ test("builds child_page routes and makes subpages searchable", async () => {
       searchIndex
         .find((entry) => entry.slug === "algorithms/dynamic-programming")
         .searchableText.includes("Optimal substructure"),
+    );
+    assert.ok(
+      searchIndex
+        .find((entry) => entry.slug === "algorithms/dynamic-programming")
+        .searchableText.includes("Graphs"),
+    );
+    assert.deepEqual(
+      searchIndex.find((entry) => entry.slug === "algorithms/dynamic-programming").labels,
+      [
+        { name: "Graphs", color: "blue" },
+        { name: "Reviewed", color: "green" },
+      ],
     );
   });
 });

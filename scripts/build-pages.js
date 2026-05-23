@@ -16,6 +16,7 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
   "tex-svg-full.js",
 );
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
+const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -29,6 +30,7 @@ function parseArgs(argv) {
   const args = {
     manifest: "content/topic-manifest.json",
     out: "dist",
+    portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
     siteTitle: "Computer Science Notes",
   };
 
@@ -49,6 +51,12 @@ function parseArgs(argv) {
 
     if (item === "--site-title") {
       args.siteTitle = assertNonEmptyString(argv[index + 1], "--site-title value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--portfolio-data") {
+      args.portfolioData = assertNonEmptyString(argv[index + 1], "--portfolio-data value");
       index += 1;
       continue;
     }
@@ -110,6 +118,14 @@ async function pathExists(absolutePath) {
   }
 }
 
+async function readOptionalJsonFromFile(absolutePath, label) {
+  if (!(await pathExists(absolutePath))) {
+    return null;
+  }
+
+  return readJsonFromFile(absolutePath, label);
+}
+
 function validateManifestEntry(entry) {
   if (!entry || typeof entry !== "object") {
     throw new Error("Each manifest entry must be an object.");
@@ -136,6 +152,11 @@ function validateManifestEntry(entry) {
     slug,
     title,
     description,
+    databaseLabelProperties: Array.isArray(entry.databaseLabelProperties)
+      ? entry.databaseLabelProperties
+          .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
+          .map((propertyName) => propertyName.trim())
+      : [],
     source: entry.source,
   };
 }
@@ -161,6 +182,7 @@ async function loadTopicDocument({ manifestEntry, notionContext, manifestDir }) 
     pageId,
     notionToken,
     notionVersion,
+    databaseLabelProperties: manifestEntry.databaseLabelProperties,
   });
 }
 
@@ -258,6 +280,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
         outputSegments: ["topics", topicSlug, ...routeSegments],
         title,
         description: parentDescription,
+        labels: Array.isArray(block.labels) ? block.labels : [],
         parentTitle,
         sourceBlock: block,
         sourceBlocks: childBlocks,
@@ -278,6 +301,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
     outputSegments: ["topics", topicSlug],
     title: topicTitle,
     description: topicDescription,
+    labels: Array.isArray(rootDocument.labels) ? rootDocument.labels : [],
     parentTitle: null,
     sourceBlock: null,
     sourceBlocks: rootDocument.blocks,
@@ -289,6 +313,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
       ...rootDocument,
       title: record.title,
       description: record.description,
+      labels: record.labels,
       blocks: record.sourceBlocks.map((block) =>
         cloneBlockForPage(block, childPageRecords, record.urlPath),
       ),
@@ -340,6 +365,7 @@ async function replaceDirectoryAtomically({ sourceDir, targetDir }) {
 async function buildPagesSite({
   manifestPath,
   outputDir,
+  portfolioDataPath = DEFAULT_PORTFOLIO_DATA_PATH,
   siteTitle,
   mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
 }) {
@@ -357,6 +383,10 @@ async function buildPagesSite({
   const notionContext = createNotionIngestionContext();
   const notesContentContext = createNotesContentContext();
   const stylingContext = createSiteStylingContext();
+  const portfolioData = await readOptionalJsonFromFile(
+    path.resolve(process.cwd(), portfolioDataPath),
+    "portfolio repository data",
+  );
 
   const topics = [];
   for (const rawEntry of manifest) {
@@ -408,6 +438,7 @@ async function buildPagesSite({
             slug: pageRecord.slug,
             title: pageRecord.title,
             description: pageRecord.description,
+            labels: pageRecord.labels,
             parentTitle: pageRecord.parentTitle,
           },
           topicContentHtml: topicBodyHtml,
@@ -424,6 +455,7 @@ async function buildPagesSite({
           }),
           urlPath: pageRecord.urlPath,
           parentTitle: pageRecord.parentTitle,
+          labels: pageRecord.labels,
         });
       }
     }
@@ -433,8 +465,13 @@ async function buildPagesSite({
       topics,
       searchEntries: searchIndex,
     });
+    const personalHtml = stylingContext.renderPersonalPage({
+      siteTitle,
+      portfolioData,
+    });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
+    await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
     await writeUtf8File(
       path.join(buildOutputDir, "search-index.json"),
       `${JSON.stringify(searchIndex, null, 2)}\n`,
@@ -456,6 +493,7 @@ if (require.main === module) {
   buildPagesSite({
     manifestPath: args.manifest,
     outputDir: args.out,
+    portfolioDataPath: args.portfolioData,
     siteTitle: args.siteTitle,
   }).catch((error) => {
     console.error(`build-pages failed: ${error.message}`);

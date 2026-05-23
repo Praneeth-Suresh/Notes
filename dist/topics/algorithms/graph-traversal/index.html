@@ -21,21 +21,73 @@
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       
     <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Graph Traversal</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2c6d3a21-bb2d-804c-8af6-fcbdacda562e">Graph search is a highly important algorithm that is fundamental blazingly fast and widely applicable. The problem of graph search can be condensed down to the following:</p><p class="notion-block notion-paragraph" data-notion-block-id="2c6d3a21-bb2d-802e-a6e5-d417bb9f1e74"><strong>Input</strong>: An undirected or directed graph and a starting vertex</p><p class="notion-block notion-paragraph" data-notion-block-id="2c6d3a21-bb2d-80ec-a67a-ccd0da67817b"><strong>Output</strong>: All the vertices of the graph reachable from the starting vertex</p><p class="notion-block notion-paragraph" data-notion-block-id="317d3a21-bb2d-808e-baa2-e88f500755bc">Sometimes this is also called the <em>Graph Traversal </em>problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="2c6d3a21-bb2d-8005-995b-fafb13cad01c">A <em>generic search algorithm </em>can be implemented as one that chooses an edge randomly on the frontier of the explored part of the graph. There can be many such edges so to specify the algorithm fully, we need a method for choosing one of them. The two most important strategies for doing this are:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2c6d3a21-bb2d-80a3-bae5-d8c2a4171013"><a href="https://www.notion.so/2c6d3a21bb2d8081ad93d257a078a51f" rel="noreferrer noopener">Breadth-first search (BFS)</a> </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2c6d3a21-bb2d-8094-b078-ef9cdc828ce7"><a href="https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de" rel="noreferrer noopener">Depth-first search (DFS)</a> </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2c6d3a21-bb2d-802e-a983-f41aafb30b30">Both approaches are useful because they have different applications. Both of them are useful for finding different properties of the graph in the most efficient way possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="327d3a21-bb2d-803a-8eda-c3181e4e9b1a">A very important technique in graph traversal is <a href="https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de#2c9d3a21bb2d80a289d9e58cd90617a3" rel="noreferrer noopener">Backtracking</a> which is an application of DFS that is best in breaking down search spaces.</p><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="32dd3a21-bb2d-8016-a5d7-ded6b32dd8c2"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">Tree traversal is a simpler problem because there are no cycles. Since there is only one path, we don’t need complex traversal/SSSP algorithms.</div></aside></div><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="317d3a21-bb2d-80c7-9a57-dffcb7851d02">Graph Problems</h1><p class="notion-block notion-paragraph" data-notion-block-id="317d3a21-bb2d-8059-9a94-db29fe262ac9">Graph Problems come in a variety of forms and it is not possible to learn the algorithm for every graph problem that you come across. In general, we have two strategies which we can use to solve graph problems:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="317d3a21-bb2d-8079-a558-f1411a8e3149">Modify an existing algorithm to solve a new problem.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="317d3a21-bb2d-8085-b772-d149864d8e0c">Black box the a known algorithm, but transform our problem into one our algorithm will solve.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="317d3a21-bb2d-801a-98f2-f24807e0d117">This is useful because there are a lot of graph problems. Even seemingly unrelated problems can often be converted into one.</p><p class="notion-block notion-paragraph" data-notion-block-id="325d3a21-bb2d-8009-a8a6-f95b7c21dfb3">In particular for graph problems, there are a few common ways to extend the graph algorithms we have to problems that might not be conventional graph problems:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="325d3a21-bb2d-80e5-8f0b-f69f171e979e">Add a few extra nodes</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="325d3a21-bb2d-8000-81e5-eb3e14c2914b">Add a few extra edges</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="325d3a21-bb2d-8022-ac18-cc3f99ecf7cf">Create multiple copies of the graph </li></ol><p class="notion-block notion-paragraph" data-notion-block-id="325d3a21-bb2d-808e-a7dd-ce04326b9689">Then, we can apply any of the know graph traversal algorithms to solve the problems, notably:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="344d3a21-bb2d-8034-8377-dae4fb38b07b">Cycle Detection (which is slightly different for directed graphs)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="344d3a21-bb2d-80fb-a866-ed6e6d0148cd">Topological Sort (using DFS)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="344d3a21-bb2d-801d-a8a8-d991916e1a3c">Connected Components (SCCs for directed graphs)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="344d3a21-bb2d-8053-b1ed-e65682208c93">Counting edges and vertices</li></ul></article>
     </section>
   
     </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code Review · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Code Review</h1>
+      <p class="topic-parent">Subpage of Agentic Coding</p>
+      
+      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-807f-a6bf-db17dd9b4156">Code review is one way to monitor code and flag out issues that arise with the code. It is possible to set up an agent to do code review yourself however there are a bunch of platforms that do sophisticated code review for you. </p><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-80e8-a5f6-f710ad8f68e4">Below are a few code review platforms to check out:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8003-9265-c0d53771be2d">Code Rabbit</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-80c9-be25-e7bbf9df9ee2">Greptile</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-80bd-b551-de4a0e49c62f">Gitlab Duo</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8083-94c2-e6e3dfa11d56">Codex review</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-807d-bd49-c61c926b5813">Devin review</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-801b-bac1-c1b329d0eafc">Cubic</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
