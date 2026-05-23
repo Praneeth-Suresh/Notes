@@ -106,7 +106,7 @@ summary:focus-visible {
 }
 
 .brand-link,
-.site-subtitle,
+.site-links a,
 .topic-nav a,
 .home-kicker,
 .section-kicker,
@@ -119,6 +119,7 @@ summary:focus-visible {
 }
 
 .brand-link,
+.site-links a,
 .topic-nav a {
   display: inline-flex;
   align-items: center;
@@ -133,6 +134,7 @@ summary:focus-visible {
 }
 
 .brand-link::before,
+.site-links a::before,
 .topic-nav a::before,
 .primary-action::before,
 .secondary-action::before {
@@ -141,11 +143,12 @@ summary:focus-visible {
   color: var(--muted);
 }
 
-.site-subtitle {
+.site-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 0.4rem;
   margin: 0;
-  color: var(--muted);
-  font-size: 0.75rem;
-  text-align: right;
 }
 
 .panel {
@@ -516,6 +519,332 @@ summary:focus-visible {
   color: var(--muted);
   font-size: 0.76rem;
   font-weight: 700;
+}
+
+.portfolio-page .layout {
+  max-width: 1400px;
+}
+
+.portfolio-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(21rem, 0.62fr);
+  gap: 0.75rem;
+  min-height: 31rem;
+  margin-bottom: 0.75rem;
+}
+
+.portfolio-hero-copy,
+.portfolio-signal {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.portfolio-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: clamp(1.2rem, 4vw, 2.4rem);
+}
+
+.portfolio-title {
+  max-width: 9ch;
+  margin: 0;
+  font-size: clamp(3.3rem, 10vw, 8.2rem);
+  font-weight: 720;
+  line-height: 0.86;
+  letter-spacing: 0;
+}
+
+.portfolio-intro {
+  max-width: 48rem;
+  margin: 1.2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 1.7vw, 1.35rem);
+  line-height: 1.35;
+}
+
+.portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.portfolio-signal {
+  position: relative;
+  overflow: hidden;
+  min-height: 23rem;
+  background:
+    linear-gradient(120deg, transparent 0 36%, rgb(0 166 111 / 0.22) 36% 38%, transparent 38%),
+    linear-gradient(60deg, transparent 0 58%, rgb(255 122 26 / 0.2) 58% 60%, transparent 60%),
+    repeating-linear-gradient(90deg, transparent 0 1.6rem, rgb(30 30 30 / 0.09) 1.6rem 1.66rem),
+    repeating-linear-gradient(180deg, transparent 0 1.6rem, rgb(30 30 30 / 0.09) 1.6rem 1.66rem),
+    var(--surface-soft);
+}
+
+.portfolio-signal::before,
+.portfolio-signal::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.portfolio-signal::before {
+  inset: 12% 10%;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(90deg, transparent 49%, var(--border) 49% 51%, transparent 51%),
+    linear-gradient(180deg, transparent 49%, var(--border) 49% 51%, transparent 51%);
+  opacity: 0.55;
+  animation: portfolio-scan 9s ease-in-out infinite;
+}
+
+.portfolio-signal::after {
+  width: 58%;
+  height: 0.8rem;
+  left: 16%;
+  top: 52%;
+  background: linear-gradient(90deg, var(--accent), var(--cyan), var(--green), var(--orange));
+  transform: rotate(-18deg);
+  animation: portfolio-band 10s linear infinite;
+}
+
+.portfolio-signal-label,
+.portfolio-signal-node {
+  position: absolute;
+  z-index: 1;
+}
+
+.portfolio-signal-label {
+  top: 0.8rem;
+  left: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text);
+}
+
+.portfolio-signal-node {
+  width: 4.4rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface-strong) 68%, transparent);
+}
+
+.portfolio-signal-node-a {
+  right: 12%;
+  top: 18%;
+}
+
+.portfolio-signal-node-b {
+  left: 14%;
+  bottom: 16%;
+}
+
+.portfolio-signal-node-c {
+  right: 22%;
+  bottom: 18%;
+  width: 6.2rem;
+}
+
+@keyframes portfolio-scan {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0.85rem);
+  }
+}
+
+@keyframes portfolio-band {
+  0% {
+    transform: translateX(-12%) rotate(-18deg);
+  }
+  100% {
+    transform: translateX(12%) rotate(-18deg);
+  }
+}
+
+.portfolio-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 0.75rem;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.portfolio-strip div {
+  min-height: 8rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  padding: 1rem;
+}
+
+.portfolio-strip span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.portfolio-strip p {
+  max-width: 18rem;
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+}
+
+.portfolio-section {
+  margin-top: 0.75rem;
+  padding: clamp(1rem, 3vw, 1.6rem);
+}
+
+.portfolio-section-header {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: end;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.portfolio-section .section-title {
+  max-width: 16ch;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+.portfolio-philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1rem;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.portfolio-philosophy-grid p {
+  margin: 0;
+  background: var(--surface);
+  color: var(--muted);
+  padding: clamp(1rem, 2vw, 1.4rem);
+  font-size: 1.02rem;
+}
+
+.portfolio-project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.portfolio-project {
+  position: relative;
+  display: block;
+  min-height: 17rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 3rem 1rem 1rem;
+  text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.portfolio-project::before {
+  content: "[" attr(data-index) "]";
+  position: absolute;
+  top: 0.85rem;
+  left: 1rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.portfolio-project:hover,
+.portfolio-project:focus-visible {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.portfolio-project-kind,
+.repo-group h3,
+.source-note {
+  font-family: var(--font-mono);
+}
+
+.portfolio-project-kind {
+  color: var(--accent-strong);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.portfolio-project h3 {
+  margin: 0.5rem 0 0;
+  font-size: 1.45rem;
+  line-height: 1.05;
+}
+
+.portfolio-project p {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+}
+
+.portfolio-project:hover p,
+.portfolio-project:focus-visible p,
+.portfolio-project:hover .portfolio-project-kind,
+.portfolio-project:focus-visible .portfolio-project-kind {
+  color: color-mix(in oklab, var(--bg) 72%, transparent);
+}
+
+.repo-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.repo-group {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1rem;
+}
+
+.repo-group h3 {
+  margin: 0 0 0.8rem;
+  font-size: 0.78rem;
+}
+
+.repo-group ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repo-group a {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16rem;
+}
+
+.repo-group a:hover,
+.repo-group a:focus-visible {
+  color: var(--text);
+}
+
+.source-note {
+  margin-top: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  padding: 0.75rem 1rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.source-note p {
+  margin: 0;
 }
 
 .notion-page-content {
@@ -906,8 +1235,8 @@ summary:focus-visible {
     flex-direction: column;
   }
 
-  .site-subtitle {
-    text-align: left;
+  .site-links {
+    justify-content: start;
   }
 
   .home-hero {
@@ -926,6 +1255,25 @@ summary:focus-visible {
 
   .site-title {
     font-size: clamp(2.4rem, 15vw, 4.8rem);
+  }
+
+  .portfolio-hero,
+  .portfolio-section-header,
+  .portfolio-philosophy-grid,
+  .repo-map {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-hero {
+    min-height: auto;
+  }
+
+  .portfolio-signal {
+    min-height: 17rem;
+  }
+
+  .portfolio-strip {
+    grid-template-columns: 1fr;
   }
 
   .notes-panel {

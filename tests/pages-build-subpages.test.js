@@ -88,6 +88,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     const homeHtml = await fs.readFile(path.join(outDir, "index.html"), "utf8");
+    const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
@@ -100,8 +101,16 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
+    assert.ok(homeHtml.includes('href="/about/"'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
+    assert.ok(personalHtml.includes("Praneeth Suresh"));
+    assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
+    assert.ok(personalHtml.includes("href=\"/\" data-hotkey=\"H\""));
+    assert.ok(personalHtml.includes("href=\"/#main-content\" data-hotkey=\"N\""));
+    assert.ok(personalHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
+    assert.ok(personalHtml.includes("Source note: LinkedIn required authentication"));
     assert.ok(siteCss.includes("@keyframes stripe-drift"));
+    assert.ok(siteCss.includes(".portfolio-hero"));
     assert.ok(siteCss.includes("@media (prefers-reduced-motion: reduce)"));
     assert.ok(childHtml.includes("<h1 class=\"site-title\">Dynamic Programming</h1>"));
     assert.ok(childHtml.includes("Optimal substructure"));

@@ -433,8 +433,12 @@ async function buildPagesSite({
       topics,
       searchEntries: searchIndex,
     });
+    const personalHtml = stylingContext.renderPersonalPage({
+      siteTitle,
+    });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
+    await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
     await writeUtf8File(
       path.join(buildOutputDir, "search-index.json"),
       `${JSON.stringify(searchIndex, null, 2)}\n`,

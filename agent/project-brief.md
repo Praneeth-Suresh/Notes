@@ -14,12 +14,14 @@ This website embraces a **minimalist technical notes aesthetic**, prioritizing r
 4. **Home Page**: This is a static technical hub inspired by Stripe.dev: a compact developer-oriented header, large typographic introduction, generated line-work motion, and a topic feed that makes scanning and searching notes feel immediate.
 5. **Navigate from the Home Page**: User should immediately understand where they are, search or scan available topics, and move from the home page to topic pages with clear links, labels, keyboard-friendly focus states, and no dependency on non-static runtime services.
 6. **Read in the Stripe-inspired shell**: User should read topic pages in a clean, developer-blog-like shell while all Notion-derived blocks, including toggles, databases, LaTeX, code, tables, and assets, keep their rendered structure.
+7. **Explore the maintainer portfolio**: User should navigate from the home page to a separate personal portfolio page that uses the same visual language but a distinct layout, then return to the home page or continue into notes without losing orientation.
 
 ## Success Conditions
 
 1. The home page and topic pages visibly align with the Stripe developer blog through typography, color, compact navigation, rectangular panels, micro labels, and static-compatible generated motion.
 2. The core notes structure is preserved: topic hierarchy, child-page routes, search, and all supported Notion block renderers continue to work.
 3. The generated site remains deployable as static Cloudflare Pages artifacts without remote font, animation, or API dependencies.
+4. The personal portfolio page truthfully presents Praneeth Suresh's public software engineering, AI research/development, project, and philosophy signals using only the approved LinkedIn and GitHub sources; inaccessible source details must not be invented.
 
 ## Reliability Priorities
 
@@ -50,3 +52,4 @@ A feature is complete only when it has all of the following:
 6. Fidelity checks explicitly cover LaTeX and code block rendering.
 7. Browser verification with Playwright MCP confirms the generated static UI for any HTML/CSS-facing change.
 8. UX changes are documented when presentation or navigation copy changes.
+9. Personal page changes include deterministic generation checks and Playwright navigation verification for home-to-portfolio and portfolio-to-home paths.

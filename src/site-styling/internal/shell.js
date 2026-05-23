@@ -39,11 +39,14 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
   <body${classAttribute}>
-    <a class="skip-link" href="#main-content">Skip to notes</a>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">${escapeHtml(siteTitle)}</a>
-        <p class="site-subtitle">Static field notes for Computer Science.</p>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
       </header>
       ${contentHtml}
     </main>
@@ -145,6 +148,7 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
         <p class="home-intro">A static developer-style index of algorithms, systems, data structures, and agentic coding notes, arranged for focused reading.</p>
         <div class="home-actions" aria-label="Primary actions">
           <a class="primary-action" href="#main-content" data-hotkey="T">Browse topics</a>
+          <a class="secondary-action" href="/about/" data-hotkey="P">Portfolio</a>
           <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
         </div>
       </div>
@@ -222,7 +226,206 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
   });
 }
 
+const portfolioProjects = [
+  {
+    name: "Notes",
+    href: "https://github.com/Praneeth-Suresh/Notes",
+    kind: "Static knowledge system",
+    language: "JavaScript",
+    summary:
+      "A Cloudflare Pages notes site with strict Notion ingestion, static search, subpage routes, and fidelity checks for LaTeX and code blocks.",
+  },
+  {
+    name: "incident-resolving-agent",
+    href: "https://github.com/Praneeth-Suresh/incident-resolving-agent",
+    kind: "Agentic workflow",
+    language: "Python",
+    summary:
+      "A suite of agentic workflows for resolving incident reports and executing solutions, with future directions around multimodal incident input and LLM fine-tuning.",
+  },
+  {
+    name: "OpenAIBuild",
+    href: "https://github.com/Praneeth-Suresh/OpenAIBuild",
+    kind: "Applied AI tool",
+    language: "Shell",
+    summary:
+      "A legal document generator project that reflects a practical pattern: wrap AI capability in a concrete workflow instead of leaving it as a demo.",
+  },
+  {
+    name: "LOBForecasting",
+    href: "https://github.com/Praneeth-Suresh/LOBForecasting",
+    kind: "Forecasting research",
+    language: "Jupyter Notebook",
+    summary:
+      "A notebook-based forecasting project, part of a broader repository cluster around time-series modeling and applied machine learning.",
+  },
+  {
+    name: "Sentiment-Analyzer",
+    href: "https://github.com/Praneeth-Suresh/Sentiment-Analyzer",
+    kind: "NLP analysis",
+    language: "Jupyter Notebook",
+    summary:
+      "Analyzes sentiment in official documents to understand policy direction and public positioning.",
+  },
+  {
+    name: "ReinforcementLearning",
+    href: "https://github.com/Praneeth-Suresh/ReinforcementLearning",
+    kind: "Research primer",
+    language: "Jupyter Notebook",
+    summary:
+      "A primer to reinforcement learning, sitting beside self-led TensorFlow and deep learning explorations.",
+  },
+];
+
+const repositoryGroups = [
+  {
+    label: "AI and ML research",
+    repos: [
+      "LOBForecasting",
+      "Sentiment-Analyzer",
+      "ReinforcementLearning",
+      "CT-image",
+      "IntroductoryTensorflow",
+      "DeepLearningWeek",
+      "MLdrivenDataAnalysisCensus2011",
+      "ForecastingFastestCoderFirst",
+    ],
+  },
+  {
+    label: "Software and app systems",
+    repos: [
+      "Notes",
+      "AgentCoding",
+      "OpenAIBuild",
+      "spill",
+      "ORCaseAnalysis",
+      "Stochron",
+      "VentApp",
+      "SnapSteady",
+      "CyberCupid",
+      "DLW",
+    ],
+  },
+  {
+    label: "Energy, data, and experiments",
+    repos: [
+      "ocf-data-sampler",
+      "pv-site-datamodel",
+      "PVNet",
+      "Streamlit",
+      "reprose",
+      "2025_aoc",
+      "skills-github-pages",
+      "Praneeth-Suresh.github.io",
+      "Praneeth-Suresh",
+      "SisThinkers",
+    ],
+  },
+];
+
+function renderPersonalPage({ siteTitle }) {
+  const projectCards = portfolioProjects
+    .map(
+      (project, index) => `<a class="portfolio-project" href="${escapeHtml(project.href)}" data-index="${String(index + 1).padStart(2, "0")}">
+  <span class="portfolio-project-kind">${escapeHtml(project.kind)} / ${escapeHtml(project.language)}</span>
+  <h3>${escapeHtml(project.name)}</h3>
+  <p>${escapeHtml(project.summary)}</p>
+</a>`,
+    )
+    .join("");
+
+  const repoGroups = repositoryGroups
+    .map(
+      (group) => `<section class="repo-group" aria-label="${escapeHtml(group.label)}">
+  <h3>${escapeHtml(group.label)}</h3>
+  <ul>
+    ${group.repos
+      .map(
+        (repo) =>
+          `<li><a href="https://github.com/Praneeth-Suresh/${escapeHtml(repo)}">${escapeHtml(repo)}</a></li>`,
+      )
+      .join("")}
+  </ul>
+</section>`,
+    )
+    .join("");
+
+  const content = `
+    <nav class="topic-nav" aria-label="Portfolio navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a href="/#main-content" data-hotkey="N">Notes</a>
+      <a class="active" href="/about/" data-hotkey="P" aria-current="page">Portfolio</a>
+    </nav>
+    <section id="main-content" class="portfolio-hero" aria-labelledby="portfolio-title">
+      <div class="portfolio-hero-copy">
+        <p class="home-kicker">[ Portfolio ]</p>
+        <h1 id="portfolio-title" class="portfolio-title">Praneeth Suresh</h1>
+        <p class="portfolio-intro">Software engineer and AI developer/researcher building practical systems around machine learning, agentic workflows, static knowledge tools, and data-heavy product ideas.</p>
+        <div class="portfolio-actions" aria-label="Profile links">
+          <a class="primary-action" href="https://github.com/Praneeth-Suresh" data-hotkey="G">GitHub</a>
+          <a class="secondary-action" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-hotkey="L">LinkedIn</a>
+        </div>
+      </div>
+      <div class="portfolio-signal" aria-hidden="true">
+        <span class="portfolio-signal-label">public.signal</span>
+        <span class="portfolio-signal-node portfolio-signal-node-a"></span>
+        <span class="portfolio-signal-node portfolio-signal-node-b"></span>
+        <span class="portfolio-signal-node portfolio-signal-node-c"></span>
+      </div>
+    </section>
+    <section class="portfolio-strip" aria-label="Portfolio summary">
+      <div>
+        <span>29</span>
+        <p>public GitHub repositories reviewed</p>
+      </div>
+      <div>
+        <span>AI + SWE</span>
+        <p>research notebooks, apps, agents, and static systems</p>
+      </div>
+      <div>
+        <span>source-bound</span>
+        <p>details come from public GitHub plus the approved LinkedIn URL</p>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="portfolio-philosophy">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Philosophy</p>
+        <h2 id="portfolio-philosophy" class="section-title">Build the thing, then make it explainable.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>Praneeth describes himself publicly as a passionate AI developer, a self-taught developer driven by curiosity, and someone who enjoys the art of problem solving.</p>
+        <p>His project trail moves from baseline ANNs into RNNs, LSTMs, HMMs, CNNs, explainable AI, representation analysis, application development, and AI-augmented software engineering.</p>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="portfolio-projects">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Selected builds</p>
+        <h2 id="portfolio-projects" class="section-title">A working portfolio, not a trophy shelf.</h2>
+      </div>
+      <div class="portfolio-project-grid">${projectCards}</div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="portfolio-index">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Repository map</p>
+        <h2 id="portfolio-index" class="section-title">Project terrain</h2>
+      </div>
+      <div class="repo-map">${repoGroups}</div>
+    </section>
+    <section class="source-note" aria-label="Source note">
+      <p>Source note: LinkedIn required authentication during retrieval, so the page avoids LinkedIn-only claims. Public facts are drawn from the approved GitHub profile and repository pages, including the LinkedIn profile URL exposed there.</p>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Praneeth Suresh · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page",
+  });
+}
+
 module.exports = {
   renderHomePage,
+  renderPersonalPage,
   renderTopicPage,
 };
