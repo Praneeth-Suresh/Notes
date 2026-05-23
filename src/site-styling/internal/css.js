@@ -332,10 +332,13 @@ summary:focus-visible {
 
 @keyframes stripe-drift {
   0% {
-    transform: translateX(-24%) skewY(-10deg);
+    transform: translateX(-18%) skewY(-10deg);
+  }
+  50% {
+    transform: translateX(18%) skewY(-10deg);
   }
   100% {
-    transform: translateX(24%) skewY(-10deg);
+    transform: translateX(-18%) skewY(-10deg);
   }
 }
 
@@ -660,10 +663,13 @@ summary:focus-visible {
 
 @keyframes portfolio-band {
   0% {
-    transform: translateX(-12%) rotate(-18deg);
+    transform: translateX(-10%) rotate(-18deg);
+  }
+  50% {
+    transform: translateX(10%) rotate(-18deg);
   }
   100% {
-    transform: translateX(12%) rotate(-18deg);
+    transform: translateX(-10%) rotate(-18deg);
   }
 }
 
@@ -770,7 +776,7 @@ summary:focus-visible {
 
 .portfolio-project-kind,
 .repo-group h3,
-.source-note {
+.portfolio-quote {
   font-family: var(--font-mono);
 }
 
@@ -836,16 +842,16 @@ summary:focus-visible {
   color: var(--text);
 }
 
-.source-note {
+.portfolio-quote {
   margin-top: 0.75rem;
   border: 1px solid var(--border);
   background: var(--surface-soft);
-  padding: 0.75rem 1rem;
-  color: var(--muted);
-  font-size: 0.76rem;
+  padding: 1rem;
+  color: var(--text);
+  font-size: 0.92rem;
 }
 
-.source-note p {
+.portfolio-quote p {
   margin: 0;
 }
 
@@ -944,40 +950,18 @@ summary:focus-visible {
   color: #d44c47;
 }
 
-.notion-color-gray_background {
-  background: #f1f1ef;
-}
-
-.notion-color-brown_background {
-  background: #f4eeee;
-}
-
-.notion-color-orange_background {
-  background: #faebdd;
-}
-
-.notion-color-yellow_background {
-  background: #fbf3db;
-}
-
-.notion-color-green_background {
-  background: #edf3ec;
-}
-
-.notion-color-blue_background {
-  background: #e7f3f8;
-}
-
-.notion-color-purple_background {
-  background: #f4f0f7;
-}
-
-.notion-color-pink_background {
-  background: #f9eef3;
-}
-
-.notion-color-red_background {
-  background: #fdebec;
+.notion-color-gray_background,
+.notion-color-brown_background,
+.notion-color-orange_background,
+.notion-color-yellow_background,
+.notion-color-green_background,
+.notion-color-blue_background,
+.notion-color-purple_background,
+.notion-color-pink_background,
+.notion-color-red_background,
+.notion-color-default_background {
+  background: rgb(212 76 71 / 0.18);
+  color: inherit;
 }
 
 .note-inline-code {

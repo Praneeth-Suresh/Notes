@@ -154,7 +154,6 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
       </div>
       <div class="stripe-field" aria-hidden="true">
         <span class="stripe-field-label">[ Fig. 01 ]</span>
-        <span class="stripe-field-title">notes.dev</span>
         <span class="stripe-field-grid"></span>
         <span class="stripe-field-orbit"></span>
       </div>
@@ -393,7 +392,7 @@ function renderPersonalPage({ siteTitle }) {
         <h2 id="portfolio-philosophy" class="section-title">Build the thing, then make it explainable.</h2>
       </div>
       <div class="portfolio-philosophy-grid">
-        <p>Praneeth describes himself publicly as a passionate AI developer, a self-taught developer driven by curiosity, and someone who enjoys the art of problem solving.</p>
+        <p>Praneeth Suresh is a software engineer and AI builder focused on turning exploratory ideas into working systems. His work moves across machine learning, agentic workflows, forecasting, developer tooling, and static knowledge systems, with a consistent bias toward making complex technical material usable.</p>
         <p>His project trail moves from baseline ANNs into RNNs, LSTMs, HMMs, CNNs, explainable AI, representation analysis, application development, and AI-augmented software engineering.</p>
       </div>
     </section>
@@ -411,8 +410,8 @@ function renderPersonalPage({ siteTitle }) {
       </div>
       <div class="repo-map">${repoGroups}</div>
     </section>
-    <section class="source-note" aria-label="Source note">
-      <p>Source note: LinkedIn required authentication during retrieval, so the page avoids LinkedIn-only claims. Public facts are drawn from the approved GitHub profile and repository pages, including the LinkedIn profile URL exposed there.</p>
+    <section class="portfolio-quote" aria-label="Portfolio quote">
+      <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
   `;
 
