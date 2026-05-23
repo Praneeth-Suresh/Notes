@@ -6,12 +6,16 @@
     "source": {
       "kind": "normalized-file",
       "path": "topics/algorithms.normalized.json"
-    }
+    },
+    "databaseLabelProperties": [
+      "Tags",
+      "Status"
+    ]
   },
   {
     "slug": "agent-coding",
     "title": "Agentic Coding",
-    "description": "",
+    "description": "Agents, feedback loops, and implementation habits.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/agent-coding.normalized.json"

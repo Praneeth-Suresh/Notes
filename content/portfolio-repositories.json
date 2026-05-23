@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-23T00:00:00.000Z",
+  "generatedAt": "2026-05-23T04:00:09.850Z",
   "source": {
     "provider": "github",
     "username": "Praneeth-Suresh",
@@ -12,86 +12,174 @@
       "href": "https://github.com/Praneeth-Suresh/Notes",
       "kind": "Static knowledge system",
       "language": "JavaScript",
-      "summary": "A Cloudflare Pages notes site with strict Notion ingestion, static search, subpage routes, and fidelity checks for LaTeX and code blocks."
+      "summary": "Great, no-nonsense Computer Science Notes"
     },
     {
-      "name": "incident-resolving-agent",
-      "href": "https://github.com/Praneeth-Suresh/incident-resolving-agent",
+      "name": "AgentCoding",
+      "href": "https://github.com/Praneeth-Suresh/AgentCoding",
       "kind": "Agentic workflow",
-      "language": "Python",
-      "summary": "A suite of agentic workflows for resolving incident reports and executing solutions, with future directions around multimodal incident input and LLM fine-tuning."
+      "language": "Shell",
+      "summary": "A public Shell repository in Praneeth Suresh's GitHub portfolio."
     },
     {
       "name": "OpenAIBuild",
       "href": "https://github.com/Praneeth-Suresh/OpenAIBuild",
-      "kind": "Applied AI tool",
+      "kind": "Applied software tool",
       "language": "Shell",
-      "summary": "A legal document generator project that reflects a practical pattern: wrap AI capability in a concrete workflow instead of leaving it as a demo."
+      "summary": "A public Shell repository in Praneeth Suresh's GitHub portfolio."
     },
     {
       "name": "LOBForecasting",
       "href": "https://github.com/Praneeth-Suresh/LOBForecasting",
-      "kind": "Forecasting research",
+      "kind": "AI and ML research",
       "language": "Jupyter Notebook",
-      "summary": "A notebook-based forecasting project, part of a broader repository cluster around time-series modeling and applied machine learning."
+      "summary": "A public Jupyter Notebook repository in Praneeth Suresh's GitHub portfolio."
     },
     {
-      "name": "Sentiment-Analyzer",
-      "href": "https://github.com/Praneeth-Suresh/Sentiment-Analyzer",
-      "kind": "NLP analysis",
-      "language": "Jupyter Notebook",
-      "summary": "Analyzes sentiment in official documents to understand policy direction and public positioning."
+      "name": "Praneeth-Suresh",
+      "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh",
+      "kind": "Public repository",
+      "language": "Unspecified",
+      "summary": "Config files for my GitHub profile."
     },
     {
-      "name": "ReinforcementLearning",
-      "href": "https://github.com/Praneeth-Suresh/ReinforcementLearning",
-      "kind": "Research primer",
-      "language": "Jupyter Notebook",
-      "summary": "A primer to reinforcement learning, sitting beside self-led TensorFlow and deep learning explorations."
+      "name": "spill",
+      "href": "https://github.com/Praneeth-Suresh/spill",
+      "kind": "Public repository",
+      "language": "TypeScript",
+      "summary": "A public TypeScript repository in Praneeth Suresh's GitHub portfolio."
     }
   ],
   "repositoryGroups": [
     {
       "label": "AI and ML research",
       "repos": [
-        { "name": "LOBForecasting", "href": "https://github.com/Praneeth-Suresh/LOBForecasting" },
-        { "name": "Sentiment-Analyzer", "href": "https://github.com/Praneeth-Suresh/Sentiment-Analyzer" },
-        { "name": "ReinforcementLearning", "href": "https://github.com/Praneeth-Suresh/ReinforcementLearning" },
-        { "name": "CT-image", "href": "https://github.com/Praneeth-Suresh/CT-image" },
-        { "name": "IntroductoryTensorflow", "href": "https://github.com/Praneeth-Suresh/IntroductoryTensorflow" },
-        { "name": "DeepLearningWeek", "href": "https://github.com/Praneeth-Suresh/DeepLearningWeek" },
-        { "name": "MLdrivenDataAnalysisCensus2011", "href": "https://github.com/Praneeth-Suresh/MLdrivenDataAnalysisCensus2011" },
-        { "name": "ForecastingFastestCoderFirst", "href": "https://github.com/Praneeth-Suresh/ForecastingFastestCoderFirst" }
+        {
+          "name": "LOBForecasting",
+          "href": "https://github.com/Praneeth-Suresh/LOBForecasting"
+        },
+        {
+          "name": "Sentiment-Analyzer",
+          "href": "https://github.com/Praneeth-Suresh/Sentiment-Analyzer"
+        },
+        {
+          "name": "ReinforcementLearning",
+          "href": "https://github.com/Praneeth-Suresh/ReinforcementLearning"
+        },
+        {
+          "name": "CT-image",
+          "href": "https://github.com/Praneeth-Suresh/CT-image"
+        },
+        {
+          "name": "pv-site-datamodel",
+          "href": "https://github.com/Praneeth-Suresh/pv-site-datamodel"
+        },
+        {
+          "name": "ForecastingFastestCoderFirst",
+          "href": "https://github.com/Praneeth-Suresh/ForecastingFastestCoderFirst"
+        },
+        {
+          "name": "Streamlit",
+          "href": "https://github.com/Praneeth-Suresh/Streamlit"
+        },
+        {
+          "name": "MLdrivenDataAnalysisCensus2011",
+          "href": "https://github.com/Praneeth-Suresh/MLdrivenDataAnalysisCensus2011"
+        },
+        {
+          "name": "IntroductoryTensorflow",
+          "href": "https://github.com/Praneeth-Suresh/IntroductoryTensorflow"
+        },
+        {
+          "name": "DeepLearningWeek",
+          "href": "https://github.com/Praneeth-Suresh/DeepLearningWeek"
+        }
       ]
     },
     {
       "label": "Software and app systems",
       "repos": [
-        { "name": "Notes", "href": "https://github.com/Praneeth-Suresh/Notes" },
-        { "name": "AgentCoding", "href": "https://github.com/Praneeth-Suresh/AgentCoding" },
-        { "name": "OpenAIBuild", "href": "https://github.com/Praneeth-Suresh/OpenAIBuild" },
-        { "name": "spill", "href": "https://github.com/Praneeth-Suresh/spill" },
-        { "name": "ORCaseAnalysis", "href": "https://github.com/Praneeth-Suresh/ORCaseAnalysis" },
-        { "name": "Stochron", "href": "https://github.com/Praneeth-Suresh/Stochron" },
-        { "name": "VentApp", "href": "https://github.com/Praneeth-Suresh/VentApp" },
-        { "name": "SnapSteady", "href": "https://github.com/Praneeth-Suresh/SnapSteady" },
-        { "name": "CyberCupid", "href": "https://github.com/Praneeth-Suresh/CyberCupid" },
-        { "name": "DLW", "href": "https://github.com/Praneeth-Suresh/DLW" }
+        {
+          "name": "Notes",
+          "href": "https://github.com/Praneeth-Suresh/Notes"
+        },
+        {
+          "name": "AgentCoding",
+          "href": "https://github.com/Praneeth-Suresh/AgentCoding"
+        },
+        {
+          "name": "OpenAIBuild",
+          "href": "https://github.com/Praneeth-Suresh/OpenAIBuild"
+        },
+        {
+          "name": "Praneeth-Suresh",
+          "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh"
+        },
+        {
+          "name": "spill",
+          "href": "https://github.com/Praneeth-Suresh/spill"
+        },
+        {
+          "name": "ORCaseAnalysis",
+          "href": "https://github.com/Praneeth-Suresh/ORCaseAnalysis"
+        },
+        {
+          "name": "Stochron",
+          "href": "https://github.com/Praneeth-Suresh/Stochron"
+        },
+        {
+          "name": "VentApp",
+          "href": "https://github.com/Praneeth-Suresh/VentApp"
+        },
+        {
+          "name": "incident-resolving-agent",
+          "href": "https://github.com/Praneeth-Suresh/incident-resolving-agent"
+        },
+        {
+          "name": "SnapSteady",
+          "href": "https://github.com/Praneeth-Suresh/SnapSteady"
+        },
+        {
+          "name": "skills-github-pages",
+          "href": "https://github.com/Praneeth-Suresh/skills-github-pages"
+        },
+        {
+          "name": "CyberCupid",
+          "href": "https://github.com/Praneeth-Suresh/CyberCupid"
+        },
+        {
+          "name": "reprose",
+          "href": "https://github.com/Praneeth-Suresh/reprose"
+        },
+        {
+          "name": "DLW",
+          "href": "https://github.com/Praneeth-Suresh/DLW"
+        }
       ]
     },
     {
       "label": "Energy, data, and experiments",
       "repos": [
-        { "name": "ocf-data-sampler", "href": "https://github.com/Praneeth-Suresh/ocf-data-sampler" },
-        { "name": "pv-site-datamodel", "href": "https://github.com/Praneeth-Suresh/pv-site-datamodel" },
-        { "name": "PVNet", "href": "https://github.com/Praneeth-Suresh/PVNet" },
-        { "name": "Streamlit", "href": "https://github.com/Praneeth-Suresh/Streamlit" },
-        { "name": "reprose", "href": "https://github.com/Praneeth-Suresh/reprose" },
-        { "name": "2025_aoc", "href": "https://github.com/Praneeth-Suresh/2025_aoc" },
-        { "name": "skills-github-pages", "href": "https://github.com/Praneeth-Suresh/skills-github-pages" },
-        { "name": "Praneeth-Suresh.github.io", "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh.github.io" },
-        { "name": "Praneeth-Suresh", "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh" },
-        { "name": "SisThinkers", "href": "https://github.com/Praneeth-Suresh/SisThinkers" }
+        {
+          "name": "SisThinkers",
+          "href": "https://github.com/Praneeth-Suresh/SisThinkers"
+        },
+        {
+          "name": "2025_aoc",
+          "href": "https://github.com/Praneeth-Suresh/2025_aoc"
+        },
+        {
+          "name": "Praneeth-Suresh.github.io",
+          "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh.github.io"
+        },
+        {
+          "name": "ocf-data-sampler",
+          "href": "https://github.com/Praneeth-Suresh/ocf-data-sampler"
+        },
+        {
+          "name": "PVNet",
+          "href": "https://github.com/Praneeth-Suresh/PVNet"
+        }
       ]
     }
   ]
