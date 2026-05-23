@@ -225,7 +225,9 @@ function renderHomePage({ siteTitle, topics, searchEntries = [] }) {
   });
 }
 
-const portfolioProjects = [
+const DEFAULT_PORTFOLIO_DATA = {
+  reviewedRepositoryCount: 29,
+  portfolioProjects: [
   {
     name: "Notes",
     href: "https://github.com/Praneeth-Suresh/Notes",
@@ -274,9 +276,9 @@ const portfolioProjects = [
     summary:
       "A primer to reinforcement learning, sitting beside self-led TensorFlow and deep learning explorations.",
   },
-];
+  ],
 
-const repositoryGroups = [
+  repositoryGroups: [
   {
     label: "AI and ML research",
     repos: [
@@ -320,9 +322,49 @@ const repositoryGroups = [
       "SisThinkers",
     ],
   },
-];
+  ],
+};
 
-function renderPersonalPage({ siteTitle }) {
+function normalizeRepositoryLink(repo) {
+  if (typeof repo === "string") {
+    return {
+      name: repo,
+      href: `https://github.com/Praneeth-Suresh/${repo}`,
+    };
+  }
+
+  if (!repo || typeof repo !== "object") {
+    return null;
+  }
+
+  const name = typeof repo.name === "string" && repo.name.trim() !== "" ? repo.name.trim() : null;
+  if (!name) {
+    return null;
+  }
+
+  return {
+    name,
+    href:
+      typeof repo.href === "string" && repo.href.trim() !== ""
+        ? repo.href.trim()
+        : `https://github.com/Praneeth-Suresh/${name}`,
+  };
+}
+
+function renderPersonalPage({ siteTitle, portfolioData = DEFAULT_PORTFOLIO_DATA }) {
+  const resolvedPortfolioData = portfolioData && typeof portfolioData === "object"
+    ? portfolioData
+    : DEFAULT_PORTFOLIO_DATA;
+  const portfolioProjects = Array.isArray(resolvedPortfolioData.portfolioProjects)
+    ? resolvedPortfolioData.portfolioProjects
+    : DEFAULT_PORTFOLIO_DATA.portfolioProjects;
+  const repositoryGroups = Array.isArray(resolvedPortfolioData.repositoryGroups)
+    ? resolvedPortfolioData.repositoryGroups
+    : DEFAULT_PORTFOLIO_DATA.repositoryGroups;
+  const reviewedRepositoryCount = Number.isInteger(resolvedPortfolioData.reviewedRepositoryCount)
+    ? resolvedPortfolioData.reviewedRepositoryCount
+    : DEFAULT_PORTFOLIO_DATA.reviewedRepositoryCount;
+
   const projectCards = portfolioProjects
     .map(
       (project, index) => `<a class="portfolio-project" href="${escapeHtml(project.href)}" data-index="${String(index + 1).padStart(2, "0")}">
@@ -339,10 +381,9 @@ function renderPersonalPage({ siteTitle }) {
   <h3>${escapeHtml(group.label)}</h3>
   <ul>
     ${group.repos
-      .map(
-        (repo) =>
-          `<li><a href="https://github.com/Praneeth-Suresh/${escapeHtml(repo)}">${escapeHtml(repo)}</a></li>`,
-      )
+      .map((repo) => normalizeRepositoryLink(repo))
+      .filter(Boolean)
+      .map((repo) => `<li><a href="${escapeHtml(repo.href)}">${escapeHtml(repo.name)}</a></li>`)
       .join("")}
   </ul>
 </section>`,
@@ -374,7 +415,7 @@ function renderPersonalPage({ siteTitle }) {
     </section>
     <section class="portfolio-strip" aria-label="Portfolio summary">
       <div>
-        <span>29</span>
+        <span>${escapeHtml(reviewedRepositoryCount)}</span>
         <p>public GitHub repositories reviewed</p>
       </div>
       <div>

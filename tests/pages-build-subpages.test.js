@@ -23,6 +23,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const topicsDir = path.join(contentDir, "topics");
     const outDir = path.join(root, "dist");
     const mathJaxSourcePath = path.join(root, "mathjax-source.js");
+    const portfolioDataPath = path.join(contentDir, "portfolio-repositories.json");
     await fs.mkdir(topicsDir, { recursive: true });
     await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
 
@@ -71,12 +72,43 @@ test("builds child_page routes and makes subpages searchable", async () => {
       ], null, 2)}\n`,
       "utf8",
     );
+    await fs.writeFile(
+      portfolioDataPath,
+      `${JSON.stringify(
+        {
+          generatedAt: "2026-05-23T00:00:00.000Z",
+          source: { provider: "github", username: "Praneeth-Suresh" },
+          reviewedRepositoryCount: 1,
+          portfolioProjects: [
+            {
+              name: "NewRepo",
+              href: "https://github.com/Praneeth-Suresh/NewRepo",
+              kind: "Applied software tool",
+              language: "TypeScript",
+              summary: "A newly refreshed public repository.",
+            },
+          ],
+          repositoryGroups: [
+            {
+              label: "Software and app systems",
+              repos: [
+                { name: "NewRepo", href: "https://github.com/Praneeth-Suresh/NewRepo" },
+              ],
+            },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+      "utf8",
+    );
 
     await buildPagesSite({
       manifestPath: path.join(contentDir, "topic-manifest.json"),
       outputDir: outDir,
       siteTitle: "Computer Science Notes",
       mathJaxSourcePath,
+      portfolioDataPath,
     });
 
     const parentHtml = await fs.readFile(
@@ -107,6 +139,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
+    assert.ok(personalHtml.includes("NewRepo"));
+    assert.ok(personalHtml.includes("A newly refreshed public repository."));
+    assert.ok(personalHtml.includes("<span>1</span>"));
     assert.ok(personalHtml.includes("href=\"/\" data-hotkey=\"H\""));
     assert.ok(personalHtml.includes("href=\"/#main-content\" data-hotkey=\"N\""));
     assert.ok(personalHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));

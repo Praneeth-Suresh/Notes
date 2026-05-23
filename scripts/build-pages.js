@@ -16,6 +16,7 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
   "tex-svg-full.js",
 );
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
+const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -29,6 +30,7 @@ function parseArgs(argv) {
   const args = {
     manifest: "content/topic-manifest.json",
     out: "dist",
+    portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
     siteTitle: "Computer Science Notes",
   };
 
@@ -49,6 +51,12 @@ function parseArgs(argv) {
 
     if (item === "--site-title") {
       args.siteTitle = assertNonEmptyString(argv[index + 1], "--site-title value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--portfolio-data") {
+      args.portfolioData = assertNonEmptyString(argv[index + 1], "--portfolio-data value");
       index += 1;
       continue;
     }
@@ -108,6 +116,14 @@ async function pathExists(absolutePath) {
   } catch (error) {
     return false;
   }
+}
+
+async function readOptionalJsonFromFile(absolutePath, label) {
+  if (!(await pathExists(absolutePath))) {
+    return null;
+  }
+
+  return readJsonFromFile(absolutePath, label);
 }
 
 function validateManifestEntry(entry) {
@@ -340,6 +356,7 @@ async function replaceDirectoryAtomically({ sourceDir, targetDir }) {
 async function buildPagesSite({
   manifestPath,
   outputDir,
+  portfolioDataPath = DEFAULT_PORTFOLIO_DATA_PATH,
   siteTitle,
   mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
 }) {
@@ -357,6 +374,10 @@ async function buildPagesSite({
   const notionContext = createNotionIngestionContext();
   const notesContentContext = createNotesContentContext();
   const stylingContext = createSiteStylingContext();
+  const portfolioData = await readOptionalJsonFromFile(
+    path.resolve(process.cwd(), portfolioDataPath),
+    "portfolio repository data",
+  );
 
   const topics = [];
   for (const rawEntry of manifest) {
@@ -435,6 +456,7 @@ async function buildPagesSite({
     });
     const personalHtml = stylingContext.renderPersonalPage({
       siteTitle,
+      portfolioData,
     });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
@@ -460,6 +482,7 @@ if (require.main === module) {
   buildPagesSite({
     manifestPath: args.manifest,
     outputDir: args.out,
+    portfolioDataPath: args.portfolioData,
     siteTitle: args.siteTitle,
   }).catch((error) => {
     console.error(`build-pages failed: ${error.message}`);

@@ -13,8 +13,11 @@ Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev
 - `src/notes-content`: fidelity-safe notes rendering, including Notion-like formatting and safe asset handling.
 - `src/site-styling`: page shell and CSS.
 - `scripts/pull-notion-topic.js`: pulls a Notion page into normalized topic JSON.
+- `scripts/refresh-portfolio-repositories.js`: refreshes checked-in portfolio repository data from public GitHub metadata.
+- `scripts/update-topic-subtitle.js`: updates topic subtitles in `content/topic-manifest.json`.
 - `scripts/build-pages.js`: builds static Pages output into `dist/`.
 - `content/topic-manifest.json`: manifest for topics and data sources.
+- `content/portfolio-repositories.json`: generated static repository data used by the personal portfolio page.
 
 ## Prerequisites
 
@@ -185,6 +188,60 @@ Use this mode when you want repeatable builds from committed normalized files.
 
 Use this mode when the build should fetch directly from Notion. If any manifest entry uses `"kind": "notion-page"`, `NOTION_API_TOKEN` must be set during build.
 
+## Update Topic Subtitles
+
+Topic subtitles are the `description` fields in `content/topic-manifest.json`. Use the helper script instead of editing generated HTML:
+
+```bash
+node scripts/update-topic-subtitle.js \
+  --slug agent-coding \
+  --subtitle "Agents, feedback loops, and implementation habits."
+```
+
+To clear a subtitle intentionally, pass an empty string:
+
+```bash
+node scripts/update-topic-subtitle.js --slug agent-coding --subtitle ""
+```
+
+Rebuild after updating subtitles:
+
+```bash
+node scripts/build-pages.js --manifest content/topic-manifest.json --out dist
+```
+
+## Refresh Portfolio Repositories
+
+The personal portfolio page reads checked-in static data from:
+
+```text
+content/portfolio-repositories.json
+```
+
+Refresh that file locally when you want the page to reflect newer public GitHub repositories:
+
+```bash
+node scripts/refresh-portfolio-repositories.js
+```
+
+Useful options:
+
+```bash
+node scripts/refresh-portfolio-repositories.js \
+  --username Praneeth-Suresh \
+  --out content/portfolio-repositories.json \
+  --selected-count 6
+```
+
+For public repositories, no token is required. If you hit GitHub rate limits, set a local `GITHUB_TOKEN`; do not commit it:
+
+```bash
+export GITHUB_TOKEN=your_github_token
+node scripts/refresh-portfolio-repositories.js
+```
+
+Cloudflare Pages does not call GitHub during builds. The intended flow is: run the local refresh script, review the JSON diff, rebuild/check locally, commit the refreshed data, and push to `main`. Cloudflare Pages then deploys the checked-in static output through the normal Git integration.
+
 ## Build the Site
 
 The build reads `content/topic-manifest.json`, renders all topic pages and subpages, writes a static search index, and copies the self-hosted MathJax asset.
@@ -283,10 +340,12 @@ Use this when you want manual deploys from local output.
 2. Share the source Notion page and any nested databases with the integration.
 3. Pull or refresh normalized topic JSON with `node scripts/pull-notion-topic.js ...`.
 4. The pull command writes the normalized topic file and updates `content/topic-manifest.json` for that slug.
-5. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
-6. Preview with `python3 -m http.server 4173 --directory dist`.
-7. Run `./scripts/check.sh`.
-8. Deploy through Cloudflare Pages.
+5. Update subtitles with `node scripts/update-topic-subtitle.js ...` when topic descriptions need to change.
+6. Refresh portfolio repository data with `node scripts/refresh-portfolio-repositories.js` when public GitHub repositories change.
+7. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
+8. Preview with `python3 -m http.server 4173 --directory dist`.
+9. Run `./scripts/check.sh`.
+10. Commit the generated data and `dist/` changes, then push to `main` so Cloudflare Pages deploys through Git integration.
 
 ## Reliability and Fidelity Guarantees
 
