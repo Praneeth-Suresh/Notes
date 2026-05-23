@@ -117,6 +117,34 @@ function renderTopicNav({ topics, currentSlug }) {
   return `<nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a>${links}</nav>`;
 }
 
+function renderTopicLabels(labels) {
+  if (!Array.isArray(labels) || labels.length === 0) {
+    return "";
+  }
+
+  const labelHtml = labels
+    .map((label) => {
+      if (!label || typeof label !== "object") {
+        return "";
+      }
+
+      const name = typeof label.name === "string" && label.name.trim() !== ""
+        ? label.name.trim()
+        : "";
+      const color = typeof label.color === "string" && label.color.trim() !== ""
+        ? label.color.trim().replace(/[^a-z_]/gu, "")
+        : "default";
+
+      return name
+        ? `<span class="topic-label topic-label-${escapeHtml(color)}">${escapeHtml(name)}</span>`
+        : "";
+    })
+    .filter(Boolean)
+    .join("");
+
+  return labelHtml ? `<div class="topic-labels" aria-label="Page labels">${labelHtml}</div>` : "";
+}
+
 function renderTopicPage({ siteTitle, topic, topicContentHtml, topics }) {
   const descriptionHtml =
     topic.description && topic.description.trim() !== ""
@@ -132,6 +160,7 @@ function renderTopicPage({ siteTitle, topic, topicContentHtml, topics }) {
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">${escapeHtml(topic.title)}</h1>
       ${parentHtml}
+      ${renderTopicLabels(topic.labels)}
       ${descriptionHtml}
       ${topicContentHtml}
     </section>

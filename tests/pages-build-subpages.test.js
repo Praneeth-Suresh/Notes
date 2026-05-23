@@ -39,6 +39,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
           type: "child_page",
           blockId: "child-page-1",
           title: "Dynamic Programming",
+          labels: [
+            { name: "Graphs", color: "blue" },
+            { name: "Reviewed", color: "green" },
+          ],
           children: [
             {
               type: "paragraph",
@@ -132,6 +136,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
+    assert.ok(parentHtml.includes('class="note-label notion-label-color-blue"'));
+    assert.ok(childHtml.includes('aria-label="Page labels"'));
+    assert.ok(childHtml.includes("Reviewed"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes('href="/about/"'));
     assert.ok(homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
@@ -177,6 +184,18 @@ test("builds child_page routes and makes subpages searchable", async () => {
       searchIndex
         .find((entry) => entry.slug === "algorithms/dynamic-programming")
         .searchableText.includes("Optimal substructure"),
+    );
+    assert.ok(
+      searchIndex
+        .find((entry) => entry.slug === "algorithms/dynamic-programming")
+        .searchableText.includes("Graphs"),
+    );
+    assert.deepEqual(
+      searchIndex.find((entry) => entry.slug === "algorithms/dynamic-programming").labels,
+      [
+        { name: "Graphs", color: "blue" },
+        { name: "Reviewed", color: "green" },
+      ],
     );
   });
 });

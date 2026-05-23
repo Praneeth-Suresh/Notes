@@ -121,6 +121,35 @@ function normalizeIcon(icon) {
   return icon;
 }
 
+function normalizeLabels(labels) {
+  if (!Array.isArray(labels)) {
+    return [];
+  }
+
+  return labels
+    .map((label) => {
+      if (!label || typeof label !== "object") {
+        return null;
+      }
+
+      const name = typeof label.name === "string" && label.name.trim() !== ""
+        ? label.name.trim()
+        : null;
+      if (!name) {
+        return null;
+      }
+
+      return {
+        name,
+        color:
+          typeof label.color === "string" && label.color.trim() !== ""
+            ? label.color.trim()
+            : "default",
+      };
+    })
+    .filter(Boolean);
+}
+
 function normalizeTableRows(children) {
   if (!Array.isArray(children)) {
     return [];
@@ -307,6 +336,7 @@ function normalizeBlockCore(block, strictMode) {
         type: "child_page",
         blockId: blockId(block),
         title: block.child_page?.title ?? "",
+        labels: normalizeLabels(block.labels),
       };
     case "column_list":
       return {

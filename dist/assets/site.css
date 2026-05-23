@@ -524,6 +524,32 @@ summary:focus-visible {
   font-weight: 700;
 }
 
+.topic-labels,
+.note-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.topic-labels {
+  margin: 0.9rem 0 0;
+}
+
+.topic-label,
+.note-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.35rem;
+  border: 1px solid color-mix(in oklab, currentColor 34%, transparent);
+  border-radius: 999px;
+  padding: 0.12rem 0.48rem;
+  background: rgb(212 76 71 / 0.14);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.1;
+}
+
 .portfolio-page .layout {
   max-width: 1400px;
 }
@@ -1149,6 +1175,10 @@ summary:focus-visible {
   border: 1px solid var(--border);
   border-radius: 0;
   background: color-mix(in oklab, var(--surface) 92%, transparent);
+}
+
+.note-child-page .note-labels {
+  padding: 0 1rem 0.85rem;
 }
 
 .note-child-page h3 {

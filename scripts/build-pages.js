@@ -152,6 +152,11 @@ function validateManifestEntry(entry) {
     slug,
     title,
     description,
+    databaseLabelProperties: Array.isArray(entry.databaseLabelProperties)
+      ? entry.databaseLabelProperties
+          .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
+          .map((propertyName) => propertyName.trim())
+      : [],
     source: entry.source,
   };
 }
@@ -177,6 +182,7 @@ async function loadTopicDocument({ manifestEntry, notionContext, manifestDir }) 
     pageId,
     notionToken,
     notionVersion,
+    databaseLabelProperties: manifestEntry.databaseLabelProperties,
   });
 }
 
@@ -274,6 +280,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
         outputSegments: ["topics", topicSlug, ...routeSegments],
         title,
         description: parentDescription,
+        labels: Array.isArray(block.labels) ? block.labels : [],
         parentTitle,
         sourceBlock: block,
         sourceBlocks: childBlocks,
@@ -294,6 +301,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
     outputSegments: ["topics", topicSlug],
     title: topicTitle,
     description: topicDescription,
+    labels: Array.isArray(rootDocument.labels) ? rootDocument.labels : [],
     parentTitle: null,
     sourceBlock: null,
     sourceBlocks: rootDocument.blocks,
@@ -305,6 +313,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
       ...rootDocument,
       title: record.title,
       description: record.description,
+      labels: record.labels,
       blocks: record.sourceBlocks.map((block) =>
         cloneBlockForPage(block, childPageRecords, record.urlPath),
       ),
@@ -429,6 +438,7 @@ async function buildPagesSite({
             slug: pageRecord.slug,
             title: pageRecord.title,
             description: pageRecord.description,
+            labels: pageRecord.labels,
             parentTitle: pageRecord.parentTitle,
           },
           topicContentHtml: topicBodyHtml,
@@ -445,6 +455,7 @@ async function buildPagesSite({
           }),
           urlPath: pageRecord.urlPath,
           parentTitle: pageRecord.parentTitle,
+          labels: pageRecord.labels,
         });
       }
     }

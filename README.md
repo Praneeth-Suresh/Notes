@@ -163,6 +163,7 @@ Each topic entry supports two source kinds:
   "slug": "algorithms",
   "title": "Algorithms",
   "description": "Recurrences and asymptotics.",
+  "databaseLabelProperties": ["Tags", "Status"],
   "source": {
     "kind": "normalized-file",
     "path": "topics/algorithms.normalized.json"
@@ -172,6 +173,8 @@ Each topic entry supports two source kinds:
 
 Use this mode when you want repeatable builds from committed normalized files.
 
+`databaseLabelProperties` is optional. When a topic is pulled from Notion with matching label property names, select and multi-select values from database-backed pages are normalized as page labels, rendered beside child-page links, included on generated subpage headers, and indexed for search.
+
 ### 2. Direct Notion source
 
 ```json
@@ -179,6 +182,7 @@ Use this mode when you want repeatable builds from committed normalized files.
   "slug": "operating-systems",
   "title": "Operating Systems",
   "description": "Scheduling, memory, and concurrency.",
+  "databaseLabelProperties": ["Tags"],
   "source": {
     "kind": "notion-page",
     "pageId": "0123456789abcdef0123456789abcdef"
@@ -187,6 +191,17 @@ Use this mode when you want repeatable builds from committed normalized files.
 ```
 
 Use this mode when the build should fetch directly from Notion. If any manifest entry uses `"kind": "notion-page"`, `NOTION_API_TOKEN` must be set during build.
+
+When using the pull script, pass one `--label-property` flag per Notion select or multi-select property that should appear as labels:
+
+```bash
+node scripts/pull-notion-topic.js \
+  --page-id 0123456789abcdef0123456789abcdef \
+  --slug algorithms \
+  --title "Algorithms" \
+  --label-property Tags \
+  --label-property Status
+```
 
 ## Update Topic Subtitles
 

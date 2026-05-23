@@ -35,6 +35,7 @@
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">Merge Sort</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
+      
       <p class="topic-meta">Recurrences, asymptotics, and design techniques.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8038-80bb-c627334e18b9">There is a key note to be made about the implementation of merge sort: it is ideal if we write the function to change the array in place. </p><p class="notion-block notion-paragraph" data-notion-block-id="30bd3a21-bb2d-8083-8831-cf4781b4f326">The merge sort function itself will not return an array (instead it will modify the input array in place) but the merge procedure will create a copy of the two halves of the array to merge them.</p><p class="notion-block notion-paragraph" data-notion-block-id="30cd3a21-bb2d-801b-a422-d5134e3792bf">Here is a canonical implementation:</p><figure class="notion-block notion-code" data-notion-block-id="30cd3a21-bb2d-80a5-8e02-c9f0bb76fe78"><pre class="note-code-block" data-language="java"><code class="language-java">def mergeSort(array):
     if len(array) &gt; 1:

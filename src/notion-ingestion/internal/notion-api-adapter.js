@@ -381,7 +381,95 @@ async function listAllDatabasePages({ fetchImpl, databaseId, notionToken, notion
   return results;
 }
 
-async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVersion, requestOptions }) {
+function normalizeLabelPropertyNames(databaseLabelProperties) {
+  if (!Array.isArray(databaseLabelProperties)) {
+    return [];
+  }
+
+  return databaseLabelProperties
+    .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
+    .map((propertyName) => propertyName.trim());
+}
+
+function normalizeLabelOption(option) {
+  if (!option || typeof option !== "object") {
+    return null;
+  }
+
+  const name = typeof option.name === "string" && option.name.trim() !== ""
+    ? option.name.trim()
+    : null;
+  if (!name) {
+    return null;
+  }
+
+  return {
+    name,
+    color:
+      typeof option.color === "string" && option.color.trim() !== ""
+        ? option.color.trim()
+        : "default",
+  };
+}
+
+function extractPageLabels(page, databaseLabelProperties = []) {
+  const propertyNames = normalizeLabelPropertyNames(databaseLabelProperties);
+  if (propertyNames.length === 0 || !page || typeof page !== "object") {
+    return [];
+  }
+
+  const properties = page.properties;
+  if (!properties || typeof properties !== "object") {
+    return [];
+  }
+
+  const labels = [];
+  const seen = new Set();
+
+  function pushLabel(option) {
+    const label = normalizeLabelOption(option);
+    if (!label) {
+      return;
+    }
+
+    const key = `${label.name}\u0000${label.color}`;
+    if (seen.has(key)) {
+      return;
+    }
+
+    seen.add(key);
+    labels.push(label);
+  }
+
+  for (const propertyName of propertyNames) {
+    const property = properties[propertyName];
+    if (!property || typeof property !== "object") {
+      continue;
+    }
+
+    if (property.type === "select") {
+      pushLabel(property.select);
+      continue;
+    }
+
+    if (property.type === "multi_select" && Array.isArray(property.multi_select)) {
+      for (const option of property.multi_select) {
+        pushLabel(option);
+      }
+    }
+  }
+
+  return labels;
+}
+
+async function getBlockChildrenTree({
+  fetchImpl,
+  blockId,
+  notionToken,
+  notionVersion,
+  requestOptions,
+  databaseLabelProperties = [],
+}) {
   const children = await listAllBlockChildren({
     fetchImpl,
     blockId,
@@ -415,12 +503,14 @@ async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVer
           notionToken,
           notionVersion,
           requestOptions,
+          databaseLabelProperties,
         });
 
         syntheticChildren.push({
           id: page.id,
           type: "child_page",
           child_page: { title },
+          labels: extractPageLabels(page, databaseLabelProperties),
           has_children: blocks.length > 0,
           children: blocks,
         });
@@ -440,6 +530,7 @@ async function getBlockChildrenTree({ fetchImpl, blockId, notionToken, notionVer
         notionToken,
         notionVersion,
         requestOptions,
+        databaseLabelProperties,
       });
 
       withNestedChildren.push({
@@ -487,6 +578,7 @@ function extractPageTitle(page) {
 
 module.exports = {
   DEFAULT_NOTION_VERSION,
+  extractPageLabels,
   extractPageTitle,
   getBlockChildrenTree,
   getPage,
