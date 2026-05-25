@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Processes · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Processes</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35317c95-99fd-805b-998a-e319d600762d">A process is a (abstraction of a) program in execution, including its code, data, stack, registers, and resources.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8023-b239-c9e2d630fcbb">Processes provide abstraction by encapsulating execution so multiple programs can run independently without interfering.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80c9-9633-cf965a6fd4a0">Associated with each process is its:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-80fe-b22e-d3f5e5d0f902">Address Space (translated to a set of locations from 0 to some maximum) containing the program’s data and the stack. This is sometimes called the <strong>core image</strong> of the process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-8060-ab1b-cedfb3ac48fd">Registers</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-803b-bffa-d110092ba8b5">List of open files (in the <strong>file descriptor table</strong> where file descriptors point to open file descriptions). See <a href="https://www.notion.so/35417c9599fd807f932fdc2e6637246e#35417c9599fd8042afcad2a74a793be2" rel="noreferrer noopener">Process State</a>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-8085-88af-fbd98f50ef4d">Outstanding alarms</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-808e-9e9b-d40114b5e852">Basically, everything that is needed to run the process is stored with the process. This is why the process can be viewed as the basic container in a operating system.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8060-a70b-d44229984191">In many operating systems, all the information about each process is stored in an operating system table called the <strong>process table</strong>, which is an array of structures, one for each process currently in existence.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8074-b61a-f514e9a070a0">It acts as an array of Process Control Blocks (PCBs), where each entry corresponds to a single process, storing its PID, state, memory allocation, and CPU register data to facilitate scheduling and context switching.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80b9-83d2-e48006ac5dec">Multiprogramming</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80c0-ac5b-ccfe484770f0">Multiprogramming is the technique of running multiple programs on a single CPU by interleaving their execution. The OS keeps several jobs in memory and switches between them to maximize CPU utilization.</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35317c95-99fd-80a6-bae6-ed388e3d4633"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Multiprogramming is essentially the OS managing multiple processes in memory at once.</div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8012-9ebd-f602ed703c86">In early batch systems, the CPU often sat idle while waiting for I/O (like reading from disk). Multiprogramming ensures that while one job waits, another can use the CPU, improving throughput.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80f7-a427-fef9a1de5950">The easiest way to do multiprogramming is with a simple round-robin approach: load multiple programs into memory, and when one blocks on I/O, switch to another. This required manual partitioning of memory and primitive scheduling.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80ef-8f39-c26eae086823">Today’s OSs use <strong>sophisticated scheduling algorithms</strong> (priority, fairness, real-time constraints) and <strong>virtual memory</strong> to allow many processes to coexist safely. Multiprogramming evolved into <strong>multitasking</strong> and <strong>time-sharing</strong>, where responsiveness for interactive users became key.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8042-879c-eb3f8aedd70a">Working with processes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80cf-b9da-cba4c2a09594">We do this using the Process API which is provided by the OS itself. <strong> </strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80cc-8c9a-db6c5333ca98">It consists of system calls (like <code class="note-inline-code">fork()</code>, <code class="note-inline-code">exec()</code>, <code class="note-inline-code">wait()</code>, <code class="note-inline-code">exit()</code>) that let user programs interact with the OS kernel. Most modern operating systems follow the POSIX standard, which defines a portable set of these APIs so that code written for one POSIX-compliant OS can run on another.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-9540-fbb7c7daf4b1">Typical process-related system calls include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8031-977a-ceceb4cdfd55"><code class="note-inline-code">fork()</code> → Creates a new process (child) that is a duplication of the current process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8038-b001-f74f9ad7a699"><code class="note-inline-code">exec()</code> → Replaces the current process image with a new program.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e9-ba9e-faa217c0e24b"><code class="note-inline-code">wait()</code> → Makes a parent wait for its child to finish.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8054-8598-cd9709e71212"><code class="note-inline-code">exit()</code> → Terminates a process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-84e3-d1fbb2acacb9"><code class="note-inline-code">kill()</code> → Sends signals to processes.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8036-a36a-dd9cda755c76">These calls allow the OS to manage process creation, execution, synchronization, and termination.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80f1-a83b-d642c7bc2a69">Fork</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8048-9e8b-e97dda9b8004">The <strong><code class="note-inline-code">fork()</code></strong><strong> system call</strong> is one of the most fundamental process-related calls in Unix-like operating systems. Here is how it works:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bf-a9eb-f932612030d8">When a process calls <code class="note-inline-code">fork()</code>, the operating system creates a <strong>child process</strong> that is almost identical to the parent.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805b-a4ee-d8b75c6646b0">Both parent and child continue execution from the point where <code class="note-inline-code">fork()</code> was called.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ce-acaa-e12cd09ab0ba">The only difference: <code class="note-inline-code">fork()</code> returns <strong>0</strong> in the child process, and the <strong>child’s PID (process ID)</strong> in the parent process. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-802e-8d5e-ce681a7e49eb">This allows the program to distinguish between parent and child and run different code paths.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80dc-8f4c-c2171e0ad3ed">It’s the standard way to spawn new processes in Unix-like systems. Parent and child can run concurrently, performing different tasks. Typically, after <code class="note-inline-code">fork()</code>, the child calls <code class="note-inline-code">exec()</code> to replace its memory image with a new program (e.g., launching another executable).</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-a473-f99ff7d9f527">Every time you run a command in a Unix shell, the shell forks a child process to execute that command. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8021-9a41-d04594adb2a0">Here is an example of how <code class="note-inline-code">fork()</code> might be used and the parent waits for the child to finish before exiting.</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-804b-882f-d670fd2aefae"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;unistd.h&gt;   // for fork(), getpid()
+#include &lt;sys/wait.h&gt; // for wait()
+
+int main() {
+    pid_t pid = fork();  // Create a new process
+
+    if (pid &lt; 0) {
+        std::cerr &lt;&lt; &quot;Fork failed!&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    else if (pid == 0) { // Child process
+        std::cout &lt;&lt; &quot;Hello from child! PID = &quot; &lt;&lt; getpid() &lt;&lt; std::endl;
+    }
+    else { // Parent process
+        std::cout &lt;&lt; &quot;Hello from parent! PID = &quot; &lt;&lt; getpid()
+                  &lt;&lt; &quot;, child PID = &quot; &lt;&lt; pid &lt;&lt; std::endl;
+        wait(nullptr); // Wait for child to finish
+    }
+
+    return 0;
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-805e-9d93-cca1403aca50"><strong>Note</strong>: <code class="note-inline-code">fork()</code> only copies the calling thread, it can be problematic in multithreaded applications. Other threads in the parent do not exist in the child, which may lead to inconsistencies if the program relies on them. In short, try to not fork a multi-threaded process.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a8-a016-d3094040d620">Exec</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80d1-95bc-db680541e298"><code class="note-inline-code">exec</code> replaces the current process image with a new program.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c8-99c2-d4fe122c6c62"><strong>How it works</strong>: After a <code class="note-inline-code">fork()</code>, the child often calls <code class="note-inline-code">exec()</code> to run a different program. The process ID stays the same, but its code, data, and stack are replaced.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ac-aaff-d9b7a39cad61"><strong>Why used</strong>: It allows a process to launch another executable without creating a new PID.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a2-97af-e47e0ef099c1"><strong>Example use case</strong>: A shell forks a child, then the child calls <code class="note-inline-code">exec(&quot;ls&quot;)</code> to run the <code class="note-inline-code">ls</code> command.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a3-9fb8-d42eb541145f">Wait</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-803f-b79a-f46da6b2fe77"><code class="note-inline-code">wait</code> makes a parent process wait until one of its child processes finishes.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f6-9566-d98ff4d92833"><strong>How it works</strong>: The parent blocks until the child terminates, then retrieves the child’s exit status. Wait works because the OS keeps track of the parent child relationships in processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8096-ace5-e978b7930ba2"><strong>Why used</strong>: Prevents zombie processes and ensures proper synchronization between parent and child.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-806c-bbdb-f9ad812c94cd"><strong>Example use case</strong>: A parent program waits for its child to complete before continuing.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8055-8e49-f71d6367e58a">Exit</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80a2-9e31-dc6d04a5b3d5"><code class="note-inline-code">exit</code> terminates the calling process.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c3-aea2-e3bc6cafdb60"><strong>How it works</strong>: Cleans up resources, closes file descriptors, and returns an exit status to the parent.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8022-93bb-df8b8de39957"><strong>Why used</strong>: Signals completion and allows the parent to collect the status via <code class="note-inline-code">wait</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80aa-80b6-ff4d4ced9270"><strong>Example use case</strong>: A child process finishes its work and calls <code class="note-inline-code">exit(0)</code> to indicate success.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80fa-825c-f029e0b2913f">Here is en example of a very common pattern using the API commands we have looked at so far:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802d-8c97-cbeaa25cb72a"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;unistd.h&gt;   // fork, exec, exit
+#include &lt;sys/wait.h&gt; // wait
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid &lt; 0) {
+        std::cerr &lt;&lt; &quot;Fork failed!&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    else if (pid == 0) {
+        // Child process: replace with &quot;ls&quot; program
+        execlp(&quot;ls&quot;, &quot;ls&quot;, &quot;-l&quot;, nullptr);
+        // If exec fails:
+        std::cerr &lt;&lt; &quot;Exec failed!&quot; &lt;&lt; std::endl;
+        exit(1);
+    }
+    else {
+        // Parent process: wait for child
+        int status;
+        wait(&amp;status);
+        std::cout &lt;&lt; &quot;Child finished with status &quot; &lt;&lt; status &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre></figure><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8070-811a-c25c47af09c4"><strong>Parent forks a child.</strong></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803e-9d2f-e050cb452350"><strong>Child calls </strong><strong><code class="note-inline-code">exec()</code></strong> to run <code class="note-inline-code">ls -l</code>. Its process image is replaced.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ea-bd5d-e8ce9ea0e709"><strong>Parent calls </strong><strong><code class="note-inline-code">wait()</code></strong> to block until the child finishes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804c-ad72-f61978bbf5ea"><strong>Child eventually calls </strong><strong><code class="note-inline-code">exit()</code></strong> (implicitly when <code class="note-inline-code">ls</code> finishes).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ff-932e-e26537a9f376"><strong>Parent collects the exit status</strong> and continues.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80f1-8668-f218b6d151a6">kill and signal</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-805d-8a0e-eb9df0346b2f">These are interesting because they are used to make processes communicate with each other.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80d9-b01a-ffe8f6bc80a2">A <strong>signal</strong> is a lightweight notification sent to a process to inform it of an event (e.g., termination request, segmentation fault, timer expiration).</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8041-b6d9-fcce96d4cc80">Signals are identified by integers (e.g., <code class="note-inline-code">SIGKILL</code>, <code class="note-inline-code">SIGTERM</code>, <code class="note-inline-code">SIGINT</code>, <code class="note-inline-code">SIGUSR1</code>). Processes can <strong>handle signals</strong> by installing a custom handler function, or they can rely on default behavior (like termination upon <code class="note-inline-code">SIGINT</code>). For each signals, there is a default handler defined by the system.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80fd-8edf-c4f751ff2ecc">The <code class="note-inline-code">kill</code> System Call sends a signal to a process (or group of processes).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80cc-a088-cfa31cde4311"><strong>Prototype</strong>: <code class="note-inline-code">int kill(pid_t pid, int sig);</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8045-ac1e-ed700d23edd0"><strong>Usage</strong>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80fc-9189-dceba914dfc7"><code class="note-inline-code">kill(pid, SIGTERM)</code> → politely ask a process to terminate.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804c-bf7c-c309cc9f81bd"><code class="note-inline-code">kill(pid, SIGKILL)</code> → forcefully terminate (cannot be caught or ignored).</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b5-bc01-ded241e5b065"><strong>Note</strong>: Despite its name, <code class="note-inline-code">kill</code> doesn’t always terminate; it just delivers a signal.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8028-a191-f49f202d1d2b">The <code class="note-inline-code">signal</code> API installs a handler function for a given signal.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c1-9b30-fc66f7e5517c"><strong>Prototype</strong>: <code class="note-inline-code">void (*signal(int sig, void (*handler)(int)))(int);</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a6-8402-dd955f0b44d5"><strong>Usage</strong>: Allows a process to define what happens when it receives a particular signal.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803c-9305-fc68389bb9df">Example: Catching <code class="note-inline-code">SIGINT</code> (Ctrl+C) to clean up resources before exiting.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809d-82ae-d74298536ea2">To work with signals, you often use:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b0-b0b4-c16f800c6729"><strong><code class="note-inline-code">sigaction</code></strong><strong> struct</strong> (preferred over <code class="note-inline-code">signal()</code> for reliability):<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8092-a16b-d9b872204190"><pre class="note-code-block" data-language="c++"><code class="language-c++">struct sigaction {
+    void     (*sa_handler)(int);   // handler function
+    void     (*sa_sigaction)(int, siginfo_t*, void*); // advanced handler
+    sigset_t sa_mask;              // signals to block during handler
+    int      sa_flags;             // options
+};</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a0-86d7-ce3933a3ddee"><strong><code class="note-inline-code">sigset_t</code></strong>: Represents a set of signals (used for blocking/unblocking).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8040-925f-d2272c8e5126"><strong><code class="note-inline-code">siginfo_t</code></strong>: Provides detailed info about the signal (sender PID, reason, etc.).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8069-87ae-ff3bdd7ed366">Here is an example of how all of this comes together:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f8-a017-f7fa8576f9f4"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;csignal&gt;
+#include &lt;unistd.h&gt;
+
+void handler(int sig) {
+    std::cout &lt;&lt; &quot;Caught signal &quot; &lt;&lt; sig &lt;&lt; std::endl;
+}
+
+int main() {
+    // Install handler for SIGUSR1
+    signal(SIGUSR1, handler);
+
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Child process: wait for signal
+        pause(); // wait until a signal arrives
+        std::cout &lt;&lt; &quot;Child exiting\n&quot;;
+        _exit(0);
+    } else {
+        // Parent process: send signal to child
+        sleep(1);
+        kill(pid, SIGUSR1); // send SIGUSR1
+        wait(nullptr);
+        std::cout &lt;&lt; &quot;Parent done\n&quot;;
+    }
+
+    return 0;
+}</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-800f-9035-eb756facba6e">clone</h3><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35617c95-99fd-80e5-ae43-e64e211dac0d"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">There is no standard <code class="note-inline-code">clone()</code> function in the <strong>POSIX</strong> specification. The <code class="note-inline-code">clone()</code> system call is a <strong>Linux-specific</strong> extension.</div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c1-a54b-c48fb4af58ea"><code class="note-inline-code">clone()</code> is a more flexible alternative to <code class="note-inline-code">fork()</code>, introduced in Linux. It allows fine-grained control over what is shared between parent and child.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a4-9f3d-cbd36828f58a">Unlike <code class="note-inline-code">fork()</code>, <code class="note-inline-code">clone()</code> can create either processes or threads depending on the flags passed. It allows the child to share specific resources with the parent, such as memory space, file descriptors, signal handlers, or even the same thread group.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e1-951a-c65bbcfbb7e3"><strong>Thread creation</strong>: By using flags like <code class="note-inline-code">CLONE_VM</code> (share memory space) and <code class="note-inline-code">CLONE_THREAD</code> (share thread group), <code class="note-inline-code">clone()</code> can create threads instead of independent processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80dd-bd3a-c9e904d64f1c"><strong>Lightweight processes</strong>: It enables the creation of processes that share resources selectively, making it more efficient for certain applications.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80fe-8603-d35581f3b4c2">The Process Model</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80dd-9691-e82f9eb1b0a1">A process was just a loaded program with a single execution context. Switching between processes required saving/restoring all CPU state manually.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8020-b761-db5a5f8135eb">All processes are started by processes. However, this raises the question of how the first process is created. This is covered under the topic of the boot process.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-807e-9185-cad6a50dd78e">Improvements</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8052-85cf-e45f973f5eab">OSs maintain <strong>process control blocks (PCBs)</strong> with metadata (PID, state, registers, memory mappings). </p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8016-a773-c4a13f398286">Context switching is optimized with hardware support. Processes can spawn child processes and communicate via <strong>IPC (Inter-Process Communication)</strong>.<strong> </strong>For this, we have <strong>signals</strong> which are the software equivalent of interrupts. These allow processes to be notified of asynchronous events. </p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-807d-ae3b-ed32e4dfb30e">To allow processes to work effectively on systems with multiple uses, processes store the <strong>UID (User Identification)</strong> of the user that started the process. This allows access control to be built in.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-8055-a12c-d203ccaafeac">Beyond Processes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8020-9850-c1a27849e55a">Leads to <strong>scheduling</strong>, <strong>IPC mechanisms (pipes, sockets, shared memory)</strong>, and <strong>resource allocation</strong>.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

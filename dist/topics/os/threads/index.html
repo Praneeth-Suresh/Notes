@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Threads · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Threads</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35317c95-99fd-80cd-9c25-eddbbd5ef7cd">A thread is the smallest unit of CPU execution within a process. It represents a sequence of instructions that can be scheduled independently and it fully describes program state.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8040-a15d-f1614c7b3ef9">Each thread thus contains the following information:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8021-af95-f89ab17ff3ae">Thread Control Block</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e5-8d28-fdf964c541ef">Stack Information</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809d-a1c8-fdac4040305b">Saved Registers</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8076-bf65-da4735ba5ab8">Thread Metadata</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80de-a54d-e78a8ba61138">Stack (the same stack that maintains function calls with stack frames)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-9efd-e6f8263ed775">However, the heap, global variables and code are in a <strong>shared state</strong> which does not belong to a thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-806d-a110-dd3de99bd62b"></p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8022-b5f8-c6aafd7e3ea3">Threads allow concurrency within a process. Multiple threads can share memory but execute different tasks simultaneously (e.g., a browser rendering a page while downloading files).</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80ff-b057-f9f34931c19a">This is the idea of multi-threading. For example, in a multi-programmed system, you might run a compiler and a text editor simultaneously. With threads, the text editor itself can run multiple tasks (UI rendering, spell-checking, autosave) concurrently (multi-threading).</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-800c-8480-d0724f16ed54"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Protection is an orthogonal concept to multi-threading and does not relate to the study of the execution unit which is a thread.</div></aside></div><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-8003-bf43-f7ff9e95653d"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Multiprocessing refers to parallelism and concurrency, which means the processes can be executed on different cores. Multi programming only concerns with concurrency.</div></aside></div><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-808f-af95-fcab6f14a99b">Using Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-804b-8da0-dfa4e99d8b8c">Threads are available at the programming layer to communicate to the processor that two tasks that we have don’t need to be executed sequentially, but can be made to run concurrently.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8039-b5d1-dc650c9fc039">To make a multithreaded process, the process can issue system calls to create new threads. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-bec9-fb8f1d1bb6c6">POSIX provides us an execution model through <code class="note-inline-code">pthreads</code> which allows us to handle threads directly. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80b1-82da-f8dea9c93a40">What this does is define a set of C programming types, functions and constants that handle the task of creating system calls that interface with the Kernel to create new threads. Using this, we can implement high level ideas in code such as the Fork-Join pattern.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809f-9476-e3501b59f978">Here is an example of a C++ code that computes the Parallel Sum of an Array using Fork-Join with <code class="note-inline-code">pthreads</code>:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f8-8bcc-e30a9cae5194"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;pthread.h&gt;
+#include &lt;vector&gt;
+
+struct ThreadData {
+    int start;
+    int end;
+    const std::vector&lt;int&gt;* arr;
+    long long partial_sum;
+};
+
+// Worker function for each thread
+void* compute_partial_sum(void* arg) {
+    ThreadData* data = (ThreadData*)arg;
+    data-&gt;partial_sum = 0;
+    for (int i = data-&gt;start; i &lt; data-&gt;end; ++i) {
+        data-&gt;partial_sum += (*(data-&gt;arr))[i];
+    }
+    return nullptr;
+}
+
+int main() {
+    const int N = 1000000;   // size of array
+    const int NUM_THREADS = 4;
+    std::vector&lt;int&gt; arr(N, 1); // array filled with 1s
+
+    pthread_t threads[NUM_THREADS];
+    ThreadData thread_data[NUM_THREADS];
+
+    int chunk_size = N / NUM_THREADS;
+
+    // Fork: create threads
+    for (int i = 0; i &lt; NUM_THREADS; ++i) {
+        thread_data[i].start = i * chunk_size;
+        thread_data[i].end = (i == NUM_THREADS - 1) ? N : (i + 1) * chunk_size;
+        thread_data[i].arr = &amp;arr;
+        pthread_create(&amp;threads[i], nullptr, compute_partial_sum, &amp;thread_data[i]);
+    }
+
+    // Join: wait for threads and combine results
+    long long total_sum = 0;
+    for (int i = 0; i &lt; NUM_THREADS; ++i) {
+        pthread_join(threads[i], nullptr);
+        total_sum += thread_data[i].partial_sum;
+    }
+
+    std::cout &lt;&lt; &quot;Total sum = &quot; &lt;&lt; total_sum &lt;&lt; std::endl;
+    return 0;
+}</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d1-ba54-fd79631468c6"><strong>Fork</strong>: We split the array into chunks and assign each chunk to a thread.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e4-850c-e51216a790c3"><strong>Join</strong>: After all threads finish, we collect their partial sums into the final result.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80ea-80fa-ffb73ffd7c44">This fork-join model is intuitive for tasks like map-reduce, parallel search, or matrix operations.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-b13b-e8b045055715">However, remember that using threads introduces non-determinism  because the scheduler can run threads in any order and this makes testing difficult if we don’t prove that our code can work correctly with interleaving. We need good code by design that avoids <strong>race conditions</strong>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a2-a195-c759db50faa4">Dealing with Concrrency</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80c3-b429-dda561910b5e">So when dealing with the concurrency afforded by threads, we need to think about:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809c-8119-e90836db310a"><strong>Synchronization</strong>: Coordination among threads</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-808f-8764-cb9e3744c8e3"><strong>Mutual Exclusion</strong>: Ensuring only one thread does a particular thing at a time (as a type of syncronisation)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803e-9159-d38721f6ffb0"><strong>Critical Section</strong>: Code exactly one thread can execute at once (such as code that accesses shared data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e6-b58c-dddcd53c6099"><strong>Lock</strong>: An object only one thread can hold at a time, as a way to provide mutual execution. <p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8060-b961-d487b01b95f1">Locks have a very simple interface with just two <strong>atomic </strong>operations: <code class="note-inline-code">acquire()</code> and <code class="note-inline-code">release()</code> to allow us to ensure that only one thread can do a particular thing at a time, based on lock possessions.</p></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-a665-db041a311d3c">A <strong>mutex is a (type of) lock</strong> that enforces <em>mutual exclusion</em> in concurrent programming, making sure shared resources are accessed safely.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80be-9bdc-f7c875145ae5">Here is an example of how the mutex can be used:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f8-a180-fceaa15520b7"><pre class="note-code-block" data-language="c++"><code class="language-c++">    // Critical section: update global_sum
+    pthread_mutex_lock(&amp;mutex);
+    global_sum += local_sum;
+    pthread_mutex_unlock(&amp;mutex);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801f-9a1b-d88693444bf7">Only one thread is not allowed in this critical section at a time. For more, refer to <a href="https://www.notion.so/35617c9599fd80278eccebf8049d37f6" rel="noreferrer noopener">Synchronisation</a>.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80e2-b274-f1b57cc3af3e">Naive Implementation</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80e6-986b-d7e7d3d29040">Early systems had only one thread per process (the process itself). Concurrency was achieved by running multiple processes, each with its own heavy memory footprint.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801a-9b5b-d8145505fb3a">A thread can be classified into the following 3 states:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-8ecc-f04b098aa371">Running - running</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807c-9d9c-fe9b22678de3">Ready - eligible to run</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a2-a931-f6eab521e9b2">Blocked - ineligible to run because it is waiting on something else</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8021-a5ae-d41c6793f290">A thread is running on a processor when it is resident in that processor’s registers. If it is not there, it is saved in a chunk of memory called a <strong>Thread Control Block (TCB)</strong>. However, it is important to think about how TCBs use memory otherwise there is a risk they will just crowd each other out of memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8043-839b-fdbef5871cf4">The Thread Control Block (TCB) is a data structure maintained by the operating system to track a thread’s state (program counter, registers, stack pointer, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8027-893e-cd84d24ac9d4">When a new thread is created, the OS initializes its TCB and allocates a stack.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80de-9120-f97a34a195bd">Improvements</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-804b-b600-cba6373fa0c3">Threads are lightweight, sharing the same address space and resources. Modern OSs use efficient thread libraries, kernel-level scheduling, and thread pools to reduce overhead.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80cb-9fe0-ed11c207d937">Beyond Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-805f-a89a-c5a44d951383">Leads into <strong>synchronization</strong> (locks, semaphores), <strong>scheduling algorithms</strong>, and <strong>parallel programming models</strong>.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

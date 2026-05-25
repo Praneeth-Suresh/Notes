@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Systolic Arrays · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Systolic Arrays</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80a8-a596-dda35d94a1e2">A general-purpose core can execute multiply and add instructions, but it usually fetches operands through registers and caches under the control of scalar instruction streams. For large matrix products, the arithmetic pattern is regular enough that specialized hardware can replace much of that instruction overhead with fixed data movement. Matrix units, including GPU tensor cores, Intel AMX tiles, and TPU-style systolic arrays, exploit this regularity.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="36917c95-99fd-8040-82c8-ea355b41cb69">Systolic Arrays</h1><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8059-8ffa-e256c282fcb4">A systolic array is a grid of simple processing elements. Each element performs a small operation, commonly a multiply-accumulate, and passes data to neighboring elements according to a fixed schedule. Values propagate through the array over successive cycles.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-805f-b14d-d99270faf34f">Systolic arrays are subsystems in a datapath, and are created with combinational circuits.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80f9-b288-dc9dff7dadf7">They are homogeneous networks of data processing units, such as simple 1-bit adders in this case.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80ed-95ee-db88e01a8bdf">They matter for VLSI deep learning, since deep learning architectures have lots of repetitive steps of computation to be performed. This can be implemented with systolic arrays.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80b4-91b6-e6fd8c8c67f8">In an output-stationary design, each processing element holds a partial sum for one output position. Values from <span class="note-inline-equation" data-latex="A">\(A\)</span> and <span class="note-inline-equation" data-latex="B">\(B\)</span> stream through the grid, and each processing element updates its local accumulator. The output value remains stationary until the required reductions over <span class="note-inline-equation" data-latex="k">\(k\)</span> are complete.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8095-9cbe-deb666361c84">In a weight-stationary design, weights remain in processing elements while activations stream across them. This can be appropriate when the same weights are reused over many input examples or sequence positions.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8063-879c-e62eba859114">The central engineering point is that the hardware avoids sending every intermediate value back through the memory hierarchy. Partial sums remain close to the arithmetic units, and input values are reused as they move through the array.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>File Systems · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">File Systems</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-808e-86cc-cad635abee75"><strong>Phase 4 — File Systems (Weeks 13–16).</strong> Read the original FFS, LFS, and ext4 papers directly — the textbook summaries lose the insight. Pay special attention to journaling and crash consistency because it connects back to Phase 2&#39;s atomicity concepts.</p><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-809c-9656-ca421cdf53fd">As you go along, you need to finish the following topics:</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35017c95-99fd-8050-8106-d2d57663d7d4"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Make a page for each topic as you go along and then delete this page once you are done.</div></aside></div><div class="notion-block notion-to-do notion-to-do-checked" data-notion-block-id="35017c95-99fd-809e-9f85-f3a5b02e0365"><input class="notion-to-do-checkbox" type="checkbox" checked disabled /><div class="notion-to-do-body">File System Abstractions</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80d9-b115-e3befee52b72"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Inodes and Directory Structure</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80f3-b385-d87b34ddcc25"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">FAT, ext4, NTFS — FS Internals</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8080-8369-e0f31d4f2288"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Block Allocation — Bitmaps and Free Lists</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8062-b7bd-d41dc28e4bd1"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Journaling and Write-Ahead Logging</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8036-b2e6-eacf9b30a348"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Log-Structured File Systems</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8038-b84a-d95a6e128988"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Caching — Buffer Cache and Page Cache</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80ec-ad76-f51c0d88e773"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">File System Consistency and fsck</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80bb-8a13-d15b8cb1ce7e"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">RAID — Redundancy and Performance</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80b0-b552-fde6f46a0ba2"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Network File Systems — NFS, SMB</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80b2-b66d-c0d917d2accb"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Flash Storage and Log-Structured Merge Trees</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80ae-955d-fe7ff886a712"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">VFS — Virtual File System Layer</div></div></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

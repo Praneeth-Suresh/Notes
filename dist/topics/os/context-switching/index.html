@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Context Switching · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Context Switching</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800b-a74b-db3b8347b2c7">To allow multiplexing to happen, there needs to be a point where a CPU goes from executing one thread to executing another thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8092-9cdf-e311c0431890">Let&#39;s break down the precise steps:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80be-b940-ec439aa1f514"><strong>Interrupt or system call</strong> – The currently running process either voluntarily yields (e.g., waits for I/O) or an interrupt (e.g., timer interrupt) forces the CPU to jump into the kernel.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8045-a1ec-d068d1228592"><strong>Save current process state</strong> – The kernel saves the current process’s program counter, registers, and other volatile state into its PCB.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ba-a7c0-f740a0e7bdda"><strong>Switch to the scheduler</strong> – The kernel runs the scheduler code to choose the next process from the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-809b-a278-d993e00e99f2"><strong>Load next process state</strong> – The kernel loads the saved state from the chosen process’s PCB into the CPU registers and program counter.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a3-98c6-c93d6da37afd"><strong>Return to user mode</strong> – The CPU resumes execution of the new process at the point where it was previously stopped.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-805f-8f87-ce2a45f1382c"><strong>The context switch is pure overhead.</strong> During a context switch, no useful user work is done. This is why there is a trade-off between context switching time and &quot;real stuff&quot; execution time. A typical context switch on modern hardware can take a few microseconds (saving/restoring ~100–1000 bytes of registers + flushing pipeline). Frequent switches reduce responsiveness but waste CPU time. Infrequent switches can cause unfairness or high latency.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801b-ac43-c937964f1ea0">The rule of thumb – <strong>less than 10% of CPU time on context switching</strong> – is widely used in practice. If you measure 20% or more, the scheduler is either too aggressive (too small time slices) or there are too many active processes competing.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-802d-8edb-e03d56277f4d"><strong>Blocking I/O</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8024-aa48-dd65ae9c52f3">One of the reasons why there is context switching is blocking I/O. Let’s expand the sequence:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-803a-b369-d9c94098cb79">A thread executes a system call like <code class="note-inline-code">read(fd, buffer, size)</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8036-865f-ea58a25d0164">The CPU transitions from user mode to kernel mode (via <code class="note-inline-code">syscall</code> or <code class="note-inline-code">int</code> instruction). The kernel now runs on behalf of that thread.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8011-ac7e-d2b4ee57c17f">The kernel initiates the I/O request (e.g., sends a command to the disk driver). The I/O will take milliseconds to complete.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-809a-b9a9-f7dd53fdcec1">Instead of busy-waiting, the kernel changes the thread’s state from <strong>RUNNING</strong> to <strong>WAITING</strong> (blocked on I/O). It removes the thread from the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f9-8b5f-de20b0924942">The kernel then calls the scheduler to choose another thread to run – this is the “switch while we wait”.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80bb-a7e1-ddb9da3e2cda">When the I/O completes, a hardware interrupt occurs (see Part 7). The interrupt handler marks the waiting thread as <strong>READY</strong> and puts it back in the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-804a-89ab-c585e1573caa">Eventually, the scheduler will resume the thread.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80cc-b074-c2b9bf475e18">The key is that the <strong>kernel proactively switches away</strong> when it knows the thread cannot proceed. This is a form of <a href="https://www.notion.so/35617c9599fd80ee88f4dd110f3e8eb7" rel="noreferrer noopener">Preemptive Multitasking</a>, but enforced by the kernel – the thread has no choice.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

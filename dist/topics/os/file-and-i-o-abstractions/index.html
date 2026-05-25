@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>File and I/O Abstractions · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">File and I/O Abstractions</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35417c95-99fd-80ec-9ef8-d76e6a0067f7">Everything is a file - <em>The UNIX time-sharing system (1974)</em></blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80b4-b7bc-fb2d2e910bab">There is an identical interface for dealing with:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805c-8b74-e8ea7cb737cd">Files on disk</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ee-a574-fefb9c3f9e11">Devices</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d2-9f25-e794f7702806">Regular files on disk</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804f-9c75-c7485c52a654">Networking (sockets)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8037-a52a-cacfe61e674e">Local interprocess communication</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8025-974c-c1758d416fd8">All of these work with the system calls <code class="note-inline-code">open()</code>, <code class="note-inline-code">read()</code>, <code class="note-inline-code">write()</code> and <code class="note-inline-code">close()</code> (and a custom configuration <code class="note-inline-code">ioctl()</code>).</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-808d-b058-ffead27d4dd1">The abstraction of everything as a file considers the file as just a collection of data. It contains:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807d-baa1-f9433fbcae83">File Data</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f3-9e0c-c4b7d7715f7b">File Metadata</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80f6-9542-d5272b66a358">Files are organized in directories which are the organization structure to deal with files effectively. It has a path that uniquely identifies it.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8090-9b8e-e1c755a391de">Now, connecting back to the other core abstractions, every <strong>process</strong> has a current working directory.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8067-b140-f1e13a5f41f4">High-Level File API</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80b6-bc82-cffb78665324">This considers the data as a stream which is an unformulated sequence of bytes with a position. An open stream is represented by a pointed to a file data structure. This is provided by <code class="note-inline-code">stdio.h</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8091-9225-d43054b6de85">There are special streams that are defined implicitly when any program is executed:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e2-830d-dd5b9c6ece6a"><code class="note-inline-code">stdin</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b7-a08e-e7b625488926"><code class="note-inline-code">stdout</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8037-879d-f01917f6d069"><code class="note-inline-code">stderr</code></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80c1-a688-e34179d2cf6e">These allow composition because you can chain processes together by connecting their streams appropriately.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8095-bd34-edc3a8caed8b">Now, if we want to deal specifically with the file streams, we can do so using the methods we discuss below.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8026-8f9d-e382644dbfbb">Opening and Closing</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ea-986a-fccdfe9f0f81"><strong><code class="note-inline-code">fopen(const char *filename, const char *mode)</code></strong> 
+Opens a file and returns a <code class="note-inline-code">FILE *</code>. Modes include <code class="note-inline-code">&quot;r&quot;</code> (read), <code class="note-inline-code">&quot;w&quot;</code> (write, truncate), <code class="note-inline-code">&quot;a&quot;</code> (append), <code class="note-inline-code">&quot;r+&quot;</code> (read/write), etc.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a4-8526-cb567a4a1ce8"><strong><code class="note-inline-code">fclose(FILE *stream)</code></strong> 
+Closes the file and flushes buffers.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8057-b480-cb59427545f5">Reading and Writing</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8071-b9c9-f263c9894692"><strong><code class="note-inline-code">fgetc(FILE *stream)</code></strong><strong> / </strong><strong><code class="note-inline-code">fputc(int c, FILE *stream)</code></strong> 
+Read or write a single character.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-801c-9bfa-dcccbd36618f"><strong><code class="note-inline-code">fgets(char *str, int n, FILE *stream)</code></strong> 
+Reads a line into <code class="note-inline-code">str</code> (up to <code class="note-inline-code">n-1</code> chars).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f7-a596-f5e63364f854"><strong><code class="note-inline-code">fputs(const char *str, FILE *stream)</code></strong> 
+Writes a string.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-801e-ae94-c861f0239dfe"><strong><code class="note-inline-code">fread(void *ptr, size_t size, size_t nmemb, FILE *stream)</code></strong> 
+Reads binary data into <code class="note-inline-code">ptr</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807c-9157-e180f7b8ef8f"><strong><code class="note-inline-code">fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)</code></strong> 
+Writes binary data.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8070-933f-f8e756049cd7">Positioning</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8067-ba03-d72f1ed8d8f0"><strong><code class="note-inline-code">fseek(FILE *stream, long offset, int whence)</code></strong> 
+Moves the file pointer (<code class="note-inline-code">SEEK_SET</code>, <code class="note-inline-code">SEEK_CUR</code>, <code class="note-inline-code">SEEK_END</code>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8004-b542-f6e813042ae8"><strong><code class="note-inline-code">ftell(FILE *stream)</code></strong> 
+Returns current position.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-bf7a-eb0fe941569a"><strong><code class="note-inline-code">rewind(FILE *stream)</code></strong> 
+Resets position to the start.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-803c-864a-c89b0fea31e1">Error Handling</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c1-b3c0-d6e467a95153"><strong><code class="note-inline-code">feof(FILE *stream)</code></strong> 
+Tests for end-of-file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f3-bc2c-cd8b156c5b78"><strong><code class="note-inline-code">ferror(FILE *stream)</code></strong> 
+Tests for errors.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ee-bbd3-c4e959b48645"><strong><code class="note-inline-code">clearerr(FILE *stream)</code></strong> 
+Clears EOF and error indicators.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8014-8697-c70a43fb5a05">Buffering</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-801b-9f53-ca8736ae132d"><strong><code class="note-inline-code">fflush(FILE *stream)</code></strong> 
+Forces buffered output to be written.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8049-a5cb-e646418d7844"><strong><code class="note-inline-code">setbuf(FILE *stream, char *buf)</code></strong><strong> / </strong><strong><code class="note-inline-code">setvbuf(FILE *stream, char *buf, int mode, size_t size)</code></strong> 
+Control buffering behavior.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807a-a393-e7a848a72188">Here’s a practical example that demonstrates many of these functions:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8041-9f0f-dc6f54afe2b6"><pre class="note-code-block" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void) {
+    FILE *src, *dest;
+    char buffer[256];
+
+    // Open source file for reading
+    src = fopen(&quot;input.txt&quot;, &quot;r&quot;);
+    if (src == NULL) { // Always check for NULL!
+        perror(&quot;Error opening input file&quot;);
+        return EXIT_FAILURE;
+    }
+
+    // Open destination file for writing
+    dest = fopen(&quot;output.txt&quot;, &quot;w&quot;);
+    if (dest == NULL) { // Always check for NULL!
+        perror(&quot;Error opening output file&quot;);
+        fclose(src);
+        return EXIT_FAILURE;
+    }
+
+    // Copy line by line
+    while (fgets(buffer, sizeof(buffer), src) != NULL) {
+        fputs(buffer, dest);
+    }
+
+    // Check for errors
+    if (ferror(src)) {
+        fprintf(stderr, &quot;Error reading input file\n&quot;);
+    }
+    if (ferror(dest)) {
+        fprintf(stderr, &quot;Error writing output file\n&quot;);
+    }
+
+    // Close files
+    fclose(src);
+    fclose(dest);
+
+    printf(&quot;File copy completed successfully.\n&quot;);
+    return EXIT_SUCCESS;
+}</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80cf-b952-d04cd43a8371">Low-Level File API</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8040-86c8-c0b6189fdbd9">When we are operating one level lower, we need to keep the following design idea in mind about the way the system is built. When it comes to UNIX, we have the following design concepts:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-806b-a647-eaa40a4e351b">Uniformity: Everything is a file</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8099-9036-d0e2db0fd6d3">A file must be opened before use</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80fb-9599-fa3b15576264">Addressing is always in bytes (even if we are operating at some other level such as blocks or words)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-802b-9b31-d30089574956">Kernel Buffered Reads and Writes (this will be internal to the kernel to yield performance and to match the structure of data the user is asking for)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80fa-9b1b-f7134234d5dc">The low-level API is where you interact directly with the operating system through system calls rather than the buffered <code class="note-inline-code">FILE *</code> interface.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8069-826c-dad88f00b5fe">The difference is that the low-level API does not do fancy user level actions, for example, to see if there is some buffering that can be exploited. The high-level API will thus be faster in the long term (a lot faster because system calls are 25x more expensive than function calls). This however can make it unpredictable due to the complex user level buffering logic.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-800b-9b9f-ecc51205f6ef">For example, you need to think about when the data you write is flushed to memory from the buffer. If you need an assurance that data is written, you must use <code class="note-inline-code">fflush</code> with the high-level file API.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-803c-9968-cf348b64891b">Here are the core system calls we use:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80f9-a86e-f5573a572935"><code class="note-inline-code">open</code></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8025-9f27-ca64e99eec51"><pre class="note-code-block" data-language="c"><code class="language-c">int open(const char *pathname, int flags, mode_t mode);</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b4-9aa2-f7e9e2e5a13a">Opens a file and returns a <strong>file descriptor</strong> (an integer).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805a-a7f0-d6c418b87a6b"><code class="note-inline-code">flags</code> specify how to open: <code class="note-inline-code">O_RDONLY</code>, <code class="note-inline-code">O_WRONLY</code>, <code class="note-inline-code">O_RDWR</code>, <code class="note-inline-code">O_CREAT</code>, <code class="note-inline-code">O_TRUNC</code>, <code class="note-inline-code">O_APPEND</code>, etc.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-b55b-d3227ac50283"><code class="note-inline-code">mode</code> sets permissions (used only if creating a file).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8071-b190-d43f01d8a03b">On success: returns a non-negative integer (file descriptor).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803c-8ec3-e6d1e1273bf1">On failure: returns <code class="note-inline-code">1</code> and sets <code class="note-inline-code">errno</code>.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80fc-bc28-fdde977a395a"><code class="note-inline-code">creat</code></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80dd-8d69-ce367c02c249"><pre class="note-code-block" data-language="c"><code class="language-c">int creat(const char *pathname, mode_t mode);</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-8b59-fa78a0c07f71">Simplified version of <code class="note-inline-code">open</code> that always creates/truncates a file for writing.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8044-bf5f-fdc901ed28b7">Equivalent to <code class="note-inline-code">open(pathname, O_WRONLY | O_CREAT | O_TRUNC, mode)</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804f-99c3-eef23047f642">Returns a file descriptor or <code class="note-inline-code">1</code> on error.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-801d-93ef-d62740f658b9"><code class="note-inline-code">close</code></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80ac-b36d-f87485bd13dc"><pre class="note-code-block" data-language="c"><code class="language-c">int close(int fd);</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8076-8f90-fe3e8bf491eb">Closes the file descriptor, releasing OS resources.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8008-ac02-d1dc15057243">Returns <code class="note-inline-code">0</code> on success, <code class="note-inline-code">1</code> on error.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8038-93b8-cac5b7a782c1" /><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8073-b651-e2ae79e46695">These are some of the design concepts that you need to keep in mind behind this API:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d2-b917-eda4b6e23f9b"><strong>Integer File Descriptors</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ad-942d-f51b728dccb7">The OS represents open files as entries in a per-process <em>file descriptor table</em>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b1-8531-d2b1806d599d">Each open file gets a small integer index (0, 1, 2 are reserved for stdin, stdout, stderr).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8061-bd05-c14e487d1702">Using integers makes system calls fast, lightweight, and easy to pass around. It also improves security because it prevents it means we don’t mess with the real address of the object.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8004-a362-ee4814662b3e"><strong>Minimal Abstraction</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f0-b066-c1f2e94699cc">Unlike <code class="note-inline-code">FILE *</code>, there’s no buffering. You work directly with the kernel.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-802b-8000-fb7c6134b4dd">This design gives precise control over reads/writes, positioning, and concurrency.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f6-b25f-f59049bf2aed"><strong>Error Handling via Return Values</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8005-8e04-ca1b12521403">Returning <code class="note-inline-code">1</code> on error is simple and consistent.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8099-a789-c42965f1e528"><code class="note-inline-code">errno</code> provides detailed error codes (e.g., <code class="note-inline-code">EACCES</code>, <code class="note-inline-code">ENOENT</code>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8004-9478-ca9b1fd8ce12">This separation keeps the API lean while still informative.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805a-9d74-f40f5fc7d475"><strong>Portability Across UNIX-like Systems</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e5-a274-e2be0c955b05">The POSIX standard ensures <code class="note-inline-code">open</code>, <code class="note-inline-code">creat</code>, and <code class="note-inline-code">close</code> behave consistently across Linux, BSD, macOS, etc.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-802b-b99e-c179e857d3ca"><strong>Resource Management</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e2-8ee6-c6cc1396d30c">Explicit <code class="note-inline-code">close</code> ensures you release kernel resources.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80fc-b0a3-e1f183f1bdde">Prevents leaks and exhaustion of the per-process file descriptor limit.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8072-8055-db598f0436db"><strong>Kernel Buffering</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8024-857d-faf8795c3984">Reads and writes are all buffered inside the kernel and this is part of global buffer management and caching.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80e1-abfd-d92c3efd5932">Here is a simple example of creating and writing a file:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f7-8611-d53caca6272b"><pre class="note-code-block" data-language="c"><code class="language-c">#include &lt;fcntl.h&gt;   // for open, creat
+#include &lt;unistd.h&gt;  // for write, close
+#include &lt;stdio.h&gt;   // for perror
+#include &lt;string.h&gt;  // for strlen
+
+int main(void) {
+    int fd;
+    const char *msg = &quot;Hello, low-level I/O!\n&quot;;
+
+    // Create or open file with write-only access
+    fd = open(&quot;lowlevel.txt&quot;, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1) {
+        perror(&quot;open&quot;);
+        return 1;
+    }
+
+    // Write to file
+    if (write(fd, msg, strlen(msg)) == -1) {
+        perror(&quot;write&quot;);
+        close(fd);
+        return 1;
+    }
+
+    // Close file
+    if (close(fd) == -1) {
+        perror(&quot;close&quot;);
+        return 1;
+    }
+
+    return 0;
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8036-922e-e68ef9670c0a">The low-level API (<code class="note-inline-code">open</code>, <code class="note-inline-code">creat</code>, <code class="note-inline-code">close</code>, plus <code class="note-inline-code">read</code>/<code class="note-inline-code">write</code>) is designed for speed, simplicity, and direct OS control. </p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80af-a0e9-e81f0ac89aa3">Low-Level I/O API</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80bd-9791-d43dfeeafb09">Here, we have the following additional classe of operations we work:</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801d-966a-e3653ac572cd"><strong>Control &amp; Metadata</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d9-969e-d1fe539dcd58"><strong><code class="note-inline-code">fcntl(fd, cmd, …)</code></strong> → Manipulate descriptor flags (locking, non-blocking).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8036-9384-c6c672e51969"><strong><code class="note-inline-code">ioctl(fd, request, …)</code></strong> → Device-specific control operations (e.g., terminal settings, disk operations).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b3-9ba2-f792b98f845a"><strong><code class="note-inline-code">stat(path, struct stat *buf)</code></strong> → Retrieve file metadata.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8098-bc83-f22221f996f8"><strong><code class="note-inline-code">ioctl</code></strong><strong> is a catch-all</strong>: it extends the I/O model beyond simple byte streams, allowing direct communication with devices. Thus, it’s more specialized — often used for device drivers and system-level configuration rather than everyday file manipulation.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8042-afca-d2a74a793be2">Process State</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80de-af50-d01a4a4fd2ec">On a successful call to <code class="note-inline-code">open()</code> we will have a <strong>file descriptor</strong> returned to the user. At the same time, an <strong>open file description</strong> is created in the kernel. For each process, the kernel maintains a mapping from the file descriptor to the open file file description called the file descriptor table.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8043-9337-d8ecd47a4365">So here are the two levels of abstraction we are working with:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805d-93f1-e55e52784b5f"><strong>File Descriptor (FD)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805c-88a3-f24cb26dd5a6">A small integer returned to the process by <code class="note-inline-code">open()</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d2-b3c0-f0d793e61cff">It’s just an index into the process’s <strong>file descriptor table</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80fc-83d4-fad8b0cf946d">Each process has its own table, so descriptors are local to that process.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8088-9c96-cbbf6e307b0c"><strong>Open File Description (OFD)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8037-b46d-f1e5a4c6116b">A kernel-level structure created when a file is opened.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c1-8fe3-e8982cd784fa">Contains the actual state of the open file:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8085-87dc-ff7fee2e1f5e">Current file offset (cursor position).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8091-a630-dbfa71cf5d33">Access mode (read, write, append).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-800f-bff1-cfa7774c5460">Status flags (non-blocking, synchronous writes, etc.).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f9-b0af-faa733eac034">Reference to the underlying inode (the file’s metadata).</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e8-b3f3-fbda2a5c2957">Multiple file descriptors (even across processes) can point to the same OFD if they are duplicated (we can duplicate using <code class="note-inline-code">dup</code>, we create a new process using <code class="note-inline-code">fork</code>, etc.).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a7-a3d8-fbc72bef59ba">They <span class="notion-rich-text notion-color-orange"><strong>don’t </strong></span>belong to processes. Thus, they can be easily shared across processes.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8096-b112-ca8814628a7d">When you call <code class="note-inline-code">open()</code>, the kernel creates a new <strong>open file description</strong>. It then adds an entry in your process’s <strong>file descriptor table</strong>, mapping the returned integer FD → that OFD.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8043-9d6c-c61b76df10c0">When you call <code class="note-inline-code">dup()</code> or <code class="note-inline-code">fork()</code> the new FD points to the <em>same</em> OFD, meaning they share file offset and flags. When you call <code class="note-inline-code">close(fd)</code>, the FD entry is removed from the table. If no other FD points to the OFD, the kernel destroys the OFD and releases resources.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8096-ae9d-ca71ad445b42">This gives the following advantages:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bc-961c-ea815a15a647"><strong>Efficiency:</strong> Integers are lightweight handles, easy to store and pass.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-806e-872c-eeaeb9f1dd0d"><strong>Isolation:</strong> Each process has its own FD table, but OFDs can be shared when needed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804a-974b-f960866c1963"><strong>Flexibility:</strong> Sharing OFDs enables inter-process communication and coordinated file access.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bf-a5c2-f0bd5c978cbc"><strong>Consistency:</strong> The separation ensures that the kernel tracks file state centrally, while processes only manipulate descriptors.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80ca-8509-d602549e3eb7">Note that when a process is forked, the file descriptor table is copied over so we can still access the open file descriptions from the parent process in the child process. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809c-8097-c1861b44278e">The OFD that the table point to is the same. <strong>Aliasing </strong>OFDs is a good idea because it allows us to share resources effectively. This is great in POSIX because all I/O is abstracted as a file operation.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80d5-a08b-e31c3ac5d6af">One implication is that all processes has the same OFDs as the shell so that all the outputs from the processes started by the shell go back to the terminal. And because we are aliasing, if one process closes its connection, the others are not affected.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8080-b4a2-c315f40e5269"></p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kernal and OS Optimisations · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Kernal and OS Optimisations</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8077-8eb4-fe9cc35a458e">This topic examines the boundary between application runtimes, operating-system services, device drivers, and accelerator execution. The focus is on how queues, memory allocation, I/O paths, and launch mechanisms affect latency, bandwidth, utilization, and isolation.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8005-96fe-f39e803a7644">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807c-a422-fb9e1bfcede8">1. GPU Scheduling &amp; Context Switching</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-befe-d0aac4e783c4"><strong>Concept:</strong> How the GPU driver, runtime, and hardware schedule kernels, memory copies, command queues, and work from multiple processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f1-a153-e1e8829715f3"><strong>Why it&#39;s important:</strong> Queueing, synchronization, and GPU context switching can add latency and reduce utilization. Understanding scheduling helps engineers choose batching, stream assignment, time slicing, process isolation, or Multi-Instance GPU (MIG) where available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e7-95d5-e08c7ceafc88"><strong>Implementation Link:</strong> Supports the design of multi-user inference services with measured tail-latency and isolation behavior.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8050-b1d5-d321bdc6e0ef"><strong>Deep dive:</strong> <a href="https://www.notion.so/gpu-scheduling-and-context-switching.md" rel="noreferrer noopener">GPU Scheduling And Context Switching</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807f-aac9-eab79a7dabdb">2. Zero-Copy Data Paths (io_uring, GPUDirect)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a9-b20b-e3c5772b5cc3"><strong>Concept:</strong> Reducing intermediate copies among kernel buffers, user-space buffers, pinned host memory, device memory, storage devices, and network adapters.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f7d-f9654c12bc60"><strong>Why it&#39;s important:</strong> In large model serving and data-intensive training, weight loading, input ingestion, or distributed communication can become limited by memory movement and CPU overhead.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8077-a8a2-d9f0b39f39e3"><strong>Implementation Link:</strong> Relevant to high-throughput data loaders, model loading paths, GPUDirect-style storage or networking, and distributed communication.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8041-a2b8-ec155ec0f069"><strong>Deep dive:</strong> <a href="https://www.notion.so/zero-copy-data-paths.md" rel="noreferrer noopener">Zero-Copy Data Paths</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8004-b679-c1ba7970c080">3. Custom Memory Allocators (e.g., Stream-Ordered Allocation)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8060-b6f0-cea98a909144"><strong>Concept:</strong> Using memory pools, caching allocators, and stream-ordered APIs such as <code class="note-inline-code">cudaMallocAsync</code> for accelerator-visible memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8024-be84-fa04e88e6a9e"><strong>Why it&#39;s important:</strong> General allocation paths and unmanaged device allocation can introduce synchronization, fragmentation, and unpredictable latency when they are not aligned with stream-ordered execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8026-a33b-dac155b1e11e"><strong>Implementation Link:</strong> Helps reduce allocator-induced synchronization and memory-fragmentation effects in complex model pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b4-91ff-d79b834aa423"><strong>Deep dive:</strong> <a href="https://www.notion.so/custom-memory-allocators.md" rel="noreferrer noopener">Custom Memory Allocators</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8051-b737-fece7cb188f7">4. Kernel Fusion &amp; Graph Capture</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8069-90fe-c4b2b270a6d5"><strong>Concept:</strong> Merging compatible operations into a single device kernel or capturing a repeated execution sequence for replay.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b0-aadc-c5942992983a"><strong>Why it&#39;s important:</strong> Kernel launches have host and runtime overhead, and unfused operations often materialize intermediate tensors. Fusion can reduce both launch count and memory traffic when the operations are compatible.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-a32d-cff35a0dd6b7"><strong>Implementation Link:</strong> A common optimization in libraries and compilers such as TensorRT, framework JIT compilers, and ahead-of-time compiler pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8084-b2d4-e757544edfe6"><strong>Deep dive:</strong> <a href="https://www.notion.so/kernel-fusion-and-graph-capture.md" rel="noreferrer noopener">Kernel Fusion And Graph Capture</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8078-bd70-f3b577c3bb3b">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8037-afb2-fb7441652984"><strong>&quot;Operating Systems: Three Easy Pieces&quot; (Arpaci-Dusseau):</strong> For general OS background (Virtualization, Concurrency).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8085-8fa8-d138b43517bc"><strong>NVIDIA CUDA Programming Guide:</strong> Specifically the sections on Asynchronous Concurrent Execution and CUDA Graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e5-b43e-d20f6126a300"><strong>Linux </strong><strong><code class="note-inline-code">io_uring</code></strong><strong> Documentation:</strong> For high-performance I/O.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806f-87a8-f90efe59ff10"><strong>GPUDirect Storage (GDS) Whitepapers:</strong> For understanding direct storage-to-GPU paths.</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hardware Acceleration · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Hardware Acceleration</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8076-9196-db7af8d13b23">This topic explains how high-level tensor operations are mapped onto hardware execution units and instruction set extensions. The focus is on the engineering consequences of using vector units, matrix units, domain-specific accelerators, and reduced-precision formats.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80f6-9dbc-df4a4e0346bd">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8028-83df-da311a96017e">1. Systolic Arrays &amp; Matrix Units (Tensor Cores / AMX)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8084-a9ab-e65fbb14fc2b"><strong>Concept:</strong> How matrix units implement tiled multiply-accumulate operations such as $C = A \times B + C$ using specialized datapaths and local accumulators.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b0-ad6a-e6a45b0d5796"><strong>Why it&#39;s important:</strong> Dense layers, attention projections, and many convolutions spend much of their time in tensor contractions. Matrix units improve utilization by reusing operands near the arithmetic units and reducing instruction overhead.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-808e-9453-d4ba59521d43"><strong>Implementation Link:</strong> Understanding dataflow choices such as weight-stationary and output-stationary execution helps engineers choose tile shapes, memory layouts, and custom-kernel schedules.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f7-9b68-c1b7cf38d1ea"><strong>Deep dive:</strong> <a href="https://www.notion.so/systolic-arrays-and-matrix-units.md" rel="noreferrer noopener">Systolic Arrays And Matrix Units</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80a8-a59a-f86fa103cc4f">2. SIMD vs. MIMD in AI (AVX-512, Neon)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80ca-9706-daca56ae0e96"><strong>Concept:</strong> Single Instruction Multiple Data (SIMD) execution for vector operations, contrasted with Multiple Instruction Multiple Data (MIMD) execution for independent workers.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fd-80b3-ce8da4b4e280"><strong>Why it&#39;s important:</strong> Activation functions, softmax, layer normalization, sampling, masking, and token processing often execute outside the main GEMM path. Their runtime contribution can be significant even when their floating-point operation count is small.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8047-99a1-d907b30f2721"><strong>Implementation Link:</strong> SIMD and MIMD reasoning helps identify non-GEMM bottlenecks, vectorization failures, divergence, and host-side scheduling limits.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-808f-97dd-d82b27687d7b"><strong>Deep dive:</strong> <a href="https://www.notion.so/simd-and-mimd-in-ai.md" rel="noreferrer noopener">SIMD And MIMD In AI</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80e3-a75d-cd35844f47b4">3. Precision Engineering (FP16, BF16, INT8, FP4)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-805b-b245-e0629ebc8011"><strong>Concept:</strong> The trade-off between numerical range, precision, storage footprint, bandwidth demand, and hardware throughput.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8041-bf69-d432b69415af"><strong>Why it&#39;s important:</strong> Reduced-precision formats can lower memory traffic and increase accelerator throughput, but they also change overflow, underflow, rounding, and accumulation behavior.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8082-ba23-de6662863b20"><strong>Implementation Link:</strong> Precision choices determine quantization granularity, accumulator types, kernel availability, validation strategy, and mixed-precision training behavior.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8068-b9ee-e493e88da268"><strong>Deep dive:</strong> <a href="https://www.notion.so/precision-engineering.md" rel="noreferrer noopener">Precision Engineering</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80b3-92e3-f005d41f0cbd">4. Accelerator Selection For ML Workloads</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8052-b699-d4be2f1962cc"><strong>Concept:</strong> Selecting GPUs based on workload constraints such as memory capacity, precision support, kernel availability, and interconnect bandwidth.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-800a-8519-ee08494fbd5e"><strong>Why it&#39;s important:</strong> Peak FLOPS alone does not predict real throughput; selection must align with model size, latency targets, and software support.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fa-97af-f5b28f77062e"><strong>Implementation Link:</strong> Defines a measurable framework for comparing devices and avoiding software or memory bottlenecks.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-807a-ba31-f80a4df5d6b4"><strong>Deep dive:</strong> <a href="https://www.notion.so/accelerator-selection-for-ml-workloads.md" rel="noreferrer noopener">Accelerator Selection For ML Workloads</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c1-a52c-ea90e81a017f">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-807f-856e-cac5ecabbc6b"><strong>&quot;Computer Architecture: A Quantitative Approach&quot; (Hennessy &amp; Patterson):</strong> Specifically the chapter on Domain-Specific Architectures.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e6-8b8f-e52e869ccc2d"><strong>NVIDIA Tensor Core Documentation:</strong> Deep dive into the <code class="note-inline-code">mma</code> (matrix multiply-accumulate) PTX instructions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a2-80c2-cae440427ccf"><strong>Intel AMX (Advanced Matrix Extensions) Reference Manual:</strong> Understanding how tiles are managed in the CPU register state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80c5-9eae-ebe629204f07"><strong>Google TPU Whitepapers:</strong> Architectural case studies of systolic-array design for AI workloads.</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

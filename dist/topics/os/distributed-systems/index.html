@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Distributed Systems · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Distributed Systems</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8070-9a5e-c03a0fc02ba5"><strong>Phase 5 — Distributed Systems (Weeks 17–22).</strong> Treat this as a mini-course of its own. The Raft paper is mandatory reading. Lamport&#39;s original clock paper is short and rewarding. Take your time on consensus.</p><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8027-a068-ef760303254b">As you go along, you need to finish the following topics:</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35017c95-99fd-804a-aa4a-c009ccb0ea42"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Make a page for each topic as you go along and then delete this page once you are done.</div></aside></div><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-807a-aad5-fb160f532007">Distributed Systems — Motivation and Failure Models</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80b6-8981-d6409c153800">Remote Procedure Calls (RPC) — Mechanisms and Semantics</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-808a-bf09-f74077d69fd9">Distributed File Systems — GFS, HDFS, Ceph</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-801e-9af2-f00d9f8b77c8">Naming and Directory Services</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-8008-85a6-c114baa08cba">Time, Clocks, and Event Ordering</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80fc-98f8-d7820cd1d696">Logical Clocks and Vector Clocks</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80f2-9571-cf694732a879">Consistency Models — Strong, Sequential, Causal, Eventual</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80f1-bb22-c702c0a626ba">The CAP Theorem</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80cc-ab2f-eb985fb820b6">Consensus — Paxos Explained</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80d8-a2d5-e5b05b9a1f1f">Consensus — Raft Explained</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80fc-863d-dd74d476a458">Replication Strategies — Primary-Backup, Chain, Quorum</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80f0-b53e-e175843ee0ce">Fault Tolerance and Failure Detection</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80c8-8de3-ee1b8df2d7d7">Distributed Transactions and Two-Phase Commit</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80e5-8a33-ca9324d6165d">MapReduce and Distributed Computation</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-807b-b420-fe791658c970">Gossip Protocols and Epidemic Algorithms</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-80b3-b45f-c8314708e148"></p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
