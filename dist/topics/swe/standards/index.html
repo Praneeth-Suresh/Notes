@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Standards · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Standards</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8185-82d8-c71cf54e7697">The Core Idea: Complexity is the Enemy</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8138-98e0-da69fed2a29b">In a small hackathon project, you can get away with messy code because you are the only one reading it, and the project only lasts a week. In a Big Tech company, your code will be read by <strong>thousands of engineers over decades.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8122-98b9-caaafe9f55ba">The goal of engineering standards is to <strong>manage complexity.</strong> We use patterns (SOLID, Clean Architecture) and tools (CI/CD) not because they are “correct,” but because they make code <strong>predictable.</strong> A junior engineer should be able to look at a 10-year-old codebase and understand where the database logic is vs. where the business logic is.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a5-8cfa-c56a5cf98c76">Real-World Example: SpaceX</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-817e-a271-e18c4b1bc158">SpaceX doesn’t just build rockets; they build software that <em>cannot fail.</em> Their standards are legendary. They use a “Dual-Independent” software stack for the Dragon capsule—two different teams write the same logic in different ways to ensure that a bug in one doesn’t crash the rocket. They also prioritize <strong>Test-Driven Development (TDD)</strong> so that every line of code is verified before it ever touches hardware.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81b5-b319-c9b0a68f913c" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8158-8d7d-fa747086fe8c">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-813c-9458-ce447b7e7322"><strong>GitHub Actions / GitLab CI:</strong> The robots that run your tests automatically every time you push code.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8157-8689-dbdc715d6778"><strong>SonarQube / Snyk:</strong> “Static Analysis” tools that scan your code for security holes and “Code Smells” (messy patterns).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8196-a192-fb32262a6955"><strong>Prettier / ESLint:</strong> Tools that enforce a single coding style. In large teams, we don’t argue about tabs vs. spaces; we let the tool decide.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a4-8c16-ffdd7763015e" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8114-8654-ffcff17374cb">💻 Code to Explore: The “Masterclass” in Structure</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81f1-80d0-f4d3c85bf2cd"><a href="https://github.com/dotnet/aspnetcore" rel="noreferrer noopener">dotnet/aspnetcore</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81dc-bd82-e7a3f922dd6a">Microsoft’s web framework is one of the most organized codebases in existence.
+* <strong>What to look for:</strong>
+* <strong>Dependency Injection (DI):</strong> See how they use DI to keep components decoupled. It’s the “Secret Sauce” of large-scale software.
+* <strong>Unit Testing:</strong> Look at the <code class="note-inline-code">test/</code> folder. Notice how there are often more lines of test code than actual logic code.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8148-8b68-f4f8efa73118"><a href="https://github.com/golang/go" rel="noreferrer noopener">golang/go</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-819f-a502-fa2a729d6a45">The Go language codebase itself is a model of simplicity.
+* <strong>What to look for:</strong>
+* <strong>Readability:</strong> Go was designed for large teams. Notice how there is very little “Magic.” Everything is explicit.
+* <strong>Standard Library:</strong> Look at the <code class="note-inline-code">net/http</code> package. It’s a masterpiece of API design.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-810a-b334-f3a6fc29fd5b" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-811c-8a27-fc45527bfcab">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8102-be9f-fa353eac6811">🎥 Watch: “Simple Made Easy” (Rich Hickey)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-819a-a0bf-e27ae2c7e9d6"><a href="https://www.youtube.com/watch?v=SxdOUGdseq4" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8114-89d8-ff8f01a103a1"><strong>How to use it:</strong> This is one of the most famous talks in software engineering history. It explains the difference between “Simple” (one thing) and “Easy” (familiar). It will change how you design systems.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81ca-a622-f3dc5e3483e1">📝 Read: “Clean Architecture” (Robert C. Martin)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8140-bd0c-f3ce413da984"><a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html" rel="noreferrer noopener"><strong>Technical Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d0-bf1a-ef8add59ec0f"><strong>How to use it:</strong> Focus on the “Dependency Rule.” The idea that your business logic should never know about your database.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b4-a652-d47bfe16036c">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81c8-a82a-d0dc8c21a976">Good engineering is about <strong>Constraints.</strong> By limiting how you can write code (e.g., “no global variables,” “all functions must be under 20 lines”), you actually free yourself to build much more complex systems safely.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

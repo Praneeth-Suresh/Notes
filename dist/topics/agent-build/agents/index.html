@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agents · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Agents</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816d-b4a7-d3a3c210c90b">An agent is more than a workflow; it is an autonomous system that uses an LLM to decide which tools to use and how to handle unexpected results. In Python, the ecosystem is rapidly maturing, moving from experimental scripts to production-grade frameworks.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81dc-93c0-ee36ac3238d8">Choosing Your Framework</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-906c-e0bc19f30c32">For a seasoned engineer, the choice of framework depends on the required balance between <strong>Autonomy</strong> and <strong>Control</strong>.</p><table class="notion-block notion-table" data-notion-block-id="354d3a21-bb2d-8161-90f4-e7323e31f5b3"><tbody><tr><th>Framework</th><th>Mental Model</th><th>When to Use</th></tr><tr><td><strong>PydanticAI</strong></td><td>Type-Safe Functions</td><td>Use this for <strong>Production</strong>. It feels like FastAPI for agents. It uses Pydantic for strict validation, making it highly reliable and easy to debug.</td></tr><tr><td><strong>CrewAI</strong></td><td>Role-Based Agents</td><td>Use this for <strong>Business Logic</strong>. If you need an “Accountant Agent” and a “Manager Agent” to collaborate, CrewAI’s role-playing abstraction is powerful.</td></tr><tr><td><strong>LangGraph</strong></td><td>Cyclic Graphs</td><td>Use this for <strong>Custom Architectures</strong>. If you need to build a bespoke reasoning loop that doesn’t fit the standard ReAct pattern.</td></tr><tr><td><strong>AutoGen</strong></td><td>Conversational Agents</td><td>Use this for <strong>Creative Problem Solving</strong>. Ideal for multi-agent brainstorming or coding tasks.</td></tr></tbody></table><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81e6-862d-ca35c9fd23f4">The Tooling Revolution: Model Context Protocol (MCP)</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-812e-b0d9-dfe936a4ad02">In the past, giving an agent a tool meant writing a custom wrapper for every API. The <strong>Model Context Protocol (MCP)</strong> changes this. It is a universal standard that allows agents to connect to tools and data sources seamlessly.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81fc-ad85-d04638af056a">Why MCP?</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-a950-edc38d1196af">An API allows you to <em>get</em> data. MCP allows you to <em>provide context</em>.
+* <strong>FastMCP:</strong> A framework that allows you to turn any Python function into an MCP-compatible tool in minutes.
+* <strong>Motivation:</strong> APIs are often too rigid for LLMs. MCP servers can expose not just functions, but also local files, database schemas, and even browser sessions in a way that the LLM can “understand” and navigate.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8155-ba55-d363cfe00a89">Production Considerations for Agents</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-810c-9b6d-ed546c70cbf4">State Management</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81dc-98c7-c5e830185214">State is the “memory” of your agent. In production, you must handle:
+* <strong>Persistence:</strong> Saving the agent’s state to a database (Postgres/Redis) so it can resume after a crash.
+* <strong>Context Pruning:</strong> Agents can “forget” the original goal if the conversation gets too long. You must implement strategies to summarize old turns or “slide” the window of active context.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81db-a108-cc988bc52ea3">Failure Handling: The “Retry” isn’t enough</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815d-80e7-ccffdbc70fa5">In agentic engineering, a “failure” might be the LLM calling a tool with the wrong arguments.
+* <strong>Self-Correction:</strong> Catch the error, pass it back to the LLM as a “Thought,” and let it try again with a different argument.
+* <strong>Fallback Models:</strong> If a cheap model (GPT-4o-mini) fails the reasoning task, automatically “escalate” the task to a more capable model (Claude 3.5 Sonnet).</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-816e-8a2f-ddd77465d940">Evaluation &amp; Observability</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8165-ba79-c0ab8e215671">You cannot “unit test” an agent’s path. You must use <strong>Traces</strong>.
+* <strong>LangSmith / Langfuse:</strong> These tools allow you to visualize the “Trajectory” of the agent. You can see exactly why an agent chose Tool A over Tool B.
+* <strong>Evals:</strong> Create a dataset of “Golden Trajectories”—expected sequences of tool calls for specific prompts—and run them against new versions of your agent to check for regressions.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81c7-9a43-c251ad0b6e11">Security: The “Sandboxing” Mandate</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a2-9a71-ed7eeca6a75c">Never give an agent direct access to your host shell.
+1. <strong>Code Interpreters:</strong> Use tools like <strong>E2B</strong> to run agent-generated code in a secure, isolated sandbox.
+2. <strong>Least Privilege:</strong> Scoped API keys are mandatory. If an agent only needs to read a Google Sheet, do not give it access to the entire Google Drive.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81e4-a1b4-e2a83e220647">Cost / Latency Tradeoffs</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8104-8668-e9f18f7363eb">Agents are expensive. A single user request might trigger 10 LLM calls.
+* <strong>Parallelism:</strong> If the LLM determines it needs to call three tools, use a framework that supports parallel tool execution.
+* <strong>Prefetching:</strong> Use “Cheap” models for classification and routing, and “Expensive” models only for the final reasoning or tool argument generation.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81a7-8c5c-ef218958eb33">Engineering Heuristics for Performance</h2><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8193-b700-e282522f87e0"><strong>Prompt as Code:</strong> Treat your system prompts like code. Use version control. A one-word change can break an agent’s tool-calling capability.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a9-b701-f73daf921c79"><strong>Explicit Tool Descriptions:</strong> The LLM’s “vision” of a tool is its description. Be verbose. Instead of <code class="note-inline-code">get_data</code>, use <code class="note-inline-code">fetches_user_billing_history_as_json_for_the_last_30_days</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ed-a764-e5ef794e4fa5"><strong>Always Validate:</strong> If a tool returns data, validate it with Pydantic before the agent sees it. Garbage In, Garbage Out still applies to AI.</li></ol><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-816c-a27d-f614adafe1a7">tep-by-Step Implementation: Pydantic AI + FastMCP</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816e-bb05-fe8fa9c90e93">This section provides a concrete roadmap to building a production-ready agent that consumes external tools via MCP.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8192-a376-fd0daaf8bfd7">Precise Setup Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8109-aab9-e362e62d96ed"><strong>Environment:</strong> Create a virtual environment and install dependencies:
+<code class="note-inline-code">bash pip install pydantic-ai[mcp] mcp python-dotenv</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8102-9ef4-cdcebd45ba27"><strong>Build the Tool Server (FastMCP):</strong> Create a separate file <code class="note-inline-code">server.py</code> to host your tools. This isolates the “Execution Layer” from the “Intelligence Layer.”</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ec-bc8b-d2dbda492774"><strong>Define the Agent:</strong> Create <code class="note-inline-code">agent_app.py</code>, initialize the <code class="note-inline-code">Agent</code> with Pydantic validation for structured outputs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819e-ab82-d446a493dff2"><strong>Connect via Stdio:</strong> Use <code class="note-inline-code">MCPServerStdio</code> to allow the agent to launch and communicate with the tool server.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819a-ab5b-f084a61c7176"><strong>Inject Dependencies:</strong> Use Pydantic AI’s <code class="note-inline-code">RunContext</code> to pass stateful objects (like database connections) into tools.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8106-a992-fd6a67b958c0">Code Implementation</h3><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-813d-abea-f1056610f2ff">Part A: The MCP Tool Server (<code class="note-inline-code">server.py</code>)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-8ac9-db0e973ece4b">This follows the <strong>Least Privilege</strong> principle by only exposing specific functions.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81f2-806a-fb2df9be5a4b"><pre class="note-code-block" data-language="python"><code class="language-python">from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP(&quot;InventoryManager&quot;)
+
+@mcp.tool()
+async def check_stock(item_id: str) -&gt; int:
+    &quot;&quot;&quot;Check the current stock level for a specific item ID.&quot;&quot;&quot;
+    # Engineering Note: This is where you connect to your real DB
+    inventory_db = {&quot;A101&quot;: 50, &quot;B202&quot;: 0}
+    return inventory_db.get(item_id, 0)
+
+if __name__ == &quot;__main__&quot;:
+    mcp.run()</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ed-bbba-de7ea6b8b5b3">Part B: The Pydantic AI Agent (<code class="note-inline-code">agent_app.py</code>)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8111-9b05-f0b0d36b5bcd">This demonstrates <strong>State Management</strong>, <strong>Type Safety</strong>, and <strong>Observability</strong>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81b3-80f5-cbf639695638"><pre class="note-code-block" data-language="python"><code class="language-python">import asyncio
+from pydantic import BaseModel
+from pydantic_ai import Agent, RunContext
+from pydantic_ai.mcp import MCPServerStdio
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# 1. Structured Output Schema (Validation)
+class PurchaseRecommendation(BaseModel):
+    item_id: str
+    should_buy: bool
+    reasoning: str
+
+# 2. Define the Agent with Intelligence and Toolsets
+# The &#39;toolsets&#39; parameter is where the MCP integration happens
+mcp_server = MCPServerStdio(&quot;python&quot;, args=[&quot;server.py&quot;])
+
+agent = Agent(
+    &#39;openai:gpt-4o&#39;,
+    result_type=PurchaseRecommendation,
+    toolsets=[mcp_server],
+    system_prompt=&quot;Analyze inventory levels and recommend if we should restock.&quot;
+)
+
+# 3. Execution Loop with Lifecycle Management
+async def main():
+    # Use &#39;async with&#39; to handle the subprocess lifecycle of the MCP server
+    async with mcp_server:
+        result = await agent.run(&quot;Should we restock item A101?&quot;)
+
+        # Accessing validated data
+        print(f&quot;Recommendation for{result.data.item_id}:&quot;)
+        print(f&quot;Should Buy:{result.data.should_buy}&quot;)
+        print(f&quot;Reason:{result.data.reasoning}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(main())</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ea-8a18-cbb45724243a">Factoring in Production Concepts</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8151-9e4a-fbf7aa5e3cce"><strong>Stateful Dependencies:</strong> Use <code class="note-inline-code">RunContext</code> in Pydantic AI to pass a <code class="note-inline-code">User</code> object or a <code class="note-inline-code">DatabaseSession</code> to your local tools. This ensures the agent’s tools are grounded in the current <strong>State</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f2-aa3e-dec32a599638"><strong>Tool Validation:</strong> By using Pydantic models for <code class="note-inline-code">result_type</code>, the agent is forced to “Reason” toward a structured schema. If it fails, Pydantic AI’s internal <strong>Failure Handling</strong> will automatically retry the prompt with the validation error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8143-91f6-cebfeef25e38"><strong>Security:</strong> The FastMCP server runs in a separate process. You can further secure this by running the server in a <strong>Docker Sandbox</strong> while the agent remains in your primary application environment.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fc-be29-f32a55d07466"><strong>Cost/Latency:</strong> Notice that <code class="note-inline-code">check_stock</code> is a fast, local function. By using MCP, the agent only calls this tool when its “Intelligence” (GPT-4o) determines it is necessary, saving expensive tokens on unnecessary lookups.</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

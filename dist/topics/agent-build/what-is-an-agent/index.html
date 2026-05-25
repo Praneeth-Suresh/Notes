@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What is an Agent? · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">What is an Agent?</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81bc-a0e1-dfa09ead465f">At its core, an AI agent is a system where a Large Language Model (LLM) acts as the “brain” to dynamically direct its own processes and tool usage to accomplish a goal. Unlike a standard chatbot that simply responds to a prompt, an agent maintains control over the execution path, often operating in a loop until the task is complete.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8198-bd6b-dd0de230df16">The Claude Definition</h2><blockquote class="notion-block notion-quote" data-notion-block-id="354d3a21-bb2d-8187-96e4-eb87953d5f3e">“Agents are systems where LLMs dynamically direct their own processes and tool usage, maintaining control over how they accomplish tasks.” — Anthropic (Claude)</blockquote><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8190-83ac-ec11215aea3b">The 4 Components of an Agent</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8159-86f4-cbb072379588">To build a robust agent, a software engineer must consider four distinct architectural components:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81eb-b816-d155f4733f1f">1. Intelligence (The LLM)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81b5-bfb6-f43d614219b6">The LLM serves as the central reasoning engine. It interprets the user’s intent, breaks down complex goals into sub-tasks, and decides which tools to call.
+* <strong>Key Consideration:</strong> Not all LLMs are “agentic.” An agentic model requires strong instruction-following capabilities, low “hallucination” rates when generating tool arguments, and the ability to handle long-context reasoning.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8157-9cfb-e58cea251417">2. Reasoning Loop (The Trigger/Controller)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8170-b7cf-d84667a3f54b">The loop is the “runtime” of the agent. It governs how the agent thinks and acts. The agent observes the current state, plans the next step, executes an action, and then evaluates the result.
+* <strong>ReAct Pattern:</strong> Most modern agents follow the <strong>Reason + Act</strong> (ReAct) framework.
+* <strong>Thought:</strong> The agent reasons about the current state (“I need to find the user’s latest invoice”).
+* <strong>Action:</strong> The agent calls a tool (“SearchInvoiceAPI”).
+* <strong>Observation:</strong> The agent sees the result of the tool (“Invoice #123 found”).
+* <strong>Update:</strong> The agent updates its internal state and decides if more steps are needed.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81fe-946b-da367afdcc69">3. Memory (The State)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8133-b5f7-f4924cd1b9a4">Memory allows an agent to maintain context over time. It is divided into two types:
+* <strong>Short-term Memory:</strong> The current conversation history or the trace of thoughts and actions within a single task execution.
+* <strong>Long-term Memory:</strong> Often implemented using a Vector Database (RAG), this allows the agent to recall information from past interactions or access a massive external knowledge base.
+* <strong>Engineering Challenge:</strong> Managing “State Drift”—ensuring the agent doesn’t get lost in its own reasoning loop as the context grows.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-810d-8e9b-d576c85349bb">4. Tools (The Execution Layer)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8139-95a8-df00f47b799c">Tools (or “Actions”) are the agent’s “hands.” They allow the agent to interact with the real world—calling APIs, reading files, executing code, or searching the web.
+* <strong>Tool Definition:</strong> In software terms, a tool is usually a JSON schema that describes a function’s name, description, and required parameters.
+* <strong>MCP (Model Context Protocol):</strong> A new standard for how agents discover and use tools across different platforms (discussed in detail in the Agents section).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81d1-ab18-f6f7f8748a70">The ReAct Framework: The Core Heuristic</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81cf-9b08-c0e01eaae08f">The ReAct framework (Yao et al., 2022) was a breakthrough in agentic engineering. It proved that by prompting an LLM to “think out loud” before acting, the model significantly improves its success rate on complex tasks.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-814e-8ed2-e3c1695eb631"><strong>Why it matters for Software Engineers:</strong>
+Deterministic software relies on explicit branching (<code class="note-inline-code">if result == x</code>). In an agentic system, the ReAct loop handles the branching. The developer’s job shifts from writing the logic to <strong>designing the environment</strong> (the tools and the memory) in which the agent operates.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-819c-b7fb-d5bc9a622de8">The ReAct Loop in Action:</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81da-90f7-dfa944cc2c33"><strong>Input:</strong> “Calculate the 10% tax on the total of my last three Amazon orders.”</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815a-8c2d-e8c544f308a8"><strong>Thought:</strong> I need to retrieve the last three orders first.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81e6-ad0b-d9b2eed86e76"><strong>Action:</strong> <code class="note-inline-code">get_amazon_orders(limit=3)</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8103-b218-f2fdefd6e609"><strong>Observation:</strong> <code class="note-inline-code">[{&quot;id&quot;: 1, &quot;total&quot;: 50}, {&quot;id&quot;: 2, &quot;total&quot;: 20}, {&quot;id&quot;: 3, &quot;total&quot;: 30}]</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-815e-a0a1-f33726e29064"><strong>Thought:</strong> The total is 100. Now I need to calculate 10%.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8187-a65a-d18d407af91a"><strong>Action:</strong> <code class="note-inline-code">calculate_math(&quot;100 * 0.10&quot;)</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8195-9455-ed4d9c3691a3"><strong>Observation:</strong> <code class="note-inline-code">10</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d0-868a-ca8886851ec1"><strong>Final Response:</strong> “The 10% tax on your last three orders is $10.”</li></ol></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
