@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Memory Systems · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Memory Systems</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8000-a2e9-cb99c5ba07bf">AI implementations are often limited by data movement rather than arithmetic throughput. This topic focuses on the memory hierarchy, bandwidth constraints, locality, allocation behavior, and the serving-time structures that determine whether hardware execution units remain supplied with data.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8090-bf45-ed28d55bdd1b">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80da-b051-cdc7aea5fda0">1. HBM (High Bandwidth Memory) &amp; The Memory Wall</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8090-a3ba-c031d887bf18"><strong>Concept:</strong> The use of stacked DRAM and wide memory interfaces near an accelerator package to provide high off-chip bandwidth.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80db-9b29-c44a33daad2f"><strong>Why it&#39;s important:</strong> Many inference and training kernels cannot sustain peak compute throughput unless operands and intermediate values are delivered at sufficient bandwidth.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8087-92bc-cbe884248bf5"><strong>Implementation Link:</strong> Explains why optimizations such as tiling, fusion, quantization, and FlashAttention are evaluated by bytes moved as well as operations performed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8091-abed-e5435d628315"><strong>Deep dive:</strong> <a href="https://www.notion.so/hbm-and-the-memory-wall.md" rel="noreferrer noopener">HBM And The Memory Wall</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-806b-ad92-c483b83e7458">2. Unified Memory Architectures (UMA)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d2-ae80-d7365e19cba3"><strong>Concept:</strong> CPU and accelerator access through a shared address space or shared physical memory, depending on the system design.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e5-8e99-e92ebb3851c2"><strong>Why it&#39;s important:</strong> Unified memory can reduce explicit copy management, but latency, bandwidth, coherence, and page placement still determine performance.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-805e-8860-f65a0f0466c0"><strong>Implementation Link:</strong> Useful for reasoning about local inference, edge deployment, preprocessing pipelines, page migration, and CPU-GPU bandwidth contention.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-9684-cddc4b19366c"><strong>Deep dive:</strong> <a href="https://www.notion.so/unified-memory-architectures.md" rel="noreferrer noopener">Unified Memory Architectures</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80da-a8fc-f7ce2770ea16">3. PagedAttention &amp; Virtual Memory for GPUs</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80df-b8e3-de2464f350e0"><strong>Concept:</strong> Applying paging-style indirection to manage the key-value (KV) cache used during autoregressive decoding.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8083-87d9-d47f061d308f"><strong>Why it&#39;s important:</strong> The KV cache grows dynamically and request lengths vary, so contiguous allocation can waste memory or increase fragmentation.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8053-90a6-f21898cb1e7f"><strong>Implementation Link:</strong> Provides the memory-management mechanism used by serving engines such as vLLM to increase effective cache capacity under dynamic workloads.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80cc-8d24-ce626e466e8f"><strong>Deep dive:</strong> <a href="https://www.notion.so/pagedattention-and-gpu-virtual-memory.md" rel="noreferrer noopener">PagedAttention And GPU Virtual Memory</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-800a-927e-f5196a270733">4. Memory Locality &amp; Tiling</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8077-9570-c751578b64fc"><strong>Concept:</strong> Decomposing operations into tiles that fit in registers, cache, shared memory, or another faster memory level.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8096-9c5a-fe1a9ca837d9"><strong>Why it&#39;s important:</strong> Tiling increases reuse of data after it has been moved from a slower memory level to a faster one.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8038-b2f7-c80417ee8364"><strong>Implementation Link:</strong> Central to CUDA, Triton, and compiler-generated kernels for GEMM, attention, normalization, and reductions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8046-8e87-df9a7481f115"><strong>Deep dive:</strong> <a href="https://www.notion.so/memory-locality-and-tiling.md" rel="noreferrer noopener">Memory Locality And Tiling</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80a2-9da1-e004142ebcb5">5. Long-Lived Intermediaries</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8076-b4e2-dbc86f8925dc"><strong>Concept:</strong> Tensors produced early in training or inference may remain live across many later operations, such as backward propagation or subsequent decoding steps.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fa-9607-f7447be25857"><strong>Why it&#39;s important:</strong> Activation tensors and KV-cache entries can dominate peak memory use even when the model parameters fit in device memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803d-a22e-f4db9a3dc375"><strong>Implementation Link:</strong> The direct reason for <strong>Activation Checkpointing</strong> and <strong>KV Cache Optimization</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8039-b6a7-f435080c4997"><strong>Deep dive:</strong> <a href="https://www.notion.so/long-lived-intermediaries.md" rel="noreferrer noopener">Long-Lived Intermediaries</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80d9-80f8-d60bd88b395f">6. Masking the &quot;Shuffle&quot;</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e8-8e35-f814a1de7ff9"><strong>Concept:</strong> Scheduling data transfers, communication, and computation so independent work overlaps when hardware resources permit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-804e-80ba-e2550a5d3b28"><strong>Why it&#39;s important:</strong> Exposed data movement increases latency and reduces accelerator utilization when computation depends on data that has not arrived.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-801c-a60b-ede641a8b12f"><strong>Implementation Link:</strong> Techniques such as double buffering, asynchronous memory copies, stream scheduling, and communication overlap.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b1-a81c-cdd35a348ab5"><strong>Deep dive:</strong> <a href="https://www.notion.so/masking-the-shuffle.md" rel="noreferrer noopener">Masking The Shuffle</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-804a-8c5c-dbdbf9bc678f">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8086-bd7d-fd89dae4ea24"><strong>vLLM Paper (PagedAttention):</strong> &quot;Efficient Memory Management for Large Language Model Serving with PagedAttention.&quot;</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80ff-b80c-d96e2c6b3a64"><strong>FlashAttention Paper:</strong> &quot;FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness.&quot;</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8039-b781-d3ab59edb39a"><strong>NVIDIA Blog on HBM3:</strong> Understanding the technical specs and physical constraints of AI memory.</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

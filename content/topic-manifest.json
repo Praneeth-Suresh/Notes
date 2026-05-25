@@ -2,7 +2,7 @@
   {
     "slug": "algorithms",
     "title": "Algorithms",
-    "description": "Recurrences, asymptotics, and design techniques.",
+    "description": "Classic deep dive into Data Structures and Algorithms",
     "source": {
       "kind": "normalized-file",
       "path": "topics/algorithms.normalized.json"
@@ -19,6 +19,24 @@
     "source": {
       "kind": "normalized-file",
       "path": "topics/agent-coding.normalized.json"
+    }
+  },
+  {
+    "slug": "os",
+    "title": "Operating Systems",
+    "description": "Diving deep into the design and structure of Operating Systems.",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/os.normalized.json"
+    }
+  },
+  {
+    "slug": "ai-engineer",
+    "title": "AI Engineering",
+    "description": "Accelerating AI: across all layers",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/ai-engineer.normalized.json"
     }
   }
 ]

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Concurrency · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Concurrency</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8006-b338-df0fb5a65ffd"><strong>Phase 2 — Concurrency (Weeks 5–8).</strong> This is where most students struggle. Go slow on deadlock and memory consistency models. Implement a small thread library yourself (pthreads-style) to make the primitives concrete.</p><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8031-bd7d-ff41adf99f53">As you go along, you need to finish the following topics:</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35017c95-99fd-80fd-a7c6-cd0ba4f5e2b9"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Make a page for each topic as you go along and then delete this page once you are done.</div></aside></div><div class="notion-block notion-to-do notion-to-do-checked" data-notion-block-id="35017c95-99fd-8019-9a21-d164d8c8a88f"><input class="notion-to-do-checkbox" type="checkbox" checked disabled /><div class="notion-to-do-body">Concurrency vs Parallelism</div></div><div class="notion-block notion-to-do notion-to-do-checked" data-notion-block-id="35017c95-99fd-80e2-94ec-f2f2a3098274"><input class="notion-to-do-checkbox" type="checkbox" checked disabled /><div class="notion-to-do-body">Threads — Model, Creation, Lifecycle</div></div><div class="notion-block notion-to-do notion-to-do-checked" data-notion-block-id="35017c95-99fd-8033-a896-cece8b16f133"><input class="notion-to-do-checkbox" type="checkbox" checked disabled /><div class="notion-to-do-body">Locks and Mutexes</div></div><div class="notion-block notion-to-do notion-to-do-checked" data-notion-block-id="35017c95-99fd-80b5-bb49-f00c40bce5c4"><input class="notion-to-do-checkbox" type="checkbox" checked disabled /><div class="notion-to-do-body">Semaphores</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80f5-847e-e8954b17cd22"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Condition Variables</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80cd-bfe9-d9ceb9071c90"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Monitors and Higher-level Primitives</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8007-9691-fac1c0bda480"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">The Producer-Consumer Problem</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8059-83bd-f17f3e88b5fe"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Deadlock — Detection, Avoidance, Recovery</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-8023-af0f-c768b5d76b76"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Starvation and Priority Inversion</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80c4-994b-e66adb5736d4"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Lock-Free Data Structures</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80b0-a2ea-ce6946bdaff3"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Memory Consistency Models</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-80e7-820f-f266563775a2"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Event-Driven vs Thread-Based Concurrency</div></div><div class="notion-block notion-to-do" data-notion-block-id="35017c95-99fd-809b-b43d-c5ff9801527f"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Concurrency Bugs and Debugging</div></div></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

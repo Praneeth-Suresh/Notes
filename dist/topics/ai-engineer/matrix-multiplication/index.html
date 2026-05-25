@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Matrix Multiplication · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Matrix Multiplication</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80da-8837-e7a22c314515">Dense neural networks, attention projections, convolution lowering, and many embedding transformations reduce to matrix multiplication or closely related tensor contractions. The mathematical operation is simple: many multiply-accumulate operations produce an output tile. The implementation problem is that the input values must be delivered to arithmetic units at a rate high enough to keep those units busy.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="36917c95-99fd-8047-bc2f-d96af19a1fdd">Data Reuse for Matrix Multiplication</h1><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8041-9849-f31c6882a2f5">The optimization of matrix multiplication is a well studied problem in data engineering. Here, we go through some principles that come from dealing with that problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8088-bfc4-d15ecaf4b1dc">For <span class="note-inline-equation" data-latex="C = A \times B">\(C = A \times B\)</span>, each element <span class="note-inline-equation" data-latex="A_{i,k}">\(A_{i,k}\)</span> is reused across many columns of <span class="note-inline-equation" data-latex="B">\(B\)</span>, and each element <span class="note-inline-equation" data-latex="B_{k,j}">\(B_{k,j}\)</span> is reused across many rows of <span class="note-inline-equation" data-latex="A">\(A\)</span>. A straightforward implementation that reloads these values from memory for every output element wastes bandwidth. Efficient implementations therefore compute a tile of <span class="note-inline-equation" data-latex="C">\(C\)</span> at a time.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8081-9954-e24ceee5521b">The tile has three important properties:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80df-99eb-cc84c6ea7397">It is small enough for on-chip storage such as registers, shared memory, or a hardware tile register file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8028-8fac-f41c8ec1a2c5">It is large enough to expose many independent multiply-accumulate operations.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d0-aa63-cf2a6c5433a6">It is arranged so each loaded input value is used multiple times before being evicted.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-80dd-97d1-ea22bfa852f3">This is the same locality idea as cache blocking in CPU algorithms, but matrix units make the blocked operation a hardware-level primitive.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="36917c95-99fd-80e0-a673-f6b75306d523">Tensor Cores</h1><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8098-9e99-d6ac7eca2326">Modern GPUs expose matrix units through instructions that operate on small fragments, such as warp-level matrix multiply-accumulate instructions. The programmer or compiler arranges fragments of $A$, $B$, and $C$ in registers or shared memory, then issues a matrix instruction that performs many fused operations.</p><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8059-aa57-f29f0288d618">The instruction is not a complete large GEMM. It is a tile primitive. A high-performance GEMM kernel surrounds the primitive with:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e3-a1cb-c297818fc489">Global memory loads for large matrices.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-804e-9c40-e4c2d3fa6a12">Shared-memory staging to coalesce and reuse data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d4-ab73-fad862103369">Register tiling for per-thread fragments.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8039-b461-ea8161097651">Synchronization between producer and consumer phases within a thread block.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-809f-b4ac-ce0434e9479a">Epilogue operations such as bias, scaling, activation, or quantization.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-809e-96ee-dcf374b4bfc7">Intel AMX follows a different programming model but a similar objective. It provides tile registers and tile operations so CPU cores can execute matrix-style work with reduced instruction overhead. The operating system must save and restore the extended tile state during context switches, which makes AMX partly an ISA feature and partly an OS integration feature.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

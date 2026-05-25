@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Semaphores · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Semaphores</h1>
+      <p class="topic-parent">Subpage of Operating Systems</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8016-997d-f7e439ecb176">Semaphores are synchronization primitives invented by Edsger Dijkstra in the early 1960s to solve concurrency problems in multiprogramming systems. They act as generalized locks, controlling access to shared resources through atomic operations (<code class="note-inline-code">wait</code> and <code class="note-inline-code">signal</code>). </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8073-b916-c1d0efd1dc3a">In C++, semaphores can be implemented using POSIX APIs or modern C++ libraries, and two key patterns are mutual exclusion and signaling.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-802c-8531-fe85536deee7">Semaphores</h2><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-804b-a910-cdf3a33c55ad">A <strong>semaphore</strong> is a synchronization primitive built on atomic operations but offering a higher-level abstraction.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80bb-9b50-f8b368d6b558">It maintains a non-negative integer counter:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8006-8e09-c46b1448e712"><strong>Counting semaphore</strong>: represents available resources (e.g., buffer slots).<p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8058-9a80-fe5d31feea11">Counter = number of identical resources (e.g., buffer slots, printers).</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8028-adb7-ca8d9c1f7b02"><strong>Binary semaphore</strong>: acts like a lock but with structured wait/signal semantics.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-801b-b432-e5fe66fbb64a">Think of a semaphore as a <strong>traffic light</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8048-9a3f-fc8ba6c55876">Green → threads can proceed (resource available). Semaphore count &gt; 0, meaning resources are available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b0-89a8-fbcc39f7cec4">Red → threads must wait (resource unavailable). Semaphore count = 0, meaning no resources left; threads must wait.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-802a-849d-e1f4746264a6">Two atomic operations control it:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8010-86fe-c7c652f7bb5b"><strong><code class="note-inline-code">wait()</code></strong><strong> (P/down)</strong>: Decrements the count if &gt;0; otherwise, blocks the thread until resources are available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80e9-9632-f4eb25f8726d"><strong><code class="note-inline-code">signal()</code></strong><strong> (V/up)</strong>: Increments the count, potentially waking a waiting thread.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80f9-92ae-f17e93a9c0ad">The atomic nature of <code class="note-inline-code">wait</code> and <code class="note-inline-code">signal</code> ensures no race conditions when multiple threads check or update the semaphore simultaneously.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80dd-a6ce-df18616ed07f">Counting Semaphores allow multiple threads up to a defined limit.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80e3-85cc-eb666a68a87d">A Binary Semaphore on the other hand can implement a mutex. </p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-804a-91df-f1a8438ae934">A <strong>mutex</strong> (mutual exclusion object) is essentially a lock that ensures only one thread can access a critical section at a time.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-804f-8d0d-d2a3d0e48b7e">It can be implemented using a <strong>binary semaphore</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8074-9ab7-d6fd30cbb05d">Semaphore initialized to 1 → resource available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-801c-9652-c3977832c1a3"><code class="note-inline-code">wait()</code> decrements it to 0 → lock acquired.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8026-9157-cb9630361686"><code class="note-inline-code">signal()</code> increments it back to 1 → lock released.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-804e-bbf0-f6609f3f5e70"><a href="https://www.gurusoftware.com/what-are-semaphores-and-how-do-they-work/" rel="noreferrer noopener">https://www.gurusoftware.com/what-are-semaphores-and-how-do-they-work/</a> is a great reference.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35b17c95-99fd-8028-89c4-fd9bdfeb746a">Implementing Semaphores</h2><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-800c-b139-e7ed1bea5e86"><strong>Key Principle:</strong> For every logical constraint in a concurrent system, use a semaphore to enforce it.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80cd-8235-c202beeaeb76">This ensures correctness by design, because the semaphore directly models the resource availability.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-804a-9b50-f1f054c2505c">Using Semaphores in C++</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8028-8208-c668ea36001d">In POSIX systems, you can use <code class="note-inline-code">&lt;semaphore.h&gt;</code>:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80fb-af16-cb9448be784b"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;pthread.h&gt;
+#include &lt;semaphore.h&gt;
+
+sem_t sem;
+
+void* worker(void* arg) {
+    sem_wait(&amp;sem);   // wait (P)
+    std::cout &lt;&lt; &quot;Thread &quot; &lt;&lt; pthread_self() &lt;&lt; &quot; entered critical section\n&quot;;
+    sem_post(&amp;sem);   // signal (V)
+    return nullptr;
+}
+
+int main() {
+    pthread_t t1, t2;
+    sem_init(&amp;sem, 0, 1); // binary semaphore (mutex-like)
+
+    pthread_create(&amp;t1, nullptr, worker, nullptr);
+    pthread_create(&amp;t2, nullptr, worker, nullptr);
+
+    pthread_join(t1, nullptr);
+    pthread_join(t2, nullptr);
+
+    sem_destroy(&amp;sem);
+    return 0;
+}</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35b17c95-99fd-8028-8e26-d4fb1db50694">Scenario 1: Circular Buffer (Producer-Consumer Problem)</h3><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8082-89e1-dc694e9ed8f1">This is done using two semaphores.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80b9-9a09-cc7203c790e6"><strong>Semaphore for empty slots</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-809a-bc9e-fc6d68fbc7d9">Initialized to buffer size.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-801b-b01a-c520a87de3b1">Producer must wait if empty slots = 0 (red light).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8018-afd8-ffa653b138f2"><strong>Semaphore for full slots</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80d5-baee-df9727a692e1">Initialized to 0.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8014-891c-c13da5321921">Consumer must wait if full slots = 0 (red light).</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35b17c95-99fd-80e8-8a2f-e10a245c738e">Scenario 2: Multiple Identical Resources (e.g., Printers)</h3><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80c7-9f88-e9e334c3754c">Suppose there are 3 printers in a lab. The semaphore is initialized to 3.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8022-87d4-edf952097ae9">Each thread requesting a printer performs <strong>wait</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80cb-b8a1-ffa73dfd1728">If count &gt; 0, it proceeds (green light).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8017-a27b-e09fd4c5fddd">If count = 0, it blocks (red light).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8027-be2b-c5ba9715e654">When a printer is freed, <strong>signal</strong> increments the count, allowing another thread to proceed.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35b17c95-99fd-80a3-a17b-c2a65deb9ab6">Scenario 3: Database Connection Pool</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-800e-9d7e-f34b3132f7f3">A web server has a pool of 10 database connections.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80e2-aa1f-e4ea8b9fdaac">Semaphore initialized to 10.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8082-b670-f71ce947b4ba">Each incoming request must acquire a connection (wait).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-8072-ac31-cde3156767f1">If all 10 are in use, new requests block until one is released (signal).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80dd-a3e1-f29d13fa8232"><strong>Why semaphore helps</strong>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-806a-8d52-cb27a2345463">Avoids busy waiting: requests sleep until a connection is available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35b17c95-99fd-80ff-a809-d3d498c4609b">Prevents overload: ensures no more than 10 concurrent connections.</li></ul></li></ul><hr class="notion-block notion-divider" data-notion-block-id="35b17c95-99fd-80c5-adfa-c6e410274f44" /><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-8050-b86f-f3c45981794f">Semaphores embody the principle of <strong>raising the level of abstraction</strong>. They make concurrent programming safer and more predictable.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-805d-9c52-dc2d22ef4edc">Semaphores are essentially the <strong>OS’s way of turning synchronization from a manual, error-prone task into a structured, reliable mechanism</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35b17c95-99fd-80c1-a298-c56678bf9260"></p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

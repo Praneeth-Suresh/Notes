@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Distributed AI Systems · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="active" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Distributed AI Systems</h1>
+      <p class="topic-parent">Subpage of AI Engineering</p>
+      
+      
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-800e-a2f1-ee83e0edf7c0">Large model training and serving often exceed the memory capacity, compute throughput, or availability requirements of a single accelerator. This topic covers the engineering mechanisms used to distribute model execution across multiple GPUs and nodes.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c4-8c2f-eba5d7896dda">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-808a-bbec-c64bec0e090c">1. Interconnect Topologies (NVLink, InfiniBand)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8002-b82b-f3f649641313"><strong>Concept:</strong> The physical and logical layout of how GPUs talk to each other (e.g., Ring, Hypercube, Fat Tree).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8038-b679-ec53a536ae28"><strong>Why it matters:</strong> Distributed execution can be limited by communication rather than arithmetic throughput. Bandwidth, latency, contention, and topology determine whether a placement strategy can keep accelerators utilized.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8079-b52e-f20111b3a9d6"><strong>Implementation Link:</strong> Helps decide between Data Parallelism (DP) and Model Parallelism (MP).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8075-a1f4-fbfcf52fda42"><strong>Deep dive:</strong> <a href="https://www.notion.so/interconnect-topologies.md" rel="noreferrer noopener">Interconnect Topologies</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80be-ab96-eedb961c2994">2. Collective Communication Primitives (NCCL/RCCL)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8082-9b7b-c2a066ac4cb6"><strong>Concept:</strong> Standardized algorithms for data synchronization: <code class="note-inline-code">All-Reduce</code>, <code class="note-inline-code">All-Gather</code>, <code class="note-inline-code">Reduce-Scatter</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f9f-dd128d0407ec"><strong>Why it matters:</strong> These operations determine the cost of gradient synchronization, activation exchange, parameter reconstruction, and expert routing. Their performance depends on message size, rank mapping, and network topology.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803f-b8db-f6cc1da90154"><strong>Implementation Link:</strong> Forms the communication layer used by systems such as DeepSpeed, Horovod, and PyTorch Distributed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a8-8314-c74db3d1547e"><strong>Deep dive:</strong> <a href="https://www.notion.so/collective-communication-primitives.md" rel="noreferrer noopener">Collective Communication Primitives</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80fb-9a3f-e0acfad1a4b5">3. Model Parallelism: 3D Parallelism (TP, PP, DP)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8054-9bbc-c519de5703d9"><strong>Concept:</strong> Breaking models apart across <strong>Tensor Parallelism</strong> (intra-layer), <strong>Pipeline Parallelism</strong> (inter-layer), and <strong>Data Parallelism</strong> (sharding data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-807a-82e2-f275be6b0a33"><strong>Why it matters:</strong> These strategies reduce per-device memory requirements and distribute computation, but they introduce communication, scheduling, and optimizer-state management costs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f0-b5da-c672e1a83036"><strong>Implementation Link:</strong> Provides the basis for designing parameter, activation, gradient, and optimizer-state sharding strategies.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-805f-9de2-d431c3731cf6"><strong>Deep dive:</strong> <a href="https://www.notion.so/three-dimensional-parallelism.md" rel="noreferrer noopener">Three-Dimensional Parallelism</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80cc-a2f8-cbb721423fd2">4. Fault Tolerance &amp; Checkpointing</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8032-8aad-f862b5faf5d0"><strong>Concept:</strong> Mechanisms for limiting lost work when a node, process, network path, storage system, or scheduler event interrupts a distributed job.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8011-af9c-fad90a6bb9d8"><strong>Why it matters:</strong> Failure probability increases with cluster size and job duration. Checkpointing and recovery design determine the amount of recomputation and the risk of inconsistent restart state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d6-a3d6-e7f88f568e79"><strong>Implementation Link:</strong> Informs the design of training loops and persistent state management.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fd-8254-e5e29b56eee6"><strong>Deep dive:</strong> <a href="https://www.notion.so/fault-tolerance-and-checkpointing.md" rel="noreferrer noopener">Fault Tolerance And Checkpointing</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c9-ad3a-d16e0baf98ff">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806b-b8e1-f8d2445bafaa"><strong>&quot;Distributed Systems: Concepts and Design&quot; (Coulouris et al.):</strong> For foundation in distributed consensus and failure modes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803c-bb87-d3f4f45d2c0e"><strong>NVIDIA NCCL (NVIDIA Collective Communications Library) Documentation:</strong> Understanding optimized primitives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a1-82b6-f2cb9da15470"><strong>&quot;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&quot; (NVIDIA Research):</strong> For an implementation-oriented discussion of tensor, pipeline, and data parallelism.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8052-bf2a-deb935e73a15"><strong>Microsoft DeepSpeed Blog:</strong> For practical implementations of ZeRO (Zero Redundancy Optimizer).</li></ul></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
