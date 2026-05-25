@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Security · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Security</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-818a-86b9-c167d3d3d1dc">The Core Idea: Defense in Depth</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81bd-b524-c85744cfc595">In small apps, security is often an afterthought—maybe you add a login page or use HTTPS. In large-scale, industrial-grade systems (especially banking), we assume the <strong>perimeter has already been breached.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8174-9f50-edf2ee2a802c">The core philosophy is <strong>Defense in Depth.</strong> You don’t just have one big wall; you have locked doors inside the building, cameras in every hallway, and vaults inside the rooms. Even if an attacker gets inside your network, they should find every service and every database individually locked.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8124-a260-e9519ecfcc10">Real-World Example: Banking &amp; “Confidential Computing”</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8117-9557-ccc90f78e615">Modern banks like <strong>Nubank</strong> or <strong>Monzo</strong> handle millions of transactions. They use <strong>Financial-grade API (FAPI)</strong> standards, which are much stricter than normal APIs. For example, if you send a “Transfer” request, it’s not just a JSON packet; it’s a cryptographically signed message that proves <em>exactly</em> who sent it and that it wasn’t changed by a middleman.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81ce-a458-d2481715e766">Some even use <strong>Confidential Computing</strong> (like AWS Nitro or Intel SGX), where the code that handles your credit card number runs in a “black box” in memory that even the server’s administrator cannot see.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a4-888b-ef53c825b0aa" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81f0-bc18-c8801dcf5acd">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81a2-907b-d7ecf06c7b03"><strong>HashiCorp Vault:</strong> The industry standard for “Secret Management.” Instead of putting your database password in a config file, your app asks Vault for a temporary password that expires in 1 hour.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d2-aaf7-d86830dec41c"><strong>OAuth 2.0 / OpenID Connect:</strong> The protocols that power “Login with Google.” In banking, we use the <strong>FAPI 2.0</strong> profile of OAuth for maximum security.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8167-9490-c264d515e9a5"><strong>mTLS (Mutual TLS):</strong> In microservices, not only does the client verify the server’s certificate, but the <strong>server also verifies the client’s certificate.</strong> It’s like both people showing ID before they start talking.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8158-a152-c3d3d0ad5259" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8137-81af-dfde1647338a">💻 Code to Explore: The “Bank” Reference</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81f2-b2b8-ff84e600d916"><a href="https://github.com/moov-io" rel="noreferrer noopener">Moov.io</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81b1-ab04-c0a0ba7b60eb">Moov is a collection of open-source projects for financial services. It is the absolute gold standard for seeing how financial protocols are implemented.
+* <strong>What to look for:</strong>
+* <a href="https://github.com/moov-io/ach" rel="noreferrer noopener"><strong>moov-io/ach</strong></a><strong>:</strong> See how the Automated Clearing House (ACH) protocol is implemented in Go. Notice the extreme attention to validation and data integrity.
+* <a href="https://github.com/moov-io/iso8583" rel="noreferrer noopener"><strong>moov-io/iso8583</strong></a><strong>:</strong> This is the protocol used for credit card transactions. Look at how they handle “bitmaps” and complex data packing—it’s low-level and high-security.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81bc-a905-d9e68c9109b7"><a href="https://github.com/OpenBankProject/OBP-API" rel="noreferrer noopener">OpenBankProject/OBP-API</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-818b-bed4-d66c2ce00dd2">The leading open-source API for banks.
+* <strong>What to look for:</strong>
+* <strong>The Auth logic:</strong> See how they handle multiple authentication providers and how they enforce <strong>RBAC (Role-Based Access Control)</strong> across hundreds of banking endpoints.
+* <strong>Audit Logging:</strong> Look at how every single action is logged in a way that is “immutable” (cannot be changed).</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a7-ad7d-e96b4c264a92" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81d2-a70d-d1a741c9b472">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8178-9a2f-e2ac1f553880">📝 Read: “The OWASP Top 10”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-819b-b966-e7a79acd31b5"><a href="https://owasp.org/www-project-top-ten/" rel="noreferrer noopener"><strong>Official Site</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8108-9aef-f51ef458ae95"><strong>How to use it:</strong> This is the “Checklist of Doom.” Every professional engineer must know the top 10 most common ways hackers break into apps (like SQL Injection or Broken Access Control).</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8167-be86-e30fe3e9209e">🎥 Watch: “LiveOverflow” (YouTube)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8176-a4d4-d82288bd7ec8"><a href="https://www.youtube.com/@LiveOverflow" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81ad-bbb8-cf2bee1a9a9b"><strong>How to use it:</strong> Watch his “Binary Hacking” or “Web Security” playlists. It teaches you to <strong>think like a hacker.</strong> You cannot defend a system if you don’t understand how to break it.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8128-b425-fdbc5d1a4965">📄 Research: “Zero Trust Architecture” (NIST SP 800-207)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-810d-9adc-f1bd2e3248cb"><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf" rel="noreferrer noopener"><strong>NIST Paper</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f7-825c-f23b69b8dafc"><strong>How to use it:</strong> This is the government standard that defined Zero Trust. It’s dense, but focus on the “Tenets of Zero Trust” section. It’s the blueprint for how Google (BeyondCorp) and modern banks build their networks.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-818f-8a24-c628f6317867">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-812f-a66a-fe90bd72b6ff">Security is a <strong>Process, not a Product.</strong> You don’t “buy” security by installing a firewall. You build security by creating a culture where code is reviewed, secrets are managed, and “Least Privilege” is the default for every single piece of code you write.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

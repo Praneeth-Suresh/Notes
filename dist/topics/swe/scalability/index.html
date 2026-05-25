@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Scalability · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Scalability</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-819b-b511-cac63796ab43">The Core Idea: The End of “One Size Fits All”</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81d2-ac62-e3eb7f7660cb">In small projects, you usually have one database (like PostgreSQL or MongoDB) and it does everything. In large-scale systems, <strong>data is specialized.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-812e-90ff-d73f733b96d4">You might use <strong>PostgreSQL</strong> for your “Source of Truth,” <strong>Redis</strong> for lightning-fast lookups, and <strong>Elasticsearch</strong> for searching. The core idea is <strong>Mechanical Sympathy</strong>: picking the tool that matches the physical way data is stored and accessed.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8182-9d9a-de31a72f029e">Real-World Example: Discord</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-818b-8adc-e4f77e08e090">Discord handles billions of messages. They originally used MongoDB, but as they grew, it became too slow. They migrated to <strong>ScyllaDB</strong> (a high-performance version of Cassandra) because they needed a database that could handle “wide rows” (thousands of messages in a single channel) and “sub-millisecond” latency across a global cluster.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81d3-8bd9-fa74b327e4d5" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-814f-bde1-c7b0c7a6ce82">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8167-b91b-d8191f5a589a"><strong>Redis:</strong> The world’s fastest data store. It lives entirely in RAM (memory). If you need to know “Is this user online?” in 0.5ms, you use Redis.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-815f-a5c1-d94a203f77c7"><strong>Apache Kafka:</strong> A distributed “stream” of data. It allows you to process millions of events (like clicks or logs) per second without crashing your main database.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81e1-8c91-f29d0664b534"><strong>ScyllaDB / Cassandra:</strong> Databases designed to never go down, even if entire data centers fail.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81e9-92ed-dcbf8080127e" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81fe-b68e-c186ba70836e">💻 Code to Explore: The “High Performance” King</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8172-a985-d85b1198c1ec"><a href="https://github.com/redis/redis" rel="noreferrer noopener">redis/redis</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8135-ac10-c30604b27b24">Don’t just use Redis—read how it’s built.
+* <strong>What to look for:</strong>
+* <strong><code class="note-inline-code">src/server.c</code></strong><strong>:</strong> Look at the event loop. Redis is (mostly) single-threaded. See how it handles thousands of concurrent connections using an “Event-Driven” model.
+* <strong>Data Structure Implementations:</strong> Look at how they implement “Sorted Sets” or “Hashes” in C to be incredibly memory-efficient.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8187-b534-c77d0a795bf2"><a href="https://github.com/twitter/util" rel="noreferrer noopener">twitter/util</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8118-9e15-fb5434d03297">Twitter’s shared library for high-concurrency.
+* <strong>What to look for:</strong> The <code class="note-inline-code">Future</code> and <code class="note-inline-code">Try</code> abstractions. This shows how Twitter handles massive amounts of asynchronous data without getting lost in “Callback Hell.”</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81c8-92bc-df5f44731cf0" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81d7-a5df-e0bfedfeec20">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a4-89b0-e0af1c59b073">🎥 Watch: “How Discord Stores Billions of Messages”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8141-a88d-e46329cf546f"><a href="https://www.youtube.com/watch?v=x7YfO_I7Z8E" rel="noreferrer noopener"><strong>YouTube Link</strong></a> (Search for the Discord engineering talk version)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81ce-ba2b-c3031702a9d4"><strong>How to use it:</strong> Focus on the “Why.” Why did they leave MongoDB? What specific technical limit did they hit? This teaches you how to recognize when a tool is no longer “fit for purpose.”</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b2-b3ab-f23b652580b3">📝 Read: “The Dynamo Paper” (Amazon)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8122-9085-e61dfd9af9b8"><a href="https://www.allthingsdistributed.com/2007/10/amazons_dynamo.html" rel="noreferrer noopener"><strong>Technical Summary</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8143-ab77-f1727c7c6ddf"><strong>How to use it:</strong> This paper started the “NoSQL” revolution. It explains how Amazon keeps its “Shopping Cart” available even if the database is failing. It’s about <strong>Availability over Consistency.</strong></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a9-b1ff-c5c4fb172ce9">📄 Research: “Designing Data-Intensive Applications” (Martin Kleppmann)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-817f-a190-d7a1f01cb1b8"><a href="https://dataintensive.net/" rel="noreferrer noopener"><strong>Book / Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8152-91f6-f90d89201944"><strong>How to use it:</strong> This is the most recommended book for Big Tech engineers. Start with the blog posts on “Logs” and “Batch Processing.” It explains the <em>ideas</em> behind the tools.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8153-bcd3-cdcee6fec10e">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8174-83a6-febfa4f99288">Performance isn’t just about “fast code.” It’s about <strong>Data Locality</strong> and <strong>Concurrency.</strong> The fastest code in the world won’t save you if your database is on the other side of the planet or if your data is locked by another process.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

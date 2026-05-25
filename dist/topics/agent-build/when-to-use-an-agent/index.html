@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>When to use an Agent? · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">When to use an Agent?</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8106-9ab3-e935c0efb3d9">In software engineering, the principle of <strong>parsimony</strong> (Occam’s Razor) is vital: do not use a complex solution when a simpler one suffices. Agents are powerful but introduce stochasticity (unpredictability) and high compute costs.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-811b-8119-f8185ab69d51">As a seasoned engineer, you must evaluate where your problem falls on the spectrum of complexity.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-818f-ae7a-ddc781241d05">The Hierarchy of AI Solutions</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ec-8f42-ce82df64f7a1">1. Non-AI (Deterministic)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8167-ba4c-d326fa6ae755">If the logic can be expressed in a flowchart, don’t use AI.
+* <strong>Example:</strong> Calculating the correlation between two input parameters.
+* <strong>Solution:</strong> Use a statistical test like <span class="note-inline-equation" data-latex="\chi^2">\(\chi^2\)</span> (Chi-squared). It is 100% reliable, near-zero cost, and takes microseconds.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81e1-9e71-dd4e1dbbf4ca">2. Traditional ML (Discriminative)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81be-92c4-f8488b69bf40">If you need to classify data or predict a value based on patterns, but don’t need “reasoning.”
+* <strong>Example:</strong> Sentiment analysis on customer reviews.
+* <strong>Solution:</strong> Use a BERT-based model or even classical NLP. It’s faster, cheaper, and often more accurate for specific classification tasks than a general-purpose LLM.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8149-98fb-e82907bc5a9d">3. Simple LLM Call (Generative)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a5-b732-de4b6b2760c2">If you need to transform text or summarize information in a single pass.
+* <strong>Example:</strong> <a href="https://devpost.com/software/hawkwatch" rel="noreferrer noopener">Hawkwatch</a> — Using an LLM to extract specific data points from a document.
+* <strong>Solution:</strong> A single completion call. No loop or tools required.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81d0-b7c2-cbe8491159d8">4. RAG (Retrieval-Augmented Generation)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-811e-a896-cb3213518472">If the LLM needs specific external knowledge to answer a question, but the process is still “one-shot.”
+* <strong>Example:</strong> <a href="https://devpost.com/software/hearti" rel="noreferrer noopener">Hearti</a> — A health assistant that uses VespaAI to retrieve medical facts before answering.
+* <strong>Solution:</strong> Retrieve context -&gt; Inject into prompt -&gt; Generate response.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8159-b202-c2d4be321848">5. Workflow (Chained Logic)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81b9-b18c-f772f5e339c5">If the task has multiple steps that follow a predictable, but complex, branching path.
+* <strong>Example:</strong> <a href="https://devpost.com/software/workflow-ai-l3d196" rel="noreferrer noopener">Workflow AI</a> — An automated pipeline for processing data.
+* <strong>Solution:</strong> Use a directed acyclic graph (DAG) where each node is an LLM call or a function. The path is pre-defined by the developer.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81f2-9775-f9116ac7fbd6">6. Agentic AI (Dynamic Logic)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8121-b14f-de900a75a0c0">If the task is <strong>open-ended</strong>, the path to the solution is <strong>unknown at runtime</strong>, or the system needs to <strong>interact with an environment</strong> and adapt based on feedback.
+* <strong>Example:</strong> <a href="https://devpost.com/software/agentzero" rel="noreferrer noopener">AgentZero</a> or <a href="https://devpost.com/software/wiiwork-8u1x62" rel="noreferrer noopener">WiiWork</a>.
+* <strong>Solution:</strong> A ReAct loop where the agent decides which steps to take based on the results of previous steps.</p><hr class="notion-block notion-divider" data-notion-block-id="354d3a21-bb2d-811c-ab89-dc9e789814f3" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-812f-abe7-d0fa5bb79d2c">The Essence of “Agentic” Tasks</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d4-9b48-c45875ea3223">The core argument for using an agent boils down to <strong>Uncertainty and Environment Interaction</strong>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81a1-be50-ebb3127331fb">1. The Path is Not Pre-Defined</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81df-b62a-d225045d08a4">In a <strong>Workflow</strong>, the developer is the architect: “First do A, then if B happens, do C.”
+In an <strong>Agent</strong>, the developer is the environment designer: “Here are tools A, B, and C. Figure out how to reach goal G.”
+If you can’t predict the sequence of steps a human would take to solve the problem, you need an agent.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-817c-ac9b-d53e77ea1c38">2. Adaptive Problem Solving</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-813f-a84c-c51db1579591">Agents excel when the “Observation” (the result of a tool call) fundamentally changes the next “Thought.”
+* <em>Non-Agentic:</em> “Search for flights and email me the list.” (Linear)
+* <em>Agentic:</em> “Book me a flight. If the price is over $500, check if there’s a train. If the train takes more than 5 hours, find a hotel for a layover and ask me for approval.” (Dynamic)</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ff-961e-d3e3894f98b4">3. The “Last Mile” of API Integration</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816f-8fed-f8e87a9d5d16">Agents are the ultimate “glue” code. They can handle the messy reality of inconsistent APIs, semi-structured data, and unexpected errors by “reasoning” their way through a failure rather than just throwing an exception.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-819f-8f01-ce9704409dbe">The Engineer’s Heuristic:</h2><blockquote class="notion-block notion-quote" data-notion-block-id="354d3a21-bb2d-816f-b40e-c126354b8721"><strong>If you can draw a flowchart for it, build a Workflow. If the flowchart would be infinite or recursive, build an Agent.</strong></blockquote></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reliability · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Reliability</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-810a-b0a7-e7ca17c78cb3">The Core Idea: You Can’t Fix What You Can’t See</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8158-bcd0-d0ef84504195">In a small app, you check the logs if something breaks. In a large system, “something” is <strong>always breaking.</strong> A hard drive fails, a network switch reboots, or a new deploy has a memory leak.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-814a-913b-c5eaef901e2e"><strong>Observability</strong> isn’t just about logs; it’s about asking <em>any</em> question of your system without shipping new code. It’s about <strong>Telemetry</strong> (Metrics, Logs, and Traces) working together to give you a “Map” of your system’s health.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816c-b8a5-d9b4e016b76a">Real-World Example: Google’s SRE Teams</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81df-ae2e-f0662ffbb067">Google invented the term <strong>SRE (Site Reliability Engineering).</strong> Their philosophy is that “100% uptime is the wrong target.” Why? Because users don’t notice the difference between 99.99% and 100%, and that 0.01% is where you can take risks and move fast. They use <strong>Error Budgets</strong> to decide when to slow down and focus on stability vs. when to ship new features.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a7-8add-e535acfcbfde" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81f3-b88e-d0a1073ed050">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f9-be02-ef6da2afdd48"><strong>Prometheus &amp; Grafana:</strong> The “Dashboard” for your system. Prometheus collects numbers (metrics), and Grafana turns them into beautiful, real-time graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8164-a767-f8de5be3444a"><strong>OpenTelemetry (OTel):</strong> A standard for “tagging” every request. If a user’s checkout fails, OTel lets you see exactly which service (of the hundreds involved) caused the error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8126-b361-dca58730bae1"><strong>PagerDuty:</strong> The tool that wakes you up at 3 AM if the system is actually on fire (and not just “warm”).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8188-b1c7-fad356c2a6f4" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81a0-b156-c8e06021250b">💻 Code to Explore: The “Eye” of the System</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-819a-a677-df02f0b2dbdc"><a href="https://github.com/prometheus/prometheus" rel="noreferrer noopener">prometheus/prometheus</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8159-8dfd-ddb53a000954">See how a system designed for monitoring is built.
+* <strong>What to look for:</strong>
+* <strong>TSDB (Time Series Database):</strong> Look at how they store millions of data points per second. It’s a masterclass in efficient storage.
+* <strong>The Query Language (PromQL):</strong> See how they implemented a custom language just to ask questions about “Numbers over Time.”</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-815e-925f-cd5a3d2eb6af"><a href="https://github.com/open-telemetry/opentelemetry-collector" rel="noreferrer noopener">open-telemetry/opentelemetry-collector</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-813a-833a-c8780eab8069">The industry standard for collecting traces.
+* <strong>What to look for:</strong> The “Pipeline” model. See how data is received, processed (sampled), and then exported to different backends. This is how you handle “Big Data” without overwhelming your monitoring system.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81aa-8a2d-eeb4028d6cca" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8148-9c7f-f4a5f22ee5cc">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8104-a16f-c79f88d6c4e5">📝 Read: “The Google SRE Book”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81c5-bc29-d15e7d445115"><a href="https://sre.google/sre-book/table-of-contents/" rel="noreferrer noopener"><strong>Free Online Book</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f1-ac5c-d900a9fd6037"><strong>How to use it:</strong> Start with the “Service Level Objectives (SLOs)” chapter. It will change how you think about “Uptime” forever. This is the book that defined the industry.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8140-8434-c72483d7a94f">🎥 Watch: “Observability: The Power of Why” (Charity Majors)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8114-9654-e893aef8fdce"><a href="https://www.youtube.com/results?search_query=charity%20majors%20observability" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d5-9bb1-cf40eb48e27c"><strong>How to use it:</strong> Charity is the “Godmother” of modern observability. Watch her talks to understand why “Logs” are dead and “Structured Events” are the future.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a8-af9d-cbe473c96087">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f6-b68b-f4e7faac48bd">Reliability is a <strong>statistical game.</strong> You aren’t trying to prevent all errors; you’re trying to make sure that when an error happens, it’s contained (Blast Radius) and easy to find (Mean Time to Resolution).</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

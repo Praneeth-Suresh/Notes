@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advanced Agentic Engineering · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Advanced Agentic Engineering</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8106-9ed0-ccbebf3dc90c">As you move from prototype to production, the challenges shift from “getting it to work” to “ensuring it scales safely.” This section explores advanced patterns and tools used by senior engineers to manage the stochasticity and security of autonomous agents.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81bc-8395-f7b1eddb1cde">1. Multi-Agent Orchestration (MAO)</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8182-bbdb-f6d730be4929"><strong>The Problem:</strong> A single agent trying to handle a massive, multi-domain task (e.g., “Write, test, and deploy a full-stack app”) often suffers from context drift and reasoning failure.
+<strong>The Solution:</strong> Break the task into specialized agents (e.g., a “Frontend Agent,” a “DevOps Agent,” and a “QA Agent”).
+<strong>Justification:</strong> Research from frameworks like <strong>CrewAI</strong> and <strong>AutoGen</strong> shows that role-specialization improves accuracy. In software terms, this is <strong>Service-Oriented Architecture (SOA)</strong> applied to AI. Each agent has its own “contract” and “scope,” reducing the cognitive load on any single model call.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8162-bcdb-f734fdbec809"><strong>Implementation Detail:</strong> Do not let agents talk in an unbounded chat room by default. Define a coordinator that assigns tasks, passes only the required context, validates each agent’s output, and decides whether another specialist is needed. Shared memory should be explicit, versioned, and auditable.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81ef-b021-d94ba4273fe3">2. Video-to-Action Pipelines</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8190-a4ae-f761dea0394b"><strong>The Problem:</strong> Many legacy systems or complex GUIs (Graphical User Interfaces) lack APIs, making them “dark matter” to traditional LLMs.
+<strong>The Source:</strong> Anthropic’s <strong>“Computer Use”</strong> and <strong>Skyvern</strong>.
+<strong>The Solution:</strong> Using Visual-Language Models (VLMs) to process screenshots or video streams of a GUI, plan a sequence of clicks/keystrokes, and execute them via coordinate-based automation.
+<strong>Justification:</strong> This allows agents to solve the “Last Mile” of automation, interacting with software exactly as a human would, without requiring a specialized API for every interaction.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8150-bd7b-cbf69cba2771"><strong>Implementation Detail:</strong> GUI agents need a browser or desktop sandbox, deterministic selectors where possible, screenshots for fallback, and a replay log of coordinates, DOM snapshots, and page URLs. For production, prefer semantic selectors and APIs whenever available; use vision only for surfaces that cannot expose structured controls.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8130-a1f4-fa3fb176f34e">3. Multi-Sample Voting (Ensemble Search)</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81d9-b438-e11ed4f15197"><strong>The Problem:</strong> LLMs are stochastic; the same prompt can yield a brilliant answer or a hallucination.
+<strong>The Solution:</strong> Run the same prompt <span class="note-inline-equation" data-latex="N">\(N\)</span> times (with high temperature) and use a “Consensus” mechanism (like majority vote or weighted average) to pick the final answer.
+<strong>Justification:</strong> Techniques like <strong>Medprompt</strong> and <strong>Self-Consistency</strong> show that ensemble voting significantly reduces error rates in complex reasoning tasks. It trades compute (running <span class="note-inline-equation" data-latex="N">\(N\)</span> calls) for reliability.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81c6-a04d-c494c5ed673b"><strong>Implementation Detail:</strong> Voting is only useful when you have an objective way to compare candidates. Use exact-match answers, schema validators, unit tests, reference checks, or a separate judge model with a rubric. Do not use voting to average together actions with side effects.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-818c-a591-c3bbae22d148">4. Context Compression</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8199-82a2-dc1b5a6196c8"><strong>The Problem:</strong> Context windows are finite and expensive. Long-running agents eventually “fill up” their memory, leading to slow performance and high costs.
+<strong>The Solution:</strong> Tools like <strong>LLMLingua</strong> or automated summarization loops.
+<strong>Justification:</strong> Context compression identifies and removes “noise” tokens that don’t contribute to the reasoning. In production, this is equivalent to <strong>Garbage Collection</strong> for LLM state.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-813a-a3ae-f2718ed8cacb"><strong>Implementation Detail:</strong> Compression should preserve task goals, user constraints, decisions, open questions, tool results, and approvals. Treat summaries as derived state, not as the source of truth. Keep raw traces separately so a bad summary can be audited or regenerated.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8130-ae55-f32bf82ddf50">5. DSPy: Programming, Not Prompting</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8191-8d48-e700c8c3861e"><strong>The Problem:</strong> Prompt engineering is brittle. A small change in the model version can break your carefully crafted “spells.”
+<strong>The Solution:</strong> <strong>DSPy</strong> (Stanford). It allows you to define the <em>logic</em> of your agent in Python code (signatures and modules) and then uses an <strong>Optimizer</strong> to automatically find the best prompts and few-shot examples for your specific model and dataset.
+<strong>Justification:</strong> This shifts agent development from “Vibe-based” to “Compiler-based.” If you switch from GPT-4 to Claude, you just “re-compile” your DSPy program.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8114-9f42-de906085353c"><strong>Implementation Detail:</strong> DSPy is most useful when you already have training or validation examples. Without a dataset and metric, optimization becomes another form of prompt tweaking.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81c8-a113-e6b18a51c159">6. Zero Trust for AI Agents</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8120-a605-cffb12a2293e"><strong>The Problem:</strong> Agents with broad tool access are high-value targets for <strong>Prompt Injection</strong>. If an agent can “Delete User,” a malicious prompt could trigger it.
+<strong>The Solution:</strong> Treat every agent instance as a “Workload Identity” with <strong>Zero Trust</strong>.
+<strong>Justification:</strong> In a Zero Trust model, tool access is not granted based on the prompt’s intent, but on cryptographically signed tokens. An agent must have a specific, short-lived permission to call a sensitive API, regardless of what the LLM “wants” to do.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8146-95c7-e29939c08168"><strong>Implementation Detail:</strong> Put policy checks in the tool gateway, not in the prompt. The gateway should verify actor, tenant, tool, resource, action, approval status, and expiry before execution.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81e5-bed2-f7e741781c8e">7. Agent Harnesses</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-813d-883a-e301224aa94e"><strong>The Problem:</strong> How do you test an agent? A unit test checks if <span class="note-inline-equation" data-latex="2+2=4">\(2+2=4\)</span>, but an agent might solve a problem in 10 different ways.
+<strong>The Solution:</strong> An <strong>Agent Harness</strong> (like <strong>AgentBench</strong> or <strong>SWE-bench</strong>) is a controlled environment that provides the agent with tools, a task, and a set of “Invariants” (things that must remain true).
+<strong>Justification:</strong> Harnesses allow for <strong>Regression Testing</strong>. You can see if a change to your system prompt makes the agent 10% slower or 5% less accurate across a thousand test cases.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-818e-bc50-d85eabaa71db"><strong>Implementation Detail:</strong> A useful harness records the initial state, allowed tools, hidden reference answer, visible task, scoring rubric, final state, and full trajectory. Score both outcome and process.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81a7-b3ae-fff3149f645c">8. Prompt Contracts and Scopes</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-818e-98d2-f258eafba8c0"><strong>The Problem:</strong> Agents often suffer from “Scope Creep,” where they try to be too helpful and end up modifying files they shouldn’t.
+<strong>The Solution:</strong> Formal <strong>Prompt Contracts</strong>. These are structured system prompts that define the “Input Schema,” “Output Schema,” “Allowed Tools,” and “Prohibited Actions” (the Scope).
+<strong>Justification:</strong> This is the AI equivalent of an <strong>Interface Definition Language (IDL)</strong> like Protobuf. It ensures that the agent’s behavior remains within the bounds of what the application logic expects.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8191-b9d7-f5f2856e9273"><strong>Implementation Detail:</strong> A prompt contract should be backed by code enforcement. If the contract says “do not email customers,” the email tool should be unavailable or should reject calls without approval.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81c7-89c8-c7cc5537bbe5">9. Agent Loops (ReAct vs. Plan-and-Execute)</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8116-ad2a-f9ffed343ef8"><strong>The Problem:</strong> Some tasks are too complex for a simple “Thought-Action-Observation” loop.
+<strong>The Solution:</strong> Advanced loop architectures like <strong>Plan-and-Execute</strong>. The agent first builds a comprehensive plan (Step 1 to N) and then executes it, re-planning only if a step fails.
+<strong>Justification:</strong> This reduces “loop wandering” where an agent gets stuck in a recursive failure. It is the agentic equivalent of a <strong>Project Manager</strong> overseeing a <strong>Developer</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8192-b0ec-f71335e484c3"><strong>Implementation Detail:</strong> Use ReAct for exploratory tasks where each observation changes the next action. Use Plan-and-Execute when the task has known phases, expensive side effects, or needs human approval of the plan before execution.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8172-95da-cca74615f4a2">10. Memory Architecture</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8103-855f-f3e8490a976d"><strong>The Problem:</strong> “Memory” is often treated as one bucket, which causes privacy, quality, and debugging problems.
+<strong>The Solution:</strong> Split memory by purpose.
+<strong>Justification:</strong> Conversation history, task state, user preferences, retrieved knowledge, and audit logs have different lifetimes and trust levels.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-815d-9fee-cba1316dc583"><strong>Implementation Detail:</strong> Store memory in layers:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36bd3a21-bb2d-819d-b373-c6bb41720b03"><strong>Run state:</strong> Current task, plan, observations, budgets, and open questions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36bd3a21-bb2d-81ba-af40-dde250792404"><strong>User memory:</strong> Durable preferences or facts the user can inspect and edit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36bd3a21-bb2d-8166-9c7a-f893c12e0642"><strong>Knowledge memory:</strong> Retrieved documents or embeddings with source metadata.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36bd3a21-bb2d-8124-bdcd-e2d08569193a"><strong>Audit memory:</strong> Immutable traces for debugging, compliance, and eval replay.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8171-9890-cd167e9bd287">11. Human-in-the-Loop Control</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8148-b915-e66d08d2af5a"><strong>The Problem:</strong> Autonomy without review is risky for money, customer communication, legal work, healthcare, infrastructure, and data deletion.
+<strong>The Solution:</strong> Add explicit approval states and review queues.
+<strong>Justification:</strong> Human review is not a demo interruption. It is part of the product and compliance surface.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81bc-b1b0-dc528e70d8c0"><strong>Implementation Detail:</strong> Store the proposed action, evidence, risk level, approver identity, timestamp, and resulting decision. The agent should resume from approved state rather than regenerate a new plan after approval.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8142-8c1a-cc69443c9416">12. Agent Observability Schema</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-816b-91bf-ffe6e977096c"><strong>The Problem:</strong> When an agent fails, logs like “LLM returned bad answer” are not actionable.
+<strong>The Solution:</strong> Use structured traces.
+<strong>Justification:</strong> Engineers need to see the full trajectory: prompt version, model, state, tool schemas, tool arguments, observations, retries, token usage, latency, and final output.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81d3-9011-cab59a321bac"><strong>Implementation Detail:</strong> Every run should have a <code class="note-inline-code">trace_id</code>. Every node or step should record a child span. Every external write should include the same trace id and an idempotency key.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

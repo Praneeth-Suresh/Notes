@@ -31,12 +31,12 @@
         </nav>
       </header>
       
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a></nav>
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="active" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
     <section id="main-content" class="panel notes-panel">
       <h1 class="site-title">More about Threads</h1>
       <p class="topic-parent">Subpage of Operating Systems</p>
       
-      
+      <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80af-bb11-d8fc30da9c7f">Processes are expensive to create and switch between (they require switching memory maps, flushing TLBs, etc.). Threads are “lightweight” – creating a new thread is much faster because it reuses the existing process environment. This makes threads ideal for:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8003-b315-f5d2fe78e5ac">Servers handling many clients (e.g., web server with a thread per request).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8085-9dcd-d344e7b3337b">Parallel computation on multi-core systems (shared memory simplifies data sharing compared to separate processes).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80d7-a291-d783da3f82a9">Thus, at the core of every multitasking OS is a scheduler loop (some would even call this loop the OS):</p><figure class="notion-block notion-code" data-notion-block-id="35617c95-99fd-80f4-a611-f83f80f3a28b"><pre class="note-code-block" data-language="c"><code class="language-c">while (1) {
     thread = choose_next_thread();   // scheduling policy
     switch_to(thread);               // context switch

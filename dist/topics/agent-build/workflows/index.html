@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workflows · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Workflows</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d4-9b90-f35229c1aab6">To build production-grade agentic systems, you need a precise orchestration layer. This section provides the exact steps and code patterns required to deploy workflows using Python (LangGraph) and TypeScript (Vercel AI SDK).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81b9-a76f-c3ab5dad820a">Python: Implementation with LangGraph</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8176-a5ea-fae42fa12560">LangGraph is ideal for complex, stateful agents that require fine-grained control over loops and human intervention.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8045-b0e4-ed12bf7af8bd">Mental Mode</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8042-879b-ef62a2d2b7b9">LangGraph is the industry standard for building stateful, multi-agent applications in Python. It models workflows as a <strong>State Machine</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80be-bc69-d2a7792f3e44"><strong>State</strong>: A shared object that is passed between nodes (usually a TypedDict or a Pydantic model)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803e-8a24-eba354d4e45a"><strong>Nodes</strong>: Python function that take the state as input and perform work (through an LLM or API call for example) and return an updated state</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8052-a9c0-def70c5d07f9"><strong>Edges</strong>: Define the transition from one node to another.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80ef-9447-d19fc3ad1c03"><strong>Conditional Edges</strong>: The routing logic that looks at state and decides the next path to take.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-80d6-8e52-c3632e293c87">To handle state and the stochastic behaviour of LLMs, the following come in handy:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80bd-a8df-ef81e76c5500"><u>Retries</u>: Define a <code class="note-inline-code">RetryPolicy</code> at the node level to automatically retry with exponential backoff (in the case the output in malformed or the function fails)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803d-b746-e8281f46c42b"><u>Validation</u>: Use Pydantic to validate the state at every transition. This ensures  that even if an LLM &quot;hallucinates&quot; a field, the workflow crashes early and safely rather than propagate bad data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803c-bc53-c63ee1df4c4f"><u>Human-in-the-loop</u>: You can configure the graph to <code class="note-inline-code">interrupt_before</code> a specific node (e.g., <code class="note-inline-code">publish_to_social_media</code>). The state is stored, allowing the human to review it before the workflow resumes.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-816e-9be8-e21239a59717">Setup Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d9-b033-d1322f33adca"><strong>Environment:</strong> Create a <code class="note-inline-code">.env</code> file and add <code class="note-inline-code">OPENAI_API_KEY=your_key_here</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8158-8b51-cdeda622ea2d"><strong>Installation:</strong> <code class="note-inline-code">pip install langgraph langchain-openai python-dotenv</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-818d-83e6-fd266ea3c2f1"><strong>Define State:</strong> Use <code class="note-inline-code">TypedDict</code> to define the “schema” of your agent’s memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81aa-aafd-f77a5232161e"><strong>Initialize Model:</strong> Use <code class="note-inline-code">ChatOpenAI</code> and bind any necessary tools.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d3-a21c-e7402283f3f2"><strong>Define Nodes:</strong> Create Python functions that take <code class="note-inline-code">state</code> and return an updated <code class="note-inline-code">state</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8180-8ccf-e3d9ac216393"><strong>Construct Graph:</strong> Use <code class="note-inline-code">StateGraph</code>, add nodes, and define edges.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8169-9a66-f0b0dfb49288"><strong>Compile &amp; Run:</strong> Compile the graph (with checkpointers for persistence) and invoke it.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8142-9579-cc947b31b355">Code Example: Customer Support Router with Human Review</h3><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81c1-b6ba-f22d7c369404"><pre class="note-code-block" data-language="python"><code class="language-python">import os
+from typing import TypedDict, Literal
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.memory import MemorySaver
+
+load_dotenv()
+
+# 1. Define the State
+class AgentState(TypedDict):
+    query: str
+    classification: str
+    response: str
+    needs_review: bool
+
+# 2. Initialize the Model
+model = ChatOpenAI(model=&quot;gpt-4o&quot;, temperature=0)
+
+# 3. Define Nodes
+def classifier_node(state: AgentState):
+    # LLM decides if this is a billing or tech issue
+    prompt = f&quot;Classify this query:{state[&#39;query&#39;]}. Options: billing, tech.&quot;
+    res = model.predict(prompt)
+    return {&quot;classification&quot;: res.strip().lower()}
+
+def billing_node(state: AgentState):
+    return {&quot;response&quot;: &quot;Handling billing inquiry...&quot;, &quot;needs_review&quot;: True}
+
+def tech_node(state: AgentState):
+    return {&quot;response&quot;: &quot;Handling tech support...&quot;, &quot;needs_review&quot;: False}
+
+# 4. Routing Logic
+def route_query(state: AgentState) -&gt; Literal[&quot;billing&quot;, &quot;tech&quot;]:
+    return state[&quot;classification&quot;]
+
+# 5. Build the Graph
+workflow = StateGraph(AgentState)
+
+workflow.add_node(&quot;classifier&quot;, classifier_node)
+workflow.add_node(&quot;billing&quot;, billing_node)
+workflow.add_node(&quot;tech&quot;, tech_node)
+
+workflow.set_entry_point(&quot;classifier&quot;)
+workflow.add_conditional_edges(&quot;classifier&quot;, route_query)
+workflow.add_edge(&quot;billing&quot;, END)
+workflow.add_edge(&quot;tech&quot;, END)
+
+# 6. Persistence &amp; Human Review Gate
+memory = MemorySaver()
+# We interrupt execution BEFORE &#39;billing&#39; to allow human review
+app = workflow.compile(checkpointer=memory, interrupt_before=[&quot;billing&quot;])
+
+# 7. Execution
+config = {&quot;configurable&quot;: {&quot;thread_id&quot;: &quot;user_1&quot;}}
+initial_state = {&quot;query&quot;: &quot;I was overcharged on my last invoice.&quot;}
+app.invoke(initial_state, config)
+
+# Execution pauses here if classification is &#39;billing&#39;
+# Human can resume by calling app.invoke(None, config)</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8146-87c4-d4f53a02faec">TypeScript: Implementation with Vercel AI SDK</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a7-8deb-c47456b8b01b">Vercel AI SDK Workflows are built for durability and are excellent for web applications where long-running tasks need to survive serverless timeouts.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-804c-98c7-da4a30a0c74d">The key thing to remember is that workflows in the AI SDK are <strong>async functions</strong> where each discrete step is wrapped in a <code class="note-inline-code">step()</code> function. This provides caching and ensures that if the server crashes or times out, the workflow can resume from the last successful step without re-running expensive LLM calls.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-80ce-bd5e-ec5dcc8a3ccc">To handle stochastic behaviour, we can use <code class="note-inline-code">Zod</code> for <u>validation</u>. Use <code class="note-inline-code">generateObject</code> within a step to ensure the LLM output  matches your exact schema.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-80f0-a009-c2ae640be131"><pre class="note-code-block" data-language="c"><code class="language-c">	...
+	schema: z.object({ summary: z.string(), tags: z.array(z.string()) }),
+	...</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8065-a005-ed465621ee8f">Here too, we can build in <u>Human-in-the-loop</u>. For tasks requiring approval, you can use the &quot;Wait for Event&quot; pattern. The workflow suspends its execution and waits for an external webhook or a manual &quot;resume&quot; signal from the UI. </p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-816b-b4cb-e43caf3fc99f">Setup Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b7-877e-fb30b4629b4f"><strong>Environment:</strong> Add <code class="note-inline-code">OPENAI_API_KEY</code> to your <code class="note-inline-code">.env.local</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fa-866a-d15d51959039"><strong>Installation:</strong> <code class="note-inline-code">npm install ai @ai-sdk/openai @vercel/workflow zod</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8116-abdc-e908971bb8a3"><strong>Initialize Provider:</strong> Create an <code class="note-inline-code">openai</code> instance.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8109-b16b-de142a683205"><strong>Define Workflow:</strong> Use the <code class="note-inline-code">workflow()</code> wrapper.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81c2-8e34-d6427921284d"><strong>Use Steps:</strong> Wrap every async call in <code class="note-inline-code">step()</code> to ensure durability and caching.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-817d-ae74-e333a2fa0e14"><strong>Validate Output:</strong> Use <code class="note-inline-code">generateObject</code> with a <code class="note-inline-code">zod</code> schema inside a step.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b0-9cab-e6d2a42bf1fc"><strong>Handle Branching:</strong> Use standard TS <code class="note-inline-code">if/else</code> logic between steps.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81d1-b198-ce57118d9a92">Code Example: Validated Data Analysis Pipeline</h3><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81df-a79a-fe00dc6e0ec6"><pre class="note-code-block" data-language="typescript"><code class="language-typescript">import { workflow, step } from &#39;@vercel/workflow&#39;;
+import { openai } from &#39;@ai-sdk/openai&#39;;
+import { generateObject } from &#39;ai&#39;;
+import { z } from &#39;zod&#39;;
+
+export const analysisWorkflow = workflow(async (input: { data: string }) =&gt; {
+  // 1. Validated Extraction Step
+  const extraction = await step(&#39;extract-entities&#39;, async () =&gt; {
+    return await generateObject({
+      model: openai(&#39;gpt-4o&#39;),
+      schema: z.object({
+        sentiment: z.enum([&#39;positive&#39;, &#39;negative&#39;, &#39;neutral&#39;]),
+        urgency: z.number().min(1).max(5),
+        entities: z.array(z.string()),
+      }),
+      prompt: `Analyze this data:${input.data}`,
+    });
+  });
+
+  // 2. Branching Logic based on LLM output
+  if (extraction.object.urgency &gt; 4) {
+    await step(&#39;escalate-issue&#39;, async () =&gt; {
+      // Logic to send Slack notification or PagerDuty
+      return { status: &#39;escalated&#39; };
+    });
+  }
+
+  // 3. Transformation Step
+  const summary = await step(&#39;generate-summary&#39;, async () =&gt; {
+    // This step is durable; if it fails, it will retry based on config
+    const res = await openai(&#39;gpt-4o&#39;).generateText({
+      prompt: `Summarize these entities:${extraction.object.entities.join(&#39;, &#39;)}`,
+    });
+    return res.text;
+  });
+
+  return { summary, status: &#39;complete&#39; };
+});</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-816e-bb1f-e938a83b3a5d">Designing for Finality: The Developer’s Checklist</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8126-a0fc-c7996ac6b856">When moving from a script to a production workflow, verify these three points:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b6-93b7-d97da63e04b3"><strong>API Key Management:</strong> Always use <code class="note-inline-code">process.env</code> or <code class="note-inline-code">os.getenv</code>. Never hardcode keys. For multi-tenant apps, pass keys through a secure vault at runtime.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8152-894f-e0f461b89cfd"><strong>The “Dry Run” Node:</strong> Before calling a destructive tool (e.g., <code class="note-inline-code">delete_user</code>), add a node that generates a “Plan of Action” and waits for a boolean <code class="note-inline-code">approved</code> flag in the state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8102-816b-d50d84e5c7fb"><strong>Traceability:</strong> Wrap your graph/workflow in an observability provider (LangSmith for Python, Langfuse for TS). This allows you to debug the <em>exact</em> JSON that was passed between nodes when a failure occurs.</li></ol></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

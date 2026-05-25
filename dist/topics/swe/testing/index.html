@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Testing · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Testing</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-800c-954d-f328acd39532">Here, I break down each major testing concept, explain its purpose, provide practical examples, and discuss best practices. This guide will be organized by testing technique, with a focus on clarity, actionability, and real-world relevance.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80e0-acc8-d0bb1580ed28"><strong>Test Pyramid and Testing Strategies</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8048-9ee3-dba53b4ae68b"><strong>What is the Test Pyramid?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-87e2-c5f79b4a2278">The <strong>Test Pyramid</strong> is a visual model introduced by Martin Fowler to describe the ideal distribution of tests in a software project. It emphasizes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8012-8d70-db327051a2c6"><strong>Many unit tests</strong> (fast, isolated, cheap to write and run).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8088-9713-ca73b23bf094"><strong>Fewer integration tests</strong> (slower, test interactions between components).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-808b-ae73-c2ef33d889c6"><strong>Even fewer end-to-end tests</strong> (slowest, test the entire system).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8092-b995-f88034addc8c" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80db-b15c-d86b3406024b"><strong>Why Does It Matter?</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804c-850b-f873efc17808"><strong>Speed</strong>: Unit tests run in milliseconds, while end-to-end tests can take minutes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ff-85df-dbd23f52bec3"><strong>Feedback</strong>: Faster tests provide quicker feedback during development.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8093-b89e-ec96c99b0819"><strong>Maintainability</strong>: A heavy reliance on end-to-end tests leads to brittle, slow test suites.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80c9-9a1f-ee8531c76f37" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a7-8aef-ecbec15e5864"><strong>Testing Strategies</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-8001-a917-f3bbd4aacbd1"><tbody><tr><th>Strategy</th><th>Scope</th><th>Speed</th><th>Purpose</th><th>Example Tools</th></tr><tr><td>Unit Testing</td><td>Single function/class</td><td>Fast</td><td>Validate logic in isolation</td><td>JUnit, pytest, Jest</td></tr><tr><td>Integration Testing</td><td>Module interactions</td><td>Medium</td><td>Test component interactions</td><td>TestNG, pytest, Postman</td></tr><tr><td>End-to-End Testing</td><td>Entire system</td><td>Slow</td><td>Validate user journeys</td><td>Selenium, Cypress, Playwright</td></tr><tr><td>Property-Based</td><td>Input/Output behavior</td><td>Fast</td><td>Validate invariants</td><td>Hypothesis, QuickCheck</td></tr><tr><td>Fuzzing</td><td>Random inputs</td><td>Slow</td><td>Find edge cases and crashes</td><td>AFL, libFuzzer, Honggfuzz</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80b3-90af-c05fbd8fa360" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-808d-9991-c1533fdee8a9"><strong>Unit Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-807f-b9a6-d438758cd4b4"><strong>What is Unit Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8045-a92f-c662e299dd46">Unit testing involves testing individual units (functions, methods, classes) in isolation to ensure they work as expected.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80cb-b023-fb4be5234b21" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-807f-b575-e9753c2f2dec"><strong>Key Principles</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c0-9953-cd354a023589"><strong>Isolation</strong>: Each test should focus on one unit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8003-8a7e-d6cb251a6129"><strong>Determinism</strong>: Tests should produce the same result every time.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c5-9496-c30f66b38b62"><strong>Speed</strong>: Unit tests should run quickly (milliseconds).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d9-911c-ee9c300847c3"><strong>Readability</strong>: Tests should be easy to understand and maintain.</li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-801e-84bc-e2b6803629d3" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8010-b681-c4bdc79ebf34"><strong>Example: Testing a Calculator in Python</strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802c-9296-ed3ae182c1e7"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
+Copy
+# calculator.py
+def add(a,b):
+    return a+ b
+
+def subtract(a,b):
+    return a- b
+
+# test_calculator.py
+import unittest
+from calculatorimport add, subtract
+
+class TestCalculator(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(2,3),5)
+        self.assertEqual(add(-1,1),0)
+
+    def test_subtract(self):
+        self.assertEqual(subtract(5,3),2)
+        self.assertEqual(subtract(0,0),0)
+
+if __name__== &quot;__main__&quot;:
+    unittest.main()</code></pre></figure><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-809a-b22f-dc44813937da" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8099-a457-f2e32c43cae0"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ee-a198-ebc1baa2c4ce"><strong>Name tests clearly</strong>: Use <code class="note-inline-code">test_add_positive_numbers</code> instead of <code class="note-inline-code">test1</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80af-a177-f7ea0b6ff83a"><strong>Test edge cases</strong>: Zero, negative numbers, <code class="note-inline-code">None</code>, empty inputs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8060-88d8-c41979dd99d3"><strong>Avoid logic in tests</strong>: Tests should be straightforward assertions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8055-94fd-cb950e708512"><strong>Use assertions liberally</strong>: Each test should have at least one assertion.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8023-a739-dad86666e889" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-807e-997f-e39033672fe5"><strong>Mocking and Stubbing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-809d-9d86-fde1dfe11156"><strong>What is Mocking?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80bb-ad15-ff3445dbecd1">Mocking replaces real dependencies (e.g., databases, APIs) with controlled objects to isolate the unit under test.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f8-9a90-d81fd61a397d"><strong>Mock</strong>: A fake object that records interactions (e.g., was a method called?).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ff-8433-e5760802c642"><strong>Stub</strong>: A fake object that returns predefined responses.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8020-a037-fc272c29b6b8" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8036-b890-c1ba5b00989f"><strong>When to Use Mocking</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c4-8fdd-fabb2f959011">External services (APIs, databases).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8099-873e-cc8163f7ec1e">Slow or non-deterministic dependencies (e.g., time, randomness).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8089-8c48-d5f1b735a33f">Hardware or third-party libraries.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8084-87e1-ece1b958180c" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8082-869b-f2e4904fec7a"><strong>Example: Mocking an API Call in Python</strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8083-b4d8-fc4e8956f6dd"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
+Copy
+# weather.py
+import requests
+
+def get_weather(city):
+    response= requests.get(f&quot;https://api.weather.com/{city}&quot;)
+    return response.json()[&quot;temperature&quot;]
+
+# test_weather.py
+from unittest.mockimport patch
+import weather
+
+@patch(&quot;weather.requests.get&quot;)
+def test_get_weather(mock_get):
+    # Configure the mock to return a fake response
+    mock_get.return_value.json.return_value= {&quot;temperature&quot;:25}
+
+    # Call the function
+    temp= weather.get_weather(&quot;Singapore&quot;)
+
+    # Assert the mock was called correctly
+    mock_get.assert_called_once_with(&quot;https://api.weather.com/Singapore&quot;)
+    assert temp== 25</code></pre></figure><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80d7-adb3-fc6a8deacd8b" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-801f-9d98-d197d269691a"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d1-9852-ee5c18aeafeb"><strong>Don’t over-mock</strong>: Only mock what’s necessary for isolation.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8061-a7b3-d6d2e42a8fc6"><strong>Use mocks for behavior verification</strong>: Check if a method was called with the right arguments.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8020-9359-d0c7d3ad6114"><strong>Use stubs for state testing</strong>: Return fixed values to test logic.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c9-9223-e97381e04484"><strong>Avoid mocking everything</strong>: If you’re mocking too much, consider integration tests.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-809c-8178-fd32a90a1794" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-808c-befc-f89e6caaee3e"><strong>Mocking Frameworks</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80e9-805c-fc17378a99e8">Testing Tools by Language</p><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-806d-bcda-e51d080bf1d0"><tbody><tr><th>Language</th><th>Framework</th></tr><tr><td>Python</td><td><code class="note-inline-code">unittest.mock</code></td></tr><tr><td>Java</td><td>Mockito</td></tr><tr><td>JavaScript</td><td>Jest, Sinon</td></tr><tr><td>C#</td><td>Moq, NSubstitute</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-804d-9191-f577f144b20a" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-808d-8f92-df33c30898d4"><strong>Integration Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-806d-952b-c85886b429d4"><strong>What is Integration Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-808a-a3af-f5438b98ba73">Integration testing verifies that multiple components or modules work together as expected.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8082-b70c-db316fbd6e48" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a6-b6c9-dad1a6109185"><strong>Types of Integration Testing</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a3-a30c-e2c2ddc04021"><strong>Component Integration</strong>: Test interactions between classes/modules.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804c-ae8e-c3087424a7b1"><strong>API Integration</strong>: Test API endpoints and their dependencies.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8039-8cd5-f0cade57076e"><strong>Database Integration</strong>: Test queries and data consistency.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8014-8caa-f2501e91058c"><strong>Microservices Integration</strong>: Test communication between services.</li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8078-b795-c75279cc054a" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8036-a290-ceeed29513d1"><strong>Example: Testing a Flask API with a Database</strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802f-bcb2-c6f0a9cf0d30"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
+Copy
+# app.py (Flask)
+from flaskimport Flask, jsonify
+from flask_sqlalchemyimport SQLAlchemy
+
+app= Flask(__name__)
+app.config[&quot;SQLALCHEMY_DATABASE_URI&quot;]= &quot;sqlite:///test.db&quot;
+db= SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name= db.Column(db.String(80))
+
+@app.route(&quot;/users/&lt;int:user_id&gt;&quot;)
+def get_user(user_id):
+    user= User.query.get(user_id)
+    return jsonify({&quot;name&quot;: user.name})
+
+# test_app.py
+import pytest
+from appimport app, db, User
+
+@pytest.fixture
+def client():
+    app.config[&quot;TESTING&quot;]= True
+    app.config[&quot;SQLALCHEMY_DATABASE_URI&quot;]= &quot;sqlite:///:memory:&quot;
+    with app.test_client()as client:
+        with app.app_context():
+            db.create_all()
+            db.session.add(User(name=&quot;Alice&quot;))
+            db.session.commit()
+        yield client
+        db.drop_all()
+
+def test_get_user(client):
+    response= client.get(&quot;/users/1&quot;)
+    assert response.status_code== 200
+    assert response.json== {&quot;name&quot;:&quot;Alice&quot;}</code></pre></figure><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80a7-937c-de382d611733" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8071-ad07-cf666c2e4369"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805c-ae1f-e1a459c8214c"><strong>Test real interactions</strong>: Use a test database or sandbox environment.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f3-9ee6-e6106529a8eb"><strong>Isolate tests</strong>: Each test should set up and tear down its own data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80be-97fb-f42ec3947606"><strong>Test error cases</strong>: Invalid inputs, missing data, network failures.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8061-984c-ddc12f5b9b6b"><strong>Use fixtures</strong>: Reuse setup/teardown logic (e.g., pytest fixtures).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8079-8e6a-cdaeec25183b" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-801d-a838-e7e0790e8896"><strong>Integration Testing Tools</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-808e-9349-ce07ade9a279"><tbody><tr><th>Language/Framework</th><th>Tool</th></tr><tr><td>Python</td><td>pytest, unittest</td></tr><tr><td>Java</td><td>TestNG, JUnit</td></tr><tr><td>JavaScript</td><td>Jest, Supertest</td></tr><tr><td>Databases</td><td>Testcontainers</td></tr><tr><td>APIs</td><td>Postman, RestAssured</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80ee-8930-cf8c746259a4" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8091-bb3a-f9c017f85b3d"><strong>Property-Based Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8034-8bad-f18cd97e9cd4"><strong>What is Property-Based Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8097-b3ab-cf03d9607a62">Instead of writing explicit test cases, you define <strong>properties</strong> (invariants) that should hold true for all valid inputs. The framework generates random inputs to test these properties.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8088-89f7-ed6cf186df10" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8023-82c9-d6876280b87b"><strong>Example: Testing a Sorting Function with Hypothesis (Python)</strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802a-a0d8-f04ee2d393d8"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
+Copy
+from hypothesisimport given
+from hypothesis.strategiesimport lists, integers
+
+def sort_list(lst):
+    return sorted(lst)
+
+@given(lists(integers()))
+def test_sort_list_preserves_length(lst):
+    assert len(sort_list(lst))== len(lst)
+
+@given(lists(integers()))
+def test_sort_list_is_sorted(lst):
+    sorted_lst= sort_list(lst)
+    assert sorted_lst== sorted(sorted_lst)</code></pre></figure><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80c1-b21a-c0b2bf74704f" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80fb-a3a1-c42afa0f3906"><strong>When to Use Property-Based Testing</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ad-8882-c7b426cde76e"><strong>Complex logic</strong>: Where edge cases are hard to predict.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8061-9c5d-c22c9d304f07"><strong>Mathematical properties</strong>: E.g., commutativity, associativity.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bf-b389-cd28e2441b52"><strong>Data transformations</strong>: E.g., serialization/deserialization.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-806f-9011-f3af75653c12"><strong>Input validation</strong>: Ensure functions handle all valid inputs.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8099-9d15-fdb46cef2270" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a4-9309-e6e4d88b1c14"><strong>Property-Based Testing Frameworks</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-80dc-82b1-c3615ecb8f99"><tbody><tr><th>Language</th><th>Framework</th></tr><tr><td>Python</td><td>Hypothesis</td></tr><tr><td>Java</td><td>jqwik</td></tr><tr><td>JavaScript</td><td>fast-check</td></tr><tr><td>Haskell</td><td>QuickCheck</td></tr><tr><td>Rust</td><td>proptest</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8085-9903-c1c98bfe9484" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-800d-b48a-e408915143bc"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8009-b6dd-f088fa871073"><strong>Start small</strong>: Focus on one property at a time.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80cb-b50d-f2215e70d23f"><strong>Combine with example-based tests</strong>: Use both for critical logic.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d3-88c1-f50cba9c02ab"><strong>Use custom strategies</strong>: Generate realistic data (e.g., valid emails, dates).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8077-a1ba-f1ecbdb3026a"><strong>Shrink failures</strong>: Frameworks like Hypothesis will simplify failing inputs.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8013-bce7-d776ac7ce9dd" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80da-b273-f465cdd40ace"><strong>Fuzzing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80b6-be7a-ecf7fb9adea0"><strong>What is Fuzzing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809a-8aa0-fa62e277d430">Fuzzing is an automated testing technique that feeds <strong>random, malformed, or unexpected inputs</strong> to a program to find crashes, memory leaks, or security vulnerabilities.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8004-8da1-c44f7a8a955a" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80b1-bf84-c9b4ab1aa108"><strong>Types of Fuzzing</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-b719-f3a6a64f0768"><strong>Dumb Fuzzing</strong>: Random inputs with no structure.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8070-8f7e-e76a7540484b"><strong>Smart Fuzzing</strong>: Inputs generated based on known formats (e.g., file headers, API schemas).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-806b-8918-e9cd3afb4023"><strong>Mutation-Based Fuzzing</strong>: Modify existing inputs (e.g., flip bits, insert junk).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80af-ad8b-fa22317a79d9"><strong>Generation-Based Fuzzing</strong>: Generate inputs from scratch using grammars.</li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8085-a189-ec6db02405d6" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8069-a712-f763cb0d53e3"><strong>Example: Fuzzing a Python Function with </strong><strong><code class="note-inline-code">atheris</code></strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80c2-802e-d827b465cfea"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
+Copy
+# Install atheris: pip install atheris
+import atheris
+import sys
+
+def parse_data(data):
+    if not isinstance(data,str):
+        raise ValueError(&quot;Expected string&quot;)
+    if len(data)&lt; 10:
+        raise ValueError(&quot;Data too short&quot;)
+    return data.upper()
+
+@atheris.instrument_func
+def test_parse_data(fuzzer,data):
+    try:
+        parse_data(data)
+    except ValueError:
+        pass  # Expected for invalid inputs
+
+atheris.Setup(sys.argv, test_parse_data)
+atheris.Fuzz()</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8009-a1f6-ce17c2b46b49">Run with:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-804e-bd08-df751fc9b75a"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+python fuzz_test.py</code></pre></figure><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8057-b5b4-cd1f6d737268" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80b8-b672-f44f942aa2c4"><strong>When to Use Fuzzing</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-801a-8e59-f4f01535e62d"><strong>Security testing</strong>: Find buffer overflows, SQL injection, etc.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807a-89ea-da6f3527205c"><strong>Parsers</strong>: Test JSON/XML/CSV parsers with malformed data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807a-a142-e499efe1bfd0"><strong>Network protocols</strong>: Test servers/clients with invalid packets.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8065-a374-c6eede7e6784"><strong>File formats</strong>: Test image/audio/video parsers.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-800c-862b-ca8d10b98e35" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8087-a0af-e50709b46672"><strong>Fuzzing Tools</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-807d-94c2-ca4b7008e4c8"><tbody><tr><th>Tool</th><th>Language</th><th>Use Case</th></tr><tr><td>AFL</td><td>C/C++</td><td>General-purpose fuzzing</td></tr><tr><td>libFuzzer</td><td>C/C++</td><td>In-process fuzzing</td></tr><tr><td>Honggfuzz</td><td>C/C++</td><td>Multi-platform fuzzing</td></tr><tr><td>atheris</td><td>Python</td><td>Python fuzzing</td></tr><tr><td>Hypothesis</td><td>Python</td><td>Property-based fuzzing</td></tr><tr><td>Radamsa</td><td>Any</td><td>General-purpose fuzzer</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80d9-a520-c2ca9b141d79" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8056-a630-dcf9040b06ec"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-800a-89c3-ccc61fcbef38"><strong>Start with small inputs</strong>: Avoid overwhelming the program.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809d-b8b8-dfb1e6bfafa8"><strong>Monitor coverage</strong>: Use tools like <code class="note-inline-code">gcov</code> or <code class="note-inline-code">llvm-cov</code> to track progress.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8000-9be2-dbeca3b5e37f"><strong>Use sanitizers</strong>: Enable AddressSanitizer (ASan), UndefinedBehaviorSanitizer (UBSan).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8092-a927-d8612109e925"><strong>Fuzz early and often</strong>: Integrate fuzzing into CI/CD pipelines.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80e8-9ce5-ed54a11d9a72" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8067-a3cf-d1a9aca2b2b9"><strong>Example: Fuzzing a C Program with AFL</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d9-94d2-d82cbc5ea2ae">Install AFL:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8087-beb9-eaf3b8df8b04"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+sudo apt-get install afl</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8036-975e-c897ab00e27d">Write a simple program (<code class="note-inline-code">test.c</code>):<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-803e-a479-f154eec91e34"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">c
+Copy
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(int argc,char **argv) {
+    if (argc&lt; 2)return 1;
+    char *input= argv[1];
+    if (strlen(input)&gt; 100) {
+        printf(&quot;Input too long!\n&quot;);
+        return 1;
+    }
+    printf(&quot;Input: %s\n&quot;, input);
+    return 0;
+}</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bf-8428-c156bd8f2b93">Compile with AFL:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802c-8f70-c4f92447fd5b"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+afl-gcc test.c -o test</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8035-a300-f371015be4a2">Run AFL:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80a1-aa60-ec83f93a54ee"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+mkdir inputs outputs
+echo &quot;test&quot; &gt; inputs/seed.txt
+afl-fuzz -i inputs -o outputs ./test</code></pre></figure></li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80db-8368-c9157608091b" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80d0-9e9f-d30d96d70d3f"><strong>Contract Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8074-a6c5-f62ca8ce6329"><strong>What is Contract Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80bc-a941-cbc13eac953f">Contract testing ensures that <strong>independent services</strong> (e.g., microservices) can communicate without requiring both to be deployed. It focuses on the <strong>interaction</strong> between services, not their internal logic.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80d9-9f2c-f2cd8b7711f0" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-808b-a65c-f69630cd50f0"><strong>How It Works</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809f-9d97-c5a9a1970423"><strong>Consumer</strong> (e.g., frontend) defines expectations for an API.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8099-ae56-fd1f3da371fe"><strong>Provider</strong> (e.g., backend) verifies it meets those expectations.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804d-bb89-c63c9ab2f152">Tests run in isolation, using <strong>stubs</strong> for the other service.</li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8027-b200-e6ed54408deb" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8003-96b8-d5fc002ee058"><strong>Example: Pact (JavaScript)</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805c-9e97-fbabd0d4fc2b">Install Pact:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8073-a268-fef123aacbf3"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+npm install @pact-foundation/pact</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-800a-8d20-c4e3eb9c9062">Consumer test (<code class="note-inline-code">consumer.test.js</code>):<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80d4-8868-e7dceda727ae"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">javascript
+Copy
+const {Pact }= require(&quot;@pact-foundation/pact&quot;);
+const provider = new Pact(&quot;http://localhost:3000&quot;);
+
+describe(&quot;API Contract&quot;, ()=&gt; {
+    beforeAll(()=&gt; provider.setup());
+    afterEach(()=&gt; provider.verify());
+    afterAll(()=&gt; provider.finalize());
+
+    it(&quot;gets a user&quot;,async ()=&gt; {
+        await provider.addInteraction({
+            state: &quot;user exists&quot;,
+            uponReceiving: &quot;a request for user 1&quot;,
+            withRequest: {
+                method: &quot;GET&quot;,
+                path: &quot;/users/1&quot;,
+            },
+            willRespondWith: {
+                status: 200,
+                body: {id: 1,name: &quot;Alice&quot; },
+            },
+        });
+
+        const response = await fetch(&quot;http://localhost:3000/users/1&quot;);
+        const user = await response.json();
+        expect(user.name).toBe(&quot;Alice&quot;);
+    });
+});</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a5-b848-c6234c3c880b">Provider verification (<code class="note-inline-code">provider.test.js</code>):<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f2-8393-eb6b5fb1a18e"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">javascript
+Copy
+const {Verifier }= require(&quot;@pact-foundation/pact&quot;);
+const path = require(&quot;path&quot;);
+
+describe(&quot;Pact Provider Verifier&quot;, ()=&gt; {
+    it(&quot;validates the contract&quot;, ()=&gt; {
+        const opts = {
+            provider: &quot;UserService&quot;,
+            providerBaseUrl: &quot;http://localhost:3000&quot;,
+            pactUrls: [path.resolve(__dirname,&quot;../pacts/consumer-userservice.json&quot;)],
+        };
+        return new Verifier(opts).verifyProvider();
+    });
+});</code></pre></figure></li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-802d-ae4a-d3f2fdadd9a9" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80e1-b1c4-e5dcde7905b0"><strong>Contract Testing Tools</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-80a3-990b-c5f60073fa56"><tbody><tr><th>Tool</th><th>Language</th><th>Use Case</th></tr><tr><td>Pact</td><td>Multi-language</td><td>Microservices, APIs</td></tr><tr><td>Spring Cloud Contract</td><td>Java</td><td>Spring Boot microservices</td></tr><tr><td>Postman Contract Testing</td><td>Any</td><td>API schemas (OpenAPI)</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-801f-a58a-d57913db3916" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8094-bf46-ec725d392cb5"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80fa-b7a9-c7d427915310"><strong>Start with consumer tests</strong>: Define expectations first.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807c-b3e1-c98d1c691f3c"><strong>Keep contracts small</strong>: Focus on one interaction per test.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-85e3-c6641a11ff8e"><strong>Version contracts</strong>: Update contracts when APIs change.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8014-9f1b-e7e3f1875082"><strong>Integrate with CI/CD</strong>: Run contract tests in pipelines.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80ac-a938-eacb0dfb1353" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80d8-84e3-f1137c7cce19"><strong>Mutation Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8089-9a24-dfd6fcbfb6f2"><strong>What is Mutation Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80f9-9121-e6364c93d320">Mutation testing evaluates the <strong>quality of your test suite</strong> by introducing small changes (<strong>mutations</strong>) to your code and checking if your tests catch them.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80d8-9f1f-c440162ae4fd" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-809d-8d72-f23d1ddde65c"><strong>How It Works</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80f3-9708-fc911a8078cc"><strong>Mutate the code</strong>: Change operators (e.g., <code class="note-inline-code">+</code> to ), remove lines, or alter conditions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8048-8246-e8444078d8d1"><strong>Run tests</strong>: If a mutation isn’t caught by a test, it’s a <strong>survived mutation</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8093-8c46-f691dbbfea01"><strong>Calculate mutation score</strong>:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8051-9011-e8b7393dbf08"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">text
+Copy
+Mutation Score = (Killed Mutations) / (Total Mutations)</code></pre></figure></li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8008-94df-c6582cbfa3de" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8096-b080-de2630b064dc"><strong>Example: Mutation Testing with </strong><strong><code class="note-inline-code">mutmut</code></strong><strong> (Python)</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8008-99a2-d4dbe9dd1b00">Install <code class="note-inline-code">mutmut</code>:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80d1-922e-f3876664ace4"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+pip install mutmut</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8054-8457-ffdcd127d13e">Run mutation testing:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-8044-8e15-e4a36d5e92d6"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+mutmut run</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805f-bad2-c42ca966d4ed">Example output:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f1-8f5e-f94e996d5336"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">text
+Copy
+----------------------------------------------------------------------
+Results:
+----------------------------------------------------------------------
+Killed: 10
+Survived: 2
+Timeout: 0
+Total: 12
+Mutation score: 83.33%</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80cd-ae69-eb163d99d51d">Apply mutations to see which tests fail:<figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-806f-84ae-fd2c8b1d0880"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">bash
+Copy
+mutmut apply 1  # Apply mutation 1
+pytest         # Run tests
+mutmut revert 1 # Revert mutation</code></pre></figure></li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8033-bbe3-c9c91c2825ec" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8049-a300-d5aef4abb5e9"><strong>Mutation Testing Tools</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-809b-bd0d-e2f5881f1924"><tbody><tr><th>Tool</th><th>Language</th><th>Description</th></tr><tr><td>mutmut</td><td>Python</td><td>Simple mutation testing</td></tr><tr><td>Stryker</td><td>JavaScript</td><td>Mutation testing for JS/TS</td></tr><tr><td>Pitest</td><td>Java</td><td>Mutation testing for Java</td></tr><tr><td>MutPy</td><td>Python</td><td>Academic mutation tool</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8012-be38-c01659617d13" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80e9-92d5-ece591412a47"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8021-be4b-e9465b8b8812"><strong>Start small</strong>: Run on critical modules first.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8049-ae1a-c20874ca121d"><strong>Focus on high mutation scores</strong>: Aim for &gt;80%.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-a3bb-e2412c65667b"><strong>Ignore trivial mutations</strong>: Some mutations (e.g., changing <code class="note-inline-code">1 + 1</code> to <code class="note-inline-code">1 + 2</code>) are meaningless.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8052-90c5-f79104ff074b"><strong>Integrate with CI</strong>: Run mutation tests periodically.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8056-89b5-e1adff2d2549" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8054-95b9-c1e2dfd147b7"><strong>Test-Driven Development (TDD)</strong></h2></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

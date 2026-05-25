@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Collaboration · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Collaboration</h1>
+      <p class="topic-parent">Subpage of SWE for Pros</p>
+      
+      <p class="topic-meta">Sophisticated software systems under the hood</p>
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81bb-9c5c-df82f3b218dd">The Core Idea: Software is a Social Activity</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-816e-8ddf-e01ad7deaaa0">In a small project, you are the architect, the developer, and the user. In a Big Tech company, <strong>you are a node in a human network.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-816f-8e70-f8ebf24d3734">System Design isn’t just about drawing boxes and arrows; it’s about <strong>Consensus.</strong> How do you convince 50 other engineers that your way of storing user data is the best? You do it through <strong>Design Docs</strong> and <strong>ADRs.</strong> The goal is to make the “invisible” visible—to document the <em>why</em> so that three years from now, when you’ve left the company, the next person knows exactly why you didn’t use a SQL database.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81fc-8945-fbc59c377495">Real-World Example: Amazon’s “Two-Pizza Teams”</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-819d-8cb7-e99805c203de">Jeff Bezos famously said that if a team can’t be fed with two pizzas, it’s too big. This isn’t about food; it’s about <strong>Communication Overhead.</strong> As teams grow, the number of “lines of communication” grows exponentially. Small, autonomous teams that “own” their services (DevOps) are the secret to Amazon’s speed.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a0-ab3b-cec97046c6bc" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81b7-bc84-c6e7dceff278">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81db-b148-edfbd2eb965f"><strong>Mermaid.js / Lucidchart:</strong> Tools for drawing architecture diagrams. If you can’t draw it, you don’t understand it.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8197-947b-f30fdf82d659"><strong>Notion / GitHub Wiki:</strong> The “Source of Truth” for your team’s knowledge.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81a8-a10c-d7f9c0394b27"><strong>Jira / Linear:</strong> Tools for tracking what everyone is doing. In large projects, “Who is working on the payment bug?” is a harder question to answer than “How do I fix the payment bug?”</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8167-adc0-f32f7e812ac8" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-813e-90bf-e20158d00d59">💻 Code to Explore: The “Documented” Project</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b5-866d-f287c15182d9"><a href="https://github.com/kubernetes/enhancements" rel="noreferrer noopener">kubernetes/enhancements</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8128-9f6b-d674e392ec15">This isn’t code—it’s the <strong>KEPs (Kubernetes Enhancement Proposals).</strong>
+* <strong>What to look for:</strong>
+* <strong>The Structure:</strong> Look at a single KEP. Notice how it has “Motivation,” “User Stories,” “Design Details,” and “Graduation Criteria.”
+* <strong>The Discussion:</strong> Look at the “Pull Request” comments for a KEP. This is how world-class engineers argue and reach consensus.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8176-ae18-ebc074146101"><a href="https://github.com/rust-lang/rfcs" rel="noreferrer noopener">rust-lang/rfcs</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81bc-a6af-ded6852e9541">The Rust language is built entirely through collaboration.
+* <strong>What to look for:</strong> The “Alternatives Considered” section. This is the most important part of any design document. It shows that you’ve thought about other ways to solve the problem and have a reason for your choice.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8182-abad-d35d265d8ffa" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81e0-8c67-f4473c0fba86">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81db-ae16-edeecf7e6186">🎥 Watch: “The Mythical Man-Month” (Summaries)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8107-8ad7-dbbc7ff72475"><a href="https://www.youtube.com/results?search_query=mythical%20man%20month%20summary" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-810d-b12c-de863e78131b"><strong>How to use it:</strong> This is the most famous book on software management. It explains why “adding more people to a late project makes it later.” It’s essential for understanding why Big Tech companies are structured the way they are.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8167-95a5-d371b097adcd">📝 Read: “How to Write a Technical Design Doc”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81b9-94df-df419f936cc6"><a href="https://www.industrialempathy.com/posts/design-docs-at-google/" rel="noreferrer noopener"><strong>Technical Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8162-8193-e5b56485bc51"><strong>How to use it:</strong> Use this as a template for your next project. Even if it’s a small project, try writing a 1-page design doc before you start coding. It forces you to find the “Hard Parts” early.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81bb-a93f-e1b670d0b050">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81a0-898e-dd8332005f75">The best code in the world is useless if no one knows it exists or how to use it. <strong>Communication is a technical skill.</strong> In Big Tech, your career is often defined more by your design docs and your ability to mentor others than by the number of lines of code you write.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -38,5 +38,23 @@
       "kind": "normalized-file",
       "path": "topics/ai-engineer.normalized.json"
     }
+  },
+  {
+    "slug": "swe",
+    "title": "SWE for Pros",
+    "description": "Sophisticated software systems under the hood",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/swe.normalized.json"
+    }
+  },
+  {
+    "slug": "agent-build",
+    "title": "Building Agents",
+    "description": "SWE Principles for Building Out Agents",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/agent-build.normalized.json"
+    }
   }
 ]

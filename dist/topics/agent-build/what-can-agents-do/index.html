@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What can agents do? · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="active" href="/topics/agent-build/" data-hotkey="6">Building Agents</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">What can agents do?</h1>
+      <p class="topic-parent">Subpage of Building Agents</p>
+      
+      <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e8-8b95-e3628d4b105a">The shift from Large Language Models (LLMs) as simple “chat interfaces” to “Agentic Systems” represents a fundamental change in software engineering. Agents do not just provide information; they execute multi-step tasks autonomously, adapt to changing environments, and utilize tools to achieve specific goals.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81fa-840a-fdb70ceecce4">Below are 5 examples of hackathon projects and early-stage startups that highlight the personalized, adaptive task execution capabilities of AI agents.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8109-bd51-c7b0cb91804f">The Potential for Software Developers</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-817a-9736-ce70a84b40f3">For developers, agents represent a new layer of the stack. Here is what progress is looking like:</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8063-8a11-ef6acb665297">1. <strong>Deterministic Logic:</strong> If-Then-Else statements.
+2. <strong>Probabilistic Logic:</strong> LLMs generating text.
+3. <strong>Autonomous Logic:</strong> Agents directing their own processes.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-812b-b2d5-d1befff5589e">The “agentic” approach allows developers to build software that is <strong>resilient to change</strong>. If a website’s UI changes, a traditional scraper breaks; an agent simply “looks” at the new UI and adapts. This reduces the maintenance burden of complex integrations and allows for the creation of <span class="notion-rich-text notion-color-yellow_background"><strong>truly “intent-based” applications</strong></span>.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-813a-9d4c-f5cec72e3b5c">1. Meteor (YC S25) - The Agentic Browser</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81bc-b345-d84667937236"><strong>Link:</strong> <a href="https://www.browse.dev/" rel="noreferrer noopener">browse.dev</a></p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81e2-af29-cbbcf1fa7b02">Meteor is an “agentic browser” designed to replace traditional browsers like Chrome. It doesn’t just display web pages; it navigates them on behalf of the user.
+* <strong>Task Execution:</strong> Instead of searching for flights, comparing prices, and filling out forms, a user can tell Meteor: “Book the cheapest flight to Tokyo next Friday.”
+* <strong>Adaptability:</strong> The agent handles varying website layouts, manages login sessions, and reacts to dynamic pricing or seat availability in real-time.
+* <strong>Potential:</strong> For developers, this represents a move toward “Semantic Web Browsing” where agents interact with the DOM as if it were an API.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8147-9982-c49fb8a3ed74">2. Floworks / Alisha - The Autonomous Sales SDR</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-817c-bc35-c840f1143240"><strong>Link:</strong> <a href="https://www.floworks.ai/" rel="noreferrer noopener">floworks.ai</a></p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8111-873d-c4d71f01ee46">Alisha is an AI Sales Development Representative (SDR) that executes the entire top-of-funnel sales process.
+* <strong>Task Execution:</strong> It researches prospects across 180+ web sources, writes hyper-personalized emails, handles objections, and coordinates with the user’s calendar to book meetings.
+* <strong>Personalization:</strong> Every interaction is grounded in real-time data about the prospect, making it far more effective than traditional template-based automation.
+* <strong>Potential:</strong> This showcases the capability of agents to manage long-running, stateful workflows that require both reasoning (whom to contact) and execution (sending the email).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81b9-87ea-cd17d02651e7">3. StackAI - AI Employees in Sandboxed Environments</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-817f-8356-efa4e9d0e2d1"><strong>Link:</strong> <a href="https://www.stack-ai.com/" rel="noreferrer noopener">stack-ai.com</a></p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-9121-dcc339b1863b">StackAI provides “AI Employees” that operate within their own sandboxed computer environments.
+* <strong>Task Execution:</strong> These agents can browse the web, run Python code, and navigate legacy enterprise software (ERP/CRM) to build performance decks or conduct financial due diligence.
+* <strong>Tool Usage:</strong> By giving an agent a “workstation,” it can use any software a human can, bridging the gap between modern AI and legacy systems.
+* <strong>Potential:</strong> It demonstrates how agents can solve the “last mile” problem of automation by interacting with interfaces that don’t have APIs.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81c2-b10d-f2623faa6301">4. ClawBank - A Financial OS for Agents</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81c1-bd23-dd6d42aa0390"><strong>Link:</strong> <a href="https://www.clawbank.co/" rel="noreferrer noopener">clawbank.co</a></p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8135-bde6-e03d4614ef93">As agents become more autonomous, they need the ability to manage resources. ClawBank provides agents with their own bank accounts and API keys.
+* <strong>Task Execution:</strong> It enables a “multi-agent system” where a “CFO agent” can approve a “Marketing agent’s” request to purchase ad credits, and a “Settler agent” executes the transaction.
+* <strong>Autonomy:</strong> This removes the bottleneck of human payment approvals for low-risk, high-frequency agent tasks.
+* <strong>Potential:</strong> It highlights the emerging “Agent Economy” where software systems autonomously trade services and settle payments.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81dc-9bc8-fde2fed8b403">5. ClaimPilot (AI Genesis Hackathon Winner) - Medical Prior-Auth Agent</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81eb-b429-ce68a9a83168"><strong>Link:</strong> <a href="https://lablab.ai/event/ai-genesis-hackathon/the-winning-team/claimpilot" rel="noreferrer noopener">ClaimPilot on Lablab.ai</a></p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8151-b938-f0a695ac8c2e">ClaimPilot automates the complex and tedious process of medical prior-authorization.
+* <strong>Task Execution:</strong> It processes medical notes, extracts ICD-10 codes, interprets insurer rules, and generates complete authorization submissions.
+* <strong>Stochasticity Management:</strong> Medical terminology and insurance rules are highly variable; the agent uses reasoning to map unstructured clinical data to rigid regulatory requirements.
+* <strong>Potential:</strong> This is a prime example of agents tackling high-value, high-complexity administrative tasks that were previously thought to require human experts.</p></article>
+    </section>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
