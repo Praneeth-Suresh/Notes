@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Putting users first · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">A Developer&#39;s Memoir</p>
+        <h1>Putting users first</h1>
+      </header>
+      <article class="blog-article"><p><em>Build a finance app to democratise investing? Sounds amazing. Let’s deliver information about the market to our users, as fresh as it gets. That would mean finding an up to date API, mining news, creating a speedy processing pipeline … . This would have led to nothing but a monument to technical arrogance. To change human trajectories, you don’t start with code, but with empathy.</em></p>
+<p><img src="/blog/images/blog2.png" alt="App to change investing"></p>
+<p>I’m registered in an online hackathon with the theme of finance: new waters for me at the time. I’d heard about the importance of financial prudence and investing your money wisely, but as a high school student, I’d never dabbled in finance before. But it sounded exciting so my team was fully into the idea of making investing more accessible.</p>
+<p>Our first thought was to make an application that did, what we assumed was, the hard part of investing: finding what to invest in. We would build a glimmeringly powerful data processing engine to harness publicly available data and present it to our users. What I could see in my mind was a technological prowess: sophisticated algorithms and lots of optimisation.</p>
+<p>Looking back at that moment, I feel embarrassed at this type of project planning. Yet, I still feel this allure of wanting to build a technological marvel. Building my own MCP (Model Context Protocol) servers, for example, seems exciting as a project, not because it will let me automate my existing workflows (it’ll probably take 2 months of work to get even somewhere close), but because it takes me to the frontier of technology today. We as developers love to build novel things and challenging things. It is so hardwired in our mentality that we sometimes struggle to think about the needs that our solution is addressing. </p>
+<p>This build is my story of how I learned to think about the problem before the solution.</p>
+<h2>The blueprint</h2>
+<p>One of our team members was adamant that the idea we had in mind wouldn’t work. Instead, he suggested we should make something more interactive. If not, we would end up scaring potential investors by making them stare down a wall of data. I don’t remember the exact words he said but this is how I processed it:</p>
+<p><strong>Step 1: Empathise</strong> </p>
+<p>An app never starts with a solution but a problem. Sometimes, it is a problem that <strong>you</strong> face but most often, the most successful apps I’ve worked with are problems that a group of people face. </p>
+<p>We knew there was a problem with the youth not being confident in investing. But we didn’t really narrow down on the exact problem they faced. This is when we dove into some research. Blogs and videos are excellent secondary sources to get your search for a problem started. I read a line “Stocks feel like gambling!” and remember thinking “Now that’s the problem”.</p>
+<p>In general, what I’ve realised is the more specific the problem, the better the solution will turn out. A vague problem, like “investing uncertainty” or “world poverty” is not something people feel on a day to day basis. In contrast, the more specific problem “lack of awareness about the importance of financial literacy among youth” is something that is both more addressable and easier to reach out to audiences.</p>
+<p><strong>Step 2: Ideate</strong></p>
+<p>No, this is still not the part where you start coding. Here, the focus is to decide which features address the problem the best and which can be left out. I find it useful to have a decision matrix in mind during this process.</p>
+<p>I generally go by the principle: the more outlandish the ideas, the more attention they deserve. In this way, you push your app beyond the conventional while ensuring that it is within the realm of what you can reasonably implement.</p>
+<p>This is how we decided to make a simple web game to simulate what investing feels like.  We realised that the game is an excellent way to solve the problem because it actively directs users&#39; attention to thinking about investment. Most importantly it was a solution that had existing implementations: web games were a proven concept so we knew it was possible to get it working.</p>
+<p>Finally in this step I like to make a detailed plan for the order in which we will implement the features. It&#39;s worth reflecting on the plan to ensure that it&#39;s maximally efficient so that you don&#39;t waste time during the design phase thinking about the broader picture when instead you should be thinking about the code itself. Once you have a good plan, you’ll be confident to dive right in.</p>
+<p><strong>Step 3: Implement</strong></p>
+<p>Only now do we start coding. Start by building a bare bones MVP (Minimum Viable Product) and then move on to the next step. While you can compromise full functionality in the beginning, just remember that whatever you build has to be robust. This is key because what you build now sets the foundation for what you&#39;re going to build in the future.</p>
+<p>Not having experience with game dev on the web actually became a strength. By building our MVP from the ground up and learning each module inside-out—instead of slapping in boilerplate code—we created a codebase that was inherently flexible. When we move into iteration, we’ll be free to make sweeping design changes without fighting against the original architecture.</p>
+<p><strong>Step 4: Iteration</strong></p>
+<p>I would argue this is the most important phase of the development process.  What you build will never solve 100% of the problem you set out to solve, right off the bat. There will always be features that users prefer to be delivered differently from what you initially had in mind.</p>
+<p>For us we realised that the game was quite limited; it only had one level.  Although this was an MVP, it was very hard for us to get user feedback when there was not a lot of time that users spent in the game. Thus, after our initial iteration we decided to add a couple more challenges that force the users to think about different aspects of investing.</p>
+<p>Talking to users is essential. If you’re scared to take your app out into the real world, to real users, it&#39;s a sign that you haven’t understood their problem fully. This step, in many ways, affirms the work you have done in Step 1. It also takes it one step further as you understand more and more about the target market. Effective iteration ensures that your build stays relevant as users’ demands change.</p>
+<p>The hard truth about iteration is that it’s eternal: even post-deployment, you’re still collecting feedback. Your job is to filter each comment—ask whether it’s a single user’s taste or evidence of a broader design or usability problem.</p>
+<h2>The ripple effect</h2>
+<p>It definitely was not the best app we have built. The User Experience was woefully lacking at times and we definitely weren’t financial advisors in the best position to craft situations for our users to face. However, it was a great platform on top of which we could build a better way of delivering knowledge of financial literacy.</p>
+<p><img src="/blog/images/AD_4nXdbi-KWvGrtZ-P5usZqH0dhzEvfr7gq5_qcuiH_TkFl2EfC5XmMIkoE0U4yOp-l9-jBCV2GXv8pFitDYv78Xfot5tzEKYyvky1QcOik9HWRKepzd13mJpxUCbaYVAvoZuwhBTH2Zw" alt=""></p>
+<p><em>Our gameplay which you can check out through</em> <a href="https://devpost.com/software/liabilities"><em>https://devpost.com/software/liabilities</em></a> _</p>
+<p>What I saw as a success from this project was not the technical marvel or perfection of the app but rather the potential this has to improve people’s lives. We created an MVP of a game which offered real value to users. Ideally, we should have done more <strong>iteration</strong> steps, but lack of time halted progress.</p>
+<p>Most builders think their value is linked to what they put in their tech stack. I did too. However, technology on its own does not create value: technology solving people’s problems does. So the end-goal of a developer isn’t to write code; rather it is to write futures through what they build.</p>
+<blockquote>
+<p><em>technology on its own does not create value: technology solving people’s problems does</em> </p>
+</blockquote>
+<p>This hack taught me that when I choose what to build, disruption is not the first thing I think of. Rather, it is the human holding the phone. </p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/unic-launching-off/">&larr; Launching Off</a><a href="/blog/best-case-worst-case/">Best case, Worst case &rarr;</a></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

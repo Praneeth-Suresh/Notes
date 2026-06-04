@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The era we live in · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Readings in AI</p>
+        <h1>The era we live in</h1>
+      </header>
+      <article class="blog-article"><p>Settling into December 2025, here are the papers that I have been reading:</p>
+<p><em>Vaswani, Ashish, et al. &quot;Attention Is All You Need.&quot; Advances in Neural Information Processing Systems, vol. 30, 2017.</em></p>
+<p><em>Guo, D., Yang, D., Zhang, H. et al. ”DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning”. Nature 645, 633–638 (2025).</em></p>
+<p><em>Shao, Zhihong, et al. &quot;DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.&quot; arXiv preprint arXiv:2402.03300, 2024.</em></p>
+<p><em>Hu, Edward J., et al. &quot;LoRA: Low-Rank Adaptation of Large Language Models.&quot; International Conference on Learning Representations (ICLR), 2022.</em></p>
+<p><em>Li, Xiang Lisa, et al. &quot;Diffusion-LM: Improves Controllability and Quality of Text Generation.&quot; Advances in Neural Information Processing Systems, vol. 35, 2022, pp. 25508-21.</em></p>
+<p>Notice that this selection of papers is all about Large Language Models (LLMs). The main objective of this week’s reading is to understand the current state of the field of Artificial Intelligence (AI). </p>
+<p>There is a common thread that underlies all these papers: the idea that the large pre-trained model is the necessary base requirement for intelligent systems. All these papers view the pre-trained LLM as the core intelligence engine which intelligently parses and produce text to achieve human goals.
+The LLM provides the ability to transform an input into a representation of the user’s intent and subsequently act to predict the answer that will best satisfy the user’s requirements. This skill is conversation and is a key capability to be able to create AI that acts intelligently from the perspective of a human. This is the reason for focusing effort on these large models. They provide a key ability of intelligence on top of which more specific skills can be added.</p>
+<p>This reflects the current positioning of AI research where the objective is to make these large models perform well on different domains. This is an extremely exciting field that has produced numerous approaches to improve the performance of base pre-trained models at a particular task. I like to classify these approaches into 3 categories:</p>
+<h2>Reinforcement Learning (RL)</h2>
+<p>The use of RL to create behaviours in LLMs is a stroke of genius. It overcomes the challenge of not having fresh data to train the model is a supervised fashion. It allows us to specify what behaviour we want to see from a distance and let the model do most of the work.</p>
+<p>All this can be done with conventional RL techniques that have been around and used for a long time. Group Relative Policy Optimization (GRPO), for example, the RL algorithm used by DeepSeek, for example, is an improvement upon Proximal Policy Optimisation (PPO) which is an intelligent implementation of an actor critic system.</p>
+<p>This allows the core principles of RL to be carried forward to the improvement of LLM performance. This has lead to great progress in model reasoning capabilities, as the paper” DeepSeek-R1 incentivizes reasoning in LLMs through reinforcement learning” explains. </p>
+<h2>Model Fine-Tuning</h2>
+<p>Model-Fine Tuning after pre-training is a concept that has been around for a while but pre-LoRA, the benefits did not match the higher model latency and extremely expensive fine-tuning process. LoRA changed the game by fixing these issues and brought model fine-tuning as a go to approach to create models that excel at certain domains.</p>
+<p>Nonetheless, previous research into fine-tuning, notably adapter layers, give us a useful mental model to create flexible model during the architecture design stage itself. How this can be taken forward to create more efficient and interpretable models is a useful line of research. </p>
+<h2>Non-autoregressive methods</h2>
+<p>The paper &quot;Diffusion-LM: Improves Controllability and Quality of Text Generation&quot; introduces diffusion as a method to control the outputs of an LLM. It plays a key role in introducing the idea that non-autoregressive methods can be used to augment LLMs. It can be used to change the way in which the task of text generation is approached. </p>
+<p>Based on this paper, practitioners may look to diffusion as a way to replace autoregressive techniques going forward, as the key driver of conversational capability. This could make models more parallelizable because there is no more sequential generation. In addition, the iterative improvement that takes place makes it possible to build in controls to the model. Yet, there is a lot more progress to be made to allow diffusion models to compete with the transformer architecture.</p>
+<hr>
+<p>The question that still needs to be answered however is whether such big models are necessary at all. LoRA and model distillation show that knowledge can be encoded in more efficient formats. Is it possible to come up with systems that are more effective at exploiting the fact that knowledge in large-overparametrized models is low rank? </p>
+<p>This is an interesting research direction to keep a look out for because as outlined, the key driver of AI in our era is the “Large” Language Model. If we can make this base conversational ability cheaper to deliver, we could achieve exponential returns. </p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/">&larr; The mental models of deep learning</a><a href="/blog/what-exactly-are-we-doing/">Intelligence? &rarr;</a></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

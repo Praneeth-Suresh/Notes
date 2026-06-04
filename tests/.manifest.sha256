@@ -1,3 +1,4 @@
+fa044d1ff7043acf9ee83b058fcb53b6fb1e2e5c033a95953fbb26d453e8c890  tests/blog-integration.test.js
 ecdba7294d4079875ad7ff5cc91a1c77d111583a778285767c73160ec6994563  tests/notes-content-fidelity.test.js
 1d85c285c610573118826f95c9a0531c30976b3a7d52a9bd0d63b77431606458  tests/notion-ingestion-fidelity.test.js
 1ee08b4023648c64ccae9b85dea6da37eca0e6c32ec92c1285621bf69f0662ba  tests/pages-build-subpages.test.js

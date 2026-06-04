@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Peeking Inside the Black Box · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Readings in AI</p>
+        <h1>Peeking Inside the Black Box</h1>
+      </header>
+      <article class="blog-article"><p>This time around I have been furthering my work in interpretability by reading more research about the subject:  </p>
+<p><em>Machine Learning Street Talk, &quot;#047 Interpretable Machine Learning - Christoph Molnar”</em></p>
+<p><em>Molnar, Christoph. Interpretable Machine Learning: A Guide for Making Black Box Models Explainable. Christoph Molnar, 2025.</em></p>
+<p><em>Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. &quot;Why should i trust you?&quot; Explaining the predictions of any classifier.&quot; Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. 2016.</em></p>
+<p>A common theme that continues to dominate the conversation is the idea that interpretability is strongly tied to the way in which the model is going to be used.  </p>
+<p>An idea originating from Molnar Is that interpretability should be viewed as a layer in the model development process that comes after the development of the Black box model. Ideally, we should have a step where we try to understand and evaluate the model using interpretability techniques. </p>
+<p> This is how I view interpretability being used in real world contexts: as a wrapper around the model to make it more suitable for deployment. </p>
+<p>This is a research Gap that I feel exists in the interpretability literature because interpretability techniques are not being widely deployed in model evaluation. The reason has to be that Interpretability techniques available right now are excessively complicated and not meaningful enough to be worth the effort. This is a key research gap that I feel is worth pursuing.  </p>
+<h2>Why is interpretability useful?</h2>
+<p>But before we start delving into interpretability research, we need to provide a valid rationale for doing research machine learning interpretability. Luckily, literature provides a lot of reasons for which interpretability is important. Here I consolidate the reasons that I find meaningful (in no order of importance): </p>
+<ol>
+<li><p>We want to figure out whether the model is learning what it is supposed to learn. For example, an image classifier trained to distinguish wolves from dogs that looks at the background to see if it contains snow or not is not a very good classifier. This will not generalize. Explanations can help spot these barriers to generalizability in the model development process itself. </p>
+</li>
+<li><p>One of the most recurrent rationales for interpretability is scenarios where the objective the model is trained for does not align with its objective in a deployment context. For example, a system that is used to determine whether someone should be granted bail or not is trained for accuracy but in reality, users expect that it is a fair and ethical system. Fairness and ethicality or not training objectives so interpretability techniques are required to determine whether the model is suitable for deployment.</p>
+</li>
+</ol>
+<p>In general, interpretability techniques are useful when metrics such as accuracy or AUC are insufficient measures of how good a model performs at a task. Having good interpretability techniques allows us to select the best model for the specific task at hand. </p>
+<ol start="3">
+<li><p>Sometimes we wish to extract knowledge that we do not have through machine learning. For example, in the human sciences we might not be certain why a certain phenomenon happen. Explainability can help identify the features that are related to the occurrence of the phenomena and subsequently aid researchers in getting a better understanding of why it happens. </p>
+</li>
+<li><p>Building trust in machine Learning Systems is a cornerstone application of interpretability. This goes back to how we evaluate models to determine whether they are trustworthy. Accuracy metrics are often used to test data but Ribeiro et al. argue that this is not the best approach in all settings. Sometimes we wish to understand the model better. This requires intrepretability.</p>
+</li>
+</ol>
+<h2>Pitfalls of interpretability</h2>
+<p>Interpretability techniques have been developed in the past but not all of them do as good a job as promised. Here are two of the most important issues that serve as a barrier to the usefulness of interpretability techniques:  </p>
+<p>There’s a question of whether the interpretability method has told us something useful or not. In the podcast with Molnar, the example given is of an Interpretability method applied to a system that classifies animals. If it highlights the face of an animal in all cases, it hasn’t really told us anything useful about how exactly the model has made the prediction. </p>
+<p>The second important question is whether the interpretability technique has created a simpler representation of the larger model or not. Some interpretability techniques rely on fitting a smaller model to the local behaviour of a larger model. The question that remains to be answered is whether the smaller model is interpretable or not. For example, we could substitute the predictions of a text classifier with a decision tree, but if the decision tree that is required to represent the local decision-making process becomes too long, it is not interpretable.  </p>
+<hr>
+<p>These are issues that we need to overcome if we are to make progress in the field of explainable AI. Explainability is clearly useful but there’s still a lot of work that needs to be done to better understand how models can be interpreted.  </p>
+<p>Currently a lot of techniques rely on statistical methods that are used to understand large systems. The jury is still out on whether these techniques can be successful on AI or whether new techniques need to be introduced. </p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/what-exactly-are-we-doing/">&larr; Intelligence?</a><a href="/blog/more-on-interpretability/">Diving Deep into interpretability &rarr;</a></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

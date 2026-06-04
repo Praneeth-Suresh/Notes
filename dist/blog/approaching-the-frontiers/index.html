@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Approaching the frontiers · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Readings in AI</p>
+        <h1>Approaching the frontiers</h1>
+      </header>
+      <article class="blog-article"><p>This week was a technical deep dive into the principles of representation learning, based on the following works:</p>
+<p><em>Tishby, Naftali, and Noga Zaslavsky. &quot;Deep learning and the information bottleneck principle.&quot; 2015 ieee information theory workshop (itw). Ieee, 2015.</em></p>
+<p><em>Shwartz-Ziv, Ravid, and Naftali Tishby. &quot;Opening the black box of deep neural networks via information.&quot; arXiv preprint arXiv:1703.00810 (2017).</em></p>
+<p><em>Voita, Elena, and Ivan Titov. &quot;Information-theoretic probing with minimum description length.&quot; arXiv preprint arXiv:2003.12298 (2020).</em></p>
+<p><em>Elhage, Nelson, et al. &quot;Toy models of superposition.&quot; arXiv preprint arXiv:2209.10652 (2022).</em></p>
+<p>The purpose of this writing will be to organise the techniques studied into a framework of tools with which to deal with interpretability.</p>
+<h2>Information bottleneck (IB) theory</h2>
+<p>This first theory gives us a mathematical framework using which we can define what a “good” representation might look like.</p>
+<p>The theory first defines the normative criteria that we want to see in a good representation. These are sufficiency, invariance, disentanglement and information compression. Now, it becomes a matter of writing down a loss function that is a proxy for these normative criteria against which we can optimise to determine the ideal representation.</p>
+<p>This is useful because it gives us a way to evaluate the representation of information inside a model as a way to track it’s performance and compare it with other models. Furthermore, since it is a general framework it can be applied to a diverse range of models.</p>
+<p>The issue is in the computation of the loss function which is not practical in most cases. Nonetheless, the IB framework is a useful theoretical tool to ground other practical methods we are going to see going forward.</p>
+<h2>Probing</h2>
+<p>Probing refers to a range of approaches which seek to determine information presence. On the high level, this fits in perfectly with the IB framework because we can compare the theoretical and empirical amounts of information present. This is why I see probing as an incredibly useful technology: it allows us to convert insights from information theory into useful results we can work with.</p>
+<p>It becomes even more useful when we see probing as a general principle instead of one tool. Probing is the idea of taking an already trained model and understanding how it works by using a certain subset of weights to train a simpler model. By implication, none of the weights of the original model can be changed during the probing process. Hence, it meets my requirement of an interpretability technique as a wrapper we apply around an already trained model.</p>
+<h2>Representational geometry</h2>
+<p>This field concerns itself with the structure of representations in a model. Structure is important because it dictates how models construct representations and thus, allow us to spot any inefficiencies in representing information within models. It also allows us to more effectively determine ways in which we can improve architecture to better train models. </p>
+<p>This is why I believe that representational geometry is one of the most powerful ways to understand the model because it doesn’t just allow us to understand the model in its end state but also learn how the representation of information evolves over time and how it might compare with other models working on the same task.</p>
+<p>I believe that work and representational geometry will help us come up with a scheme to extract information the way it is represented from a model. I also believe that this field can contribute to developing better AI because it allows us to head towards architectures that yield the best geometric representation of our data.</p>
+<hr>
+<p>These techniques I have presented play a key role in the way interpretability research would evolve going forward because they are all top down techniques that examine how a model operates from the outside. This is key to not compromising accuracy while getting a broad representative picture of a complex model, respecting the fact that these models are complex systems.</p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/from-alchemy-to-science/">&larr; From Alchemy to Science</a><span></span></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

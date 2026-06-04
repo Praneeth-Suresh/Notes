@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Best case, Worst case · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">A Developer&#39;s Memoir</p>
+        <h1>Best case, Worst case</h1>
+      </header>
+      <article class="blog-article"><p><em>The brief is simple: make the most accurate prediction of the relationship between any two countries. It sounded naive but when I thought about it, questions arose about what it really meant. A system that predicts wars? Famine? Coups? By being a way to look into the future, the model wouldn’t just tell us ‘what will happen’—but ‘what should we do?’. I’m terrified. I’m coding anyway.</em></p>
+<p><img src="/blog/images/blog3.png" alt="Changing the conventional planning room  "></p>
+<p>When the team recruited me as the tech developer for this project titled “Diplomacy Software”, the technical part sounded straightforward. Our main objective was to build a predictive model that amasses data and creates insights. “Nothing a developer couldn’t do overnight”, I thought.</p>
+<p>Instead of focusing on the development process itself, this story examines the inputs that drive it. I finally came to terms with a fact I had always acknowledged but never laid out explicitly: it is part of a developer’s core responsibility to resolve moral dilemmas about their creation before they start to build.</p>
+<h2>Ideating Revolution</h2>
+<p>When we were discussing the idea, it quickly became clear that it wasn’t a tool to just aggregate information but rather a tool to produce extremely accurate predictions. My team initially thought predictions simply meant extrapolating the data you have right now to the future. </p>
+<p>If this had been the case, it would have been a trivial problem. After a few runs of a couple of the simple algorithms we developed, we realised how much more complex the problem was than we could have imagined. </p>
+<p>This is an example of an issue that affects developers at all stages: misunderstanding the scope of the problem. Your algorithm can be overwhelmingly complex, but added complexity alone doesn’t guarantee a better solution. Yet, we often adopt the simplistic mindset that piling on sophisticated algorithms will make our solution better.</p>
+<p>While this does apply to a few, well defined problems, it is very important to remember that most real world problems are different. Dealing with these problems is like playing chess on a 100 x 100 chessboard. A board where the rules can change halfway into the game. There are a lot more variables than you can capture and a lot more relationships than you can think of. The approach we need to solve these problems are different.</p>
+<p>In hindsight, the approach I should have followed would have been to take some time to better understand the academic field of geopolitics before starting to build. </p>
+<p>Back then, we went the other way. The failure taught us this: the future doesn&#39;t just depend on past events but it depends on the unique circumstances of the present. More often than not, the present cannot be captured in an un-opinionated manner because different people see the issues that affect the world in different ways. This then affects the predictions they make.</p>
+<p>Our revolution to the world of geopolitics could therefore never have been just a presentation of data. It would always have a certain worldview attached to it. As a result we are imbuing our worldview into the decisions made by our clients. This led us to a harder question: was this justifiable?  Selling predictions to top generals which carry our model’s implicit opinions.</p>
+<h2>The Transparency Obsession</h2>
+<p><em>My nightmare? A false prediction starts a war. We fed our model 80 years of data—treaties, speeches, even crop reports. It spots patterns humans miss. But is ‘unmatched accuracy’ possible? Or hubris?</em></p>
+<p>Thinking about this made me start to pivot my focus and energy from accuracy towards transparency. What mattered to me was that all our predictions were backed up by the assumptions, data and pre existing knowledge that went into them. In addition to just the moral obligation, I also started to understand this as the key business function that would help us build the trust of our clients. It is not easy to make a president listen to an algorithm, is it?</p>
+<p>The need for transparency definitely complicated the build. We couldn&#39;t just build a black box model like a large neural network and throw it at the problem. So then came the blowing up of development timelines. We needed to start from scratch to create a learning framework that would emulate current geopolitical thinking, so as to be able to explain our findings in a way that our clients will understand.</p>
+<p>However I still firmly hold my belief that transparent but limited is much better than board ranging but opaque. The costs were simply too high of our algorithm making decisions that could not be backed up.  The lives and livelihoods of people are at stake when it comes to building such transformational algorithms.</p>
+<h2>Stress-Testing Mania</h2>
+<p>Often, it&#39;s not just useful to look at the future to understand the potential your application has, but also to understand the challenges that it faces. In our case where we were trying to create radical change, this was crucial because any unintended behaviour could affect the lives of millions of people.  It&#39;s not hard to see why:</p>
+<p><em>Model predicted chain reactions: Hackers fake data → AI misreads intent → Missiles launch.  Failure isn’t an option.</em></p>
+<p>It is not unreasonable to think that such a situation might arise with an algorithm that is fully independent.  Fortunately, our algorithms did not go into such extremes but we definitely saw our fair share of inaccurate or ludicrous predictions. As a developer, it came across to me as a personal responsibility to ensure that maximal amounts of testing were done to ensure that such mistakes were  properly studied and corrected.</p>
+<p>However, this proved to be difficult: maybe even a bit too difficult.  Our progress was very slow. Each time we made a mistake, we conducted enormous amounts of testing. Excessive complications arose with the already complicated algorithm.  Basically each new day of work, we came across a new issue and spent even more time trying to fix that issue. Eventually, we abandoned the project.</p>
+<h2>Staying Strong</h2>
+<p>Although no real world changing impact came out of the first iteration of the project it highlighted some key lessons when it came to how algorithms can change the world.</p>
+<p>The most important lesson is to understand the problem firsthand before you start building a solution. Use tools and techniques that are proven in your field instead of relying solely on generic algorithmic approaches, which often oversimplify real-world complexity.</p>
+<p>So this is a call to all the developers out there who want to build amazing applications: go out and explore the breadth of ideas out there. You never know that one day they might become central to your world-changing creation.</p>
+<p>The second lesson is adaptive resilience. Applying more and more force is often not the best way to get something to budge. It is more efficient to change your approach. What is required is that you don’t give up. Remember: no one ever changed the world because it was easy.</p>
+<p>As of July 2025, I&#39;m trying to re-architect a solution to this problem. I&#39;ve taken into account all the limitations that plague does last time around and then planning to build a significantly better algorithm that is better engineered to be able to deliver transparency without becoming overly complicated. Taking a step back has helped put the problem in perspective.  This perspective is badly needed to be able to see hidden opportunities that I could use to overcome limitations of the past.</p>
+<h2>Changing the world</h2>
+<p>The best way to have an impact on the future isn’t to predict it, but rather to build it. As developers, there has never been a better time for us to go build systems that remake relationships. It might sound impossible but it&#39;s not: it&#39;s just very, very difficult. </p>
+<p>There are a lot of ethical questions that go into building revolutionary products. There&#39;s also a lot of ingenuity in the process. Combining the two will help you build systems that will win the trust of customers, clients, friends and family. In the business of changing the world, trust is the most precious resource.</p>
+<p>So start today and put your revolutionary system into the real world. Just remember: design with humility.</p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/putting-users-first-rewrote-our-code/">&larr; Putting users first</a><a href="/blog/how-to-turn-any-big-idea-into-real-impact/">Tech for society &rarr;</a></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

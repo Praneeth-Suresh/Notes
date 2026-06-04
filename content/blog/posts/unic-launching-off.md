@@ -1,0 +1,116 @@
+_Before we start off, answer this question for yourself: What is your “basic Python”?_
+
+1. _I know excel macros_
+
+2. _I’ve designed a neural network_
+
+3. _I’ve duct-taped what ChatGPT gave me_
+
+4. _I talk to humans good_
+
+_Keep this in mind as we go along._
+
+![Coding in the dark](/blog/images/blog1.png)
+
+In the silence of a void-like backdrop, rapid staccato clicks of keys slice through the stillness, each clack resonating like distant raindrops on a tin roof. Amid the rhythmic tapping emerges a solitary, frustrated sigh—a human punctuation that hints at a battle waged against stubborn code or an elusive thought. 
+
+This was me 4 years ago. Staring at Django tutorials at 1 am. I knew recursion, classes, how to surf through Stack Overflow, and not much else. I was building my first application. Turns out, starting isn’t about knowing everything. It’s about using what you’ve ignored.
+
+
+## Chapter 1
+
+I took computer science in school. I knew I could code decently well. But as with all passions we all get to a point where you are tired of learning. Moreover, this was in the middle of the pandemic, where I felt I needed to do something to break the monotony. I found that a meaningful way to do this was to create impact; actually achieve something with my skills. So, I asked a bunch of my friends if they wanted to join me for an upcoming hackathon and they said yes. 
+
+Q: _"Why sprint if you lacked skills?"_
+
+A: _"I was tired of ‘learning.’ I wanted impact. Even if it failed, I’d learn what I actually needed."_
+
+“The secret of getting ahead is getting started” said Mark Twain so we were well set. We even felt fairly confident that we could do a good job: after all, we thought we were well versed in technology and could build something within a day. It didn’t quite turn out that way.
+
+
+## Chapter 2
+
+When the problem statement came out we were still fairly confident that we were well set. We quickly zoomed through a list of possible ideas. We got an idea to build an app to help university students overseas connect to others from the community they left behind, who could help them lessen any homesickness.
+
+We started coding with a lot of ideas. Anything we didn’t know we planned to learn immediately. Unfortunately, this didn’t last long. Instead of zooming through the features, every hour of coding was 15 mins designing and 45 mins fixing bugs. Not what we expected. 
+
+I know all of you must be thinking: this guy didn’t browse through enough debugging memes before starting. Sure. I didn’t. However, this is not a computer science problem. This is an issue that faces every builder. In my opinion, it doesn’t matter what you answered in the beginning. Everyone has the opportunity to build something new (and yes, you don’t always need to code it) and in uncharted territory, you will come across problems you could have never prepared for.
+
+Guess what, this was demotivating. The number one roadblock to creating great work, if you ask me, is not how hard it is to start, but rather how hard it is to keep going. 
+
+Yet not knowing what else to do, this is what happened for the first night of the hackathon.
+
+
+## Chapter 3
+
+I would fix a bug and be elated by my discovery. This put me in the mood to code my next new feature. I would finish it, run it, then find out there was another bug. Now, being so excited about this new feature, I wouldn’t learn from my mistake, spending 3 times more time fixing an issue that I didn’t even know existed, than writing the actual code itself.
+
+It's only when you take a break that you look at the bigger picture. After a long night, waking up in the morning forced me to look at the relentless struggle against an enemy I could not capture, did not understand. Clearly, this was the wrong approach. Instead of putting myself straight back to coding, I took a moment to think.
+
+_“We haven’t put together any cohesive work. We don’t know the vision. We are just building features we think will help the bigger picture. Most novelists would tell you that without a picture of the ending comes meandering plots and a lot of rewriting.”_
+
+But looking at the bigger picture is what I could do. Design thinking was long known to me. I had experience putting it into practice. And this is what I decided I would do. This was the sturdy base on top of which we would build a grand application.
+
+With this in place, I could focus on deciding what needed to be coded instead of just trying everything that comes to mind and seems remotely possible to build. This was the splint supporting my fractured coding skills. With clarity, I could slowly master what I needed to master instead of being completely lost, bleeding motivation.
+
+
+## Chapter 4
+
+This is when I realised: all your skills come in useful. Especially your under-leveraged skills. Building a solution that changes the world is not about being good at leetcode (although it definitely does help). It entails a vast skill set. 
+
+The key is to find it: discover your under-leveraged skill. It could be communication, SQL or even prompt engineering. Once you do, build the fortress of skills you need around it.
+
+This is where strategy as a builder matters. It is not something we are taught: rather it is something that we must acquire to go from mere developers to people who change the world.
+
+![Modified Eisenhower Matrix](/blog/images/image.png)
+
+_To learn how to use tools such as this Eisenhower matrix, open the below toggle to dip your feet into the world of strategy._
+
+> 
+    
+
+
+<details>
+  <summary>Click here if you want to delve further into strategy for developers</summary>
+  <br>
+  <ul>
+
+To introduce you to the world of strategy let me show you the tool I find the most versatile: the Eisenhower matrix. It allows you to see the trade-off in doing anything: the opportunity cost is obvious if you choose the right combination of axes. The default matrix is urgent vs important but I find it useful to think about knowledge vs impact.
+    
+Once you have the matrix you can easily build your own workflow for elements in different quadrants or search for existing workflows. I asked [draw.io](http://draw.io/) to generate a workflow for me and I did a great job! I will share it here.
+    
+![Eisenhower matrix follow up](/blog/images/EisenhowerFollowUp.png)
+
+*“Eisenhower matrix with axes: Impact vs Knowledge for a software developer.” from [drawio.com](http://drawio.com/)*
+  </ul>
+</details>
+
+Once you know what you want to focus on, simply ignore the rest. You’ll get work done faster this way, and with less stress on your mind. Remember, there is no trophy for over-engineering.
+
+Most importantly, it will give you motivation. Mastery over one important skill made me excited to work on that project: and every project I’ve built ever since. Most recently, it's been my experience working with RAG that has pushed me through building a mobile application. Using this “splint” I’ve supported myself in learning React Native and [Node.js](http://node.js/) by creating a reliable AI learning assistant for myself, letting me code faster.
+
+## Final
+
+Back to 2021, having decided that I should focus on design thinking, I needed to tell my team-mates that I shouldn’t focus too much on the backend: I didn’t have the skill. Fortunately, they were stronger in developing the backend than me. This taught me to use the skill of identifying underleveraged skills in combination with teamwork. 
+
+By naming what I couldn't do, I freed others to shine at what they could. In short, when you’re embarking on teamwork, this is what you should have in mind:
+
+"YOUR unique skill × THEIR complementary talent = EXPONENTIAL IMPACT"
+
+That scrappy FoodSG prototype brought us all the way to IIM’s startup incubator, not because we were experts, but because we let our skills collide. We were barely programmers yet made magic happen. Its not about the core building skill: your underleveraged skills can take you a long way.
+
+Now its your turn:
+
+1. NAME YOUR SUPERPOWER (What makes your eyes light up?)
+
+2. FIND YOUR SKILL TWINS (Who completes your equation?)
+
+3. LAUNCH YOUR SPRINT (Ship in 7 days, not 7 months)
+
+
+
+
+
+
+
+

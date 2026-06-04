@@ -46,6 +46,7 @@ function renderLayout({ pageTitle, siteTitle, contentHtml, bodyClass = "" }) {
         <nav class="site-links" aria-label="Site navigation">
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
         </nav>
       </header>
       ${contentHtml}
@@ -541,7 +542,71 @@ function renderPersonalPage({ siteTitle, portfolioData = DEFAULT_PORTFOLIO_DATA 
   });
 }
 
+function renderBlogIndexPage({ siteTitle, blogManifest, homeContentHtml }) {
+  const toc = blogManifest.sections.map((section) => {
+    const posts = section.posts.map((post) => {
+      const chapterHtml = post.chapter != null
+        ? `<span class="blog-post-chapter">${String(post.chapter).padStart(2, "0")}</span>`
+        : `<span class="blog-post-chapter">&bull;</span>`;
+      return `<li><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a></li>`;
+    }).join("");
+    return `<div class="blog-section-group"><h3 class="blog-section-heading">${escapeHtml(section.title)}</h3><p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p><ul class="blog-post-list">${posts}</ul></div>`;
+  }).join("");
+
+  const content = `
+    <section class="blog-hero">
+      <p class="blog-kicker">[ Blog ]</p>
+      <h1 class="blog-title">A Developer&rsquo;s Story</h1>
+      <p class="blog-subtitle">The thought processes behind the projects.</p>
+    </section>
+    <div class="blog-home-content" id="main-content">${homeContentHtml}</div>
+    <nav class="blog-toc" aria-label="Blog table of contents">${toc}</nav>
+  `;
+
+  return renderLayout({
+    pageTitle: `Blog · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "blog-page",
+  });
+}
+
+function renderBlogPostPage({ siteTitle, post, section, blogContentHtml, blogManifest }) {
+  // Find prev/next within same section
+  const sectionData = blogManifest.sections.find((s) => s.title === section);
+  let prevPost = null;
+  let nextPost = null;
+  if (sectionData) {
+    const idx = sectionData.posts.findIndex((p) => p.slug === post.slug);
+    if (idx > 0) prevPost = sectionData.posts[idx - 1];
+    if (idx >= 0 && idx < sectionData.posts.length - 1) nextPost = sectionData.posts[idx + 1];
+  }
+
+  const navHtml = (prevPost || nextPost) ? `<nav class="blog-post-nav">${prevPost ? `<a href="/blog/${escapeHtml(prevPost.slug)}/">&larr; ${escapeHtml(prevPost.title)}</a>` : "<span></span>"}${nextPost ? `<a href="/blog/${escapeHtml(nextPost.slug)}/">${escapeHtml(nextPost.title)} &rarr;</a>` : "<span></span>"}</nav>` : "";
+
+  const content = `
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">${escapeHtml(section)}</p>
+        <h1>${escapeHtml(post.title)}</h1>
+      </header>
+      ${blogContentHtml}
+      ${navHtml}
+    </div>
+  `;
+
+  return renderLayout({
+    pageTitle: `${post.title} · Blog · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "blog-page",
+  });
+}
+
 module.exports = {
+  renderBlogIndexPage,
+  renderBlogPostPage,
   renderHomePage,
   renderPersonalPage,
   renderTopicPage,

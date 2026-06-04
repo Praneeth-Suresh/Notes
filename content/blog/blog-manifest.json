@@ -1,0 +1,85 @@
+{
+  "home": {
+    "markdownFile": "posts/home.md"
+  },
+  "sections": [
+    {
+      "title": "A Developer's Memoir",
+      "subtitle": "my blog",
+      "posts": [
+        {
+          "slug": "unic-launching-off",
+          "title": "Launching Off",
+          "chapter": 1,
+          "markdownFile": "posts/unic-launching-off.md"
+        },
+        {
+          "slug": "putting-users-first-rewrote-our-code",
+          "title": "Putting users first",
+          "chapter": 2,
+          "markdownFile": "posts/putting-users-first-rewrote-our-code.md"
+        },
+        {
+          "slug": "best-case-worst-case",
+          "title": "Best case, Worst case",
+          "chapter": 3,
+          "markdownFile": "posts/best-case-worst-case.md"
+        },
+        {
+          "slug": "how-to-turn-any-big-idea-into-real-impact",
+          "title": "Tech for society",
+          "chapter": 4,
+          "markdownFile": "posts/how-to-turn-any-big-idea-into-real-impact.md"
+        }
+      ]
+    },
+    {
+      "title": "Readings in AI",
+      "subtitle": "my reflections about AI Research",
+      "posts": [
+        {
+          "slug": "tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers",
+          "title": "The mental models of deep learning",
+          "chapter": null,
+          "markdownFile": "posts/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers.md"
+        },
+        {
+          "slug": "the-era-we-live-in",
+          "title": "The era we live in",
+          "chapter": null,
+          "markdownFile": "posts/the-era-we-live-in.md"
+        },
+        {
+          "slug": "what-exactly-are-we-doing",
+          "title": "Intelligence?",
+          "chapter": null,
+          "markdownFile": "posts/what-exactly-are-we-doing.md"
+        },
+        {
+          "slug": "peeking-inside-the-black-box",
+          "title": "Peeking Inside the Black Box",
+          "chapter": null,
+          "markdownFile": "posts/peeking-inside-the-black-box.md"
+        },
+        {
+          "slug": "more-on-interpretability",
+          "title": "Diving Deep into interpretability",
+          "chapter": null,
+          "markdownFile": "posts/more-on-interpretability.md"
+        },
+        {
+          "slug": "from-alchemy-to-science",
+          "title": "From Alchemy to Science",
+          "chapter": null,
+          "markdownFile": "posts/from-alchemy-to-science.md"
+        },
+        {
+          "slug": "approaching-the-frontiers",
+          "title": "Approaching the frontiers",
+          "chapter": null,
+          "markdownFile": "posts/approaching-the-frontiers.md"
+        }
+      ]
+    }
+  ]
+}

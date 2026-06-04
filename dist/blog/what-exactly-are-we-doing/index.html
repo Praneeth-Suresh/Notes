@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Intelligence? · Blog · Computer Science Notes</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Readings in AI</p>
+        <h1>Intelligence?</h1>
+      </header>
+      <article class="blog-article"><p>As I’ve been travelling, I’ve spent time both reading and listening to podcasts by prominent individuals in AI. </p>
+<p><em>Behrouz, Ali, Peilin Zhong, and Vahab Mirrokni. &quot;Titans: Learning to memorize at test time.&quot; arXiv preprint arXiv:2501.00663 (2024).</em></p>
+<p><em>Doshi-Velez, Finale, and Been Kim. &quot;Towards a rigorous science of interpretable machine learning.&quot; arXiv preprint arXiv:1702.08608 (2017).</em></p>
+<p><em>Machine Learning Street Talk, &quot;The Mathematical Foundations of Intelligence [Professor Yi Ma]&quot;</em></p>
+<p><em>Dwarkesh Podcast, &quot;Richard Sutton - Father of RL thinks LLMs are a dead end&quot;</em></p>
+<p>I’ve been grappling with a foundational question in the field of artificial intelligence, which is “what is intelligence?”. This is a look into a first principles approach to developing artificial intelligence. For all this time I’ve been exploring established conventions in the field without knowing how they have come about. However, I believe a broad understanding of Artificial Intelligence can only be achieved once you figure out what the meaning of an intelligent system is. This will help us develop a broader picture of what exactly we are trying to do in this area of study. </p>
+<p>A key characteristic of an intelligent being or system is its ability to learn. Learning is how an intelligent system develops a capacity for intelligence by discovering how to optimally interact with its environment. </p>
+<h2>Learning</h2>
+<p>One of the most important ideas that I gathered from my exploration of AI has been understanding how the general process of learning can be codified in a mathematical way. The idea that most impressed me was Dr. Yi Ma’s definition of learning is the process by which a low-rank representation of a data distribution or a system is determined.  </p>
+<p>This intuitively makes sense because when we try to understand processes that take place around us, we are trying to come up with a general explanation for the phenomena that we see. This is what learning entails and this is true, not just in the natural sciences. For example, in art, a representation of reality is created through works produced by the artist. These representations of reality are just that: representations. They are condensed representations of what we see around us which can be extended to innumerable instances of the phenomena. This is what we call a low-rank representation. </p>
+<p>The most basic example that can be used to show that machine learning produces a low-rank representation of data is the process of linear regression where a linear relationship between two data points with hundreds of instances can be captured with just two variables. Having defined learning as the process in which a low rank representation of external reality is created, we turn our attention to the question of how we can create this low rank representation. </p>
+<h2>Memorization</h2>
+<p>One way in which a low-rank representation can be learned is to derive it from an established set of ideas in the field. This is the approach that is used when a student remembers all the relevant equations or theorems in preparation for an exam without trying to derive them first hand. Their memory of theorems will then be used to solve problems. </p>
+<p>This is what Large Language Models (LLMs) do </p>
+<p>This is what Large Language Models (LLMs) do. They are trained on a low rank representation of human knowledge expressed through language. With gradient descent, the model creates an efficient representation of this data which is retrieved during inference to predict the next token. This is the process in which memorized knowledge is used to answer questions. </p>
+<p>An agent acting using Memorization does not have the ability to act on its own will. Instead, it merely replicates what it has seen during training. In short, it does not have a goal (an idea originating from Dr. Richard Sutton). Such systems can be trained using supervised or unsupervised learning. </p>
+<h2>Experiential Learning</h2>
+<p>Instead of imitating a known system, the other way of learning is through interacting with the environment and understanding how it works. This is the core principle of reinforcement learning where an agent performs an action in line with a <strong>goal</strong>. </p>
+<p> Such a technique is like a student who tries out different proof techniques to determine which is the best way to prove theorem. Then they remember the optimum strategy that they followed. This allows them to generalize to problems that may not be the same in the future. </p>
+<p> When doing machine learning the most common approach that is used to give an agent a is by designing it as a reward maximiser. The reward in turn serves as a proxy for the goal that the agent is supposed to have. Much work has been done on ways to then train the agent to develop the optimal policy and had led to the field of Reinforcement Learning (RL). </p>
+<h2>So, what is intelligence?</h2>
+<p>So far, we have seen two approaches to learning. This however does not answer the question of what intelligence entails. This is a question that is not been answered in the general literature either and the definition of intelligence varies from expert to expert and field to field. </p>
+<p> My temporary understanding of intelligence is the ability to create a knowledge representation, update it to keep up with changing circumstances and use this representation to navigate the real world. </p>
+<p> This requires both learning through memorization as well as experiential learning. Memorization is useful to train concepts that are too difficult to train on (efficiently) while experiential learning is the necessary requirement to be able to keep up with changing circumstances. </p>
+<p>Memorization may also serve as an approach to achieve language competency. This has been demonstrated by LLMs which are great interfaces for intelligence since they can operate in the predominant domain of human communication. </p>
+<h2>How can we develop intelligent systems?</h2>
+<p>Based on the past half century of work in artificial intelligence, we can reasonably infer that intelligence systems are those that allow an efficient low-rank knowledge representation to be constructed. Dr. Ma’s work is pushing towards a scientific way in which such representations may be constructed. </p>
+<p>Google&#39;s Titans architecture aligns perfectly with Dr. Ma&#39;s discussion of intelligence systems is being efficient in extracting low-rank representations of knowledge. It is a system that creates an effective low-rank representation of long-time series using an intelligent way to manage the addition and deletion of information in each time step. </p>
+<p>However, throughout the history of AI development, this process has largely involved a form of natural selection, where different models are tested and only the most successful are retained. </p>
+<h2>Onwards with explainable models?</h2>
+<p> We have seen that intelligent models need two characteristics: the ability to memorize and the ability to learn from experience. Different models have different combinations of these abilities. An implication of this is that different applications require different approaches to model interpretation.  </p>
+<p>In other words, good explanations differ from domain to domain. When appraising and doing research in interpretable machine learning, we should focus on the area of knowledge that the model is dealing with. Accordingly, the schema for results about interpretability change. </p>
+<p>One more interesting point that comes out with respect to interpretable AI is the fact that learning is the process of acquiring a low-rank representation of external reality. In principle, for a model that explicitly constructs a low rank representation, it should be possible to convert this low rank representation into human understandable knowledge since the knowledge is presented with the same number of dimensions. </p>
+<hr>
+<p>The key takeaway is that knowledge can be abstracted as a low rank representation of external reality. This is a principle that can usefully guide us to create more robust AI systems going forward. </p>
+</article>
+      <nav class="blog-post-nav"><a href="/blog/the-era-we-live-in/">&larr; The era we live in</a><a href="/blog/peeking-inside-the-black-box/">Peeking Inside the Black Box &rarr;</a></nav>
+    </div>
+  
+    </main>
+    <script>
+      (() => {
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

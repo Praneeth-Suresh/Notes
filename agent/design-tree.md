@@ -50,6 +50,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Topic subtitle source | Topic subtitles remain manifest `description` fields, with developer tooling that updates only `content/topic-manifest.json` descriptions instead of hand-editing generated HTML. | 2026-05-23 | n/a |
 | Notion highlight presentation | Notion background-color blocks remain fidelity-marked by class but render with readable translucent red highlights. | 2026-05-23 | n/a |
 | Database label configuration boundary | Manifest entries may declare label property names; `notion-ingestion` emits normalized label strings and colors only, never raw Notion property payloads. | 2026-05-23 | n/a |
+| GitHub wiki blog integration | Blog content pulled from public GitHub wiki via `scripts/pull-wiki-blog.js`, rendered to `/blog/` routes using vendored `marked` for GFM markdown, with blog-specific warm accent and serif flair. Static deployment model matches existing topic workflow. | 2026-06-04 | n/a |
 
 ## Pressure Points
 

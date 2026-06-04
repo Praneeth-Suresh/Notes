@@ -17,6 +17,7 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
 );
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
 const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
+const DEFAULT_BLOG_MANIFEST_PATH = "content/blog/blog-manifest.json";
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -472,6 +473,60 @@ async function buildPagesSite({
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
     await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
+
+    // Blog
+    const blogManifestPath = path.resolve(manifestDir, "blog", "blog-manifest.json");
+    const blogManifest = await readOptionalJsonFromFile(blogManifestPath, "blog manifest");
+    if (blogManifest) {
+      const blogContentDir = path.dirname(blogManifestPath);
+
+      // Render home/index page
+      let homeContentHtml = "";
+      if (blogManifest.home && blogManifest.home.markdownFile) {
+        const homeMd = await fs.readFile(path.join(blogContentDir, blogManifest.home.markdownFile), "utf8");
+        homeContentHtml = notesContentContext.renderBlogBody(homeMd);
+      }
+      const blogIndexHtml = stylingContext.renderBlogIndexPage({ siteTitle, blogManifest, homeContentHtml });
+      await writeUtf8File(path.join(buildOutputDir, "blog", "index.html"), blogIndexHtml);
+
+      // Render each post
+      for (const section of blogManifest.sections) {
+        for (const post of section.posts) {
+          const postMd = await fs.readFile(path.join(blogContentDir, post.markdownFile), "utf8");
+          const blogContentHtml = notesContentContext.renderBlogBody(postMd);
+          const postHtml = stylingContext.renderBlogPostPage({
+            siteTitle,
+            post,
+            section: section.title,
+            blogContentHtml,
+            blogManifest,
+          });
+          await writeUtf8File(path.join(buildOutputDir, "blog", post.slug, "index.html"), postHtml);
+
+          searchIndex.push({
+            ...notesContentContext.createBlogSearchEntry({ slug: post.slug, title: post.title, markdownString: postMd }),
+            urlPath: `/blog/${post.slug}/`,
+            parentTitle: section.title,
+            labels: [],
+          });
+        }
+      }
+
+      // Copy blog images
+      const blogImagesDir = path.join(blogContentDir, "images");
+      if (await pathExists(blogImagesDir)) {
+        const imageFiles = await fs.readdir(blogImagesDir);
+        for (const imgFile of imageFiles) {
+          await copyFileToOutput({
+            sourcePath: path.join(blogImagesDir, imgFile),
+            outputDir: buildOutputDir,
+            outputRelativePath: path.join("blog", "images", imgFile),
+            label: `blog image ${imgFile}`,
+          });
+        }
+      }
+    }
+
     await writeUtf8File(
       path.join(buildOutputDir, "search-index.json"),
       `${JSON.stringify(searchIndex, null, 2)}\n`,
