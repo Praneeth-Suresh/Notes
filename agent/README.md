@@ -58,7 +58,7 @@ Configure test immutability detection in `agent/test-manifest.conf`.
 ## Task routing
 
 - `task-routing.md` maps the user's current intent to one workflow skill.
-- Load one task workflow first: `planning`, `adding-features`, `debugging`, or `explaining-codebase`.
+- Load one task workflow first: `planning`, `adding-features`, `debugging`, `explaining-codebase`, or `autonomous-growth`.
 - Feature implementation requires a user-ratified plan. If no approved plan exists, plan first and stop.
 - Feature-slice bookkeeping is internal and temporary. Use ignored `session-state.md` only when needed for resume.
 - Use sub-agents only when the user explicitly asks for them.

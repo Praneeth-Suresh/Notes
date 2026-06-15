@@ -86,3 +86,31 @@
 5. Internal links to pillar page and related posts included.
 6. Title and meta summary match actual search intent.
 7. One distribution attempt planned (HN, Lobsters, Reddit, or newsletter pitch).
+
+## 12) Autonomous Growth Prompt & Context
+
+You can use the `/goal` command or standard prompts to trigger the `autonomous-growth` skill on this website repository. Below is a tailored prompt pre-filled with the context of this Theoretical CS personal blog.
+
+### The Growth Audit Prompt
+
+Copy and run this prompt to have the agent run an audit and produce an execution plan for your site:
+
+```markdown
+I want to run an autonomous growth audit on my personal blog using the autonomous-growth skill.
+
+Here is the context for my site:
+- **Primary Domain/Local Path**: file:///home/prane/coding/Notes
+- **Website Type**: Personal blog with a Theoretical Computer Science (CS) focus.
+- **Positioning/Niche**: Rigorous, proof-backed explanations of theoretical CS topics with research-level depth and clear intuition.
+- **Primary Conversion Goal**: Grow durable audience channels (email newsletter sign-up and RSS subscriptions).
+- **Acquisition & Distribution Lanes**: SEO (topic pillars, internal linking), Hacker News, Lobsters, Reddit (r/compsci, r/math, r/programming), and research/engineering newsletters.
+- **Tech Stack & Content**: Static/markdown-based publishing workflow with lightweight, fast-loading pages.
+- **Constraints**: Solo writer, publishing deep dives every 3-4 weeks.
+
+Please audit the live site files and content in this repository, evaluate messaging, conversion paths, growth foundations, and content leverage. Then produce:
+1. Growth diagnosis (homepage alignment, biggest bottleneck)
+2. Top 3 bets (why, hypothesis, metric, confidence)
+3. 30-day week-by-week execution plan (fixes, conversion, content, and distribution)
+4. Copy recommendations (homepage headline, primary CTA text, proof block, optimized bio)
+5. Scorecard / Metrics to track (search impressions, CTR, read time, newsletter conversions)
+```

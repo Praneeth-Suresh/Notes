@@ -17,6 +17,7 @@ Purpose: choose the smallest task workflow to load. Do not load every workflow b
 | Feature addition | add, implement, build, create feature, new workflow, support behavior | `agent/skills/adding-features/SKILL.md` |
 | Debugging | debug, bug, error, failing, broken, regression, exception, test failure | `agent/skills/debugging/SKILL.md` |
 | Codebase explanation | explain, walk me through, understand, map the codebase, where is this handled | `agent/skills/explaining-codebase/SKILL.md` |
+| Autonomous growth | grow website, audit website, improve conversion, conversion path, growth bets, 30-day plan | `agent/skills/autonomous-growth/SKILL.md` |
 
 ## Feature Implementation Gate
 

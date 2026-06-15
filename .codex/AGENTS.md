@@ -38,6 +38,7 @@ Task workflows:
 - `adding-features`: feature implementation after a user-ratified plan.
 - `debugging`: bugs, failures, regressions, exceptions, and failing checks.
 - `explaining-codebase`: codebase walkthroughs and explanations without edits.
+- `autonomous-growth`: run autonomous growth for a personal website (audit, positioning, conversion, and roadmap planning).
 
 Supporting skills:
 
