@@ -1,7 +1,17 @@
 "use strict";
 
 const { SITE_CSS } = require("./internal/css");
-const { renderBlogIndexPage, renderBlogPostPage, renderHomePage, renderPersonalPage, renderTopicPage } = require("./internal/shell");
+const {
+  renderBlogIndexPage,
+  renderBlogPostPage,
+  renderErrataPage,
+  renderHomePage,
+  renderPersonalPage,
+  renderResearchTastePage,
+  renderStartHerePage,
+  renderSubscribePage,
+  renderTopicPage,
+} = require("./internal/shell");
 
 function createSiteStylingContext() {
   return {
@@ -10,8 +20,12 @@ function createSiteStylingContext() {
     },
     renderBlogIndexPage,
     renderBlogPostPage,
+    renderErrataPage,
     renderHomePage,
     renderPersonalPage,
+    renderResearchTastePage,
+    renderStartHerePage,
+    renderSubscribePage,
     renderTopicPage,
   };
 }

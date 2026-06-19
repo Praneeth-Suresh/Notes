@@ -2,7 +2,127 @@
   {
     "slug": "algorithms",
     "title": "Algorithms",
-    "description": "Classic deep dive into Data Structures and Algorithms",
+    "description": "Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.",
+    "pillar": {
+      "startHere": [
+        {
+          "title": "Algorithm design",
+          "description": "Start with the meta-algorithm mindset: turn a problem into structure, constraints, and reusable primitives.",
+          "href": "/topics/algorithms/meta-algorithm/"
+        },
+        {
+          "title": "Invariants",
+          "description": "Use loop and structural invariants to reason about correctness before optimizing implementation details.",
+          "href": "/topics/algorithms/sorting/"
+        },
+        {
+          "title": "Asymptotic analysis",
+          "description": "Build the habit of explaining runtime through growth, recurrence structure, and dominant operations.",
+          "href": "/topics/algorithms/recursion/"
+        },
+        {
+          "title": "Dynamic programming",
+          "description": "Model overlapping subproblems with states, transitions, and proof obligations.",
+          "href": "/topics/algorithms/dynamic-programming/"
+        },
+        {
+          "title": "Complexity and reductions",
+          "description": "Connect reachability, matrix methods, and space-bounded computation to formal complexity arguments.",
+          "href": "/topics/algorithms/savitchs-algorithm/"
+        }
+      ],
+      "readingPath": [
+        {
+          "label": "Foundations",
+          "links": [
+            {
+              "title": "Recursion",
+              "href": "/topics/algorithms/recursion/"
+            },
+            {
+              "title": "Binary Search",
+              "href": "/topics/algorithms/binary-search/"
+            },
+            {
+              "title": "Sorting",
+              "href": "/topics/algorithms/sorting/"
+            }
+          ]
+        },
+        {
+          "label": "Analysis",
+          "links": [
+            {
+              "title": "Meta-Algorithm",
+              "href": "/topics/algorithms/meta-algorithm/"
+            },
+            {
+              "title": "Linear Time Selection",
+              "href": "/topics/algorithms/linear-time-selection/"
+            },
+            {
+              "title": "Fibonacci",
+              "href": "/topics/algorithms/fibonacci/"
+            }
+          ]
+        },
+        {
+          "label": "Graphs",
+          "links": [
+            {
+              "title": "Graph Traversal",
+              "href": "/topics/algorithms/graph-traversal/"
+            },
+            {
+              "title": "Dijkstra",
+              "href": "/topics/algorithms/dijkstra/"
+            },
+            {
+              "title": "Network Flow",
+              "href": "/topics/algorithms/network-flow/"
+            }
+          ]
+        },
+        {
+          "label": "Dynamic programming",
+          "links": [
+            {
+              "title": "Dynamic Programming",
+              "href": "/topics/algorithms/dynamic-programming/"
+            },
+            {
+              "title": "Advanced Dynamic Programming",
+              "href": "/topics/algorithms/advanced-dynamic-programming/"
+            },
+            {
+              "title": "The Knapsack Problem",
+              "href": "/topics/algorithms/the-knapsack-problem/"
+            }
+          ]
+        },
+        {
+          "label": "Complexity",
+          "links": [
+            {
+              "title": "Savitch's Algorithm",
+              "href": "/topics/algorithms/savitchs-algorithm/"
+            },
+            {
+              "title": "Matrix Based Solutions",
+              "href": "/topics/algorithms/matrix-based-solutions/"
+            },
+            {
+              "title": "The Traveling Salesperson Problem",
+              "href": "/topics/algorithms/the-traveling-salesperson-problem-tsp/"
+            },
+            {
+              "title": "NP-Completeness Essay",
+              "href": "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"
+            }
+          ]
+        }
+      ]
+    },
     "source": {
       "kind": "normalized-file",
       "path": "topics/algorithms.normalized.json"

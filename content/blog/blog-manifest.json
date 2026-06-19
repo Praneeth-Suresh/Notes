@@ -4,6 +4,34 @@
   },
   "sections": [
     {
+      "title": "Theoretical CS Deep Dives",
+      "subtitle": "proof-backed essays",
+      "posts": [
+        {
+          "slug": "np-completeness-formal-definition-proof-sketches-and-reductions",
+          "title": "NP-Completeness: Formal Definition, Proof Sketches, and Reductions",
+          "description": "NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.",
+          "socialPreview": "A proof-backed guide to NP-completeness: formal definition, reductions, Cook, Karp, and the design consequences of hardness evidence.",
+          "faq": [
+            {
+              "question": "Does NP-complete mean impossible to solve quickly?",
+              "answer": "No. NP-complete means that a polynomial-time exact algorithm for this problem would imply polynomial-time algorithms for every problem in NP. It is strong evidence to change the design target, not a proof that every useful instance is hopeless."
+            },
+            {
+              "question": "Why do NP-completeness proofs use decision problems?",
+              "answer": "The definitions of P, NP, and NP-completeness are stated for languages with yes/no answers. Optimization problems usually enter the framework through threshold versions, such as asking whether there is a tour with cost at most K."
+            },
+            {
+              "question": "What is the most common weak point in a reduction proof?",
+              "answer": "The reverse direction. It is not enough to show that a satisfying source solution creates a target solution. You also need to show that every target solution decodes into a valid source solution."
+            }
+          ],
+          "chapter": null,
+          "markdownFile": "posts/np-completeness-formal-definition-proof-sketches-and-reductions.md"
+        }
+      ]
+    },
+    {
       "title": "A Developer's Memoir",
       "subtitle": "my blog",
       "posts": [

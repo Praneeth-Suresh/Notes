@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Interrupts · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/interrupts/" />
+    <meta property="og:title" content="Interrupts · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/interrupts/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Interrupts · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":3,"name":"Interrupts","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/interrupts/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of Operating Systems</p>
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8029-9ca0-e6e880bf173a"><strong>Interrupts</strong> are signals sent from hardware to the CPU, causing it to stop its current execution and jump to an <strong>interrupt handler</strong> in the kernel. Interrupts are <strong>asynchronous</strong> – they happen at any time, independent of the running thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8054-a437-c13653d1a391">An interrupt controller is a hardware component that manages interrupt signals from peripherals, prioritizing them and presenting them to the processor to enable efficient, non-polling, real-time multitasking. It acts as an intermediary, routing multiple device requests to the CPU and identifying the appropriate <a href="https://www.google.com/search?q=Interrupt%20Service%20Routine&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA3jeHUCTz1_VSbICGPLBnUY96_dlIoXqsU26CvRJ3zBNcX_2zWMzU2rKy-iKUNchhUzHOtJpB6072c5g3a8sby7X63LcvLiTczjViu51nyaDm4SeQs3eCsRWi9MOqP3xrATlAtaf8RQRVaCyvfdujC2JN9bNtIMjV2sbUawbdJ2R8&amp;csui=3&amp;ved=2ahUKEwi48rKEjJ-UAxXzUGwGHbwBLIoQgK4QegQIARAE" rel="noreferrer noopener">Interrupt Service Routine</a> (ISR) via a vector table.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8028-802f-da364c366c6b">In short, the interrupt controller:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ce-867f-e8febea36409">Collects interrupts from devices (timer, keyboard, disk, network).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-802f-a796-f38264bb093d">Prioritises them.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8047-a3c8-cb08544a9639">Delivers them to the appropriate CPU core.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-808d-bb2e-eafc1c119a5d">Handling Interrupts</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f8-8170-e1d3cdfacf57">When an interrupt arrives:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8090-8fe6-fb0a704e4daa">The CPU finishes the current instruction (or stops at a safe boundary).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-803a-9de8-d6defd928531">It <strong>flushes the pipeline</strong> (discards partially executed instructions).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-808d-98b9-ebe935f616e7">It saves a minimal state (often just the program counter and some flags) onto the kernel stack.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8042-862b-c69efab4e90e">It jumps to the <strong>interrupt handler</strong> in the kernel (entering kernel mode). This is effectively a forced context switch, but it’s not a full thread switch yet.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b7-a24c-d06419796067">The interrupt handler does its work (e.g., marks a thread as ready).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b1-9382-e668b65847ec">After the handler finishes, the kernel may decide to call the scheduler. The kernel can then context switch to a different thread.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801c-92a7-dff2aa8822e8"><strong>Crucially, the interrupt handler itself runs in kernel mode, but it is not a thread</strong> – it’s a small, fast piece of code that either does minimal work or delegates longer work to kernel threads (bottom halves / tasklets).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35d17c95-99fd-8004-9305-d554252efd36">Task State Segment (TSS)</h2><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-8083-aa6d-ca3c2bee6636">The Task State Segment (TSS) in x86 is a specialized hardware-supported structure that stores task context and manages stack switching during interrupts or privilege changes. While modern operating systems often bypass hardware task switching in favor of software-based approaches, the TSS remains crucial for handling privilege-level transitions and certain fault conditions.</p><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80e5-95dc-e353d3d5d5f0">The TSS itself is a privileged data structure in x86 architecture that stores the complete state of a task (registers, stack pointers, segment selectors, flags, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80d3-92c4-ff1af180a1f8">There are different types of task switching we may see:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-805f-81e7-c14d621f5502"><strong>Hardware Task Switching (Protected Mode)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-805d-a49e-ef6adf24fa3d">Each task has its own TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-806a-8c67-ca6c8ad1317c">On a switch (via <code class="note-inline-code">CALL</code>, <code class="note-inline-code">JMP</code>, or interrupt gates), the CPU saves the current task’s state into its TSS and loads the new task’s state from another TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80c8-9c49-cf8df79bb01a">This includes <strong>general-purpose registers, instruction pointer (EIP), flags, and stack pointers</strong>.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8092-bfd7-fbf9527926a3"><strong>Privilege-Level Stack Switching</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80ee-a70f-cd238024ebe1">The TSS contains <strong>separate stack pointers (SS0:ESP0, SS1:ESP1, SS2:ESP2)</strong> for each privilege level.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80b0-a916-ccca742e0a2d">When an interrupt or system call moves execution from user mode (Ring 3) to kernel mode (Ring 0), the CPU automatically switches to the kernel stack defined in the TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80fc-815c-d8d871a26ec4">This prevents user-mode code from corrupting kernel stacks and enforces isolation. </li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8098-b7c9-f1dcf4bf459d"><strong>Long Mode (x86-64)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8096-be19-dd5d7768606f">Hardware task switching is <strong>not supported</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8048-bf8d-d6e99d163e9e">The TSS instead provides an <strong>Interrupt Stack Table (IST)</strong>, which defines alternate stacks for specific exceptions (e.g., double faults).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8000-8f57-e2b9601f5dd2">This ensures stability when the normal stack is corrupted. </li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80fc-8585-f2a749f14ef6">The design of the TSS ensures the following:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8066-b4c6-e25f117a2d84"><strong>Automatic Context Management</strong>: Early OS designs relied on hardware to simplify multitasking. The TSS allowed the CPU to handle context switches without complex software routines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80f3-a49a-c5febb0900a6"><strong>Security</strong>: By embedding privilege-level stack pointers, the TSS enforces strict separation between user and kernel stacks.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8085-9f1e-c0b40e1bdb1f"><strong>Fault Handling</strong>: The IST in x86-64 ensures reliable recovery from catastrophic errors like double faults.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-8081-a63b-cfd5b64fedd5">However, modern OSes (Linux, Windows) avoid hardware task switching due to inefficiency and lack of flexibility. Instead, they implement software-based context switching, but still rely on the TSS for:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80f1-a16a-db94f6cfffc5">Privilege-level stack switching</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-804a-814b-da3772a00f95">Handling double faults and critical exceptions</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8029-9ca0-e6e880bf173a"><strong>Interrupts</strong> are signals sent from hardware to the CPU, causing it to stop its current execution and jump to an <strong>interrupt handler</strong> in the kernel. Interrupts are <strong>asynchronous</strong> – they happen at any time, independent of the running thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8054-a437-c13653d1a391">An interrupt controller is a hardware component that manages interrupt signals from peripherals, prioritizing them and presenting them to the processor to enable efficient, non-polling, real-time multitasking. It acts as an intermediary, routing multiple device requests to the CPU and identifying the appropriate <a href="https://www.google.com/search?q=Interrupt%20Service%20Routine&amp;sourceid=chrome&amp;ie=UTF-8&amp;mstk=AUtExfA3jeHUCTz1_VSbICGPLBnUY96_dlIoXqsU26CvRJ3zBNcX_2zWMzU2rKy-iKUNchhUzHOtJpB6072c5g3a8sby7X63LcvLiTczjViu51nyaDm4SeQs3eCsRWi9MOqP3xrATlAtaf8RQRVaCyvfdujC2JN9bNtIMjV2sbUawbdJ2R8&amp;csui=3&amp;ved=2ahUKEwi48rKEjJ-UAxXzUGwGHbwBLIoQgK4QegQIARAE" rel="noreferrer noopener">Interrupt Service Routine</a> (ISR) via a vector table.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8028-802f-da364c366c6b">In short, the interrupt controller:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ce-867f-e8febea36409">Collects interrupts from devices (timer, keyboard, disk, network).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-802f-a796-f38264bb093d">Prioritises them.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8047-a3c8-cb08544a9639">Delivers them to the appropriate CPU core.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-808d-bb2e-eafc1c119a5d">Handling Interrupts</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f8-8170-e1d3cdfacf57">When an interrupt arrives:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8090-8fe6-fb0a704e4daa">The CPU finishes the current instruction (or stops at a safe boundary).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-803a-9de8-d6defd928531">It <strong>flushes the pipeline</strong> (discards partially executed instructions).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-808d-98b9-ebe935f616e7">It saves a minimal state (often just the program counter and some flags) onto the kernel stack.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8042-862b-c69efab4e90e">It jumps to the <strong>interrupt handler</strong> in the kernel (entering kernel mode). This is effectively a forced context switch, but it’s not a full thread switch yet.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b7-a24c-d06419796067">The interrupt handler does its work (e.g., marks a thread as ready).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b1-9382-e668b65847ec">After the handler finishes, the kernel may decide to call the scheduler. The kernel can then context switch to a different thread.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801c-92a7-dff2aa8822e8"><strong>Crucially, the interrupt handler itself runs in kernel mode, but it is not a thread</strong> – it’s a small, fast piece of code that either does minimal work or delegates longer work to kernel threads (bottom halves / tasklets).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35d17c95-99fd-8004-9305-d554252efd36">Task State Segment (TSS)</h2><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-8083-aa6d-ca3c2bee6636">The Task State Segment (TSS) in x86 is a specialized hardware-supported structure that stores task context and manages stack switching during interrupts or privilege changes. While modern operating systems often bypass hardware task switching in favor of software-based approaches, the TSS remains crucial for handling privilege-level transitions and certain fault conditions.</p><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80e5-95dc-e353d3d5d5f0">The TSS itself is a privileged data structure in x86 architecture that stores the complete state of a task (registers, stack pointers, segment selectors, flags, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80d3-92c4-ff1af180a1f8">There are different types of task switching we may see:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-805f-81e7-c14d621f5502"><strong>Hardware Task Switching (Protected Mode)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-805d-a49e-ef6adf24fa3d">Each task has its own TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-806a-8c67-ca6c8ad1317c">On a switch (via <code class="note-inline-code">CALL</code>, <code class="note-inline-code">JMP</code>, or interrupt gates), the CPU saves the current task’s state into its TSS and loads the new task’s state from another TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80c8-9c49-cf8df79bb01a">This includes <strong>general-purpose registers, instruction pointer (EIP), flags, and stack pointers</strong>.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8092-bfd7-fbf9527926a3"><strong>Privilege-Level Stack Switching</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80ee-a70f-cd238024ebe1">The TSS contains <strong>separate stack pointers (SS0:ESP0, SS1:ESP1, SS2:ESP2)</strong> for each privilege level.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80b0-a916-ccca742e0a2d">When an interrupt or system call moves execution from user mode (Ring 3) to kernel mode (Ring 0), the CPU automatically switches to the kernel stack defined in the TSS.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80fc-815c-d8d871a26ec4">This prevents user-mode code from corrupting kernel stacks and enforces isolation. </li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8098-b7c9-f1dcf4bf459d"><strong>Long Mode (x86-64)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8096-be19-dd5d7768606f">Hardware task switching is <strong>not supported</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8048-bf8d-d6e99d163e9e">The TSS instead provides an <strong>Interrupt Stack Table (IST)</strong>, which defines alternate stacks for specific exceptions (e.g., double faults).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8000-8f57-e2b9601f5dd2">This ensures stability when the normal stack is corrupted. </li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-80fc-8585-f2a749f14ef6">The design of the TSS ensures the following:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8066-b4c6-e25f117a2d84"><strong>Automatic Context Management</strong>: Early OS designs relied on hardware to simplify multitasking. The TSS allowed the CPU to handle context switches without complex software routines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80f3-a49a-c5febb0900a6"><strong>Security</strong>: By embedding privilege-level stack pointers, the TSS enforces strict separation between user and kernel stacks.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-8085-9f1e-c0b40e1bdb1f"><strong>Fault Handling</strong>: The IST in x86-64 ensures reliable recovery from catastrophic errors like double faults.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35d17c95-99fd-8081-a63b-cfd5b64fedd5">However, modern OSes (Linux, Windows) avoid hardware task switching due to inefficiency and lack of flexibility. Instead, they implement software-based context switching, but still rely on the TSS for:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-80f1-a16a-db94f6cfffc5">Privilege-level stack switching</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35d17c95-99fd-804a-814b-da3772a00f95">Handling double faults and critical exceptions</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/preemptive-multitasking/">
+    <span>Next reading</span>
+    <strong>Preemptive Multitasking</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

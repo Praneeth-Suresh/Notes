@@ -51,6 +51,18 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Notion highlight presentation | Notion background-color blocks remain fidelity-marked by class but render with readable translucent red highlights. | 2026-05-23 | n/a |
 | Database label configuration boundary | Manifest entries may declare label property names; `notion-ingestion` emits normalized label strings and colors only, never raw Notion property payloads. | 2026-05-23 | n/a |
 | GitHub wiki blog integration | Blog content pulled from public GitHub wiki via `scripts/pull-wiki-blog.js`, rendered to `/blog/` routes using vendored `marked` for GFM markdown, with blog-specific warm accent and serif flair. Static deployment model matches existing topic workflow. | 2026-06-04 | n/a |
+| Owned-audience capture foundation | Generate a static `/feed.xml` from topic roots and blog posts, expose RSS discovery links, render subscription panels through `site-styling`, and keep newsletter/analytics providers external through provider-neutral hooks until the maintainer selects them. | 2026-06-19 | n/a |
+| Static SEO and sharing metadata | Generate meta descriptions, canonical URLs, Open Graph tags, Twitter summary cards, blog Article schema, and topic Breadcrumb schema through `site-styling` using the Pages build `siteUrl`; keep this metadata deterministic and static. | 2026-06-19 | n/a |
+| Topic pillar packaging | Add optional manifest-owned pillar modules for root topic pages, rendered through `site-styling` before Notion-derived note content so SEO and reader-orientation copy can improve without mutating normalized Notion sources. | 2026-06-19 | n/a |
+| Start Here guide | Generate a static `/start-here/` guide through the Pages build, using existing topic/search data to route new readers through Algorithms, one proof-backed note, and RSS capture before broader browsing. | 2026-06-19 | n/a |
+| Research taste page | Generate a static `/research-taste/` page from checked-in `content/research-taste.json`, and link it from Home, Start Here, and Portfolio as a public source trail for future theoretical-CS notes. | 2026-06-19 | n/a |
+| Static discovery files and footer | Generate `/sitemap.xml` and `/robots.txt` from Pages build route records, and render a shared footer with RSS, sitemap, and key internal links across all generated HTML pages. | 2026-06-19 | n/a |
+| Flagship theoretical-CS essay | Publish the first flagship essay as a static blog post with explicit manifest metadata, social preview text, proof-backed sections, source links, and entry links from Home and the Algorithms pillar. | 2026-06-19 | n/a |
+| Public errata page | Generate a static `/errata/` correction-policy page, include it in sitemap/footer navigation, and link flagship posts to it for visible correction handling. | 2026-06-19 | n/a |
+| Provider-neutral subscribe destination | Generate a static `/subscribe/` page as the primary newsletter CTA destination while email provider selection is pending; keep direct RSS links as the working owned-audience fallback. | 2026-06-19 | n/a |
+| Static social preview image | Copy a deterministic theorem-style SVG preview into `/assets/social/` and emit absolute `og:image` and `twitter:image` metadata for generated pages, with blog Article schema using the same asset. | 2026-06-19 | n/a |
+| Flagship reproducible artifact | Copy a small static LaTeX reduction-proof template into `/artifacts/` and link it from the NP-completeness flagship essay as the first reusable proof artifact. | 2026-06-19 | n/a |
+| Flagship FAQ packaging | Allow blog manifest posts to carry optional FAQ entries and render matching FAQPage structured data when the visible essay includes an FAQ section. | 2026-06-19 | n/a |
 
 ## Pressure Points
 
@@ -87,6 +99,23 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Topic pages use a narrower technical reading panel, stronger rectangular borders, and mono treatment for child-page/database affordances while preserving the same Notion block structure.
 - Home page navigation will include a portfolio entry point to a separate `/about/` page.
 - The personal page will present the maintainer as a software engineer and AI developer/researcher through a distinct portfolio layout using the same typography, borders, color tokens, and CSS-only generated visual language.
+- The home page, topic pages, blog index, and blog posts now include a compact subscription panel that points readers to the generated RSS feed while the email newsletter provider remains an external maintainer choice.
+- The header now includes an RSS link, and generated pages expose provider-neutral analytics hooks for page views, RSS clicks, newsletter CTA clicks, and outbound GitHub/LinkedIn profile clicks.
+- The home hero now leads with the theoretical CS promise, "Theoretical CS, from intuition to proof.", uses "Get the monthly deep dive" as the primary action, and shows a generated proof strip with topic/page/fidelity signals before the topic feed.
+- Generated pages now include static SEO and sharing metadata: descriptions, canonical URLs, Open Graph tags, Twitter summary cards, Article schema on blog posts, and Breadcrumb schema on topic pages.
+- The Algorithms root topic now acts as the first SEO pillar, with search-intent description copy, a "Start here" module, and a table-of-contents reading path that links into existing generated Algorithms subpages.
+- The home page now includes a compact author bio band linking to `/about/`, and the portfolio hero repeats the theoretical-CS positioning statement so readers can connect the notes corpus to the maintainer's public work.
+- Topic root pages and topic subpages now include a compact top subscription/RSS panel in addition to the existing post-content panel, with distinct static IDs and analytics source values for early-reader and post-reader capture.
+- The site now has a generated `/start-here/` guide linked from global navigation and the home page, giving new readers a curated path into the Algorithms pillar, a proof-backed note, and RSS subscription.
+- Topic pages now include a post-content "Next reading" link when another generated page exists in the same topic tree, improving internal discovery without modifying Notion-authored note bodies.
+- The site now has a generated `/research-taste/` page with 12 theoretical-CS topic interests, rationale copy, and source links, linked from Home, Start Here, and Portfolio to make the author's intellectual taste inspectable on-site.
+- The Pages build now emits generated `/sitemap.xml` and `/robots.txt` discovery files, and every generated HTML page includes a shared footer with RSS, sitemap, Start, Research Taste, Notes, Blog, and Portfolio links.
+- The blog now has a `Theoretical CS Deep Dives` section with a flagship NP-completeness essay using the "In this post", formal statement, model, proof sketch, why-it-matters, internal trail, and further-reading structure; Home and the Algorithms pillar link to it.
+- The site now has a generated `/errata/` page with a public no-corrections-yet log and correction policy, linked from the footer, sitemap, and flagship essay.
+- Primary newsletter CTAs now route to a generated `/subscribe/` destination that states the deep-dive promise, exposes RSS as the live subscription path, and links readers back to Start Here and the flagship essay while the email provider remains external.
+- Generated pages now include a static theorem-style social preview image via Open Graph and Twitter image metadata, so shared links have a consistent visual card without runtime preview generation.
+- The flagship NP-completeness essay now links a static LaTeX reduction-proof template copied to `/artifacts/`, giving serious readers a reusable construction/runtime/correctness scaffold.
+- The flagship NP-completeness essay now includes a concise reader FAQ, with matching manifest-owned FAQPage structured data emitted only for posts that define FAQ entries.
 
 ## Recording Rule (Design Tree vs ADR)
 

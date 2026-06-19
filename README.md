@@ -265,7 +265,8 @@ The build reads `content/topic-manifest.json`, renders all topic pages and subpa
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
   --out dist \
-  --site-title "Computer Science Notes"
+  --site-title "Computer Science Notes" \
+  --site-url "https://notes.praneeth-suresh-s.workers.dev"
 ```
 
 Generated output:
@@ -273,10 +274,27 @@ Generated output:
 - `dist/index.html`
 - `dist/topics/<slug>/index.html`
 - `dist/topics/<slug>/<subpage>/index.html`
+- `dist/feed.xml`
 - `dist/assets/site.css`
 - `dist/search-index.json`
 
 The build uses a temporary output directory and replaces `dist/` only after rendering succeeds. If rendering fails, the previous output directory is left in place.
+
+The `--site-url` value is used for absolute canonical URLs, Open Graph URLs, structured-data URLs, and RSS item links. If omitted, the build defaults to the current production Workers URL.
+
+## RSS and Subscription Capture
+
+The static build emits `dist/feed.xml` from root topic pages and blog posts, then adds RSS discovery links to generated HTML. The shared shell also renders subscription panels on the home page, topic pages, the blog index, and blog posts.
+
+The email newsletter provider is intentionally not hard-coded. Until a public signup endpoint is selected, subscription panels use RSS as the live owned-audience path and expose provider-neutral analytics hooks:
+
+- `data-analytics-event="page_view"`
+- `data-analytics-event="rss_click"`
+- `data-analytics-event="newsletter_cta_click"`
+- `data-analytics-event="outbound_github_click"`
+- `data-analytics-event="outbound_linkedin_click"`
+
+The generated pages buffer those events in `window.notesAnalyticsEvents` and dispatch a `notes-analytics` browser event. A future analytics provider can listen to that event without changing the content templates or committing provider secrets.
 
 ## Preview Locally
 
@@ -325,7 +343,7 @@ If you intentionally changed tests, update the test manifest:
 | Setting                | Value                                                                                                                   |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Framework preset       | None                                                                                                                    |
-| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Computer Science Notes"` |
+| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Computer Science Notes" --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
 | Build output directory | `dist`                                                                                                                |
 | Root directory         | `/`                                                                                                                   |
 

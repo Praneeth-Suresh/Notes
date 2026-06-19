@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Reliability · Computer Science Notes</title>
+
+    <meta name="description" content="Sophisticated software systems under the hood" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/" />
+    <meta property="og:title" content="Reliability · Computer Science Notes" />
+    <meta property="og:description" content="Sophisticated software systems under the hood" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reliability · Computer Science Notes" />
+    <meta name="twitter:description" content="Sophisticated software systems under the hood" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"SWE for Pros","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":3,"name":"Reliability","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,16 +60,86 @@
       <p class="topic-parent">Subpage of SWE for Pros</p>
       
       <p class="topic-meta">Sophisticated software systems under the hood</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-810a-b0a7-e7ca17c78cb3">The Core Idea: You Can’t Fix What You Can’t See</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8158-bcd0-d0ef84504195">In a small app, you check the logs if something breaks. In a large system, “something” is <strong>always breaking.</strong> A hard drive fails, a network switch reboots, or a new deploy has a memory leak.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-814a-913b-c5eaef901e2e"><strong>Observability</strong> isn’t just about logs; it’s about asking <em>any</em> question of your system without shipping new code. It’s about <strong>Telemetry</strong> (Metrics, Logs, and Traces) working together to give you a “Map” of your system’s health.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816c-b8a5-d9b4e016b76a">Real-World Example: Google’s SRE Teams</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81df-ae2e-f0662ffbb067">Google invented the term <strong>SRE (Site Reliability Engineering).</strong> Their philosophy is that “100% uptime is the wrong target.” Why? Because users don’t notice the difference between 99.99% and 100%, and that 0.01% is where you can take risks and move fast. They use <strong>Error Budgets</strong> to decide when to slow down and focus on stability vs. when to ship new features.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a7-8add-e535acfcbfde" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81f3-b88e-d0a1073ed050">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f9-be02-ef6da2afdd48"><strong>Prometheus &amp; Grafana:</strong> The “Dashboard” for your system. Prometheus collects numbers (metrics), and Grafana turns them into beautiful, real-time graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8164-a767-f8de5be3444a"><strong>OpenTelemetry (OTel):</strong> A standard for “tagging” every request. If a user’s checkout fails, OTel lets you see exactly which service (of the hundreds involved) caused the error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8126-b361-dca58730bae1"><strong>PagerDuty:</strong> The tool that wakes you up at 3 AM if the system is actually on fire (and not just “warm”).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8188-b1c7-fad356c2a6f4" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81a0-b156-c8e06021250b">💻 Code to Explore: The “Eye” of the System</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-819a-a677-df02f0b2dbdc"><a href="https://github.com/prometheus/prometheus" rel="noreferrer noopener">prometheus/prometheus</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8159-8dfd-ddb53a000954">See how a system designed for monitoring is built.
 * <strong>What to look for:</strong>
 * <strong>TSDB (Time Series Database):</strong> Look at how they store millions of data points per second. It’s a masterclass in efficient storage.
 * <strong>The Query Language (PromQL):</strong> See how they implemented a custom language just to ask questions about “Numbers over Time.”</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-815e-925f-cd5a3d2eb6af"><a href="https://github.com/open-telemetry/opentelemetry-collector" rel="noreferrer noopener">open-telemetry/opentelemetry-collector</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-813a-833a-c8780eab8069">The industry standard for collecting traces.
 * <strong>What to look for:</strong> The “Pipeline” model. See how data is received, processed (sampled), and then exported to different backends. This is how you handle “Big Data” without overwhelming your monitoring system.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81aa-8a2d-eeb4028d6cca" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8148-9c7f-f4a5f22ee5cc">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8104-a16f-c79f88d6c4e5">📝 Read: “The Google SRE Book”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81c5-bc29-d15e7d445115"><a href="https://sre.google/sre-book/table-of-contents/" rel="noreferrer noopener"><strong>Free Online Book</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f1-ac5c-d900a9fd6037"><strong>How to use it:</strong> Start with the “Service Level Objectives (SLOs)” chapter. It will change how you think about “Uptime” forever. This is the book that defined the industry.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8140-8434-c72483d7a94f">🎥 Watch: “Observability: The Power of Why” (Charity Majors)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8114-9654-e893aef8fdce"><a href="https://www.youtube.com/results?search_query=charity%20majors%20observability" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d5-9bb1-cf40eb48e27c"><strong>How to use it:</strong> Charity is the “Godmother” of modern observability. Watch her talks to understand why “Logs” are dead and “Structured Events” are the future.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a8-af9d-cbe473c96087">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f6-b68b-f4e7faac48bd">Reliability is a <strong>statistical game.</strong> You aren’t trying to prevent all errors; you’re trying to make sure that when an error happens, it’s contained (Blast Radius) and easy to find (Mean Time to Resolution).</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/swe/scalability/">
+    <span>Next reading</span>
+    <strong>Scalability</strong>
+    <p>Continue inside SWE for Pros</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -91,6 +183,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kernal and OS Optimisations · Computer Science Notes</title>
+
+    <meta name="description" content="Accelerating AI: across all layers" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/kernal-and-os-optimisations/" />
+    <meta property="og:title" content="Kernal and OS Optimisations · Computer Science Notes" />
+    <meta property="og:description" content="Accelerating AI: across all layers" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/kernal-and-os-optimisations/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kernal and OS Optimisations · Computer Science Notes" />
+    <meta name="twitter:description" content="Accelerating AI: across all layers" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"AI Engineering","item":"https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/"},{"@type":"ListItem","position":3,"name":"Kernal and OS Optimisations","item":"https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/kernal-and-os-optimisations/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of AI Engineering</p>
       
       <p class="topic-meta">Accelerating AI: across all layers</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8077-8eb4-fe9cc35a458e">This topic examines the boundary between application runtimes, operating-system services, device drivers, and accelerator execution. The focus is on how queues, memory allocation, I/O paths, and launch mechanisms affect latency, bandwidth, utilization, and isolation.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8005-96fe-f39e803a7644">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807c-a422-fb9e1bfcede8">1. GPU Scheduling &amp; Context Switching</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-befe-d0aac4e783c4"><strong>Concept:</strong> How the GPU driver, runtime, and hardware schedule kernels, memory copies, command queues, and work from multiple processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f1-a153-e1e8829715f3"><strong>Why it&#39;s important:</strong> Queueing, synchronization, and GPU context switching can add latency and reduce utilization. Understanding scheduling helps engineers choose batching, stream assignment, time slicing, process isolation, or Multi-Instance GPU (MIG) where available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e7-95d5-e08c7ceafc88"><strong>Implementation Link:</strong> Supports the design of multi-user inference services with measured tail-latency and isolation behavior.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8050-b1d5-d321bdc6e0ef"><strong>Deep dive:</strong> <a href="https://www.notion.so/gpu-scheduling-and-context-switching.md" rel="noreferrer noopener">GPU Scheduling And Context Switching</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807f-aac9-eab79a7dabdb">2. Zero-Copy Data Paths (io_uring, GPUDirect)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a9-b20b-e3c5772b5cc3"><strong>Concept:</strong> Reducing intermediate copies among kernel buffers, user-space buffers, pinned host memory, device memory, storage devices, and network adapters.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f7d-f9654c12bc60"><strong>Why it&#39;s important:</strong> In large model serving and data-intensive training, weight loading, input ingestion, or distributed communication can become limited by memory movement and CPU overhead.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8077-a8a2-d9f0b39f39e3"><strong>Implementation Link:</strong> Relevant to high-throughput data loaders, model loading paths, GPUDirect-style storage or networking, and distributed communication.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8041-a2b8-ec155ec0f069"><strong>Deep dive:</strong> <a href="https://www.notion.so/zero-copy-data-paths.md" rel="noreferrer noopener">Zero-Copy Data Paths</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8004-b679-c1ba7970c080">3. Custom Memory Allocators (e.g., Stream-Ordered Allocation)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8060-b6f0-cea98a909144"><strong>Concept:</strong> Using memory pools, caching allocators, and stream-ordered APIs such as <code class="note-inline-code">cudaMallocAsync</code> for accelerator-visible memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8024-be84-fa04e88e6a9e"><strong>Why it&#39;s important:</strong> General allocation paths and unmanaged device allocation can introduce synchronization, fragmentation, and unpredictable latency when they are not aligned with stream-ordered execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8026-a33b-dac155b1e11e"><strong>Implementation Link:</strong> Helps reduce allocator-induced synchronization and memory-fragmentation effects in complex model pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b4-91ff-d79b834aa423"><strong>Deep dive:</strong> <a href="https://www.notion.so/custom-memory-allocators.md" rel="noreferrer noopener">Custom Memory Allocators</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8051-b737-fece7cb188f7">4. Kernel Fusion &amp; Graph Capture</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8069-90fe-c4b2b270a6d5"><strong>Concept:</strong> Merging compatible operations into a single device kernel or capturing a repeated execution sequence for replay.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b0-aadc-c5942992983a"><strong>Why it&#39;s important:</strong> Kernel launches have host and runtime overhead, and unfused operations often materialize intermediate tensors. Fusion can reduce both launch count and memory traffic when the operations are compatible.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-a32d-cff35a0dd6b7"><strong>Implementation Link:</strong> A common optimization in libraries and compilers such as TensorRT, framework JIT compilers, and ahead-of-time compiler pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8084-b2d4-e757544edfe6"><strong>Deep dive:</strong> <a href="https://www.notion.so/kernel-fusion-and-graph-capture.md" rel="noreferrer noopener">Kernel Fusion And Graph Capture</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8078-bd70-f3b577c3bb3b">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8037-afb2-fb7441652984"><strong>&quot;Operating Systems: Three Easy Pieces&quot; (Arpaci-Dusseau):</strong> For general OS background (Virtualization, Concurrency).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8085-8fa8-d138b43517bc"><strong>NVIDIA CUDA Programming Guide:</strong> Specifically the sections on Asynchronous Concurrent Execution and CUDA Graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e5-b43e-d20f6126a300"><strong>Linux </strong><strong><code class="note-inline-code">io_uring</code></strong><strong> Documentation:</strong> For high-performance I/O.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806f-87a8-f90efe59ff10"><strong>GPUDirect Storage (GDS) Whitepapers:</strong> For understanding direct storage-to-GPU paths.</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-8077-8eb4-fe9cc35a458e">This topic examines the boundary between application runtimes, operating-system services, device drivers, and accelerator execution. The focus is on how queues, memory allocation, I/O paths, and launch mechanisms affect latency, bandwidth, utilization, and isolation.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8005-96fe-f39e803a7644">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807c-a422-fb9e1bfcede8">1. GPU Scheduling &amp; Context Switching</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-befe-d0aac4e783c4"><strong>Concept:</strong> How the GPU driver, runtime, and hardware schedule kernels, memory copies, command queues, and work from multiple processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f1-a153-e1e8829715f3"><strong>Why it&#39;s important:</strong> Queueing, synchronization, and GPU context switching can add latency and reduce utilization. Understanding scheduling helps engineers choose batching, stream assignment, time slicing, process isolation, or Multi-Instance GPU (MIG) where available.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e7-95d5-e08c7ceafc88"><strong>Implementation Link:</strong> Supports the design of multi-user inference services with measured tail-latency and isolation behavior.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8050-b1d5-d321bdc6e0ef"><strong>Deep dive:</strong> <a href="https://www.notion.so/gpu-scheduling-and-context-switching.md" rel="noreferrer noopener">GPU Scheduling And Context Switching</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-807f-aac9-eab79a7dabdb">2. Zero-Copy Data Paths (io_uring, GPUDirect)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a9-b20b-e3c5772b5cc3"><strong>Concept:</strong> Reducing intermediate copies among kernel buffers, user-space buffers, pinned host memory, device memory, storage devices, and network adapters.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f7d-f9654c12bc60"><strong>Why it&#39;s important:</strong> In large model serving and data-intensive training, weight loading, input ingestion, or distributed communication can become limited by memory movement and CPU overhead.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8077-a8a2-d9f0b39f39e3"><strong>Implementation Link:</strong> Relevant to high-throughput data loaders, model loading paths, GPUDirect-style storage or networking, and distributed communication.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8041-a2b8-ec155ec0f069"><strong>Deep dive:</strong> <a href="https://www.notion.so/zero-copy-data-paths.md" rel="noreferrer noopener">Zero-Copy Data Paths</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8004-b679-c1ba7970c080">3. Custom Memory Allocators (e.g., Stream-Ordered Allocation)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8060-b6f0-cea98a909144"><strong>Concept:</strong> Using memory pools, caching allocators, and stream-ordered APIs such as <code class="note-inline-code">cudaMallocAsync</code> for accelerator-visible memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8024-be84-fa04e88e6a9e"><strong>Why it&#39;s important:</strong> General allocation paths and unmanaged device allocation can introduce synchronization, fragmentation, and unpredictable latency when they are not aligned with stream-ordered execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8026-a33b-dac155b1e11e"><strong>Implementation Link:</strong> Helps reduce allocator-induced synchronization and memory-fragmentation effects in complex model pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b4-91ff-d79b834aa423"><strong>Deep dive:</strong> <a href="https://www.notion.so/custom-memory-allocators.md" rel="noreferrer noopener">Custom Memory Allocators</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-8051-b737-fece7cb188f7">4. Kernel Fusion &amp; Graph Capture</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8069-90fe-c4b2b270a6d5"><strong>Concept:</strong> Merging compatible operations into a single device kernel or capturing a repeated execution sequence for replay.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80b0-aadc-c5942992983a"><strong>Why it&#39;s important:</strong> Kernel launches have host and runtime overhead, and unfused operations often materialize intermediate tensors. Fusion can reduce both launch count and memory traffic when the operations are compatible.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80bd-a32d-cff35a0dd6b7"><strong>Implementation Link:</strong> A common optimization in libraries and compilers such as TensorRT, framework JIT compilers, and ahead-of-time compiler pipelines.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8084-b2d4-e757544edfe6"><strong>Deep dive:</strong> <a href="https://www.notion.so/kernel-fusion-and-graph-capture.md" rel="noreferrer noopener">Kernel Fusion And Graph Capture</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-8078-bd70-f3b577c3bb3b">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8037-afb2-fb7441652984"><strong>&quot;Operating Systems: Three Easy Pieces&quot; (Arpaci-Dusseau):</strong> For general OS background (Virtualization, Concurrency).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8085-8fa8-d138b43517bc"><strong>NVIDIA CUDA Programming Guide:</strong> Specifically the sections on Asynchronous Concurrent Execution and CUDA Graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80e5-b43e-d20f6126a300"><strong>Linux </strong><strong><code class="note-inline-code">io_uring</code></strong><strong> Documentation:</strong> For high-performance I/O.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806f-87a8-f90efe59ff10"><strong>GPUDirect Storage (GDS) Whitepapers:</strong> For understanding direct storage-to-GPU paths.</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/ai-engineer/memory-systems/">
+    <span>Next reading</span>
+    <strong>Memory Systems</strong>
+    <p>Continue inside AI Engineering</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

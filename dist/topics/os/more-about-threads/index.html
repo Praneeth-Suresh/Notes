@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>More about Threads · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/more-about-threads/" />
+    <meta property="og:title" content="More about Threads · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/more-about-threads/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="More about Threads · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":3,"name":"More about Threads","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/more-about-threads/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,16 +60,86 @@
       <p class="topic-parent">Subpage of Operating Systems</p>
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80af-bb11-d8fc30da9c7f">Processes are expensive to create and switch between (they require switching memory maps, flushing TLBs, etc.). Threads are “lightweight” – creating a new thread is much faster because it reuses the existing process environment. This makes threads ideal for:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8003-b315-f5d2fe78e5ac">Servers handling many clients (e.g., web server with a thread per request).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8085-9dcd-d344e7b3337b">Parallel computation on multi-core systems (shared memory simplifies data sharing compared to separate processes).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80d7-a291-d783da3f82a9">Thus, at the core of every multitasking OS is a scheduler loop (some would even call this loop the OS):</p><figure class="notion-block notion-code" data-notion-block-id="35617c95-99fd-80f4-a611-f83f80f3a28b"><pre class="note-code-block" data-language="c"><code class="language-c">while (1) {
     thread = choose_next_thread();   // scheduling policy
     switch_to(thread);               // context switch
     // The CPU now runs the thread until it yields or is interrupted
 }</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8088-8f3c-ef769ee604c1">Here, <code class="note-inline-code">switch_to()</code> performs a form of <a href="https://www.notion.so/35617c9599fd808e934dde52602da9fd" rel="noreferrer noopener">Context Switching</a>. This is cheaper than usual context swithching because threads of the same process share memory mapping.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-807a-af52-d90eb2b7e748">Initialising Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f3-a030-fce47e6872e5"><strong>This is done following the threadroot Subroutine. </strong>The program counter (PC) is set to point to the thread’s entry function (often called <code class="note-inline-code">threadroot</code>). The thread is then placed on the <strong>ready queue</strong>, waiting for the scheduler to dispatch it.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8079-805b-e560f086bf49">When the scheduler switches to this thread, it begins execution from the threadroot, using its initialized stack, just like any other process.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-80e6-85f6-f96ed63890c3">Kernel Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8084-9a5e-f22045594b19"><strong>Why have kernel threads?</strong> Because only the kernel can:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c4-96b0-edfb6f33ae7d">Handle privileged operations (I/O, memory mapping, interrupt handling).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8033-ac7f-c3a253128fb7">Perform the actual context switch between threads (saving/restoring registers).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fd-80e2-c6dae2270309">Manage scheduling decisions that affect all threads system-wide.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c4-be10-dbbd828ec479">In the <strong>one-to-one model</strong> (e.g., Linux’s NPTL, Windows threads), each user thread is backed by a kernel thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80cc-8202-d40d87bc308b">When a user thread makes a system call (e.g., <code class="note-inline-code">read()</code>), the transition from <strong>user mode</strong> to <strong>kernel mode</strong> occurs. The associated kernel thread is the one that executes the kernel part of the operation. The “switch operation that handles the saving and loading of the information” is the context switch between kernel threads (or between a kernel thread and a user thread depending on design).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8005-9137-c59cb817e09f"><strong>Switching between threads of the same process</strong> is faster than switching between processes because:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8001-8d92-c8a3c0010712">No change of address space (no TLB flush, no page table switch).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8088-9169-e9758baca011">Fewer register saves/restores (no need to save segment registers, FPU state can be lazy, etc.).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80b0-9d29-e06657e4e56b">Your notes then describe an optimisation: <strong>one-to-many relationship</strong> (user-level threads, or “green threads”). A single kernel thread manages multiple user threads entirely in user space. The user-level thread library performs its own context switches (using <code class="note-inline-code">setjmp</code>/<code class="note-inline-code">longjmp</code> or assembly) without involving the kernel.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80df-b5c6-c12dca62b12b"><strong>Advantage: </strong>Even faster switching – no system calls at all for scheduling. You can have thousands of user threads with minimal overhead.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801b-b655-fe4982f129f0"><strong>Disadvantage:</strong> If a user thread makes a blocking system call (e.g., <code class="note-inline-code">read()</code>), the entire kernel thread (and all its associated user threads) blocks, because the kernel only sees one thread. This defeats the purpose of concurrency. Solutions include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80dd-928e-f54b28d2d304">Wrapping blocking calls with non-blocking variants (e.g., <code class="note-inline-code">select</code>/<code class="note-inline-code">poll</code>/<code class="note-inline-code">epoll</code>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8062-9319-e851603be312">Using a <strong>many-to-many model</strong> (kernel-managed “virtual processors”) – complex and rarely used today.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80d6-ab9e-feeab1809866"><u>Modern practice</u>: One-to-one is standard (Linux, Windows, macOS). The overhead is acceptable given faster context switches and multi-core support.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-80a1-b6ca-f12e52739979"><strong>Simultaneous multithreading (SMT)</strong> </h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80ea-95d8-e91934c8c001">Intel’s implementation is called <strong>Hyper-Threading Technology</strong>. A single physical core has duplicated architectural state (e.g., two sets of registers, two program counters) but shares most execution resources (ALUs, caches, etc.). The core can interleave instructions from two threads on the same cycle, filling pipeline slots that would otherwise be idle (e.g., when one thread stalls waiting for a cache miss).</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="35617c95-99fd-8027-910e-d331f53c777d"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/a6918d9d-3a03-4b37-801c-2898e1b0c97e/67f8aba5-0f64-4cf9-80b3-c14891a0eadc/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4667TRQXAO6%2F20260525%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260525T130615Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjEJr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJIMEYCIQDO6FxlaKzewRlZeVf92VhwTBi5z4B5SyPOEOpZ4R67sQIhAMIF8Qh%2Bs%2FjY93vU%2BAvJp0VyrRXHSxwYiRlHuI4aaZokKv8DCGMQABoMNjM3NDIzMTgzODA1IgxfJiDXbeb4MmLS34Qq3AM04ZMeeh3egDM73CrSOn%2FtYBAfo9TAzDzht5NcbwHnC6MVNTtgypm90sFeOqbEdfGvKyR9YIf89flA%2B9vbcSZHA1Q5MNW9vucYCXtosoJcuau%2FTigLcEU682TRQYd1AKjmVQbluvqAG%2BGePDMvVVur32QhOIqoy%2BH7zfThsva0kTbjQMoReIcZwRqkKpW8tqGtdXK0sCe7YOWlwuZhlKxZArcC5s08IQgZQbxws7F4Rktt85MonikLf0RAC7J12k0bbKW0lRE07EFltX9C5XTZp3cxyppAJTKW8X%2BzQ0WGYz13zaByiIeBG%2Bp8ov0ckcglomHHhEwT1NL%2Bh8VWo0nXxjqYcmZaHUL8tPcTQIZISH4PpoBHBV2mXXqaFTyFw2dgaULVe6rLYx9r2ehh7hUeOd8oLfDunixRsgzuzbnDjd9chJIGmtZ6gyNmhdXFj2zJmGsp9xfhRTCpTfEQ41EkkSk0HsxXs9stit097u%2FHYUUpm%2Bu5y9OQZtnXVHPM5mAjo71KTVdE1QLxRc5P5T5GSmu2PxH8bXi8eZUyjIQ077Mjd8C%2BAGX0RnWZm%2FgHvm7NL2H8TWY%2FHza4f7fqKrL0Lwrgnm%2FTTyu7tjBMPtZzG277wPBp4qOtsMCgMTDDqdDQBjqkAe%2BefBwKNoFEeXmsZ%2FBtdq3zvANueuSiAAP1Vg3Kf9vZKcxb3FN%2FmCjEQzed97Tc6SwdORKb5pmvEnCb6pp19ciTPy12wSp1G%2BsrKHxzNt9GfE1IB7Bs%2FYzKR9N357hfKZGkBdYWlbSOCWVUuk5xfCKvhE7DGKargLwZF90dkrMGaQ2DXUNHBo77UcFTW%2FL2O%2FaifSrBpfl%2BRtJ7socBqQVwLQTW&amp;X-Amz-Signature=22ff62703fe06bac3dc046978ea126515ef97e71b8be6bb63cdf75cebc763844&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="From https://medium.com/@ITsolutions/will-hyper-threading-improve-processing-performance-15cba11add74" /><figcaption>From <a href="https://medium.com/@ITsolutions/will-hyper-threading-improve-processing-performance-15cba11add74" rel="noreferrer noopener">https://medium.com/@ITsolutions/will-hyper-threading-improve-processing-performance-15cba11add74</a></figcaption></figure><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800d-961f-c354226ce3c4">Without SMT, a single-threaded core might achieve only 60–80% pipeline utilisation due to hazards and memory latencies. SMT can push it toward 90–100% by keeping the pipeline fed with work from another thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a4-ac56-c1fabbf4094c"><strong>Key implication for scheduling:</strong> The OS sees each hardware thread (logical core) as a separate CPU. The scheduler can assign threads to logical cores. The hardware then interleaves execution at the microarchitectural level. This is invisible to the programmer except for performance effects (e.g., cache contention between threads on the same physical core).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-806f-bad8-e95a4cebb7d6"></p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/context-switching/">
+    <span>Next reading</span>
+    <strong>Context Switching</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -91,6 +183,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

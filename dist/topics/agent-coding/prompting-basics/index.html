@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Prompting Basics · Computer Science Notes</title>
+
+    <meta name="description" content="Agents, feedback loops, and implementation habits." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/prompting-basics/" />
+    <meta property="og:title" content="Prompting Basics · Computer Science Notes" />
+    <meta property="og:description" content="Agents, feedback loops, and implementation habits." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/prompting-basics/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Prompting Basics · Computer Science Notes" />
+    <meta name="twitter:description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":3,"name":"Prompting Basics","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/prompting-basics/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
       <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80d0-878f-dafa5e6cb549">Here are some of the very basic techniques to write better prompts, that you can use as a guide:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8085-a6f7-c483a6c6b9f6">The Role, Goal, Context Framework<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-802b-b6c6-c59ae27311aa">Roles are useful are useful but they don’t direct every part of the behaviour. Goals are essential for the task at hand. Context is all the information surrounding the </p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8023-b5d5-ecb117d4295b">Learn the Key Words<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80a7-928f-d671700c1000">If you just ask the agent to implement a feature/fix, it will go ahead and implement it in the most generic way possible. This is why you need to have an exhaustive understanding of the solution space at a high level so that you can specify what it needs to build.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-80cf-a659-c21b9286fb4d">Few Shot Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-80a7-8cea-cea57550e010">This is presenting examples to the model to explain what the intended output looks like. This is useful when you want to repeat a pattern, refactor code, reference documentation or reference existing work.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="362d3a21-bb2d-801e-a647-f31396d49836">Iterative Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-8064-832f-f55ef8c40415">Use each completed step to ground the next one. We need a way to break down the problem, with two possible approaches including breaking down the feature and prototyping.</p><p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-805c-9b3d-f59b06146d4f">One very powerful example of iterative prompting is planning where agents give you a plan where you can catch misunderstandings early. Use planning for all big tasks where it would be expensive to go down the wrong track.</p></li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80d0-878f-dafa5e6cb549">Here are some of the very basic techniques to write better prompts, that you can use as a guide:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8085-a6f7-c483a6c6b9f6">The Role, Goal, Context Framework<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-802b-b6c6-c59ae27311aa">Roles are useful are useful but they don’t direct every part of the behaviour. Goals are essential for the task at hand. Context is all the information surrounding the </p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-8023-b5d5-ecb117d4295b">Learn the Key Words<p class="notion-block notion-paragraph" data-notion-block-id="361d3a21-bb2d-80a7-928f-d671700c1000">If you just ask the agent to implement a feature/fix, it will go ahead and implement it in the most generic way possible. This is why you need to have an exhaustive understanding of the solution space at a high level so that you can specify what it needs to build.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="361d3a21-bb2d-80cf-a659-c21b9286fb4d">Few Shot Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-80a7-8cea-cea57550e010">This is presenting examples to the model to explain what the intended output looks like. This is useful when you want to repeat a pattern, refactor code, reference documentation or reference existing work.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="362d3a21-bb2d-801e-a647-f31396d49836">Iterative Prompting<p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-8064-832f-f55ef8c40415">Use each completed step to ground the next one. We need a way to break down the problem, with two possible approaches including breaking down the feature and prototyping.</p><p class="notion-block notion-paragraph" data-notion-block-id="362d3a21-bb2d-805c-9b3d-f59b06146d4f">One very powerful example of iterative prompting is planning where agents give you a plan where you can catch misunderstandings early. Use planning for all big tasks where it would be expensive to go down the wrong track.</p></li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/agent-coding/skills/">
+    <span>Next reading</span>
+    <strong>Skills</strong>
+    <p>Continue inside Agentic Coding</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

@@ -1,0 +1,46 @@
+% Reusable NP-completeness reduction proof template.
+% Replace the problem names, construction, runtime bound, and correctness proof.
+
+\newcommand{\problemB}{B}
+\newcommand{\problemA}{A}
+\newcommand{\polyreduce}{\ensuremath{\le_p}}
+
+\section*{NP-Completeness Proof Template}
+
+\paragraph{Claim.}
+\problemA{} is NP-complete.
+
+\paragraph{Membership in NP.}
+Describe a certificate for yes-instances of \problemA{} and a deterministic verifier
+that checks the certificate in time polynomial in the input size.
+
+\paragraph{Known source problem.}
+Let \problemB{} be a known NP-complete problem.
+
+\paragraph{Reduction construction.}
+Given an instance $x$ of \problemB{}, construct an instance $f(x)$ of \problemA{}.
+Define every gadget, variable, constraint, edge, weight, or threshold introduced by
+the construction.
+
+\paragraph{Reduction runtime.}
+Show that $f(x)$ can be computed in time polynomial in $|x|$.
+
+\paragraph{Forward direction.}
+Prove that if $x$ is a yes-instance of \problemB{}, then $f(x)$ is a yes-instance
+of \problemA{}.
+
+\[
+x \in \problemB{} \implies f(x) \in \problemA{}
+\]
+
+\paragraph{Reverse direction.}
+Prove that if $f(x)$ is a yes-instance of \problemA{}, then $x$ is a yes-instance
+of \problemB{}. This is the direction that often catches weak reductions.
+
+\[
+f(x) \in \problemA{} \implies x \in \problemB{}
+\]
+
+\paragraph{Conclusion.}
+Since \problemB{} \polyreduce{} \problemA{} and \problemA{} is in NP,
+\problemA{} is NP-complete.

@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Greedy · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/greedy/" />
+    <meta property="og:title" content="Greedy · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/greedy/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Greedy · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Greedy","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/greedy/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,16 +59,86 @@
       <h1 class="site-title">Greedy</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-802b-b1de-c1e13f79aa46">The Greedy paradigm is a general approach to problem solving. It involves making a series of myopic and irrevocable decisions which lead to the optimal solution.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8099-bc61-e8f8371fb216">This breaks down solving the problem into solving one problem repeatedly.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80eb-a7f8-e1c8a86a7013">Thus we can solve the problem <strong>iteratively</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8013-a499-daa809f82833">This makes it a powerful problem solving approach but the problem is that for most problems, the <strong>greedy</strong> approach does not produce the right answer.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80a4-99f8-c76d4495b006">Hence, <em>proofs</em> are core to the greedy paradigm: we need to be able to prove that the greedy approach leads to the correct answer.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8083-8469-daed06dd1ba6">Greedy algorithms usually share the following characteristics:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-8058-be95-c7108f954055"><strong>Easy</strong> to devise (from an initial analysis of the problem)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-808c-a2d1-ea97997dda27"><strong>Easy</strong> to determine time complexity (usually sort + some constant time processing)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80bc-9404-d1865e21a680"><strong>Hard</strong> to prove correctness </li></ol><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-803e-b0ba-da64a3eca58f">If a greedy approach fails, then we have to turn to the other methods, namely <strong>divide and conquer</strong> or (at the worst-case) brute-force <strong>search</strong> of the solution space </p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cdd3a21-bb2d-80dc-a615-f58c771544cd">Approach to proofs</h1><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80db-84bc-e9d372a11dbc">The core analytic idea in the greedy paradigm is the idea of an <strong>optimal substructure</strong>:</p><blockquote class="notion-block notion-quote" data-notion-block-id="2cdd3a21-bb2d-80fc-9e68-f7762b446354">In computer science, a problem is said to have <em><strong>optimal substructure</strong></em> if an optimal solution can be constructed from optimal solutions of its subproblems. This property is used to determine the usefulness of greedy algorithms for a problem.</blockquote><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2cdd3a21-bb2d-80a2-ac66-fd4636627a8d">Exchange Arguments</h2><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-803a-83c9-c19d09405300">The other important idea for greedy algorithms is the <strong>exchange argument</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="32cd3a21-bb2d-8032-8974-cf5fb5d26029">The goal of the exchange argument is to show that of the multiple optimal solutions, there exists one optimal solution that is reached by the greedy approach (i.e. greedy algorithms lead to an optimal solution). </p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8033-b829-dbe42ebc572e">There are multiple ways to write out an exchange argument. Here, we present a popular approach to an exchange argument, which gives an idea of how an exchange argument may be structured.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="2ced3a21-bb2d-80c3-adfa-c75565824d6d">Using contradiction</h3><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8051-92b9-ec9c392130b2">The first approach to exchange arguments uses <strong>proof by contradiction</strong>. The assumption that we make (which we then try to contradict) is that there exists an optimal solution <span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span> which performs better than the greedy solution <span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80ab-8713-ca22bcd7e0a5">The <strong>end result</strong> we are aiming for is to show that the greedy solution performs better than the assumed optimal solution <span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>, leading to a contradiction.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80f6-a7c1-e5646316b738">Here is how we set about writing out an exchange argument to follow this line of reasoning:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80ab-8067-cc69d4ec8bdc">Focus on the differences. Typically, you can isolate a simple example of this difference, such as one of the following:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-808a-8460-da05fa94e503">there is an element of O that is not in A and an element of A that is not in O, or</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-804f-9f68-ed5f4e08d47d">there are 2 consecutive elements in O in a different order than they are in A (i.e. there is
 an inversion).</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-802e-8f56-dd252ca06531"><strong>Exchange </strong>to show that going from <span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span> to <span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span> will create a more optimal solution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80ca-82dc-e9ccef5c8ee9">Arrive at the contradiction. Hence, the optimal solution cannot be better than the greedy solution.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80d1-8fc2-c6bdcb54c921">However, it is easy to trip up with exchange arguments. Here are some common pitfalls to avoid:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-806f-a815-c96980c7611f">Be careful about using proofs by contradiction starting with the assumption <span class="note-inline-equation" data-latex="\sigma\neq\sigma^*">\(\sigma\neq\sigma^*\)</span>. Just because your greedy solution is not equal to the selected optimal solution does not mean that greedy is not optimal – there could be many optimal solutions, and your greedy one just isn’t the optimal solution you selected. So assuming <span class="note-inline-equation" data-latex="\sigma\neq\sigma^*">\(\sigma\neq\sigma^*\)</span> may not get you any contradiction at all, even if greedy works.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-801a-9861-ec2927a07ec0">You need to argue why the 2 elements you’re swapping even exist out of order, or exist in <span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span> but
 not in <span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>, etc.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80c4-9bfd-f7f50d81efd2">Remember you need to argue that multiple swaps can get you from your selected solution to
 greedy, as one single swap will usually not suffice. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80dd-ace1-f1d420491a59">Make sure that any step you make (and not just the first one) doesn’t hurt the solution quality.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="2ced3a21-bb2d-80bf-aaea-c54ae4ffeb91" /><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8022-b694-eec222315b40">A simple illustrative case is the scheduling problem. The greedy approach picks the task that has the earliest deadline.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80b6-ade3-f2043e1ba075">Suppose we have an optimal schedule (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>) that is different from the EDF schedule (<span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-804e-83c4-ede4af016975">Look at the first position where (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>) and (<span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>) differ.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-8026-b434-e7f129ba36f5">At this position, (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>) schedules a job (<span class="note-inline-equation" data-latex="J_i">\(J_i\)</span>) with a later deadline before a job (<span class="note-inline-equation" data-latex="J_j">\(J_j\)</span>) with an earlier deadline.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-806f-be90-f1f61b02c9c1">This creates an <strong>inversion</strong>: two consecutive jobs are in the wrong order relative to EDF.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80b3-b228-c002d6cc4768">Now, swap (<span class="note-inline-equation" data-latex="J_i">\(J_i\)</span>) and (<span class="note-inline-equation" data-latex="J_j">\(J_j\)</span>) in (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80c8-a2af-eaf49b72f807">After the swap, (<span class="note-inline-equation" data-latex="J_j">\(J_j\)</span>) (earlier deadline) comes before (<span class="note-inline-equation" data-latex="J_i">\(J_i\)</span>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80de-b4bf-e7d995777b2c">This exchange does <strong>not increase the maximum lateness</strong>:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80e6-9815-efeebf8e58a7">(<span class="note-inline-equation" data-latex="J_j">\(J_j\)</span>) finishes earlier, which can only reduce its lateness.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80bd-86ab-e086978d463a">(<span class="note-inline-equation" data-latex="J_i">\(J_i\)</span>) finishes later, but since its deadline is later than (<span class="note-inline-equation" data-latex="J_j">\(J_j\)</span>)’s, its lateness does not increase beyond what it was before.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-8083-a145-eb49a9da09e0">The swap reduces the number of inversions.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-80b4-a7a9-d1c13d62810e">By repeatedly applying this exchange, we can eliminate all inversions.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80a0-8e6b-e749dfbcf77e">Eventually, (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>) transforms into (<span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>), the EDF schedule.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-809e-9a50-c54af5c7a81d">Since (<span class="note-inline-equation" data-latex="\sigma^*">\(\sigma^*\)</span>) was assumed optimal, and we can transform it into EDF without worsening maximum lateness, EDF must also be optimal.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-80e1-b2c5-e803d3665081"><strong>Contradiction</strong>: there cannot exist a schedule strictly better than EDF.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="2ced3a21-bb2d-80c8-9721-d8a40dd2674d">Direct Proof</h3><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8026-bcd0-c7ec59f07502">An exhcnage argument can also be presented as a direct proof where you assume that the greedy solution <span class="note-inline-equation" data-latex="\sigma_G">\(\sigma_G\)</span> is better than an arbitrary solution <span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span>. Then, we can use the principle of an exchange argument to show that we can convert any solution <span class="note-inline-equation" data-latex="\sigma">\(\sigma\)</span> to the greedy solution <span class="note-inline-equation" data-latex="\sigma_G">\(\sigma_G\)</span> by performing exchanges that make the solution more optimal. Since the greedy solution is an improvement over every arbitrary solution, it can be shown to be the <strong>best</strong> solution.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2cdd3a21-bb2d-801a-8b7e-f2b2e21e47de">Justifying Greedy</h2><p class="notion-block notion-paragraph" data-notion-block-id="2cdd3a21-bb2d-8005-a86b-e3542a531fc9">Here is how to show that a problem can be solved with a greedy algorithm:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-8098-8dd0-f091098c86a8">Cast the problem where we have to make a greedy choice. This leaves us with just one sub problem to solve.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-804d-84dc-ef781ef45ac3">Prove (usually using an exchange argument) that there is always an optimal solution to the original problem that makes the greedy choice.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cdd3a21-bb2d-8020-b3b2-f43c4dd87821">Use optimal substructure (usually using proof by contradiction) to show that we can combine an optimal solution to the sub problem with the greedy choice to get an optimal solution to the original problem.</li></ol><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="365d3a21-bb2d-8035-a6d8-e025d299ee67">Pitfalls</h2><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80b1-b150-d2ea54164497">Here are some issues that you might come across when trying to come up with greedy strategies:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80c7-a833-e0e2e4de5126"><strong>Ignoring feasibility constraints</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-806d-9308-c9dcfc492c37">You show that swapping increases or preserves value, but forget that deadlines, capacities, or resource limits may be violated after the swap.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80ba-8d45-e1b8c621822d">Example: In scheduling problems, swapping jobs by profit doesn’t guarantee deadlines are still met.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-809a-8823-c3b03740d7bd"><strong>Assuming local optimality implies global optimality</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-809a-955a-caf4a623e6eb">Just because one swap improves the situation doesn’t mean repeated swaps lead to the global optimum.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-807e-8cbc-ef94930ce848">Exchange arguments must prove that <em>any</em> optimal solution can be transformed into the greedy one without loss.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8024-bc6c-e0d30f8fe116"><strong>Incomplete definition of the greedy solution</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-802a-8afe-dac295d59be8">If the greedy algorithm only produces an order but doesn’t specify how constraints are satisfied (like assigning slots), the exchange argument is proving something about an ill‑defined object.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8003-8102-c48d98171b97"><strong>Overlooking tie-breaking subtleties</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80fb-8f64-f70b9ab44886">When multiple elements have equal priority, the exchange argument must show that <em>any</em> tie-breaking choice leads to optimality, or else specify the correct tie-breaking rule.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8035-a017-f1c51c00aa09"><strong>Not proving termination of exchanges</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8093-be8d-d74d32252c06">You need to show that after a finite number of exchanges, the greedy solution is reached. Otherwise, the argument is circular.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80b2-9d9c-ca4046270052"><strong>Confusing “no worse” with “always feasible”</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-808b-8357-c2513ade5ab2">It’s not enough to show that swapping doesn’t reduce value; you must also show feasibility is preserved at every step.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-8084-a195-ecdad2d837ea">Thinking about exchange arguments is an art. So there are a lot of mental models you might use to help you out.</p><p class="notion-block notion-paragraph" data-notion-block-id="365d3a21-bb2d-80e2-a163-dc4bd91109e2">Think of exchange arguments as a <strong>“repair process”</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-80a8-85b4-fd1e62374743">Start with an optimal solution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8057-9fc5-cbf6bf4fa486">Whenever it deviates from greedy, “repair” it by swapping in the greedy choice.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="365d3a21-bb2d-8036-ad47-cda17a200efb">If every repair keeps feasibility and doesn’t reduce value, then the greedy solution is optimal.</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/heap-sort/">
+    <span>Next reading</span>
+    <strong>Heap Sort</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -90,6 +182,20 @@ greedy, as one single swap will usually not suffice. </li><li class="notion-bloc
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

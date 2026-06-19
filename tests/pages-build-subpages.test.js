@@ -24,6 +24,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const outDir = path.join(root, "dist");
     const mathJaxSourcePath = path.join(root, "mathjax-source.js");
     const portfolioDataPath = path.join(contentDir, "portfolio-repositories.json");
+    const researchTasteDataPath = path.join(contentDir, "research-taste.json");
     await fs.mkdir(topicsDir, { recursive: true });
     await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
 
@@ -70,7 +71,35 @@ test("builds child_page routes and makes subpages searchable", async () => {
         {
           slug: "algorithms",
           title: "Algorithms",
-          description: "Algorithm notes",
+          description:
+            "Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.",
+          pillar: {
+            startHere: [
+              {
+                title: "Dynamic Programming",
+                description: "Learn how states, transitions, and optimal substructure organize hard problems.",
+                href: "/topics/algorithms/dynamic-programming/",
+              },
+            ],
+            readingPath: [
+              {
+                label: "Foundations",
+                links: [
+                  { title: "Recursion", href: "/topics/algorithms/recursion/" },
+                  { title: "Binary Search", href: "/topics/algorithms/binary-search/" },
+                ],
+              },
+              {
+                label: "Graphs",
+                links: [
+                  {
+                    title: "Breadth-first search",
+                    href: "/topics/algorithms/breadth-first-search-bfs/",
+                  },
+                ],
+              },
+            ],
+          },
           source: { kind: "normalized-file", path: "topics/algorithms.normalized.json" },
         },
       ], null, 2)}\n`,
@@ -106,6 +135,44 @@ test("builds child_page routes and makes subpages searchable", async () => {
       )}\n`,
       "utf8",
     );
+    await fs.writeFile(
+      researchTasteDataPath,
+      `${JSON.stringify(
+        {
+          topics: [
+            {
+              title: "NP-completeness and reductions",
+              rationale:
+                "A compact way to see why many different-looking problems share the same computational obstruction.",
+              sources: [
+                {
+                  label: "Stephen Cook, The Complexity of Theorem-Proving Procedures",
+                  href: "https://doi.org/10.1145/800157.805047",
+                },
+                {
+                  label: "Richard Karp, Reducibility Among Combinatorial Problems",
+                  href: "https://doi.org/10.1007/978-1-4684-2001-2_9",
+                },
+              ],
+            },
+            {
+              title: "Shortest paths and graph structure",
+              rationale:
+                "Shortest path algorithms are a clean meeting point for invariants, data structures, and graph modeling.",
+              sources: [
+                {
+                  label: "Edsger W. Dijkstra, A note on two problems in connexion with graphs",
+                  href: "https://doi.org/10.1007/BF01386390",
+                },
+              ],
+            },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+      "utf8",
+    );
 
     await buildPagesSite({
       manifestPath: path.join(contentDir, "topic-manifest.json"),
@@ -113,6 +180,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
       siteTitle: "Computer Science Notes",
       mathJaxSourcePath,
       portfolioDataPath,
+      researchTasteDataPath,
+      siteUrl: "https://example.test",
     });
 
     const parentHtml = await fs.readFile(
@@ -124,13 +193,24 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     const homeHtml = await fs.readFile(path.join(outDir, "index.html"), "utf8");
+    const startHereHtml = await fs.readFile(path.join(outDir, "start-here", "index.html"), "utf8");
+    const researchTasteHtml = await fs.readFile(path.join(outDir, "research-taste", "index.html"), "utf8");
+    const errataHtml = await fs.readFile(path.join(outDir, "errata", "index.html"), "utf8");
+    const subscribeHtml = await fs.readFile(path.join(outDir, "subscribe", "index.html"), "utf8");
     const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
+    const feedXml = await fs.readFile(path.join(outDir, "feed.xml"), "utf8");
+    const sitemapXml = await fs.readFile(path.join(outDir, "sitemap.xml"), "utf8");
+    const robotsTxt = await fs.readFile(path.join(outDir, "robots.txt"), "utf8");
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
     );
     const mathJaxAsset = await fs.readFile(
       path.join(outDir, "assets", "vendor", "mathjax", "tex-svg-full.js"),
+      "utf8",
+    );
+    const socialPreviewAsset = await fs.readFile(
+      path.join(outDir, "assets", "social", "theoretical-cs-preview.svg"),
       "utf8",
     );
 
@@ -139,19 +219,123 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes('class="note-label notion-label-color-blue"'));
     assert.ok(childHtml.includes('aria-label="Page labels"'));
     assert.ok(childHtml.includes("Reviewed"));
+    assert.equal(parentHtml.match(/class="subscribe-panel/g)?.length, 2);
+    assert.ok(parentHtml.includes('id="subscribe-topic-top"'));
+    assert.ok(parentHtml.includes('id="subscribe-topic"'));
+    assert.ok(parentHtml.includes('class="subscribe-panel subscribe-panel-compact"'));
+    assert.equal(childHtml.match(/class="subscribe-panel/g)?.length, 2);
+    assert.ok(childHtml.includes('id="subscribe-topic-subpage-top"'));
+    assert.ok(childHtml.includes('id="subscribe-topic-subpage"'));
+    assert.ok(parentHtml.includes('href="/feed.xml"'));
+    assert.ok(parentHtml.includes('data-analytics-event="rss_click"'));
+    assert.ok(parentHtml.includes('data-analytics-event="newsletter_cta_click"'));
+    assert.ok(parentHtml.includes('<meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />'));
+    assert.ok(parentHtml.includes('<link rel="canonical" href="https://example.test/topics/algorithms/" />'));
+    assert.ok(parentHtml.includes('<meta property="og:type" content="website" />'));
+    assert.ok(parentHtml.includes('"@type":"BreadcrumbList"'));
+    assert.ok(parentHtml.includes('"name":"Algorithms"'));
+    assert.ok(parentHtml.includes('class="topic-pillar"'));
+    assert.ok(parentHtml.includes("Start here"));
+    assert.ok(parentHtml.includes("How to read Algorithms"));
+    assert.ok(parentHtml.includes("Learn how states, transitions, and optimal substructure organize hard problems."));
+    assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
+    assert.ok(parentHtml.includes("Foundations"));
+    assert.ok(parentHtml.includes("Breadth-first search"));
+    assert.ok(parentHtml.includes('class="next-reading"'));
+    assert.ok(parentHtml.includes("Next reading"));
+    assert.ok(parentHtml.includes('class="next-reading-link" href="/topics/algorithms/dynamic-programming/"'));
+    assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
+    assert.ok(homeHtml.includes("Theoretical CS, from intuition to proof."));
+    assert.ok(homeHtml.includes("Rigorous notes on algorithms, computation, systems, and AI engineering"));
+    assert.ok(homeHtml.includes('href="/subscribe/"'));
+    assert.ok(homeHtml.includes("Get the monthly deep dive"));
+    assert.ok(homeHtml.includes('href="/start-here/"'));
+    assert.ok(homeHtml.includes("Start here"));
+    assert.ok(homeHtml.includes('class="home-proof"'));
+    assert.ok(homeHtml.includes("<span>2</span>"));
+    assert.ok(homeHtml.includes("searchable note pages"));
+    assert.ok(homeHtml.includes('class="home-bio"'));
+    assert.ok(homeHtml.includes("Praneeth Suresh writes rigorous computer science notes"));
+    assert.ok(homeHtml.includes("connect intuition, formal models, and proof sketches"));
+    assert.ok(homeHtml.includes('href="/research-taste/"'));
     assert.ok(homeHtml.includes('href="/about/"'));
+    assert.ok(homeHtml.includes('<footer class="site-footer"'));
+    assert.ok(homeHtml.includes('href="/sitemap.xml"'));
+    assert.ok(homeHtml.includes('href="/errata/"'));
+    assert.ok(homeHtml.includes('href="/subscribe/"'));
+    assert.ok(homeHtml.includes('data-subscribe-source="footer"'));
+    assert.ok(homeHtml.includes('href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer"'));
+    assert.ok(homeHtml.includes('rel="alternate" type="application/rss+xml"'));
+    assert.ok(homeHtml.includes('href="/feed.xml"'));
+    assert.ok(homeHtml.includes('<meta name="description" content="Rigorous notes on algorithms, computation, systems, and AI engineering, written for readers who want the idea, the formal model, and the proof sketch in one place." />'));
+    assert.ok(homeHtml.includes('<link rel="canonical" href="https://example.test/" />'));
+    assert.ok(homeHtml.includes('<meta property="og:title" content="Theoretical CS, from intuition to proof. · Computer Science Notes" />'));
+    assert.ok(homeHtml.includes('<meta property="og:url" content="https://example.test/" />'));
+    assert.ok(homeHtml.includes('<meta property="og:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
+    assert.ok(homeHtml.includes('<meta property="og:image:width" content="1200" />'));
+    assert.ok(homeHtml.includes('<meta property="og:image:height" content="630" />'));
+    assert.ok(homeHtml.includes('<meta name="twitter:card" content="summary_large_image" />'));
+    assert.ok(homeHtml.includes('<meta name="twitter:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
+    assert.ok(homeHtml.includes('data-analytics-event="page_view"'));
+    assert.ok(homeHtml.includes('window.notesAnalyticsEvents'));
+    assert.ok(homeHtml.includes('class="subscribe-panel"'));
     assert.ok(homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
+    assert.ok(startHereHtml.includes("<title>Start Here · Computer Science Notes</title>"));
+    assert.ok(startHereHtml.includes('href="/start-here/"'));
+    assert.ok(startHereHtml.includes("Start with the Algorithms pillar"));
+    assert.ok(startHereHtml.includes('href="/topics/algorithms/"'));
+    assert.ok(startHereHtml.includes("Read one proof-backed note"));
+    assert.ok(startHereHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
+    assert.ok(startHereHtml.includes("Subscribe when the shape is useful"));
+    assert.ok(startHereHtml.includes('href="/feed.xml"'));
+    assert.ok(startHereHtml.includes('href="/research-taste/"'));
+    assert.ok(startHereHtml.includes('class="subscribe-panel"'));
+    assert.ok(startHereHtml.includes('<link rel="canonical" href="https://example.test/start-here/" />'));
+    assert.ok(startHereHtml.includes('<meta name="description" content="A guided first path through Computer Science Notes: start with Algorithms, read one proof-backed note, and subscribe by RSS." />'));
+    assert.ok(researchTasteHtml.includes("<title>Research Taste · Computer Science Notes</title>"));
+    assert.ok(researchTasteHtml.includes("Research taste"));
+    assert.ok(researchTasteHtml.includes("NP-completeness and reductions"));
+    assert.ok(researchTasteHtml.includes("Shortest paths and graph structure"));
+    assert.ok(researchTasteHtml.includes("Stephen Cook, The Complexity of Theorem-Proving Procedures"));
+    assert.ok(researchTasteHtml.includes("https://doi.org/10.1145/800157.805047"));
+    assert.ok(researchTasteHtml.includes("Richard Karp, Reducibility Among Combinatorial Problems"));
+    assert.ok(researchTasteHtml.includes("https://doi.org/10.1007/978-1-4684-2001-2_9"));
+    assert.ok(researchTasteHtml.includes('class="research-topic"'));
+    assert.ok(researchTasteHtml.includes('<link rel="canonical" href="https://example.test/research-taste/" />'));
+    assert.ok(researchTasteHtml.includes('<meta name="description" content="A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails." />'));
+    assert.ok(researchTasteHtml.includes('<footer class="site-footer"'));
+    assert.ok(errataHtml.includes("<title>Errata · Computer Science Notes</title>"));
+    assert.ok(errataHtml.includes("Errata"));
+    assert.ok(errataHtml.includes("No published corrections yet."));
+    assert.ok(errataHtml.includes("When a substantive error is found"));
+    assert.ok(errataHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
+    assert.ok(errataHtml.includes('<link rel="canonical" href="https://example.test/errata/" />'));
+    assert.ok(errataHtml.includes('<meta name="description" content="Public corrections and clarification policy for Computer Science Notes." />'));
+    assert.ok(subscribeHtml.includes("<title>Subscribe · Computer Science Notes</title>"));
+    assert.ok(subscribeHtml.includes("Subscribe"));
+    assert.ok(subscribeHtml.includes("One rigorous theoretical CS deep dive every 3-4 weeks."));
+    assert.ok(subscribeHtml.includes("Email newsletter provider pending."));
+    assert.ok(subscribeHtml.includes('href="/feed.xml"'));
+    assert.ok(subscribeHtml.includes('data-analytics-event="rss_click"'));
+    assert.ok(subscribeHtml.includes('href="/start-here/"'));
+    assert.ok(subscribeHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
+    assert.ok(subscribeHtml.includes('<link rel="canonical" href="https://example.test/subscribe/" />'));
+    assert.ok(subscribeHtml.includes('<meta name="description" content="Subscribe to Computer Science Notes by RSS while the email newsletter provider is being selected." />'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
     assert.ok(homeHtml.includes('document.addEventListener("keydown"'));
     assert.ok(homeHtml.includes('target.tagName === "INPUT"'));
     assert.ok(homeHtml.includes('searchInput.focus();'));
     assert.ok(personalHtml.includes("Praneeth Suresh"));
     assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
+    assert.ok(personalHtml.includes("I publish rigorous, proof-backed explanations of theoretical CS topics with research-level depth and clear intuition."));
+    assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
     assert.ok(personalHtml.includes("NewRepo"));
     assert.ok(personalHtml.includes("A newly refreshed public repository."));
+    assert.ok(personalHtml.includes('data-analytics-event="outbound_github_click"'));
+    assert.ok(personalHtml.includes('data-analytics-event="outbound_linkedin_click"'));
     assert.ok(personalHtml.includes("<span>1</span>"));
     assert.ok(personalHtml.includes("href=\"/\" data-hotkey=\"H\""));
     assert.ok(personalHtml.includes("href=\"/#main-content\" data-hotkey=\"N\""));
@@ -165,13 +349,40 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
     assert.ok(siteCss.includes(".portfolio-quote"));
     assert.ok(siteCss.includes(".portfolio-hero"));
+    assert.ok(siteCss.includes(".site-links a[data-hotkey]::before"));
+    assert.ok(!siteCss.includes(".site-links a::before,\n.topic-nav a::before"));
+    assert.ok(siteCss.includes(".site-footer"));
+    assert.ok(siteCss.includes('mjx-container[jax="SVG"][display="true"]'));
     assert.ok(siteCss.includes("@media (prefers-reduced-motion: reduce)"));
     assert.ok(childHtml.includes("<h1 class=\"site-title\">Dynamic Programming</h1>"));
+    assert.ok(!childHtml.includes('class="topic-pillar"'));
+    assert.ok(!childHtml.includes('class="next-reading"'));
     assert.ok(childHtml.includes("Optimal substructure"));
+    assert.ok(childHtml.includes('<link rel="canonical" href="https://example.test/topics/algorithms/dynamic-programming/" />'));
+    assert.ok(childHtml.includes('"name":"Dynamic Programming"'));
     assert.ok(childHtml.includes('src="/assets/vendor/mathjax/tex-svg-full.js"'));
     assert.ok(!childHtml.includes("cdn.jsdelivr.net"));
     assert.ok(childHtml.includes("\\[dp[i]=\\min_j(dp[j]+c)\\]"));
+    assert.ok(feedXml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
+    assert.ok(feedXml.includes("<title>Computer Science Notes</title>"));
+    assert.ok(feedXml.includes("<link>https://example.test/topics/algorithms/</link>"));
+    assert.ok(feedXml.includes("<guid>https://example.test/topics/algorithms/</guid>"));
+    assert.ok(feedXml.includes("<description>Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</description>"));
+    assert.ok(sitemapXml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/start-here/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/research-taste/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/errata/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/subscribe/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/about/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/dynamic-programming/</loc>"));
+    assert.ok(robotsTxt.includes("User-agent: *"));
+    assert.ok(robotsTxt.includes("Allow: /"));
+    assert.ok(robotsTxt.includes("Sitemap: https://example.test/sitemap.xml"));
     assert.equal(mathJaxAsset, "window.MathJax = window.MathJax || {};\n");
+    assert.ok(socialPreviewAsset.includes("<svg"));
+    assert.ok(socialPreviewAsset.includes("Theoretical CS"));
     assert.deepEqual(
       searchIndex.map((entry) => entry.slug),
       ["algorithms", "algorithms/dynamic-programming"],

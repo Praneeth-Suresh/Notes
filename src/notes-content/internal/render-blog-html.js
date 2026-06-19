@@ -18,15 +18,16 @@ function renderBlogBody(markdownString) {
   return `<article class="blog-article">${marked.parse(markdownString)}</article>`;
 }
 
-function createBlogSearchEntry({ slug, title, markdownString }) {
+function createBlogSearchEntry({ slug, title, description = "", markdownString }) {
   if (typeof slug !== "string" || slug.trim() === "") {
     throw new Error("slug must be a non-empty string.");
   }
+  const resolvedDescription = typeof description === "string" ? description.trim() : "";
   const text = (markdownString || "").replace(/!\[[^\]]*\]\([^)]*\)/g, "").replace(/[#*_`>\[\]()~-]/g, " ").replace(/\s+/g, " ").trim();
   return {
     slug: `blog/${slug}`,
     title: title || slug,
-    description: "",
+    description: resolvedDescription,
     searchableText: `${title || ""} ${text}`.trim(),
   };
 }

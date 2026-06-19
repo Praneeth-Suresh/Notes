@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quick Sort · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/quick-sort/" />
+    <meta property="og:title" content="Quick Sort · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/quick-sort/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quick Sort · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Quick Sort","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/quick-sort/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Quick Sort</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-80c8-8fba-fb28e7be4a29">Quicksort is one of the most popular algorithms of all time because. While in running time it performs the same as merge sort, it sorts <em>in place</em> so does not come with significant space overhead.</p><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-8074-91ae-d4bfaf730d81">However, the algorithm is not trivial and requires detailed analysis to understand why it reaches <span class="note-inline-equation" data-latex="O(N \log{N})">\(O(N \log{N})\)</span> run time.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80cf-bba9-ec8ce8b1e24c">Quicksort is a divide and conquer algorithm where the divide step is non-trivial. However, this makes the merge sort algorithm simple.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2eed3a21-bb2d-80cd-8942-cd0019ed83e0">Partitioning</h1><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-8086-88cf-dd27fa9cb747">At its core, it&#39;s beautifully simple: take some collection of elements and rearrange them so that elements satisfying some property end up on one side, and elements not satisfying it end up on the other.</p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-8056-beec-d61551ca3021">Think of partitioning as a filtering operation that&#39;s done in-place. You&#39;re not creating new arrays; you&#39;re cleverly rearranging elements using the space you already have. </p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-80a9-963b-c53a39a2d012">The <strong>Lomuto partition scheme</strong> is easiest to understand. You maintain a boundary between &quot;small&quot; and &quot;unprocessed&quot; elements:</p><figure class="notion-block notion-code" data-notion-block-id="2eed3a21-bb2d-8097-bc40-edc5a13c897a"><pre class="note-code-block" data-language="python"><code class="language-python">partition(A, low, high):
     pivot = A[high]
     i = low - 1  // boundary of small elements
@@ -49,11 +85,67 @@
     
     swap A[i+1] with A[high]
     return i+1</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-8095-85e0-e3c3efa601c0">The partitioning algorithm always returns the number of elements smaller than the pivot.</p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-8017-83f5-f13f3be6cb75">The invariant is key: at every step, everything from <code class="note-inline-code">low</code> to <code class="note-inline-code">i</code> is ≤ pivot, everything from <code class="note-inline-code">i+1</code> to <code class="note-inline-code">j-1</code> is &gt; pivot, and everything from <code class="note-inline-code">j</code> onward is unprocessed. The partitioning algorithm is one of the best illustration of the idea of <strong>invariants</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-806c-b4ba-fd6818efe69c">Note how we maintain two pointers: <code class="note-inline-code">i</code> and <code class="note-inline-code">j</code> so that we can rearrange elements within the space we have.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-806b-b104-dc54100e65e6"><code class="note-inline-code">i</code> → Boundary between lower and higher</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80c2-9388-c153ee82d309"><code class="note-inline-code">j</code> → The next element we want to add into the partition</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2eed3a21-bb2d-80b8-81d3-d113c5c61f50">Example Problems</h2><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-80c8-a40e-cd516c1edf60">Partitioning is the secret weapon behind quicksort, one of the fastest practical sorting algorithms.</p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-809f-bbc3-d9f8c8ad69b0">It&#39;s central to selection algorithms that find the kth smallest element in linear time.</p><p class="notion-block notion-paragraph" data-notion-block-id="2eed3a21-bb2d-8041-95fa-de4fc7b248b3">It appears in computational geometry, string algorithms, database query optimization, and even in how operating systems manage memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8007-b4d9-e6d107fdb0f0"><strong>Linear Time Selection</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="318d3a21-bb2d-8025-a9ee-d6a2cafc652b">This is a key application of partitioning. Refer to <a href="https://www.notion.so/318d3a21bb2d8024b571f9e6d6b87e61#318d3a21bb2d80698fe4c5febff47dc3" rel="noreferrer noopener">Quickselect</a> .</p><p class="notion-block notion-paragraph" data-notion-block-id="2fed3a21-bb2d-80cc-9594-c437bd00a276"><strong>Three way partitioning</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="2fed3a21-bb2d-8031-8959-ca52cfced4b0">This is incredibly useful when the data we are working with has a lot of duplicates (for example, sorting a list with 4 keys). This is to make sure the partition is effective.</p><p class="notion-block notion-paragraph" data-notion-block-id="2fed3a21-bb2d-80a4-b6a8-d225c95d3cf1">This approach partitions the array and then partitions one of the two partitions produced. </p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2f4d3a21-bb2d-802e-b324-c46089e245f3">Quicksort</h1><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8012-b4cf-c172234e4cc3">Quicksort employs a straightforward use of partitioning to choose a point at which to divide the array in the process of implementing divide-and-conquer.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2f4d3a21-bb2d-80ef-89d7-e1cd8847cf75">Space Complexity</h2><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80b4-a41f-de227bba17e3">Since this is a recursive algorithm, the space complexity depends on the <strong>depth of the call stack</strong>. At each call stack, we use constant space because all we need to do is swap elements.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8087-998f-febd5eba815a">Thus, the complexity is the depth of the call stack which is in the worst case <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span>.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2f4d3a21-bb2d-8012-863a-c22cd8fb77c4">Time Complexity</h2><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8072-89da-d6b0ef87baee">This is where things get interesting!</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80cc-ad9a-c3a3746879a6">If we make the assumption that we have the ideal scenario where our pivot will always split the array in half, we get the following recurrence:</p><div class="notion-block notion-equation" data-notion-block-id="2f4d3a21-bb2d-804d-b4c0-c32c4296c54f" data-latex="T(n)=2 \times T(n/2)+O(n)">\[T(n)=2 \times T(n/2)+O(n)\]</div><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80da-80cb-cdcc66bb2898">The <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> comes from the partitioning algorithm which is run on the input array to get the point at which the division is to be done. This is the same as the <strong>merge sort</strong> recurrence (although in that case, <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> comes from merging instead of partitioning) leading to the runtime of <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8071-bf85-d04452a7369d">However, this is based on an assumption: its hard to expect that this assumption will always be true.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80a0-86f5-f8b147bc7967">In the worst case, where the pivot is always the smallest/largest element, we are going to have the following recurrence:</p><div class="notion-block notion-equation" data-notion-block-id="2f4d3a21-bb2d-80d8-90e4-de90c122d3f5" data-latex="T(n)=T(n-1)+O(n)">\[T(n)=T(n-1)+O(n)\]</div><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80f9-b746-f8ab21f73de6">This leads to a complexity of <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span> (easiest seen with the help of a recursion tree). This is bad.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80b4-879b-f53018f76479">So how can we proceed? First, we have to notice that we don’t need to get a perfect 50-50 split around the pivot. Consider a split such that <span class="note-inline-equation" data-latex="1/3">\(1/3\)</span> of the values. In this case, we can write the recurrence as follows:</p><div class="notion-block notion-equation" data-notion-block-id="2f4d3a21-bb2d-8022-9e37-cf6aa2b78cf1" data-latex="T(n)=T(n/3)+T(2n/3)+O(n)">\[T(n)=T(n/3)+T(2n/3)+O(n)\]</div><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80ea-8291-cdcabf18f9be">Now, we can solve this using either Akra-Bazzi or a recursion tree to yield a runtime of <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-807c-8474-f585c7216465"></p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80ab-8188-f0f8dcfccedf">Our solution to reach this bound is a <strong>randomized algorithm</strong>. We can’t determine the actual running time in this case but rather we deal with <strong>expected running time</strong>: the running time we get on most cases, as corrected by the distribution of cases.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f5d3a21-bb2d-8004-b90f-cd280290d529">Here is how the <em>paranoid</em> partitioning algorithm works: <em>keep randomly selecting an element in the sub-array arr[left, right) to use as a pivot and run i = Partition(arr, left, right) until the pivot placement i is within the 30th and 70th percentile of arr[left, right).</em></p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80ba-89dc-cbd4ffb4bbed">Now, we can show that we can use a pivoting algorithm that runs in <span class="note-inline-equation" data-latex="O(n)">\(O(n)\)</span> time (when working with Expected Values) to get a pivot that is in the middle 40 percentile of the dataset. </p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8008-a0c6-c10470b5797f">The proof can be obtained by starting by considering the expected value for the number of trials before a Bernoulli experiment produces a particular value.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80d0-aacd-e126e6c5c318">Now, we know that this approximately, if this is true (as per the above recurrence), then we have an algorithm with <span class="note-inline-equation" data-latex="O(n \log n)">\(O(n \log n)\)</span> runtime.</p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-80e5-abc3-e9933932adb2"></p><p class="notion-block notion-paragraph" data-notion-block-id="2f4d3a21-bb2d-8089-af93-e1c6058554d7"></p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/binary-search/">
+    <span>Next reading</span>
+    <strong>Binary Search</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -97,6 +189,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

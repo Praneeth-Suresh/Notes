@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Research Taste · Computer Science Notes</title>
+
+    <meta name="description" content="A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/research-taste/" />
+    <meta property="og:title" content="Research Taste · Computer Science Notes" />
+    <meta property="og:description" content="A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/research-taste/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Research Taste · Computer Science Notes" />
+    <meta name="twitter:description" content="A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="research-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Research taste navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a href="/start-here/">Start here</a>
+      <a class="active" href="/research-taste/" aria-current="page">Research taste</a>
+      <a href="/#main-content" data-hotkey="N">Notes</a>
+      <a href="/blog/" data-hotkey="B">Blog</a>
+    </nav>
+    <section id="main-content" class="research-hero" aria-labelledby="research-title">
+      <p class="home-kicker">[ Research taste ]</p>
+      <h1 id="research-title">Research taste</h1>
+      <p>This is the public source trail behind future theoretical CS notes: problems, methods, and papers that shape what gets studied next.</p>
+    </section>
+    <section class="research-grid" aria-label="Research topics">
+      <article class="research-topic" data-index="01">
+  <span class="research-topic-index">01</span>
+  <h2>NP-completeness and reductions</h2>
+  <p>The clearest lens for seeing when many different-looking problems share one computational obstruction. This is the backbone for writing notes that move between intuition, formal reductions, and proof obligations.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1145/800157.805047">Stephen Cook, The Complexity of Theorem-Proving Procedures</a></li><li><a href="https://doi.org/10.1007/978-1-4684-2001-2_9">Richard Karp, Reducibility Among Combinatorial Problems</a></li></ul>
+</article><article class="research-topic" data-index="02">
+  <span class="research-topic-index">02</span>
+  <h2>Shortest paths and graph structure</h2>
+  <p>Shortest path algorithms expose the connection between invariants, data structures, and graph modeling. They also make implementation tradeoffs concrete without losing the mathematical thread.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1007/BF01386390">Edsger W. Dijkstra, A note on two problems in connexion with graphs</a></li><li><a href="https://doi.org/10.1137/1.9781611970265">Robert Tarjan, Data Structures and Network Algorithms</a></li></ul>
+</article><article class="research-topic" data-index="03">
+  <span class="research-topic-index">03</span>
+  <h2>Depth-first search and graph decompositions</h2>
+  <p>DFS is small enough to teach carefully and powerful enough to generate bridges, components, topological order, and linear-time graph structure. It rewards exact invariants.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1137/0201010">Robert Tarjan, Depth-first search and linear graph algorithms</a></li></ul>
+</article><article class="research-topic" data-index="04">
+  <span class="research-topic-index">04</span>
+  <h2>Network flow and cuts</h2>
+  <p>Flow turns algorithm design into a conversation between primal constructions and dual certificates. It is one of the best places to show why correctness proofs can feel inevitable.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.4153/CJM-1956-045-5">L. R. Ford and D. R. Fulkerson, Maximal Flow Through a Network</a></li></ul>
+</article><article class="research-topic" data-index="05">
+  <span class="research-topic-index">05</span>
+  <h2>Dynamic programming and optimal substructure</h2>
+  <p>Dynamic programming is where informal pattern recognition needs discipline: state definitions, recurrence validity, boundary cases, and reconstruction all have to line up.</p>
+  <ul class="research-sources"><li><a href="https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming">Richard Bellman, Dynamic Programming</a></li></ul>
+</article><article class="research-topic" data-index="06">
+  <span class="research-topic-index">06</span>
+  <h2>Space-bounded computation</h2>
+  <p>Space complexity changes the shape of what a computation is allowed to remember. It is a useful counterweight to time-only algorithm discussions.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1016/S0022-0000(70)80006-X">Walter Savitch, Relationships between nondeterministic and deterministic tape complexities</a></li></ul>
+</article><article class="research-topic" data-index="07">
+  <span class="research-topic-index">07</span>
+  <h2>Primality and randomized thinking</h2>
+  <p>Primality testing is a strong route into randomized algorithms, derandomization questions, and the surprise value of a deterministic polynomial-time proof.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.4007/annals.2004.160.781">Manindra Agrawal, Neeraj Kayal, and Nitin Saxena, PRIMES is in P</a></li></ul>
+</article><article class="research-topic" data-index="08">
+  <span class="research-topic-index">08</span>
+  <h2>Matrix methods and fast algebra</h2>
+  <p>Fast algebra is a reminder that basic operations hide deep algorithmic structure. It creates a bridge from algorithms into complexity and numerical computation.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1007/BF02165411">Volker Strassen, Gaussian elimination is not optimal</a></li></ul>
+</article><article class="research-topic" data-index="09">
+  <span class="research-topic-index">09</span>
+  <h2>Amortized data structures</h2>
+  <p>Amortized analysis teaches readers to reason about sequences rather than isolated operations. It is one of the best techniques for turning messy behavior into a crisp bound.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1145/3828.3835">Daniel Sleator and Robert Tarjan, Self-Adjusting Binary Search Trees</a></li></ul>
+</article><article class="research-topic" data-index="10">
+  <span class="research-topic-index">10</span>
+  <h2>Algorithms as a discipline</h2>
+  <p>The site needs a stable center of gravity: precise algorithm statements, correctness arguments, complexity analysis, and implementation realism in the same frame.</p>
+  <ul class="research-sources"><li><a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/">Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein, Introduction to Algorithms</a></li></ul>
+</article><article class="research-topic" data-index="11">
+  <span class="research-topic-index">11</span>
+  <h2>Randomized algorithms</h2>
+  <p>Randomness makes probability a design tool rather than a post-hoc analysis layer. It is useful for explaining expected bounds, concentration, and failure probability.</p>
+  <ul class="research-sources"><li><a href="https://doi.org/10.1017/CBO9780511814075">Rajeev Motwani and Prabhakar Raghavan, Randomized Algorithms</a></li></ul>
+</article><article class="research-topic" data-index="12">
+  <span class="research-topic-index">12</span>
+  <h2>Computational complexity as a map</h2>
+  <p>Complexity theory gives the notes a shared coordinate system for reductions, complete problems, randomized classes, space bounds, and what counts as evidence of hardness.</p>
+  <ul class="research-sources"><li><a href="https://theory.cs.princeton.edu/complexity/book.pdf">Sanjeev Arora and Boaz Barak, Computational Complexity: A Modern Approach</a></li></ul>
+</article>
+    </section>
+    
+    <section id="subscribe-research-taste" class="subscribe-panel" aria-labelledby="subscribe-title-research-taste">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-research-taste">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="research-taste">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="research-taste">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "S") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Insertion Sort · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/insertion-sort/" />
+    <meta property="og:title" content="Insertion Sort · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/insertion-sort/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Insertion Sort · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Insertion Sort","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/insertion-sort/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Insertion Sort</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8020-b451-ef5ccd08c9ee">This is an <strong>in-pace</strong> sorting algorithm (<span class="note-inline-equation" data-latex="O(1)">\(O(1)\)</span> space) that works for small input sizes. </p><blockquote class="notion-block notion-quote" data-notion-block-id="2efd3a21-bb2d-80ad-a65f-e73fc965fb30">Recall that a sorting algorithm sorts in place if only a constant number of elements of the input array are ever stored outside the array.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8097-b867-cb1be0c6ce4f">The invariant that insertion sort maintains is that at the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements in the array are sorted. </p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-809a-a1f4-f900eda11518">To maintain this, we need to do the following in the inner loop. We do this by looping within the first <span class="note-inline-equation" data-latex="i">\(i\)</span> elements till we reach the element where we can insert the <span class="note-inline-equation" data-latex="i+1">\(i+1\)</span> element.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-8058-b3bc-d0db48259123">The inner invariant can be stated as ensuring that in the <span class="note-inline-equation" data-latex="i^{th}">\(i^{th}\)</span> iteration, we need to ensure that all elements in the sub-list <span class="note-inline-equation" data-latex="[j+1, i]">\([j+1, i]\)</span> are greater than the <span class="note-inline-equation" data-latex="j^{th}">\(j^{th}\)</span> element. If this is not true, then we can remedy it by pushing the last element forward with a swap.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-80b3-94f8-e1987f604f29">Here is how this algorithm can be illustrated using pseudocode:</p><figure class="notion-block notion-code" data-notion-block-id="2efd3a21-bb2d-802b-afa5-eb047b022624"><pre class="note-code-block" data-language="c"><code class="language-c">procedure insertionSort(array A)
     n = length(A)
     // Iterate from the second element to the last
@@ -66,11 +102,67 @@ end procedure</code></pre></figure><p class="notion-block notion-paragraph" data
     }
 }</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-80a6-b899-cf46fd894164"><strong>The outer loop</strong> (<code class="note-inline-code">for int i = 1; i &lt; n; ++i</code>) moves through the array from the second element to the end. The variable <code class="note-inline-code">i</code> represents the current element we&#39;re trying to insert into the already-sorted portion of the array (everything to the left of <code class="note-inline-code">i</code>).</p><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-80ab-9a6d-c5738ee8b88f"><strong>The inner loop</strong> (<code class="note-inline-code">for int j = i; j &gt;= 1 &amp;&amp; arr[j-1] &gt; arr[j]; ++j</code>) is where the insertion happens. 
 With <code class="note-inline-code">--j</code>, the element at position <code class="note-inline-code">i</code> gets swapped leftward repeatedly until it finds its correct position in the already-sorted portion of the array. </p><p class="notion-block notion-paragraph" data-notion-block-id="2f0d3a21-bb2d-8067-a0c0-fe8a316da21d">That&#39;s how insertion sort is supposed to work - you take each element and &quot;bubble&quot; it leftward into its proper place among the elements that came before it.</p><p class="notion-block notion-paragraph" data-notion-block-id="2efd3a21-bb2d-80f1-9972-d82dac779b88">Because of its efficiency with small data, many advanced sorting algorithms like TimSort and IntroSort use insertion sort as a subroutine to sort small partitions of data.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/meta-algorithm/">
+    <span>Next reading</span>
+    <strong>Meta-Algorithm</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -114,6 +206,20 @@ With <code class="note-inline-code">--j</code>, the element at position <code cl
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

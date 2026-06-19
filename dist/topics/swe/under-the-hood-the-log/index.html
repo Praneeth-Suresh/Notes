@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Under the Hood: The log · Computer Science Notes</title>
+
+    <meta name="description" content="Sophisticated software systems under the hood" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/" />
+    <meta property="og:title" content="Under the Hood: The log · Computer Science Notes" />
+    <meta property="og:description" content="Sophisticated software systems under the hood" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Under the Hood: The log · Computer Science Notes" />
+    <meta name="twitter:description" content="Sophisticated software systems under the hood" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"SWE for Pros","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":3,"name":"Under the Hood: The log","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of SWE for Pros</p>
       
       <p class="topic-meta">Sophisticated software systems under the hood</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80ba-9f66-d634c8eb2587">This draws material from the following excellent article: <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener">https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80f3-a823-e64dba90b8b4">Based on Jay Kreps’ seminal article, the log is not just a file format for errors. It is the fundamental backbone of distributed systems. </p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8086-8c0f-e3559d37ae5b">The Theory of the Log in Distributed Systems</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8020-baa2-d281a66b45cf">In distributed systems theory, the log is an <strong>append-only, totally-ordered sequence of records</strong>. While simple, it serves as the primary mechanism for managing the two hardest problems in the field: <strong>ordering</strong> and <strong>consistency</strong>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80f4-91e9-dafc8c5fcc8a">1. The State Machine Replication (SMR) Principle</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8091-a6b7-ebcd6cb75eea">The academic core of the log is the State Machine Replication principle. It posits that:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8087-a3cd-e73eb94a0a95"><strong>The Law:</strong> If two identical, deterministic processes start in the same state and receive the same inputs in the same order, they will produce the same output and end in the same state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8073-b018-dcbdc3dee165"><strong>The Log’s Role:</strong> The log acts as the &quot;input sequencer.&quot; By forcing all incoming requests into a single, ordered log, you effectively &quot;squeeze out&quot; the non-determinism of a distributed network.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80b0-9b93-cbbe50b797d3">2. Physical vs. Logical Logging</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a7-8418-c9a3f7356ca9">The theory distinguishes between <em>what</em> you put in the log:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-9490-e8f13941d120"><strong>Logical Logging:</strong> Recording the operations themselves (e.g., &quot;Add 5 to account X&quot;). This is compact but requires deterministic execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a3-b6fb-f5b9f5e15773"><strong>Physical Logging:</strong> Recording the resulting state change (e.g., &quot;Account X is now 105&quot;). This is more robust against execution differences but requires more bandwidth.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-8091-94ab-ffeaf2ea07db">3. Table-Log Duality</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a3-b1bf-f31286b2597a">A profound theoretical takeaway is that <strong>tables and logs are duals</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-9f18-ef1bd2410353">A <strong>Table</strong> represents a snapshot of data at a point in time (State).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c1-b332-d0f214e323f8">A <strong>Log</strong> represents the transformation over time (Events).<p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8076-b963-f73b56f4a050">If you have a log, you can reconstruct the table at any point in history by &quot;replaying&quot; the events. If you have a table and record every change, you have a log.</p></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ec-aea7-e480acbf32e5">4. The Log as a Consensus Abstraction</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8064-b7a4-edfe520a4a36">While researchers often focus on consensus algorithms like <strong>Paxos</strong> or <strong>Raft</strong>, the log is the practical application of those algorithms. Consensus is about agreeing on a single value; a distributed log is simply a sequence of consensus decisions—one for each &quot;slot&quot; in the log.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8047-adcc-d1a207ce2de4">Modern Platforms Relying on the Log</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800c-ab9f-cbe557fa9ded">Today’s most powerful data infrastructures are essentially &quot;logs-as-a-service&quot; or systems built entirely on log-centric principles.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-800e-ba82-d63ba0096f8e">1. Apache Kafka</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-808c-8aad-c899b0c21c75">Kafka is the direct realization of the ideas in the article. It treats the log as the primary architectural element rather than an implementation detail.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8044-b78d-daa195ca540b"><strong>How it uses the log:</strong> It provides a distributed, partitioned, and replicated commit log. Producers append events to the end of the log, and many different consumers (databases, search indexes, or microservices) read from the log at their own pace to build their own &quot;view&quot; of the world.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80dd-8a0f-ee6c1b71058d">2. Apache Flink</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80b9-bd77-ec8dcf445ccf">Flink is a stream processing framework that treats data as an infinite log of events.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809a-a7c9-e39785cacb55"><strong>How it uses the log:</strong> Flink uses the log for <strong>fault tolerance</strong>. It takes periodic &quot;savepoints&quot; of its state, but between those points, it relies on the replayability of the input log to recover and ensure &quot;exactly-once&quot; processing semantics.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-801d-94ea-c9df855189b8">3. CockroachDB / TiDB</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8059-9fdc-f3b6766ec53a">These are &quot;NewSQL&quot; distributed databases that provide global scalability with ACID guarantees.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-b4ad-dd87f2d89743"><strong>How it uses the log:</strong> They use the <strong>Raft consensus algorithm</strong> to maintain a distributed log across different geographic nodes. Every write must be appended to this log and acknowledged by a majority of nodes before it is considered &quot;committed,&quot; ensuring that the database remains consistent even if a data center goes offline.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80bc-b69c-c700a3681ff1">4. Elasticsearch</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800d-9cc3-fe1a7bbbf955">While primarily a search engine, Elasticsearch&#39;s reliability depends on a log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-984a-ddcc14444157"><strong>How it uses the log:</strong> It uses a <strong>Translog</strong> (Transaction Log). Because writing to the heavy search index (Lucene) is expensive, Elasticsearch first writes the operation to an append-only log. This ensures that if a node crashes, it can recover any data that was acknowledged but not yet fully indexed.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ff-85a5-cae0a5f451c4">5. Git (Version Control)</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80dd-b0fc-d1f1a629e4d7">Though we think of it as a tool for code, Git is a pure implementation of a distributed log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80cc-9c59-ff925ecb42c5"><strong>How it uses the log:</strong> Every &quot;commit&quot; is a record in an immutable log. The &quot;state&quot; of your code at any branch is just the result of replaying the log of commits from the beginning. Merging and rebasing are simply operations that manipulate the order or structure of this log.</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80ba-9f66-d634c8eb2587">This draws material from the following excellent article: <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener">https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80f3-a823-e64dba90b8b4">Based on Jay Kreps’ seminal article, the log is not just a file format for errors. It is the fundamental backbone of distributed systems. </p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8086-8c0f-e3559d37ae5b">The Theory of the Log in Distributed Systems</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8020-baa2-d281a66b45cf">In distributed systems theory, the log is an <strong>append-only, totally-ordered sequence of records</strong>. While simple, it serves as the primary mechanism for managing the two hardest problems in the field: <strong>ordering</strong> and <strong>consistency</strong>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80f4-91e9-dafc8c5fcc8a">1. The State Machine Replication (SMR) Principle</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8091-a6b7-ebcd6cb75eea">The academic core of the log is the State Machine Replication principle. It posits that:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8087-a3cd-e73eb94a0a95"><strong>The Law:</strong> If two identical, deterministic processes start in the same state and receive the same inputs in the same order, they will produce the same output and end in the same state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8073-b018-dcbdc3dee165"><strong>The Log’s Role:</strong> The log acts as the &quot;input sequencer.&quot; By forcing all incoming requests into a single, ordered log, you effectively &quot;squeeze out&quot; the non-determinism of a distributed network.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80b0-9b93-cbbe50b797d3">2. Physical vs. Logical Logging</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a7-8418-c9a3f7356ca9">The theory distinguishes between <em>what</em> you put in the log:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-9490-e8f13941d120"><strong>Logical Logging:</strong> Recording the operations themselves (e.g., &quot;Add 5 to account X&quot;). This is compact but requires deterministic execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a3-b6fb-f5b9f5e15773"><strong>Physical Logging:</strong> Recording the resulting state change (e.g., &quot;Account X is now 105&quot;). This is more robust against execution differences but requires more bandwidth.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-8091-94ab-ffeaf2ea07db">3. Table-Log Duality</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a3-b1bf-f31286b2597a">A profound theoretical takeaway is that <strong>tables and logs are duals</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-9f18-ef1bd2410353">A <strong>Table</strong> represents a snapshot of data at a point in time (State).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c1-b332-d0f214e323f8">A <strong>Log</strong> represents the transformation over time (Events).<p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8076-b963-f73b56f4a050">If you have a log, you can reconstruct the table at any point in history by &quot;replaying&quot; the events. If you have a table and record every change, you have a log.</p></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ec-aea7-e480acbf32e5">4. The Log as a Consensus Abstraction</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8064-b7a4-edfe520a4a36">While researchers often focus on consensus algorithms like <strong>Paxos</strong> or <strong>Raft</strong>, the log is the practical application of those algorithms. Consensus is about agreeing on a single value; a distributed log is simply a sequence of consensus decisions—one for each &quot;slot&quot; in the log.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8047-adcc-d1a207ce2de4">Modern Platforms Relying on the Log</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800c-ab9f-cbe557fa9ded">Today’s most powerful data infrastructures are essentially &quot;logs-as-a-service&quot; or systems built entirely on log-centric principles.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-800e-ba82-d63ba0096f8e">1. Apache Kafka</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-808c-8aad-c899b0c21c75">Kafka is the direct realization of the ideas in the article. It treats the log as the primary architectural element rather than an implementation detail.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8044-b78d-daa195ca540b"><strong>How it uses the log:</strong> It provides a distributed, partitioned, and replicated commit log. Producers append events to the end of the log, and many different consumers (databases, search indexes, or microservices) read from the log at their own pace to build their own &quot;view&quot; of the world.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80dd-8a0f-ee6c1b71058d">2. Apache Flink</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80b9-bd77-ec8dcf445ccf">Flink is a stream processing framework that treats data as an infinite log of events.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809a-a7c9-e39785cacb55"><strong>How it uses the log:</strong> Flink uses the log for <strong>fault tolerance</strong>. It takes periodic &quot;savepoints&quot; of its state, but between those points, it relies on the replayability of the input log to recover and ensure &quot;exactly-once&quot; processing semantics.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-801d-94ea-c9df855189b8">3. CockroachDB / TiDB</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8059-9fdc-f3b6766ec53a">These are &quot;NewSQL&quot; distributed databases that provide global scalability with ACID guarantees.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-b4ad-dd87f2d89743"><strong>How it uses the log:</strong> They use the <strong>Raft consensus algorithm</strong> to maintain a distributed log across different geographic nodes. Every write must be appended to this log and acknowledged by a majority of nodes before it is considered &quot;committed,&quot; ensuring that the database remains consistent even if a data center goes offline.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80bc-b69c-c700a3681ff1">4. Elasticsearch</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800d-9cc3-fe1a7bbbf955">While primarily a search engine, Elasticsearch&#39;s reliability depends on a log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-984a-ddcc14444157"><strong>How it uses the log:</strong> It uses a <strong>Translog</strong> (Transaction Log). Because writing to the heavy search index (Lucene) is expensive, Elasticsearch first writes the operation to an append-only log. This ensures that if a node crashes, it can recover any data that was acknowledged but not yet fully indexed.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ff-85a5-cae0a5f451c4">5. Git (Version Control)</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80dd-b0fc-d1f1a629e4d7">Though we think of it as a tool for code, Git is a pure implementation of a distributed log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80cc-9c59-ff925ecb42c5"><strong>How it uses the log:</strong> Every &quot;commit&quot; is a record in an immutable log. The &quot;state&quot; of your code at any branch is just the result of replaying the log of commits from the beginning. Merging and rebasing are simply operations that manipulate the order or structure of this log.</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/swe/service-mesh/">
+    <span>Next reading</span>
+    <strong>Service Mesh</strong>
+    <p>Continue inside SWE for Pros</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

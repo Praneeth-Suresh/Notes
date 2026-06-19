@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dijkstra · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/dijkstra/" />
+    <meta property="og:title" content="Dijkstra · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/dijkstra/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dijkstra · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Dijkstra","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/dijkstra/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Dijkstra</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80b2-a4c7-db90eda76761">The Dijkstra algorithm is the famous solution to the <strong>single source shortest path (SSSP)</strong> problem where given a directed graph <span class="note-inline-equation" data-latex="G">\(G\)</span> and a starting vertex <span class="note-inline-equation" data-latex="s">\(s\)</span>, our goal is to find the length of the shortest path from <span class="note-inline-equation" data-latex="s">\(s\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span> for all <span class="note-inline-equation" data-latex="s">\(s\)</span> and <span class="note-inline-equation" data-latex="v">\(v\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80d3-a9da-cda64bf79752">In the case where all edges have lengths that are <strong>positive integers</strong>, the problem can be <u>reduced</u> into breadth-first search where all edges of length <span class="note-inline-equation" data-latex="n">\(n\)</span> are replaced with <span class="note-inline-equation" data-latex="n">\(n\)</span> edges of length 1. However, this is an inefficient solution when edges become very long. However, we want an efficient (preferably linear time in <span class="note-inline-equation" data-latex="|V|">\(|V|\)</span> and <span class="note-inline-equation" data-latex="|E|">\(|E|\)</span> solution) to the single source shortest path problem.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cbd3a21-bb2d-80b2-a7ab-db14ba9af1e2">Working</h1><p class="notion-block notion-paragraph" data-notion-block-id="2cbd3a21-bb2d-8035-afdb-ea4dc038a217">The key idea behind Dijkstra, is that at some stage, we can say for certain that some distance is indeed the shortest distance to a vertex. </p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-806e-ac60-c45446d87998">This is because the shortest edge going out from vertex A is also the shortest path from vertex A to the vertex the shortest path leads to.</p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-8070-8ba3-e265269cf95c">The key invariant is that at any step, all the nodes explored have an SSSP distance smaller than the distance of the current node. This means they don&#39;t need to be revisited, allowing us to do linear work.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80fd-bbd4-fc1bf92c0510">To keep track of nearest vertices, we keep track of a <strong>Dijkstra Score</strong>. It is the shortest distance (or cost/time) calculated by Dijkstra&#39;s algorithm from the source node to all other reachable nodes in a weighted graph with non-negative edge weights.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ed-aa17-cb52d081ad3c">The next edge we add is the edge with the smallest Dijkstra Score.</p><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="32bd3a21-bb2d-805d-bd4d-ecbcd989efb1"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">The reason we do this may not be obvious.<p class="notion-block notion-paragraph" data-notion-block-id="32bd3a21-bb2d-80ff-80be-e532dd65c23f">Its about second order effects: relaxing too early can propagate wrong values. We need to be certain that the vertices on the shortest path have been labelled with the shortest distance.</p></div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="2cbd3a21-bb2d-803c-87db-cfb694fb08b4">Then, we can iteratively apply is procedure for finding the true shortest path for every vertex to solve the SSSP problem.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cad3a21-bb2d-8023-af5f-ee269ff486c8">Implementation</h1><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-80d0-942f-fee394682fab">Below is the standard progression of Dijkstra implementations, from worst to best, culminating in the linear‑time version.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cad3a21-bb2d-8043-a2fb-f33e174846ac">Only the first implementation uses an adjacency matrix representation. </p><table class="notion-block notion-table" data-notion-block-id="2cad3a21-bb2d-8012-a128-edbcd1b2ae17"><tbody><tr><th>Implementation</th><th>Data Structure</th><th>Edge Weight Type</th><th>Time Complexity</th></tr><tr><td>Matrix + linear scan</td><td>Adjacency Matrix</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(V^2)">\(O(V^2)\)</span></td></tr><tr><td>Brute force Dijkstra</td><td>Adjacency List</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(VE)">\(O(VE)\)</span></td></tr><tr><td>List + Unsorted Priority Queue</td><td>Array</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(V^2+E)">\(O(V^2+E)\)</span></td></tr><tr><td>Binary heap</td><td>Binary heap</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O((V+E)\log V)">\(O((V+E)\log V)\)</span></td></tr><tr><td>Fibonacci heap</td><td>Fib heap</td><td>Any non‑negative</td><td><span class="note-inline-equation" data-latex="O(E + V\log V)">\(O(E + V\log V)\)</span></td></tr><tr><td>Dial’s algorithm</td><td>Buckets</td><td>Small integers</td><td><span class="note-inline-equation" data-latex="O(V + E + C)">\(O(V + E + C)\)</span></td></tr><tr><td>0–1 BFS</td><td>Deque</td><td>0/1 weights</td><td><span class="note-inline-equation" data-latex="O(V + E)">\(O(V + E)\)</span></td></tr><tr><td>Radix heap</td><td>Radix buckets</td><td>Integers</td><td><span class="note-inline-equation" data-latex="O(E + V\log C)">\(O(E + V\log C)\)</span></td></tr><tr><td>Thorup’s algorithm</td><td>Hierarchical buckets</td><td>Positive integers</td><td><span class="note-inline-equation" data-latex="O(V + E)">\(O(V + E)\)</span></td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-804d-bc04-c749e945c9aa">Below we go through how each of these approaches work.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="2ccd3a21-bb2d-8030-9d09-e5a6617e0ebe">Binary Heap</h2><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80bc-8bdd-dbe265673f52">Here, we are presented with two choice for what to store in the heap:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-8062-9fe1-f4f675d3bf7c">Edges (so that we can extract the shortest edge)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-803f-b357-e90fa7affbf5">Vertices (so that we can identify the vertex with the smallest Dijkstra Score)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ac-a173-efe922205045">It turns out that the latter is much easier to implement because the set of vertices only becomes smaller with iterations of the algorithm. On the other hand, the edges change completely from step to step based on which edge we are starting from.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80b7-942b-d7c1dcc8a887">The <strong>invariant</strong> in the heap is that it is going to contain all the unvisited vertices and their updated Dijkstra scores.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-8021-bed9-e06b4a06f8f6">With this decided, here is how we implement the algorithm:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80b6-83c0-eb435fdd5a50">Initialize a set <span class="note-inline-equation" data-latex="X">\(X\)</span> of the vertices for which the shortest distance is confirmed (initially empty), and an empty heap <span class="note-inline-equation" data-latex="H">\(H\)</span> (initially with all vertices with keys as the Dijkstra score)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-8046-9d52-d00cf052d1a6">Until <span class="note-inline-equation" data-latex="H">\(H\)</span> is empty: [the loop runs <span class="note-inline-equation" data-latex="|V|">\(|V|\)</span> times]<ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80d9-85d8-ceac73e4bce7">Remove the vertex with the smallest Dijkstra score from <span class="note-inline-equation" data-latex="H">\(H\)</span> and add it to <span class="note-inline-equation" data-latex="X">\(X\)</span> [Time complexity <span class="note-inline-equation" data-latex="O(\log{|V|})">\(O(\log{|V|})\)</span>]</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80fc-952b-d3b16ad72c3d">Assign the shortest distance to the vertex moved as the Dijkstra score of the vertex [Constant time operation]</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ccd3a21-bb2d-80d1-8c4f-f3303a38f1d0">Update the heap so that the Dijkstra scores are updated based on the new set <span class="note-inline-equation" data-latex="X">\(X\)</span> [The time complexity changes each loop so instead we analyse the total number of times heap updates are done. This happens <span class="note-inline-equation" data-latex="2|E|">\(2|E|\)</span> times because each outgoing edge from each vertex is only processed once.]</li></ol></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="328d3a21-bb2d-8025-8ca9-dc23aca824e5">The intuition between Dijkstra is that it repeatedly picks the closest unvisited node.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80ec-b0cf-fe1f5820ab53">Overall time complexity:</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-8037-b005-cc522cd99441">As the loop runs, the time complexity of 2a will be <span class="note-inline-equation" data-latex="O(|V|\log{|V|})">\(O(|V|\log{|V|})\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80e3-a5ec-e38131ed9d9f">The total time complexity of 2c will be <span class="note-inline-equation" data-latex="O(|E|\log{|V|})">\(O(|E|\log{|V|})\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ccd3a21-bb2d-80be-8462-c59690b76b11">Thus, overall, we have <span class="note-inline-equation" data-latex="O((V+E)\log V)">\(O((V+E)\log V)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8045-8491-ca84f8e33851">This can be expressed in pseudo-code as follows:</p><figure class="notion-block notion-code" data-notion-block-id="31ed3a21-bb2d-80c5-afc5-de869760fb0c"><pre class="note-code-block" data-language="python"><code class="language-python">def dijkstra(G, s):
 	dist_est = [an array of all ∞]; set dist_est[s] = 0
 	heap = heapify(copy(dist_est))
@@ -49,11 +85,67 @@
 These are standard contest patterns and appear frequently in problem sets and tutorials.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8043-82b6-e9677372a15d">Now, it turns out that there is another way in which Dijkstra can be run twice to achieve the same result. Here is how that works:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32fd3a21-bb2d-80b0-95bf-f99308e5afc9">compute distances to every vertex from the source (first Dijkstra run)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32fd3a21-bb2d-803d-a06f-f4b6f5b3838d">connect a super node to all the vertices of interest with the weight of the edge being the distance of the vertex from the source</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32fd3a21-bb2d-80ea-aa0e-cf983ef4e04c">run Dijkstra from the super node</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34cd3a21-bb2d-80d5-b029-df447f4918b5"><strong>Number of Edges on All Shortest Paths</strong>: To determine the number of edges that lie on at least one shortest path between a start node <span class="note-inline-equation" data-latex="s">\(s\)</span> and an end node <span class="note-inline-equation" data-latex="t">\(t\)</span> in a positively weighted graph, we first run Dijkstra’s algorithm from <span class="note-inline-equation" data-latex="s">\(s\)</span>. Next, we run Dijkstra’s algorithm again, but this time from <span class="note-inline-equation" data-latex="t">\(t\)</span>, to compute the shortest distance from <span class="note-inline-equation" data-latex="t">\(t\)</span> to all other nodes. <p class="notion-block notion-paragraph" data-notion-block-id="34cd3a21-bb2d-80af-b217-fafefe5f368c">With these two sets of distances, we can evaluate each edge <span class="note-inline-equation" data-latex="(u,v)">\((u,v)\)</span> with weight <span class="note-inline-equation" data-latex="w">\(w\)</span>. If the condition:</p><div class="notion-block notion-equation" data-notion-block-id="34cd3a21-bb2d-8069-b742-f5bdb9d7f116" data-latex="dist_s[u]+w+dist_t[v]=dist_s[t]">\[dist_s[u]+w+dist_t[v]=dist_s[t]\]</div><p class="notion-block notion-paragraph" data-notion-block-id="34cd3a21-bb2d-80ce-8adf-ce574b9ed933">holds, then edge <span class="note-inline-equation" data-latex="(u,v)">\((u,v)\)</span> lies on some shortest path from <span class="note-inline-equation" data-latex="s">\(s\)</span> to <span class="note-inline-equation" data-latex="t">\(t\)</span>.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-8090-bf5b-f7cb4c2444f3"><strong>Pizza Pirate Encounters</strong>: We need to deliver pizzas but with every edge we take, we are left with <span class="note-inline-equation" data-latex="0&lt;f_e&lt;1">\(0&lt;f_e&lt;1\)</span> fraction of the pizza we entered with. To maximise the amount of Pizza we have, we can use two approaches that work with Dijkstra:<ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-800d-a193-ec62f1bf011c">We can modify the algorithm so that the cost we maintain is the amount of Pizza that is left at each node. Then, in the PQ, we use a max heap to retrieve the the maximum Pizza available. This works because we are operating in fractions.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32dd3a21-bb2d-8009-9cbc-d2c45d7818f1">We transform the weights to <span class="note-inline-equation" data-latex="- \log (f_e)">\(- \log (f_e)\)</span> because we want to do minimisation and we want to minimise the product of the weights.</li></ol></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-8067-a1f1-d2cb1eb85ce7"><strong>SSSP with one negative weighted edge</strong>: We have a weighted, directed graph but no negative cycles. It turns out we can still use Dijkstra (if we take care of the one negative weighted edge ourselves).<p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8014-b182-cb25c377d459">If we know the negative edge <span class="note-inline-equation" data-latex="e">\(e\)</span> is from <span class="note-inline-equation" data-latex="x">\(x\)</span> to <span class="note-inline-equation" data-latex="y">\(y\)</span> and we are doing SSSP from <span class="note-inline-equation" data-latex="u">\(u\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span>, we run SSP using Dijkstra from:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80b8-85ba-c51c6ca9bb0c">Node <span class="note-inline-equation" data-latex="u">\(u\)</span></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80e1-9eea-ebb16c9d6a5a">Node <span class="note-inline-equation" data-latex="x">\(x\)</span> or Node <span class="note-inline-equation" data-latex="y">\(y\)</span></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80db-9702-e5bea7aaffea">Now, we have two lists of distances. Then we manually check which paths benefit from taking edge e. The true shortest path from node v to any node t, is the min of: <code class="note-inline-code">dist_from_u[v]</code> and <code class="note-inline-code">dist_from_u[x] - negative_edge_length + dist_from_y[v]</code>.</p></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="32fd3a21-bb2d-8046-a581-dde0d64ac455">Single Source Longest Path</h2><p class="notion-block notion-paragraph" data-notion-block-id="32fd3a21-bb2d-8041-8323-f09c69720389">The Pizza Pirate Encounters problem does not mean we can use Dijkstra for the Single Source <strong>Longest</strong> Path problem. This is because we lose the greedy guarantee. A path that looks longest now might later be extended into an even longer one, so you can’t safely finalize it.</p><p class="notion-block notion-paragraph" data-notion-block-id="32fd3a21-bb2d-803e-9a2a-d9fbb165ff39">In fact, the longest path problem is <strong>NP-hard</strong> in general graphs (it’s equivalent to the Hamiltonian path problem) but can be solved in special graphs (DAGs).</p><p class="notion-block notion-paragraph" data-notion-block-id="32fd3a21-bb2d-80b9-b497-e203fde5aee3">However, we can solve the problem when the following are satisfied:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32fd3a21-bb2d-8063-9244-db7da76aa706">repeating nodes is allowed</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32fd3a21-bb2d-8095-af0c-f801bdc88d95">there are no positive cycles</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="32fd3a21-bb2d-8057-964b-cb400efb7281">For example, if we want to solve the problem, here is how we can modify Bellman-Ford’s relax subroutine:</p><figure class="notion-block notion-code" data-notion-block-id="32fd3a21-bb2d-808a-92d0-c0c3e3656f42"><pre class="note-code-block" data-language="python"><code class="language-python">if D[u] + w &gt; D[v] then
     D[v] ← D[u] + w 
 end</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="348d3a21-bb2d-8032-a321-e5cf21dc7b15">What Dijkstra cannot solve</h2><p class="notion-block notion-paragraph" data-notion-block-id="348d3a21-bb2d-80d7-b900-c61945e87f4f">There are several problems that <em>look</em> like they should be solvable by Dijkstra’s greedy shortest-path algorithm but actually break its assumptions. Here are a few:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="348d3a21-bb2d-8053-9eec-f264e5c70371"><strong>Shortest Path with Resource Constraints</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="348d3a21-bb2d-80c5-b83e-cb02be6354b5">Minimum cost path with at most weight (W) where weight and cost are independently quantified.</p><p class="notion-block notion-paragraph" data-notion-block-id="348d3a21-bb2d-80dc-a6da-d30a18195d8f">Greedy expansion ignores global constraints; a locally optimal path may exceed the resource budget.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="348d3a21-bb2d-80df-b9d6-c3825497003d"><strong>Shortest Path with Multiple Objectives</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="348d3a21-bb2d-806a-8663-c3799e780c69"><strong>Example:</strong> Find path minimizing both travel time and toll cost.</p><p class="notion-block notion-paragraph" data-notion-block-id="348d3a21-bb2d-8083-980b-f9d03b5a1ce7">Greedy choice works for a single scalar metric, not for multi-dimensional trade-offs.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/linear-time-selection-2/">
+    <span>Next reading</span>
+    <strong>Linear Time Selection</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -97,6 +189,20 @@ end</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

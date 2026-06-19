@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Operating Systems · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/" />
+    <meta property="og:title" content="Operating Systems · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Operating Systems · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="33717c95-99fd-800d-8713-e3fb0ace0e4d">Here, we focus on going into the core ideas behind operating systems and how we can make use of these ideas in the solutions we build.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="33717c95-99fd-80c3-832e-e8f64d6c45b6"><strong>A Stroll Through OS Concepts</strong></h1><section class="note-child-database" data-notion-block-id="35017c95-99fd-8060-8a60-efb32eed8ae3"><h3>Operating Systems Core</h3><div class="note-database-entries"><section class="note-child-page" data-notion-block-id="35e17c95-99fd-8006-9442-f7123d54d284"><a class="note-child-page-link" href="/topics/os/faster-concurrency/">Faster Concurrency</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8027-8ecc-ebf8049d37f6"><a class="note-child-page-link" href="/topics/os/synchronisation/">Synchronisation</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-803a-b5d2-c7037b85db97"><a class="note-child-page-link" href="/topics/os/interrupts/">Interrupts</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-80ee-88f4-dd110f3e8eb7"><a class="note-child-page-link" href="/topics/os/preemptive-multitasking/">Preemptive Multitasking</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8034-8a1e-fe526959adc5"><a class="note-child-page-link" href="/topics/os/more-about-threads/">More about Threads</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-808e-934d-de52602da9fd"><a class="note-child-page-link" href="/topics/os/context-switching/">Context Switching</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-80aa-a38d-d36d20795c15"><a class="note-child-page-link" href="/topics/os/process-scheduling/">Process Scheduling</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-802a-b5eb-ed96fa0e971e"><a class="note-child-page-link" href="/topics/os/thread-pools/">Thread Pools</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-809a-874f-d3a35737d45e"><a class="note-child-page-link" href="/topics/os/network-communcation/">Network Communcation</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8005-8ec7-c48704a5e51e"><a class="note-child-page-link" href="/topics/os/interprocess-communication/">Interprocess Communication</a></section><section class="note-child-page" data-notion-block-id="35417c95-99fd-80e5-b9d6-cd02bf1abd5f"><a class="note-child-page-link" href="/topics/os/semaphores/">Semaphores</a></section><section class="note-child-page" data-notion-block-id="35417c95-99fd-807f-932f-dc2e6637246e"><a class="note-child-page-link" href="/topics/os/file-and-i-o-abstractions/">File and I/O Abstractions</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8020-bee3-f849fcb0e2c1"><a class="note-child-page-link" href="/topics/os/dual-mode/">Dual Mode</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8054-a10b-df3fd18c3a41"><a class="note-child-page-link" href="/topics/os/processes/">Processes</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8001-a572-e12b07ca6ea8"><a class="note-child-page-link" href="/topics/os/address-space/">Address Space</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8061-a6ff-e40a8a9d4fe5"><a class="note-child-page-link" href="/topics/os/threads/">Threads</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80a1-b3da-ef3f277ccce6"><a class="note-child-page-link" href="/topics/os/reliability-and-security/">Reliability and Security</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80eb-b553-dc0a57641ca4"><a class="note-child-page-link" href="/topics/os/distributed-systems/">Distributed Systems</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80bd-a574-f9a5f37eb3da"><a class="note-child-page-link" href="/topics/os/file-systems/">File Systems</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8007-aa94-eca310fb0ef6"><a class="note-child-page-link" href="/topics/os/address-space-2/">Address Space</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80d9-959b-e2aea158c792"><a class="note-child-page-link" href="/topics/os/concurrency/">Concurrency</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8039-b1e8-cc510da8fef3"><a class="note-child-page-link" href="/topics/os/os-basics/">OS Basics</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8012-b160-d54988ccfab1"><a class="note-child-page-link" href="/topics/os/what-is-an-operating-system/">What is an Operating System?</a></section></div></section><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="33717c95-99fd-8000-adad-f0810e75abe4">🔏 Things to go through</h1><p class="notion-block notion-paragraph" data-notion-block-id="33717c95-99fd-8000-ba44-fdbf2f99417d">Here are some ideas about operating systems that you should go through later:</p><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-8097-b945-c411745a2c5b"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">MirageOS</div></div><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-80b6-8c0e-db0ece4a3c32"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Hypervisors</div></div><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-80d2-902a-f05863ac6457"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Zen</div></div><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="35017c95-99fd-80db-9a46-f642bad0f6f1">Resources</h1><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8055-9605-f52ff999a965"><strong>Textbooks (start here)</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80b8-acd7-f8225425370f"><em>Operating Systems: Three Easy Pieces</em> (Arpaci-Dusseau) : free at ostep.org. This is your main text for the core topics. Written exactly at the conceptual level you need, with simulation homework.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ff-b455-e70ecd4b8156"><em>Modern Operating Systems</em> (Tanenbaum) : use alongside OSTEP for a second perspective and stronger coverage of distributed systems.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80be-9247-e7878e9ab035"><em>Distributed Systems: Principles and Paradigms</em> (Tanenbaum &amp; Van Steen) : your main text for the distributed systems module.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80d2-99df-dd2b6a9c2049"><em>Computer Security: Art and Science</em> (Bishop) : for the reliability and security module.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-803e-800b-d0525221dccc"><strong>Seminal papers to read alongside each module</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-803b-8b8b-fc0637f824fc">Basics: Ritchie &amp; Thompson, <em>The UNIX Time-Sharing System</em> (1974)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80be-9b43-f0ad8ad8f220">Concurrency: Dijkstra&#39;s semaphore paper; Lamport&#39;s bakery algorithm</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-8007-b255-fdc1344240c3">Address Space: Denning, <em>The Working Set Model for Program Behavior</em> (1968)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ff-8dd7-d459c73e19b3">File Systems: McKusick et al., <em>A Fast File System for UNIX</em>; Rosenblum &amp; Ousterhout, <em>The Design and Implementation of a Log-Structured File System</em></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ce-918f-cb4ad0c1301c">Distributed: Lamport, <em>Time, Clocks, and the Ordering of Events</em>; the Raft paper (Ongaro &amp; Ousterhout, 2014); Dean &amp; Ghemawat, <em>MapReduce</em></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ce-9803-cb0511205a16">Security: Saltzer &amp; Schroeder, <em>The Protection of Information in Computer Systems</em> (1975) : still the canonical reference</li></ul></article>
+      
+      
+    <section id="subscribe-topic-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="33717c95-99fd-800d-8713-e3fb0ace0e4d">Here, we focus on going into the core ideas behind operating systems and how we can make use of these ideas in the solutions we build.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="33717c95-99fd-80c3-832e-e8f64d6c45b6"><strong>A Stroll Through OS Concepts</strong></h1><section class="note-child-database" data-notion-block-id="35017c95-99fd-8060-8a60-efb32eed8ae3"><h3>Operating Systems Core</h3><div class="note-database-entries"><section class="note-child-page" data-notion-block-id="35e17c95-99fd-8006-9442-f7123d54d284"><a class="note-child-page-link" href="/topics/os/faster-concurrency/">Faster Concurrency</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8027-8ecc-ebf8049d37f6"><a class="note-child-page-link" href="/topics/os/synchronisation/">Synchronisation</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-803a-b5d2-c7037b85db97"><a class="note-child-page-link" href="/topics/os/interrupts/">Interrupts</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-80ee-88f4-dd110f3e8eb7"><a class="note-child-page-link" href="/topics/os/preemptive-multitasking/">Preemptive Multitasking</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8034-8a1e-fe526959adc5"><a class="note-child-page-link" href="/topics/os/more-about-threads/">More about Threads</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-808e-934d-de52602da9fd"><a class="note-child-page-link" href="/topics/os/context-switching/">Context Switching</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-80aa-a38d-d36d20795c15"><a class="note-child-page-link" href="/topics/os/process-scheduling/">Process Scheduling</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-802a-b5eb-ed96fa0e971e"><a class="note-child-page-link" href="/topics/os/thread-pools/">Thread Pools</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-809a-874f-d3a35737d45e"><a class="note-child-page-link" href="/topics/os/network-communcation/">Network Communcation</a></section><section class="note-child-page" data-notion-block-id="35617c95-99fd-8005-8ec7-c48704a5e51e"><a class="note-child-page-link" href="/topics/os/interprocess-communication/">Interprocess Communication</a></section><section class="note-child-page" data-notion-block-id="35417c95-99fd-80e5-b9d6-cd02bf1abd5f"><a class="note-child-page-link" href="/topics/os/semaphores/">Semaphores</a></section><section class="note-child-page" data-notion-block-id="35417c95-99fd-807f-932f-dc2e6637246e"><a class="note-child-page-link" href="/topics/os/file-and-i-o-abstractions/">File and I/O Abstractions</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8020-bee3-f849fcb0e2c1"><a class="note-child-page-link" href="/topics/os/dual-mode/">Dual Mode</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8054-a10b-df3fd18c3a41"><a class="note-child-page-link" href="/topics/os/processes/">Processes</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8001-a572-e12b07ca6ea8"><a class="note-child-page-link" href="/topics/os/address-space/">Address Space</a></section><section class="note-child-page" data-notion-block-id="35317c95-99fd-8061-a6ff-e40a8a9d4fe5"><a class="note-child-page-link" href="/topics/os/threads/">Threads</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80a1-b3da-ef3f277ccce6"><a class="note-child-page-link" href="/topics/os/reliability-and-security/">Reliability and Security</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80eb-b553-dc0a57641ca4"><a class="note-child-page-link" href="/topics/os/distributed-systems/">Distributed Systems</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80bd-a574-f9a5f37eb3da"><a class="note-child-page-link" href="/topics/os/file-systems/">File Systems</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8007-aa94-eca310fb0ef6"><a class="note-child-page-link" href="/topics/os/address-space-2/">Address Space</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-80d9-959b-e2aea158c792"><a class="note-child-page-link" href="/topics/os/concurrency/">Concurrency</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8039-b1e8-cc510da8fef3"><a class="note-child-page-link" href="/topics/os/os-basics/">OS Basics</a></section><section class="note-child-page" data-notion-block-id="35017c95-99fd-8012-b160-d54988ccfab1"><a class="note-child-page-link" href="/topics/os/what-is-an-operating-system/">What is an Operating System?</a></section></div></section><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="33717c95-99fd-8000-adad-f0810e75abe4">🔏 Things to go through</h1><p class="notion-block notion-paragraph" data-notion-block-id="33717c95-99fd-8000-ba44-fdbf2f99417d">Here are some ideas about operating systems that you should go through later:</p><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-8097-b945-c411745a2c5b"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">MirageOS</div></div><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-80b6-8c0e-db0ece4a3c32"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Hypervisors</div></div><div class="notion-block notion-to-do" data-notion-block-id="33717c95-99fd-80d2-902a-f05863ac6457"><input class="notion-to-do-checkbox" type="checkbox" disabled /><div class="notion-to-do-body">Zen</div></div><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="35017c95-99fd-80db-9a46-f642bad0f6f1">Resources</h1><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-8055-9605-f52ff999a965"><strong>Textbooks (start here)</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80b8-acd7-f8225425370f"><em>Operating Systems: Three Easy Pieces</em> (Arpaci-Dusseau) : free at ostep.org. This is your main text for the core topics. Written exactly at the conceptual level you need, with simulation homework.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ff-b455-e70ecd4b8156"><em>Modern Operating Systems</em> (Tanenbaum) : use alongside OSTEP for a second perspective and stronger coverage of distributed systems.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80be-9247-e7878e9ab035"><em>Distributed Systems: Principles and Paradigms</em> (Tanenbaum &amp; Van Steen) : your main text for the distributed systems module.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80d2-99df-dd2b6a9c2049"><em>Computer Security: Art and Science</em> (Bishop) : for the reliability and security module.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35017c95-99fd-803e-800b-d0525221dccc"><strong>Seminal papers to read alongside each module</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-803b-8b8b-fc0637f824fc">Basics: Ritchie &amp; Thompson, <em>The UNIX Time-Sharing System</em> (1974)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80be-9b43-f0ad8ad8f220">Concurrency: Dijkstra&#39;s semaphore paper; Lamport&#39;s bakery algorithm</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-8007-b255-fdc1344240c3">Address Space: Denning, <em>The Working Set Model for Program Behavior</em> (1968)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ff-8dd7-d459c73e19b3">File Systems: McKusick et al., <em>A Fast File System for UNIX</em>; Rosenblum &amp; Ousterhout, <em>The Design and Implementation of a Log-Structured File System</em></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ce-918f-cb4ad0c1301c">Distributed: Lamport, <em>Time, Clocks, and the Ordering of Events</em>; the Raft paper (Ongaro &amp; Ousterhout, 2014); Dean &amp; Ghemawat, <em>MapReduce</em></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35017c95-99fd-80ce-9803-cb0511205a16">Security: Saltzer &amp; Schroeder, <em>The Protection of Information in Computer Systems</em> (1975) : still the canonical reference</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/faster-concurrency/">
+    <span>Next reading</span>
+    <strong>Faster Concurrency</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic" class="subscribe-panel" aria-labelledby="subscribe-title-topic">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

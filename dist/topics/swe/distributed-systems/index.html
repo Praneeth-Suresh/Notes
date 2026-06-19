@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Distributed Systems · Computer Science Notes</title>
+
+    <meta name="description" content="Sophisticated software systems under the hood" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/" />
+    <meta property="og:title" content="Distributed Systems · Computer Science Notes" />
+    <meta property="og:description" content="Sophisticated software systems under the hood" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed Systems · Computer Science Notes" />
+    <meta name="twitter:description" content="Sophisticated software systems under the hood" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"SWE for Pros","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":3,"name":"Distributed Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of SWE for Pros</p>
       
       <p class="topic-meta">Sophisticated software systems under the hood</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-818f-8db9-f4d5cbd70836">The Core Idea: Embracing Chaos and Distribution</h1><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-817a-937f-e9def9fb9c77">In small-scale apps, your code lives on a single “island” (a server). If the island sinks, the app dies. In large-scale engineering, we assume <strong>islands will sink every day.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-818e-ae4a-c654b91777e5">The fundamental shift is moving from a “Pet” mindset (where you care for one server) to a “Cattle” mindset (where you treat infrastructure as replaceable, ephemeral resources). Large-scale systems are designed to be <strong>fault-tolerant, horizontally scalable, and decoupled.</strong></p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b9-aa46-db1bb996f4f6">Real-World Example: Netflix</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8145-aef8-dbed7483ccef">Netflix isn’t just a video player; it’s a massive distributed system composed of over 1,000 microservices. When you click “Play,” one service handles your billing, another your history, another the subtitles, and another the video stream itself. If the “History” service goes down, Netflix doesn’t crash; it just hides your “Recently Watched” list and lets you keep watching. This is <strong>Graceful Degradation.</strong></p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-816e-b897-ef11854670e4" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81ad-ba4f-c6d2bb8a50e7">🛠 Platforms &amp; Tools</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f3-b79b-ddd4d2af3a1f">To build these “resilient webs,” the industry uses specific tools:
 * <strong>Kubernetes (K8s):</strong> The “Operating System” for the cloud. It manages where your services run and restarts them if they fail.
 * <strong>gRPC / Protocol Buffers:</strong> A high-speed way for services to talk to each other. It’s much faster than the standard JSON/REST you use in small apps.
@@ -46,11 +82,67 @@
 * <strong>The </strong><strong><code class="note-inline-code">pb/</code></strong><strong> directory:</strong> See how <code class="note-inline-code">proto</code> files define the “contracts” between services.
 * <strong>Kubernetes Manifests:</strong> Look at the <code class="note-inline-code">kubernetes-manifests/</code> folder to see how the services are connected and scaled.
 * <strong>Polyglot Architecture:</strong> Notice how the frontend is in Go while the recommendation engine might be in Python—this is the power of microservices.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8150-9d11-f79b227954a0" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8127-9753-f665307d46b4">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8196-89f6-f3087b471f7d">🎥 Watch: “Mastering Chaos” (Netflix)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81b0-adb1-f3efc064c85a"><a href="https://www.youtube.com/watch?v=CZ3wIuvmHeM" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81be-9b59-d7395047a2da"><strong>How to use it:</strong> Watch this to understand the <em>philosophy</em> of why Netflix broke their monolith. Pay attention to how they handle “Cascading Failures.”</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-811c-849e-e1a3f6b84cd3">📝 Read: “The Log” (Jay Kreps)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81a5-a3a7-de61f73b8dca"><a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener"><strong>Technical Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8155-8349-c2e548608d4d"><strong>How to use it:</strong> This is the most famous blog post in data engineering. Read it to understand why “Append-Only Logs” (like Kafka) are the heartbeat of distributed systems.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8158-8364-e7a5740efcd6">📄 Research: “Time, Clocks, and the Ordering of Events” (Leslie Lamport)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8137-862d-e6de7d50f2f1"><a href="https://lamport.azurewebsites.net/pubs/time-clocks.pdf" rel="noreferrer noopener"><strong>Research Paper</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8193-aef8-fc8733d7476b"><strong>How to use it:</strong> This is the “Bible” of distributed systems. Don’t worry about the math—focus on the idea that <strong>there is no such thing as “simultaneous” in a distributed system.</strong></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816d-ad6e-ff3835046fc6">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81ae-a9a9-e79455559815">In large-scale systems, <strong>consistency is a choice, not a guarantee.</strong> You have to decide if you want your system to be “Always Correct” or “Always Online.” You can rarely have both during a network failure (this is the CAP Theorem).</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/swe/swe-study-plan/">
+    <span>Next reading</span>
+    <strong>SWE Study Plan</strong>
+    <p>Continue inside SWE for Pros</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -94,6 +186,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

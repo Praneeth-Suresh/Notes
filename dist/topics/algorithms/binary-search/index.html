@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Binary Search · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/binary-search/" />
+    <meta property="og:title" content="Binary Search · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/binary-search/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Binary Search · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Binary Search","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/binary-search/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Binary Search</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-80f3-b155-ffdc71802377">It is a divide‑and‑conquer technique for sorted or search space optimization problems. It works with extremely big search spaces that have some notion of ordering.</p><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-80a6-8eab-d8890895a559">It can be both iteratively and recursively implemented. Recursive implementation is easy (as long as you pay attention to the edge cases). Here we look at the iterative solution:</p><figure class="notion-block notion-code" data-notion-block-id="30ad3a21-bb2d-80fa-8bff-c4abeeaafcfb"><pre class="note-code-block" data-language="java"><code class="language-java">    public static int binarySearch(int[] arr, int target) {
         int low = 0;
         int high = arr.length - 1;
@@ -66,11 +102,67 @@
         // If the loop finishes without finding the element, return -1
         return -1;
     }</code></pre></figure><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2c9d3a21-bb2d-80a2-b432-ea0a10eb1fca">Example Problems</h1><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-808a-92dc-f36bfc58a47a">Binary search is the go to search for-free primitive. However, sometimes it needs to be adapted for the problem at hand. For example:</p><blockquote class="notion-block notion-quote" data-notion-block-id="2c9d3a21-bb2d-807b-967d-ef092ce6a432">Find first occurrence of target in sorted array with duplicates.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-8090-90e6-c9026827ff09">Here is what we do:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2c9d3a21-bb2d-8088-a026-e979e97f9f35">If <strong><code class="note-inline-code">arr[mid] &gt;= target</code></strong>, move <strong><code class="note-inline-code">right = mid - 1</code></strong> and record candidate when equal.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2c9d3a21-bb2d-80c1-8f20-ec62d6a21cb7">Else <strong><code class="note-inline-code">left = mid + 1</code></strong>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2c9d3a21-bb2d-8066-99a7-c6473405d7c1">At the end, the required value is in the first position.</p><p class="notion-block notion-paragraph" data-notion-block-id="2e5d3a21-bb2d-8083-9300-ca6d7341f1f0">However searching through predefined sorted arrays does not do justice to the immensely powerful technique of binary search. It is a general search strategy that can be used to solve problems that satisfy the following:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2e5d3a21-bb2d-80ef-9f5f-eb60183c1645">Hard-optimality and easy-feasibility: it is difficult to find the optimal solution, but easy to find whether a solution is feasible or not.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2e5d3a21-bb2d-8061-a295-e743a41728f5">Infeasible-feasible split: There has to be a border between infeasible and feasible solutions.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2e5d3a21-bb2d-80a0-8700-fec41d09576b">Once these criteria are met, binary search can narrow down an extremely large search space extremely quickly. For example, a search space of size 2 billion, only needs 31 checks to narrow down to 1 solution.</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="2e5d3a21-bb2d-802a-ab65-fac0ddcf3a92"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">Creativity comes into the way you design an algorithm to check feasibility. The efficiency of this algorithm has a larger effect on the efficiency of the overall solution.</div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="2e5d3a21-bb2d-80ef-ac1d-e08e3d1f474b">Here are a few example problems that can be solved using binary search:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2e5d3a21-bb2d-80d2-96b7-f2d50c416cd4"><strong>Feeding Ants</strong>: The goal here is to find the minimum amount of water required to feed all the ants that are connected by a tree. The distribution of water among different nodes is controlled by percentages input into the algorithm. This problem can be solved by binary search, because it is easy to check feasibility, and there is a clear boundary between a feasible and an infeasible solution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="321d3a21-bb2d-80c1-af92-faccf0eb2480"><strong>WiFi</strong>: We need to search for the optimal position of a WiFi access point in a case where there is a clear feasible-infeasible split.</li><li class="notion-block notion-list-item note-list-item notion-color-pink_background" data-notion-block-id="2f0d3a21-bb2d-8014-ac32-f9d2fe55a153"><strong>Peak Finding</strong>: We look at the centre. If it is not a peak, the peak must be on the side with the larger number beside it.<p class="notion-block notion-paragraph" data-notion-block-id="2f5d3a21-bb2d-80ec-9aa6-f37532ce4302">This is an incredibly useful algorithm and can be used as a <em>for free primitive</em> whenever we know our data is organized as two contiguous sorted segments.</p><p class="notion-block notion-paragraph" data-notion-block-id="321d3a21-bb2d-8053-a3aa-cc7d08ec492d"><strong>Note</strong>: Peak finding is incredibly useful because it allows us to apply binary search to cases where there is no linear change in values. For example, we can use it to draw a bounding box around a polygon in <span class="note-inline-equation" data-latex="O(\log n)">\(O(\log n)\)</span> time.</p></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="31ad3a21-bb2d-800c-8207-e5db1765297b"></p><p class="notion-block notion-paragraph" data-notion-block-id="31ad3a21-bb2d-8030-874a-c5ad52d7e306">While binary search is incredibly powerful, there is another technique called <a href="https://www.notion.so/31ad3a21bb2d8057af65deab5b81aed4" rel="noreferrer noopener">Exponential Search</a> which is more suited for certain problems.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/depth-first-search-dfs/">
+    <span>Next reading</span>
+    <strong>Depth-first search (DFS)</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -114,6 +206,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Design Concept · Computer Science Notes</title>
+
+    <meta name="description" content="Agents, feedback loops, and implementation habits." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/the-design-concept/" />
+    <meta property="og:title" content="The Design Concept · Computer Science Notes" />
+    <meta property="og:description" content="Agents, feedback loops, and implementation habits." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/the-design-concept/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Design Concept · Computer Science Notes" />
+    <meta name="twitter:description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":3,"name":"The Design Concept","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/the-design-concept/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,75 @@
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
       <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80bb-81be-fd63da441a5d">This idea originates from Fred Brooks.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-806e-a6a4-e802294b5028">When you have more than one person working on something, there is some idea or invisible theory. Good systems are guided by a coherent underlying idea shared by the people building them. In agentic programming, the agent needs access to that concept before it starts generating implementation details.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="352d3a21-bb2d-807d-b723-e80c92233b7f">The Design Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80e8-bf5e-f0262c8f02c7">The traditional &quot;rational model&quot; assumes a complete design tree (a tree of decisions) can be drawn upfront, which Brooks argues is rarely true for novel systems.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80d0-abd3-df2b791fd332">Unlike routine design, original design involves evolving, interconnected constraints where the &quot;desiderata&quot; (desired outcomes) change, making it difficult to fully map the tree of choices.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-801e-8795-d295f54828f1">Instead of fully mapping a decision tree beforehand, design is a process of co-evolution, where the problem and the solution are understood more deeply through constant iteration.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80c9-adfa-c9d370b2f7e6">This is what you want to do during the first stage of coding anything with an agent: you need to co-design it and try to come up with better and better versions of the decision tree.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80e0-8aff-e5c37f99bb65">Fix 1: <code class="note-inline-code">/grill-me</code></h1><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-802f-b3aa-fa8cb5006c15">The idea of using this skill is that it forces a shared design concept to exist before implementation.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-808b-9aaa-ec115d4989b6">Just using plan mode is not enough: you really need to put in a lot of effort to get the details communicated to the agent and ensure that there is not details that you leave for the agent to figure out itself.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8000-bd62-e2cd4170d5f2"><strong>Implementation</strong>: Before any code is written, the agent must run a <code class="note-inline-code">grill-me</code> sub-task where it critiques its own proposed plan.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8076-b1de-e02912c3bbb3"><strong>Criteria</strong>: The review must evaluate the plan for:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80e2-b972-c40097ca0fb3"><strong>Reliability</strong>: How will it handle tool failures or ambiguous LLM outputs?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808d-b7a4-fcbde28306d2"><strong>Context Management</strong>: Is the plan efficient with token usage and state persistence?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80c4-81de-eb02e489a5d2"><strong>Security</strong>: Does it protect credentials and system integrity?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808c-b583-e83810615fba"><strong>Scalability</strong>: How does the design hold up as task complexity increases?</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-805e-b4ad-d277d16fa01a"><strong>Outcome</strong>: The agent cannot proceed until it has answered its own &quot;grilling&quot; questions and updated the design tree accordingly.</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-80bb-81be-fd63da441a5d">This idea originates from Fred Brooks.</p><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-806e-a6a4-e802294b5028">When you have more than one person working on something, there is some idea or invisible theory. Good systems are guided by a coherent underlying idea shared by the people building them. In agentic programming, the agent needs access to that concept before it starts generating implementation details.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="352d3a21-bb2d-807d-b723-e80c92233b7f">The Design Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80e8-bf5e-f0262c8f02c7">The traditional &quot;rational model&quot; assumes a complete design tree (a tree of decisions) can be drawn upfront, which Brooks argues is rarely true for novel systems.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80d0-abd3-df2b791fd332">Unlike routine design, original design involves evolving, interconnected constraints where the &quot;desiderata&quot; (desired outcomes) change, making it difficult to fully map the tree of choices.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-801e-8795-d295f54828f1">Instead of fully mapping a decision tree beforehand, design is a process of co-evolution, where the problem and the solution are understood more deeply through constant iteration.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-80c9-adfa-c9d370b2f7e6">This is what you want to do during the first stage of coding anything with an agent: you need to co-design it and try to come up with better and better versions of the decision tree.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="352d3a21-bb2d-80e0-8aff-e5c37f99bb65">Fix 1: <code class="note-inline-code">/grill-me</code></h1><p class="notion-block notion-paragraph" data-notion-block-id="352d3a21-bb2d-802f-b3aa-fa8cb5006c15">The idea of using this skill is that it forces a shared design concept to exist before implementation.</p><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-808b-9aaa-ec115d4989b6">Just using plan mode is not enough: you really need to put in a lot of effort to get the details communicated to the agent and ensure that there is not details that you leave for the agent to figure out itself.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8000-bd62-e2cd4170d5f2"><strong>Implementation</strong>: Before any code is written, the agent must run a <code class="note-inline-code">grill-me</code> sub-task where it critiques its own proposed plan.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8076-b1de-e02912c3bbb3"><strong>Criteria</strong>: The review must evaluate the plan for:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80e2-b972-c40097ca0fb3"><strong>Reliability</strong>: How will it handle tool failures or ambiguous LLM outputs?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808d-b7a4-fcbde28306d2"><strong>Context Management</strong>: Is the plan efficient with token usage and state persistence?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80c4-81de-eb02e489a5d2"><strong>Security</strong>: Does it protect credentials and system integrity?</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-808c-b583-e83810615fba"><strong>Scalability</strong>: How does the design hold up as task complexity increases?</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-805e-b4ad-d277d16fa01a"><strong>Outcome</strong>: The agent cannot proceed until it has answered its own &quot;grilling&quot; questions and updated the design tree accordingly.</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +172,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

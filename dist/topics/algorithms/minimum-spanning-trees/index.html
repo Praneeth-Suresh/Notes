@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Minimum Spanning Trees · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/minimum-spanning-trees/" />
+    <meta property="og:title" content="Minimum Spanning Trees · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/minimum-spanning-trees/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Minimum Spanning Trees · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Minimum Spanning Trees","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/minimum-spanning-trees/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Minimum Spanning Trees</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="32cd3a21-bb2d-8046-842c-e6375aa927c0">A <strong>minimum spanning tree</strong> <strong>(MST)</strong> is defined as a <strong>spanning tree</strong> that has the minimum weight among all the possible connected, undirected graphs that include all the vertices of the graph.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="2cfd3a21-bb2d-80fd-83ec-c1a245415aee">Finding the MST is a graph is a good example of an application of greedy algorithms. This is because almost any greedy algorithm is guaranteed to work for this problem. But as is the theme in the design of greedy algorithms, we still need a proof to guarantee correctness.</p><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="32cd3a21-bb2d-802a-9894-e3e440a4f77c"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">Minimum spanning trees are useful in the following domains:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-8002-a0c7-f07e5ef23fef">Clustering for data analysis</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-80c1-aeb2-ce8bff1cf392">Image segmentation</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-800f-9e98-d03e75c79108">Circuit Design</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="32cd3a21-bb2d-80a0-957b-cc60918c7879">We will look at how techniques can be carried over to solve this problem.</p></div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-8094-88e6-cc5822b5862c">For proofs, a useful result that can be used to prove that an MST is reached is related to the idea of The <strong>Minimum Bottleneck Property (MBP)</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-8025-9876-c263468014a6">An edge <span class="note-inline-equation" data-latex="(v, w)">\((v, w)\)</span> satisfies the MBP if and only if there is no <span class="note-inline-equation" data-latex="v-w">\(v-w\)</span> path consisting solely of edges with weight less than the weight of edge <span class="note-inline-equation" data-latex="(v, w)">\((v, w)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-80a1-a47e-c221919694d2">Now, this is useful because <strong>MBP implies MST</strong>. If every edge of a spanning tree <span class="note-inline-equation" data-latex="T">\(T\)</span> satisfies the minimum bottleneck property, <span class="note-inline-equation" data-latex="T">\(T\)</span> is a Minimum Spanning Tree (MST).</p><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-80c9-8215-d7a712286e48">For the algorithms to determine the Minimum Spanning Tree, a general outline of their proof involves showing that they produce:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2d4d3a21-bb2d-8085-b64c-df71ab644071">A spanning tree<p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-8086-86c3-cfdd7e9008b8">An approach relying on proof by cases that classifies edge additions into two types (one that creates a cycle and one that does not) can help with this proof.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2d4d3a21-bb2d-8005-921f-cd00c331e64e">The tree satisfies the MBP (this can be shown using an exchange argument) </li></ol><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-8017-a130-e7e3acb87569">This automatically implies that we have a MST.</p><p class="notion-block notion-paragraph" data-notion-block-id="34bd3a21-bb2d-800d-86e7-ca12ff10173f">Here are a few more properties useful to reason about MSTs:</p><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="34bd3a21-bb2d-805a-9e16-c241d9b7203c"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">Simplifying assumption. All edge costs ce are distinct.</div></aside></div><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-8030-b668-c4dcd7bc3193"><strong>Cut property</strong>. Let S be any subset of nodes, and let e be the min cost edge with exactly one endpoint in S. Then the MST contains e.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="34bd3a21-bb2d-806e-a025-eac34ab65c9b"><strong>Cycle property</strong>. Let C be any cycle, and let f be the max cost edge belonging to C. Then the MST does not contain f.</li></ol><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2cfd3a21-bb2d-80ee-b7cb-ce135397c62b">Prim’s algorithm</h1><p class="notion-block notion-paragraph" data-notion-block-id="2d2d3a21-bb2d-8092-a50f-f918c5aedb0a">Prim&#39;s grows a single tree from a starting node. The naïve algorithm runs in <span class="note-inline-equation" data-latex="O(mn)">\(O(mn)\)</span>. </p><p class="notion-block notion-paragraph" data-notion-block-id="2cfd3a21-bb2d-80ec-8747-d3be7ba6ec49">Looking at Prim’s algorithm, we notice that the main operation that dominates the runtime is finding the shortest edge that can be added to the tree. Whenever we need to find the element with the smallest key rapidly, we know that we can use a <strong>heap</strong>. </p><p class="notion-block notion-paragraph" data-notion-block-id="2d4d3a21-bb2d-8030-b188-c44cd037cd70">The only question that remains is whether we want to use a heap of edges or a heap of vertices. These two approaches have their pros and cons.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="2cfd3a21-bb2d-8006-9330-c3ff21646b52"><strong>Heap of Edges</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cfd3a21-bb2d-80b6-8551-fc80f4d74e3c"><strong>Idea:</strong>
 Maintain a min-heap (priority queue) of all candidate edges that connect the current MST to vertices outside it.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2cfd3a21-bb2d-80ef-b89d-c40d5a04862e"><strong>Process:</strong><figure class="notion-block notion-code" data-notion-block-id="32cd3a21-bb2d-80a7-96a1-d1ed7bcfaa6b"><pre class="note-code-block" data-language="python"><code class="language-python">Initialise an empty BBST/Heap incident_edges.
 Initialise an array in_tree[] set to all false. in_tree[s] = true.
@@ -81,11 +117,67 @@ while we still haven’t added n - 1 edges, fake_pq[] has a non-empty queue:
 	For each edge (n, weight) in G.get_neighbours(curr_node)
 		Add node n into fake_pq[weight]</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="32cd3a21-bb2d-8049-8f66-f687f36435b9">Here is how we break down the cost of the algorithm:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-8045-8b2d-f5ef746db80b">Creating the array takes <span class="note-inline-equation" data-latex="O(c)">\(O(c)\)</span> time</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-809e-8c6c-c8ec2c685b25">We run the loop <span class="note-inline-equation" data-latex="n - 1">\(n - 1\)</span> times so the extraction of the element from <code class="note-inline-code">fake_pq</code> takes <span class="note-inline-equation" data-latex="O(nc)">\(O(nc)\)</span> time overall</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="32cd3a21-bb2d-80d1-ae39-ffe2ebe6df6c">The time taken to add all the edges to the <code class="note-inline-code">fake_pq</code> overall is <span class="note-inline-equation" data-latex="O(m)">\(O(m)\)</span></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="32cd3a21-bb2d-8020-88cb-d52e92481bea">This leads to an overall time complexity of <span class="note-inline-equation" data-latex="O(cn+m)">\(O(cn+m)\)</span></p><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-8097-a64e-eca642723a67"><em>But can we go even faster?</em></p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="336d3a21-bb2d-809b-a3d9-eacf2995bacd">Example Problems </h1><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="336d3a21-bb2d-8033-9e2e-ccb1c3c22496">Minimum Bottleneck Spanning Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-802e-8c77-e7b22043c2ce">The <strong>minimum bottleneck spanning tree</strong> in an undirected graph is a tree whose most expensive edge is as small as possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80bb-8db5-f85290a61e7c">A bottleneck in a spanning tree is the maximum weight edge present in the tree. Now, it turns out that every Minimum Spanning Tree is a Minimum Bottleneck Spanning Tree.</p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80c6-a82b-e47e60e51e40">This is useful in minimum bottleneck problems: given weighted undirected graph, for queries ((s,t)) find a path minimizing the <strong>maximum edge weight</strong> along the path (minimize the bottleneck).</p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-8039-a4be-e6138dac9bba">Here is the approach:</p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80a2-b217-efbc782f58c8">Build an MST of the graph. The <strong>bottleneck value between any two nodes equals the maximum edge on their path in the MST</strong>. </p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80ab-9be2-cd9d925e516d">So preprocess the MST for LCA with <strong>max edge on path</strong>. Each query returns that max value in 
 <span class="note-inline-equation" data-latex="O(\log n)">\(O(\log n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80b7-9484-eb2556ddc6fa">Among all paths between two nodes, the path in the MST minimizes the maximum edge weight; MST encodes minimax connectivity. This converts many bottleneck or reliability queries into simple MST path queries.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="336d3a21-bb2d-80d4-a941-e7d1962ee335">Second‑best Minimum Spanning Tree</h2><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-809d-bb6f-cbddfd37aea0">Given a connected weighted undirected graph, find the weight of the <em>second‑smallest</em> spanning tree (the spanning tree with the next smallest total weight after the MST).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-80bb-b2ac-d73de2a3bcb6"><strong>Modification / Trick:</strong> Build the MST (Kruskal). Preprocess the MST for <strong>max edge on path queries</strong> (binary lifting / LCA storing the maximum and second‑maximum edge on each ancestor jump).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-802f-8fbc-f840db5f4ce1"><strong>Approach:</strong> For every non‑MST edge ((u,v,w)), consider replacing the maximum edge on the MST path between (u) and (v) with this edge; compute the new total weight = <strong>MST_weight − max_on_path + w</strong>. Track the minimum such value strictly greater than MST_weight.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-800c-a5e6-ee36acee25a8"><strong>Why MST helps:</strong> The MST is the baseline; any other spanning tree differs by swapping in one non‑MST edge and removing an edge on the unique MST path. Preprocessing the MST makes each candidate check (O(\log n)).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-809e-af0d-cf50525f9317"><strong>Complexity:</strong> <strong>Sort edges + DSU</strong> for MST, then <strong>(O(m\log n))</strong> checks with LCA preprocessing <strong>(O(n\log n))</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-80e2-a370-c869eb8c45eb"><strong>Insight:</strong> This is a small, powerful extension: you reuse MST structure and add path‑max queries to enumerate optimal single‑edge swaps.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="336d3a21-bb2d-808e-b3fa-f4e74dc45e9d">Max‑spacing k‑Clustering (Kruskal clustering)</h2><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-8090-9934-ff20a0864ceb">Partition vertices into <strong>k clusters</strong> to maximize the minimum distance between clusters (maximise spacing).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-8023-a2e6-e118742b1c79"><strong>Modification / Trick:</strong> Run <strong>Kruskal’s MST</strong> but <strong>stop when there are exactly k connected components</strong> (i.e., stop after adding (n-k) edges). The next smallest edge weight that would connect two different components is the <strong>spacing</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-804d-9b26-de69714d0a9a"><strong>Approach:</strong> Sort edges and union until you have <strong>k components</strong>. The answer is the smallest edge weight that connects two different components at that point.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-8004-8e95-eda4513f05d7"><strong>Why MST helps:</strong> Kruskal greedily builds components in the same order as optimal clustering; stopping early yields the optimal partition for max‑spacing.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-8098-9233-d2b4acbae6a8"><strong>Complexity:</strong> <strong>(O(m\log m))</strong> dominated by sorting.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-80ef-85fe-e41372ac9b02"><strong>Insight:</strong> No heavy clustering algorithm needed—just stop Kruskal early and read off the spacing.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="336d3a21-bb2d-804a-b598-e5ef846ce496"><strong>Powerplants and Houses (Minimum Spanning Forest)</strong></h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-80b6-be2b-c847e7ec716b"><strong>Problem:</strong> You have a set of powerplants and houses. You want to connect every house to at least one powerplant with wires at minimum cost.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-80e7-94e1-cddba8f6e87b"><strong>Modification:</strong> Normally MST connects all nodes into one tree. Here, we want multiple trees (a forest), each rooted at a powerplant.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-803a-8ac3-cc8b9fa10a07"><strong>Approach:</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-8089-b6c5-d372f1eac67a">Add a <em>super node</em> connected to all powerplants with edges of weight 0.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-805d-8148-f6b306fc6425">Run MST (e.g., Kruskal or Prim).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-8075-bc25-f0f93b6512d2">The resulting MST ensures every house is connected to some powerplant, and the zero-weight edges allow multiple components to exist.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="336d3a21-bb2d-801c-a6a0-f68ec4b15e09"><strong>Insight:</strong> This is essentially a minimum spanning forest problem disguised as MST with an extra node.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="336d3a21-bb2d-80fd-8a88-c08356066172">There is another way to solve this problem. This is to use an MST algorithm but to add the power-plants all to the same component before starting. </p><p class="notion-block notion-paragraph" data-notion-block-id="34dd3a21-bb2d-8014-b978-ebea83eec462"></p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/huffman-codes/">
+    <span>Next reading</span>
+    <strong>Huffman Codes</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -129,6 +221,20 @@ while we still haven’t added n - 1 edges, fake_pq[] has a non-empty queue:
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

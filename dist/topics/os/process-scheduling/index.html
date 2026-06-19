@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Process Scheduling · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/process-scheduling/" />
+    <meta property="og:title" content="Process Scheduling · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/process-scheduling/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Process Scheduling · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":3,"name":"Process Scheduling","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/process-scheduling/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of Operating Systems</p>
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8020-9f0c-c765e98cac94">A computer typically has far more processes than CPU cores. At any given moment, only one process per core can actually be <em>executing</em> instructions. The OS must <strong>multiplex</strong> (share) the CPU among all active processes, creating the illusion that each process has its own dedicated CPU.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801c-9a3a-db90b81e66ab">Without multiplexing:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8034-891f-e68eaa4ab581">A buggy or infinite loop in one process would freeze the entire system.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8043-b4ab-dc5482252c8b">I/O operations (like reading from disk or network) would idle the CPU for milliseconds or seconds (an eternity in CPU time).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8086-b77e-ebb52555744a">Interactive programs (editors, browsers) would feel unresponsive.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-802c-8287-c7e7919bc9d2">On a multi-core CPU, the scheduler can run multiple threads <strong>simultaneously</strong> – one per core. This is true <strong>parallel execution</strong>, not just concurrency (interleaving).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-805c-a4b6-cf4b598d1225">The scheduler is the OS component that decides <em>which</em> process runs <em>when</em> and for <em>how long</em>. This decision is based on the <strong>Process Control Block (PCB)</strong> is key: the PCB holds all the information the scheduler needs to make an intelligent choice.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-807b-a273-fa3fd53996e2"><strong>The Process Control Block (PCB)</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-802a-b062-c292818b944a">The scheduler maintains a data structure of PCBs. For each process, the PCB is a kernel data structure that contains:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c1-808c-fb59057c432f"><strong>Process state</strong> (new, ready, running, waiting, terminated – more on this later)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80d6-82cb-de6ca210050a"><strong>Program counter</strong> (address of the next instruction to execute)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-802a-8392-fa946bf070f1"><strong>CPU registers</strong> (all general-purpose registers, stack pointer, etc.)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f9-8e2a-ca01881e98e3"><strong>Memory management info</strong> (page tables, segment limits)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8069-814b-eaf728dded1e"><strong>Scheduling information</strong> (priority, time slice used, waiting time)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80db-a614-ca228428bbcd"><strong>Accounting info</strong> (CPU time used, process ID, parent process)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8062-b19b-c42b2bb784d1"><strong>I/O status</strong> (list of open files, pending I/O operations)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80ce-b0b7-fd5342417177">The scheduler does <strong>not</strong> just look at one PCB; it typically manages several queues of PCBs. The &quot;ready queue&quot; is one of them. The scheduler’s decision (which process to run next) is made by examining the scheduling-related fields in the PCBs of all processes in the ready queue.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-807e-adbc-c127fb99a799">We talk about process state. There are five classic states: <strong>new, running, ready, waiting, terminated</strong>. This is a state machine that every process goes through. Understanding transitions is essential to understanding scheduling.</p><figure class="notion-block notion-code" data-notion-block-id="35617c95-99fd-80ff-8328-fe17b3b97694"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">         +---------+      (admitted)      +----------+
          |   New   | -------------------&gt; |   Ready  |
          +---------+                      +----------+
@@ -54,11 +90,67 @@
                       | Waiting | &lt;--------------+
                       +---------+</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-805d-9472-e70ec92b1845"><strong>New</strong> – The process is being created. The OS is allocating the PCB and initial resources. The process is not yet ready to run.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ab-ab35-eba5e188e71e"><strong>Ready</strong> – The process is loaded in memory, has all resources except the CPU, and is waiting to be scheduled. It is in the <strong>ready queue</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-804f-9611-c9a7f8c2e45b"><strong>Running</strong> – The process is currently executing on the CPU.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800e-a48b-c94f4adb095b"><strong>Waiting (or Blocked)</strong> – The process is waiting for some event (e.g., disk I/O completion, network packet, user input, a lock to be released). It is <strong>not</strong> eligible to be scheduled until the event occurs. The OS moves it to a wait queue associated with that event.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c8-84f9-c61cf5d4effc"><strong>Terminated</strong> – The process has finished execution (either normally or abnormally). Its PCB remains (zombie state) until the parent process collects its exit status, then the PCB is deallocated.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f0-90d5-df435805f90a">The scheduler only considers processes in the <strong>Ready</strong> state. Processes in Waiting are not in the ready queue; they are elsewhere. This separation prevents the scheduler from wasting CPU time on processes that cannot proceed.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-80c3-962d-fccca1a7235f"><strong>Scheduling Decisions</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f3-a353-ce00cf9f26ad">The ready queue is typically implemented as a <strong>linked list of PCBs</strong> (or more sophisticated data structures like a multilevel queue or a priority heap).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800f-861d-f6d39ca010f2">The scheduler’s job is to pick one process from the ready queue to run next. The <strong>scheduling policy</strong> determines the order. Different policies make different trade-offs (see Part 7). But before we dive into policies, we must understand two key concepts:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fd-ab58-c61d46b79a99"><strong>Non-preemptive (cooperative)</strong> – Once a process gets the CPU, it keeps it until it voluntarily yields (e.g., by waiting for I/O or calling <code class="note-inline-code">yield()</code>). The scheduler cannot forcibly take the CPU away. This was common in early systems (Windows 3.1, classic Mac OS). Problem: a buggy process can hog the CPU forever.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80cf-bcc7-fb0515f5cfc6"><strong>Preemptive</strong> – The OS uses a hardware timer interrupt (e.g., every 1–100 ms) to forcibly regain control. The scheduler can then decide to switch to another process. Modern general-purpose OSes (Linux, Windows, macOS) are preemptive. This ensures fairness and responsiveness.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80d9-88d0-d6adfcac306f">In real OSes, there isn&#39;t just one ready queue. There are multiple scheduling levels:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80bc-9765-e943fab82036"><strong>Long-term scheduler (job scheduler)</strong> – Selects which processes from disk are admitted into memory (into the ready queue). Rare in modern general-purpose OSes (except batch systems) because virtual memory allows many processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c2-b8ed-cbe0e810a198"><strong>Medium-term scheduler (swapping)</strong> – Temporarily removes processes from memory (swaps them to disk) to reduce multiprogramming degree. This is used when memory is overcommitted. The process goes from ready/waiting to <strong>suspended</strong> states. Your notes don&#39;t include this, but it&#39;s an important extension.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8095-aa94-f978696aa2bb"><strong>Short-term scheduler (CPU scheduler)</strong> – Selects the next process from the ready queue to run 
 (what we described above).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8042-ac20-fff43722e23c">Often, the scheduler’s policy is the most important influence on the performance of a system. Different policies optimize for different metrics:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8099-8dd2-c9e3e981fd8f"><strong>Throughput</strong> – Number of processes completed per time unit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8032-abfd-f7f00323e7fd"><strong>Turnaround time</strong> – Time from process arrival to completion.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8010-b121-d324f07c268c"><strong>Waiting time</strong> – Total time a process spends in the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b4-aea7-d17ae3170daf"><strong>Response time</strong> – Time from request submission to first response (e.g., keystroke to screen update).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80b6-90d7-ea2f61b3aa78">Here are the major policies:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-80b7-ad87-c78608ac7142"><strong>First-Come, First-Served (FCFS)</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80b7-86fe-c52f74f4f458">Non-preemptive. Ready queue is a FIFO queue.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8013-ac01-db723d6d4a33"><strong>Pros:</strong> Simple, fair in arrival order.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80da-8380-e7b71cbf84fe"><strong>Cons:</strong> Convoy effect – a long CPU-bound process blocks many short I/O-bound processes, hurting response time.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-802d-83da-f029041aaec9"><strong>Shortest Job First (SJF) / Shortest Remaining Time First (SRTF)</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a3-a64b-f2638e332676">SJF is non-preemptive (run the process with the smallest total burst time). SRTF is preemptive (if a new process arrives with a shorter remaining time than the current one, preempt).</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-805b-ae0c-f9a5b36b1b79"><strong>Pros:</strong> Optimal average waiting time.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a7-971f-f628c6a078fd"><strong>Cons:</strong> Impossible to know future burst lengths (must predict). Starvation possible for long jobs.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-80da-ba69-e48c71f42d50"><strong>Round Robin (RR)</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8042-87c7-fa5205ac25d7"><strong>This is the most common preemptive policy.</strong> Your notes about the timer interrupt directly enable RR. Each process gets a fixed <strong>time quantum (time slice)</strong> – e.g., 10 ms. When quantum expires, a timer interrupt forces a context switch, and the process is moved to the back of the ready queue.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8055-b6af-fcde793d6907"><strong>Pros:</strong> Good response time, fair.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ae-b63b-f75a351935d5"><strong>Cons:</strong> Too small quantum → many context switches (high overhead). Too large quantum → degenerates into FCFS (poor response for interactive tasks).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801c-8ef7-fee102e2c4cc">The 10% overhead rule helps choose the quantum: if context switch time is C (e.g., 1 µs), and you want overhead ≤ 10%, then quantum Q should be ≥ 10*C (e.g., 10 µs). But also must be large enough to amortize the cost.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-8096-bd0b-f49edce69eff"><strong>Priority Scheduling</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c2-be7f-eccd26c10537">Each process has a priority (static or dynamic). The scheduler always runs the highest priority ready process. Preemptive or non-preemptive.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-805f-afbf-e13b266d887c"><strong>Problem:</strong> Starvation (low priority processes may never run).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8017-9b1f-fef46d4858b1"><strong>Solution:</strong> Dynamic priority aging – increase priority of waiting processes over time. This is used in many real systems.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-8029-bd66-ffea69f8e222"><strong>Multilevel Feedback Queue (MLFQ) – The practical winner</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8051-915f-c7eb3602545f">Used in modern Unix-like systems (including Linux, BSD, macOS). Multiple ready queues, each with a different priority level and time quantum.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800f-85dd-d9986dfe2b4f">Processes start in the highest priority queue. If they use their entire quantum without yielding (CPU‑bound), they are demoted to a lower priority queue (longer quantum). I/O‑bound processes stay in higher queues for quick response. <strong>This dynamically approximates SJF</strong> without needing future knowledge. It also prevents starvation via periodic promotion.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80db-bcdf-d3028b3bbd1e">Here, the data structure is an array of queues, and the scheduler scans from highest priority queue downward for a non-empty queue.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-80b3-8be5-dd1c94c0c84b">An example</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8005-87b0-fcc20e322f17">Let&#39;s trace an example to show how all the pieces fit together:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c4-9ebf-f0378975e927"><strong>Process A</strong> is <strong>running</strong>. A timer interrupt occurs (every 10 ms). The OS saves A’s state (program counter, registers) into its PCB.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80ad-8a76-e8e65ccb5c4d">The scheduler looks at the <strong>ready queue</strong> (contains processes B, C, D, all in the <strong>ready</strong> state). Using Round Robin, it picks B.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8087-8d32-e034769b362f">The OS loads B’s state from its PCB into the CPU.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e8-bfb4-dda2c426145b">Process B <strong>runs</strong> for a while, then issues a <code class="note-inline-code">read()</code> system call to read from disk. The OS moves B from <strong>running</strong> to <strong>waiting</strong> (blocked on I/O) and removes it from the ready queue. B is placed in a separate I/O wait queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a7-9f78-f4f612814a4a">The scheduler now picks the next process in the ready queue – say C. This is a <strong>context switch due to I/O</strong>, not due to timer.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8010-b38d-f4da6024f66e">Later, the disk interrupt indicates B’s data is ready. The OS moves B from <strong>waiting</strong> to <strong>ready</strong> and inserts B back into the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8027-94bb-cecc14fe9112">When B eventually reaches the front of the queue, it will be dispatched again – loading its saved state from its PCB (including the fact it was in the middle of the <code class="note-inline-code">read</code> system call).</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c7-b2fa-e51421680a6b">This cycle illustrates how the scheduler uses the PCB, the process state model, and context switching to multiplex the CPU.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-8029-bade-d52e129083e3">Further material</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8021-9c64-f6512dd9d587">These notes focus on general-purpose scheduling. Advanced topics that build on these fundamentals:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-801a-803c-e1006ba095bf"><strong>Real-time scheduling</strong> – For systems where missing a deadline is catastrophic (car engines, medical devices). Policies like Rate Monotonic Scheduling (RMS) or Earliest Deadline First (EDF) guarantee that critical processes meet timing constraints.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-802a-be8f-db7669986e10"><strong>Linux CFS (Completely Fair Scheduler)</strong> – Uses a <strong>red-black tree</strong> (not a simple queue) with a concept of &quot;virtual runtime&quot; to achieve perfect fairness. It&#39;s like a sophisticated, weighted round-robin.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80d3-ae9b-f3b3ce1ad321"><strong>Symmetric multiprocessing (SMP)</strong> – Multiple cores, each with its own scheduler runqueue, plus load balancing. Processes can be pinned to cores (affinity) to avoid costly cache migration.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c1-97a5-ccb0bcaf0a24"><strong>Energy-aware scheduling</strong> – On mobile devices, scheduler may pack tasks onto fewer cores to let other cores sleep, saving battery.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f1-83a1-f289bd1f8d52"><strong>Tickless scheduling</strong> – Modern Linux can disable the periodic timer interrupt when only one thread is ready, saving power. It uses a <strong>one-shot timer</strong> to wake up only when a timeout expires. This challenges the classic model but still relies on interrupts.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8070-81f9-c91cea29e9af"><strong>User-mode scheduling (UMS)</strong> – A hybrid where the kernel schedules “virtual processors” and user-level code schedules threads onto them, avoiding many kernel entries. This is like the one-to-many model but with kernel awareness of blocking.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8024-95ad-ea5719f7970a"><strong>Priority-based preemption</strong> – A higher-priority thread that becomes ready (e.g., after I/O) can preempt the current thread immediately, not just at the next timer tick. This requires the scheduler to run at interrupt time.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8069-b916-c4a9368bab30">But all of these still rely on the same core ideas: PCBs, context switches, and a decision policy based on process state.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/thread-pools/">
+    <span>Next reading</span>
+    <strong>Thread Pools</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -102,6 +194,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

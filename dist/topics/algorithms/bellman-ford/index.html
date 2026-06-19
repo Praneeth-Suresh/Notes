@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bellman-Ford · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/bellman-ford/" />
+    <meta property="og:title" content="Bellman-Ford · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/bellman-ford/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bellman-Ford · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Bellman-Ford","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/bellman-ford/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Bellman-Ford</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80d8-abf4-d0aa660f2670">This solves the Single Source Shortest Path problem for a graph with <strong>negative edges</strong>. With negative edges the problem need to be constrained because the presence of negative cycles introduces scope for inconsistency.</p><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80d5-bcd8-d475b4faba52">If there is a negative cycle there is an arbitrage opportunity using which we can get shorter and shorter paths (infinitely many of them). If a negative cycle exist, the shortest paths approach <span class="note-inline-equation" data-latex="-\infin">\(-\infin\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2dad3a21-bb2d-80c1-9a2d-dae8c0e2568d">Thus, the output of the SSSP is either:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2dad3a21-bb2d-8098-a1e2-f3b2493b9cb3">A list of the shortest distances from the start point to every vertex</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2dad3a21-bb2d-806c-a751-e5ffd2085058">A statement that the graph contains a negative cycle</li></ol><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="31ed3a21-bb2d-8073-a07d-cc20a6c627b3">Development</h2><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8018-9c3c-c64a9602d5b3">To develop this algorithm, we make the observation that to find the shortest distance to node <span class="note-inline-equation" data-latex="t">\(t\)</span>, all we need to know is</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="31ed3a21-bb2d-8039-b5cc-f9ea2bda0111">The weights (<span class="note-inline-equation" data-latex="w_x">\(w_x\)</span>) of all the incoming connections to node <span class="note-inline-equation" data-latex="t">\(t\)</span></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="31ed3a21-bb2d-8055-b957-e910591beb17">The shortest distance (<span class="note-inline-equation" data-latex="d_x">\(d_x\)</span>) from the source node to all the nodes <span class="note-inline-equation" data-latex="x">\(x\)</span> which have a edge that leads to <span class="note-inline-equation" data-latex="t">\(t\)</span> </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-802e-ad1f-e7897bee0b77">Then, the shortest path is <span class="note-inline-equation" data-latex="\min(w_x+d_x)">\(\min(w_x+d_x)\)</span>. If there was a shorter distance to each of the nodes <span class="note-inline-equation" data-latex="x">\(x\)</span> that <span class="note-inline-equation" data-latex="d_x">\(d_x\)</span> that would constitute the shortest path. So we use already found shortest paths to find shortest paths for subsequent nodes. These shortest paths that we know have <span class="note-inline-equation" data-latex="i">\(i\)</span> edges if the shortest path to </p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80a3-84aa-d58693bd725d">Another fact we know is that a shortest path uses at most <span class="note-inline-equation" data-latex="n-1">\(n-1\)</span> edges (we can show this easily by contradiction: if there are more edges, there must be repeated vertices in the path).</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80ec-b592-e7296278f0fc">These are the main ideas underlying the Bellman-Ford algorithm.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80f4-a481-eac92bd33209">It suggests that we should iterate on the maximum number of edges used by a path. At the node itself, we store the estimated distance to that node. Initially, this is set of <span class="note-inline-equation" data-latex="\inf">\(\inf\)</span>. This estimate is updated repeatedly every time we encounter a shorter path that leads to the node.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80f9-94ef-d311abaff59d">We call this update the <strong>relax</strong> operation.</p><p class="notion-block notion-paragraph" data-notion-block-id="32ad3a21-bb2d-8081-9020-c0f535570545">The relax operation (or &quot;edge relaxation&quot;) is the fundamental procedure used to update the shortest known distance to a vertex by checking if a better path exists through an adjacent vertex.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-80a0-bd82-ff763edc62fe">Now, all we need to figure out is the order in which to call these relax operations so that we can get the actual shortest path in the most efficient manner possible.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-805a-b6bc-e4c7492178bc">The invariant we want to maintain is that after <span class="note-inline-equation" data-latex="i">\(i\)</span> iterations, the shortest path to a node that is at most length <span class="note-inline-equation" data-latex="i">\(i\)</span> has been identified.</p><p class="notion-block notion-paragraph" data-notion-block-id="31ed3a21-bb2d-8064-aad2-fd3a8b3fb8ec">This makes the code very simple:</p><figure class="notion-block notion-code" data-notion-block-id="31ed3a21-bb2d-80e9-bf3d-cae4c9047350"><pre class="note-code-block" data-language="python"><code class="language-python">def bellman–ford(G, s):
 	dist_est = [an array of all ∞]; set dist_est[s] = 0
 	for n - 1 iterations:
@@ -68,11 +104,67 @@
 
     5. Reverse Cycle to get correct order.
        Output Cycle as the negative weight cycle.</code></pre></figure></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="32dd3a21-bb2d-803c-aedf-d7db292238e6"></p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/optimal-binary-search-tree/">
+    <span>Next reading</span>
+    <strong>Optimal Binary Search Tree</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -116,6 +208,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

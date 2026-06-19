@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Skills · Computer Science Notes</title>
+
+    <meta name="description" content="Agents, feedback loops, and implementation habits." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/skills/" />
+    <meta property="og:title" content="Skills · Computer Science Notes" />
+    <meta property="og:description" content="Agents, feedback loops, and implementation habits." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/skills/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Skills · Computer Science Notes" />
+    <meta name="twitter:description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":3,"name":"Skills","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/skills/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
       <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-800e-b16b-dff04bc7ac5a">A skill packages instructions, resources, and optional scripts so that you don’t need to tell your agents to so something over and over again.</p><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-8028-999c-d10fef9cb570">Skills and MCP behave in similar ways but when using Skills, the full instruction becomes part of context only when the skill is being used.</p><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-8046-b644-dd9a06baa826">For MCP tools, the full instruction will be in context for the tools that are exposed to the model. There can be more available tools overall which are not exposed to the model. </p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="353d3a21-bb2d-8010-a526-e2e7ad5c09b6">Fix 1: Build clear skills</h1><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8067-b1e9-c86221cc9421">Don’t just build whatever skill you think you might need. Instead it should be a more careful process, following the guidelines below:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8020-baab-f35b3bb16f5e">Keep each skill scoped to one job. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80b5-9444-e4cf568226b7">Think about the kinds of trigger phrases a user would actually say.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8045-b69d-e4989613f111">Get a workflow working first. Then make it a skill.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8004-9d50-dcdf1b83e2d3">Include scripts or extra assets only when they improve reliability.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8069-acd7-fa9764f65a7e">Once a skill works really well and you observe that it needs to be run periodically, you can turn it into an automation.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-80e5-8a8e-e2f49f05dd9f">To evaluate how good a skill is, follow these criteria. If a skill is poor at these, don’t be scared to get rid of/redesign it because this will help you do much better work:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8087-9f49-deb11f17512b"><strong>Atomic Scoping</strong>: Each tool should do one thing well (e.g., <code class="note-inline-code">copy_file</code>, <code class="note-inline-code">move_file</code> instead of <code class="note-inline-code">manage_files</code>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-809a-9230-d3da53061f4f"><strong>Gerund Naming</strong>: Use the <code class="note-inline-code">ing</code> form for skill names (e.g., <code class="note-inline-code">fixing-bugs</code>, <code class="note-inline-code">testing-code</code>) to imply an ongoing capability.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80a5-9acf-eb968bf10fe0"><strong>Strict Contracts</strong>: Use strong typing and JSON Schemas for inputs/outputs. Trim outputs to minimize token usage.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8099-9619-f53d5aa735e7"><strong>Informative Errors</strong>: Return structured error messages that explain <em>why</em> a tool failed so the agent can self-correct.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8011-941f-d854178118f1"><strong>Progressive Disclosure</strong>: Keep core instructions concise; move detailed reference material (error codes, complex schemas) to separate assets loaded only when needed.</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-800e-b16b-dff04bc7ac5a">A skill packages instructions, resources, and optional scripts so that you don’t need to tell your agents to so something over and over again.</p><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-8028-999c-d10fef9cb570">Skills and MCP behave in similar ways but when using Skills, the full instruction becomes part of context only when the skill is being used.</p><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-8046-b644-dd9a06baa826">For MCP tools, the full instruction will be in context for the tools that are exposed to the model. There can be more available tools overall which are not exposed to the model. </p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="353d3a21-bb2d-8010-a526-e2e7ad5c09b6">Fix 1: Build clear skills</h1><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8067-b1e9-c86221cc9421">Don’t just build whatever skill you think you might need. Instead it should be a more careful process, following the guidelines below:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8020-baab-f35b3bb16f5e">Keep each skill scoped to one job. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-80b5-9444-e4cf568226b7">Think about the kinds of trigger phrases a user would actually say.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8045-b69d-e4989613f111">Get a workflow working first. Then make it a skill.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="353d3a21-bb2d-8004-9d50-dcdf1b83e2d3">Include scripts or extra assets only when they improve reliability.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="353d3a21-bb2d-8069-acd7-fa9764f65a7e">Once a skill works really well and you observe that it needs to be run periodically, you can turn it into an automation.</p><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-80e5-8a8e-e2f49f05dd9f">To evaluate how good a skill is, follow these criteria. If a skill is poor at these, don’t be scared to get rid of/redesign it because this will help you do much better work:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8087-9f49-deb11f17512b"><strong>Atomic Scoping</strong>: Each tool should do one thing well (e.g., <code class="note-inline-code">copy_file</code>, <code class="note-inline-code">move_file</code> instead of <code class="note-inline-code">manage_files</code>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-809a-9230-d3da53061f4f"><strong>Gerund Naming</strong>: Use the <code class="note-inline-code">ing</code> form for skill names (e.g., <code class="note-inline-code">fixing-bugs</code>, <code class="note-inline-code">testing-code</code>) to imply an ongoing capability.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80a5-9acf-eb968bf10fe0"><strong>Strict Contracts</strong>: Use strong typing and JSON Schemas for inputs/outputs. Trim outputs to minimize token usage.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8099-9619-f53d5aa735e7"><strong>Informative Errors</strong>: Return structured error messages that explain <em>why</em> a tool failed so the agent can self-correct.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8011-941f-d854178118f1"><strong>Progressive Disclosure</strong>: Keep core instructions concise; move detailed reference material (error codes, complex schemas) to separate assets loaded only when needed.</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/agent-coding/putting-it-together/">
+    <span>Next reading</span>
+    <strong>Putting it together</strong>
+    <p>Continue inside Agentic Coding</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

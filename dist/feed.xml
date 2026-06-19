@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer Science Notes</title>
+    <link>https://notes.praneeth-suresh-s.workers.dev/</link>
+    <atom:link href="https://notes.praneeth-suresh-s.workers.dev/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Rigorous computer science notes across algorithms, systems, AI engineering, and software engineering.</description>
+    <item>
+      <title>Algorithms</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/</guid>
+      <description>Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</description>
+    </item>
+    <item>
+      <title>Agentic Coding</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/</guid>
+      <description>Agents, feedback loops, and implementation habits.</description>
+    </item>
+    <item>
+      <title>Operating Systems</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/os/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/os/</guid>
+      <description>Diving deep into the design and structure of Operating Systems.</description>
+    </item>
+    <item>
+      <title>AI Engineering</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/</guid>
+      <description>Accelerating AI: across all layers</description>
+    </item>
+    <item>
+      <title>SWE for Pros</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/swe/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/swe/</guid>
+      <description>Sophisticated software systems under the hood</description>
+    </item>
+    <item>
+      <title>Building Agents</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/</guid>
+      <description>SWE Principles for Building Out Agents</description>
+    </item>
+    <item>
+      <title>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/</guid>
+      <description>NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.</description>
+    </item>
+    <item>
+      <title>Launching Off</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</guid>
+      <description>my blog</description>
+    </item>
+    <item>
+      <title>Putting users first</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/putting-users-first-rewrote-our-code/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/putting-users-first-rewrote-our-code/</guid>
+      <description>my blog</description>
+    </item>
+    <item>
+      <title>Best case, Worst case</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/</guid>
+      <description>my blog</description>
+    </item>
+    <item>
+      <title>Tech for society</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-turn-any-big-idea-into-real-impact/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-turn-any-big-idea-into-real-impact/</guid>
+      <description>my blog</description>
+    </item>
+    <item>
+      <title>The mental models of deep learning</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>The era we live in</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/the-era-we-live-in/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/the-era-we-live-in/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>Intelligence?</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/what-exactly-are-we-doing/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/what-exactly-are-we-doing/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>Peeking Inside the Black Box</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/peeking-inside-the-black-box/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/peeking-inside-the-black-box/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>Diving Deep into interpretability</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/more-on-interpretability/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/more-on-interpretability/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>From Alchemy to Science</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/from-alchemy-to-science/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/from-alchemy-to-science/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+    <item>
+      <title>Approaching the frontiers</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/approaching-the-frontiers/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/approaching-the-frontiers/</guid>
+      <description>my reflections about AI Research</description>
+    </item>
+  </channel>
+</rss>

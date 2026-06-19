@@ -1,0 +1,132 @@
+{
+  "topics": [
+    {
+      "title": "NP-completeness and reductions",
+      "rationale": "The clearest lens for seeing when many different-looking problems share one computational obstruction. This is the backbone for writing notes that move between intuition, formal reductions, and proof obligations.",
+      "sources": [
+        {
+          "label": "Stephen Cook, The Complexity of Theorem-Proving Procedures",
+          "href": "https://doi.org/10.1145/800157.805047"
+        },
+        {
+          "label": "Richard Karp, Reducibility Among Combinatorial Problems",
+          "href": "https://doi.org/10.1007/978-1-4684-2001-2_9"
+        }
+      ]
+    },
+    {
+      "title": "Shortest paths and graph structure",
+      "rationale": "Shortest path algorithms expose the connection between invariants, data structures, and graph modeling. They also make implementation tradeoffs concrete without losing the mathematical thread.",
+      "sources": [
+        {
+          "label": "Edsger W. Dijkstra, A note on two problems in connexion with graphs",
+          "href": "https://doi.org/10.1007/BF01386390"
+        },
+        {
+          "label": "Robert Tarjan, Data Structures and Network Algorithms",
+          "href": "https://doi.org/10.1137/1.9781611970265"
+        }
+      ]
+    },
+    {
+      "title": "Depth-first search and graph decompositions",
+      "rationale": "DFS is small enough to teach carefully and powerful enough to generate bridges, components, topological order, and linear-time graph structure. It rewards exact invariants.",
+      "sources": [
+        {
+          "label": "Robert Tarjan, Depth-first search and linear graph algorithms",
+          "href": "https://doi.org/10.1137/0201010"
+        }
+      ]
+    },
+    {
+      "title": "Network flow and cuts",
+      "rationale": "Flow turns algorithm design into a conversation between primal constructions and dual certificates. It is one of the best places to show why correctness proofs can feel inevitable.",
+      "sources": [
+        {
+          "label": "L. R. Ford and D. R. Fulkerson, Maximal Flow Through a Network",
+          "href": "https://doi.org/10.4153/CJM-1956-045-5"
+        }
+      ]
+    },
+    {
+      "title": "Dynamic programming and optimal substructure",
+      "rationale": "Dynamic programming is where informal pattern recognition needs discipline: state definitions, recurrence validity, boundary cases, and reconstruction all have to line up.",
+      "sources": [
+        {
+          "label": "Richard Bellman, Dynamic Programming",
+          "href": "https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming"
+        }
+      ]
+    },
+    {
+      "title": "Space-bounded computation",
+      "rationale": "Space complexity changes the shape of what a computation is allowed to remember. It is a useful counterweight to time-only algorithm discussions.",
+      "sources": [
+        {
+          "label": "Walter Savitch, Relationships between nondeterministic and deterministic tape complexities",
+          "href": "https://doi.org/10.1016/S0022-0000(70)80006-X"
+        }
+      ]
+    },
+    {
+      "title": "Primality and randomized thinking",
+      "rationale": "Primality testing is a strong route into randomized algorithms, derandomization questions, and the surprise value of a deterministic polynomial-time proof.",
+      "sources": [
+        {
+          "label": "Manindra Agrawal, Neeraj Kayal, and Nitin Saxena, PRIMES is in P",
+          "href": "https://doi.org/10.4007/annals.2004.160.781"
+        }
+      ]
+    },
+    {
+      "title": "Matrix methods and fast algebra",
+      "rationale": "Fast algebra is a reminder that basic operations hide deep algorithmic structure. It creates a bridge from algorithms into complexity and numerical computation.",
+      "sources": [
+        {
+          "label": "Volker Strassen, Gaussian elimination is not optimal",
+          "href": "https://doi.org/10.1007/BF02165411"
+        }
+      ]
+    },
+    {
+      "title": "Amortized data structures",
+      "rationale": "Amortized analysis teaches readers to reason about sequences rather than isolated operations. It is one of the best techniques for turning messy behavior into a crisp bound.",
+      "sources": [
+        {
+          "label": "Daniel Sleator and Robert Tarjan, Self-Adjusting Binary Search Trees",
+          "href": "https://doi.org/10.1145/3828.3835"
+        }
+      ]
+    },
+    {
+      "title": "Algorithms as a discipline",
+      "rationale": "The site needs a stable center of gravity: precise algorithm statements, correctness arguments, complexity analysis, and implementation realism in the same frame.",
+      "sources": [
+        {
+          "label": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein, Introduction to Algorithms",
+          "href": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
+        }
+      ]
+    },
+    {
+      "title": "Randomized algorithms",
+      "rationale": "Randomness makes probability a design tool rather than a post-hoc analysis layer. It is useful for explaining expected bounds, concentration, and failure probability.",
+      "sources": [
+        {
+          "label": "Rajeev Motwani and Prabhakar Raghavan, Randomized Algorithms",
+          "href": "https://doi.org/10.1017/CBO9780511814075"
+        }
+      ]
+    },
+    {
+      "title": "Computational complexity as a map",
+      "rationale": "Complexity theory gives the notes a shared coordinate system for reductions, complete problems, randomized classes, space bounds, and what counts as evidence of hardness.",
+      "sources": [
+        {
+          "label": "Sanjeev Arora and Boaz Barak, Computational Complexity: A Modern Approach",
+          "href": "https://theory.cs.princeton.edu/complexity/book.pdf"
+        }
+      ]
+    }
+  ]
+}

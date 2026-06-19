@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Primality Tests · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/primality-tests/" />
+    <meta property="og:title" content="Primality Tests · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/primality-tests/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Primality Tests · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Primality Tests","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/primality-tests/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,7 +59,21 @@
       <h1 class="site-title">Primality Tests</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80a0-8918-f7e9bba75340">A prime number is a natural number (greater than 1) that has exactly two factors, <code class="note-inline-code">1</code> and itself. In order to check if a number is prime or not, we can count the number of factors. </p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80fd-b3e0-ca769cdaeb95">The basic techniques to checking for primes include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8012-8b76-dab05c3069d7">Brute Force to count the number of factors a number has</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8032-9fc4-da71cf36d6e6">Find all the factors from 1 to <span class="note-inline-equation" data-latex="\sqrt n">\(\sqrt n\)</span></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-803f-95f0-ca60bc1e79f1">Sieve of Eratosthenes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-806b-8c81-db7fc5a3467a">This method is useful to search for <strong>all</strong> prime numbers in a given range and it works as follows:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80da-82f6-db6595523ccb">Iterate from <code class="note-inline-code">2</code> to <code class="note-inline-code">sqrt(N)</code>, call it <code class="note-inline-code">i</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-8001-9c9c-e61608805e40">For each <code class="note-inline-code">i</code>, we cross out all the multiples of <code class="note-inline-code">i</code>, i.e. <code class="note-inline-code">2*i</code>, <code class="note-inline-code">3*i</code> .. and so on</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80c8-903c-c75fc902ed48">If <code class="note-inline-code">i</code> is already crossed out, we don’t do anything, because if <code class="note-inline-code">i</code> is already crossed out, we are ensured that all multiples of <code class="note-inline-code">i</code> are already crossed out in our previous iterations</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35bd3a21-bb2d-80f4-8f51-e3882aeb869a">In the end, we print out all the numbers that are not crossed out</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35bd3a21-bb2d-80c2-a254-c59bd721b59e">Miller-Rabin Test</h2><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-809d-b077-f731aa3bb035">The Miller-Rabin primality test is a fast, probabilistic algorithm used to determine if a large number <span class="note-inline-equation" data-latex="n">\(n\)</span> is &quot;probably prime&quot;. It is widely used in cryptography and computer science because it is significantly faster than deterministic tests (such as AKS) for large numbers, with a complexity of <span class="note-inline-equation" data-latex="O(k \log^3 n)">\(O(k \log^3 n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8096-865c-f06d785794a7">Here is an overview of how it works:</p><figure class="notion-block notion-code" data-notion-block-id="35bd3a21-bb2d-802e-9055-df200daca54f"><pre class="note-code-block" data-language="c"><code class="language-c">let s &gt; 0 and d odd &gt; 0 such that n − 1 = 2sd  # by factoring out powers of 2 from n − 1
 repeat k times:
     a ← random(2, n − 2)  # n is always a probable prime to base 1 and n − 1
@@ -50,11 +86,67 @@ repeat k times:
     if y ≠ 1 then
         return “composite”
 return “probably prime”</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8064-8492-f13a5a4607c3">Here are some of the features of the algorithm to remember:</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-801f-a86f-f2b93d7233f3"><strong>Speed:</strong> It is highly efficient for very large numbers.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-80f0-a96b-c7a0a1800d27"><strong>Probabilistic:</strong> It can prove a number is composite, but only that it is &quot;probably&quot; prime.</p><p class="notion-block notion-paragraph" data-notion-block-id="35bd3a21-bb2d-8005-9fb0-fd35b5b0618a"><strong>Deterministic Variant:</strong> If the generalized Riemann hypothesis is assumed, the test can be made deterministic for all numbers.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/greedy-successes/">
+    <span>Next reading</span>
+    <strong>Greedy Successes</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -98,6 +190,20 @@ return “probably prime”</code></pre></figure><p class="notion-block notion-p
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

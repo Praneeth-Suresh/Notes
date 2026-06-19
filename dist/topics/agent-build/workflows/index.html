@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Workflows · Computer Science Notes</title>
+
+    <meta name="description" content="SWE Principles for Building Out Agents" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/workflows/" />
+    <meta property="og:title" content="Workflows · Computer Science Notes" />
+    <meta property="og:description" content="SWE Principles for Building Out Agents" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/workflows/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Workflows · Computer Science Notes" />
+    <meta name="twitter:description" content="SWE Principles for Building Out Agents" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Building Agents","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/"},{"@type":"ListItem","position":3,"name":"Workflows","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/workflows/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of Building Agents</p>
       
       <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81d4-9b90-f35229c1aab6">To build production-grade agentic systems, you need a precise orchestration layer. This section provides the exact steps and code patterns required to deploy workflows using Python (LangGraph) and TypeScript (Vercel AI SDK).</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81b9-a76f-c3ab5dad820a">Python: Implementation with LangGraph</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8176-a5ea-fae42fa12560">LangGraph is ideal for complex, stateful agents that require fine-grained control over loops and human intervention.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8045-b0e4-ed12bf7af8bd">Mental Mode</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8042-879b-ef62a2d2b7b9">LangGraph is the industry standard for building stateful, multi-agent applications in Python. It models workflows as a <strong>State Machine</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80be-bc69-d2a7792f3e44"><strong>State</strong>: A shared object that is passed between nodes (usually a TypedDict or a Pydantic model)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803e-8a24-eba354d4e45a"><strong>Nodes</strong>: Python function that take the state as input and perform work (through an LLM or API call for example) and return an updated state</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8052-a9c0-def70c5d07f9"><strong>Edges</strong>: Define the transition from one node to another.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80ef-9447-d19fc3ad1c03"><strong>Conditional Edges</strong>: The routing logic that looks at state and decides the next path to take.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-80d6-8e52-c3632e293c87">To handle state and the stochastic behaviour of LLMs, the following come in handy:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-80bd-a8df-ef81e76c5500"><u>Retries</u>: Define a <code class="note-inline-code">RetryPolicy</code> at the node level to automatically retry with exponential backoff (in the case the output in malformed or the function fails)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803d-b746-e8281f46c42b"><u>Validation</u>: Use Pydantic to validate the state at every transition. This ensures  that even if an LLM &quot;hallucinates&quot; a field, the workflow crashes early and safely rather than propagate bad data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-803c-bc53-c63ee1df4c4f"><u>Human-in-the-loop</u>: You can configure the graph to <code class="note-inline-code">interrupt_before</code> a specific node (e.g., <code class="note-inline-code">publish_to_social_media</code>). The state is stored, allowing the human to review it before the workflow resumes.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-816e-9be8-e21239a59717">Setup Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d9-b033-d1322f33adca"><strong>Environment:</strong> Create a <code class="note-inline-code">.env</code> file and add <code class="note-inline-code">OPENAI_API_KEY=your_key_here</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8158-8b51-cdeda622ea2d"><strong>Installation:</strong> <code class="note-inline-code">pip install langgraph langchain-openai python-dotenv</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-818d-83e6-fd266ea3c2f1"><strong>Define State:</strong> Use <code class="note-inline-code">TypedDict</code> to define the “schema” of your agent’s memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81aa-aafd-f77a5232161e"><strong>Initialize Model:</strong> Use <code class="note-inline-code">ChatOpenAI</code> and bind any necessary tools.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81d3-a21c-e7402283f3f2"><strong>Define Nodes:</strong> Create Python functions that take <code class="note-inline-code">state</code> and return an updated <code class="note-inline-code">state</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8180-8ccf-e3d9ac216393"><strong>Construct Graph:</strong> Use <code class="note-inline-code">StateGraph</code>, add nodes, and define edges.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8169-9a66-f0b0dfb49288"><strong>Compile &amp; Run:</strong> Compile the graph (with checkpointers for persistence) and invoke it.</li></ol><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8142-9579-cc947b31b355">Code Example: Customer Support Router with Human Review</h3><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81c1-b6ba-f22d7c369404"><pre class="note-code-block" data-language="python"><code class="language-python">import os
 from typing import TypedDict, Literal
 from dotenv import load_dotenv
@@ -137,11 +173,67 @@ export const analysisWorkflow = workflow(async (input: { data: string }) =&gt; {
 
   return { summary, status: &#39;complete&#39; };
 });</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-816e-bb1f-e938a83b3a5d">Designing for Finality: The Developer’s Checklist</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8126-a0fc-c7996ac6b856">When moving from a script to a production workflow, verify these three points:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81b6-93b7-d97da63e04b3"><strong>API Key Management:</strong> Always use <code class="note-inline-code">process.env</code> or <code class="note-inline-code">os.getenv</code>. Never hardcode keys. For multi-tenant apps, pass keys through a secure vault at runtime.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8152-894f-e0f461b89cfd"><strong>The “Dry Run” Node:</strong> Before calling a destructive tool (e.g., <code class="note-inline-code">delete_user</code>), add a node that generates a “Plan of Action” and waits for a boolean <code class="note-inline-code">approved</code> flag in the state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8102-816b-d50d84e5c7fb"><strong>Traceability:</strong> Wrap your graph/workflow in an observability provider (LangSmith for Python, Langfuse for TS). This allows you to debug the <em>exact</em> JSON that was passed between nodes when a failure occurs.</li></ol></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/agent-build/agents/">
+    <span>Next reading</span>
+    <strong>Agents</strong>
+    <p>Continue inside Building Agents</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -185,6 +277,20 @@ export const analysisWorkflow = workflow(async (input: { data: string }) =&gt; {
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

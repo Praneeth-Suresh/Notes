@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Advanced Agentic Engineering · Computer Science Notes</title>
+
+    <meta name="description" content="SWE Principles for Building Out Agents" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/advanced-agentic-engineering/" />
+    <meta property="og:title" content="Advanced Agentic Engineering · Computer Science Notes" />
+    <meta property="og:description" content="SWE Principles for Building Out Agents" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/advanced-agentic-engineering/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Advanced Agentic Engineering · Computer Science Notes" />
+    <meta name="twitter:description" content="SWE Principles for Building Out Agents" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Building Agents","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/"},{"@type":"ListItem","position":3,"name":"Advanced Agentic Engineering","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/advanced-agentic-engineering/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of Building Agents</p>
       
       <p class="topic-meta">SWE Principles for Building Out Agents</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8106-9ed0-ccbebf3dc90c">As you move from prototype to production, the challenges shift from “getting it to work” to “ensuring it scales safely.” This section explores advanced patterns and tools used by senior engineers to manage the stochasticity and security of autonomous agents.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81bc-8395-f7b1eddb1cde">1. Multi-Agent Orchestration (MAO)</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8182-bbdb-f6d730be4929"><strong>The Problem:</strong> A single agent trying to handle a massive, multi-domain task (e.g., “Write, test, and deploy a full-stack app”) often suffers from context drift and reasoning failure.
 <strong>The Solution:</strong> Break the task into specialized agents (e.g., a “Frontend Agent,” a “DevOps Agent,” and a “QA Agent”).
 <strong>Justification:</strong> Research from frameworks like <strong>CrewAI</strong> and <strong>AutoGen</strong> shows that role-specialization improves accuracy. In software terms, this is <strong>Service-Oriented Architecture (SOA)</strong> applied to AI. Each agent has its own “contract” and “scope,” reducing the cognitive load on any single model call.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8162-bcdb-f734fdbec809"><strong>Implementation Detail:</strong> Do not let agents talk in an unbounded chat room by default. Define a coordinator that assigns tasks, passes only the required context, validates each agent’s output, and decides whether another specialist is needed. Shared memory should be explicit, versioned, and auditable.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-81ef-b021-d94ba4273fe3">2. Video-to-Action Pipelines</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-8190-a4ae-f761dea0394b"><strong>The Problem:</strong> Many legacy systems or complex GUIs (Graphical User Interfaces) lack APIs, making them “dark matter” to traditional LLMs.
@@ -64,11 +100,60 @@
 <strong>Justification:</strong> Human review is not a demo interruption. It is part of the product and compliance surface.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81bc-b1b0-dc528e70d8c0"><strong>Implementation Detail:</strong> Store the proposed action, evidence, risk level, approver identity, timestamp, and resulting decision. The agent should resume from approved state rather than regenerate a new plan after approval.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36bd3a21-bb2d-8142-8c1a-cc69443c9416">12. Agent Observability Schema</h2><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-816b-91bf-ffe6e977096c"><strong>The Problem:</strong> When an agent fails, logs like “LLM returned bad answer” are not actionable.
 <strong>The Solution:</strong> Use structured traces.
 <strong>Justification:</strong> Engineers need to see the full trajectory: prompt version, model, state, tool schemas, tool arguments, observations, retries, token usage, latency, and final output.</p><p class="notion-block notion-paragraph" data-notion-block-id="36bd3a21-bb2d-81d3-9011-cab59a321bac"><strong>Implementation Detail:</strong> Every run should have a <code class="note-inline-code">trace_id</code>. Every node or step should record a child span. Every external write should include the same trace id and an idempotency key.</p></article>
+      
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -112,6 +197,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

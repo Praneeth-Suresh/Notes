@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Distributed AI Systems · Computer Science Notes</title>
+
+    <meta name="description" content="Accelerating AI: across all layers" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/distributed-ai-systems/" />
+    <meta property="og:title" content="Distributed AI Systems · Computer Science Notes" />
+    <meta property="og:description" content="Accelerating AI: across all layers" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/distributed-ai-systems/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed AI Systems · Computer Science Notes" />
+    <meta name="twitter:description" content="Accelerating AI: across all layers" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"AI Engineering","item":"https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/"},{"@type":"ListItem","position":3,"name":"Distributed AI Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/distributed-ai-systems/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,12 +60,82 @@
       <p class="topic-parent">Subpage of AI Engineering</p>
       
       <p class="topic-meta">Accelerating AI: across all layers</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-800e-a2f1-ee83e0edf7c0">Large model training and serving often exceed the memory capacity, compute throughput, or availability requirements of a single accelerator. This topic covers the engineering mechanisms used to distribute model execution across multiple GPUs and nodes.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c4-8c2f-eba5d7896dda">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-808a-bbec-c64bec0e090c">1. Interconnect Topologies (NVLink, InfiniBand)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8002-b82b-f3f649641313"><strong>Concept:</strong> The physical and logical layout of how GPUs talk to each other (e.g., Ring, Hypercube, Fat Tree).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8038-b679-ec53a536ae28"><strong>Why it matters:</strong> Distributed execution can be limited by communication rather than arithmetic throughput. Bandwidth, latency, contention, and topology determine whether a placement strategy can keep accelerators utilized.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8079-b52e-f20111b3a9d6"><strong>Implementation Link:</strong> Helps decide between Data Parallelism (DP) and Model Parallelism (MP).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8075-a1f4-fbfcf52fda42"><strong>Deep dive:</strong> <a href="https://www.notion.so/interconnect-topologies.md" rel="noreferrer noopener">Interconnect Topologies</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80be-ab96-eedb961c2994">2. Collective Communication Primitives (NCCL/RCCL)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8082-9b7b-c2a066ac4cb6"><strong>Concept:</strong> Standardized algorithms for data synchronization: <code class="note-inline-code">All-Reduce</code>, <code class="note-inline-code">All-Gather</code>, <code class="note-inline-code">Reduce-Scatter</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f9f-dd128d0407ec"><strong>Why it matters:</strong> These operations determine the cost of gradient synchronization, activation exchange, parameter reconstruction, and expert routing. Their performance depends on message size, rank mapping, and network topology.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803f-b8db-f6cc1da90154"><strong>Implementation Link:</strong> Forms the communication layer used by systems such as DeepSpeed, Horovod, and PyTorch Distributed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a8-8314-c74db3d1547e"><strong>Deep dive:</strong> <a href="https://www.notion.so/collective-communication-primitives.md" rel="noreferrer noopener">Collective Communication Primitives</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80fb-9a3f-e0acfad1a4b5">3. Model Parallelism: 3D Parallelism (TP, PP, DP)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8054-9bbc-c519de5703d9"><strong>Concept:</strong> Breaking models apart across <strong>Tensor Parallelism</strong> (intra-layer), <strong>Pipeline Parallelism</strong> (inter-layer), and <strong>Data Parallelism</strong> (sharding data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-807a-82e2-f275be6b0a33"><strong>Why it matters:</strong> These strategies reduce per-device memory requirements and distribute computation, but they introduce communication, scheduling, and optimizer-state management costs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f0-b5da-c672e1a83036"><strong>Implementation Link:</strong> Provides the basis for designing parameter, activation, gradient, and optimizer-state sharding strategies.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-805f-9de2-d431c3731cf6"><strong>Deep dive:</strong> <a href="https://www.notion.so/three-dimensional-parallelism.md" rel="noreferrer noopener">Three-Dimensional Parallelism</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80cc-a2f8-cbb721423fd2">4. Fault Tolerance &amp; Checkpointing</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8032-8aad-f862b5faf5d0"><strong>Concept:</strong> Mechanisms for limiting lost work when a node, process, network path, storage system, or scheduler event interrupts a distributed job.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8011-af9c-fad90a6bb9d8"><strong>Why it matters:</strong> Failure probability increases with cluster size and job duration. Checkpointing and recovery design determine the amount of recomputation and the risk of inconsistent restart state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d6-a3d6-e7f88f568e79"><strong>Implementation Link:</strong> Informs the design of training loops and persistent state management.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fd-8254-e5e29b56eee6"><strong>Deep dive:</strong> <a href="https://www.notion.so/fault-tolerance-and-checkpointing.md" rel="noreferrer noopener">Fault Tolerance And Checkpointing</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c9-ad3a-d16e0baf98ff">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806b-b8e1-f8d2445bafaa"><strong>&quot;Distributed Systems: Concepts and Design&quot; (Coulouris et al.):</strong> For foundation in distributed consensus and failure modes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803c-bb87-d3f4f45d2c0e"><strong>NVIDIA NCCL (NVIDIA Collective Communications Library) Documentation:</strong> Understanding optimized primitives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a1-82b6-f2cb9da15470"><strong>&quot;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&quot; (NVIDIA Research):</strong> For an implementation-oriented discussion of tensor, pipeline, and data parallelism.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8052-bf2a-deb935e73a15"><strong>Microsoft DeepSpeed Blog:</strong> For practical implementations of ZeRO (Zero Redundancy Optimizer).</li></ul></article>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="36917c95-99fd-800e-a2f1-ee83e0edf7c0">Large model training and serving often exceed the memory capacity, compute throughput, or availability requirements of a single accelerator. This topic covers the engineering mechanisms used to distribute model execution across multiple GPUs and nodes.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c4-8c2f-eba5d7896dda">Core Ideas to Master</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-808a-bbec-c64bec0e090c">1. Interconnect Topologies (NVLink, InfiniBand)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8002-b82b-f3f649641313"><strong>Concept:</strong> The physical and logical layout of how GPUs talk to each other (e.g., Ring, Hypercube, Fat Tree).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8038-b679-ec53a536ae28"><strong>Why it matters:</strong> Distributed execution can be limited by communication rather than arithmetic throughput. Bandwidth, latency, contention, and topology determine whether a placement strategy can keep accelerators utilized.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8079-b52e-f20111b3a9d6"><strong>Implementation Link:</strong> Helps decide between Data Parallelism (DP) and Model Parallelism (MP).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8075-a1f4-fbfcf52fda42"><strong>Deep dive:</strong> <a href="https://www.notion.so/interconnect-topologies.md" rel="noreferrer noopener">Interconnect Topologies</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80be-ab96-eedb961c2994">2. Collective Communication Primitives (NCCL/RCCL)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8082-9b7b-c2a066ac4cb6"><strong>Concept:</strong> Standardized algorithms for data synchronization: <code class="note-inline-code">All-Reduce</code>, <code class="note-inline-code">All-Gather</code>, <code class="note-inline-code">Reduce-Scatter</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8000-8f9f-dd128d0407ec"><strong>Why it matters:</strong> These operations determine the cost of gradient synchronization, activation exchange, parameter reconstruction, and expert routing. Their performance depends on message size, rank mapping, and network topology.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803f-b8db-f6cc1da90154"><strong>Implementation Link:</strong> Forms the communication layer used by systems such as DeepSpeed, Horovod, and PyTorch Distributed.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a8-8314-c74db3d1547e"><strong>Deep dive:</strong> <a href="https://www.notion.so/collective-communication-primitives.md" rel="noreferrer noopener">Collective Communication Primitives</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80fb-9a3f-e0acfad1a4b5">3. Model Parallelism: 3D Parallelism (TP, PP, DP)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8054-9bbc-c519de5703d9"><strong>Concept:</strong> Breaking models apart across <strong>Tensor Parallelism</strong> (intra-layer), <strong>Pipeline Parallelism</strong> (inter-layer), and <strong>Data Parallelism</strong> (sharding data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-807a-82e2-f275be6b0a33"><strong>Why it matters:</strong> These strategies reduce per-device memory requirements and distribute computation, but they introduce communication, scheduling, and optimizer-state management costs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80f0-b5da-c672e1a83036"><strong>Implementation Link:</strong> Provides the basis for designing parameter, activation, gradient, and optimizer-state sharding strategies.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-805f-9de2-d431c3731cf6"><strong>Deep dive:</strong> <a href="https://www.notion.so/three-dimensional-parallelism.md" rel="noreferrer noopener">Three-Dimensional Parallelism</a></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="36917c95-99fd-80cc-a2f8-cbb721423fd2">4. Fault Tolerance &amp; Checkpointing</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8032-8aad-f862b5faf5d0"><strong>Concept:</strong> Mechanisms for limiting lost work when a node, process, network path, storage system, or scheduler event interrupts a distributed job.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8011-af9c-fad90a6bb9d8"><strong>Why it matters:</strong> Failure probability increases with cluster size and job duration. Checkpointing and recovery design determine the amount of recomputation and the risk of inconsistent restart state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80d6-a3d6-e7f88f568e79"><strong>Implementation Link:</strong> Informs the design of training loops and persistent state management.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80fd-8254-e5e29b56eee6"><strong>Deep dive:</strong> <a href="https://www.notion.so/fault-tolerance-and-checkpointing.md" rel="noreferrer noopener">Fault Tolerance And Checkpointing</a></li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="36917c95-99fd-80c9-ad3a-d16e0baf98ff">Recommended Resources</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-806b-b8e1-f8d2445bafaa"><strong>&quot;Distributed Systems: Concepts and Design&quot; (Coulouris et al.):</strong> For foundation in distributed consensus and failure modes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-803c-bb87-d3f4f45d2c0e"><strong>NVIDIA NCCL (NVIDIA Collective Communications Library) Documentation:</strong> Understanding optimized primitives.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-80a1-82b6-f2cb9da15470"><strong>&quot;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&quot; (NVIDIA Research):</strong> For an implementation-oriented discussion of tensor, pipeline, and data parallelism.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="36917c95-99fd-8052-bf2a-deb935e73a15"><strong>Microsoft DeepSpeed Blog:</strong> For practical implementations of ZeRO (Zero Redundancy Optimizer).</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/ai-engineer/compiler-optimizations/">
+    <span>Next reading</span>
+    <strong>Compiler Optimizations</strong>
+    <p>Continue inside AI Engineering</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

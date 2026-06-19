@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Huffman Codes · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/huffman-codes/" />
+    <meta property="og:title" content="Huffman Codes · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/huffman-codes/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Huffman Codes · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Huffman Codes","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/huffman-codes/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,13 +59,83 @@
       <h1 class="site-title">Huffman Codes</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-806f-9d16-c70469aa7889">The goal of Huffman codes is to implement a variable length encoding scheme that allows us to do lossless compression by just changing the bits that we used to represent each symbol.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80bc-96a9-cf07e6c915ae">The problem of Huffman codes is just a specific case of the problem where we want to find the minimum of pairwise combinations of a sequence of values. </p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8030-98d8-cdedc9235032">The genius of a Huffman code is the conversion of the problem of compression into a tree problem that comes down to pairwise combinations of nodes.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8062-b682-cb51e1bea368">We represent an encoding of a word as a sequence of bits, build up by traversing downwards through a tree. To make it possible to identify each character separately in a string, we ensure that a character encoding ends when a leaf is reached. This is equivalent to ensuring that there are no overlapping prefixes.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2ced3a21-bb2d-8023-b0fd-cddc94cdf667">Proof of optimality</h1><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8023-a3e9-db0c44ca6ab2">Like all Greedy algorithms, it is important to prove the optimality of the solution obtained by leveraging the optimal substructure of the problem. In this case, we use induction followed by an exchange argument to prove that the solution is optimal.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cfd3a21-bb2d-801e-9681-dcae5515499d"><strong>Note</strong>: We have reformulated the problem as a tree problem that makes it clear that we need can use <u>induction</u> to approach the proof.</p></article>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-806f-9d16-c70469aa7889">The goal of Huffman codes is to implement a variable length encoding scheme that allows us to do lossless compression by just changing the bits that we used to represent each symbol.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80bc-96a9-cf07e6c915ae">The problem of Huffman codes is just a specific case of the problem where we want to find the minimum of pairwise combinations of a sequence of values. </p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8030-98d8-cdedc9235032">The genius of a Huffman code is the conversion of the problem of compression into a tree problem that comes down to pairwise combinations of nodes.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8062-b682-cb51e1bea368">We represent an encoding of a word as a sequence of bits, build up by traversing downwards through a tree. To make it possible to identify each character separately in a string, we ensure that a character encoding ends when a leaf is reached. This is equivalent to ensuring that there are no overlapping prefixes.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="2ced3a21-bb2d-8023-b0fd-cddc94cdf667">Proof of optimality</h1><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8023-a3e9-db0c44ca6ab2">Like all Greedy algorithms, it is important to prove the optimality of the solution obtained by leveraging the optimal substructure of the problem. In this case, we use induction followed by an exchange argument to prove that the solution is optimal.</p><p class="notion-block notion-paragraph" data-notion-block-id="2cfd3a21-bb2d-801e-9681-dcae5515499d"><strong>Note</strong>: We have reformulated the problem as a tree problem that makes it clear that we need can use <u>induction</u> to approach the proof.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/scheduling-2/">
+    <span>Next reading</span>
+    <strong>Scheduling</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Testing · Computer Science Notes</title>
+
+    <meta name="description" content="Sophisticated software systems under the hood" />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/testing/" />
+    <meta property="og:title" content="Testing · Computer Science Notes" />
+    <meta property="og:description" content="Sophisticated software systems under the hood" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/testing/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Testing · Computer Science Notes" />
+    <meta name="twitter:description" content="Sophisticated software systems under the hood" />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"SWE for Pros","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":3,"name":"Testing","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/testing/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of SWE for Pros</p>
       
       <p class="topic-meta">Sophisticated software systems under the hood</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-800c-954d-f328acd39532">Here, I break down each major testing concept, explain its purpose, provide practical examples, and discuss best practices. This guide will be organized by testing technique, with a focus on clarity, actionability, and real-world relevance.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80e0-acc8-d0bb1580ed28"><strong>Test Pyramid and Testing Strategies</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8048-9ee3-dba53b4ae68b"><strong>What is the Test Pyramid?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-87e2-c5f79b4a2278">The <strong>Test Pyramid</strong> is a visual model introduced by Martin Fowler to describe the ideal distribution of tests in a software project. It emphasizes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8012-8d70-db327051a2c6"><strong>Many unit tests</strong> (fast, isolated, cheap to write and run).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8088-9713-ca73b23bf094"><strong>Fewer integration tests</strong> (slower, test interactions between components).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-808b-ae73-c2ef33d889c6"><strong>Even fewer end-to-end tests</strong> (slowest, test the entire system).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8092-b995-f88034addc8c" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80db-b15c-d86b3406024b"><strong>Why Does It Matter?</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-804c-850b-f873efc17808"><strong>Speed</strong>: Unit tests run in milliseconds, while end-to-end tests can take minutes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ff-85df-dbd23f52bec3"><strong>Feedback</strong>: Faster tests provide quicker feedback during development.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8093-b89e-ec96c99b0819"><strong>Maintainability</strong>: A heavy reliance on end-to-end tests leads to brittle, slow test suites.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80c9-9a1f-ee8531c76f37" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a7-8aef-ecbec15e5864"><strong>Testing Strategies</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-8001-a917-f3bbd4aacbd1"><tbody><tr><th>Strategy</th><th>Scope</th><th>Speed</th><th>Purpose</th><th>Example Tools</th></tr><tr><td>Unit Testing</td><td>Single function/class</td><td>Fast</td><td>Validate logic in isolation</td><td>JUnit, pytest, Jest</td></tr><tr><td>Integration Testing</td><td>Module interactions</td><td>Medium</td><td>Test component interactions</td><td>TestNG, pytest, Postman</td></tr><tr><td>End-to-End Testing</td><td>Entire system</td><td>Slow</td><td>Validate user journeys</td><td>Selenium, Cypress, Playwright</td></tr><tr><td>Property-Based</td><td>Input/Output behavior</td><td>Fast</td><td>Validate invariants</td><td>Hypothesis, QuickCheck</td></tr><tr><td>Fuzzing</td><td>Random inputs</td><td>Slow</td><td>Find edge cases and crashes</td><td>AFL, libFuzzer, Honggfuzz</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80b3-90af-c05fbd8fa360" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-808d-9991-c1533fdee8a9"><strong>Unit Testing</strong></h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-807f-b9a6-d438758cd4b4"><strong>What is Unit Testing?</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8045-a92f-c662e299dd46">Unit testing involves testing individual units (functions, methods, classes) in isolation to ensure they work as expected.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-80cb-b023-fb4be5234b21" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-807f-b575-e9753c2f2dec"><strong>Key Principles</strong></h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c0-9953-cd354a023589"><strong>Isolation</strong>: Each test should focus on one unit.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8003-8a7e-d6cb251a6129"><strong>Determinism</strong>: Tests should produce the same result every time.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80c5-9496-c30f66b38b62"><strong>Speed</strong>: Unit tests should run quickly (milliseconds).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d9-911c-ee9c300847c3"><strong>Readability</strong>: Tests should be easy to understand and maintain.</li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-801e-84bc-e2b6803629d3" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8010-b681-c4bdc79ebf34"><strong>Example: Testing a Calculator in Python</strong></h3><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-802c-9296-ed3ae182c1e7"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">python
 Copy
 # calculator.py
@@ -246,11 +282,67 @@ Copy
 mutmut apply 1  # Apply mutation 1
 pytest         # Run tests
 mutmut revert 1 # Revert mutation</code></pre></figure></li></ol><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8033-bbe3-c9c91c2825ec" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8049-a300-d5aef4abb5e9"><strong>Mutation Testing Tools</strong></h3><table class="notion-block notion-table" data-notion-block-id="35417c95-99fd-809b-bd0d-e2f5881f1924"><tbody><tr><th>Tool</th><th>Language</th><th>Description</th></tr><tr><td>mutmut</td><td>Python</td><td>Simple mutation testing</td></tr><tr><td>Stryker</td><td>JavaScript</td><td>Mutation testing for JS/TS</td></tr><tr><td>Pitest</td><td>Java</td><td>Mutation testing for Java</td></tr><tr><td>MutPy</td><td>Python</td><td>Academic mutation tool</td></tr></tbody></table><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8012-be38-c01659617d13" /><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80e9-92d5-ece591412a47"><strong>Best Practices</strong></h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8021-be4b-e9465b8b8812"><strong>Start small</strong>: Run on critical modules first.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8049-ae1a-c20874ca121d"><strong>Focus on high mutation scores</strong>: Aim for &gt;80%.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-a3bb-e2412c65667b"><strong>Ignore trivial mutations</strong>: Some mutations (e.g., changing <code class="note-inline-code">1 + 1</code> to <code class="note-inline-code">1 + 2</code>) are meaningless.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8052-90c5-f79104ff074b"><strong>Integrate with CI</strong>: Run mutation tests periodically.</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8056-89b5-e1adff2d2549" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8054-95b9-c1e2dfd147b7"><strong>Test-Driven Development (TDD)</strong></h2></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/swe/security/">
+    <span>Next reading</span>
+    <strong>Security</strong>
+    <p>Continue inside SWE for Pros</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -294,6 +386,20 @@ mutmut revert 1 # Revert mutation</code></pre></figure></li></ol><hr class="noti
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

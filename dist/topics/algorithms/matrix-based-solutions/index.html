@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Matrix Based Solutions · Computer Science Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/matrix-based-solutions/" />
+    <meta property="og:title" content="Matrix Based Solutions · Computer Science Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/matrix-based-solutions/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Matrix Based Solutions · Computer Science Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Matrix Based Solutions","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/matrix-based-solutions/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -37,13 +59,83 @@
       <h1 class="site-title">Matrix Based Solutions</h1>
       <p class="topic-parent">Subpage of Algorithms</p>
       
-      <p class="topic-meta">Classic deep dive into Data Structures and Algorithms</p>
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80b8-bacb-d6e27abae3ae">Thinking in matrices is useful because it turns graph problems into algebraic ones, where composition of paths becomes multiplication and “either/or” reachability becomes boolean matrix operations. </p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f4-937d-d43b9e10c7e2">On dense graphs especially, that viewpoint lets you use highly optimized matrix kernels and even asymptotically faster matrix-multiplication algorithms in some problems.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8033-b4d8-d006e81dc89d">For dense graphs, this is often especially attractive because adjacency matrices already take <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span>space, and matrix algorithms can exploit cache locality, bitsets, or subcubic algebraic methods.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="341d3a21-bb2d-8061-9d3e-e47ca5012af2">Example Problems</h1><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8063-8865-dc4f05ef7981"><strong>Transitive closure / reachability matrix</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ec-a109-ffc7625ff281">You want <span class="note-inline-equation" data-latex="M[u][v]=1">\(M[u][v]=1\)</span> iff <em>u</em> can reach <em>v</em>. This is the boolean transitive closure of the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8012-88fe-e8a2787c696c">A standard solution is Warshall/Floyd-Warshall style dynamic programming in <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span>, while more advanced approaches use boolean matrix multiplication or fast algebraic matrix multiplication to improve asymptotic performance in dense settings.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80f1-9f50-d4a75e1d3071"><strong>Counting paths of fixed length k</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ca-8769-e6fd0aae9a5b">If <em>A</em> is the adjacency matrix, then <span class="note-inline-equation" data-latex="(A^k)[u][v]">\((A^k)[u][v]\)</span> gives the number of walks of length exactly k<em>k</em> from u<em>u</em> to v<em>v</em> under ordinary integer multiplication and addition.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-b0af-c37caa1d3e3b">The solution is to compute <span class="note-inline-equation" data-latex="A^k">\(A^k\)</span> by fast exponentiation in <span class="note-inline-equation" data-latex="O(\log k)">\(O(\log k)\)</span> matrix multiplications (see <a href="https://www.notion.so/341d3a21bb2d80e08982cee065f176f3#341d3a21bb2d809ea918c0d151c71514" rel="noreferrer noopener">Fast Exponentiation</a>), or use repeated squaring with a fast matrix-multiply subroutine.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8004-a274-cab14faa8dfd"><strong>All-pairs shortest paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-803e-9a7e-d133f4266cd9">For weighted graphs, the problem can be expressed with the min-plus semiring instead of ordinary arithmetic. Matrix products are then replaced by “distance multiplication,” where multiplication becomes addition of edge weights and addition becomes taking minima.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8083-a4bc-e5fb6826f6eb">This leads to APSP algorithms based on repeated min-plus products, and in some dense-graph regimes, fast matrix multiplication gives subcubic methods.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8088-a3c7-fad9a4214766"><strong>Bottleneck / maximum-capacity paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8073-ac64-ef1515a70e93">For each pair u,v<em>u</em>,<em>v</em>, you may want the path that maximizes the minimum edge capacity along the route. This is the all-pairs bottleneck paths problem, which can be formulated using (max⁡,min⁡)(max,min)-style matrix products.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-ba1d-e7786d4adba7">Then the graph problem becomes computing a transitive closure under that semiring, and fast matrix methods apply to the corresponding matrix product.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80de-b544-c2a58123113e">Triangle Detection</h2><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80d1-a68c-f59525ae074a">Given an undirected graph 𝐺 in the form of an adjacency matrix, the goal is to count the number of triangles in the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8018-9cfb-e5f7ef25a659">Using matrices, we take the adjacency matrix, compute <span class="note-inline-equation" data-latex="M^3">\(M^3\)</span> (subtracting invalid &quot;triangles&quot; like self-loops and whatnot), divide by 6.</p></article>
+      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
     </section>
+  
+      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80b8-bacb-d6e27abae3ae">Thinking in matrices is useful because it turns graph problems into algebraic ones, where composition of paths becomes multiplication and “either/or” reachability becomes boolean matrix operations. </p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f4-937d-d43b9e10c7e2">On dense graphs especially, that viewpoint lets you use highly optimized matrix kernels and even asymptotically faster matrix-multiplication algorithms in some problems.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8033-b4d8-d006e81dc89d">For dense graphs, this is often especially attractive because adjacency matrices already take <span class="note-inline-equation" data-latex="O(n^2)">\(O(n^2)\)</span>space, and matrix algorithms can exploit cache locality, bitsets, or subcubic algebraic methods.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="341d3a21-bb2d-8061-9d3e-e47ca5012af2">Example Problems</h1><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8063-8865-dc4f05ef7981"><strong>Transitive closure / reachability matrix</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ec-a109-ffc7625ff281">You want <span class="note-inline-equation" data-latex="M[u][v]=1">\(M[u][v]=1\)</span> iff <em>u</em> can reach <em>v</em>. This is the boolean transitive closure of the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8012-88fe-e8a2787c696c">A standard solution is Warshall/Floyd-Warshall style dynamic programming in <span class="note-inline-equation" data-latex="O(n^3)">\(O(n^3)\)</span>, while more advanced approaches use boolean matrix multiplication or fast algebraic matrix multiplication to improve asymptotic performance in dense settings.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80f1-9f50-d4a75e1d3071"><strong>Counting paths of fixed length k</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80ca-8769-e6fd0aae9a5b">If <em>A</em> is the adjacency matrix, then <span class="note-inline-equation" data-latex="(A^k)[u][v]">\((A^k)[u][v]\)</span> gives the number of walks of length exactly k<em>k</em> from u<em>u</em> to v<em>v</em> under ordinary integer multiplication and addition.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-b0af-c37caa1d3e3b">The solution is to compute <span class="note-inline-equation" data-latex="A^k">\(A^k\)</span> by fast exponentiation in <span class="note-inline-equation" data-latex="O(\log k)">\(O(\log k)\)</span> matrix multiplications (see <a href="https://www.notion.so/341d3a21bb2d80e08982cee065f176f3#341d3a21bb2d809ea918c0d151c71514" rel="noreferrer noopener">Fast Exponentiation</a>), or use repeated squaring with a fast matrix-multiply subroutine.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8004-a274-cab14faa8dfd"><strong>All-pairs shortest paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-803e-9a7e-d133f4266cd9">For weighted graphs, the problem can be expressed with the min-plus semiring instead of ordinary arithmetic. Matrix products are then replaced by “distance multiplication,” where multiplication becomes addition of edge weights and addition becomes taking minima.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8083-a4bc-e5fb6826f6eb">This leads to APSP algorithms based on repeated min-plus products, and in some dense-graph regimes, fast matrix multiplication gives subcubic methods.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-8088-a3c7-fad9a4214766"><strong>Bottleneck / maximum-capacity paths</strong></h2><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-8073-ac64-ef1515a70e93">For each pair u,v<em>u</em>,<em>v</em>, you may want the path that maximizes the minimum edge capacity along the route. This is the all-pairs bottleneck paths problem, which can be formulated using (max⁡,min⁡)(max,min)-style matrix products.</p><p class="notion-block notion-paragraph" data-notion-block-id="341d3a21-bb2d-80f8-ba1d-e7786d4adba7">Then the graph problem becomes computing a transitive closure under that semiring, and fast matrix methods apply to the corresponding matrix product.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="341d3a21-bb2d-80de-b544-c2a58123113e">Triangle Detection</h2><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80d1-a68c-f59525ae074a">Given an undirected graph 𝐺 in the form of an adjacency matrix, the goal is to count the number of triangles in the graph.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8018-9cfb-e5f7ef25a659">Using matrices, we take the adjacency matrix, compute <span class="note-inline-equation" data-latex="M^3">\(M^3\)</span> (subtracting invalid &quot;triangles&quot; like self-loops and whatnot), divide by 6.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/algorithms/fibonacci/">
+    <span>Next reading</span>
+    <strong>Fibonacci</strong>
+    <p>Continue inside Algorithms</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -87,6 +179,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

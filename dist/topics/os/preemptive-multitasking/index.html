@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Preemptive Multitasking · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/preemptive-multitasking/" />
+    <meta property="og:title" content="Preemptive Multitasking · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/preemptive-multitasking/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Preemptive Multitasking · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":3,"name":"Preemptive Multitasking","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/preemptive-multitasking/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,16 +60,86 @@
       <p class="topic-parent">Subpage of Operating Systems</p>
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><figure class="notion-block notion-code" data-notion-block-id="35617c95-99fd-801d-ba4c-f68f67478c53"><pre class="note-code-block" data-language="c"><code class="language-c">while (1) {
     thread = choose_next_thread();   // scheduling policy
     switch_to(thread);               // context switch
     // The CPU now runs the thread until it yields or is interrupted
 }</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-807e-846b-e998dc5d5b4c">In the loop above, the OS runs only when <code class="note-inline-code">switch_to()</code> is called. If a thread never calls <code class="note-inline-code">switch_to()</code>, the OS never gets the CPU back.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80b7-ac3c-c231e44671f3">In early systems (e.g., Windows 3.1, classic Mac OS), the solution was <strong>cooperative multitasking</strong> (what you call “yielding”). The thread must voluntarily give up the CPU:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-808c-a64e-cac964157f86"><strong>Explicit yield</strong> – The thread calls a function like <code class="note-inline-code">thread_yield()</code> or <code class="note-inline-code">sched_yield()</code> (POSIX). This is your “yield function available through POSIX”.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-809f-a4c6-dd2d3d86109a"><strong>Blocking operations</strong> – If the thread performs I/O (e.g., <code class="note-inline-code">read()</code> from disk or network), the OS automatically switches to another thread because the current thread must wait. This is also a form of yielding.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80b9-b7af-f1873e85efea"><strong>Problem with cooperative multitasking:</strong> A buggy or malicious thread that never yields (e.g., an infinite loop without I/O) can <strong>monopolise the CPU indefinitely</strong>. The system becomes unresponsive. Modern general-purpose OSes do <strong>not</strong> rely on cooperation; they use <strong>preemptive multitasking</strong> via interrupts.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-806d-acd7-c964cce10852"><strong>Preemptive multitasking</strong> </h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8088-8ce2-ce0cc08a9ef1">A CPU-bound thread (e.g., heavy numerical computation) never blocks. In a cooperative system, it would indeed run forever unless it explicitly yields. In preemptive systems, we use external events (interrupts).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8047-a9a4-e306548b61f4">The <strong>timer interrupt</strong> (also called the <strong>system tick</strong>) is generated by a programmable interval timer (PIT) or a more modern high-resolution timer. It fires at a fixed frequency, typically 100 Hz to 1000 Hz (10 ms to 1 ms intervals).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8087-b7b6-f7ecf35ba110">When the timer interrupt occurs:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8054-9007-ea2c54fe2372">The CPU saves the current thread’s state (registers, PC).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800b-a5d9-dfd6db739517">The kernel’s timer interrupt handler runs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e2-98f0-d5455ee0b307">The handler increments a system clock counter.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8013-8b2c-c59730f0daf0"><strong>Then it calls the scheduler</strong> (<code class="note-inline-code">scheduler_tick()</code> or similar).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-807a-8f05-f28d02835e03">The scheduler checks if the current thread has exceeded its <strong>time quantum</strong> (e.g., 10 ms). If yes, it marks the thread as ready and chooses another thread from the ready queue.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8052-84ab-e59235a0663d">The kernel performs a context switch to the new thread.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8056-b56a-e06d090b97a0">This mechanism <strong>guarantees</strong> that no thread can monopolise the CPU indefinitely. Even a CPU-bound infinite loop will be preempted after its time slice expires. The OS regains control <strong>without any cooperation</strong> from the thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8056-9805-c7e7fddc8ff1"><strong>This is preemptive multitasking.</strong> It is the foundation of all modern general-purpose operating systems (Linux, Windows, macOS, BSD, etc.). The infinite loop from Part 2 now runs not because threads yield, but because a hardware timer repeatedly forces the CPU back into the scheduler.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-806b-a58c-d10b56be4f4f">An example</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-806c-8eb2-fc3cb948b5eb"><strong>Scenario:</strong> A CPU-bound thread running on a single-core system with a 10 ms timer interrupt.</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-807b-a22b-c90ed5ce0c22"><strong>Thread A</strong> is currently running. It’s doing a tight loop: <code class="note-inline-code">while(1) { a = b + c; }</code>. It never calls <code class="note-inline-code">yield()</code>, never does I/O.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c1-b437-e72153c39eed">The hardware timer counts down from 10 ms. When it reaches zero, it sends an <strong>interrupt</strong> to the interrupt controller, which delivers it to the CPU.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b9-8bd1-c8bc2ddf0090"><strong>CPU pipeline is flushed</strong> (stops executing Thread A’s instructions). The CPU saves the minimal state (program counter = the next instruction in Thread A) and jumps to the kernel’s timer interrupt handler (entering <strong>kernel mode</strong>).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c2-928f-c379c6ccae13">The interrupt handler runs. It notices that this is a timer interrupt, calls <code class="note-inline-code">scheduler_tick()</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8064-afe8-e7e125526a8b">The scheduler looks at Thread A’s TCB: it has used its time quantum. The scheduler moves Thread A from <strong>RUNNING</strong> to <strong>READY</strong> and inserts it at the back of the ready queue (for a Round-Robin policy).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80c9-a6d4-fbd103d6994c">The scheduler picks the next thread from the ready queue – say <strong>Thread B</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b6-86bd-e971b1bdf429">The kernel <strong>switches</strong> to Thread B: it saves Thread A’s full context (registers, stack pointer, etc.) into Thread A’s TCB, then loads Thread B’s saved context from its TCB.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8053-bfb2-e2b20a9540b9">The CPU returns to <strong>user mode</strong> and starts executing Thread B from where it left off.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8070-8282-fcd3afd52d23">Thread B runs until the next timer interrupt (or until it blocks on I/O), at which point the cycle repeats.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8070-8c76-ff09d4cf0e69"><strong>If Thread B blocks on disk I/O:</strong></p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80d2-a26c-d1f18284099f">Thread B calls <code class="note-inline-code">read()</code>. This is a system call, so it enters <strong>kernel mode</strong> voluntarily.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8099-a4ba-f6dee9e86f64">The kernel initiates the I/O, then moves Thread B from <strong>RUNNING</strong> to <strong>WAITING</strong> (blocked queue for that disk).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b6-8536-f67cb19b72cc">The kernel immediately calls the scheduler without waiting for the next timer interrupt. This is an <strong>immediate context switch</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-803b-baef-d7cbf8da7c0a">The scheduler picks Thread A (which is ready) and switches to it. Thread A runs again.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8098-b380-f2efc2f98a19">Later, the disk completes the I/O and raises an <strong>interrupt</strong>. The disk interrupt handler runs, moves Thread B from WAITING to READY, and puts it back in the ready queue. The next timer interrupt (or a subsequent scheduling point) will resume Thread B.</li></ol></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/more-about-threads/">
+    <span>Next reading</span>
+    <strong>More about Threads</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -91,6 +183,20 @@
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

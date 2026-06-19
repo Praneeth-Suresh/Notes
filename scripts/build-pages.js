@@ -16,8 +16,15 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
   "tex-svg-full.js",
 );
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
+const SOCIAL_PREVIEW_SOURCE_PATH = path.join("content", "social", "theoretical-cs-preview.svg");
+const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-preview.svg");
+const STATIC_ARTIFACTS = [
+  "np-completeness-reduction-template.tex",
+];
 const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
+const DEFAULT_RESEARCH_TASTE_DATA_PATH = "content/research-taste.json";
 const DEFAULT_BLOG_MANIFEST_PATH = "content/blog/blog-manifest.json";
+const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -32,7 +39,9 @@ function parseArgs(argv) {
     manifest: "content/topic-manifest.json",
     out: "dist",
     portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
+    researchTasteData: DEFAULT_RESEARCH_TASTE_DATA_PATH,
     siteTitle: "Computer Science Notes",
+    siteUrl: DEFAULT_SITE_URL,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -62,6 +71,18 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (item === "--research-taste-data") {
+      args.researchTasteData = assertNonEmptyString(argv[index + 1], "--research-taste-data value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--site-url") {
+      args.siteUrl = assertNonEmptyString(argv[index + 1], "--site-url value");
+      index += 1;
+      continue;
+    }
+
     throw new Error(`Unknown argument: ${item}`);
   }
 
@@ -83,6 +104,140 @@ function validateSlug(slug) {
     throw new Error(`topic.slug "${slug}" is invalid. Use lowercase letters, digits, and hyphens.`);
   }
   return normalized;
+}
+
+function normalizePillarLinks(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((item) => item && typeof item === "object")
+    .map((item) => ({
+      title: typeof item.title === "string" ? item.title.trim() : "",
+      description: typeof item.description === "string" ? item.description.trim() : "",
+      href: typeof item.href === "string" ? item.href.trim() : "",
+    }))
+    .filter((item) => item.title !== "" && item.href.startsWith("/"));
+}
+
+function normalizePillarConfig(value) {
+  if (!value || typeof value !== "object") {
+    return null;
+  }
+
+  const startHere = normalizePillarLinks(value.startHere);
+  const readingPath = Array.isArray(value.readingPath)
+    ? value.readingPath
+        .filter((section) => section && typeof section === "object")
+        .map((section) => ({
+          label: typeof section.label === "string" ? section.label.trim() : "",
+          links: normalizePillarLinks(section.links),
+        }))
+        .filter((section) => section.label !== "" && section.links.length > 0)
+    : [];
+
+  if (startHere.length === 0 && readingPath.length === 0) {
+    return null;
+  }
+
+  return { startHere, readingPath };
+}
+
+function normalizeSiteUrl(siteUrl) {
+  const normalized = assertNonEmptyString(siteUrl, "siteUrl").replace(/\/+$/u, "");
+  try {
+    const url = new URL(normalized);
+    if (url.protocol !== "https:" && url.protocol !== "http:") {
+      throw new Error("protocol must be http or https");
+    }
+    return normalized;
+  } catch (error) {
+    throw new Error(`siteUrl must be an absolute HTTP(S) URL: ${error.message}`);
+  }
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function absoluteSiteUrl(siteUrl, urlPath) {
+  const pathPart = typeof urlPath === "string" && urlPath.startsWith("/")
+    ? urlPath
+    : `/${urlPath || ""}`;
+  return `${siteUrl}${pathPart}`;
+}
+
+function renderRssFeed({ siteTitle, siteUrl, feedItems }) {
+  const items = feedItems
+    .map((item) => {
+      const absoluteUrl = absoluteSiteUrl(siteUrl, item.urlPath);
+      const description = item.description && item.description.trim() !== ""
+        ? item.description.trim()
+        : `Read ${item.title} on ${siteTitle}.`;
+
+      return `    <item>
+      <title>${escapeXml(item.title)}</title>
+      <link>${escapeXml(absoluteUrl)}</link>
+      <guid>${escapeXml(absoluteUrl)}</guid>
+      <description>${escapeXml(description)}</description>
+    </item>`;
+    })
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeXml(siteTitle)}</title>
+    <link>${escapeXml(siteUrl)}/</link>
+    <atom:link href="${escapeXml(siteUrl)}/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Rigorous computer science notes across algorithms, systems, AI engineering, and software engineering.</description>
+${items}
+  </channel>
+</rss>
+`;
+}
+
+function uniqueSitemapItems(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const pathPart = typeof item.urlPath === "string" && item.urlPath.startsWith("/")
+      ? item.urlPath
+      : null;
+    if (!pathPart || seen.has(pathPart)) {
+      return false;
+    }
+
+    seen.add(pathPart);
+    return true;
+  });
+}
+
+function renderSitemapXml({ siteUrl, sitemapItems }) {
+  const urls = uniqueSitemapItems(sitemapItems)
+    .map((item) => `  <url>
+    <loc>${escapeXml(absoluteSiteUrl(siteUrl, item.urlPath))}</loc>
+  </url>`)
+    .join("\n");
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
+function renderRobotsTxt({ siteUrl }) {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${absoluteSiteUrl(siteUrl, "/sitemap.xml")}
+`;
 }
 
 function slugifyPathSegment(value, fallback) {
@@ -158,6 +313,7 @@ function validateManifestEntry(entry) {
           .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
           .map((propertyName) => propertyName.trim())
       : [],
+    pillar: normalizePillarConfig(entry.pillar),
     source: entry.source,
   };
 }
@@ -367,12 +523,15 @@ async function buildPagesSite({
   manifestPath,
   outputDir,
   portfolioDataPath = DEFAULT_PORTFOLIO_DATA_PATH,
+  researchTasteDataPath = DEFAULT_RESEARCH_TASTE_DATA_PATH,
   siteTitle,
+  siteUrl = DEFAULT_SITE_URL,
   mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
 }) {
   const absoluteManifestPath = path.resolve(process.cwd(), manifestPath);
   const manifestDir = path.dirname(absoluteManifestPath);
   const absoluteOutputDir = path.resolve(process.cwd(), outputDir);
+  const normalizedSiteUrl = normalizeSiteUrl(siteUrl);
   const outputParentDir = path.dirname(absoluteOutputDir);
   const outputBaseName = path.basename(absoluteOutputDir);
 
@@ -388,6 +547,10 @@ async function buildPagesSite({
     path.resolve(process.cwd(), portfolioDataPath),
     "portfolio repository data",
   );
+  const researchTasteData = await readOptionalJsonFromFile(
+    path.resolve(process.cwd(), researchTasteDataPath),
+    "research taste data",
+  );
 
   const topics = [];
   for (const rawEntry of manifest) {
@@ -402,6 +565,7 @@ async function buildPagesSite({
       slug: manifestEntry.slug,
       title: topicDocument.title,
       description: topicDocument.description,
+      pillar: manifestEntry.pillar,
       topicDocument,
     });
   }
@@ -419,8 +583,35 @@ async function buildPagesSite({
       outputRelativePath: MATHJAX_ASSET_PATH,
       label: "MathJax vendor asset",
     });
+    await copyFileToOutput({
+      sourcePath: SOCIAL_PREVIEW_SOURCE_PATH,
+      outputDir: buildOutputDir,
+      outputRelativePath: SOCIAL_PREVIEW_ASSET_PATH,
+      label: "social preview asset",
+    });
+    for (const artifactFile of STATIC_ARTIFACTS) {
+      await copyFileToOutput({
+        sourcePath: path.join("content", "artifacts", artifactFile),
+        outputDir: buildOutputDir,
+        outputRelativePath: path.join("artifacts", artifactFile),
+        label: `static artifact ${artifactFile}`,
+      });
+    }
 
     const searchIndex = [];
+    const feedItems = topics.map((topic) => ({
+      title: topic.title,
+      description: topic.description,
+      urlPath: `/topics/${topic.slug}/`,
+    }));
+    const sitemapItems = [
+      { urlPath: "/" },
+      { urlPath: "/start-here/" },
+      { urlPath: "/research-taste/" },
+      { urlPath: "/errata/" },
+      { urlPath: "/subscribe/" },
+      { urlPath: "/about/" },
+    ];
 
     for (const topic of topics) {
       const pageRecords = collectPageRecords({
@@ -431,16 +622,28 @@ async function buildPagesSite({
       });
 
       for (const pageRecord of pageRecords) {
+        const pageRecordIndex = pageRecords.indexOf(pageRecord);
+        const nextPageRecord = pageRecords[pageRecordIndex + 1] || null;
         const topicBodyHtml = notesContentContext.renderTopicBody(pageRecord.topicDocument);
         const topicPageHtml = stylingContext.renderTopicPage({
           siteTitle,
+          siteUrl: normalizedSiteUrl,
           topic: {
             ...topic,
             slug: pageRecord.slug,
+            urlPath: pageRecord.urlPath,
             title: pageRecord.title,
             description: pageRecord.description,
             labels: pageRecord.labels,
             parentTitle: pageRecord.parentTitle,
+            pillar: pageRecord.parentTitle ? null : topic.pillar,
+            nextReading: nextPageRecord
+              ? {
+                  title: nextPageRecord.title,
+                  urlPath: nextPageRecord.urlPath,
+                  parentTitle: nextPageRecord.parentTitle,
+                }
+              : null,
           },
           topicContentHtml: topicBodyHtml,
           topics,
@@ -448,6 +651,7 @@ async function buildPagesSite({
 
         const topicPath = path.join(buildOutputDir, ...pageRecord.outputSegments, "index.html");
         await writeUtf8File(topicPath, topicPageHtml);
+        sitemapItems.push({ urlPath: pageRecord.urlPath });
 
         searchIndex.push({
           ...notesContentContext.createSearchEntry({
@@ -463,15 +667,40 @@ async function buildPagesSite({
 
     const indexHtml = stylingContext.renderHomePage({
       siteTitle,
+      siteUrl: normalizedSiteUrl,
       topics,
       searchEntries: searchIndex,
     });
     const personalHtml = stylingContext.renderPersonalPage({
       siteTitle,
+      siteUrl: normalizedSiteUrl,
       portfolioData,
+    });
+    const startHereHtml = stylingContext.renderStartHerePage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+      topics,
+      searchEntries: searchIndex,
+    });
+    const researchTasteHtml = stylingContext.renderResearchTastePage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+      researchTasteData,
+    });
+    const errataHtml = stylingContext.renderErrataPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
+    const subscribeHtml = stylingContext.renderSubscribePage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
     });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
+    await writeUtf8File(path.join(buildOutputDir, "start-here", "index.html"), startHereHtml);
+    await writeUtf8File(path.join(buildOutputDir, "research-taste", "index.html"), researchTasteHtml);
+    await writeUtf8File(path.join(buildOutputDir, "errata", "index.html"), errataHtml);
+    await writeUtf8File(path.join(buildOutputDir, "subscribe", "index.html"), subscribeHtml);
     await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
 
     // Blog
@@ -486,8 +715,14 @@ async function buildPagesSite({
         const homeMd = await fs.readFile(path.join(blogContentDir, blogManifest.home.markdownFile), "utf8");
         homeContentHtml = notesContentContext.renderBlogBody(homeMd);
       }
-      const blogIndexHtml = stylingContext.renderBlogIndexPage({ siteTitle, blogManifest, homeContentHtml });
+      const blogIndexHtml = stylingContext.renderBlogIndexPage({
+        siteTitle,
+        siteUrl: normalizedSiteUrl,
+        blogManifest,
+        homeContentHtml,
+      });
       await writeUtf8File(path.join(buildOutputDir, "blog", "index.html"), blogIndexHtml);
+      sitemapItems.push({ urlPath: "/blog/" });
 
       // Render each post
       for (const section of blogManifest.sections) {
@@ -496,15 +731,28 @@ async function buildPagesSite({
           const blogContentHtml = notesContentContext.renderBlogBody(postMd);
           const postHtml = stylingContext.renderBlogPostPage({
             siteTitle,
+            siteUrl: normalizedSiteUrl,
             post,
             section: section.title,
             blogContentHtml,
             blogManifest,
           });
           await writeUtf8File(path.join(buildOutputDir, "blog", post.slug, "index.html"), postHtml);
+          sitemapItems.push({ urlPath: `/blog/${post.slug}/` });
+
+          feedItems.push({
+            title: post.title,
+            description: post.description || section.subtitle || section.title,
+            urlPath: `/blog/${post.slug}/`,
+          });
 
           searchIndex.push({
-            ...notesContentContext.createBlogSearchEntry({ slug: post.slug, title: post.title, markdownString: postMd }),
+            ...notesContentContext.createBlogSearchEntry({
+              slug: post.slug,
+              title: post.title,
+              description: post.description,
+              markdownString: postMd,
+            }),
             urlPath: `/blog/${post.slug}/`,
             parentTitle: section.title,
             labels: [],
@@ -531,6 +779,18 @@ async function buildPagesSite({
       path.join(buildOutputDir, "search-index.json"),
       `${JSON.stringify(searchIndex, null, 2)}\n`,
     );
+    await writeUtf8File(
+      path.join(buildOutputDir, "feed.xml"),
+      renderRssFeed({ siteTitle, siteUrl: normalizedSiteUrl, feedItems }),
+    );
+    await writeUtf8File(
+      path.join(buildOutputDir, "sitemap.xml"),
+      renderSitemapXml({ siteUrl: normalizedSiteUrl, sitemapItems }),
+    );
+    await writeUtf8File(
+      path.join(buildOutputDir, "robots.txt"),
+      renderRobotsTxt({ siteUrl: normalizedSiteUrl }),
+    );
     await replaceDirectoryAtomically({
       sourceDir: buildOutputDir,
       targetDir: absoluteOutputDir,
@@ -549,7 +809,9 @@ if (require.main === module) {
     manifestPath: args.manifest,
     outputDir: args.out,
     portfolioDataPath: args.portfolioData,
+    researchTasteDataPath: args.researchTasteData,
     siteTitle: args.siteTitle,
+    siteUrl: args.siteUrl,
   }).catch((error) => {
     console.error(`build-pages failed: ${error.message}`);
     process.exitCode = 1;

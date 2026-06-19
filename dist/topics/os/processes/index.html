@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Processes · Computer Science Notes</title>
+
+    <meta name="description" content="Diving deep into the design and structure of Operating Systems." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/processes/" />
+    <meta property="og:title" content="Processes · Computer Science Notes" />
+    <meta property="og:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/processes/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Processes · Computer Science Notes" />
+    <meta name="twitter:description" content="Diving deep into the design and structure of Operating Systems." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":3,"name":"Processes","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/processes/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of Operating Systems</p>
       
       <p class="topic-meta">Diving deep into the design and structure of Operating Systems.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35317c95-99fd-805b-998a-e319d600762d">A process is a (abstraction of a) program in execution, including its code, data, stack, registers, and resources.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8023-b239-c9e2d630fcbb">Processes provide abstraction by encapsulating execution so multiple programs can run independently without interfering.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80c9-9633-cf965a6fd4a0">Associated with each process is its:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-80fe-b22e-d3f5e5d0f902">Address Space (translated to a set of locations from 0 to some maximum) containing the program’s data and the stack. This is sometimes called the <strong>core image</strong> of the process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-8060-ab1b-cedfb3ac48fd">Registers</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-803b-bffa-d110092ba8b5">List of open files (in the <strong>file descriptor table</strong> where file descriptors point to open file descriptions). See <a href="https://www.notion.so/35417c9599fd807f932fdc2e6637246e#35417c9599fd8042afcad2a74a793be2" rel="noreferrer noopener">Process State</a>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35317c95-99fd-8085-88af-fbd98f50ef4d">Outstanding alarms</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-808e-9e9b-d40114b5e852">Basically, everything that is needed to run the process is stored with the process. This is why the process can be viewed as the basic container in a operating system.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8060-a70b-d44229984191">In many operating systems, all the information about each process is stored in an operating system table called the <strong>process table</strong>, which is an array of structures, one for each process currently in existence.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8074-b61a-f514e9a070a0">It acts as an array of Process Control Blocks (PCBs), where each entry corresponds to a single process, storing its PID, state, memory allocation, and CPU register data to facilitate scheduling and context switching.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80b9-83d2-e48006ac5dec">Multiprogramming</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80c0-ac5b-ccfe484770f0">Multiprogramming is the technique of running multiple programs on a single CPU by interleaving their execution. The OS keeps several jobs in memory and switches between them to maximize CPU utilization.</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35317c95-99fd-80a6-bae6-ed388e3d4633"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Multiprogramming is essentially the OS managing multiple processes in memory at once.</div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8012-9ebd-f602ed703c86">In early batch systems, the CPU often sat idle while waiting for I/O (like reading from disk). Multiprogramming ensures that while one job waits, another can use the CPU, improving throughput.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80f7-a427-fef9a1de5950">The easiest way to do multiprogramming is with a simple round-robin approach: load multiple programs into memory, and when one blocks on I/O, switch to another. This required manual partitioning of memory and primitive scheduling.</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80ef-8f39-c26eae086823">Today’s OSs use <strong>sophisticated scheduling algorithms</strong> (priority, fairness, real-time constraints) and <strong>virtual memory</strong> to allow many processes to coexist safely. Multiprogramming evolved into <strong>multitasking</strong> and <strong>time-sharing</strong>, where responsiveness for interactive users became key.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8042-879c-eb3f8aedd70a">Working with processes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80cf-b9da-cba4c2a09594">We do this using the Process API which is provided by the OS itself. <strong> </strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80cc-8c9a-db6c5333ca98">It consists of system calls (like <code class="note-inline-code">fork()</code>, <code class="note-inline-code">exec()</code>, <code class="note-inline-code">wait()</code>, <code class="note-inline-code">exit()</code>) that let user programs interact with the OS kernel. Most modern operating systems follow the POSIX standard, which defines a portable set of these APIs so that code written for one POSIX-compliant OS can run on another.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-9540-fbb7c7daf4b1">Typical process-related system calls include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8031-977a-ceceb4cdfd55"><code class="note-inline-code">fork()</code> → Creates a new process (child) that is a duplication of the current process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8038-b001-f74f9ad7a699"><code class="note-inline-code">exec()</code> → Replaces the current process image with a new program.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e9-ba9e-faa217c0e24b"><code class="note-inline-code">wait()</code> → Makes a parent wait for its child to finish.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8054-8598-cd9709e71212"><code class="note-inline-code">exit()</code> → Terminates a process.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80b6-84e3-d1fbb2acacb9"><code class="note-inline-code">kill()</code> → Sends signals to processes.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8036-a36a-dd9cda755c76">These calls allow the OS to manage process creation, execution, synchronization, and termination.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80f1-a83b-d642c7bc2a69">Fork</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8048-9e8b-e97dda9b8004">The <strong><code class="note-inline-code">fork()</code></strong><strong> system call</strong> is one of the most fundamental process-related calls in Unix-like operating systems. Here is how it works:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80bf-a9eb-f932612030d8">When a process calls <code class="note-inline-code">fork()</code>, the operating system creates a <strong>child process</strong> that is almost identical to the parent.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-805b-a4ee-d8b75c6646b0">Both parent and child continue execution from the point where <code class="note-inline-code">fork()</code> was called.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80ce-acaa-e12cd09ab0ba">The only difference: <code class="note-inline-code">fork()</code> returns <strong>0</strong> in the child process, and the <strong>child’s PID (process ID)</strong> in the parent process. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-802e-8d5e-ce681a7e49eb">This allows the program to distinguish between parent and child and run different code paths.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80dc-8f4c-c2171e0ad3ed">It’s the standard way to spawn new processes in Unix-like systems. Parent and child can run concurrently, performing different tasks. Typically, after <code class="note-inline-code">fork()</code>, the child calls <code class="note-inline-code">exec()</code> to replace its memory image with a new program (e.g., launching another executable).</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-807f-a473-f99ff7d9f527">Every time you run a command in a Unix shell, the shell forks a child process to execute that command. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8021-9a41-d04594adb2a0">Here is an example of how <code class="note-inline-code">fork()</code> might be used and the parent waits for the child to finish before exiting.</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-804b-882f-d670fd2aefae"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;unistd.h&gt;   // for fork(), getpid()
 #include &lt;sys/wait.h&gt; // for wait()
@@ -119,11 +155,67 @@ int main() {
 
     return 0;
 }</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35617c95-99fd-800f-9035-eb756facba6e">clone</h3><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35617c95-99fd-80e5-ae43-e64e211dac0d"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">There is no standard <code class="note-inline-code">clone()</code> function in the <strong>POSIX</strong> specification. The <code class="note-inline-code">clone()</code> system call is a <strong>Linux-specific</strong> extension.</div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c1-a54b-c48fb4af58ea"><code class="note-inline-code">clone()</code> is a more flexible alternative to <code class="note-inline-code">fork()</code>, introduced in Linux. It allows fine-grained control over what is shared between parent and child.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a4-9f3d-cbd36828f58a">Unlike <code class="note-inline-code">fork()</code>, <code class="note-inline-code">clone()</code> can create either processes or threads depending on the flags passed. It allows the child to share specific resources with the parent, such as memory space, file descriptors, signal handlers, or even the same thread group.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e1-951a-c65bbcfbb7e3"><strong>Thread creation</strong>: By using flags like <code class="note-inline-code">CLONE_VM</code> (share memory space) and <code class="note-inline-code">CLONE_THREAD</code> (share thread group), <code class="note-inline-code">clone()</code> can create threads instead of independent processes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80dd-bd3a-c9e904d64f1c"><strong>Lightweight processes</strong>: It enables the creation of processes that share resources selectively, making it more efficient for certain applications.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80fe-8603-d35581f3b4c2">The Process Model</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80dd-9691-e82f9eb1b0a1">A process was just a loaded program with a single execution context. Switching between processes required saving/restoring all CPU state manually.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8020-b761-db5a5f8135eb">All processes are started by processes. However, this raises the question of how the first process is created. This is covered under the topic of the boot process.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-807e-9185-cad6a50dd78e">Improvements</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8052-85cf-e45f973f5eab">OSs maintain <strong>process control blocks (PCBs)</strong> with metadata (PID, state, registers, memory mappings). </p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8016-a773-c4a13f398286">Context switching is optimized with hardware support. Processes can spawn child processes and communicate via <strong>IPC (Inter-Process Communication)</strong>.<strong> </strong>For this, we have <strong>signals</strong> which are the software equivalent of interrupts. These allow processes to be notified of asynchronous events. </p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-807d-ae3b-ed32e4dfb30e">To allow processes to work effectively on systems with multiple uses, processes store the <strong>UID (User Identification)</strong> of the user that started the process. This allows access control to be built in.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-8055-a12c-d203ccaafeac">Beyond Processes</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8020-9850-c1a27849e55a">Leads to <strong>scheduling</strong>, <strong>IPC mechanisms (pipes, sockets, shared memory)</strong>, and <strong>resource allocation</strong>.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/os/address-space/">
+    <span>Next reading</span>
+    <strong>Address Space</strong>
+    <p>Continue inside Operating Systems</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -167,6 +259,20 @@ int main() {
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>

