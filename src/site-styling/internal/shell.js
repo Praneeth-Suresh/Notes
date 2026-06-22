@@ -6,7 +6,7 @@ const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflecti
 const START_HERE_DESCRIPTION = "A guided first path through Computer Science Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
 const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails.";
 const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Computer Science Notes.";
-const SUBSCRIBE_DESCRIPTION = "Subscribe to Computer Science Notes by RSS while the email newsletter provider is being selected.";
+const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project updates from Computer Science Notes by email request or RSS.";
 const PROJECTS_DESCRIPTION = "Selected projects from Praneeth Suresh across static knowledge systems, AI engineering, research notebooks, and agentic tooling.";
 const CONTACT_DESCRIPTION = "Contact Praneeth Suresh about research, internships, consulting, NUS AI Society collaboration, and technical projects.";
 const COLLABORATE_DESCRIPTION = "Collaboration and consulting route for research, AI engineering, project work, and NUS AI Society opportunities.";
@@ -15,6 +15,7 @@ const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
 const FLAGSHIP_ESSAY_TITLE = "The mental models of deep learning";
 const PUBLIC_CONTACT_EMAIL = "praneeth.suresh.s@gmail.com";
+const SUBSCRIBE_MAILTO = `mailto:${PUBLIC_CONTACT_EMAIL}?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates`;
 
 function escapeHtml(value) {
   return String(value)
@@ -160,11 +161,12 @@ function renderSubscribePanel({ source = "site", compact = false } = {}) {
     <section id="subscribe-${escapeHtml(source)}" class="${className}" aria-labelledby="subscribe-title-${escapeHtml(source)}">
       <div>
         <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-${escapeHtml(source)}">Get the monthly deep dive.</h2>
-          <p>One rigorous AI research deep dive every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+        <h2 id="subscribe-title-${escapeHtml(source)}">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
       </div>
       <div class="subscribe-actions" aria-label="Subscription actions">
-        <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="${escapeHtml(source)}">Get the monthly deep dive</a>
+        <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="${escapeHtml(source)}">Subscribe by email</a>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="${escapeHtml(source)}">Subscription options</a>
         <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="${escapeHtml(source)}">Subscribe by RSS</a>
       </div>
     </section>
@@ -1179,16 +1181,17 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="subscribe-page-hero" aria-labelledby="subscribe-page-title">
       <p class="home-kicker">[ Subscribe ]</p>
       <h1 id="subscribe-page-title">Subscribe</h1>
-      <p>One rigorous AI research deep dive every 3-4 weeks.</p>
+      <p>Monthly AI research and project updates, with RSS available now.</p>
     </section>
     <section class="subscribe-route" aria-labelledby="subscribe-route-title">
       <div>
         <p class="section-kicker">/ Owned channel</p>
-        <h2 id="subscribe-route-title">RSS is live now.</h2>
-        <p>Email newsletter provider pending. Until that provider is selected, RSS is the stable subscription path for new notes, flagship essays, and future deep dives.</p>
+        <h2 id="subscribe-route-title">Subscribe for monthly AI research/project updates.</h2>
+        <p>Email provider automation is still intentionally simple: send a subscribe request by email, or use RSS as the instant self-serve feed for notes, flagship essays, and future deep dives.</p>
       </div>
       <div class="subscribe-route-actions" aria-label="Subscribe page actions">
-        <a class="primary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="subscribe-page">Subscribe by RSS</a>
+        <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="subscribe-page">Subscribe by email</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="subscribe-page">Subscribe by RSS</a>
         <a class="secondary-action" href="/start-here/">Start here</a>
         <a class="secondary-action" href="${FLAGSHIP_ESSAY_PATH}">Read the flagship essay</a>
       </div>
@@ -1197,8 +1200,8 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       <h2 id="subscribe-route-details-title">What you get</h2>
       <ul>
         <li>Paper-backed AI research essays with source trails, mechanisms, experiments, and open questions.</li>
-        <li>Major topic updates across AI research, algorithms, systems, and software engineering.</li>
-        <li>A low-noise cadence built around one substantial deep dive every 3-4 weeks.</li>
+        <li>Project updates across AI engineering, agents, algorithms, systems, and software engineering.</li>
+        <li>A low-noise cadence built around one substantial monthly update.</li>
       </ul>
     </section>
   `;
