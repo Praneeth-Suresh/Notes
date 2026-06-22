@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The mental models of deep learning · Blog · Computer Science Notes</title>
 
-    <meta name="description" content="The mental models of deep learning from Readings in AI on Computer Science Notes." />
+    <meta name="description" content="AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/" />
     <meta property="og:title" content="The mental models of deep learning · Blog · Computer Science Notes" />
-    <meta property="og:description" content="The mental models of deep learning from Readings in AI on Computer Science Notes." />
+    <meta property="og:description" content="A paper-backed AI research essay connecting Cybenko, LeCun, Vaswani, Mnih, architecture design, representation learning, and the limits of today&#39;s theory." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/" />
     <meta property="og:site_name" content="Computer Science Notes" />
@@ -16,13 +16,14 @@
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Theoretical CS, from intuition to proof." />
+    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="The mental models of deep learning · Blog · Computer Science Notes" />
-    <meta name="twitter:description" content="The mental models of deep learning from Readings in AI on Computer Science Notes." />
+    <meta name="twitter:description" content="A paper-backed AI research essay connecting Cybenko, LeCun, Vaswani, Mnih, architecture design, representation learning, and the limits of today&#39;s theory." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Theoretical CS, from intuition to proof." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The mental models of deep learning","description":"The mental models of deep learning from Readings in AI on Computer Science Notes.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@type":"Person","name":"Praneeth Suresh"},"publisher":{"@type":"Organization","name":"Computer Science Notes"},"mainEntityOfPage":"https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/","url":"https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"}</script>
+    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The mental models of deep learning","description":"AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@type":"Person","name":"Praneeth Suresh"},"publisher":{"@type":"Organization","name":"Computer Science Notes"},"mainEntityOfPage":"https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/","url":"https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is deep learning research only about bigger models?","acceptedAnswer":{"@type":"Answer","text":"No. The essay treats scale as one axis, but the main question is how architectures, objectives, data, and training loops make a model fit the structure of a task."}},{"@type":"Question","name":"Why include reinforcement learning beside architecture papers?","acceptedAnswer":{"@type":"Answer","text":"Deep RL is part of the same AI research question because it asks how a trainable system can discover useful behavior from delayed, noisy feedback instead of only labeled examples."}},{"@type":"Question","name":"What gap does this reading trail leave open?","acceptedAnswer":{"@type":"Answer","text":"It leaves open a theory of when a particular architecture, training objective, or memory mechanism is the right fit for a task rather than merely an empirically successful choice."}}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
@@ -57,27 +58,104 @@
     <div class="blog-reading-panel" id="main-content">
       <a class="blog-back" href="/blog/">&larr; All posts</a>
       <header class="blog-post-header">
-        <p class="blog-post-section">Readings in AI</p>
+        <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>The mental models of deep learning</h1>
       </header>
-      <article class="blog-article"><p>Here’s my weekly summary of the papers that I have read in the start of December 2025. The papers are foundational papers in their own fields of AI: </p>
-<p><em>Cybenko, George. &quot;Approximation by Superpositions of a Sigmoidal Function.&quot; Mathematics of Control, Signals and Systems, vol. 2, no. 4, 1989, pp. 303-14.</em></p>
-<p><em>Mnih, Volodymyr, et al. &quot;Playing Atari with Deep Reinforcement Learning.&quot; NIPS Deep Learning Workshop, 2013.</em></p>
-<p><em>Vaswani, Ashish, et al. &quot;Attention Is All You Need.&quot; Advances in Neural Information Processing Systems, vol. 30, 2017.</em></p>
-<p><em>Lecun, Y., et al. “Gradient-Based Learning Applied to Document Recognition.” Proceedings of the IEEE, vol. 86, no. 11, 1998, pp. 2278–2324</em></p>
-<p>The commonality in their papers is the evolution they present from the classical understanding of the field. Each of them presents a new way to look at how computers can learn to do tasks. Often, this novel approach involves making a system more efficient at recognizing patterns.</p>
-<p>For example, Lecun et al. chalk out the Convolutional Neural Network as a tool that can grasp invariant properties of objects in an image, regardless of where that object is or how it is presented. This is a property which is important for working with image data. In this way, the architecture of the model has been designed with the type of patterns that need to be recognised in mind. This way, a smaller model can be used to capture patterns that would have required a much larger multilayer perceptron.</p>
-<p>Similarly, the paper “Attention Is All You Need” presents an efficient way to deduce the patterns in sequential data. As described by the paper, the goal of the attention mechanism in the transformer is to make sequence processing parallelizable and infer connections between distinct elements better. Just as in Lecun’s paper, “Attention is all you need” proposes a way to create a smaller model that can better recognize patterns in the domain it is deigned to work in.</p>
-<p>As a result, I don’t see reading these papers as just a way to teach us how to build better models. Rather, this combination of papers really highlights the core mental models in the field of deep learning. They reveal that deep learning is the science of creating trainable information processing workflows that can most easily capture patterns and nuances from data.</p>
-<p>This follows from the work of Cybenko et al. who prove that a large enough neural network can capture any function that defines a dataset. They leave the question of how large the neural network needs to be unanswered. This makes it impractical to throw neural networks at any learning task. The key innovations in deep learning, at least until this current point, propose new ways of creating end-to-end trainable prediction systems which can be trained by simply minimizing a loss function.</p>
-<p>Thus, this small subset of papers excellently captures the broad theme of creating more effective ways to represent and process data in deep learning research. However, they also bring forth one common research gap. Empirically, we know that these techniques lead to more efficient and accurate models, but we don’t have a broad picture of how to create architectures that are optimised for every possible task or proof that these architectures and indeed the best way to solve these tasks.</p>
+      <article class="blog-article"><p>The papers that first made deep learning feel like a research program to me were not only about better benchmarks. They each changed the shape of the question: what kind of trainable computation should we build for a task?</p>
+<p>In this essay, I use four foundational papers as a compact AI research trail:</p>
+<ul>
+<li>George Cybenko, &quot;Approximation by Superpositions of a Sigmoidal Function.&quot;</li>
+<li>Yann LeCun et al., &quot;Gradient-Based Learning Applied to Document Recognition.&quot;</li>
+<li>Ashish Vaswani et al., &quot;Attention Is All You Need.&quot;</li>
+<li>Volodymyr Mnih et al., &quot;Playing Atari with Deep Reinforcement Learning.&quot;</li>
+</ul>
+<p>Together, they frame deep learning as the study of trainable information-processing systems: how they represent patterns, how architectures encode useful priors, and how objectives turn feedback into behavior.</p>
+<h2>In this essay</h2>
+<ul>
+<li>We will treat universal approximation as a starting point, not a finished theory.</li>
+<li>We will compare CNNs, transformers, and deep RL as different answers to the same design problem.</li>
+<li>We will connect the paper trail to my broader AI research taste: interpretability, representation analysis, model adaptation, memory, routing, and agent evaluation.</li>
+<li>We will name the research gap that keeps coming back: we do not yet have a general theory for matching architectures and training loops to tasks.</li>
+</ul>
+<h2>Research question</h2>
+<p>The question I am using to read these papers is:</p>
+<blockquote>
+<p>How do we design trainable systems whose architecture, objective, and data interface make the target behavior easier to learn?</p>
+</blockquote>
+<p>Cybenko&#39;s theorem says that neural networks can approximate a broad class of continuous functions. That is a powerful existence result, but it does not tell us how large the network must be, what architecture should be used, or why a particular training procedure should find the useful function.</p>
+<p>That gap is where modern AI research lives. If an arbitrary large network can represent the function in principle, the research problem becomes practical and scientific: which inductive biases make learning efficient, reliable, interpretable, and controllable?</p>
+<h2>Papers in the trail</h2>
+<h3>Universal approximation</h3>
+<p>Cybenko gives the mathematical permission slip for neural networks: finite combinations of sigmoidal units can approximate continuous functions under suitable conditions.</p>
+<p>The result is important because it separates representation from feasibility. It says a neural network can be expressive enough, but it leaves open the question that matters for research practice: how many units, how much data, what training procedure, and what architecture?</p>
+<p>That is why I do not read universal approximation as &quot;neural networks solve everything.&quot; I read it as the opening constraint: expressivity alone is not a research program.</p>
+<h3>Convolutional architectures</h3>
+<p>LeCun et al. show why architecture matters. A convolutional neural network does not treat every input dimension as unrelated. It uses locality, shared weights, and hierarchical feature extraction to make visual recognition learnable.</p>
+<p>This is the first major mental model: architecture is a way of encoding assumptions about the structure of the world. In image recognition, nearby pixels matter, useful patterns repeat across space, and higher-level features can be composed from lower-level features.</p>
+<p>The point is not just that CNNs perform well. The point is that they make a task easier by shaping the computation to match the domain.</p>
+<h3>Self-attention and sequence modeling</h3>
+<p>Vaswani et al. make a different architectural bet. Instead of processing a sequence step by step, the transformer lets tokens attend to other tokens directly.</p>
+<p>The research move is clear: reduce sequential bottlenecks, improve parallelism, and make long-range interactions easier to represent. Attention turns relationships between elements into the primary computation.</p>
+<p>This is the second mental model: better architectures often change the path length through which information must travel. If a model can connect relevant parts of an input more directly, it can represent some dependencies more cleanly.</p>
+<h3>Reinforcement learning from high-dimensional input</h3>
+<p>Mnih et al. bring the same deep learning question into control. Deep Q-learning learns policies from pixels and delayed rewards, not from a static supervised dataset.</p>
+<p>This changes the difficulty profile. The training signal is sparse and noisy. Samples are correlated. The data distribution changes as the agent learns. Experience replay and value learning are not just implementation details; they are mechanisms for making learning stable enough to work.</p>
+<p>This is the third mental model: the learning setup is part of the system. Architecture matters, but so do the feedback loop, objective, memory, and data distribution.</p>
+<h2>Model and mechanism</h2>
+<p>These papers make me view AI research as a subset of computer science research about learned computation.</p>
+<p>The computational object is not just the trained model. It is the whole pipeline:</p>
+<ul>
+<li>data interface</li>
+<li>architecture</li>
+<li>objective</li>
+<li>optimizer</li>
+<li>memory or replay mechanism</li>
+<li>evaluation protocol</li>
+<li>deployment constraint</li>
+</ul>
+<p>That is why my research taste now leans toward AI research questions that expose mechanisms rather than only chase benchmark scores:</p>
+<ul>
+<li>What representations does the model learn?</li>
+<li>Which architectural priors make a task easier?</li>
+<li>When does adaptation require new parameters, new memory, or new data?</li>
+<li>How do explanations become faithful enough to support deployment decisions?</li>
+<li>How should agents trade accuracy against cost, latency, and reliability?</li>
+<li>Can routing, merging, or speculative decoding activate only the computation a task needs?</li>
+</ul>
+<h2>Why this matters</h2>
+<p>The common thread across the papers is not &quot;bigger models are better.&quot; It is more precise: AI research advances when we find a better way to organize computation around the structure of a task.</p>
+<p>CNNs organize visual computation around locality and weight sharing. Transformers organize sequence computation around attention and parallelism. Deep Q-learning organizes control around value estimates, replay, and delayed reward. Modern interpretability and agent research continue the same pattern by asking what the model is doing internally and whether the surrounding system makes that behavior reliable.</p>
+<p>This is why I want the website to reflect AI research throughout. Algorithms, systems, and software engineering still matter, but they now serve the main thread: understanding, building, evaluating, and explaining AI systems as computational artifacts.</p>
+<h2>Internal trail</h2>
+<ul>
+<li>Use the <a href="/research-taste/">research taste list</a> for the broader AI paper trail behind future notes.</li>
+<li>Read <a href="/blog/peeking-inside-the-black-box/">Peeking Inside the Black Box</a> for the interpretability direction.</li>
+<li>Read <a href="/blog/more-on-interpretability/">Diving Deep into interpretability</a> for the deployment and evaluation angle.</li>
+<li>Browse <a href="/topics/ai-engineer/">AI Engineering</a> for systems notes around accelerating AI.</li>
+</ul>
+<h2>Further reading</h2>
+<ul>
+<li>George Cybenko, <a href="https://doi.org/10.1007/BF02551274">Approximation by Superpositions of a Sigmoidal Function</a>.</li>
+<li>Yann LeCun et al., <a href="https://doi.org/10.1109/5.726791">Gradient-Based Learning Applied to Document Recognition</a>.</li>
+<li>Ashish Vaswani et al., <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>.</li>
+<li>Volodymyr Mnih et al., <a href="https://arxiv.org/abs/1312.5602">Playing Atari with Deep Reinforcement Learning</a>.</li>
+</ul>
+<h2>Questions readers usually ask</h2>
+<h3>Is deep learning research only about bigger models?</h3>
+<p>No. Scale matters, but the deeper question is how architectures, objectives, data, and training loops make a model fit the structure of a task.</p>
+<h3>Why include reinforcement learning beside architecture papers?</h3>
+<p>Deep RL is part of the same AI research question because it asks how a trainable system can discover useful behavior from delayed, noisy feedback instead of only labeled examples.</p>
+<h3>What gap does this reading trail leave open?</h3>
+<p>It leaves open a theory of when a particular architecture, training objective, or memory mechanism is the right fit for a task rather than merely an empirically successful choice.</p>
+<h2>Corrections and clarifications</h2>
+<p>If I find a substantive mistake in this essay or its source trail, I will record it on the <a href="/errata/">errata page</a> and update the affected passage.</p>
 </article>
       
     <section id="subscribe-blog-post" class="subscribe-panel" aria-labelledby="subscribe-title-blog-post">
       <div>
         <p class="section-kicker">/ Subscribe</p>
         <h2 id="subscribe-title-blog-post">Get the monthly deep dive.</h2>
-        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+          <p>One rigorous AI research deep dive every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
       </div>
       <div class="subscribe-actions" aria-label="Subscription actions">
         <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Get the monthly deep dive</a>
@@ -85,7 +163,7 @@
       </div>
     </section>
   
-      <nav class="blog-post-nav"><span></span><a href="/blog/the-era-we-live-in/">The era we live in &rarr;</a></nav>
+      <nav class="blog-post-nav"><span></span><a href="/blog/peeking-inside-the-black-box/">Peeking Inside the Black Box &rarr;</a></nav>
     </div>
   
       

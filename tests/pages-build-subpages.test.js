@@ -141,28 +141,28 @@ test("builds child_page routes and makes subpages searchable", async () => {
         {
           topics: [
             {
-              title: "NP-completeness and reductions",
+              title: "Deep learning foundations",
               rationale:
-                "A compact way to see why many different-looking problems share the same computational obstruction.",
+                "A route into AI research through universal approximation, convolutional architectures, and self-attention.",
               sources: [
                 {
-                  label: "Stephen Cook, The Complexity of Theorem-Proving Procedures",
-                  href: "https://doi.org/10.1145/800157.805047",
+                  label: "George Cybenko, Approximation by Superpositions of a Sigmoidal Function",
+                  href: "https://doi.org/10.1007/BF02551274",
                 },
                 {
-                  label: "Richard Karp, Reducibility Among Combinatorial Problems",
-                  href: "https://doi.org/10.1007/978-1-4684-2001-2_9",
+                  label: "Essay: The mental models of deep learning",
+                  href: "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/",
                 },
               ],
             },
             {
-              title: "Shortest paths and graph structure",
+              title: "Mechanistic interpretability",
               rationale:
-                "Shortest path algorithms are a clean meeting point for invariants, data structures, and graph modeling.",
+                "A research thread for reverse-engineering the computations inside modern neural networks.",
               sources: [
                 {
-                  label: "Edsger W. Dijkstra, A note on two problems in connexion with graphs",
-                  href: "https://doi.org/10.1007/BF01386390",
+                  label: "Elhage et al., A Mathematical Framework for Transformer Circuits",
+                  href: "https://transformer-circuits.pub/2021/framework/index.html",
                 },
               ],
             },
@@ -246,18 +246,23 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes('class="next-reading-link" href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(homeHtml.includes('class="stripe-field"'));
-    assert.ok(homeHtml.includes("Theoretical CS, from intuition to proof."));
-    assert.ok(homeHtml.includes("Rigorous notes on algorithms, computation, systems, and AI engineering"));
-    assert.ok(homeHtml.includes('href="/subscribe/"'));
-    assert.ok(homeHtml.includes("Get the monthly deep dive"));
+    assert.ok(homeHtml.includes("Theoretical CS: No Handwaving Allowed"));
+    assert.ok(homeHtml.includes("A collection of my work across computer science"));
+    assert.ok(homeHtml.includes('href="#main-content"'));
+    assert.ok(homeHtml.includes("Explore notes"));
+    assert.ok(homeHtml.includes('href="/blog/"'));
+    assert.ok(homeHtml.includes("Read writings"));
     assert.ok(homeHtml.includes('href="/start-here/"'));
     assert.ok(homeHtml.includes("Start here"));
-    assert.ok(homeHtml.includes('class="home-proof"'));
-    assert.ok(homeHtml.includes("<span>2</span>"));
-    assert.ok(homeHtml.includes("searchable note pages"));
-    assert.ok(homeHtml.includes('class="home-bio"'));
-    assert.ok(homeHtml.includes("Praneeth Suresh writes rigorous computer science notes"));
-    assert.ok(homeHtml.includes("connect intuition, formal models, and proof sketches"));
+    assert.ok(!homeHtml.includes('class="home-proof"'));
+    assert.ok(!homeHtml.includes("searchable note pages"));
+    assert.ok(!homeHtml.includes("LaTeX, code blocks, child pages, search, and static routing"));
+    assert.ok(!homeHtml.includes('class="home-bio"'));
+    assert.ok(homeHtml.includes("Start exploring"));
+    assert.ok(homeHtml.includes("Notes by topic"));
+    assert.ok(homeHtml.includes("Essays and research notes"));
+    assert.ok(homeHtml.includes("AI research trail"));
+    assert.ok(homeHtml.includes("Projects and portfolio"));
     assert.ok(homeHtml.includes('href="/research-taste/"'));
     assert.ok(homeHtml.includes('href="/about/"'));
     assert.ok(homeHtml.includes('<footer class="site-footer"'));
@@ -268,9 +273,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer"'));
     assert.ok(homeHtml.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(homeHtml.includes('href="/feed.xml"'));
-    assert.ok(homeHtml.includes('<meta name="description" content="Rigorous notes on algorithms, computation, systems, and AI engineering, written for readers who want the idea, the formal model, and the proof sketch in one place." />'));
+    assert.ok(homeHtml.includes('<meta name="description" content="A collection of Praneeth Suresh&#39;s computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering." />'));
     assert.ok(homeHtml.includes('<link rel="canonical" href="https://example.test/" />'));
-    assert.ok(homeHtml.includes('<meta property="og:title" content="Theoretical CS, from intuition to proof. · Computer Science Notes" />'));
+    assert.ok(homeHtml.includes('<meta property="og:title" content="Theoretical CS: No Handwaving Allowed · Computer Science Notes" />'));
     assert.ok(homeHtml.includes('<meta property="og:url" content="https://example.test/" />'));
     assert.ok(homeHtml.includes('<meta property="og:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
     assert.ok(homeHtml.includes('<meta property="og:image:width" content="1200" />'));
@@ -279,47 +284,47 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('<meta name="twitter:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
     assert.ok(homeHtml.includes('data-analytics-event="page_view"'));
     assert.ok(homeHtml.includes('window.notesAnalyticsEvents'));
-    assert.ok(homeHtml.includes('class="subscribe-panel"'));
+    assert.ok(!homeHtml.includes('data-subscribe-source="home"'));
     assert.ok(homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
     assert.ok(startHereHtml.includes("<title>Start Here · Computer Science Notes</title>"));
     assert.ok(startHereHtml.includes('href="/start-here/"'));
-    assert.ok(startHereHtml.includes("Start with the Algorithms pillar"));
-    assert.ok(startHereHtml.includes('href="/topics/algorithms/"'));
-    assert.ok(startHereHtml.includes("Read one proof-backed note"));
-    assert.ok(startHereHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
+    assert.ok(startHereHtml.includes("Start with the AI research trail"));
+    assert.ok(startHereHtml.includes('href="/research-taste/"'));
+    assert.ok(startHereHtml.includes("Read one paper-backed essay"));
+    assert.ok(startHereHtml.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(startHereHtml.includes("Subscribe when the shape is useful"));
     assert.ok(startHereHtml.includes('href="/feed.xml"'));
     assert.ok(startHereHtml.includes('href="/research-taste/"'));
     assert.ok(startHereHtml.includes('class="subscribe-panel"'));
     assert.ok(startHereHtml.includes('<link rel="canonical" href="https://example.test/start-here/" />'));
-    assert.ok(startHereHtml.includes('<meta name="description" content="A guided first path through Computer Science Notes: start with Algorithms, read one proof-backed note, and subscribe by RSS." />'));
+    assert.ok(startHereHtml.includes('<meta name="description" content="A guided first path through Computer Science Notes: start with AI research, read one paper-backed essay, and subscribe by RSS." />'));
     assert.ok(researchTasteHtml.includes("<title>Research Taste · Computer Science Notes</title>"));
     assert.ok(researchTasteHtml.includes("Research taste"));
-    assert.ok(researchTasteHtml.includes("NP-completeness and reductions"));
-    assert.ok(researchTasteHtml.includes("Shortest paths and graph structure"));
-    assert.ok(researchTasteHtml.includes("Stephen Cook, The Complexity of Theorem-Proving Procedures"));
-    assert.ok(researchTasteHtml.includes("https://doi.org/10.1145/800157.805047"));
-    assert.ok(researchTasteHtml.includes("Richard Karp, Reducibility Among Combinatorial Problems"));
-    assert.ok(researchTasteHtml.includes("https://doi.org/10.1007/978-1-4684-2001-2_9"));
+    assert.ok(researchTasteHtml.includes("Deep learning foundations"));
+    assert.ok(researchTasteHtml.includes("Mechanistic interpretability"));
+    assert.ok(researchTasteHtml.includes("George Cybenko, Approximation by Superpositions of a Sigmoidal Function"));
+    assert.ok(researchTasteHtml.includes("https://doi.org/10.1007/BF02551274"));
+    assert.ok(researchTasteHtml.includes("Essay: The mental models of deep learning"));
+    assert.ok(researchTasteHtml.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(researchTasteHtml.includes('class="research-topic"'));
     assert.ok(researchTasteHtml.includes('<link rel="canonical" href="https://example.test/research-taste/" />'));
-    assert.ok(researchTasteHtml.includes('<meta name="description" content="A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails." />'));
+    assert.ok(researchTasteHtml.includes('<meta name="description" content="A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails." />'));
     assert.ok(researchTasteHtml.includes('<footer class="site-footer"'));
     assert.ok(errataHtml.includes("<title>Errata · Computer Science Notes</title>"));
     assert.ok(errataHtml.includes("Errata"));
     assert.ok(errataHtml.includes("No published corrections yet."));
     assert.ok(errataHtml.includes("When a substantive error is found"));
-    assert.ok(errataHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
+    assert.ok(errataHtml.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(errataHtml.includes('<link rel="canonical" href="https://example.test/errata/" />'));
     assert.ok(errataHtml.includes('<meta name="description" content="Public corrections and clarification policy for Computer Science Notes." />'));
     assert.ok(subscribeHtml.includes("<title>Subscribe · Computer Science Notes</title>"));
     assert.ok(subscribeHtml.includes("Subscribe"));
-    assert.ok(subscribeHtml.includes("One rigorous theoretical CS deep dive every 3-4 weeks."));
+    assert.ok(subscribeHtml.includes("One rigorous AI research deep dive every 3-4 weeks."));
     assert.ok(subscribeHtml.includes("Email newsletter provider pending."));
     assert.ok(subscribeHtml.includes('href="/feed.xml"'));
     assert.ok(subscribeHtml.includes('data-analytics-event="rss_click"'));
     assert.ok(subscribeHtml.includes('href="/start-here/"'));
-    assert.ok(subscribeHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
+    assert.ok(subscribeHtml.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(subscribeHtml.includes('<link rel="canonical" href="https://example.test/subscribe/" />'));
     assert.ok(subscribeHtml.includes('<meta name="description" content="Subscribe to Computer Science Notes by RSS while the email newsletter provider is being selected." />'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
@@ -328,7 +333,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('searchInput.focus();'));
     assert.ok(personalHtml.includes("Praneeth Suresh"));
     assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
-    assert.ok(personalHtml.includes("I publish rigorous, proof-backed explanations of theoretical CS topics with research-level depth and clear intuition."));
+    assert.ok(personalHtml.includes("I publish rigorous, paper-backed explanations of AI research topics with research-level depth and clear intuition."));
     assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
@@ -344,6 +349,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!personalHtml.includes("Source note: LinkedIn required authentication"));
     assert.ok(!homeHtml.includes("notes.dev"));
     assert.ok(siteCss.includes("@keyframes stripe-drift"));
+    assert.ok(siteCss.includes("--accent: #9db7ff;"));
+    assert.ok(siteCss.includes("--accent-strong: #b8c3ff;"));
     assert.ok(siteCss.includes("background: rgb(212 76 71 / 0.18);"));
     assert.ok(siteCss.includes("50% {\n    transform: translateX(18%) skewY(-10deg);"));
     assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
@@ -382,7 +389,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(robotsTxt.includes("Sitemap: https://example.test/sitemap.xml"));
     assert.equal(mathJaxAsset, "window.MathJax = window.MathJax || {};\n");
     assert.ok(socialPreviewAsset.includes("<svg"));
-    assert.ok(socialPreviewAsset.includes("Theoretical CS"));
+    assert.ok(socialPreviewAsset.includes("AI Research"));
     assert.deepEqual(
       searchIndex.map((entry) => entry.slug),
       ["algorithms", "algorithms/dynamic-programming"],

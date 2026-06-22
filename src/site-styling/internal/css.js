@@ -35,6 +35,8 @@ const SITE_CSS = `
     --faint: #898982;
     --border: #f1f1ed;
     --hairline: rgb(241 241 237 / 0.2);
+    --accent: #9db7ff;
+    --accent-strong: #b8c3ff;
     --inline-code-bg: rgb(241 241 237 / 0.09);
     --code-bg: #060b12;
   }

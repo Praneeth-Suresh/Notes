@@ -1,14 +1,16 @@
 "use strict";
 
 const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
-const HOME_DESCRIPTION = "Rigorous notes on algorithms, computation, systems, and AI engineering, written for readers who want the idea, the formal model, and the proof sketch in one place.";
+const HOME_DESCRIPTION = "A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.";
 const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflections from Computer Science Notes.";
-const START_HERE_DESCRIPTION = "A guided first path through Computer Science Notes: start with Algorithms, read one proof-backed note, and subscribe by RSS.";
-const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: theoretical CS topics, why they matter, and source trails.";
+const START_HERE_DESCRIPTION = "A guided first path through Computer Science Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
+const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails.";
 const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Computer Science Notes.";
 const SUBSCRIBE_DESCRIPTION = "Subscribe to Computer Science Notes by RSS while the email newsletter provider is being selected.";
 const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
-const SOCIAL_PREVIEW_IMAGE_ALT = "Theoretical CS, from intuition to proof.";
+const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
+const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
+const FLAGSHIP_ESSAY_TITLE = "The mental models of deep learning";
 
 function escapeHtml(value) {
   return String(value)
@@ -152,7 +154,7 @@ function renderSubscribePanel({ source = "site", compact = false } = {}) {
       <div>
         <p class="section-kicker">/ Subscribe</p>
         <h2 id="subscribe-title-${escapeHtml(source)}">Get the monthly deep dive.</h2>
-        <p>One rigorous theoretical CS deep dive every 3-4 weeks, with intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+          <p>One rigorous AI research deep dive every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
       </div>
       <div class="subscribe-actions" aria-label="Subscription actions">
         <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="${escapeHtml(source)}">Get the monthly deep dive</a>
@@ -504,8 +506,6 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
 function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [] }) {
   const topicCount = topics.length;
   const topicWord = topicCount === 1 ? "topic" : "topics";
-  const searchEntryCount = searchEntries.length > 0 ? searchEntries.length : topics.length;
-  const searchEntryWord = searchEntryCount === 1 ? "page" : "pages";
   const firstTopicLink =
     topics.length > 0
       ? `<a class="topic-index-link" href="/start-here/">Start here</a>`
@@ -515,6 +515,45 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
       (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}"${index < 9 ? ` data-hotkey="${index + 1}"` : ""}>
   <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
   <p class="topic-card-description">${escapeHtml(topic.description ?? "")}</p>
+</a>`,
+    )
+    .join("");
+  const exploreCards = [
+    {
+      index: "01",
+      title: "Notes by topic",
+      description: "Browse organized computer science notes across algorithms, systems, AI engineering, software engineering, and agent-building.",
+      href: "#main-content",
+    },
+    {
+      index: "02",
+      title: "Essays and research notes",
+      description: "Read longer-form writing about AI research, interpretability, deep learning, projects, and technical thinking.",
+      href: "/blog/",
+    },
+    {
+      index: "03",
+      title: "AI research trail",
+      description: "Follow the papers and questions shaping my current research taste.",
+      href: "/research-taste/",
+    },
+    {
+      index: "04",
+      title: "Projects and portfolio",
+      description: "See selected software, AI, and systems work behind the notes.",
+      href: "/about/",
+    },
+    {
+      index: "05",
+      title: "Start here",
+      description: "Use a guided path if you want a first route through the site.",
+      href: "/start-here/",
+    },
+  ]
+    .map(
+      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
+  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
+  <p class="topic-card-description">${escapeHtml(card.description)}</p>
 </a>`,
     )
     .join("");
@@ -550,16 +589,15 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
   const content = `
     <section class="home-hero" aria-labelledby="home-title">
       <div class="home-hero-copy">
-        <p class="home-kicker">[ Field notes ]</p>
-        <h1 id="home-title" class="home-title">Theoretical CS, from intuition to proof.</h1>
-        <p class="home-intro">Rigorous notes on algorithms, computation, systems, and AI engineering, written for readers who want the idea, the formal model, and the proof sketch in one place.</p>
+        <p class="home-kicker">[ Computer Science Notes ]</p>
+        <h1 id="home-title" class="home-title">Theoretical CS: No Handwaving Allowed</h1>
+        <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
         <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="home-hero">Get the monthly deep dive</a>
-          <a class="secondary-action" href="/start-here/">Start here</a>
-          <a class="secondary-action" href="#main-content" data-hotkey="T">Browse topics</a>
-          <a class="secondary-action" href="/about/" data-hotkey="P">Portfolio</a>
+          <a class="primary-action" href="#main-content" data-hotkey="T">Explore notes</a>
+          <a class="secondary-action" href="/blog/" data-hotkey="B">Read writings</a>
+          <a class="secondary-action" href="/research-taste/">AI research trail</a>
+          <a class="secondary-action" href="/about/" data-hotkey="P">Projects and portfolio</a>
           <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
-          <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="home-hero">Subscribe by RSS</a>
         </div>
       </div>
       <div class="stripe-field" aria-hidden="true">
@@ -568,41 +606,20 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
         <span class="stripe-field-orbit"></span>
       </div>
     </section>
-    <section class="home-proof" aria-label="Corpus proof">
-      <div>
-        <span>${topicCount}</span>
-        <p>top-level ${escapeHtml(topicWord)} across algorithms, systems, AI engineering, and software practice</p>
+    <section class="panel topic-hub" aria-labelledby="home-explore-title">
+      <div class="topic-hub-header">
+        <div>
+          <p class="section-kicker">/ Start exploring</p>
+          <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
+        </div>
       </div>
-      <div>
-        <span>${searchEntryCount}</span>
-        <p>searchable note ${escapeHtml(searchEntryWord)} generated from the static corpus</p>
-      </div>
-      <div>
-        <span>Fidelity</span>
-        <p>LaTeX, code blocks, child pages, search, and static routing covered by deterministic checks</p>
-      </div>
-    </section>
-    <section class="home-bio" aria-labelledby="home-bio-title">
-      <p class="section-kicker">/ Author</p>
-      <h2 id="home-bio-title">Praneeth Suresh</h2>
-      <p>Praneeth Suresh writes rigorous computer science notes that connect intuition, formal models, and proof sketches. His work focuses on algorithms, systems, AI engineering, and the habits needed to reason clearly about complex technical ideas.</p>
-      <div class="home-bio-actions" aria-label="Author links">
-        <a href="/about/">Read the portfolio</a>
-        <a href="/research-taste/">Research taste</a>
-      </div>
-    </section>
-    <section class="home-featured" aria-labelledby="home-featured-title">
-      <p class="section-kicker">/ Flagship essay</p>
-      <a href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/">
-        <span id="home-featured-title">NP-Completeness: Formal Definition, Proof Sketches, and Reductions</span>
-        <p>A proof-backed guide to verification, reductions, Cook, Karp, and why hardness evidence changes algorithm design.</p>
-      </a>
+      <div class="topic-grid">${exploreCards}</div>
     </section>
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>
-          <p class="section-kicker">/ Feed</p>
-          <h2 id="topics-title" class="section-title">Topics <sup>(${topicCount})</sup></h2>
+          <p class="section-kicker">/ Notes</p>
+          <h2 id="topics-title" class="section-title">Browse by topic</h2>
         </div>
         ${firstTopicLink}
       </div>
@@ -611,7 +628,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
       <p id="topic-search-status" class="topic-search-status" aria-live="polite">${topicCount} ${topicWord} available.</p>
       <div id="topic-grid" class="topic-grid">${cards}</div>
     </section>
-    ${renderSubscribePanel({ source: "home" })}
     <script>
       const topics = ${topicsPayload};
       const searchEntries = ${searchPayload};
@@ -665,7 +681,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
     bodyClass: "home-page",
     description: HOME_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/"),
-    ogTitle: `Theoretical CS, from intuition to proof. · ${siteTitle}`,
+    ogTitle: `Theoretical CS: No Handwaving Allowed · ${siteTitle}`,
     ogDescription: HOME_DESCRIPTION,
   });
 }
@@ -779,14 +795,6 @@ function findSearchEntry(searchEntries, slug) {
 }
 
 function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [] }) {
-  const algorithmsTopic = findTopicBySlug(topics, "algorithms") || topics[0] || null;
-  const proofNote =
-    findSearchEntry(searchEntries, "algorithms/dynamic-programming") ||
-    searchEntries.find((entry) => entry.slug !== algorithmsTopic?.slug) ||
-    null;
-  const algorithmsHref = algorithmsTopic ? `/topics/${escapeHtml(algorithmsTopic.slug)}/` : "/#main-content";
-  const proofHref = proofNote ? escapeHtml(proofNote.urlPath || `/topics/${proofNote.slug}/`) : algorithmsHref;
-  const proofTitle = proofNote ? proofNote.title : algorithmsTopic?.title || "Algorithms";
   const topicRows = topics
     .slice(0, 6)
     .map(
@@ -807,18 +815,18 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
     <section id="main-content" class="start-hero" aria-labelledby="start-title">
       <p class="home-kicker">[ Start here ]</p>
       <h1 id="start-title">A first path through the notes.</h1>
-      <p>Use this route if you are new to the site and want the strongest proof-backed thread before browsing the full corpus.</p>
+      <p>Use this route if you are new to the site and want the AI research thread before browsing the full corpus.</p>
     </section>
     <section class="start-path" aria-label="First reading path">
-      <a class="start-step" href="${algorithmsHref}">
+      <a class="start-step" href="/research-taste/">
         <span>01</span>
-        <h2>Start with the Algorithms pillar</h2>
-        <p>Get the site's clearest example of intuition, formal models, proof sketches, and implementation tradeoffs in one place.</p>
+        <h2>Start with the AI research trail</h2>
+        <p>See the paper map behind the site: deep learning foundations, interpretability, reinforcement learning, agents, routing, and efficient inference.</p>
       </a>
-      <a class="start-step" href="${proofHref}">
+      <a class="start-step" href="${FLAGSHIP_ESSAY_PATH}">
         <span>02</span>
-        <h2>Read one proof-backed note</h2>
-        <p>${escapeHtml(proofTitle)} is a concrete entry point into the style of reasoning the site rewards.</p>
+        <h2>Read one paper-backed essay</h2>
+        <p>${FLAGSHIP_ESSAY_TITLE} is the entry point into the research style this site rewards.</p>
       </a>
       <a class="start-step" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="start-here">
         <span>03</span>
@@ -867,7 +875,7 @@ function normalizeResearchTasteTopic(topic) {
           label: typeof source.label === "string" ? source.label.trim() : "",
           href: typeof source.href === "string" ? source.href.trim() : "",
         }))
-        .filter((source) => source.label !== "" && /^https?:\/\//u.test(source.href))
+        .filter((source) => source.label !== "" && (/^https?:\/\//u.test(source.href) || source.href.startsWith("/")))
     : [];
 
   return { title, rationale, sources };
@@ -909,7 +917,7 @@ function renderResearchTastePage({
     <section id="main-content" class="research-hero" aria-labelledby="research-title">
       <p class="home-kicker">[ Research taste ]</p>
       <h1 id="research-title">Research taste</h1>
-      <p>This is the public source trail behind future theoretical CS notes: problems, methods, and papers that shape what gets studied next.</p>
+      <p>This is the public source trail behind future AI research notes: problems, methods, selected essays, and papers that shape what gets studied next.</p>
     </section>
     <section class="research-grid" aria-label="Research topics">
       ${topicCards}
@@ -959,7 +967,7 @@ function renderErrataPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <li>Minor grammar or wording edits may be fixed silently when they do not change the technical claim.</li>
         <li>Source updates keep the original citation visible when the correction depends on it.</li>
       </ul>
-      <p>Start with the current flagship essay: <a href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/">NP-Completeness: Formal Definition, Proof Sketches, and Reductions</a>.</p>
+      <p>Start with the current flagship essay: <a href="${FLAGSHIP_ESSAY_PATH}">${FLAGSHIP_ESSAY_TITLE}</a>.</p>
     </section>
   `;
 
@@ -986,7 +994,7 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="subscribe-page-hero" aria-labelledby="subscribe-page-title">
       <p class="home-kicker">[ Subscribe ]</p>
       <h1 id="subscribe-page-title">Subscribe</h1>
-      <p>One rigorous theoretical CS deep dive every 3-4 weeks.</p>
+      <p>One rigorous AI research deep dive every 3-4 weeks.</p>
     </section>
     <section class="subscribe-route" aria-labelledby="subscribe-route-title">
       <div>
@@ -997,14 +1005,14 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       <div class="subscribe-route-actions" aria-label="Subscribe page actions">
         <a class="primary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="subscribe-page">Subscribe by RSS</a>
         <a class="secondary-action" href="/start-here/">Start here</a>
-        <a class="secondary-action" href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/">Read the flagship essay</a>
+        <a class="secondary-action" href="${FLAGSHIP_ESSAY_PATH}">Read the flagship essay</a>
       </div>
     </section>
     <section class="subscribe-route-details" aria-labelledby="subscribe-route-details-title">
       <h2 id="subscribe-route-details-title">What you get</h2>
       <ul>
-        <li>Proof-backed theoretical CS essays with formal statements, intuition, proof sketches, and source trails.</li>
-        <li>Major topic updates across algorithms, systems, AI engineering, and software engineering.</li>
+        <li>Paper-backed AI research essays with source trails, mechanisms, experiments, and open questions.</li>
+        <li>Major topic updates across AI research, algorithms, systems, and software engineering.</li>
         <li>A low-noise cadence built around one substantial deep dive every 3-4 weeks.</li>
       </ul>
     </section>
@@ -1097,7 +1105,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <div class="portfolio-hero-copy">
         <p class="home-kicker">[ Portfolio ]</p>
         <h1 id="portfolio-title" class="portfolio-title">Praneeth Suresh</h1>
-        <p class="portfolio-positioning">I publish rigorous, proof-backed explanations of theoretical CS topics with research-level depth and clear intuition.</p>
+        <p class="portfolio-positioning">I publish rigorous, paper-backed explanations of AI research topics with research-level depth and clear intuition.</p>
         <p class="portfolio-intro">Software engineer and AI developer/researcher building practical systems around machine learning, agentic workflows, static knowledge tools, and data-heavy product ideas.</p>
         <div class="portfolio-actions" aria-label="Profile links">
           <a class="primary-action" href="https://github.com/Praneeth-Suresh" data-hotkey="G" data-analytics-event="outbound_github_click">GitHub</a>

@@ -175,9 +175,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     const blogIndex = await fs.readFile(path.join(tmpOut, "blog", "index.html"), "utf8");
     assert.ok(blogIndex.includes("blog-page"));
     assert.ok(blogIndex.includes("A Developer"));
-    assert.ok(blogIndex.includes("Theoretical CS Deep Dives"));
-    assert.ok(blogIndex.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
-    assert.ok(blogIndex.includes("NP-Completeness: Formal Definition, Proof Sketches, and Reductions"));
+    assert.ok(blogIndex.includes("AI Research Deep Dives"));
+    assert.ok(blogIndex.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
+    assert.ok(blogIndex.includes("The mental models of deep learning"));
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(blogIndex.includes('class="subscribe-panel"'));
     assert.ok(blogIndex.includes('<meta name="description" content="Stories, project notes, and AI research reflections from Computer Science Notes." />'));
@@ -211,40 +211,37 @@ test("build-pages emits blog routes when manifest exists", async () => {
       path.join(
         tmpOut,
         "blog",
-        "np-completeness-formal-definition-proof-sketches-and-reductions",
+        "tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers",
         "index.html",
       ),
       "utf8",
     );
-    assert.ok(flagshipHtml.includes("<h1>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</h1>"));
-    assert.ok(flagshipHtml.includes("In this post"));
-    assert.ok(flagshipHtml.includes("Formal statement"));
-    assert.ok(flagshipHtml.includes("Model and assumptions"));
-    assert.ok(flagshipHtml.includes("Proof sketch"));
+    assert.ok(flagshipHtml.includes("<h1>The mental models of deep learning</h1>"));
+    assert.ok(flagshipHtml.includes("In this essay"));
+    assert.ok(flagshipHtml.includes("Research question"));
+    assert.ok(flagshipHtml.includes("Papers in the trail"));
+    assert.ok(flagshipHtml.includes("Model and mechanism"));
     assert.ok(flagshipHtml.includes("Why this matters"));
     assert.ok(flagshipHtml.includes("Questions readers usually ask"));
-    assert.ok(flagshipHtml.includes("Does NP-complete mean impossible to solve quickly?"));
-    assert.ok(flagshipHtml.includes("Why do NP-completeness proofs use decision problems?"));
+    assert.ok(flagshipHtml.includes("Is deep learning research only about bigger models?"));
+    assert.ok(flagshipHtml.includes("Why include reinforcement learning beside architecture papers?"));
     assert.ok(flagshipHtml.includes("Further reading"));
     assert.ok(flagshipHtml.includes("Corrections and clarifications"));
-    assert.ok(flagshipHtml.includes("Reusable artifact"));
-    assert.ok(flagshipHtml.includes('href="/artifacts/np-completeness-reduction-template.tex"'));
     assert.ok(flagshipHtml.includes('href="/subscribe/"'));
     assert.ok(flagshipHtml.includes('href="/errata/"'));
-    assert.ok(flagshipHtml.includes('href="/topics/algorithms/"'));
-    assert.ok(flagshipHtml.includes('href="/topics/algorithms/the-traveling-salesperson-problem-tsp/"'));
-    assert.ok(flagshipHtml.includes("Stephen Cook"));
-    assert.ok(flagshipHtml.includes("https://doi.org/10.1145/800157.805047"));
-    assert.ok(flagshipHtml.includes("Richard Karp"));
-    assert.ok(flagshipHtml.includes("https://doi.org/10.1007/978-1-4684-2001-2_9"));
-    assert.ok(flagshipHtml.includes('<meta name="description" content="NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design." />'));
-    assert.ok(flagshipHtml.includes('<meta property="og:description" content="A proof-backed guide to NP-completeness: formal definition, reductions, Cook, Karp, and the design consequences of hardness evidence." />'));
+    assert.ok(flagshipHtml.includes('href="/research-taste/"'));
+    assert.ok(flagshipHtml.includes("George Cybenko"));
+    assert.ok(flagshipHtml.includes("Yann LeCun"));
+    assert.ok(flagshipHtml.includes("Ashish Vaswani"));
+    assert.ok(flagshipHtml.includes("Volodymyr Mnih"));
+    assert.ok(flagshipHtml.includes('<meta name="description" content="AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture." />'));
+    assert.ok(flagshipHtml.includes('<meta property="og:description" content="A paper-backed AI research essay connecting Cybenko, LeCun, Vaswani, Mnih, architecture design, representation learning, and the limits of today&#39;s theory." />'));
     assert.ok(flagshipHtml.includes('<meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />'));
-    assert.ok(flagshipHtml.includes('"headline":"NP-Completeness: Formal Definition, Proof Sketches, and Reductions"'));
-    assert.ok(flagshipHtml.includes('"description":"NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design."'));
+    assert.ok(flagshipHtml.includes('"headline":"The mental models of deep learning"'));
+    assert.ok(flagshipHtml.includes('"description":"AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture."'));
     assert.ok(flagshipHtml.includes('"@type":"FAQPage"'));
-    assert.ok(flagshipHtml.includes('"name":"Does NP-complete mean impossible to solve quickly?"'));
-    assert.ok(flagshipHtml.includes('"name":"Why do NP-completeness proofs use decision problems?"'));
+    assert.ok(flagshipHtml.includes('"name":"Is deep learning research only about bigger models?"'));
+    assert.ok(flagshipHtml.includes('"name":"Why include reinforcement learning beside architecture papers?"'));
     const flagshipSchemas = parseJsonLd(flagshipHtml);
     const flagshipFaqSchema = flagshipSchemas.find((schema) => schema["@type"] === "FAQPage");
     assert.ok(flagshipSchemas.some((schema) => schema["@type"] === "Article"));
@@ -255,16 +252,16 @@ test("build-pages emits blog routes when manifest exists", async () => {
       })),
       [
         {
-          question: "Does NP-complete mean impossible to solve quickly?",
-          answer: "No. NP-complete means that a polynomial-time exact algorithm for this problem would imply polynomial-time algorithms for every problem in NP. It is strong evidence to change the design target, not a proof that every useful instance is hopeless.",
+          question: "Is deep learning research only about bigger models?",
+          answer: "No. The essay treats scale as one axis, but the main question is how architectures, objectives, data, and training loops make a model fit the structure of a task.",
         },
         {
-          question: "Why do NP-completeness proofs use decision problems?",
-          answer: "The definitions of P, NP, and NP-completeness are stated for languages with yes/no answers. Optimization problems usually enter the framework through threshold versions, such as asking whether there is a tour with cost at most K.",
+          question: "Why include reinforcement learning beside architecture papers?",
+          answer: "Deep RL is part of the same AI research question because it asks how a trainable system can discover useful behavior from delayed, noisy feedback instead of only labeled examples.",
         },
         {
-          question: "What is the most common weak point in a reduction proof?",
-          answer: "The reverse direction. It is not enough to show that a satisfying source solution creates a target solution. You also need to show that every target solution decodes into a valid source solution.",
+          question: "What gap does this reading trail leave open?",
+          answer: "It leaves open a theory of when a particular architecture, training objective, or memory mechanism is the right fit for a task rather than merely an empirically successful choice.",
         },
       ],
     );
@@ -285,8 +282,8 @@ test("build-pages emits blog routes when manifest exists", async () => {
     const feedXml = await fs.readFile(path.join(tmpOut, "feed.xml"), "utf8");
     assert.ok(feedXml.includes("<title>Launching Off</title>"));
     assert.ok(feedXml.includes("<link>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</link>"));
-    assert.ok(feedXml.includes("<title>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</title>"));
-    assert.ok(feedXml.includes("<description>NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.</description>"));
+    assert.ok(feedXml.includes("<title>The mental models of deep learning</title>"));
+    assert.ok(feedXml.includes("<description>AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.</description>"));
 
     // Check discovery files include generated blog routes
     const sitemapXml = await fs.readFile(path.join(tmpOut, "sitemap.xml"), "utf8");
@@ -294,7 +291,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/subscribe/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/errata/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</loc>"));
-    assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</loc>"));
     const robotsTxt = await fs.readFile(path.join(tmpOut, "robots.txt"), "utf8");
     assert.ok(robotsTxt.includes("Sitemap: https://notes.praneeth-suresh-s.workers.dev/sitemap.xml"));
 
@@ -303,22 +300,22 @@ test("build-pages emits blog routes when manifest exists", async () => {
     const blogEntries = searchIndex.filter((e) => e.slug.startsWith("blog/"));
     assert.ok(blogEntries.length >= 12);
     const flagshipSearchEntry = searchIndex.find(
-      (entry) => entry.slug === "blog/np-completeness-formal-definition-proof-sketches-and-reductions",
+      (entry) => entry.slug === "blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers",
     );
     assert.equal(
       flagshipSearchEntry.description,
-      "NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.",
+      "AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.",
     );
     assert.ok(
-      flagshipSearchEntry.searchableText.includes("Proof sketch"),
+      flagshipSearchEntry.searchableText.includes("Research question"),
     );
 
     const homeHtml = await fs.readFile(path.join(tmpOut, "index.html"), "utf8");
-    assert.ok(homeHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
-    assert.ok(homeHtml.includes("NP-Completeness: Formal Definition, Proof Sketches, and Reductions"));
+    assert.ok(homeHtml.includes('href="/blog/"'));
+    assert.ok(homeHtml.includes("Read writings"));
 
     const algorithmsHtml = await fs.readFile(path.join(tmpOut, "topics", "algorithms", "index.html"), "utf8");
-    assert.ok(algorithmsHtml.includes('href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/"'));
+    assert.ok(!algorithmsHtml.includes("Flagship essay"));
   } finally {
     await fs.rm(tmpOut, { recursive: true, force: true });
   }

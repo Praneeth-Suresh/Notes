@@ -1,130 +1,168 @@
 {
   "topics": [
     {
-      "title": "NP-completeness and reductions",
-      "rationale": "The clearest lens for seeing when many different-looking problems share one computational obstruction. This is the backbone for writing notes that move between intuition, formal reductions, and proof obligations.",
+      "title": "Deep learning foundations",
+      "rationale": "The first AI research thread is the question behind neural networks themselves: what kinds of functions can trainable systems represent, and what architectural biases make that representation practical?",
       "sources": [
         {
-          "label": "Stephen Cook, The Complexity of Theorem-Proving Procedures",
-          "href": "https://doi.org/10.1145/800157.805047"
+          "label": "George Cybenko, Approximation by Superpositions of a Sigmoidal Function",
+          "href": "https://doi.org/10.1007/BF02551274"
         },
         {
-          "label": "Richard Karp, Reducibility Among Combinatorial Problems",
-          "href": "https://doi.org/10.1007/978-1-4684-2001-2_9"
+          "label": "Essay: The mental models of deep learning",
+          "href": "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"
         }
       ]
     },
     {
-      "title": "Shortest paths and graph structure",
-      "rationale": "Shortest path algorithms expose the connection between invariants, data structures, and graph modeling. They also make implementation tradeoffs concrete without losing the mathematical thread.",
+      "title": "Architectures for representation learning",
+      "rationale": "CNNs and transformers show the central AI research move: choose a computation pattern that matches the structure of the data, then train the whole pipeline end to end.",
       "sources": [
         {
-          "label": "Edsger W. Dijkstra, A note on two problems in connexion with graphs",
-          "href": "https://doi.org/10.1007/BF01386390"
+          "label": "Yann LeCun et al., Gradient-Based Learning Applied to Document Recognition",
+          "href": "https://doi.org/10.1109/5.726791"
         },
         {
-          "label": "Robert Tarjan, Data Structures and Network Algorithms",
-          "href": "https://doi.org/10.1137/1.9781611970265"
+          "label": "Ashish Vaswani et al., Attention Is All You Need",
+          "href": "https://arxiv.org/abs/1706.03762"
         }
       ]
     },
     {
-      "title": "Depth-first search and graph decompositions",
-      "rationale": "DFS is small enough to teach carefully and powerful enough to generate bridges, components, topological order, and linear-time graph structure. It rewards exact invariants.",
+      "title": "Efficient model adaptation",
+      "rationale": "Large models make adaptation a first-class research problem: how much can a model specialize without retraining every parameter or adding unacceptable inference cost?",
       "sources": [
         {
-          "label": "Robert Tarjan, Depth-first search and linear graph algorithms",
-          "href": "https://doi.org/10.1137/0201010"
+          "label": "Hu et al., LoRA: Low-Rank Adaptation of Large Language Models",
+          "href": "https://arxiv.org/abs/2106.09685"
         }
       ]
     },
     {
-      "title": "Network flow and cuts",
-      "rationale": "Flow turns algorithm design into a conversation between primal constructions and dual certificates. It is one of the best places to show why correctness proofs can feel inevitable.",
+      "title": "Controllable generation and diffusion language models",
+      "rationale": "Controllable generation asks whether generation can be steered by explicit conditions while preserving fluency, diversity, and task usefulness.",
       "sources": [
         {
-          "label": "L. R. Ford and D. R. Fulkerson, Maximal Flow Through a Network",
-          "href": "https://doi.org/10.4153/CJM-1956-045-5"
+          "label": "Li et al., Diffusion-LM Improves Controllable Text Generation",
+          "href": "https://arxiv.org/abs/2205.14217"
         }
       ]
     },
     {
-      "title": "Dynamic programming and optimal substructure",
-      "rationale": "Dynamic programming is where informal pattern recognition needs discipline: state definitions, recurrence validity, boundary cases, and reconstruction all have to line up.",
+      "title": "Memory and test-time learning",
+      "rationale": "Frontier AI systems increasingly need mechanisms for long context, persistent memory, and adaptation during use rather than only during pretraining.",
       "sources": [
         {
-          "label": "Richard Bellman, Dynamic Programming",
-          "href": "https://press.princeton.edu/books/paperback/9780691146683/dynamic-programming"
+          "label": "Google Research, Titans and MIRAS: helping AI have long-term memory",
+          "href": "https://research.google/blog/titans-miras-helping-ai-have-long-term-memory/"
         }
       ]
     },
     {
-      "title": "Space-bounded computation",
-      "rationale": "Space complexity changes the shape of what a computation is allowed to remember. It is a useful counterweight to time-only algorithm discussions.",
+      "title": "Deep reinforcement learning",
+      "rationale": "Deep RL studies how trainable systems can learn useful policies from delayed, sparse, and changing feedback instead of fixed labeled datasets.",
       "sources": [
         {
-          "label": "Walter Savitch, Relationships between nondeterministic and deterministic tape complexities",
-          "href": "https://doi.org/10.1016/S0022-0000(70)80006-X"
+          "label": "Mnih et al., Playing Atari with Deep Reinforcement Learning",
+          "href": "https://arxiv.org/abs/1312.5602"
         }
       ]
     },
     {
-      "title": "Primality and randomized thinking",
-      "rationale": "Primality testing is a strong route into randomized algorithms, derandomization questions, and the surprise value of a deterministic polynomial-time proof.",
+      "title": "Reinforcement learning for reasoning",
+      "rationale": "Reasoning-focused RL turns model behavior into an optimization target, raising questions about rewards, emergence, distillation, and where process supervision matters.",
       "sources": [
         {
-          "label": "Manindra Agrawal, Neeraj Kayal, and Nitin Saxena, PRIMES is in P",
-          "href": "https://doi.org/10.4007/annals.2004.160.781"
+          "label": "DeepSeek-AI, DeepSeek-R1",
+          "href": "https://arxiv.org/abs/2501.12948"
+        },
+        {
+          "label": "DeepSeek-AI, DeepSeekMath",
+          "href": "https://arxiv.org/abs/2402.03300"
         }
       ]
     },
     {
-      "title": "Matrix methods and fast algebra",
-      "rationale": "Fast algebra is a reminder that basic operations hide deep algorithmic structure. It creates a bridge from algorithms into complexity and numerical computation.",
+      "title": "Explainable AI as model evaluation",
+      "rationale": "Interpretability matters most when accuracy is not enough: deployment, trust, scientific discovery, fairness, and debugging all require sharper explanations.",
       "sources": [
         {
-          "label": "Volker Strassen, Gaussian elimination is not optimal",
-          "href": "https://doi.org/10.1007/BF02165411"
+          "label": "Doshi-Velez and Kim, Towards A Rigorous Science of Interpretable Machine Learning",
+          "href": "https://arxiv.org/abs/1702.08608"
+        },
+        {
+          "label": "Essay: Peeking Inside the Black Box",
+          "href": "/blog/peeking-inside-the-black-box/"
         }
       ]
     },
     {
-      "title": "Amortized data structures",
-      "rationale": "Amortized analysis teaches readers to reason about sequences rather than isolated operations. It is one of the best techniques for turning messy behavior into a crisp bound.",
+      "title": "Feature attribution and explanation skepticism",
+      "rationale": "LIME, SHAP, saliency maps, and their critiques form a useful testbed for asking whether explanations are faithful, stable, and actually useful to users.",
       "sources": [
         {
-          "label": "Daniel Sleator and Robert Tarjan, Self-Adjusting Binary Search Trees",
-          "href": "https://doi.org/10.1145/3828.3835"
+          "label": "Ribeiro et al., Why Should I Trust You?",
+          "href": "https://arxiv.org/abs/1602.04938"
+        },
+        {
+          "label": "Adebayo et al., Sanity Checks for Saliency Maps",
+          "href": "https://arxiv.org/abs/1810.03292"
         }
       ]
     },
     {
-      "title": "Algorithms as a discipline",
-      "rationale": "The site needs a stable center of gravity: precise algorithm statements, correctness arguments, complexity analysis, and implementation realism in the same frame.",
+      "title": "Representation analysis and probing",
+      "rationale": "Representation analysis asks what information is encoded inside a model, how it changes across layers, and whether probes reveal structure or only probe capacity.",
       "sources": [
         {
-          "label": "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein, Introduction to Algorithms",
-          "href": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
+          "label": "Bengio et al., Representation Learning: A Review and New Perspectives",
+          "href": "https://arxiv.org/abs/1206.5538"
+        },
+        {
+          "label": "Hewitt and Liang, Designing and Interpreting Probes with Control Tasks",
+          "href": "https://arxiv.org/abs/1909.03368"
         }
       ]
     },
     {
-      "title": "Randomized algorithms",
-      "rationale": "Randomness makes probability a design tool rather than a post-hoc analysis layer. It is useful for explaining expected bounds, concentration, and failure probability.",
+      "title": "Mechanistic interpretability",
+      "rationale": "Mechanistic interpretability is the attempt to reverse-engineer neural networks as computation: circuits, features, induction heads, superposition, and scalable tooling.",
       "sources": [
         {
-          "label": "Rajeev Motwani and Prabhakar Raghavan, Randomized Algorithms",
-          "href": "https://doi.org/10.1017/CBO9780511814075"
+          "label": "Elhage et al., A Mathematical Framework for Transformer Circuits",
+          "href": "https://transformer-circuits.pub/2021/framework/index.html"
+        },
+        {
+          "label": "Elhage et al., Toy Models of Superposition",
+          "href": "https://transformer-circuits.pub/2022/toy_model/index.html"
         }
       ]
     },
     {
-      "title": "Computational complexity as a map",
-      "rationale": "Complexity theory gives the notes a shared coordinate system for reductions, complete problems, randomized classes, space bounds, and what counts as evidence of hardness.",
+      "title": "Agent evaluation, tool use, and verification",
+      "rationale": "Agent research should be measured by accuracy, cost, latency, repeatability, tool behavior, and whether verification loops catch errors before they compound.",
       "sources": [
         {
-          "label": "Sanjeev Arora and Boaz Barak, Computational Complexity: A Modern Approach",
-          "href": "https://theory.cs.princeton.edu/complexity/book.pdf"
+          "label": "Kapoor et al., AI Agents That Matter",
+          "href": "https://arxiv.org/abs/2407.01502"
+        },
+        {
+          "label": "Yao et al., ReAct: Synergizing Reasoning and Acting in Language Models",
+          "href": "https://arxiv.org/abs/2210.03629"
+        }
+      ]
+    },
+    {
+      "title": "Routing, model fusion, and efficient specialization",
+      "rationale": "Mixture-of-experts, cascades, model merging, task arithmetic, and speculative decoding all ask how to activate only the computation a task deserves.",
+      "sources": [
+        {
+          "label": "Shazeer et al., Outrageously Large Neural Networks",
+          "href": "https://arxiv.org/abs/1701.06538"
+        },
+        {
+          "label": "Leviathan et al., Fast Inference from Transformers via Speculative Decoding",
+          "href": "https://arxiv.org/abs/2211.17192"
         }
       ]
     }

@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Computer Science Notes social preview</title>
-  <desc id="desc">A theorem-style social preview for theoretical computer science notes.</desc>
+  <desc id="desc">A paper-trail social preview for AI research notes.</desc>
   <rect width="1200" height="630" fill="#f7f4ee" />
   <rect x="48" y="48" width="1104" height="534" fill="#fffdf8" stroke="#24211d" stroke-width="2" />
   <path d="M96 128 H1104 M96 502 H1104" stroke="#24211d" stroke-width="2" opacity="0.85" />
   <path d="M144 180 H456 M744 180 H1056 M144 450 H456 M744 450 H1056" stroke="#b9aea0" stroke-width="2" />
   <text x="96" y="96" fill="#5e554b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="26" letter-spacing="2">COMPUTER SCIENCE NOTES</text>
-  <text x="96" y="244" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">Theoretical CS,</text>
-  <text x="96" y="330" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">from intuition</text>
-  <text x="96" y="416" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">to proof.</text>
-  <text x="96" y="544" fill="#5e554b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28">intuition -&gt; formal model -&gt; proof sketch</text>
+  <text x="96" y="244" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">AI Research,</text>
+  <text x="96" y="330" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">from papers</text>
+  <text x="96" y="416" fill="#171512" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="76" font-weight="700">to mechanisms.</text>
+  <text x="96" y="544" fill="#5e554b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28">paper trail -&gt; mechanism -&gt; experiment</text>
   <g transform="translate(730 222)">
     <rect x="0" y="0" width="332" height="186" fill="#f3efe6" stroke="#24211d" stroke-width="2" />
-    <text x="28" y="52" fill="#171512" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="30">P ?= NP</text>
-    <text x="28" y="106" fill="#171512" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">x in B iff f(x) in A</text>
-    <text x="28" y="152" fill="#776a5b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">reduce, prove, reason</text>
+    <text x="28" y="52" fill="#171512" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="30">Attention(Q,K,V)</text>
+    <text x="28" y="106" fill="#171512" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">policy + memory + tools</text>
+    <text x="28" y="152" fill="#776a5b" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">interpret, route, verify</text>
   </g>
 </svg>
