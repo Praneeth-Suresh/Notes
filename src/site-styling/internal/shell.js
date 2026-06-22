@@ -456,6 +456,79 @@ function renderNextReading(nextReading) {
 </nav>`;
 }
 
+const DEFAULT_PROJECTS_DATA = {
+  projects: [
+    {
+      slug: "computer-science-notes",
+      title: "Computer Science Notes",
+      status: "active flagship",
+      summary:
+        "Static technical hub with Notion ingestion, route generation, search, RSS, and formatting fidelity checks.",
+      problem:
+        "Technical notes need durable navigation, search, sharing metadata, and formatting fidelity to become useful public proof.",
+      method:
+        "Build-time Notion ingestion and static route generation keep the deployed site fast, inspectable, and Cloudflare Pages compatible.",
+      result:
+        "The site publishes topic hierarchies, child pages, blog posts, RSS, sitemap, MathJax-backed LaTeX, code blocks, and deterministic checks.",
+      codeUrl: "https://github.com/Praneeth-Suresh/Notes",
+      writeupUrl: "/topics/agent-coding/the-design-concept/",
+      tags: ["static-site", "notion", "search"],
+    },
+  ],
+};
+
+function normalizeProject(project) {
+  if (!project || typeof project !== "object") {
+    return null;
+  }
+
+  const slug = typeof project.slug === "string" ? project.slug.trim() : "";
+  const title = typeof project.title === "string" ? project.title.trim() : "";
+  if (!/^[a-z0-9-]+$/u.test(slug) || title === "") {
+    return null;
+  }
+
+  return {
+    slug,
+    title,
+    status: typeof project.status === "string" ? project.status.trim() : "active",
+    summary: typeof project.summary === "string" ? project.summary.trim() : "",
+    problem: typeof project.problem === "string" ? project.problem.trim() : "",
+    method: typeof project.method === "string" ? project.method.trim() : "",
+    result: typeof project.result === "string" ? project.result.trim() : "",
+    codeUrl: typeof project.codeUrl === "string" ? project.codeUrl.trim() : "",
+    writeupUrl: typeof project.writeupUrl === "string" ? project.writeupUrl.trim() : "",
+    tags: Array.isArray(project.tags)
+      ? project.tags.filter((tag) => typeof tag === "string" && tag.trim() !== "").map((tag) => tag.trim())
+      : [],
+  };
+}
+
+function getProjectItems(projectsData) {
+  const source = projectsData && Array.isArray(projectsData.projects)
+    ? projectsData.projects
+    : DEFAULT_PROJECTS_DATA.projects;
+  return source.map((project) => normalizeProject(project)).filter(Boolean);
+}
+
+function renderProjectTagList(tags) {
+  if (!Array.isArray(tags) || tags.length === 0) {
+    return "";
+  }
+
+  return `<div class="topic-labels" aria-label="Project tags">${tags
+    .map((tag) => `<span class="topic-label topic-label-default">${escapeHtml(tag)}</span>`)
+    .join("")}</div>`;
+}
+
+function renderProjectCard(project, index) {
+  return `<a class="portfolio-project" href="/projects/${escapeHtml(project.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
+  <span class="portfolio-project-kind">${escapeHtml(project.status)}</span>
+  <h3>${escapeHtml(project.title)}</h3>
+  <p>${escapeHtml(project.summary)}</p>
+</a>`;
+}
+
 function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicContentHtml, topics }) {
   const descriptionHtml =
     topic.description && topic.description.trim() !== ""
@@ -511,7 +584,7 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
   });
 }
 
-function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [] }) {
+function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [], projectsData = DEFAULT_PROJECTS_DATA }) {
   const topicCount = topics.length;
   const topicWord = topicCount === 1 ? "topic" : "topics";
   const firstTopicLink =
@@ -565,30 +638,12 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
 </a>`,
     )
     .join("");
-  const selectedProjects = [
-    {
-      index: "01",
-      title: "Computer Science Notes",
-      description: "Static knowledge system with Notion ingestion, route generation, search, RSS, and formatting fidelity checks.",
-      href: "/projects/",
-    },
-    {
-      index: "02",
-      title: "Agentic coding workflows",
-      description: "Engineering notes and public tooling around controllable agent workflows, evaluation, and implementation habits.",
-      href: "/projects/",
-    },
-    {
-      index: "03",
-      title: "Applied ML and forecasting",
-      description: "Research notebooks and applied machine-learning projects being converted into inspectable proof assets.",
-      href: "/projects/",
-    },
-  ]
+  const selectedProjects = getProjectItems(projectsData)
+    .slice(0, 3)
     .map(
-      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
-  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
-  <p class="topic-card-description">${escapeHtml(card.description)}</p>
+      (project, index) => `<a class="topic-card" href="/projects/${escapeHtml(project.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
+  <h3 class="topic-card-title">${escapeHtml(project.title)}</h3>
+  <p class="topic-card-description">${escapeHtml(project.summary)}</p>
 </a>`,
     )
     .join("");
@@ -1135,7 +1190,9 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   });
 }
 
-function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projectsData = DEFAULT_PROJECTS_DATA }) {
+  const projects = getProjectItems(projectsData);
+  const projectCards = projects.map((project, index) => renderProjectCard(project, index)).join("");
   const content = `
     <nav class="topic-nav" aria-label="Projects navigation">
       <a href="/" data-hotkey="H">Home</a>
@@ -1146,17 +1203,14 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="start-hero" aria-labelledby="projects-title">
       <p class="home-kicker">[ Projects ]</p>
       <h1 id="projects-title">Selected projects</h1>
-      <p>A static route prepared for inspectable project case studies: problem, method, result, code, write-up, and status.</p>
+      <p>Inspectable project case studies: problem, method, result, code, write-up, and status.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="projects-route-title">
       <div class="portfolio-section-header">
-        <p class="section-kicker">/ Route prepared</p>
-        <h2 id="projects-route-title" class="section-title">Project pages are becoming proof assets.</h2>
+        <p class="section-kicker">/ Proof assets</p>
+        <h2 id="projects-route-title" class="section-title">A small number of strong projects beats a wall of repositories.</h2>
       </div>
-      <div class="portfolio-philosophy-grid">
-        <p>This page will collect the strongest public work from the GitHub portfolio and connect each project to a technical write-up or note.</p>
-        <p>The goal is to make credibility easy to inspect for researchers, engineers, founders, recruiters, and collaborators.</p>
-      </div>
+      <div class="portfolio-project-grid">${projectCards}</div>
     </section>
   `;
 
@@ -1169,6 +1223,84 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     canonicalUrl: absoluteUrl(siteUrl, "/projects/"),
     ogTitle: `Projects · ${siteTitle}`,
     ogDescription: PROJECTS_DESCRIPTION,
+  });
+}
+
+function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, projectsData = DEFAULT_PROJECTS_DATA }) {
+  const normalizedProject = normalizeProject(project) || getProjectItems(projectsData)[0];
+  const projects = getProjectItems(projectsData);
+  const relatedProjects = projects
+    .filter((candidate) => candidate.slug !== normalizedProject.slug)
+    .slice(0, 2)
+    .map((candidate, index) => renderProjectCard(candidate, index))
+    .join("");
+  const projectUrlPath = `/projects/${normalizedProject.slug}/`;
+  const details = [
+    ["Problem", normalizedProject.problem],
+    ["Method", normalizedProject.method],
+    ["Result", normalizedProject.result],
+    ["Status", normalizedProject.status],
+  ]
+    .map(
+      ([label, value]) => `<section class="repo-group" aria-label="${escapeHtml(label)}">
+  <h3>${escapeHtml(label)}</h3>
+  <p>${escapeHtml(value || "To be documented.")}</p>
+</section>`,
+    )
+    .join("");
+  const codeLink = normalizedProject.codeUrl
+    ? `<a class="primary-action" href="${escapeHtml(normalizedProject.codeUrl)}">Code</a>`
+    : "";
+  const writeupLink = normalizedProject.writeupUrl
+    ? `<a class="secondary-action" href="${escapeHtml(normalizedProject.writeupUrl)}">Write-up</a>`
+    : "";
+
+  const content = `
+    <nav class="topic-nav" aria-label="Project navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <section id="main-content" class="start-hero" aria-labelledby="project-title">
+      <p class="home-kicker">[ Project ]</p>
+      <h1 id="project-title">${escapeHtml(normalizedProject.title)}</h1>
+      <p>${escapeHtml(normalizedProject.summary)}</p>
+      ${renderProjectTagList(normalizedProject.tags)}
+      <div class="home-actions" aria-label="Project actions">
+        ${codeLink}
+        ${writeupLink}
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="project-case-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Case study</p>
+        <h2 id="project-case-title" class="section-title">Problem, method, result, code, write-up, and status.</h2>
+      </div>
+      <div class="repo-map">${details}</div>
+    </section>
+    ${relatedProjects ? `<section class="panel portfolio-section" aria-labelledby="project-related-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ More projects</p>
+        <h2 id="project-related-title" class="section-title">Continue inspecting the project trail.</h2>
+      </div>
+      <div class="portfolio-project-grid">${relatedProjects}</div>
+    </section>` : ""}
+  `;
+
+  return renderLayout({
+    pageTitle: `${normalizedProject.title} · Projects · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page",
+    description: normalizedProject.summary || PROJECTS_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, projectUrlPath),
+    ogTitle: `${normalizedProject.title} · Projects · ${siteTitle}`,
+    ogDescription: normalizedProject.summary || PROJECTS_DESCRIPTION,
+    structuredData: createBreadcrumbSchema([
+      { name: "Home", url: absoluteUrl(siteUrl, "/") },
+      { name: "Projects", url: absoluteUrl(siteUrl, "/projects/") },
+      { name: normalizedProject.title, url: absoluteUrl(siteUrl, projectUrlPath) },
+    ]),
   });
 }
 
@@ -1532,6 +1664,7 @@ module.exports = {
   renderErrataPage,
   renderHomePage,
   renderPersonalPage,
+  renderProjectPage,
   renderProjectsIndexPage,
   renderResearchTastePage,
   renderStartHerePage,

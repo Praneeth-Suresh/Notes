@@ -23,6 +23,7 @@ const STATIC_ARTIFACTS = [
 ];
 const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
 const DEFAULT_RESEARCH_TASTE_DATA_PATH = "content/research-taste.json";
+const DEFAULT_PROJECTS_DATA_PATH = "content/projects.json";
 const DEFAULT_BLOG_MANIFEST_PATH = "content/blog/blog-manifest.json";
 const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 
@@ -39,6 +40,7 @@ function parseArgs(argv) {
     manifest: "content/topic-manifest.json",
     out: "dist",
     portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
+    projectsData: DEFAULT_PROJECTS_DATA_PATH,
     researchTasteData: DEFAULT_RESEARCH_TASTE_DATA_PATH,
     siteTitle: "Computer Science Notes",
     siteUrl: DEFAULT_SITE_URL,
@@ -67,6 +69,12 @@ function parseArgs(argv) {
 
     if (item === "--portfolio-data") {
       args.portfolioData = assertNonEmptyString(argv[index + 1], "--portfolio-data value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--projects-data") {
+      args.projectsData = assertNonEmptyString(argv[index + 1], "--projects-data value");
       index += 1;
       continue;
     }
@@ -523,6 +531,7 @@ async function buildPagesSite({
   manifestPath,
   outputDir,
   portfolioDataPath = DEFAULT_PORTFOLIO_DATA_PATH,
+  projectsDataPath = DEFAULT_PROJECTS_DATA_PATH,
   researchTasteDataPath = DEFAULT_RESEARCH_TASTE_DATA_PATH,
   siteTitle,
   siteUrl = DEFAULT_SITE_URL,
@@ -546,6 +555,10 @@ async function buildPagesSite({
   const portfolioData = await readOptionalJsonFromFile(
     path.resolve(process.cwd(), portfolioDataPath),
     "portfolio repository data",
+  );
+  const projectsData = await readOptionalJsonFromFile(
+    path.resolve(process.cwd(), projectsDataPath),
+    "projects data",
   );
   const researchTasteData = await readOptionalJsonFromFile(
     path.resolve(process.cwd(), researchTasteDataPath),
@@ -673,6 +686,7 @@ async function buildPagesSite({
       siteUrl: normalizedSiteUrl,
       topics,
       searchEntries: searchIndex,
+      projectsData,
     });
     const personalHtml = stylingContext.renderPersonalPage({
       siteTitle,
@@ -701,6 +715,7 @@ async function buildPagesSite({
     const projectsHtml = stylingContext.renderProjectsIndexPage({
       siteTitle,
       siteUrl: normalizedSiteUrl,
+      projectsData,
     });
     const contactHtml = stylingContext.renderContactPage({
       siteTitle,
@@ -720,6 +735,25 @@ async function buildPagesSite({
     await writeUtf8File(path.join(buildOutputDir, "projects", "index.html"), projectsHtml);
     await writeUtf8File(path.join(buildOutputDir, "contact", "index.html"), contactHtml);
     await writeUtf8File(path.join(buildOutputDir, "collaborate", "index.html"), collaborateHtml);
+
+    const projectItems = Array.isArray(projectsData?.projects) ? projectsData.projects : [];
+    for (const project of projectItems) {
+      if (!project || typeof project !== "object" || typeof project.slug !== "string") {
+        continue;
+      }
+      const slug = project.slug.trim();
+      if (!/^[a-z0-9-]+$/u.test(slug)) {
+        continue;
+      }
+      const projectHtml = stylingContext.renderProjectPage({
+        siteTitle,
+        siteUrl: normalizedSiteUrl,
+        project,
+        projectsData,
+      });
+      await writeUtf8File(path.join(buildOutputDir, "projects", slug, "index.html"), projectHtml);
+      sitemapItems.push({ urlPath: `/projects/${slug}/` });
+    }
 
     // Blog
     const blogManifestPath = path.resolve(manifestDir, "blog", "blog-manifest.json");
@@ -827,6 +861,7 @@ if (require.main === module) {
     manifestPath: args.manifest,
     outputDir: args.out,
     portfolioDataPath: args.portfolioData,
+    projectsDataPath: args.projectsData,
     researchTasteDataPath: args.researchTasteData,
     siteTitle: args.siteTitle,
     siteUrl: args.siteUrl,

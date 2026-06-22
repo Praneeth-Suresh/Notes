@@ -24,6 +24,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const outDir = path.join(root, "dist");
     const mathJaxSourcePath = path.join(root, "mathjax-source.js");
     const portfolioDataPath = path.join(contentDir, "portfolio-repositories.json");
+    const projectsDataPath = path.join(contentDir, "projects.json");
     const researchTasteDataPath = path.join(contentDir, "research-taste.json");
     await fs.mkdir(topicsDir, { recursive: true });
     await fs.writeFile(mathJaxSourcePath, "window.MathJax = window.MathJax || {};\n", "utf8");
@@ -136,6 +137,42 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     await fs.writeFile(
+      projectsDataPath,
+      `${JSON.stringify(
+        {
+          projects: [
+            {
+              slug: "notes",
+              title: "Notes",
+              status: "active flagship",
+              summary: "A static technical hub.",
+              problem: "Readers need searchable and shareable notes.",
+              method: "Generate static pages from normalized note data.",
+              result: "The site exposes topics, search, RSS, and project pages.",
+              codeUrl: "https://github.com/Praneeth-Suresh/Notes",
+              writeupUrl: "/topics/agent-coding/the-design-concept/",
+              tags: ["static-site", "notion"],
+            },
+            {
+              slug: "agentic-coding",
+              title: "Agentic Coding",
+              status: "active research and tooling",
+              summary: "A public workflow trail around agentic coding.",
+              problem: "Agentic coding needs reliable boundaries.",
+              method: "Document harnesses, feedback loops, and review habits.",
+              result: "The notes provide a practical reliability path.",
+              codeUrl: "https://github.com/Praneeth-Suresh/AgentCoding",
+              writeupUrl: "/topics/agent-coding/",
+              tags: ["agents"],
+            },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+      "utf8",
+    );
+    await fs.writeFile(
       researchTasteDataPath,
       `${JSON.stringify(
         {
@@ -180,6 +217,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
       siteTitle: "Computer Science Notes",
       mathJaxSourcePath,
       portfolioDataPath,
+      projectsDataPath,
       researchTasteDataPath,
       siteUrl: "https://example.test",
     });
@@ -199,6 +237,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const subscribeHtml = await fs.readFile(path.join(outDir, "subscribe", "index.html"), "utf8");
     const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
     const projectsHtml = await fs.readFile(path.join(outDir, "projects", "index.html"), "utf8");
+    const notesProjectHtml = await fs.readFile(
+      path.join(outDir, "projects", "notes", "index.html"),
+      "utf8",
+    );
     const contactHtml = await fs.readFile(path.join(outDir, "contact", "index.html"), "utf8");
     const collaborateHtml = await fs.readFile(path.join(outDir, "collaborate", "index.html"), "utf8");
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
@@ -268,9 +310,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes("Projects and portfolio"));
     assert.ok(homeHtml.includes("Selected projects"));
     assert.ok(homeHtml.includes("See the work, not just the archive."));
-    assert.ok(homeHtml.includes("Computer Science Notes"));
-    assert.ok(homeHtml.includes("Agentic coding workflows"));
-    assert.ok(homeHtml.includes("Applied ML and forecasting"));
+    assert.ok(homeHtml.includes("A static technical hub."));
+    assert.ok(homeHtml.includes('href="/projects/notes/"'));
+    assert.ok(homeHtml.includes("Agentic Coding"));
+    assert.ok(homeHtml.includes('href="/projects/agentic-coding/"'));
     assert.ok(homeHtml.includes("Selected writing"));
     assert.ok(homeHtml.includes("Read my best technical write-ups."));
     assert.ok(homeHtml.includes("The mental models of deep learning"));
@@ -352,7 +395,23 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes("<title>Projects · Computer Science Notes</title>"));
     assert.ok(projectsHtml.includes("Selected projects"));
     assert.ok(projectsHtml.includes("problem, method, result, code, write-up, and status"));
+    assert.ok(projectsHtml.includes('href="/projects/notes/"'));
+    assert.ok(projectsHtml.includes("active flagship"));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
+    assert.ok(notesProjectHtml.includes("<title>Notes · Projects · Computer Science Notes</title>"));
+    assert.ok(notesProjectHtml.includes("Problem"));
+    assert.ok(notesProjectHtml.includes("Readers need searchable and shareable notes."));
+    assert.ok(notesProjectHtml.includes("Method"));
+    assert.ok(notesProjectHtml.includes("Generate static pages from normalized note data."));
+    assert.ok(notesProjectHtml.includes("Result"));
+    assert.ok(notesProjectHtml.includes("The site exposes topics, search, RSS, and project pages."));
+    assert.ok(notesProjectHtml.includes("Status"));
+    assert.ok(notesProjectHtml.includes("active flagship"));
+    assert.ok(notesProjectHtml.includes('href="https://github.com/Praneeth-Suresh/Notes"'));
+    assert.ok(notesProjectHtml.includes('href="/topics/agent-coding/the-design-concept/"'));
+    assert.ok(notesProjectHtml.includes("static-site"));
+    assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
+    assert.ok(notesProjectHtml.includes('<link rel="canonical" href="https://example.test/projects/notes/" />'));
     assert.ok(contactHtml.includes("<title>Contact · Computer Science Notes</title>"));
     assert.ok(contactHtml.includes("research, internships, consulting, NUS AI Society collaboration"));
     assert.ok(contactHtml.includes("https://github.com/Praneeth-Suresh"));
@@ -418,6 +477,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapXml.includes("<loc>https://example.test/subscribe/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/about/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/notes/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/agentic-coding/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/contact/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/collaborate/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));

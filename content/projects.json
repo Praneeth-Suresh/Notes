@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "slug": "computer-science-notes",
+      "title": "Computer Science Notes",
+      "status": "active flagship",
+      "summary": "A static technical hub that turns Notion notes, blog essays, search, RSS, and portfolio pages into Cloudflare Pages artifacts.",
+      "problem": "Technical notes are useful only if readers can navigate, search, share, and trust their formatting. The project turns a personal study corpus into a durable public knowledge system.",
+      "method": "Build-time Notion ingestion normalizes topic trees into static routes. A site-styling boundary renders the shell, RSS, sitemap, metadata, and search without runtime services.",
+      "result": "The site publishes topic hierarchies, child pages, blog posts, RSS, sitemap, MathJax-backed LaTeX, code blocks, and deterministic build checks.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/Notes",
+      "writeupUrl": "/topics/agent-coding/the-design-concept/",
+      "tags": ["static-site", "notion", "search", "cloudflare-pages"]
+    },
+    {
+      "slug": "agentic-coding-workflows",
+      "title": "Agentic Coding Workflows",
+      "status": "active research and tooling",
+      "summary": "A public project and notes trail around controllable agent workflows, harnesses, code review, security, and maintainable AI-assisted development.",
+      "problem": "Agentic coding can generate software quickly, but speed without control creates reliability, security, and maintainability problems.",
+      "method": "Study and document agent harnesses, feedback loops, review boundaries, prompt contracts, and workflow patterns while keeping implementation habits testable.",
+      "result": "The site now exposes an agentic-coding topic path and public repository trail that can anchor outreach around AI engineering and tooling reliability.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/AgentCoding",
+      "writeupUrl": "/topics/agent-coding/",
+      "tags": ["agents", "developer-tools", "evaluation", "software-engineering"]
+    },
+    {
+      "slug": "lob-forecasting",
+      "title": "LOBForecasting",
+      "status": "supporting ML research asset",
+      "summary": "A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.",
+      "problem": "Forecasting projects need to make assumptions, data constraints, evaluation choices, and failure modes visible enough for others to inspect.",
+      "method": "Use notebook-based exploration to model forecasting behavior, then prepare the work for a stronger project page with setup, evaluation, and limitations.",
+      "result": "The repository is present as public proof of applied ML exploration; the next step is to add a stronger README, reproducible setup, and written analysis.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/LOBForecasting",
+      "writeupUrl": "/research-taste/",
+      "tags": ["machine-learning", "forecasting", "notebook", "research-candidate"]
+    }
+  ]
+}
