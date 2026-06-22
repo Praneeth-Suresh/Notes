@@ -7,6 +7,20 @@
 
 Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity, LaTeX fidelity, code block fidelity, subpage navigation, and static search.
 
+## System Flow
+
+```mermaid
+flowchart LR
+    A[Notion source pages] --> B[Notion ingestion scripts]
+    B --> C[Normalized topic JSON]
+    C --> D[Static page builder]
+    C --> E[Search index builder]
+    D --> F[Cloudflare Pages dist]
+    E --> F
+    G[Portfolio repository refresh] --> H[Portfolio JSON]
+    H --> D
+```
+
 ## Repository Architecture
 
 - `src/notion-ingestion`: Notion adapter + strict normalization, including child pages nested inside Notion databases.
