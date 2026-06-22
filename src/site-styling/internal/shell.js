@@ -7,6 +7,9 @@ const START_HERE_DESCRIPTION = "A guided first path through Computer Science Not
 const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails.";
 const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Computer Science Notes.";
 const SUBSCRIBE_DESCRIPTION = "Subscribe to Computer Science Notes by RSS while the email newsletter provider is being selected.";
+const PROJECTS_DESCRIPTION = "Selected projects from Praneeth Suresh across static knowledge systems, AI engineering, research notebooks, and agentic tooling.";
+const CONTACT_DESCRIPTION = "Contact Praneeth Suresh about research, internships, consulting, NUS AI Society collaboration, and technical projects.";
+const COLLABORATE_DESCRIPTION = "Collaboration and consulting route for research, AI engineering, project work, and NUS AI Society opportunities.";
 const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
 const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
@@ -122,8 +125,11 @@ function renderSiteFooter() {
           <a href="/start-here/">Start</a>
           <a href="/research-taste/">Research taste</a>
           <a href="/#main-content">Notes</a>
+          <a href="/projects/">Projects</a>
           <a href="/blog/">Blog</a>
           <a href="/about/">Portfolio</a>
+          <a href="/contact/">Contact</a>
+          <a href="/collaborate/">Collaborate</a>
           <a href="/errata/">Errata</a>
           <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
@@ -225,8 +231,10 @@ ${metadataHtml}
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/">Start</a>
           <a href="/about/" data-hotkey="P">Portfolio</a>
+          <a href="/projects/">Projects</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/">Contact</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
@@ -1030,6 +1038,125 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   });
 }
 
+function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const content = `
+    <nav class="topic-nav" aria-label="Projects navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a class="active" href="/projects/" aria-current="page">Projects</a>
+      <a href="/about/" data-hotkey="P">Portfolio</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <section id="main-content" class="start-hero" aria-labelledby="projects-title">
+      <p class="home-kicker">[ Projects ]</p>
+      <h1 id="projects-title">Selected projects</h1>
+      <p>A static route prepared for inspectable project case studies: problem, method, result, code, write-up, and status.</p>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="projects-route-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Route prepared</p>
+        <h2 id="projects-route-title" class="section-title">Project pages are becoming proof assets.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>This page will collect the strongest public work from the GitHub portfolio and connect each project to a technical write-up or note.</p>
+        <p>The goal is to make credibility easy to inspect for researchers, engineers, founders, recruiters, and collaborators.</p>
+      </div>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Projects · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page",
+    description: PROJECTS_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, "/projects/"),
+    ogTitle: `Projects · ${siteTitle}`,
+    ogDescription: PROJECTS_DESCRIPTION,
+  });
+}
+
+function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const content = `
+    <nav class="topic-nav" aria-label="Contact navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/about/" data-hotkey="P">Portfolio</a>
+      <a class="active" href="/contact/" aria-current="page">Contact</a>
+    </nav>
+    <section id="main-content" class="start-hero" aria-labelledby="contact-title">
+      <p class="home-kicker">[ Contact ]</p>
+      <h1 id="contact-title">Contact</h1>
+      <p>Prepared contact route for research, internships, consulting, NUS AI Society collaboration, and technical project conversations.</p>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="contact-route-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Available channels</p>
+        <h2 id="contact-route-title" class="section-title">Start with public professional links.</h2>
+      </div>
+      <div class="portfolio-project-grid">
+        <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="01">
+          <span class="portfolio-project-kind">Code / GitHub</span>
+          <h3>GitHub</h3>
+          <p>Inspect public repositories and project activity.</p>
+        </a>
+        <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="02">
+          <span class="portfolio-project-kind">Professional / LinkedIn</span>
+          <h3>LinkedIn</h3>
+          <p>Use LinkedIn for professional outreach until a public email address is added.</p>
+        </a>
+      </div>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Contact · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page",
+    description: CONTACT_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, "/contact/"),
+    ogTitle: `Contact · ${siteTitle}`,
+    ogDescription: CONTACT_DESCRIPTION,
+  });
+}
+
+function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const content = `
+    <nav class="topic-nav" aria-label="Collaborate navigation">
+      <a href="/" data-hotkey="H">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/contact/">Contact</a>
+      <a class="active" href="/collaborate/" aria-current="page">Collaborate</a>
+    </nav>
+    <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
+      <p class="home-kicker">[ Collaborate ]</p>
+      <h1 id="collaborate-title">Collaboration and consulting</h1>
+      <p>A prepared route for research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="collaborate-route-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Prepared route</p>
+        <h2 id="collaborate-route-title" class="section-title">Useful collaborations need a specific technical overlap.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>The collaboration surface will stay narrow: research conversations, internship paths, AI engineering work, flagship project feedback, and AI Society partnerships.</p>
+        <p>This keeps the site aligned with the mission: build real professional leverage from rigorous public work instead of broad self-promotion.</p>
+      </div>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Collaborate · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page",
+    description: COLLABORATE_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, "/collaborate/"),
+    ogTitle: `Collaborate · ${siteTitle}`,
+    ogDescription: COLLABORATE_DESCRIPTION,
+  });
+}
+
 function normalizeRepositoryLink(repo) {
   if (typeof repo === "string") {
     return {
@@ -1303,9 +1430,12 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
 module.exports = {
   renderBlogIndexPage,
   renderBlogPostPage,
+  renderCollaboratePage,
+  renderContactPage,
   renderErrataPage,
   renderHomePage,
   renderPersonalPage,
+  renderProjectsIndexPage,
   renderResearchTastePage,
   renderStartHerePage,
   renderSubscribePage,

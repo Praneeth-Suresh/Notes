@@ -611,6 +611,9 @@ async function buildPagesSite({
       { urlPath: "/errata/" },
       { urlPath: "/subscribe/" },
       { urlPath: "/about/" },
+      { urlPath: "/projects/" },
+      { urlPath: "/contact/" },
+      { urlPath: "/collaborate/" },
     ];
 
     for (const topic of topics) {
@@ -695,6 +698,18 @@ async function buildPagesSite({
       siteTitle,
       siteUrl: normalizedSiteUrl,
     });
+    const projectsHtml = stylingContext.renderProjectsIndexPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
+    const contactHtml = stylingContext.renderContactPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
+    const collaborateHtml = stylingContext.renderCollaboratePage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
     await writeUtf8File(path.join(buildOutputDir, "start-here", "index.html"), startHereHtml);
@@ -702,6 +717,9 @@ async function buildPagesSite({
     await writeUtf8File(path.join(buildOutputDir, "errata", "index.html"), errataHtml);
     await writeUtf8File(path.join(buildOutputDir, "subscribe", "index.html"), subscribeHtml);
     await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
+    await writeUtf8File(path.join(buildOutputDir, "projects", "index.html"), projectsHtml);
+    await writeUtf8File(path.join(buildOutputDir, "contact", "index.html"), contactHtml);
+    await writeUtf8File(path.join(buildOutputDir, "collaborate", "index.html"), collaborateHtml);
 
     // Blog
     const blogManifestPath = path.resolve(manifestDir, "blog", "blog-manifest.json");
