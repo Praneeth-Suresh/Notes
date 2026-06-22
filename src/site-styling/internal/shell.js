@@ -565,6 +565,68 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
 </a>`,
     )
     .join("");
+  const selectedProjects = [
+    {
+      index: "01",
+      title: "Computer Science Notes",
+      description: "Static knowledge system with Notion ingestion, route generation, search, RSS, and formatting fidelity checks.",
+      href: "/projects/",
+    },
+    {
+      index: "02",
+      title: "Agentic coding workflows",
+      description: "Engineering notes and public tooling around controllable agent workflows, evaluation, and implementation habits.",
+      href: "/projects/",
+    },
+    {
+      index: "03",
+      title: "Applied ML and forecasting",
+      description: "Research notebooks and applied machine-learning projects being converted into inspectable proof assets.",
+      href: "/projects/",
+    },
+  ]
+    .map(
+      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
+  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
+  <p class="topic-card-description">${escapeHtml(card.description)}</p>
+</a>`,
+    )
+    .join("");
+  const selectedWriting = [
+    {
+      index: "01",
+      title: "The mental models of deep learning",
+      description: "A paper-backed AI research trail through universal approximation, CNNs, transformers, and deep RL.",
+      href: FLAGSHIP_ESSAY_PATH,
+    },
+    {
+      index: "02",
+      title: "NP-Completeness: formal definitions and reductions",
+      description: "A proof-backed algorithms essay about hardness evidence and how reductions change design targets.",
+      href: "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/",
+    },
+    {
+      index: "03",
+      title: "Peeking inside the black box",
+      description: "Interpretability notes that connect AI research reading to practical model-inspection questions.",
+      href: "/blog/peeking-inside-the-black-box/",
+    },
+  ]
+    .map(
+      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
+  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
+  <p class="topic-card-description">${escapeHtml(card.description)}</p>
+</a>`,
+    )
+    .join("");
+  const currentAsks = [
+    "Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.",
+    "AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.",
+    "Consulting or prototype work for founders who need fast, inspectable AI engineering execution.",
+    "NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.",
+  ]
+    .map((ask) => `<li>${escapeHtml(ask)}</li>`)
+    .join("");
 
   const topicsPayload = safeJsonForScript(
     topics.map((topic) => ({
@@ -623,6 +685,41 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
       </div>
       <div class="topic-grid">${exploreCards}</div>
     </section>
+    <section class="panel topic-hub" aria-labelledby="home-projects-title">
+      <div class="topic-hub-header">
+        <div>
+          <p class="section-kicker">/ Selected projects</p>
+          <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
+        </div>
+        <a class="topic-index-link" href="/projects/">See my projects</a>
+      </div>
+      <div class="topic-grid">${selectedProjects}</div>
+    </section>
+    <section class="panel topic-hub" aria-labelledby="home-writing-title">
+      <div class="topic-hub-header">
+        <div>
+          <p class="section-kicker">/ Selected writing</p>
+          <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
+        </div>
+        <a class="topic-index-link" href="/blog/">Read all writing</a>
+      </div>
+      <div class="topic-grid">${selectedWriting}</div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="home-asks-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Current asks</p>
+        <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <ul class="note-list">${currentAsks}</ul>
+        <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
+      </div>
+      <div class="home-actions" aria-label="Current ask actions">
+        <a class="primary-action" href="/contact/">Contact me</a>
+        <a class="secondary-action" href="/collaborate/">Collaborate</a>
+      </div>
+    </section>
+    ${renderSubscribePanel({ source: "home" })}
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>

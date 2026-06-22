@@ -65,6 +65,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Flagship FAQ packaging | Allow blog manifest posts to carry optional FAQ entries and render matching FAQPage structured data when the visible essay includes an FAQ section. | 2026-06-19 | n/a |
 | Homepage exploration structure | Keep the root page focused on the site promise, concise orientation, and high-scent exploration links; avoid internal implementation metrics on the homepage. | 2026-06-22 | n/a |
 | Credibility hub route foundation | Generate first-class static `/projects/`, `/contact/`, and `/collaborate/` routes, include them in sitemap/footer discovery, and keep the implementation provider-neutral until project/contact systems are selected. | 2026-06-23 | n/a |
+| Homepage credibility bands | Keep the homepage as the primary hub by surfacing selected projects, selected technical writing, current asks, and subscription before the topic archive. | 2026-06-23 | n/a |
 
 ## Pressure Points
 
@@ -119,6 +120,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The archived NP-completeness essay still links a static LaTeX reduction-proof template copied to `/artifacts/`, giving serious readers a reusable construction/runtime/correctness scaffold.
 - The current AI research flagship essay includes a concise reader FAQ, with matching manifest-owned FAQPage structured data emitted only for posts that define FAQ entries.
 - The static site now prepares first-class Projects, Contact, and Collaborate routes so credibility inspection and inbound conversations do not have to route through the About page alone.
+- The homepage now includes compact credibility bands for selected projects, best technical writing, current asks, and monthly updates before the full notes/topic archive.
 
 ## Recording Rule (Design Tree vs ADR)
 
