@@ -14,6 +14,7 @@ const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
 const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
 const FLAGSHIP_ESSAY_TITLE = "The mental models of deep learning";
+const PUBLIC_CONTACT_EMAIL = "praneeth.suresh.s@gmail.com";
 
 function escapeHtml(value) {
   return String(value)
@@ -165,6 +166,26 @@ function renderSubscribePanel({ source = "site", compact = false } = {}) {
       <div class="subscribe-actions" aria-label="Subscription actions">
         <a class="primary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="${escapeHtml(source)}">Get the monthly deep dive</a>
         <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="${escapeHtml(source)}">Subscribe by RSS</a>
+      </div>
+    </section>
+  `;
+}
+
+function renderContactCtaPanel({ source = "site" } = {}) {
+  return `
+    <section class="panel portfolio-section" aria-labelledby="contact-cta-title-${escapeHtml(source)}">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Contact</p>
+        <h2 id="contact-cta-title-${escapeHtml(source)}" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>Useful messages usually start from a specific overlap: a paper, project, team, startup problem, internship role, workshop, sponsor idea, or AI Society collaboration.</p>
+        <p>Calendly is intentionally omitted until availability can be honored reliably.</p>
+      </div>
+      <div class="home-actions" aria-label="Contact actions">
+        <a class="primary-action" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="${escapeHtml(source)}">Email me</a>
+        <a class="secondary-action" href="/contact/">Contact page</a>
+        <a class="secondary-action" href="/collaborate/">Collaborate</a>
       </div>
     </section>
   `;
@@ -1212,6 +1233,7 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
       </div>
       <div class="portfolio-project-grid">${projectCards}</div>
     </section>
+    ${renderContactCtaPanel({ source: "projects-index" })}
   `;
 
   return renderLayout({
@@ -1278,6 +1300,7 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
       </div>
       <div class="repo-map">${details}</div>
     </section>
+    ${renderContactCtaPanel({ source: `project-${normalizedProject.slug}` })}
     ${relatedProjects ? `<section class="panel portfolio-section" aria-labelledby="project-related-title">
       <div class="portfolio-section-header">
         <p class="section-kicker">/ More projects</p>
@@ -1323,16 +1346,45 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <h2 id="contact-route-title" class="section-title">Start with public professional links.</h2>
       </div>
       <div class="portfolio-project-grid">
-        <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="01">
+        <a class="portfolio-project" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="contact-page" data-index="01">
+          <span class="portfolio-project-kind">Direct / Email</span>
+          <h3>Email</h3>
+          <p>${escapeHtml(PUBLIC_CONTACT_EMAIL)}</p>
+        </a>
+        <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="02">
           <span class="portfolio-project-kind">Code / GitHub</span>
           <h3>GitHub</h3>
           <p>Inspect public repositories and project activity.</p>
         </a>
-        <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="02">
+        <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="03">
           <span class="portfolio-project-kind">Professional / LinkedIn</span>
           <h3>LinkedIn</h3>
-          <p>Use LinkedIn for professional outreach until a public email address is added.</p>
+          <p>Use LinkedIn for professional context, affiliations, and warm outreach.</p>
         </a>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="contact-scope-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Good reasons to reach out</p>
+        <h2 id="contact-scope-title" class="section-title">Research, internships, consulting, and AI Society collaboration.</h2>
+      </div>
+      <div class="repo-map">
+        <section class="repo-group" aria-label="Research">
+          <h3>Research</h3>
+          <p>Interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.</p>
+        </section>
+        <section class="repo-group" aria-label="Internships">
+          <h3>Internships</h3>
+          <p>AI engineering, applied ML, developer tools, ML systems, and research-adjacent engineering teams.</p>
+        </section>
+        <section class="repo-group" aria-label="Consulting">
+          <h3>Consulting</h3>
+          <p>Prototype work, technical writing, model evaluation, paper implementation, and AI workflow design.</p>
+        </section>
+        <section class="repo-group" aria-label="NUS AI Society">
+          <h3>NUS AI Society</h3>
+          <p>Speaker, workshop, sponsor, partner, and community-infrastructure conversations.</p>
+        </section>
       </div>
     </section>
   `;
@@ -1372,6 +1424,7 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <p>This keeps the site aligned with the mission: build real professional leverage from rigorous public work instead of broad self-promotion.</p>
       </div>
     </section>
+    ${renderContactCtaPanel({ source: "collaborate" })}
   `;
 
   return renderLayout({
@@ -1551,6 +1604,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     <section class="portfolio-quote" aria-label="Portfolio quote">
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
+    ${renderContactCtaPanel({ source: "about" })}
   `;
 
   return renderLayout({

@@ -397,6 +397,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes("problem, method, result, code, write-up, and status"));
     assert.ok(projectsHtml.includes('href="/projects/notes/"'));
     assert.ok(projectsHtml.includes("active flagship"));
+    assert.ok(projectsHtml.includes("Contact me about research, internships, consulting, or NUS AI Society collaboration."));
+    assert.ok(projectsHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
     assert.ok(notesProjectHtml.includes("<title>Notes · Projects · Computer Science Notes</title>"));
     assert.ok(notesProjectHtml.includes("Problem"));
@@ -409,6 +411,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesProjectHtml.includes("active flagship"));
     assert.ok(notesProjectHtml.includes('href="https://github.com/Praneeth-Suresh/Notes"'));
     assert.ok(notesProjectHtml.includes('href="/topics/agent-coding/the-design-concept/"'));
+    assert.ok(notesProjectHtml.includes('data-contact-source="project-notes"'));
+    assert.ok(notesProjectHtml.includes("Calendly is intentionally omitted"));
     assert.ok(notesProjectHtml.includes("static-site"));
     assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
     assert.ok(notesProjectHtml.includes('<link rel="canonical" href="https://example.test/projects/notes/" />'));
@@ -416,10 +420,16 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes("research, internships, consulting, NUS AI Society collaboration"));
     assert.ok(contactHtml.includes("https://github.com/Praneeth-Suresh"));
     assert.ok(contactHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
+    assert.ok(contactHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
+    assert.ok(contactHtml.includes("praneeth.suresh.s@gmail.com"));
+    assert.ok(contactHtml.includes("Research, internships, consulting, and AI Society collaboration."));
+    assert.ok(contactHtml.includes("Speaker, workshop, sponsor, partner"));
     assert.ok(contactHtml.includes('<link rel="canonical" href="https://example.test/contact/" />'));
     assert.ok(collaborateHtml.includes("<title>Collaborate · Computer Science Notes</title>"));
     assert.ok(collaborateHtml.includes("Collaboration and consulting"));
     assert.ok(collaborateHtml.includes("AI Society partnerships"));
+    assert.ok(collaborateHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
+    assert.ok(collaborateHtml.includes("Calendly is intentionally omitted"));
     assert.ok(collaborateHtml.includes('<link rel="canonical" href="https://example.test/collaborate/" />'));
     assert.ok(homeHtml.includes('data-hotkey="T"'));
     assert.ok(homeHtml.includes('document.addEventListener("keydown"'));
@@ -435,6 +445,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("Tech Director of the residence student committee"));
     assert.ok(personalHtml.includes("interpretability, representation analysis, model evaluation, memory, routing, agent reliability"));
     assert.ok(personalHtml.includes("research collaborations, AI engineering internships"));
+    assert.ok(personalHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
+    assert.ok(personalHtml.includes('data-contact-source="about"'));
     assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));

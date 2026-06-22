@@ -68,6 +68,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Homepage credibility bands | Keep the homepage as the primary hub by surfacing selected projects, selected technical writing, current asks, and subscription before the topic archive. | 2026-06-23 | n/a |
 | Structured project proof assets | Use checked-in `content/projects.json` as the static source for `/projects/` and `/projects/<slug>/` case-study pages with problem, method, result, code, write-up, status, and tags. | 2026-06-23 | n/a |
 | About page credibility stack | Present mission-owned credentials, research interests, current focus, and leadership roles directly on `/about/` so credibility can be inspected without leaving the site. | 2026-06-23 | n/a |
+| Contact CTA surface | Use `mailto:praneeth.suresh.s@gmail.com`, GitHub, and LinkedIn as the contact surface, and omit Calendly until availability can be reliably honored. | 2026-06-23 | n/a |
 
 ## Pressure Points
 
@@ -125,6 +126,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The homepage now includes compact credibility bands for selected projects, best technical writing, current asks, and monthly updates before the full notes/topic archive.
 - The Projects route now renders from structured checked-in project data and emits individual static case-study pages for each selected project.
 - The About page now exposes education, GPA, leadership roles, current research focus, and opportunity targets from `mission.md`.
+- Projects, project pages, About, Contact, and Collaborate now share explicit contact CTAs for research, internships, consulting, and NUS AI Society collaboration, including a visible no-Calendly policy.
 
 ## Recording Rule (Design Tree vs ADR)
 
