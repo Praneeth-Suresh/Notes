@@ -62,6 +62,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">Algorithms Archive</p>
         <h1>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">algorithms</span><span class="topic-label topic-label-default">complexity</span><span class="topic-label topic-label-default">proofs</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>There is a moment in algorithm design where the problem stops feeling like an implementation challenge and starts looking like a warning sign. You try dynamic programming. You try graph modeling. You try a greedy invariant. Every route seems to move the difficulty somewhere else instead of removing it.</p>
 <p>NP-completeness is the language for that moment. It does not prove that your problem is impossible to solve quickly. It does something more precise and more useful: it says that a polynomial-time algorithm for this problem would also give polynomial-time algorithms for every problem whose solutions can be checked efficiently.</p>
@@ -193,6 +195,27 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
   
       
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

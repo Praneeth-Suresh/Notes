@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">A Developer&#39;s Memoir</p>
         <h1>Launching Off</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">project story</span><span class="topic-label topic-label-default">builder journal</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p><em>Before we start off, answer this question for yourself: What is your “basic Python”?</em></p>
 <ol>
@@ -146,6 +148,27 @@
   
       <nav class="blog-post-nav"><span></span><a href="/blog/putting-users-first-rewrote-our-code/">Putting users first &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>Approaching the frontiers</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">AI research</span><span class="topic-label topic-label-default">frontiers</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/approaching-the-frontiers/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>This week was a technical deep dive into the principles of representation learning, based on the following works:</p>
 <p><em>Tishby, Naftali, and Noga Zaslavsky. &quot;Deep learning and the information bottleneck principle.&quot; 2015 ieee information theory workshop (itw). Ieee, 2015.</em></p>
@@ -98,6 +100,27 @@
   
       <nav class="blog-post-nav"><a href="/blog/from-alchemy-to-science/">&larr; From Alchemy to Science</a><a href="/blog/the-era-we-live-in/">The era we live in &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

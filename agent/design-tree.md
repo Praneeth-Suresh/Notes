@@ -69,6 +69,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Structured project proof assets | Use checked-in `content/projects.json` as the static source for `/projects/` and `/projects/<slug>/` case-study pages with problem, method, result, code, write-up, status, and tags. | 2026-06-23 | n/a |
 | About page credibility stack | Present mission-owned credentials, research interests, current focus, and leadership roles directly on `/about/` so credibility can be inspected without leaving the site. | 2026-06-23 | n/a |
 | Contact CTA surface | Use `mailto:praneeth.suresh.s@gmail.com`, GitHub, and LinkedIn as the contact surface, and omit Calendly until availability can be reliably honored. | 2026-06-23 | n/a |
+| Blog discovery and sharing | Blog manifest posts can define static tags; `/blog/` renders a client-side tag/search index, and post pages expose visible tags plus a copy-link share action. | 2026-06-23 | n/a |
 
 ## Pressure Points
 
@@ -127,6 +128,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The Projects route now renders from structured checked-in project data and emits individual static case-study pages for each selected project.
 - The About page now exposes education, GPA, leadership roles, current research focus, and opportunity targets from `mission.md`.
 - Projects, project pages, About, Contact, and Collaborate now share explicit contact CTAs for research, internships, consulting, and NUS AI Society collaboration, including a visible no-Calendly policy.
+- Blog posts now carry visible tags, the blog index includes client-side search/filtering, and individual posts expose a copy-link sharing action.
 
 ## Recording Rule (Design Tree vs ADR)
 

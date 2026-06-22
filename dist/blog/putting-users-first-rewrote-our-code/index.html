@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">A Developer&#39;s Memoir</p>
         <h1>Putting users first</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">project story</span><span class="topic-label topic-label-default">product</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/putting-users-first-rewrote-our-code/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p><em>Build a finance app to democratise investing? Sounds amazing. Let’s deliver information about the market to our users, as fresh as it gets. That would mean finding an up to date API, mining news, creating a speedy processing pipeline … . This would have led to nothing but a monument to technical arrogance. To change human trajectories, you don’t start with code, but with empathy.</em></p>
 <p><img src="/blog/images/blog2.png" alt="App to change investing"></p>
@@ -113,6 +115,27 @@
   
       <nav class="blog-post-nav"><a href="/blog/unic-launching-off/">&larr; Launching Off</a><a href="/blog/best-case-worst-case/">Best case, Worst case &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

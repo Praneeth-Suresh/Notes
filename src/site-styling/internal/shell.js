@@ -532,14 +532,18 @@ function getProjectItems(projectsData) {
   return source.map((project) => normalizeProject(project)).filter(Boolean);
 }
 
-function renderProjectTagList(tags) {
+function renderTagList(tags, ariaLabel = "Tags") {
   if (!Array.isArray(tags) || tags.length === 0) {
     return "";
   }
 
-  return `<div class="topic-labels" aria-label="Project tags">${tags
+  return `<div class="topic-labels" aria-label="${escapeHtml(ariaLabel)}">${tags
     .map((tag) => `<span class="topic-label topic-label-default">${escapeHtml(tag)}</span>`)
     .join("")}</div>`;
+}
+
+function renderProjectTagList(tags) {
+  return renderTagList(tags, "Project tags");
 }
 
 function renderProjectCard(project, index) {
@@ -1625,9 +1629,13 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       const chapterHtml = post.chapter != null
         ? `<span class="blog-post-chapter">${String(post.chapter).padStart(2, "0")}</span>`
         : `<span class="blog-post-chapter">&bull;</span>`;
-      return `<li><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a></li>`;
+      const tags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
+      const tagText = tags.join(" ");
+      const tagHtml = renderTagList(tags, `Tags for ${post.title}`);
+      const searchableText = `${section.title} ${section.subtitle || ""} ${post.title} ${post.description || ""} ${tagText}`;
+      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchableText.toLowerCase())}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a>${tagHtml}</li>`;
     }).join("");
-    return `<div class="blog-section-group"><h3 class="blog-section-heading">${escapeHtml(section.title)}</h3><p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p><ul class="blog-post-list">${posts}</ul></div>`;
+    return `<div class="blog-section-group" data-blog-section><h3 class="blog-section-heading">${escapeHtml(section.title)}</h3><p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p><ul class="blog-post-list">${posts}</ul></div>`;
   }).join("");
 
   const content = `
@@ -1637,8 +1645,40 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       <p class="blog-subtitle">The thought processes behind the projects.</p>
     </section>
     <div class="blog-home-content" id="main-content">${homeContentHtml}</div>
-    <nav class="blog-toc" aria-label="Blog table of contents">${toc}</nav>
+    <section class="blog-toc" aria-label="Blog search and tagged index">
+      <label class="topic-search-label" for="blog-search">Search writing</label>
+      <input id="blog-search" class="topic-search" type="search" placeholder="Try interpretability, proofs, project story..." aria-describedby="blog-search-status" />
+      <p id="blog-search-status" class="topic-search-status" aria-live="polite">Showing all posts.</p>
+      <nav aria-label="Blog table of contents">${toc}</nav>
+    </section>
     ${renderSubscribePanel({ source: "blog-index" })}
+    <script>
+      (() => {
+        const input = document.getElementById("blog-search");
+        const status = document.getElementById("blog-search-status");
+        const items = Array.from(document.querySelectorAll(".blog-post-item"));
+        const sections = Array.from(document.querySelectorAll("[data-blog-section]"));
+
+        function update() {
+          const query = input.value.trim().toLowerCase();
+          let shown = 0;
+          for (const item of items) {
+            const isMatch = !query || item.dataset.blogSearch.includes(query);
+            item.hidden = !isMatch;
+            if (isMatch) {
+              shown += 1;
+            }
+          }
+          for (const section of sections) {
+            const hasVisibleItem = Array.from(section.querySelectorAll(".blog-post-item")).some((item) => !item.hidden);
+            section.hidden = !hasVisibleItem;
+          }
+          status.textContent = query ? \`\${shown} result\${shown === 1 ? "" : "s"} shown.\` : "Showing all posts.";
+        }
+
+        input.addEventListener("input", update);
+      })();
+    </script>
   `;
 
   return renderLayout({
@@ -1675,6 +1715,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       : description;
   const canonicalUrl = absoluteUrl(siteUrl, `/blog/${post.slug}/`);
   const socialImageUrl = absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH);
+  const blogTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const faqItems = Array.isArray(post.faq)
     ? post.faq
         .filter((item) => item && typeof item === "object")
@@ -1722,11 +1763,34 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       <header class="blog-post-header">
         <p class="blog-post-section">${escapeHtml(section)}</p>
         <h1>${escapeHtml(post.title)}</h1>
+        ${renderTagList(blogTags, "Post tags")}
+        <button class="secondary-action blog-share-button" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       ${blogContentHtml}
       ${renderSubscribePanel({ source: "blog-post" })}
       ${navHtml}
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   `;
 
   return renderLayout({

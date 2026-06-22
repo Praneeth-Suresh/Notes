@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>Peeking Inside the Black Box</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">interpretability</span><span class="topic-label topic-label-default">AI research</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/peeking-inside-the-black-box/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>This time around I have been furthering my work in interpretability by reading more research about the subject:  </p>
 <p><em>Machine Learning Street Talk, &quot;#047 Interpretable Machine Learning - Christoph Molnar”</em></p>
@@ -108,6 +110,27 @@
   
       <nav class="blog-post-nav"><a href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/">&larr; The mental models of deep learning</a><a href="/blog/more-on-interpretability/">Diving Deep into interpretability &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

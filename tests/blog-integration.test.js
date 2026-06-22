@@ -99,7 +99,7 @@ test("renderBlogIndexPage produces valid HTML with sections and posts", () => {
         title: "Dev Memoir",
         subtitle: "my blog",
         posts: [
-          { slug: "ch1", title: "Chapter 1", chapter: 1, markdownFile: "posts/ch1.md" },
+          { slug: "ch1", title: "Chapter 1", tags: ["project story"], chapter: 1, markdownFile: "posts/ch1.md" },
           { slug: "ch2", title: "Chapter 2", chapter: 2, markdownFile: "posts/ch2.md" },
         ],
       },
@@ -123,6 +123,10 @@ test("renderBlogIndexPage produces valid HTML with sections and posts", () => {
   assert.ok(html.includes("AI Readings"));
   assert.ok(html.includes('href="/blog/ch1/"'));
   assert.ok(html.includes('href="/blog/ai1/"'));
+  assert.ok(html.includes('id="blog-search"'));
+  assert.ok(html.includes("Search writing"));
+  assert.ok(html.includes("project story"));
+  assert.ok(html.includes('data-blog-search='));
   assert.ok(html.includes("<p>Welcome</p>"));
   assert.ok(html.includes("Blog &middot; Test Site") || html.includes("Blog · Test Site"));
 });
@@ -136,7 +140,7 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
         title: "Dev Memoir",
         subtitle: "my blog",
         posts: [
-          { slug: "ch1", title: "Chapter 1", chapter: 1, markdownFile: "posts/ch1.md" },
+          { slug: "ch1", title: "Chapter 1", tags: ["project story"], chapter: 1, markdownFile: "posts/ch1.md" },
           { slug: "ch2", title: "Chapter 2", chapter: 2, markdownFile: "posts/ch2.md" },
         ],
       },
@@ -144,7 +148,7 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
   };
   const html = siteStyling.renderBlogPostPage({
     siteTitle: "Test Site",
-    post: { slug: "ch1", title: "Chapter 1", chapter: 1 },
+    post: { slug: "ch1", title: "Chapter 1", tags: ["project story"], chapter: 1 },
     section: "Dev Memoir",
     blogContentHtml: "<p>Post body here</p>",
     blogManifest: manifest,
@@ -154,6 +158,10 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
   assert.ok(html.includes("Chapter 1"));
   assert.ok(html.includes("Dev Memoir"));
   assert.ok(html.includes("<p>Post body here</p>"));
+  assert.ok(html.includes("project story"));
+  assert.ok(html.includes("Copy link"));
+  assert.ok(html.includes('data-share-url='));
+  assert.ok(html.includes('data-analytics-event="copy_share_link_click"'));
   // Should have next link but no prev (first post)
   assert.ok(html.includes('href="/blog/ch2/"'));
   assert.ok(html.includes("Chapter 2 &rarr;") || html.includes("Chapter 2 →"));
@@ -178,6 +186,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes("AI Research Deep Dives"));
     assert.ok(blogIndex.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(blogIndex.includes("The mental models of deep learning"));
+    assert.ok(blogIndex.includes('id="blog-search"'));
+    assert.ok(blogIndex.includes("AI research"));
+    assert.ok(blogIndex.includes("project story"));
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(blogIndex.includes('class="subscribe-panel"'));
     assert.ok(blogIndex.includes('<meta name="description" content="Stories, project notes, and AI research reflections from Computer Science Notes." />'));
@@ -194,6 +205,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(postHtml.includes('class="subscribe-panel"'));
     assert.ok(postHtml.includes('href="/subscribe/"'));
     assert.ok(postHtml.includes('href="/feed.xml"'));
+    assert.ok(postHtml.includes("Copy link"));
+    assert.ok(postHtml.includes('data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/"'));
+    assert.ok(postHtml.includes("project story"));
     assert.ok(postHtml.includes('data-analytics-event="rss_click"'));
     assert.ok(postHtml.includes('<meta property="og:type" content="article" />'));
     assert.ok(postHtml.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/" />'));
@@ -223,6 +237,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(flagshipHtml.includes("Model and mechanism"));
     assert.ok(flagshipHtml.includes("Why this matters"));
     assert.ok(flagshipHtml.includes("Questions readers usually ask"));
+    assert.ok(flagshipHtml.includes("Copy link"));
+    assert.ok(flagshipHtml.includes("paper trail"));
+    assert.ok(flagshipHtml.includes('data-analytics-event="copy_share_link_click"'));
     assert.ok(flagshipHtml.includes("Is deep learning research only about bigger models?"));
     assert.ok(flagshipHtml.includes("Why include reinforcement learning beside architecture papers?"));
     assert.ok(flagshipHtml.includes("Further reading"));

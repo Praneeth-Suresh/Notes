@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">A Developer&#39;s Memoir</p>
         <h1>Best case, Worst case</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">forecasting</span><span class="topic-label topic-label-default">ethics</span><span class="topic-label topic-label-default">project story</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p><em>The brief is simple: make the most accurate prediction of the relationship between any two countries. It sounded naive but when I thought about it, questions arose about what it really meant. A system that predicts wars? Famine? Coups? By being a way to look into the future, the model wouldn’t just tell us ‘what will happen’—but ‘what should we do?’. I’m terrified. I’m coding anyway.</em></p>
 <p><img src="/blog/images/blog3.png" alt="Changing the conventional planning room  "></p>
@@ -110,6 +112,27 @@
   
       <nav class="blog-post-nav"><a href="/blog/putting-users-first-rewrote-our-code/">&larr; Putting users first</a><a href="/blog/how-to-turn-any-big-idea-into-real-impact/">Tech for society &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

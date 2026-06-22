@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>The era we live in</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">AI</span><span class="topic-label topic-label-default">reflection</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/the-era-we-live-in/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>Settling into December 2025, here are the papers that I have been reading:</p>
 <p><em>Vaswani, Ashish, et al. &quot;Attention Is All You Need.&quot; Advances in Neural Information Processing Systems, vol. 30, 2017.</em></p>
@@ -101,6 +103,27 @@ The LLM provides the ability to transform an input into a representation of the 
   
       <nav class="blog-post-nav"><a href="/blog/approaching-the-frontiers/">&larr; Approaching the frontiers</a><a href="/blog/what-exactly-are-we-doing/">Intelligence? &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

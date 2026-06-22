@@ -12,6 +12,7 @@
           "title": "The mental models of deep learning",
           "description": "AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.",
           "socialPreview": "A paper-backed AI research essay connecting Cybenko, LeCun, Vaswani, Mnih, architecture design, representation learning, and the limits of today's theory.",
+          "tags": ["AI research", "deep learning", "paper trail"],
           "faq": [
             {
               "question": "Is deep learning research only about bigger models?",
@@ -32,36 +33,42 @@
         {
           "slug": "peeking-inside-the-black-box",
           "title": "Peeking Inside the Black Box",
+          "tags": ["interpretability", "AI research"],
           "chapter": null,
           "markdownFile": "posts/peeking-inside-the-black-box.md"
         },
         {
           "slug": "more-on-interpretability",
           "title": "Diving Deep into interpretability",
+          "tags": ["interpretability", "research notes"],
           "chapter": null,
           "markdownFile": "posts/more-on-interpretability.md"
         },
         {
           "slug": "from-alchemy-to-science",
           "title": "From Alchemy to Science",
+          "tags": ["AI research", "research taste"],
           "chapter": null,
           "markdownFile": "posts/from-alchemy-to-science.md"
         },
         {
           "slug": "approaching-the-frontiers",
           "title": "Approaching the frontiers",
+          "tags": ["AI research", "frontiers"],
           "chapter": null,
           "markdownFile": "posts/approaching-the-frontiers.md"
         },
         {
           "slug": "the-era-we-live-in",
           "title": "The era we live in",
+          "tags": ["AI", "reflection"],
           "chapter": null,
           "markdownFile": "posts/the-era-we-live-in.md"
         },
         {
           "slug": "what-exactly-are-we-doing",
           "title": "Intelligence?",
+          "tags": ["AI", "reflection"],
           "chapter": null,
           "markdownFile": "posts/what-exactly-are-we-doing.md"
         }
@@ -74,24 +81,28 @@
         {
           "slug": "unic-launching-off",
           "title": "Launching Off",
+          "tags": ["project story", "builder journal"],
           "chapter": 1,
           "markdownFile": "posts/unic-launching-off.md"
         },
         {
           "slug": "putting-users-first-rewrote-our-code",
           "title": "Putting users first",
+          "tags": ["project story", "product"],
           "chapter": 2,
           "markdownFile": "posts/putting-users-first-rewrote-our-code.md"
         },
         {
           "slug": "best-case-worst-case",
           "title": "Best case, Worst case",
+          "tags": ["forecasting", "ethics", "project story"],
           "chapter": 3,
           "markdownFile": "posts/best-case-worst-case.md"
         },
         {
           "slug": "how-to-turn-any-big-idea-into-real-impact",
           "title": "Tech for society",
+          "tags": ["impact", "project story"],
           "chapter": 4,
           "markdownFile": "posts/how-to-turn-any-big-idea-into-real-impact.md"
         }
@@ -106,6 +117,7 @@
           "title": "NP-Completeness: Formal Definition, Proof Sketches, and Reductions",
           "description": "NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.",
           "socialPreview": "A proof-backed guide to NP-completeness: formal definition, reductions, Cook, Karp, and the design consequences of hardness evidence.",
+          "tags": ["algorithms", "complexity", "proofs"],
           "faq": [
             {
               "question": "Does NP-complete mean impossible to solve quickly?",

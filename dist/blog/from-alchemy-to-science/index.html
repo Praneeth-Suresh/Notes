@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>From Alchemy to Science</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">AI research</span><span class="topic-label topic-label-default">research taste</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/from-alchemy-to-science/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>Here I put together what I’ve learnt from the material I’ve read this week with everything I’ve learn from the beginning of December:</p>
 <p><em>Simonyan, Karen, Andrea Vedaldi, and Andrew Zisserman. &quot;Deep inside convolutional networks: Visualising image classification models and saliency maps.&quot; arXiv preprint arXiv:1312.6034 (2013).</em></p>
@@ -109,6 +111,27 @@ Secondly, unification is important to allow there to be a common understanding o
   
       <nav class="blog-post-nav"><a href="/blog/more-on-interpretability/">&larr; Diving Deep into interpretability</a><a href="/blog/approaching-the-frontiers/">Approaching the frontiers &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">

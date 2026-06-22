@@ -61,6 +61,8 @@
       <header class="blog-post-header">
         <p class="blog-post-section">AI Research Deep Dives</p>
         <h1>Diving Deep into interpretability</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">interpretability</span><span class="topic-label topic-label-default">research notes</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/more-on-interpretability/" data-analytics-event="copy_share_link_click">Copy link</button>
       </header>
       <article class="blog-article"><p>This time the focus is on examining real interpretability techniques that are used out there. </p>
 <p><em>Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. &quot;&quot; Why should i trust you?&quot; Explaining the predictions of any classifier.&quot; Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. 2016.</em></p>
@@ -99,6 +101,27 @@
   
       <nav class="blog-post-nav"><a href="/blog/peeking-inside-the-black-box/">&larr; Peeking Inside the Black Box</a><a href="/blog/from-alchemy-to-science/">From Alchemy to Science &rarr;</a></nav>
     </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
   
       
       <footer class="site-footer" aria-label="Site footer">
