@@ -428,6 +428,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("Praneeth Suresh"));
     assert.ok(personalHtml.includes("Software engineer and AI developer/researcher"));
     assert.ok(personalHtml.includes("I publish rigorous, paper-backed explanations of AI research topics with research-level depth and clear intuition."));
+    assert.ok(personalHtml.includes("NUS CS + Math"));
+    assert.ok(personalHtml.includes("second major in Mathematics"));
+    assert.ok(personalHtml.includes("Perfect GPA"));
+    assert.ok(personalHtml.includes("Tech and Research Director of the NUS AI Society"));
+    assert.ok(personalHtml.includes("Tech Director of the residence student committee"));
+    assert.ok(personalHtml.includes("interpretability, representation analysis, model evaluation, memory, routing, agent reliability"));
+    assert.ok(personalHtml.includes("research collaborations, AI engineering internships"));
     assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes("turning exploratory ideas into working systems"));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));

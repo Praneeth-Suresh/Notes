@@ -1482,12 +1482,46 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
         <p>public GitHub repositories</p>
       </div>
       <div>
+        <span>NUS CS + Math</span>
+        <p>computer science with a second major in mathematics</p>
+      </div>
+      <div>
         <span>AI + SWE</span>
         <p>research notebooks, apps, agents, and static systems</p>
       </div>
       <div>
-        <span>R&D</span>
-        <p>specialise in improving today's computer systems</p>
+        <span>Perfect GPA</span>
+        <p>academic signal paired with public proof-of-work</p>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="portfolio-credentials">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Credentials</p>
+        <h2 id="portfolio-credentials" class="section-title">Academic and leadership context.</h2>
+      </div>
+      <div class="repo-map">
+        <section class="repo-group" aria-label="Education">
+          <h3>Education</h3>
+          <p>NUS Computer Science student with a second major in Mathematics and a perfect GPA.</p>
+        </section>
+        <section class="repo-group" aria-label="Leadership roles">
+          <h3>Leadership roles</h3>
+          <p>Tech and Research Director of the NUS AI Society, and Tech Director of the residence student committee.</p>
+        </section>
+        <section class="repo-group" aria-label="Public work">
+          <h3>Public work</h3>
+          <p>Maintains a public technical site, GitHub project trail, AI research reading path, and selected project case studies.</p>
+        </section>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="portfolio-focus">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Current focus</p>
+        <h2 id="portfolio-focus" class="section-title">Building rigorous ML systems into tools people can inspect, trust, and use.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>Current interests: interpretability, representation analysis, model evaluation, memory, routing, agent reliability, and the engineering systems around AI research.</p>
+        <p>Current opportunities: research collaborations, AI engineering internships, high-signal projects, consulting prototypes, and NUS AI Society collaborations.</p>
       </div>
     </section>
     <section class="panel portfolio-section" aria-labelledby="portfolio-philosophy">

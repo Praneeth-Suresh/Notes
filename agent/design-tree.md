@@ -67,6 +67,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Credibility hub route foundation | Generate first-class static `/projects/`, `/contact/`, and `/collaborate/` routes, include them in sitemap/footer discovery, and keep the implementation provider-neutral until project/contact systems are selected. | 2026-06-23 | n/a |
 | Homepage credibility bands | Keep the homepage as the primary hub by surfacing selected projects, selected technical writing, current asks, and subscription before the topic archive. | 2026-06-23 | n/a |
 | Structured project proof assets | Use checked-in `content/projects.json` as the static source for `/projects/` and `/projects/<slug>/` case-study pages with problem, method, result, code, write-up, status, and tags. | 2026-06-23 | n/a |
+| About page credibility stack | Present mission-owned credentials, research interests, current focus, and leadership roles directly on `/about/` so credibility can be inspected without leaving the site. | 2026-06-23 | n/a |
 
 ## Pressure Points
 
@@ -123,6 +124,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The static site now prepares first-class Projects, Contact, and Collaborate routes so credibility inspection and inbound conversations do not have to route through the About page alone.
 - The homepage now includes compact credibility bands for selected projects, best technical writing, current asks, and monthly updates before the full notes/topic archive.
 - The Projects route now renders from structured checked-in project data and emits individual static case-study pages for each selected project.
+- The About page now exposes education, GPA, leadership roles, current research focus, and opportunity targets from `mission.md`.
 
 ## Recording Rule (Design Tree vs ADR)
 
