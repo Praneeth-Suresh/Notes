@@ -4,6 +4,7 @@ const ALLOWED_URL_PROTOCOLS = new Set(["http:", "https:", "mailto:"]);
 const ALLOWED_ASSET_URL_PROTOCOLS = new Set(["http:", "https:"]);
 const ALLOWED_RASTER_DATA_IMAGE_PATTERN =
   /^data:image\/(?:gif|png|jpe?g|webp);base64,[a-z0-9+/]+={0,2}$/iu;
+const NOTION_ROOT_RELATIVE_PAGE_PATTERN = /^\/[a-f0-9]{32}(?:[?#].*)?$/iu;
 const NOTION_COLOR_PATTERN = /^[a-z]+(?:_background)?$/u;
 const CHILD_AWARE_RENDERERS = new Set([
   "callout",
@@ -38,6 +39,10 @@ function sanitizeHref(href) {
   const trimmed = href.trim();
   if (trimmed === "") {
     return null;
+  }
+
+  if (NOTION_ROOT_RELATIVE_PAGE_PATTERN.test(trimmed)) {
+    return new URL(trimmed, "https://www.notion.so").toString();
   }
 
   if (trimmed.startsWith("#") || trimmed.startsWith("/")) {

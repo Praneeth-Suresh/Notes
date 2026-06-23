@@ -129,6 +129,9 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The About page now exposes education, GPA, leadership roles, current research focus, and opportunity targets from `mission.md`.
 - Projects, project pages, About, Contact, and Collaborate now share explicit contact CTAs for research, internships, consulting, and NUS AI Society collaboration, including a visible no-Calendly policy.
 - Blog posts now carry visible tags, the blog index includes client-side search/filtering, and individual posts expose a copy-link sharing action.
+- Global keyboard shortcuts now use a consistent route matrix: Home, Start, About, Projects, Notes, Blog, Contact, RSS, and slash-to-search, with editable controls protected from shortcut hijacking.
+- The homepage now includes compact CSS-only technical signal graphics after the hero, and credibility/utility sections use a smaller type scale so text does not consume excessive screen space.
+- The Current asks band now renders each ask on a proper content surface instead of inheriting the divider background from the grid container.
 
 ## Recording Rule (Design Tree vs ADR)
 

@@ -47,12 +47,12 @@
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/">Start</a>
-          <a href="/about/" data-hotkey="P">Portfolio</a>
-          <a href="/projects/">Projects</a>
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/">Contact</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
@@ -285,7 +285,7 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
           }
 
           const hotkey = event.key.toUpperCase();
-          if (hotkey === "S") {
+          if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
             if (searchInput) {
               event.preventDefault();

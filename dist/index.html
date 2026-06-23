@@ -46,12 +46,12 @@
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
         <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/">Start</a>
-          <a href="/about/" data-hotkey="P">Portfolio</a>
-          <a href="/projects/">Projects</a>
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/">Contact</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
@@ -62,11 +62,13 @@
         <h1 id="home-title" class="home-title">Theoretical CS: No Handwaving Allowed</h1>
         <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
         <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content" data-hotkey="T">Explore notes</a>
-          <a class="secondary-action" href="/blog/" data-hotkey="B">Read writings</a>
+          <a class="primary-action" href="#main-content">Explore notes</a>
+          <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
+          <a class="secondary-action" href="/blog/">Read writings</a>
           <a class="secondary-action" href="/research-taste/">AI research trail</a>
-          <a class="secondary-action" href="/about/" data-hotkey="P">Projects and portfolio</a>
-          <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
+          <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
+          <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
+          <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
         </div>
       </div>
       <div class="stripe-field" aria-hidden="true">
@@ -74,6 +76,25 @@
         <span class="stripe-field-grid"></span>
         <span class="stripe-field-orbit"></span>
       </div>
+    </section>
+    <section class="home-signal-strip" aria-label="Site proof signals">
+      <article class="home-signal" aria-label="Proof graph">
+  <div class="proof-graph-visual" aria-hidden="true">
+    <span>P</span><span>NP</span><span>SAT</span><span>3SAT</span><span>VC</span>
+  </div>
+  <div>
+    <p class="section-kicker">/ Proof graph</p>
+    <h2>Definitions -&gt; lemmas -&gt; reductions</h2>
+  </div>
+</article><article class="home-signal" aria-label="Research signal">
+  <div class="research-signal-visual" aria-hidden="true">
+    <span>Read</span><span>Model</span><span>Test</span><span>Write</span>
+  </div>
+  <div>
+    <p class="section-kicker">/ Research signal</p>
+    <h2>Papers -&gt; mechanisms -&gt; experiments</h2>
+  </div>
+</article>
     </section>
     <section class="panel topic-hub" aria-labelledby="home-explore-title">
       <div class="topic-hub-header">
@@ -91,10 +112,13 @@
 </a><a class="topic-card" href="/research-taste/" data-index="03">
   <h3 class="topic-card-title">AI research trail</h3>
   <p class="topic-card-description">Follow the papers and questions shaping my current research taste.</p>
-</a><a class="topic-card" href="/about/" data-index="04">
-  <h3 class="topic-card-title">Projects and portfolio</h3>
+</a><a class="topic-card" href="/projects/" data-index="04">
+  <h3 class="topic-card-title">Projects</h3>
   <p class="topic-card-description">See selected software, AI, and systems work behind the notes.</p>
-</a><a class="topic-card" href="/start-here/" data-index="05">
+</a><a class="topic-card" href="/about/" data-index="05">
+  <h3 class="topic-card-title">Portfolio</h3>
+  <p class="topic-card-description">Inspect the author, research taste, leadership, and professional context behind the site.</p>
+</a><a class="topic-card" href="/start-here/" data-index="06">
   <h3 class="topic-card-title">Start here</h3>
   <p class="topic-card-description">Use a guided path if you want a first route through the site.</p>
 </a></div>
@@ -143,7 +167,7 @@
         <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
       </div>
       <div class="portfolio-philosophy-grid">
-        <ul class="note-list"><li>Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.</li><li>AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.</li><li>Consulting or prototype work for founders who need fast, inspectable AI engineering execution.</li><li>NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.</li></ul>
+        <ul class="ask-list"><li class="ask-item">Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.</li><li class="ask-item">AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.</li><li class="ask-item">Consulting or prototype work for founders who need fast, inspectable AI engineering execution.</li><li class="ask-item">NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.</li></ul>
         <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
       </div>
       <div class="home-actions" aria-label="Current ask actions">
@@ -308,7 +332,7 @@
           }
 
           const hotkey = event.key.toUpperCase();
-          if (hotkey === "S") {
+          if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
             if (searchInput) {
               event.preventDefault();

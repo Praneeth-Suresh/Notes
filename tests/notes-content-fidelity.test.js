@@ -158,6 +158,43 @@ test("allows safe raster data image assets without relaxing rich text links", ()
   );
 });
 
+test("renders root-relative notion page ids as external notion links", () => {
+  const notesContext = createNotesContentContext();
+  const topic = makeTopic([
+    {
+      type: "paragraph",
+      richText: [
+        {
+          type: "text",
+          content: "Merge Sort",
+          annotations: {},
+          href: "/2f4d3a21bb2d80b5acbff3fed6c5f73f?v=2c6d3a21bb2d8007ada9000c9e3df1c4",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      richText: [
+        {
+          type: "text",
+          content: "Local topic",
+          annotations: {},
+          href: "/topics/algorithms/merge-sort/",
+        },
+      ],
+    },
+  ]);
+
+  const html = notesContext.renderTopicBody(topic);
+
+  assert.ok(
+    html.includes(
+      'href="https://www.notion.so/2f4d3a21bb2d80b5acbff3fed6c5f73f?v=2c6d3a21bb2d8007ada9000c9e3df1c4"',
+    ),
+  );
+  assert.ok(html.includes('href="/topics/algorithms/merge-sort/"'));
+});
+
 test("renders normalized toggle and callout blocks with nested content", () => {
   const notesContext = createNotesContentContext();
   const topic = makeTopic([

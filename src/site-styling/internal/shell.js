@@ -252,12 +252,12 @@ ${metadataHtml}
       <header class="site-header">
         <a class="brand-link" href="/" data-hotkey="H">${escapeHtml(siteTitle)}</a>
         <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/">Start</a>
-          <a href="/about/" data-hotkey="P">Portfolio</a>
-          <a href="/projects/">Projects</a>
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
           <a href="/#main-content" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/">Contact</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
         </nav>
       </header>
@@ -308,7 +308,7 @@ ${metadataHtml}
           }
 
           const hotkey = event.key.toUpperCase();
-          if (hotkey === "S") {
+          if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
             if (searchInput) {
               event.preventDefault();
@@ -647,12 +647,18 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
     },
     {
       index: "04",
-      title: "Projects and portfolio",
+      title: "Projects",
       description: "See selected software, AI, and systems work behind the notes.",
-      href: "/about/",
+      href: "/projects/",
     },
     {
       index: "05",
+      title: "Portfolio",
+      description: "Inspect the author, research taste, leadership, and professional context behind the site.",
+      href: "/about/",
+    },
+    {
+      index: "06",
       title: "Start here",
       description: "Use a guided path if you want a first route through the site.",
       href: "/start-here/",
@@ -701,13 +707,39 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
 </a>`,
     )
     .join("");
+  const proofSignals = [
+    {
+      title: "Proof graph",
+      label: "Definitions -> lemmas -> reductions",
+      className: "proof-graph-visual",
+      nodes: ["P", "NP", "SAT", "3SAT", "VC"],
+    },
+    {
+      title: "Research signal",
+      label: "Papers -> mechanisms -> experiments",
+      className: "research-signal-visual",
+      nodes: ["Read", "Model", "Test", "Write"],
+    },
+  ]
+    .map(
+      (signal) => `<article class="home-signal" aria-label="${escapeHtml(signal.title)}">
+  <div class="${escapeHtml(signal.className)}" aria-hidden="true">
+    ${signal.nodes.map((node) => `<span>${escapeHtml(node)}</span>`).join("")}
+  </div>
+  <div>
+    <p class="section-kicker">/ ${escapeHtml(signal.title)}</p>
+    <h2>${escapeHtml(signal.label)}</h2>
+  </div>
+</article>`,
+    )
+    .join("");
   const currentAsks = [
     "Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.",
     "AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.",
     "Consulting or prototype work for founders who need fast, inspectable AI engineering execution.",
     "NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.",
   ]
-    .map((ask) => `<li>${escapeHtml(ask)}</li>`)
+    .map((ask) => `<li class="ask-item">${escapeHtml(ask)}</li>`)
     .join("");
 
   const topicsPayload = safeJsonForScript(
@@ -745,11 +777,13 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
         <h1 id="home-title" class="home-title">Theoretical CS: No Handwaving Allowed</h1>
         <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
         <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content" data-hotkey="T">Explore notes</a>
-          <a class="secondary-action" href="/blog/" data-hotkey="B">Read writings</a>
+          <a class="primary-action" href="#main-content">Explore notes</a>
+          <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
+          <a class="secondary-action" href="/blog/">Read writings</a>
           <a class="secondary-action" href="/research-taste/">AI research trail</a>
-          <a class="secondary-action" href="/about/" data-hotkey="P">Projects and portfolio</a>
-          <a class="secondary-action" href="#topic-search" data-hotkey="S">Search notes</a>
+          <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
+          <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
+          <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
         </div>
       </div>
       <div class="stripe-field" aria-hidden="true">
@@ -757,6 +791,9 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
         <span class="stripe-field-grid"></span>
         <span class="stripe-field-orbit"></span>
       </div>
+    </section>
+    <section class="home-signal-strip" aria-label="Site proof signals">
+      ${proofSignals}
     </section>
     <section class="panel topic-hub" aria-labelledby="home-explore-title">
       <div class="topic-hub-header">
@@ -793,7 +830,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
         <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
       </div>
       <div class="portfolio-philosophy-grid">
-        <ul class="note-list">${currentAsks}</ul>
+        <ul class="ask-list">${currentAsks}</ul>
         <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
       </div>
       <div class="home-actions" aria-label="Current ask actions">
@@ -995,7 +1032,7 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
   const content = `
     <nav class="topic-nav" aria-label="Start here navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a class="active" href="/start-here/" aria-current="page">Start here</a>
+      <a class="active" href="/start-here/" data-hotkey="S" aria-current="page">Start here</a>
       <a href="/#main-content" data-hotkey="N">Notes</a>
       <a href="/blog/" data-hotkey="B">Blog</a>
     </nav>
@@ -1096,7 +1133,7 @@ function renderResearchTastePage({
   const content = `
     <nav class="topic-nav" aria-label="Research taste navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a href="/start-here/">Start here</a>
+      <a href="/start-here/" data-hotkey="S">Start here</a>
       <a class="active" href="/research-taste/" aria-current="page">Research taste</a>
       <a href="/#main-content" data-hotkey="N">Notes</a>
       <a href="/blog/" data-hotkey="B">Blog</a>
@@ -1224,9 +1261,9 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
   const content = `
     <nav class="topic-nav" aria-label="Projects navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a class="active" href="/projects/" aria-current="page">Projects</a>
-      <a href="/about/" data-hotkey="P">Portfolio</a>
-      <a href="/contact/">Contact</a>
+      <a class="active" href="/projects/" data-hotkey="P" aria-current="page">Projects</a>
+      <a href="/about/" data-hotkey="A">About</a>
+      <a href="/contact/" data-hotkey="C">Contact</a>
     </nav>
     <section id="main-content" class="start-hero" aria-labelledby="projects-title">
       <p class="home-kicker">[ Projects ]</p>
@@ -1247,7 +1284,7 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
     pageTitle: `Projects · ${siteTitle}`,
     siteTitle,
     contentHtml: content,
-    bodyClass: "portfolio-page",
+    bodyClass: "portfolio-page utility-page",
     description: PROJECTS_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/projects/"),
     ogTitle: `Projects · ${siteTitle}`,
@@ -1287,8 +1324,8 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
   const content = `
     <nav class="topic-nav" aria-label="Project navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/">Projects</a>
-      <a href="/contact/">Contact</a>
+      <a href="/projects/" data-hotkey="P">Projects</a>
+      <a href="/contact/" data-hotkey="C">Contact</a>
     </nav>
     <section id="main-content" class="start-hero" aria-labelledby="project-title">
       <p class="home-kicker">[ Project ]</p>
@@ -1321,7 +1358,7 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
     pageTitle: `${normalizedProject.title} · Projects · ${siteTitle}`,
     siteTitle,
     contentHtml: content,
-    bodyClass: "portfolio-page",
+    bodyClass: "portfolio-page utility-page",
     description: normalizedProject.summary || PROJECTS_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, projectUrlPath),
     ogTitle: `${normalizedProject.title} · Projects · ${siteTitle}`,
@@ -1338,9 +1375,9 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
     <nav class="topic-nav" aria-label="Contact navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/">Projects</a>
-      <a href="/about/" data-hotkey="P">Portfolio</a>
-      <a class="active" href="/contact/" aria-current="page">Contact</a>
+      <a href="/projects/" data-hotkey="P">Projects</a>
+      <a href="/about/" data-hotkey="A">About</a>
+      <a class="active" href="/contact/" data-hotkey="C" aria-current="page">Contact</a>
     </nav>
     <section id="main-content" class="start-hero" aria-labelledby="contact-title">
       <p class="home-kicker">[ Contact ]</p>
@@ -1400,7 +1437,7 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     pageTitle: `Contact · ${siteTitle}`,
     siteTitle,
     contentHtml: content,
-    bodyClass: "portfolio-page",
+    bodyClass: "portfolio-page utility-page",
     description: CONTACT_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/contact/"),
     ogTitle: `Contact · ${siteTitle}`,
@@ -1412,8 +1449,8 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
     <nav class="topic-nav" aria-label="Collaborate navigation">
       <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/">Projects</a>
-      <a href="/contact/">Contact</a>
+      <a href="/projects/" data-hotkey="P">Projects</a>
+      <a href="/contact/" data-hotkey="C">Contact</a>
       <a class="active" href="/collaborate/" aria-current="page">Collaborate</a>
     </nav>
     <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
@@ -1438,7 +1475,7 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     pageTitle: `Collaborate · ${siteTitle}`,
     siteTitle,
     contentHtml: content,
-    bodyClass: "portfolio-page",
+    bodyClass: "portfolio-page utility-page",
     description: COLLABORATE_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/collaborate/"),
     ogTitle: `Collaborate · ${siteTitle}`,
@@ -1515,7 +1552,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     <nav class="topic-nav" aria-label="Portfolio navigation">
       <a href="/" data-hotkey="H">Home</a>
       <a href="/#main-content" data-hotkey="N">Notes</a>
-      <a class="active" href="/about/" data-hotkey="P" aria-current="page">Portfolio</a>
+      <a class="active" href="/about/" data-hotkey="A" aria-current="page">About</a>
     </nav>
     <section id="main-content" class="portfolio-hero" aria-labelledby="portfolio-title">
       <div class="portfolio-hero-copy">
@@ -1548,10 +1585,6 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <div>
         <span>AI + SWE</span>
         <p>research notebooks, apps, agents, and static systems</p>
-      </div>
-      <div>
-        <span>Perfect GPA</span>
-        <p>academic signal paired with public proof-of-work</p>
       </div>
     </section>
     <section class="panel portfolio-section" aria-labelledby="portfolio-credentials">
