@@ -60,13 +60,6 @@
       </header>
       
     <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
-      <nav class="home-showcase-rail" aria-label="Homepage sections">
-        <a href="#home-start">01</a>
-        <a href="#home-research">02</a>
-        <a href="#home-projects">03</a>
-        <a href="#home-writing">04</a>
-        <a href="#home-contact">05</a>
-      </nav>
       <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#05060a" data-motion-next="#0b1220">
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Computer Science Notes ]</p>
@@ -143,7 +136,7 @@
 </a></div>
         </div>
       </section>
-      <section id="home-research" class="home-showcase-section home-showcase-research" aria-labelledby="home-research-title" data-motion-bg="#0b1220" data-motion-next="#10231e">
+      <section id="home-research" class="home-showcase-section home-showcase-research" aria-labelledby="home-research-title" data-motion-bg="#0b1220" data-motion-next="#10231e" data-motion-style="scan">
         <div class="home-showcase-copy">
           <p class="section-kicker">/ Research</p>
           <h2 id="home-research-title" class="section-title">Read my best technical write-ups.</h2>
@@ -195,7 +188,7 @@
   <p class="topic-card-description">Interpretability notes that connect AI research reading to practical model-inspection questions.</p>
 </a></div>
       </section>
-      <section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#10231e" data-motion-next="#f1efe7">
+      <section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#10231e" data-motion-next="#6f7a6f" data-motion-style="build">
         <div class="home-showcase-copy">
           <p class="section-kicker">/ Selected projects</p>
           <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
@@ -247,7 +240,7 @@
   <p class="topic-card-description">A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.</p>
 </a></div>
       </section>
-      <section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#f1efe7" data-motion-next="#e9eef5">
+      <section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#6f7a6f" data-motion-next="#f1efe7" data-motion-style="index">
         <div class="home-showcase-copy">
           <p class="section-kicker">/ Selected writing</p>
           <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
@@ -299,7 +292,7 @@
   <p class="topic-card-description">Interpretability notes that connect AI research reading to practical model-inspection questions.</p>
 </a></div>
       </section>
-      <section id="home-contact" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#0f1115" data-motion-next="#05060a">
+      <section id="home-contact" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#253340" data-motion-next="#7c8894">
         <div class="home-showcase-copy">
           <p class="section-kicker">/ Current asks</p>
           <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
@@ -368,6 +361,7 @@
         <div>
           <p class="section-kicker">/ Notes</p>
           <h2 id="topics-title" class="section-title">Browse by topic</h2>
+          <p class="topic-hub-intro">These are my computer science notes: linked topic archives pulled from my study system, organized so you can move from a broad field into the exact subpage you want to read.</p>
         </div>
         <a class="topic-index-link" href="/start-here/">Start here</a>
       </div>
@@ -549,13 +543,17 @@
           }
 
           const sections = Array.from(root.querySelectorAll(".home-showcase-section"));
-          const railLinks = Array.from(root.querySelectorAll(".home-showcase-rail a"));
+          const notesHub = document.querySelector(".topic-hub");
           if (sections.length === 0) {
             return;
           }
 
           const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
           const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+          const smoothstep = (value) => {
+            const progress = clamp(value, 0, 1);
+            return progress * progress * (3 - 2 * progress);
+          };
           const palettes = sections.map((section) => ({
             background: section.dataset.motionBg || "#05060a",
             next: section.dataset.motionNext || section.dataset.motionBg || "#05060a",
@@ -568,15 +566,6 @@
             sections.forEach((section, index) => {
               section.classList.toggle("is-active", index === activeIndex);
             });
-            railLinks.forEach((link, index) => {
-              const isActive = index === activeIndex;
-              link.classList.toggle("is-active", isActive);
-              if (isActive) {
-                link.setAttribute("aria-current", "true");
-              } else {
-                link.removeAttribute("aria-current");
-              }
-            });
           }
 
           function updateMotionState() {
@@ -587,38 +576,49 @@
 
             sections.forEach((section, index) => {
               const rect = section.getBoundingClientRect();
-              const rawProgress = (viewportHeight * 0.72 - rect.top) / (rect.height + viewportHeight * 0.28);
+              const travelWindow = Math.max(rect.height - viewportHeight * 0.18, viewportHeight * 0.82);
+              const rawProgress = (viewportHeight * 0.82 - rect.top) / travelWindow;
               const progress = clamp(rawProgress, 0, 1);
-              const presence = 1 - clamp(Math.abs(progress - 0.54) / 0.54, 0, 1);
+              const titleProgress = smoothstep(progress / 0.24);
+              const copyProgress = smoothstep((progress - 0.1) / 0.24);
+              const actionsProgress = smoothstep((progress - 0.22) / 0.28);
+              const holdProgress = 1 - clamp(Math.abs(progress - 0.58) / 0.42, 0, 1);
+              const exitProgress = smoothstep((progress - 0.86) / 0.14);
+              const motionStyle = section.dataset.motionStyle || "standard";
+              const actionsDirection = motionStyle === "index" ? -1 : 1;
+              const actionTravel = motionStyle === "build" ? 104 : motionStyle === "scan" ? 54 : 76;
+              const actionLift = motionStyle === "build" ? (1 - actionsProgress) * 28 : 0;
+              const actionScale = motionStyle === "build" ? 0.96 + actionsProgress * 0.04 : 1;
+              const scanClip = motionStyle === "scan" ? (1 - actionsProgress) * 18 : 0;
+              const buildCardX = motionStyle === "build" ? (1 - actionsProgress) * 34 : 0;
+              const buildCardY = motionStyle === "build" ? (1 - actionsProgress) * 22 : 0;
+              const indexRule = motionStyle === "index" ? actionsProgress : 1;
               const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
-              const direction = index % 2 === 0 ? -1 : 1;
-              const drift = (progress - 0.5) * direction;
-              const entry = clamp((0.34 - progress) / 0.34, 0, 1);
-              const exit = clamp((progress - 0.66) / 0.34, 0, 1);
-              const laneShift = (entry * 78 - exit * 78).toFixed(1) + "px";
-              const cardsTravel = (drift * 172).toFixed(1) + "px";
-              const cardsAltTravel = (drift * -132).toFixed(1) + "px";
-              const visualTravel = (drift * -156).toFixed(1) + "px";
-              const visualDepth = (Math.sin(progress * Math.PI) * 42).toFixed(1) + "px";
-              const cardLift = (Math.sin(progress * Math.PI) * -54).toFixed(1) + "px";
-              const cardSwing = (drift * -8).toFixed(2) + "deg";
 
               section.style.setProperty("--section-progress", progress.toFixed(3));
-              section.style.setProperty("--section-presence", presence.toFixed(3));
-              section.style.setProperty("--section-offset", laneShift);
-              section.style.setProperty("--stage-pin-offset", laneShift);
-              section.style.setProperty("--copy-drift", laneShift);
-              section.style.setProperty("--card-drift", cardsTravel);
-              section.style.setProperty("--card-drift-alt", cardsAltTravel);
-              section.style.setProperty("--card-lift", cardLift);
-              section.style.setProperty("--card-swing", cardSwing);
-              section.style.setProperty("--visual-drift-x", visualTravel);
-              section.style.setProperty("--visual-drift-y", "0px");
-              section.style.setProperty("--visual-depth", visualDepth);
-              section.style.setProperty("--visual-offset", "0px");
-              section.style.setProperty("--visual-scale", (0.94 + Math.sin(progress * Math.PI) * 0.09).toFixed(3));
+              section.style.setProperty("--stage-title-progress", titleProgress.toFixed(3));
+              section.style.setProperty("--stage-copy-progress", copyProgress.toFixed(3));
+              section.style.setProperty("--stage-actions-progress", actionsProgress.toFixed(3));
+              section.style.setProperty("--stage-hold-progress", holdProgress.toFixed(3));
+              section.style.setProperty("--stage-exit-progress", exitProgress.toFixed(3));
+              section.style.setProperty("--stage-title-opacity", (0.2 + titleProgress * 0.8).toFixed(3));
+              section.style.setProperty("--stage-copy-opacity", (0.24 + copyProgress * 0.76).toFixed(3));
+              section.style.setProperty("--stage-actions-opacity", (0.22 + actionsProgress * 0.78).toFixed(3));
+              section.style.setProperty("--stage-visual-opacity", (0.36 + copyProgress * 0.64).toFixed(3));
+              section.style.setProperty("--stage-title-x", ((1 - titleProgress) * -56).toFixed(1) + "px");
+              section.style.setProperty("--stage-copy-x", ((1 - copyProgress) * -28).toFixed(1) + "px");
+              section.style.setProperty("--stage-copy-y", ((1 - copyProgress) * 10).toFixed(1) + "px");
+              section.style.setProperty("--stage-actions-x", ((1 - actionsProgress) * actionTravel * actionsDirection).toFixed(1) + "px");
+              section.style.setProperty("--stage-actions-y", actionLift.toFixed(1) + "px");
+              section.style.setProperty("--stage-actions-scale", actionScale.toFixed(3));
+              section.style.setProperty("--stage-actions-clip", scanClip.toFixed(1) + "%");
+              section.style.setProperty("--stage-visual-x", ((1 - copyProgress) * 42).toFixed(1) + "px");
+              section.style.setProperty("--stage-exit-y", (exitProgress * -14).toFixed(1) + "px");
+              section.style.setProperty("--build-card-x", buildCardX.toFixed(1) + "px");
+              section.style.setProperty("--build-card-y", buildCardY.toFixed(1) + "px");
+              section.style.setProperty("--index-rule-progress", indexRule.toFixed(3));
               section.style.setProperty("--line-offset", (220 - progress * 220).toFixed(1));
-              section.style.setProperty("--band-offset", ((progress - 0.5) * 140).toFixed(1) + "px");
+              section.style.setProperty("--band-offset", ((progress - 0.5) * 70).toFixed(1) + "px");
 
               if (visibleHeight > activeVisibility) {
                 activeVisibility = visibleHeight;
@@ -629,11 +629,17 @@
             const activePalette = palettes[activeIndex] || palettes[0];
             const activeSection = sections[activeIndex] || sections[0];
             const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
-            const bgMix = clamp((activeProgress - 0.58) / 0.34, 0, 1);
+            const bgMix = smoothstep((activeProgress - 0.18) / 0.68);
             root.style.setProperty("--showcase-bg-current", activePalette.background);
             root.style.setProperty("--showcase-bg-next", activePalette.next);
             root.style.setProperty("--showcase-bg-mix", bgMix.toFixed(3));
             setActiveSection(activeIndex);
+
+            if (notesHub) {
+              const notesRect = notesHub.getBoundingClientRect();
+              const notesProgress = smoothstep((viewportHeight * 0.78 - notesRect.top) / (viewportHeight * 0.38));
+              notesHub.style.setProperty("--notes-reveal-progress", notesProgress.toFixed(3));
+            }
           }
 
           function requestMotionUpdate() {

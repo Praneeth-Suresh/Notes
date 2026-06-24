@@ -74,6 +74,12 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Homepage showcase restyle | Redesign the homepage independently from the initial Figure 01 style as an Apple-like segmented showcase with CSS/SVG illustrations, cycling section palettes, and no raster production assets. | 2026-06-24 | n/a |
 | Homepage showcase motion | Add Apple-like scroll transitions as a progressive enhancement using homepage-only JavaScript that sets CSS progress variables, active section state, rail state, and SVG line drawing while respecting reduced-motion preferences. | 2026-06-24 | n/a |
 | Homepage no-overlap motion and contrast | Keep the homepage showcase static-compatible with section-local contrast tokens, solid fallback backgrounds for dark panels, generous panel spacing, normal-flow copy/visual/card lanes, strong scroll-scrubbed transform choreography, and fixed-layer background color transitions that never let animated blocks overlap. | 2026-06-24 | n/a |
+| Homepage staged animation reference | Use `agent/animations.md` as the durable choreography reference for homepage scroll motion: title first, action lane second, sticky hold third, stable clickable targets, and preserved palette transitions. | 2026-06-24 | n/a |
+| Homepage motion variety and handoff | Use section-specific Document Scan, Build Rail, and Index Shelf treatments while keeping Hero and Contact as handoff sections so large surfaces do not overlap readable copy. | 2026-06-24 | n/a |
+| Homepage motion usability refinements | Remove the numbered homepage rail, center desktop hold positions, soften the final Contact-to-Notes palette bridge, keep mobile static and single-column, and give the notes archive an explanatory final reveal. | 2026-06-24 | n/a |
+| Homepage responsive motion polish | Keep the global header on a visible surface above showcase motion layers, use midtone bridge colors for dark-to-light background transitions, and prevent viewport horizontal scrolling with width-aware mobile title clamps. | 2026-06-24 | n/a |
+| Homepage header polish | Keep the homepage header visible only at the top as a subdued dark surface so navigation remains readable without staying pinned during scroll. | 2026-06-24 | n/a |
+| Homepage hero title word integrity | Preserve hero title words as whole readable units on mobile by disabling internal word breaks on title spans while allowing wrapping between words. | 2026-06-24 | n/a |
 
 ## Pressure Points
 
@@ -141,6 +147,11 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Homepage showcase sections now use scroll-reactive motion variables for active rail state, parallax-like section movement, SVG line drawing, and stronger section-specific color systems.
 - Homepage showcase contrast now uses explicit foreground/muted/card tokens per section, and scrolling uses normal-flow panel lanes with generous section gaps, strong in-lane translate/lift/rotate/depth transforms, and fixed-layer background color transitions while avoiding fade/reveal as the primary animation style.
 - About, Projects, and Contact now rely on the global header navigation instead of repeating a local route menu, and the header home control is labeled `Home` while preserving the site title in metadata.
+- Homepage showcase motion now follows `agent/animations.md`: staged left-to-right reveals, sticky desktop holds, stable action/card targets after reveal, static mobile/reduced-motion fallback, and the existing palette transitions.
+- Homepage showcase middle sections now avoid repeated card choreography: Research uses a document-scan stack, Projects uses a build rail, and Selected Writing uses an index shelf; Hero and Current asks use handoff flow to prevent overlapping readable surfaces.
+- Homepage showcase now removes the left numbered rail, centers held content in the viewport, softens the final dark-to-light color bridge, restores explicit notes-archive orientation copy, and fades the notes section in as the final attention moment.
+- Homepage navigation now remains visibly readable over the animated showcase, dark-to-light transitions pass through muted bridge colors, and mobile typography clamps/wraps so the viewport never offers horizontal page scrolling.
+- Homepage navigation no longer remains sticky during scroll while retaining a subdued dark surface at the top.
 
 ## Recording Rule (Design Tree vs ADR)
 

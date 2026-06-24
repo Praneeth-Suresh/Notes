@@ -48,6 +48,7 @@ Configure test immutability detection in `agent/test-manifest.conf`.
 
 - Use `design-tree.md` for evolving or unresolved design choices.
 - Use `agent/adr/` when a decision changes durable architecture, boundaries, terminology, data shape, or test strategy.
+- Use `animations.md` as the durable homepage scroll-motion reference when changing showcase animation behavior.
 
 ## Skill naming alias
 

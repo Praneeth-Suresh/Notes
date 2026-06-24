@@ -38,7 +38,6 @@ Task workflows:
 - `adding-features`: feature implementation after a user-ratified plan.
 - `debugging`: bugs, failures, regressions, exceptions, and failing checks.
 - `explaining-codebase`: codebase walkthroughs and explanations without edits.
-- `autonomous-growth`: run autonomous growth for a personal website (audit, positioning, conversion, and roadmap planning).
 
 Supporting skills:
 
@@ -47,6 +46,7 @@ Supporting skills:
 - `testing-vertical-slices`: feature/bug behavior implementation.
 - `improving-architecture`: shallow modules, unclear boundaries, recurring coupling.
 - `tracking-entropy`: maintainability review, hotspots, refactoring priority.
+- `frontend-design`: distinctive, intentional visual design for new UI or UI reshaping.
 
 When using a skill, follow its required inputs/outputs exactly.
 
