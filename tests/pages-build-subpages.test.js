@@ -8,6 +8,49 @@ const path = require("node:path");
 
 const { buildPagesSite } = require("../scripts/build-pages");
 
+function parseJsonLd(html) {
+  return Array.from(html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/gu), (match) =>
+    JSON.parse(match[1]),
+  );
+}
+
+function schemaTypes(schema) {
+  return Array.isArray(schema?.["@type"]) ? schema["@type"] : [schema?.["@type"]];
+}
+
+function findSchemaByType(html, type) {
+  return parseJsonLd(html).find((schema) => schemaTypes(schema).includes(type));
+}
+
+function extractSitemapLocations(xml) {
+  return Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/gu), (match) => match[1]);
+}
+
+async function collectHtmlRoutePaths(rootDir) {
+  const routes = [];
+
+  async function visit(dir) {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const absolutePath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await visit(absolutePath);
+        continue;
+      }
+
+      if (entry.name !== "index.html") {
+        continue;
+      }
+
+      const relativeDir = path.relative(rootDir, dir).split(path.sep).filter(Boolean).join("/");
+      routes.push(relativeDir ? `/${relativeDir}/` : "/");
+    }
+  }
+
+  await visit(rootDir);
+  return routes.sort();
+}
+
 async function withTempDir(callback) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), "notes-pages-build-"));
   try {
@@ -279,6 +322,29 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes('<meta property="og:type" content="website" />'));
     assert.ok(parentHtml.includes('"@type":"BreadcrumbList"'));
     assert.ok(parentHtml.includes('"name":"Algorithms"'));
+    const homeWebsiteSchema = findSchemaByType(homeHtml, "WebSite");
+    assert.equal(homeWebsiteSchema["@id"], "https://example.test/#website");
+    assert.equal(homeWebsiteSchema.url, "https://example.test/");
+    assert.equal(homeWebsiteSchema.publisher["@id"], "https://example.test/#organization");
+    assert.equal(homeWebsiteSchema.author["@id"], "https://example.test/#person");
+    assert.equal(
+      homeWebsiteSchema.potentialAction.target.urlTemplate,
+      "https://example.test/?q={search_term_string}#topic-search",
+    );
+    const homePersonSchema = findSchemaByType(homeHtml, "Person");
+    assert.equal(homePersonSchema.name, "Praneeth Suresh");
+    assert.equal(homePersonSchema.url, "https://example.test/about/");
+    assert.ok(homePersonSchema.sameAs.includes("https://github.com/Praneeth-Suresh"));
+    const homeOrganizationSchema = findSchemaByType(homeHtml, "Organization");
+    assert.equal(homeOrganizationSchema.name, "Computer Science Notes");
+    assert.equal(homeOrganizationSchema.founder["@id"], "https://example.test/#person");
+    const homePageSchema = findSchemaByType(homeHtml, "WebPage");
+    assert.equal(homePageSchema.url, "https://example.test/");
+    assert.equal(homePageSchema.isPartOf["@id"], "https://example.test/#website");
+    const parentPageSchema = findSchemaByType(parentHtml, "CollectionPage");
+    assert.equal(parentPageSchema.url, "https://example.test/topics/algorithms/");
+    const childPageSchema = findSchemaByType(childHtml, "TechArticle");
+    assert.equal(childPageSchema.url, "https://example.test/topics/algorithms/dynamic-programming/");
     assert.ok(parentHtml.includes('class="topic-pillar"'));
     assert.ok(parentHtml.includes("Start here"));
     assert.ok(parentHtml.includes("How to read Algorithms"));
@@ -290,7 +356,20 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes("Next reading"));
     assert.ok(parentHtml.includes('class="next-reading-link" href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
-    assert.ok(homeHtml.includes('class="stripe-field"'));
+    assert.ok(homeHtml.includes('class="home-showcase"'));
+    assert.ok(homeHtml.includes('data-home-motion="ready"'));
+    assert.ok(homeHtml.includes('class="home-showcase-rail"'));
+    assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-hero"'));
+    assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-research"'));
+    assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-projects"'));
+    assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-writing"'));
+    assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-contact"'));
+    assert.ok(homeHtml.includes('class="home-visual home-visual-hero"'));
+    assert.ok(homeHtml.includes('class="home-visual home-visual-research"'));
+    assert.ok(homeHtml.includes('class="home-visual home-visual-projects"'));
+    assert.ok(homeHtml.includes('class="home-visual home-visual-writing"'));
+    assert.ok(homeHtml.includes('class="home-visual home-visual-contact"'));
+    assert.ok(!homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes("Theoretical CS: No Handwaving Allowed"));
     assert.ok(homeHtml.includes("A collection of my work across computer science"));
     assert.ok(homeHtml.includes('href="#main-content"'));
@@ -311,8 +390,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes("Portfolio"));
     assert.ok(homeHtml.includes("Selected projects"));
     assert.ok(homeHtml.includes("See the work, not just the archive."));
-    assert.ok(homeHtml.includes("Proof graph"));
-    assert.ok(homeHtml.includes("Research signal"));
+    assert.ok(!homeHtml.includes("Proof graph"));
+    assert.ok(!homeHtml.includes("Research signal"));
+    assert.ok(homeHtml.includes("initHomeShowcaseMotion"));
+    assert.ok(homeHtml.includes("prefers-reduced-motion: reduce"));
+    assert.ok(homeHtml.includes("--section-progress"));
+    assert.ok(homeHtml.includes("data-active-section"));
     assert.ok(homeHtml.includes("A static technical hub."));
     assert.ok(homeHtml.includes('href="/projects/notes/"'));
     assert.ok(homeHtml.includes("Agentic Coding"));
@@ -348,6 +431,51 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('<meta property="og:url" content="https://example.test/" />'));
     assert.ok(homeHtml.includes('<meta property="og:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
     assert.ok(homeHtml.includes('<meta property="og:image:width" content="1200" />'));
+    assert.ok(projectsHtml.includes('class="route-figure route-figure-projects"'));
+    assert.ok(projectsHtml.includes('class="route-proof-layout"'));
+    assert.ok(projectsHtml.indexOf('class="route-figure route-figure-projects"') > projectsHtml.indexOf('id="projects-route-title"'));
+    assert.ok(projectsHtml.indexOf('class="portfolio-project-grid"') > projectsHtml.indexOf('class="route-figure route-figure-projects"'));
+    assert.ok(projectsHtml.includes('href="/" data-hotkey="H"'));
+    assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
+    assert.ok(contactHtml.includes('class="route-figure route-figure-contact"'));
+    assert.ok(contactHtml.includes('class="contact-channel-layout"'));
+    assert.ok(contactHtml.indexOf('class="portfolio-project-grid"') > contactHtml.indexOf('class="route-figure route-figure-contact"'));
+    assert.ok(contactHtml.includes('href="/projects/" data-hotkey="P"'));
+    assert.ok(contactHtml.includes('href="/contact/" data-hotkey="C"'));
+    assert.ok(siteCss.includes(".route-figure"));
+    assert.ok(siteCss.includes(".route-proof-layout"));
+    assert.ok(siteCss.includes(".contact-channel-layout"));
+    assert.ok(siteCss.includes(".home-showcase"));
+    assert.ok(siteCss.includes(".home-showcase-section"));
+    assert.ok(siteCss.includes(".home-visual"));
+    assert.ok(siteCss.includes(".home-showcase-motion"));
+    assert.ok(siteCss.includes(".home-showcase-rail a.is-active"));
+    assert.ok(siteCss.includes("--section-presence"));
+    assert.ok(siteCss.includes("--visual-offset"));
+    assert.ok(siteCss.includes("--line-offset"));
+    assert.ok(siteCss.includes("--showcase-foreground"));
+    assert.ok(siteCss.includes("--showcase-muted"));
+    assert.ok(siteCss.includes("--showcase-card"));
+    assert.ok(siteCss.includes("--stage-pin-offset"));
+    assert.ok(siteCss.includes("--card-drift"));
+    assert.ok(siteCss.includes("--card-lift"));
+    assert.ok(siteCss.includes("--card-swing"));
+    assert.ok(siteCss.includes("--visual-drift-x"));
+    assert.ok(siteCss.includes("--visual-depth"));
+    assert.ok(siteCss.includes("--showcase-bg-current"));
+    assert.ok(siteCss.includes("--showcase-bg-next"));
+    assert.ok(siteCss.includes("--showcase-bg-mix"));
+    assert.ok(siteCss.includes(".home-showcase::before"));
+    assert.ok(siteCss.includes(".home-showcase-motion .home-visual-node"));
+    assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-section.is-active .home-showcase-copy"));
+    assert.ok(siteCss.includes(".home-showcase-section > .home-showcase-copy"));
+    assert.ok(siteCss.includes("position: relative;"));
+    assert.ok(!siteCss.includes("position: sticky;"));
+    assert.ok(!siteCss.includes("--stage-fade"));
+    assert.ok(!siteCss.includes("--card-fade"));
+    assert.ok(siteCss.includes("background-color: #10231e;"));
+    assert.ok(siteCss.includes("background-color: #0f1115;"));
+    assert.ok(siteCss.includes(".home-showcase-contact .subscribe-panel p:not(.section-kicker)"));
     assert.ok(homeHtml.includes('<meta property="og:image:height" content="630" />'));
     assert.ok(homeHtml.includes('<meta name="twitter:card" content="summary_large_image" />'));
     assert.ok(homeHtml.includes('<meta name="twitter:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
@@ -381,6 +509,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(researchTasteHtml.includes('class="research-topic"'));
     assert.ok(researchTasteHtml.includes('<link rel="canonical" href="https://example.test/research-taste/" />'));
     assert.ok(researchTasteHtml.includes('<meta name="description" content="A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails." />'));
+    assert.equal(findSchemaByType(researchTasteHtml, "CollectionPage").url, "https://example.test/research-taste/");
     assert.ok(researchTasteHtml.includes('<footer class="site-footer"'));
     assert.ok(errataHtml.includes("<title>Errata · Computer Science Notes</title>"));
     assert.ok(errataHtml.includes("Errata"));
@@ -411,6 +540,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
+    assert.equal(findSchemaByType(projectsHtml, "CollectionPage").url, "https://example.test/projects/");
     assert.ok(notesProjectHtml.includes("<title>Notes · Projects · Computer Science Notes</title>"));
     assert.ok(notesProjectHtml.includes("Problem"));
     assert.ok(notesProjectHtml.includes("Readers need searchable and shareable notes."));
@@ -427,6 +557,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesProjectHtml.includes("static-site"));
     assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
     assert.ok(notesProjectHtml.includes('<link rel="canonical" href="https://example.test/projects/notes/" />'));
+    assert.equal(findSchemaByType(notesProjectHtml, "CreativeWork").url, "https://example.test/projects/notes/");
     assert.ok(contactHtml.includes("<title>Contact · Computer Science Notes</title>"));
     assert.ok(contactHtml.includes("research, internships, consulting, NUS AI Society collaboration"));
     assert.ok(contactHtml.includes("https://github.com/Praneeth-Suresh"));
@@ -438,6 +569,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(contactHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(contactHtml.includes('<link rel="canonical" href="https://example.test/contact/" />'));
+    assert.equal(findSchemaByType(contactHtml, "ContactPage").url, "https://example.test/contact/");
     assert.ok(collaborateHtml.includes("<title>Collaborate · Computer Science Notes</title>"));
     assert.ok(collaborateHtml.includes("Collaboration and consulting"));
     assert.ok(collaborateHtml.includes("AI Society partnerships"));
@@ -474,6 +606,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("href=\"/\" data-hotkey=\"H\""));
     assert.ok(personalHtml.includes("href=\"/#main-content\" data-hotkey=\"N\""));
     assert.ok(personalHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
+    assert.equal(findSchemaByType(personalHtml, "ProfilePage").url, "https://example.test/about/");
     assert.ok(!personalHtml.includes("Praneeth describes himself"));
     assert.ok(!personalHtml.includes("Source note: LinkedIn required authentication"));
     assert.ok(!homeHtml.includes("notes.dev"));
@@ -521,6 +654,14 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(robotsTxt.includes("User-agent: *"));
     assert.ok(robotsTxt.includes("Allow: /"));
     assert.ok(robotsTxt.includes("Sitemap: https://example.test/sitemap.xml"));
+    const sitemapLocations = extractSitemapLocations(sitemapXml);
+    assert.equal(sitemapLocations.length, new Set(sitemapLocations).size);
+    for (const routePath of await collectHtmlRoutePaths(outDir)) {
+      assert.ok(
+        sitemapLocations.includes(`https://example.test${routePath}`),
+        `Expected sitemap to include generated route ${routePath}`,
+      );
+    }
     assert.equal(mathJaxAsset, "window.MathJax = window.MathJax || {};\n");
     assert.ok(socialPreviewAsset.includes("<svg"));
     assert.ok(socialPreviewAsset.includes("AI Research"));

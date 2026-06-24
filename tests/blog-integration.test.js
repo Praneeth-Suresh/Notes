@@ -18,6 +18,14 @@ function parseJsonLd(html) {
   );
 }
 
+function schemaTypes(schema) {
+  return Array.isArray(schema?.["@type"]) ? schema["@type"] : [schema?.["@type"]];
+}
+
+function findSchemaByType(html, type) {
+  return parseJsonLd(html).find((schema) => schemaTypes(schema).includes(type));
+}
+
 // --- renderBlogBody ---
 
 test("renderBlogBody converts markdown headings to HTML", () => {
@@ -194,6 +202,10 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes('<meta name="description" content="Stories, project notes, and AI research reflections from Computer Science Notes." />'));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));
     assert.ok(blogIndex.includes('<meta property="og:title" content="Blog · Test" />'));
+    assert.equal(
+      findSchemaByType(blogIndex, "CollectionPage").url,
+      "https://notes.praneeth-suresh-s.workers.dev/blog/",
+    );
 
     // Check a post exists
     const postDir = await fs.readdir(path.join(tmpOut, "blog", "unic-launching-off"));
@@ -213,12 +225,18 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(postHtml.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/" />'));
     assert.ok(postHtml.includes('<meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />'));
     assert.ok(postHtml.includes('<meta name="twitter:card" content="summary_large_image" />'));
-    assert.ok(postHtml.includes('"@type":"Article"'));
+    assert.ok(postHtml.includes('"@type":"BlogPosting"'));
     assert.ok(postHtml.includes('"headline":"Launching Off"'));
-    assert.ok(postHtml.includes('"author":{"@type":"Person","name":"Praneeth Suresh"}'));
+    assert.ok(postHtml.includes('"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"}'));
     assert.ok(postHtml.includes('"image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"'));
     const postSchemas = parseJsonLd(postHtml);
-    assert.ok(postSchemas.some((schema) => schema["@type"] === "Article"));
+    const postBlogSchema = postSchemas.find((schema) => schemaTypes(schema).includes("BlogPosting"));
+    assert.equal(postBlogSchema["@id"], "https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/#blogposting");
+    assert.equal(postBlogSchema.mainEntityOfPage["@id"], "https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/#webpage");
+    assert.equal(postBlogSchema.isPartOf["@id"], "https://notes.praneeth-suresh-s.workers.dev/#website");
+    assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("Person")));
+    assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("Organization")));
+    assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("WebSite")));
     assert.equal(postSchemas.some((schema) => schema["@type"] === "FAQPage"), false);
 
     const flagshipHtml = await fs.readFile(
@@ -261,7 +279,15 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(flagshipHtml.includes('"name":"Why include reinforcement learning beside architecture papers?"'));
     const flagshipSchemas = parseJsonLd(flagshipHtml);
     const flagshipFaqSchema = flagshipSchemas.find((schema) => schema["@type"] === "FAQPage");
-    assert.ok(flagshipSchemas.some((schema) => schema["@type"] === "Article"));
+    const flagshipBlogSchema = flagshipSchemas.find((schema) => schemaTypes(schema).includes("BlogPosting"));
+    assert.equal(
+      flagshipBlogSchema["@id"],
+      "https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/#blogposting",
+    );
+    assert.equal(flagshipBlogSchema.publisher["@id"], "https://notes.praneeth-suresh-s.workers.dev/#organization");
+    assert.equal(flagshipBlogSchema.author["@id"], "https://notes.praneeth-suresh-s.workers.dev/#person");
+    assert.equal(flagshipBlogSchema.keywords, "AI research, deep learning, paper trail");
+    assert.ok(flagshipSchemas.some((schema) => schemaTypes(schema).includes("WebPage")));
     assert.deepEqual(
       flagshipFaqSchema.mainEntity.map((item) => ({
         question: item.name,

@@ -52,8 +52,8 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Database label configuration boundary | Manifest entries may declare label property names; `notion-ingestion` emits normalized label strings and colors only, never raw Notion property payloads. | 2026-05-23 | n/a |
 | GitHub wiki blog integration | Blog content pulled from public GitHub wiki via `scripts/pull-wiki-blog.js`, rendered to `/blog/` routes using vendored `marked` for GFM markdown, with blog-specific warm accent and serif flair. Static deployment model matches existing topic workflow. | 2026-06-04 | n/a |
 | Owned-audience capture foundation | Generate a static `/feed.xml` from topic roots and blog posts, expose RSS discovery links, render subscription panels through `site-styling`, and keep newsletter/analytics providers external through provider-neutral hooks until the maintainer selects them. | 2026-06-19 | n/a |
-| Static SEO and sharing metadata | Generate meta descriptions, canonical URLs, Open Graph tags, Twitter summary cards, blog Article schema, and topic Breadcrumb schema through `site-styling` using the Pages build `siteUrl`; keep this metadata deterministic and static. | 2026-06-19 | n/a |
-| Topic pillar packaging | Add optional manifest-owned pillar modules for root topic pages, rendered through `site-styling` before Notion-derived note content so SEO and reader-orientation copy can improve without mutating normalized Notion sources. | 2026-06-19 | n/a |
+| Static discovery and sharing metadata | Generate meta descriptions, canonical URLs, Open Graph tags, Twitter summary cards, blog Article schema, and topic Breadcrumb schema through `site-styling` using the Pages build `siteUrl`; keep this metadata deterministic and static. | 2026-06-19 | n/a |
+| Topic pillar packaging | Add optional manifest-owned pillar modules for root topic pages, rendered through `site-styling` before Notion-derived note content so search discovery and reader-orientation copy can improve without mutating normalized Notion sources. | 2026-06-19 | n/a |
 | Start Here guide | Generate a static `/start-here/` guide through the Pages build, using existing topic/search data to route new readers through Algorithms, one proof-backed note, and RSS capture before broader browsing. | 2026-06-19 | n/a |
 | Research taste page | Generate a static `/research-taste/` page from checked-in `content/research-taste.json`, and link it from Home, Start Here, and Portfolio as a public source trail for future AI research notes and selected essays. | 2026-06-22 | n/a |
 | Static discovery files and footer | Generate `/sitemap.xml` and `/robots.txt` from Pages build route records, and render a shared footer with RSS, sitemap, and key internal links across all generated HTML pages. | 2026-06-19 | n/a |
@@ -70,6 +70,10 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | About page credibility stack | Present mission-owned credentials, research interests, current focus, and leadership roles directly on `/about/` so credibility can be inspected without leaving the site. | 2026-06-23 | n/a |
 | Contact CTA surface | Use `mailto:praneeth.suresh.s@gmail.com`, GitHub, and LinkedIn as the contact surface, and omit Calendly until availability can be reliably honored. | 2026-06-23 | n/a |
 | Blog discovery and sharing | Blog manifest posts can define static tags; `/blog/` renders a client-side tag/search index, and post pages expose visible tags plus a copy-link share action. | 2026-06-23 | n/a |
+| Figure 01 route carry-over | Preserve the initial homepage Figure 01 visual language as integrated Projects and Contact route motifs before any future homepage restyle; future homepage design should not be the source for these route graphics. | 2026-06-23 | n/a |
+| Homepage showcase restyle | Redesign the homepage independently from the initial Figure 01 style as an Apple-like segmented showcase with CSS/SVG illustrations, cycling section palettes, and no raster production assets. | 2026-06-24 | n/a |
+| Homepage showcase motion | Add Apple-like scroll transitions as a progressive enhancement using homepage-only JavaScript that sets CSS progress variables, active section state, rail state, and SVG line drawing while respecting reduced-motion preferences. | 2026-06-24 | n/a |
+| Homepage no-overlap motion and contrast | Keep the homepage showcase static-compatible with section-local contrast tokens, solid fallback backgrounds for dark panels, generous panel spacing, normal-flow copy/visual/card lanes, strong scroll-scrubbed transform choreography, and fixed-layer background color transitions that never let animated blocks overlap. | 2026-06-24 | n/a |
 
 ## Pressure Points
 
@@ -109,8 +113,8 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The home page, topic pages, blog index, and blog posts now include a compact subscription panel that points readers to the generated RSS feed while the email newsletter provider remains an external maintainer choice.
 - The header now includes an RSS link, and generated pages expose provider-neutral analytics hooks for page views, RSS clicks, newsletter CTA clicks, and outbound GitHub/LinkedIn profile clicks.
 - The home hero now leads with the site-level promise, "Theoretical CS: No Handwaving Allowed", explains that the site collects notes, essays, research reading, and projects, and routes visitors into exploration links before the topic feed.
-- Generated pages now include static SEO and sharing metadata: descriptions, canonical URLs, Open Graph tags, Twitter summary cards, Article schema on blog posts, and Breadcrumb schema on topic pages.
-- The Algorithms root topic now acts as the first SEO pillar, with search-intent description copy, a "Start here" module, and a table-of-contents reading path that links into existing generated Algorithms subpages.
+- Generated pages now include static discovery and sharing metadata: descriptions, canonical URLs, Open Graph tags, Twitter summary cards, Article schema on blog posts, and Breadcrumb schema on topic pages.
+- The Algorithms root topic now acts as the first search-discovery pillar, with search-intent description copy, a "Start here" module, and a table-of-contents reading path that links into existing generated Algorithms subpages.
 - The home page now includes a compact author bio band linking to `/about/`, and the portfolio hero repeats the theoretical-CS positioning statement so readers can connect the notes corpus to the maintainer's public work.
 - Topic root pages and topic subpages now include a compact top subscription/RSS panel in addition to the existing post-content panel, with distinct static IDs and analytics source values for early-reader and post-reader capture.
 - The site now has a generated `/start-here/` guide linked from global navigation and the home page, giving new readers a curated path into the AI research taste page, the current flagship AI essay, and RSS subscription.
@@ -130,8 +134,13 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Projects, project pages, About, Contact, and Collaborate now share explicit contact CTAs for research, internships, consulting, and NUS AI Society collaboration, including a visible no-Calendly policy.
 - Blog posts now carry visible tags, the blog index includes client-side search/filtering, and individual posts expose a copy-link sharing action.
 - Global keyboard shortcuts now use a consistent route matrix: Home, Start, About, Projects, Notes, Blog, Contact, RSS, and slash-to-search, with editable controls protected from shortcut hijacking.
-- The homepage now includes compact CSS-only technical signal graphics after the hero, and credibility/utility sections use a smaller type scale so text does not consume excessive screen space.
+- The homepage no longer uses the initial Figure 01 hero graphic or compact Proof/Research signal strip; that initial visual language is reserved for Projects and Contact route variants.
 - The Current asks band now renders each ask on a proper content surface instead of inheriting the divider background from the grid container.
+- Projects and Contact now integrate distinct initial-style Figure 01 visual variants into their existing section hierarchy while preserving their current page style.
+- The homepage now uses a separate segmented showcase style based on the regenerated Apple-like mockup: hero plus Start Exploring as the first segment, then Research, Projects, Writing, and Contact sections with distinct CSS/SVG visual systems.
+- Homepage showcase sections now use scroll-reactive motion variables for active rail state, parallax-like section movement, SVG line drawing, and stronger section-specific color systems.
+- Homepage showcase contrast now uses explicit foreground/muted/card tokens per section, and scrolling uses normal-flow panel lanes with generous section gaps, strong in-lane translate/lift/rotate/depth transforms, and fixed-layer background color transitions while avoiding fade/reveal as the primary animation style.
+- About, Projects, and Contact now rely on the global header navigation instead of repeating a local route menu, and the header home control is labeled `Home` while preserving the site title in metadata.
 
 ## Recording Rule (Design Tree vs ADR)
 

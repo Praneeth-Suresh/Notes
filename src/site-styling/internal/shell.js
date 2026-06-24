@@ -15,6 +15,8 @@ const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
 const FLAGSHIP_ESSAY_TITLE = "The mental models of deep learning";
 const PUBLIC_CONTACT_EMAIL = "praneeth.suresh.s@gmail.com";
+const PUBLIC_GITHUB_URL = "https://github.com/Praneeth-Suresh";
+const PUBLIC_LINKEDIN_URL = "https://www.linkedin.com/in/praneeth-suresh-a114aa250/";
 const SUBSCRIBE_MAILTO = `mailto:${PUBLIC_CONTACT_EMAIL}?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates`;
 
 function escapeHtml(value) {
@@ -154,6 +156,139 @@ function createBreadcrumbSchema(items) {
   };
 }
 
+function siteUrlFromCanonical(canonicalUrl) {
+  if (typeof canonicalUrl !== "string" || canonicalUrl.trim() === "") {
+    return DEFAULT_SITE_URL;
+  }
+
+  try {
+    return new URL(canonicalUrl).origin;
+  } catch (error) {
+    return DEFAULT_SITE_URL;
+  }
+}
+
+function normalizeStructuredDataItems(value) {
+  if (!value) {
+    return [];
+  }
+
+  return Array.isArray(value) ? value.filter(Boolean) : [value];
+}
+
+function createSiteIdentitySchemas({ siteTitle, canonicalUrl }) {
+  const siteUrl = siteUrlFromCanonical(canonicalUrl);
+  const personId = `${siteUrl}/#person`;
+  const organizationId = `${siteUrl}/#organization`;
+  const websiteId = `${siteUrl}/#website`;
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": personId,
+      name: "Praneeth Suresh",
+      url: `${siteUrl}/about/`,
+      email: `mailto:${PUBLIC_CONTACT_EMAIL}`,
+      sameAs: [PUBLIC_GITHUB_URL, PUBLIC_LINKEDIN_URL],
+      jobTitle: "Software engineer and AI developer/researcher",
+      knowsAbout: [
+        "AI research",
+        "Algorithms",
+        "Computer science",
+        "Software engineering",
+        "Agent reliability",
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": organizationId,
+      name: siteTitle,
+      url: `${siteUrl}/`,
+      logo: absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH),
+      founder: { "@id": personId },
+      sameAs: [PUBLIC_GITHUB_URL, PUBLIC_LINKEDIN_URL],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: siteTitle,
+      url: `${siteUrl}/`,
+      inLanguage: "en",
+      publisher: { "@id": organizationId },
+      author: { "@id": personId },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${siteUrl}/?q={search_term_string}#topic-search`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ];
+}
+
+function createPageSchema({
+  siteTitle,
+  pageTitle,
+  description,
+  canonicalUrl,
+  pageSchemaType = "WebPage",
+}) {
+  if (typeof canonicalUrl !== "string" || canonicalUrl.trim() === "") {
+    return null;
+  }
+
+  const siteUrl = siteUrlFromCanonical(canonicalUrl);
+  const resolvedDescription =
+    typeof description === "string" && description.trim() !== ""
+      ? description.trim()
+      : siteTitle;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": pageSchemaType,
+    "@id": `${canonicalUrl}#webpage`,
+    url: canonicalUrl,
+    name: pageTitle,
+    description: resolvedDescription,
+    inLanguage: "en",
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH),
+    },
+  };
+}
+
+function composeStructuredData({
+  siteTitle,
+  pageTitle,
+  description,
+  canonicalUrl,
+  pageSchemaType,
+  structuredData,
+}) {
+  if (typeof canonicalUrl !== "string" || canonicalUrl.trim() === "") {
+    return structuredData;
+  }
+
+  return [
+    ...createSiteIdentitySchemas({ siteTitle, canonicalUrl }),
+    createPageSchema({
+      siteTitle,
+      pageTitle,
+      description,
+      canonicalUrl,
+      pageSchemaType,
+    }),
+    ...normalizeStructuredDataItems(structuredData),
+  ];
+}
+
 function renderSubscribePanel({ source = "site", compact = false } = {}) {
   const className = compact ? "subscribe-panel subscribe-panel-compact" : "subscribe-panel";
 
@@ -198,6 +333,7 @@ function renderLayout({
   siteTitle,
   contentHtml,
   bodyClass = "",
+  includeHomeShowcaseMotion = false,
   description,
   canonicalUrl,
   ogTitle,
@@ -206,9 +342,18 @@ function renderLayout({
   socialImageUrl,
   socialImageAlt,
   structuredData,
+  pageSchemaType,
 }) {
   const classAttribute = bodyClass ? ` class="${escapeHtml(bodyClass)}"` : "";
   const bodyAttributes = `${classAttribute} data-analytics-event="page_view"`;
+  const composedStructuredData = composeStructuredData({
+    siteTitle,
+    pageTitle,
+    description,
+    canonicalUrl,
+    pageSchemaType,
+    structuredData,
+  });
   const metadataHtml = renderHeadMetadata({
     siteTitle,
     pageTitle,
@@ -219,8 +364,137 @@ function renderLayout({
     ogType,
     socialImageUrl,
     socialImageAlt,
-    structuredData,
+    structuredData: composedStructuredData,
   });
+  const homeShowcaseMotionScript = includeHomeShowcaseMotion
+    ? `
+    <script>
+      (() => {
+        function initHomeShowcaseMotion() {
+          const root = document.querySelector(".home-showcase");
+          if (!root) {
+            return;
+          }
+
+          const sections = Array.from(root.querySelectorAll(".home-showcase-section"));
+          const railLinks = Array.from(root.querySelectorAll(".home-showcase-rail a"));
+          if (sections.length === 0) {
+            return;
+          }
+
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+          const palettes = sections.map((section) => ({
+            background: section.dataset.motionBg || "#05060a",
+            next: section.dataset.motionNext || section.dataset.motionBg || "#05060a",
+          }));
+          let ticking = false;
+
+          function setActiveSection(activeIndex) {
+            const activeSection = sections[activeIndex] || sections[0];
+            root.dataset.activeSection = activeSection.id || "";
+            sections.forEach((section, index) => {
+              section.classList.toggle("is-active", index === activeIndex);
+            });
+            railLinks.forEach((link, index) => {
+              const isActive = index === activeIndex;
+              link.classList.toggle("is-active", isActive);
+              if (isActive) {
+                link.setAttribute("aria-current", "true");
+              } else {
+                link.removeAttribute("aria-current");
+              }
+            });
+          }
+
+          function updateMotionState() {
+            ticking = false;
+            const viewportHeight = window.innerHeight || 1;
+            let activeIndex = 0;
+            let activeVisibility = -1;
+
+            sections.forEach((section, index) => {
+              const rect = section.getBoundingClientRect();
+              const rawProgress = (viewportHeight * 0.72 - rect.top) / (rect.height + viewportHeight * 0.28);
+              const progress = clamp(rawProgress, 0, 1);
+              const presence = 1 - clamp(Math.abs(progress - 0.54) / 0.54, 0, 1);
+              const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+              const direction = index % 2 === 0 ? -1 : 1;
+              const drift = (progress - 0.5) * direction;
+              const entry = clamp((0.34 - progress) / 0.34, 0, 1);
+              const exit = clamp((progress - 0.66) / 0.34, 0, 1);
+              const laneShift = (entry * 78 - exit * 78).toFixed(1) + "px";
+              const cardsTravel = (drift * 172).toFixed(1) + "px";
+              const cardsAltTravel = (drift * -132).toFixed(1) + "px";
+              const visualTravel = (drift * -156).toFixed(1) + "px";
+              const visualDepth = (Math.sin(progress * Math.PI) * 42).toFixed(1) + "px";
+              const cardLift = (Math.sin(progress * Math.PI) * -54).toFixed(1) + "px";
+              const cardSwing = (drift * -8).toFixed(2) + "deg";
+
+              section.style.setProperty("--section-progress", progress.toFixed(3));
+              section.style.setProperty("--section-presence", presence.toFixed(3));
+              section.style.setProperty("--section-offset", laneShift);
+              section.style.setProperty("--stage-pin-offset", laneShift);
+              section.style.setProperty("--copy-drift", laneShift);
+              section.style.setProperty("--card-drift", cardsTravel);
+              section.style.setProperty("--card-drift-alt", cardsAltTravel);
+              section.style.setProperty("--card-lift", cardLift);
+              section.style.setProperty("--card-swing", cardSwing);
+              section.style.setProperty("--visual-drift-x", visualTravel);
+              section.style.setProperty("--visual-drift-y", "0px");
+              section.style.setProperty("--visual-depth", visualDepth);
+              section.style.setProperty("--visual-offset", "0px");
+              section.style.setProperty("--visual-scale", (0.94 + Math.sin(progress * Math.PI) * 0.09).toFixed(3));
+              section.style.setProperty("--line-offset", (220 - progress * 220).toFixed(1));
+              section.style.setProperty("--band-offset", ((progress - 0.5) * 140).toFixed(1) + "px");
+
+              if (visibleHeight > activeVisibility) {
+                activeVisibility = visibleHeight;
+                activeIndex = index;
+              }
+            });
+
+            const activePalette = palettes[activeIndex] || palettes[0];
+            const activeSection = sections[activeIndex] || sections[0];
+            const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
+            const bgMix = clamp((activeProgress - 0.58) / 0.34, 0, 1);
+            root.style.setProperty("--showcase-bg-current", activePalette.background);
+            root.style.setProperty("--showcase-bg-next", activePalette.next);
+            root.style.setProperty("--showcase-bg-mix", bgMix.toFixed(3));
+            setActiveSection(activeIndex);
+          }
+
+          function requestMotionUpdate() {
+            if (ticking) {
+              return;
+            }
+            ticking = true;
+            window.requestAnimationFrame(updateMotionState);
+          }
+
+          if (reduceMotion.matches) {
+            root.classList.add("home-showcase-motion-reduced");
+            root.style.setProperty("--showcase-bg-current", palettes[0].background);
+            root.style.setProperty("--showcase-bg-next", palettes[0].next);
+            root.style.setProperty("--showcase-bg-mix", "0");
+            setActiveSection(0);
+            return;
+          }
+
+          root.classList.add("home-showcase-motion");
+          window.addEventListener("scroll", requestMotionUpdate, { passive: true });
+          window.addEventListener("resize", requestMotionUpdate, { passive: true });
+          requestMotionUpdate();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initHomeShowcaseMotion, { once: true });
+        } else {
+          initHomeShowcaseMotion();
+        }
+      })();
+    </script>`
+    : "";
 
   return `<!doctype html>
 <html lang="en">
@@ -250,7 +524,7 @@ ${metadataHtml}
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H">${escapeHtml(siteTitle)}</a>
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="${escapeHtml(siteTitle)} home">Home</a>
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
@@ -341,7 +615,7 @@ ${metadataHtml}
           });
         });
       })();
-    </script>
+    </script>${homeShowcaseMotionScript}
   </body>
 </html>
 `;
@@ -556,6 +830,116 @@ function renderProjectCard(project, index) {
 </a>`;
 }
 
+function renderRouteFigure(kind) {
+  const variant = kind === "contact" ? "contact" : "projects";
+  const label = variant === "contact" ? "[ Fig. C ]" : "[ Fig. P ]";
+  return `<div class="route-figure route-figure-${variant}" aria-hidden="true">
+  <span class="route-figure-label">${label}</span>
+  <span class="route-figure-grid"></span>
+  <span class="route-figure-orbit"></span>
+</div>`;
+}
+
+function renderHomeVisual(kind) {
+  const variants = {
+    hero: {
+      label: "START",
+      accent: "#635bff",
+      secondary: "#00d4ff",
+      path: "M86 224 C164 128 244 104 326 162 S482 258 574 114",
+      nodes: [
+        [94, 224, "notes"],
+        [212, 130, "proof"],
+        [338, 164, "read"],
+        [470, 244, "build"],
+        [574, 114, "ship"],
+      ],
+    },
+    research: {
+      label: "RESEARCH",
+      accent: "#00d4ff",
+      secondary: "#635bff",
+      path: "M74 206 C158 70 256 270 340 132 S498 82 596 218",
+      nodes: [
+        [74, 206, "paper"],
+        [214, 108, "model"],
+        [340, 132, "test"],
+        [470, 102, "trace"],
+        [596, 218, "write"],
+      ],
+    },
+    projects: {
+      label: "PROJECTS",
+      accent: "#ff7a1a",
+      secondary: "#ffd166",
+      path: "M88 118 C176 246 248 74 338 178 S492 294 584 116",
+      nodes: [
+        [88, 118, "repo"],
+        [214, 230, "eval"],
+        [338, 178, "api"],
+        [468, 278, "ux"],
+        [584, 116, "case"],
+      ],
+    },
+    writing: {
+      label: "WRITING",
+      accent: "#00a66f",
+      secondary: "#9db7ff",
+      path: "M82 246 C166 184 218 94 326 132 S468 258 584 168",
+      nodes: [
+        [82, 246, "draft"],
+        [196, 174, "cite"],
+        [326, 132, "arg"],
+        [462, 238, "edit"],
+        [584, 168, "essay"],
+      ],
+    },
+    contact: {
+      label: "CONTACT",
+      accent: "#00a66f",
+      secondary: "#00d4ff",
+      path: "M90 230 C170 86 262 248 350 126 S496 82 582 232",
+      nodes: [
+        [90, 230, "fit"],
+        [218, 112, "role"],
+        [350, 126, "mail"],
+        [482, 96, "meet"],
+        [582, 232, "go"],
+      ],
+    },
+  };
+  const visual = variants[kind] || variants.hero;
+  const nodes = visual.nodes
+    .map(
+      ([x, y, label]) => `<g class="home-visual-node">
+  <rect x="${x - 31}" y="${y - 18}" width="62" height="36" rx="0"></rect>
+  <text x="${x}" y="${y + 4}" text-anchor="middle">${escapeHtml(label)}</text>
+</g>`,
+    )
+    .join("");
+
+  return `<div class="home-visual home-visual-${kind}" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-${kind}-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="${visual.accent}" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="${visual.secondary}" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-${kind}-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-${kind}-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="${visual.path}" stroke="url(#home-${kind}-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">${visual.label}</text>
+    ${nodes}
+  </svg>
+</div>`;
+}
+
 function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicContentHtml, topics }) {
   const descriptionHtml =
     topic.description && topic.description.trim() !== ""
@@ -607,6 +991,7 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
     canonicalUrl,
     ogTitle: `${topic.title} · ${siteTitle}`,
     ogDescription: topic.description || `${topic.title} notes from ${siteTitle}.`,
+    pageSchemaType: topic.parentTitle ? "TechArticle" : "CollectionPage",
     structuredData: createBreadcrumbSchema(breadcrumbItems),
   });
 }
@@ -707,32 +1092,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
 </a>`,
     )
     .join("");
-  const proofSignals = [
-    {
-      title: "Proof graph",
-      label: "Definitions -> lemmas -> reductions",
-      className: "proof-graph-visual",
-      nodes: ["P", "NP", "SAT", "3SAT", "VC"],
-    },
-    {
-      title: "Research signal",
-      label: "Papers -> mechanisms -> experiments",
-      className: "research-signal-visual",
-      nodes: ["Read", "Model", "Test", "Write"],
-    },
-  ]
-    .map(
-      (signal) => `<article class="home-signal" aria-label="${escapeHtml(signal.title)}">
-  <div class="${escapeHtml(signal.className)}" aria-hidden="true">
-    ${signal.nodes.map((node) => `<span>${escapeHtml(node)}</span>`).join("")}
-  </div>
-  <div>
-    <p class="section-kicker">/ ${escapeHtml(signal.title)}</p>
-    <h2>${escapeHtml(signal.label)}</h2>
-  </div>
-</article>`,
-    )
-    .join("");
   const currentAsks = [
     "Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.",
     "AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.",
@@ -771,74 +1130,82 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
   );
 
   const content = `
-    <section class="home-hero" aria-labelledby="home-title">
-      <div class="home-hero-copy">
-        <p class="home-kicker">[ Computer Science Notes ]</p>
-        <h1 id="home-title" class="home-title">Theoretical CS: No Handwaving Allowed</h1>
-        <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
-        <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content">Explore notes</a>
-          <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
-          <a class="secondary-action" href="/blog/">Read writings</a>
-          <a class="secondary-action" href="/research-taste/">AI research trail</a>
-          <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
-          <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
-          <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
+    <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
+      <nav class="home-showcase-rail" aria-label="Homepage sections">
+        <a href="#home-start">01</a>
+        <a href="#home-research">02</a>
+        <a href="#home-projects">03</a>
+        <a href="#home-writing">04</a>
+        <a href="#home-contact">05</a>
+      </nav>
+      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#05060a" data-motion-next="#0b1220">
+        <div class="home-showcase-copy">
+          <p class="home-kicker">[ Computer Science Notes ]</p>
+          <h1 id="home-title" class="home-title" aria-label="Theoretical CS: No Handwaving Allowed"><span>Theoretical CS:</span><span>No Handwaving</span><span>Allowed</span></h1>
+          <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
+          <div class="home-actions" aria-label="Primary actions">
+            <a class="primary-action" href="#main-content">Explore notes</a>
+            <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
+            <a class="secondary-action" href="/blog/">Read writings</a>
+            <a class="secondary-action" href="/research-taste/">AI research trail</a>
+            <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
+            <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
+            <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
+          </div>
         </div>
-      </div>
-      <div class="stripe-field" aria-hidden="true">
-        <span class="stripe-field-label">[ Fig. 01 ]</span>
-        <span class="stripe-field-grid"></span>
-        <span class="stripe-field-orbit"></span>
-      </div>
-    </section>
-    <section class="home-signal-strip" aria-label="Site proof signals">
-      ${proofSignals}
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-explore-title">
-      <div class="topic-hub-header">
-        <div>
-          <p class="section-kicker">/ Start exploring</p>
-          <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
+        ${renderHomeVisual("hero")}
+        <div class="home-explore-band" aria-labelledby="home-explore-title">
+          <div>
+            <p class="section-kicker">/ Start exploring</p>
+            <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
+          </div>
+          <div class="topic-grid">${exploreCards}</div>
         </div>
-      </div>
-      <div class="topic-grid">${exploreCards}</div>
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-projects-title">
-      <div class="topic-hub-header">
-        <div>
+      </section>
+      <section id="home-research" class="home-showcase-section home-showcase-research" aria-labelledby="home-research-title" data-motion-bg="#0b1220" data-motion-next="#10231e">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Research</p>
+          <h2 id="home-research-title" class="section-title">Read my best technical write-ups.</h2>
+          <a class="topic-index-link" href="/blog/">Read all writing</a>
+        </div>
+        ${renderHomeVisual("research")}
+        <div class="home-showcase-cards topic-grid">${selectedWriting}</div>
+      </section>
+      <section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#10231e" data-motion-next="#f1efe7">
+        <div class="home-showcase-copy">
           <p class="section-kicker">/ Selected projects</p>
           <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
+          <a class="topic-index-link" href="/projects/">See my projects</a>
         </div>
-        <a class="topic-index-link" href="/projects/">See my projects</a>
-      </div>
-      <div class="topic-grid">${selectedProjects}</div>
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-writing-title">
-      <div class="topic-hub-header">
-        <div>
+        ${renderHomeVisual("projects")}
+        <div class="home-showcase-cards topic-grid">${selectedProjects}</div>
+      </section>
+      <section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#f1efe7" data-motion-next="#e9eef5">
+        <div class="home-showcase-copy">
           <p class="section-kicker">/ Selected writing</p>
           <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
+          <a class="topic-index-link" href="/blog/">Read all writing</a>
         </div>
-        <a class="topic-index-link" href="/blog/">Read all writing</a>
-      </div>
-      <div class="topic-grid">${selectedWriting}</div>
-    </section>
-    <section class="panel portfolio-section" aria-labelledby="home-asks-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Current asks</p>
-        <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
-      </div>
-      <div class="portfolio-philosophy-grid">
-        <ul class="ask-list">${currentAsks}</ul>
-        <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
-      </div>
-      <div class="home-actions" aria-label="Current ask actions">
-        <a class="primary-action" href="/contact/">Contact me</a>
-        <a class="secondary-action" href="/collaborate/">Collaborate</a>
-      </div>
-    </section>
-    ${renderSubscribePanel({ source: "home" })}
+        ${renderHomeVisual("writing")}
+        <div class="home-showcase-cards topic-grid">${selectedWriting}</div>
+      </section>
+      <section id="home-contact" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#0f1115" data-motion-next="#05060a">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Current asks</p>
+          <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
+          <div class="home-actions" aria-label="Current ask actions">
+            <a class="primary-action" href="/contact/">Contact me</a>
+            <a class="secondary-action" href="/collaborate/">Collaborate</a>
+          </div>
+        </div>
+        ${renderHomeVisual("contact")}
+        <div class="portfolio-philosophy-grid">
+          <ul class="ask-list">${currentAsks}</ul>
+          <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
+        </div>
+        ${renderSubscribePanel({ source: "home" })}
+      </section>
+    </div>
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>
@@ -903,6 +1270,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
     siteTitle,
     contentHtml: content,
     bodyClass: "home-page",
+    includeHomeShowcaseMotion: true,
     description: HOME_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/"),
     ogTitle: `Theoretical CS: No Handwaving Allowed · ${siteTitle}`,
@@ -1158,6 +1526,7 @@ function renderResearchTastePage({
     canonicalUrl: absoluteUrl(siteUrl, "/research-taste/"),
     ogTitle: `Research Taste · ${siteTitle}`,
     ogDescription: RESEARCH_TASTE_DESCRIPTION,
+    pageSchemaType: "CollectionPage",
   });
 }
 
@@ -1259,21 +1628,18 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
   const projects = getProjectItems(projectsData);
   const projectCards = projects.map((project, index) => renderProjectCard(project, index)).join("");
   const content = `
-    <nav class="topic-nav" aria-label="Projects navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a class="active" href="/projects/" data-hotkey="P" aria-current="page">Projects</a>
-      <a href="/about/" data-hotkey="A">About</a>
-      <a href="/contact/" data-hotkey="C">Contact</a>
-    </nav>
     <section id="main-content" class="start-hero" aria-labelledby="projects-title">
       <p class="home-kicker">[ Projects ]</p>
       <h1 id="projects-title">Selected projects</h1>
       <p>Inspectable project case studies: problem, method, result, code, write-up, and status.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="projects-route-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Proof assets</p>
-        <h2 id="projects-route-title" class="section-title">A small number of strong projects beats a wall of repositories.</h2>
+      <div class="route-proof-layout">
+        <div class="portfolio-section-header">
+          <p class="section-kicker">/ Proof assets</p>
+          <h2 id="projects-route-title" class="section-title">A small number of strong projects beats a wall of repositories.</h2>
+        </div>
+        ${renderRouteFigure("projects")}
       </div>
       <div class="portfolio-project-grid">${projectCards}</div>
     </section>
@@ -1289,6 +1655,7 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
     canonicalUrl: absoluteUrl(siteUrl, "/projects/"),
     ogTitle: `Projects · ${siteTitle}`,
     ogDescription: PROJECTS_DESCRIPTION,
+    pageSchemaType: "CollectionPage",
   });
 }
 
@@ -1363,6 +1730,7 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
     canonicalUrl: absoluteUrl(siteUrl, projectUrlPath),
     ogTitle: `${normalizedProject.title} · Projects · ${siteTitle}`,
     ogDescription: normalizedProject.summary || PROJECTS_DESCRIPTION,
+    pageSchemaType: "CreativeWork",
     structuredData: createBreadcrumbSchema([
       { name: "Home", url: absoluteUrl(siteUrl, "/") },
       { name: "Projects", url: absoluteUrl(siteUrl, "/projects/") },
@@ -1373,12 +1741,6 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
 
 function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
-    <nav class="topic-nav" aria-label="Contact navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/" data-hotkey="P">Projects</a>
-      <a href="/about/" data-hotkey="A">About</a>
-      <a class="active" href="/contact/" data-hotkey="C" aria-current="page">Contact</a>
-    </nav>
     <section id="main-content" class="start-hero" aria-labelledby="contact-title">
       <p class="home-kicker">[ Contact ]</p>
       <h1 id="contact-title">Contact</h1>
@@ -1389,22 +1751,25 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <p class="section-kicker">/ Available channels</p>
         <h2 id="contact-route-title" class="section-title">Start with public professional links.</h2>
       </div>
-      <div class="portfolio-project-grid">
-        <a class="portfolio-project" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="contact-page" data-index="01">
-          <span class="portfolio-project-kind">Direct / Email</span>
-          <h3>Email</h3>
-          <p>${escapeHtml(PUBLIC_CONTACT_EMAIL)}</p>
-        </a>
-        <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="02">
-          <span class="portfolio-project-kind">Code / GitHub</span>
-          <h3>GitHub</h3>
-          <p>Inspect public repositories and project activity.</p>
-        </a>
-        <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="03">
-          <span class="portfolio-project-kind">Professional / LinkedIn</span>
-          <h3>LinkedIn</h3>
-          <p>Use LinkedIn for professional context, affiliations, and warm outreach.</p>
-        </a>
+      <div class="contact-channel-layout">
+        ${renderRouteFigure("contact")}
+        <div class="portfolio-project-grid">
+          <a class="portfolio-project" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="contact-page" data-index="01">
+            <span class="portfolio-project-kind">Direct / Email</span>
+            <h3>Email</h3>
+            <p>${escapeHtml(PUBLIC_CONTACT_EMAIL)}</p>
+          </a>
+          <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="02">
+            <span class="portfolio-project-kind">Code / GitHub</span>
+            <h3>GitHub</h3>
+            <p>Inspect public repositories and project activity.</p>
+          </a>
+          <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="03">
+            <span class="portfolio-project-kind">Professional / LinkedIn</span>
+            <h3>LinkedIn</h3>
+            <p>Use LinkedIn for professional context, affiliations, and warm outreach.</p>
+          </a>
+        </div>
       </div>
     </section>
     <section class="panel portfolio-section" aria-labelledby="contact-scope-title">
@@ -1442,6 +1807,7 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     canonicalUrl: absoluteUrl(siteUrl, "/contact/"),
     ogTitle: `Contact · ${siteTitle}`,
     ogDescription: CONTACT_DESCRIPTION,
+    pageSchemaType: "ContactPage",
   });
 }
 
@@ -1549,11 +1915,6 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     .join("");
 
   const content = `
-    <nav class="topic-nav" aria-label="Portfolio navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/#main-content" data-hotkey="N">Notes</a>
-      <a class="active" href="/about/" data-hotkey="A" aria-current="page">About</a>
-    </nav>
     <section id="main-content" class="portfolio-hero" aria-labelledby="portfolio-title">
       <div class="portfolio-hero-copy">
         <p class="home-kicker">[ Portfolio ]</p>
@@ -1656,6 +2017,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     canonicalUrl: absoluteUrl(siteUrl, "/about/"),
     ogTitle: `Praneeth Suresh · ${siteTitle}`,
     ogDescription: "Software engineering, AI, and static knowledge-system portfolio.",
+    pageSchemaType: "ProfilePage",
   });
 }
 
@@ -1726,6 +2088,7 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
     canonicalUrl: absoluteUrl(siteUrl, "/blog/"),
     ogTitle: `Blog · ${siteTitle}`,
     ogDescription: BLOG_INDEX_DESCRIPTION,
+    pageSchemaType: "CollectionPage",
   });
 }
 
@@ -1750,6 +2113,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       ? post.socialPreview.trim()
       : description;
   const canonicalUrl = absoluteUrl(siteUrl, `/blog/${post.slug}/`);
+  const normalizedSiteUrl = normalizeSiteUrl(siteUrl);
   const socialImageUrl = absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH);
   const blogTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const faqItems = Array.isArray(post.faq)
@@ -1763,25 +2127,25 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
     : [];
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${canonicalUrl}#blogposting`,
     headline: post.title,
     description,
     image: socialImageUrl,
-    author: {
-      "@type": "Person",
-      name: "Praneeth Suresh",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteTitle,
-    },
-    mainEntityOfPage: canonicalUrl,
+    author: { "@id": `${normalizedSiteUrl}/#person` },
+    publisher: { "@id": `${normalizedSiteUrl}/#organization` },
+    isPartOf: { "@id": `${normalizedSiteUrl}/#website` },
+    mainEntityOfPage: { "@id": `${canonicalUrl}#webpage` },
     url: canonicalUrl,
   };
+  if (blogTags.length > 0) {
+    articleSchema.keywords = blogTags.join(", ");
+  }
   const faqSchema = faqItems.length > 0
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+        "@id": `${canonicalUrl}#faq`,
         mainEntity: faqItems.map((item) => ({
           "@type": "Question",
           name: item.question,

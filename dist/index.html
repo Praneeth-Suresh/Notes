@@ -22,7 +22,10 @@
     <meta name="twitter:description" content="A collection of Praneeth Suresh&#39;s computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
-
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/","name":"Computer Science Notes","description":"A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
@@ -44,7 +47,7 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H">Computer Science Notes</a>
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Computer Science Notes home">Home</a>
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
@@ -56,54 +59,70 @@
         </nav>
       </header>
       
-    <section class="home-hero" aria-labelledby="home-title">
-      <div class="home-hero-copy">
-        <p class="home-kicker">[ Computer Science Notes ]</p>
-        <h1 id="home-title" class="home-title">Theoretical CS: No Handwaving Allowed</h1>
-        <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
-        <div class="home-actions" aria-label="Primary actions">
-          <a class="primary-action" href="#main-content">Explore notes</a>
-          <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
-          <a class="secondary-action" href="/blog/">Read writings</a>
-          <a class="secondary-action" href="/research-taste/">AI research trail</a>
-          <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
-          <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
-          <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
+    <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
+      <nav class="home-showcase-rail" aria-label="Homepage sections">
+        <a href="#home-start">01</a>
+        <a href="#home-research">02</a>
+        <a href="#home-projects">03</a>
+        <a href="#home-writing">04</a>
+        <a href="#home-contact">05</a>
+      </nav>
+      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#05060a" data-motion-next="#0b1220">
+        <div class="home-showcase-copy">
+          <p class="home-kicker">[ Computer Science Notes ]</p>
+          <h1 id="home-title" class="home-title" aria-label="Theoretical CS: No Handwaving Allowed"><span>Theoretical CS:</span><span>No Handwaving</span><span>Allowed</span></h1>
+          <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
+          <div class="home-actions" aria-label="Primary actions">
+            <a class="primary-action" href="#main-content">Explore notes</a>
+            <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
+            <a class="secondary-action" href="/blog/">Read writings</a>
+            <a class="secondary-action" href="/research-taste/">AI research trail</a>
+            <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
+            <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
+            <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
+          </div>
         </div>
-      </div>
-      <div class="stripe-field" aria-hidden="true">
-        <span class="stripe-field-label">[ Fig. 01 ]</span>
-        <span class="stripe-field-grid"></span>
-        <span class="stripe-field-orbit"></span>
-      </div>
-    </section>
-    <section class="home-signal-strip" aria-label="Site proof signals">
-      <article class="home-signal" aria-label="Proof graph">
-  <div class="proof-graph-visual" aria-hidden="true">
-    <span>P</span><span>NP</span><span>SAT</span><span>3SAT</span><span>VC</span>
-  </div>
-  <div>
-    <p class="section-kicker">/ Proof graph</p>
-    <h2>Definitions -&gt; lemmas -&gt; reductions</h2>
-  </div>
-</article><article class="home-signal" aria-label="Research signal">
-  <div class="research-signal-visual" aria-hidden="true">
-    <span>Read</span><span>Model</span><span>Test</span><span>Write</span>
-  </div>
-  <div>
-    <p class="section-kicker">/ Research signal</p>
-    <h2>Papers -&gt; mechanisms -&gt; experiments</h2>
-  </div>
-</article>
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-explore-title">
-      <div class="topic-hub-header">
-        <div>
-          <p class="section-kicker">/ Start exploring</p>
-          <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
-        </div>
-      </div>
-      <div class="topic-grid"><a class="topic-card" href="#main-content" data-index="01">
+        <div class="home-visual home-visual-hero" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-hero-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#635bff" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-hero-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-hero-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="M86 224 C164 128 244 104 326 162 S482 258 574 114" stroke="url(#home-hero-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">START</text>
+    <g class="home-visual-node">
+  <rect x="63" y="206" width="62" height="36" rx="0"></rect>
+  <text x="94" y="228" text-anchor="middle">notes</text>
+</g><g class="home-visual-node">
+  <rect x="181" y="112" width="62" height="36" rx="0"></rect>
+  <text x="212" y="134" text-anchor="middle">proof</text>
+</g><g class="home-visual-node">
+  <rect x="307" y="146" width="62" height="36" rx="0"></rect>
+  <text x="338" y="168" text-anchor="middle">read</text>
+</g><g class="home-visual-node">
+  <rect x="439" y="226" width="62" height="36" rx="0"></rect>
+  <text x="470" y="248" text-anchor="middle">build</text>
+</g><g class="home-visual-node">
+  <rect x="543" y="96" width="62" height="36" rx="0"></rect>
+  <text x="574" y="118" text-anchor="middle">ship</text>
+</g>
+  </svg>
+</div>
+        <div class="home-explore-band" aria-labelledby="home-explore-title">
+          <div>
+            <p class="section-kicker">/ Start exploring</p>
+            <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
+          </div>
+          <div class="topic-grid"><a class="topic-card" href="#main-content" data-index="01">
   <h3 class="topic-card-title">Notes by topic</h3>
   <p class="topic-card-description">Browse organized computer science notes across algorithms, systems, AI engineering, software engineering, and agent-building.</p>
 </a><a class="topic-card" href="/blog/" data-index="02">
@@ -122,35 +141,50 @@
   <h3 class="topic-card-title">Start here</h3>
   <p class="topic-card-description">Use a guided path if you want a first route through the site.</p>
 </a></div>
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-projects-title">
-      <div class="topic-hub-header">
-        <div>
-          <p class="section-kicker">/ Selected projects</p>
-          <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
         </div>
-        <a class="topic-index-link" href="/projects/">See my projects</a>
-      </div>
-      <div class="topic-grid"><a class="topic-card" href="/projects/computer-science-notes/" data-index="01">
-  <h3 class="topic-card-title">Computer Science Notes</h3>
-  <p class="topic-card-description">A static technical hub that turns Notion notes, blog essays, search, RSS, and portfolio pages into Cloudflare Pages artifacts.</p>
-</a><a class="topic-card" href="/projects/agentic-coding-workflows/" data-index="02">
-  <h3 class="topic-card-title">Agentic Coding Workflows</h3>
-  <p class="topic-card-description">A public project and notes trail around controllable agent workflows, harnesses, code review, security, and maintainable AI-assisted development.</p>
-</a><a class="topic-card" href="/projects/lob-forecasting/" data-index="03">
-  <h3 class="topic-card-title">LOBForecasting</h3>
-  <p class="topic-card-description">A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.</p>
-</a></div>
-    </section>
-    <section class="panel topic-hub" aria-labelledby="home-writing-title">
-      <div class="topic-hub-header">
-        <div>
-          <p class="section-kicker">/ Selected writing</p>
-          <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
+      </section>
+      <section id="home-research" class="home-showcase-section home-showcase-research" aria-labelledby="home-research-title" data-motion-bg="#0b1220" data-motion-next="#10231e">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Research</p>
+          <h2 id="home-research-title" class="section-title">Read my best technical write-ups.</h2>
+          <a class="topic-index-link" href="/blog/">Read all writing</a>
         </div>
-        <a class="topic-index-link" href="/blog/">Read all writing</a>
-      </div>
-      <div class="topic-grid"><a class="topic-card" href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/" data-index="01">
+        <div class="home-visual home-visual-research" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-research-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="#635bff" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-research-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-research-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="M74 206 C158 70 256 270 340 132 S498 82 596 218" stroke="url(#home-research-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">RESEARCH</text>
+    <g class="home-visual-node">
+  <rect x="43" y="188" width="62" height="36" rx="0"></rect>
+  <text x="74" y="210" text-anchor="middle">paper</text>
+</g><g class="home-visual-node">
+  <rect x="183" y="90" width="62" height="36" rx="0"></rect>
+  <text x="214" y="112" text-anchor="middle">model</text>
+</g><g class="home-visual-node">
+  <rect x="309" y="114" width="62" height="36" rx="0"></rect>
+  <text x="340" y="136" text-anchor="middle">test</text>
+</g><g class="home-visual-node">
+  <rect x="439" y="84" width="62" height="36" rx="0"></rect>
+  <text x="470" y="106" text-anchor="middle">trace</text>
+</g><g class="home-visual-node">
+  <rect x="565" y="200" width="62" height="36" rx="0"></rect>
+  <text x="596" y="222" text-anchor="middle">write</text>
+</g>
+  </svg>
+</div>
+        <div class="home-showcase-cards topic-grid"><a class="topic-card" href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/" data-index="01">
   <h3 class="topic-card-title">The mental models of deep learning</h3>
   <p class="topic-card-description">A paper-backed AI research trail through universal approximation, CNNs, transformers, and deep RL.</p>
 </a><a class="topic-card" href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" data-index="02">
@@ -160,22 +194,160 @@
   <h3 class="topic-card-title">Peeking inside the black box</h3>
   <p class="topic-card-description">Interpretability notes that connect AI research reading to practical model-inspection questions.</p>
 </a></div>
-    </section>
-    <section class="panel portfolio-section" aria-labelledby="home-asks-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Current asks</p>
-        <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
-      </div>
-      <div class="portfolio-philosophy-grid">
-        <ul class="ask-list"><li class="ask-item">Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.</li><li class="ask-item">AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.</li><li class="ask-item">Consulting or prototype work for founders who need fast, inspectable AI engineering execution.</li><li class="ask-item">NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.</li></ul>
-        <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
-      </div>
-      <div class="home-actions" aria-label="Current ask actions">
-        <a class="primary-action" href="/contact/">Contact me</a>
-        <a class="secondary-action" href="/collaborate/">Collaborate</a>
-      </div>
-    </section>
-    
+      </section>
+      <section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#10231e" data-motion-next="#f1efe7">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Selected projects</p>
+          <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
+          <a class="topic-index-link" href="/projects/">See my projects</a>
+        </div>
+        <div class="home-visual home-visual-projects" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-projects-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ff7a1a" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="#ffd166" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-projects-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-projects-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="M88 118 C176 246 248 74 338 178 S492 294 584 116" stroke="url(#home-projects-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">PROJECTS</text>
+    <g class="home-visual-node">
+  <rect x="57" y="100" width="62" height="36" rx="0"></rect>
+  <text x="88" y="122" text-anchor="middle">repo</text>
+</g><g class="home-visual-node">
+  <rect x="183" y="212" width="62" height="36" rx="0"></rect>
+  <text x="214" y="234" text-anchor="middle">eval</text>
+</g><g class="home-visual-node">
+  <rect x="307" y="160" width="62" height="36" rx="0"></rect>
+  <text x="338" y="182" text-anchor="middle">api</text>
+</g><g class="home-visual-node">
+  <rect x="437" y="260" width="62" height="36" rx="0"></rect>
+  <text x="468" y="282" text-anchor="middle">ux</text>
+</g><g class="home-visual-node">
+  <rect x="553" y="98" width="62" height="36" rx="0"></rect>
+  <text x="584" y="120" text-anchor="middle">case</text>
+</g>
+  </svg>
+</div>
+        <div class="home-showcase-cards topic-grid"><a class="topic-card" href="/projects/computer-science-notes/" data-index="01">
+  <h3 class="topic-card-title">Computer Science Notes</h3>
+  <p class="topic-card-description">A static technical hub that turns Notion notes, blog essays, search, RSS, and portfolio pages into Cloudflare Pages artifacts.</p>
+</a><a class="topic-card" href="/projects/agentic-coding-workflows/" data-index="02">
+  <h3 class="topic-card-title">Agentic Coding Workflows</h3>
+  <p class="topic-card-description">A public project and notes trail around controllable agent workflows, harnesses, code review, security, and maintainable AI-assisted development.</p>
+</a><a class="topic-card" href="/projects/lob-forecasting/" data-index="03">
+  <h3 class="topic-card-title">LOBForecasting</h3>
+  <p class="topic-card-description">A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.</p>
+</a></div>
+      </section>
+      <section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#f1efe7" data-motion-next="#e9eef5">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Selected writing</p>
+          <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
+          <a class="topic-index-link" href="/blog/">Read all writing</a>
+        </div>
+        <div class="home-visual home-visual-writing" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-writing-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00a66f" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="#9db7ff" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-writing-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-writing-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="M82 246 C166 184 218 94 326 132 S468 258 584 168" stroke="url(#home-writing-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">WRITING</text>
+    <g class="home-visual-node">
+  <rect x="51" y="228" width="62" height="36" rx="0"></rect>
+  <text x="82" y="250" text-anchor="middle">draft</text>
+</g><g class="home-visual-node">
+  <rect x="165" y="156" width="62" height="36" rx="0"></rect>
+  <text x="196" y="178" text-anchor="middle">cite</text>
+</g><g class="home-visual-node">
+  <rect x="295" y="114" width="62" height="36" rx="0"></rect>
+  <text x="326" y="136" text-anchor="middle">arg</text>
+</g><g class="home-visual-node">
+  <rect x="431" y="220" width="62" height="36" rx="0"></rect>
+  <text x="462" y="242" text-anchor="middle">edit</text>
+</g><g class="home-visual-node">
+  <rect x="553" y="150" width="62" height="36" rx="0"></rect>
+  <text x="584" y="172" text-anchor="middle">essay</text>
+</g>
+  </svg>
+</div>
+        <div class="home-showcase-cards topic-grid"><a class="topic-card" href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/" data-index="01">
+  <h3 class="topic-card-title">The mental models of deep learning</h3>
+  <p class="topic-card-description">A paper-backed AI research trail through universal approximation, CNNs, transformers, and deep RL.</p>
+</a><a class="topic-card" href="/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" data-index="02">
+  <h3 class="topic-card-title">NP-Completeness: formal definitions and reductions</h3>
+  <p class="topic-card-description">A proof-backed algorithms essay about hardness evidence and how reductions change design targets.</p>
+</a><a class="topic-card" href="/blog/peeking-inside-the-black-box/" data-index="03">
+  <h3 class="topic-card-title">Peeking inside the black box</h3>
+  <p class="topic-card-description">Interpretability notes that connect AI research reading to practical model-inspection questions.</p>
+</a></div>
+      </section>
+      <section id="home-contact" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#0f1115" data-motion-next="#05060a">
+        <div class="home-showcase-copy">
+          <p class="section-kicker">/ Current asks</p>
+          <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
+          <div class="home-actions" aria-label="Current ask actions">
+            <a class="primary-action" href="/contact/">Contact me</a>
+            <a class="secondary-action" href="/collaborate/">Collaborate</a>
+          </div>
+        </div>
+        <div class="home-visual home-visual-contact" aria-hidden="true">
+  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="home-contact-line" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00a66f" stop-opacity="0.96" />
+        <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.72" />
+      </linearGradient>
+      <pattern id="home-contact-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
+    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-contact-grid)"></rect>
+    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
+    <path class="home-visual-thread" d="M90 230 C170 86 262 248 350 126 S496 82 582 232" stroke="url(#home-contact-line)"></path>
+    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
+    <text class="home-visual-label" x="58" y="56">CONTACT</text>
+    <g class="home-visual-node">
+  <rect x="59" y="212" width="62" height="36" rx="0"></rect>
+  <text x="90" y="234" text-anchor="middle">fit</text>
+</g><g class="home-visual-node">
+  <rect x="187" y="94" width="62" height="36" rx="0"></rect>
+  <text x="218" y="116" text-anchor="middle">role</text>
+</g><g class="home-visual-node">
+  <rect x="319" y="108" width="62" height="36" rx="0"></rect>
+  <text x="350" y="130" text-anchor="middle">mail</text>
+</g><g class="home-visual-node">
+  <rect x="451" y="78" width="62" height="36" rx="0"></rect>
+  <text x="482" y="100" text-anchor="middle">meet</text>
+</g><g class="home-visual-node">
+  <rect x="551" y="214" width="62" height="36" rx="0"></rect>
+  <text x="582" y="236" text-anchor="middle">go</text>
+</g>
+  </svg>
+</div>
+        <div class="portfolio-philosophy-grid">
+          <ul class="ask-list"><li class="ask-item">Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.</li><li class="ask-item">AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.</li><li class="ask-item">Consulting or prototype work for founders who need fast, inspectable AI engineering execution.</li><li class="ask-item">NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.</li></ul>
+          <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
+        </div>
+        
     <section id="subscribe-home" class="subscribe-panel" aria-labelledby="subscribe-title-home">
       <div>
         <p class="section-kicker">/ Subscribe</p>
@@ -189,6 +361,8 @@
       </div>
     </section>
   
+      </section>
+    </div>
     <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
       <div class="topic-hub-header">
         <div>
@@ -364,6 +538,132 @@
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        function initHomeShowcaseMotion() {
+          const root = document.querySelector(".home-showcase");
+          if (!root) {
+            return;
+          }
+
+          const sections = Array.from(root.querySelectorAll(".home-showcase-section"));
+          const railLinks = Array.from(root.querySelectorAll(".home-showcase-rail a"));
+          if (sections.length === 0) {
+            return;
+          }
+
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+          const palettes = sections.map((section) => ({
+            background: section.dataset.motionBg || "#05060a",
+            next: section.dataset.motionNext || section.dataset.motionBg || "#05060a",
+          }));
+          let ticking = false;
+
+          function setActiveSection(activeIndex) {
+            const activeSection = sections[activeIndex] || sections[0];
+            root.dataset.activeSection = activeSection.id || "";
+            sections.forEach((section, index) => {
+              section.classList.toggle("is-active", index === activeIndex);
+            });
+            railLinks.forEach((link, index) => {
+              const isActive = index === activeIndex;
+              link.classList.toggle("is-active", isActive);
+              if (isActive) {
+                link.setAttribute("aria-current", "true");
+              } else {
+                link.removeAttribute("aria-current");
+              }
+            });
+          }
+
+          function updateMotionState() {
+            ticking = false;
+            const viewportHeight = window.innerHeight || 1;
+            let activeIndex = 0;
+            let activeVisibility = -1;
+
+            sections.forEach((section, index) => {
+              const rect = section.getBoundingClientRect();
+              const rawProgress = (viewportHeight * 0.72 - rect.top) / (rect.height + viewportHeight * 0.28);
+              const progress = clamp(rawProgress, 0, 1);
+              const presence = 1 - clamp(Math.abs(progress - 0.54) / 0.54, 0, 1);
+              const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+              const direction = index % 2 === 0 ? -1 : 1;
+              const drift = (progress - 0.5) * direction;
+              const entry = clamp((0.34 - progress) / 0.34, 0, 1);
+              const exit = clamp((progress - 0.66) / 0.34, 0, 1);
+              const laneShift = (entry * 78 - exit * 78).toFixed(1) + "px";
+              const cardsTravel = (drift * 172).toFixed(1) + "px";
+              const cardsAltTravel = (drift * -132).toFixed(1) + "px";
+              const visualTravel = (drift * -156).toFixed(1) + "px";
+              const visualDepth = (Math.sin(progress * Math.PI) * 42).toFixed(1) + "px";
+              const cardLift = (Math.sin(progress * Math.PI) * -54).toFixed(1) + "px";
+              const cardSwing = (drift * -8).toFixed(2) + "deg";
+
+              section.style.setProperty("--section-progress", progress.toFixed(3));
+              section.style.setProperty("--section-presence", presence.toFixed(3));
+              section.style.setProperty("--section-offset", laneShift);
+              section.style.setProperty("--stage-pin-offset", laneShift);
+              section.style.setProperty("--copy-drift", laneShift);
+              section.style.setProperty("--card-drift", cardsTravel);
+              section.style.setProperty("--card-drift-alt", cardsAltTravel);
+              section.style.setProperty("--card-lift", cardLift);
+              section.style.setProperty("--card-swing", cardSwing);
+              section.style.setProperty("--visual-drift-x", visualTravel);
+              section.style.setProperty("--visual-drift-y", "0px");
+              section.style.setProperty("--visual-depth", visualDepth);
+              section.style.setProperty("--visual-offset", "0px");
+              section.style.setProperty("--visual-scale", (0.94 + Math.sin(progress * Math.PI) * 0.09).toFixed(3));
+              section.style.setProperty("--line-offset", (220 - progress * 220).toFixed(1));
+              section.style.setProperty("--band-offset", ((progress - 0.5) * 140).toFixed(1) + "px");
+
+              if (visibleHeight > activeVisibility) {
+                activeVisibility = visibleHeight;
+                activeIndex = index;
+              }
+            });
+
+            const activePalette = palettes[activeIndex] || palettes[0];
+            const activeSection = sections[activeIndex] || sections[0];
+            const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
+            const bgMix = clamp((activeProgress - 0.58) / 0.34, 0, 1);
+            root.style.setProperty("--showcase-bg-current", activePalette.background);
+            root.style.setProperty("--showcase-bg-next", activePalette.next);
+            root.style.setProperty("--showcase-bg-mix", bgMix.toFixed(3));
+            setActiveSection(activeIndex);
+          }
+
+          function requestMotionUpdate() {
+            if (ticking) {
+              return;
+            }
+            ticking = true;
+            window.requestAnimationFrame(updateMotionState);
+          }
+
+          if (reduceMotion.matches) {
+            root.classList.add("home-showcase-motion-reduced");
+            root.style.setProperty("--showcase-bg-current", palettes[0].background);
+            root.style.setProperty("--showcase-bg-next", palettes[0].next);
+            root.style.setProperty("--showcase-bg-mix", "0");
+            setActiveSection(0);
+            return;
+          }
+
+          root.classList.add("home-showcase-motion");
+          window.addEventListener("scroll", requestMotionUpdate, { passive: true });
+          window.addEventListener("resize", requestMotionUpdate, { passive: true });
+          requestMotionUpdate();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initHomeShowcaseMotion, { once: true });
+        } else {
+          initHomeShowcaseMotion();
+        }
       })();
     </script>
   </body>

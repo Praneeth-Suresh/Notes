@@ -1,6 +1,6 @@
 ---
 name: website-autonomous-growth
-description: "Run autonomous growth for a personal website. Audit the site, infer positioning and conversion paths, identify the few highest-leverage growth moves, ask only the missing questions, and produce an execution-ready plan across content, SEO, analytics, lead capture, and experiments."
+description: "Run autonomous growth for a personal website. Audit the site, infer positioning and conversion paths, identify the few highest-leverage growth moves, ask only the missing questions, and produce an execution-ready plan across content, search discovery, analytics, lead capture, and experiments."
 ---
 
 # Personal website autonomous growth
@@ -127,7 +127,7 @@ If the site is obviously personal-brand driven, also ask:
 Choose a growth focus before producing tasks. Pick one primary lane:
 
 - Conversion: better homepage, service pages, proof, offers, CTAs, forms.
-- Discovery: SEO, topic clusters, landing pages, distribution surfaces.
+- Discovery: search discovery, topic clusters, landing pages, distribution surfaces.
 - Authority: case studies, essays, talks, signature content, proof assets.
 - Retention: newsletter, lead magnet, recurring content, follow-up flows.
 
@@ -201,7 +201,7 @@ Recommend a lean scorecard with:
 
 - Prefer edits to existing high-value pages before creating new pages.
 - Do not recommend broad social posting without a website capture path.
-- Do not recommend SEO at scale without clear topic authority.
+- Do not recommend search-discovery work at scale without clear topic authority.
 - Do not recommend a newsletter unless there is a credible recurring angle.
 - Tie every recommendation to a metric or observable outcome.
 - If the founder has very limited time, collapse the plan to one page fix, one offer fix, and one content asset.
