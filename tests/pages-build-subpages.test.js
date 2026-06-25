@@ -301,6 +301,17 @@ test("builds child_page routes and makes subpages searchable", async () => {
       path.join(outDir, "assets", "social", "theoretical-cs-preview.svg"),
       "utf8",
     );
+    const homeImageFiles = [
+      "home-hero.png",
+      "home-research.png",
+      "home-projects.png",
+      "home-writing.png",
+      "home-contact.png",
+    ];
+    for (const imageFile of homeImageFiles) {
+      const imageStat = await fs.stat(path.join(outDir, "assets", "home", imageFile));
+      assert.ok(imageStat.size > 0);
+    }
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
@@ -369,6 +380,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('class="home-visual home-visual-projects"'));
     assert.ok(homeHtml.includes('class="home-visual home-visual-writing"'));
     assert.ok(homeHtml.includes('class="home-visual home-visual-contact"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-hero.png"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-research.png"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-projects.png"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-writing.png"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-contact.png"'));
+    assert.ok(homeHtml.includes('alt="AI research workspace with paper excerpts, model diagrams, and analysis traces."'));
     assert.ok(!homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes("Theoretical CS: No Handwaving Allowed"));
     assert.ok(homeHtml.includes("A collection of my work across computer science"));
@@ -448,6 +465,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".home-showcase"));
     assert.ok(siteCss.includes(".home-showcase-section"));
     assert.ok(siteCss.includes(".home-visual"));
+    assert.ok(siteCss.includes(".home-visual img"));
+    assert.ok(siteCss.includes("object-fit: cover;"));
     assert.ok(siteCss.includes(".home-showcase-motion"));
     assert.ok(siteCss.includes("@property --showcase-bg-current"));
     assert.ok(siteCss.includes("--showcase-card-hover-foreground"));

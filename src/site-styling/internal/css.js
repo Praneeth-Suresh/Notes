@@ -1032,6 +1032,7 @@ canvas {
   z-index: 1;
   display: grid;
   min-width: 0;
+  aspect-ratio: 11 / 6;
   min-height: 100%;
   align-self: stretch;
   border: 1px solid var(--showcase-border);
@@ -1039,13 +1040,16 @@ canvas {
   color: var(--showcase-foreground);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.68);
   backdrop-filter: blur(18px);
+  overflow: hidden;
 }
 
+.home-visual img,
 .home-visual svg {
   display: block;
   width: 100%;
   height: 100%;
   min-height: clamp(20rem, 38vw, 32rem);
+  object-fit: cover;
 }
 
 .home-visual-base {

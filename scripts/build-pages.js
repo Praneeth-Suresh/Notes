@@ -18,6 +18,8 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
 const SOCIAL_PREVIEW_SOURCE_PATH = path.join("content", "social", "theoretical-cs-preview.svg");
 const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-preview.svg");
+const HOME_IMAGE_SOURCE_DIR = path.join("content", "home", "images");
+const HOME_IMAGE_ASSET_DIR = path.join("assets", "home");
 const STATIC_ARTIFACTS = [
   "np-completeness-reduction-template.tex",
 ];
@@ -503,6 +505,26 @@ async function copyFileToOutput({ sourcePath, outputDir, outputRelativePath, lab
   }
 }
 
+async function copyDirectoryFilesToOutput({ sourceDir, outputDir, outputRelativeDir, label }) {
+  if (!(await pathExists(sourceDir))) {
+    return;
+  }
+
+  const files = await fs.readdir(sourceDir, { withFileTypes: true });
+  for (const file of files) {
+    if (!file.isFile()) {
+      continue;
+    }
+
+    await copyFileToOutput({
+      sourcePath: path.join(sourceDir, file.name),
+      outputDir,
+      outputRelativePath: path.join(outputRelativeDir, file.name),
+      label: `${label} ${file.name}`,
+    });
+  }
+}
+
 async function replaceDirectoryAtomically({ sourceDir, targetDir }) {
   const parentDir = path.dirname(targetDir);
   const baseName = path.basename(targetDir);
@@ -601,6 +623,12 @@ async function buildPagesSite({
       outputDir: buildOutputDir,
       outputRelativePath: SOCIAL_PREVIEW_ASSET_PATH,
       label: "social preview asset",
+    });
+    await copyDirectoryFilesToOutput({
+      sourceDir: HOME_IMAGE_SOURCE_DIR,
+      outputDir: buildOutputDir,
+      outputRelativeDir: HOME_IMAGE_ASSET_DIR,
+      label: "home image",
     });
     for (const artifactFile of STATIC_ARTIFACTS) {
       await copyFileToOutput({
@@ -814,17 +842,12 @@ async function buildPagesSite({
 
       // Copy blog images
       const blogImagesDir = path.join(blogContentDir, "images");
-      if (await pathExists(blogImagesDir)) {
-        const imageFiles = await fs.readdir(blogImagesDir);
-        for (const imgFile of imageFiles) {
-          await copyFileToOutput({
-            sourcePath: path.join(blogImagesDir, imgFile),
-            outputDir: buildOutputDir,
-            outputRelativePath: path.join("blog", "images", imgFile),
-            label: `blog image ${imgFile}`,
-          });
-        }
-      }
+      await copyDirectoryFilesToOutput({
+        sourceDir: blogImagesDir,
+        outputDir: buildOutputDir,
+        outputRelativeDir: path.join("blog", "images"),
+        label: "blog image",
+      });
     }
 
     await writeUtf8File(

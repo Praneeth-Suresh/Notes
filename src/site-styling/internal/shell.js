@@ -866,100 +866,30 @@ function renderRouteFigure(kind) {
 function renderHomeVisual(kind) {
   const variants = {
     hero: {
-      label: "START",
-      accent: "#635bff",
-      secondary: "#00d4ff",
-      path: "M86 224 C164 128 244 104 326 162 S482 258 574 114",
-      nodes: [
-        [94, 224, "notes"],
-        [212, 130, "proof"],
-        [338, 164, "read"],
-        [470, 244, "build"],
-        [574, 114, "ship"],
-      ],
+      src: "/assets/home/home-hero.png",
+      alt: "Notebook, laptop, and technical notes introducing Computer Science Notes.",
     },
     research: {
-      label: "RESEARCH",
-      accent: "#00d4ff",
-      secondary: "#635bff",
-      path: "M74 206 C158 70 256 270 340 132 S498 82 596 218",
-      nodes: [
-        [74, 206, "paper"],
-        [214, 108, "model"],
-        [340, 132, "test"],
-        [470, 102, "trace"],
-        [596, 218, "write"],
-      ],
+      src: "/assets/home/home-research.png",
+      alt: "AI research workspace with paper excerpts, model diagrams, and analysis traces.",
     },
     projects: {
-      label: "PROJECTS",
-      accent: "#ff7a1a",
-      secondary: "#ffd166",
-      path: "M88 118 C176 246 248 74 338 178 S492 294 584 116",
-      nodes: [
-        [88, 118, "repo"],
-        [214, 230, "eval"],
-        [338, 178, "api"],
-        [468, 278, "ux"],
-        [584, 116, "case"],
-      ],
+      src: "/assets/home/home-projects.png",
+      alt: "Software project workspace with code, tests, prototypes, and implementation notes.",
     },
     writing: {
-      label: "WRITING",
-      accent: "#00a66f",
-      secondary: "#9db7ff",
-      path: "M82 246 C166 184 218 94 326 132 S468 258 584 168",
-      nodes: [
-        [82, 246, "draft"],
-        [196, 174, "cite"],
-        [326, 132, "arg"],
-        [462, 238, "edit"],
-        [584, 168, "essay"],
-      ],
+      src: "/assets/home/home-writing.png",
+      alt: "Technical writing desk with marked-up drafts, diagrams, and code references.",
     },
     contact: {
-      label: "CONTACT",
-      accent: "#00a66f",
-      secondary: "#00d4ff",
-      path: "M90 230 C170 86 262 248 350 126 S496 82 582 232",
-      nodes: [
-        [90, 230, "fit"],
-        [218, 112, "role"],
-        [350, 126, "mail"],
-        [482, 96, "meet"],
-        [582, 232, "go"],
-      ],
+      src: "/assets/home/home-contact.png",
+      alt: "Technical collaboration table with workshop notes, agenda, and project discussion materials.",
     },
   };
   const visual = variants[kind] || variants.hero;
-  const nodes = visual.nodes
-    .map(
-      ([x, y, label]) => `<g class="home-visual-node">
-  <rect x="${x - 31}" y="${y - 18}" width="62" height="36" rx="0"></rect>
-  <text x="${x}" y="${y + 4}" text-anchor="middle">${escapeHtml(label)}</text>
-</g>`,
-    )
-    .join("");
 
-  return `<div class="home-visual home-visual-${kind}" aria-hidden="true">
-  <svg viewBox="0 0 660 360" role="presentation" focusable="false">
-    <defs>
-      <linearGradient id="home-${kind}-line" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="${visual.accent}" stop-opacity="0.96" />
-        <stop offset="100%" stop-color="${visual.secondary}" stop-opacity="0.72" />
-      </linearGradient>
-      <pattern id="home-${kind}-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-        <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" stroke-opacity="0.09" stroke-width="1" />
-      </pattern>
-    </defs>
-    <rect class="home-visual-base" x="1" y="1" width="658" height="358"></rect>
-    <rect class="home-visual-grid" x="36" y="30" width="588" height="300" fill="url(#home-${kind}-grid)"></rect>
-    <path class="home-visual-plane" d="M66 296 L598 296 L534 64 L128 64 Z"></path>
-    <path class="home-visual-thread" d="${visual.path}" stroke="url(#home-${kind}-line)"></path>
-    <path class="home-visual-thread home-visual-thread-alt" d="M82 92 C194 144 260 50 352 98 S502 202 588 84"></path>
-    <text class="home-visual-label" x="58" y="56">${visual.label}</text>
-    ${nodes}
-  </svg>
+  return `<div class="home-visual home-visual-${kind}">
+  <img src="${visual.src}" alt="${escapeHtml(visual.alt)}" width="1320" height="720" loading="eager" decoding="async" />
 </div>`;
 }
 
