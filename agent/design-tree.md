@@ -80,6 +80,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Homepage responsive motion polish | Keep the global header on a visible surface above showcase motion layers, use midtone bridge colors for dark-to-light background transitions, and prevent viewport horizontal scrolling with width-aware mobile title clamps. | 2026-06-24 | n/a |
 | Homepage header polish | Keep the homepage header visible only at the top as a subdued dark surface so navigation remains readable without staying pinned during scroll. | 2026-06-24 | n/a |
 | Homepage hero title word integrity | Preserve hero title words as whole readable units on mobile by disabling internal word breaks on title spans while allowing wrapping between words. | 2026-06-24 | n/a |
+| Homepage showcase spacing and palette polish | Keep numbered showcase cards clear of titles, make hover states invert card/title contrast together, add explicit heading-to-link spacing, and smooth palette transitions with registered color variables plus reduced redundant scroll style writes. | 2026-06-25 | n/a |
 
 ## Pressure Points
 
@@ -152,6 +153,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Homepage showcase now removes the left numbered rail, centers held content in the viewport, softens the final dark-to-light color bridge, restores explicit notes-archive orientation copy, and fades the notes section in as the final attention moment.
 - Homepage navigation now remains visibly readable over the animated showcase, dark-to-light transitions pass through muted bridge colors, and mobile typography clamps/wraps so the viewport never offers horizontal page scrolling.
 - Homepage navigation no longer remains sticky during scroll while retaining a subdued dark surface at the top.
+- Homepage showcase cards now reserve more space between index labels and titles, link CTAs below large headings use an explicit vertical gap, hover cards keep titles readable on light emphasis surfaces, and fixed palette changes animate instead of snapping on active-section changes.
 
 ## Recording Rule (Design Tree vs ADR)
 

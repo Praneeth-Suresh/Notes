@@ -1,6 +1,18 @@
 "use strict";
 
 const SITE_CSS = `
+@property --showcase-bg-current {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #05060a;
+}
+
+@property --showcase-bg-next {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0b1220;
+}
+
 :root {
   color-scheme: light dark;
   --bg: #e8e8e8;
@@ -409,7 +421,13 @@ canvas {
   --showcase-card: #fff;
   --showcase-card-foreground: #171717;
   --showcase-card-muted: #555;
+  --showcase-card-hover: #f8fafc;
+  --showcase-card-hover-foreground: #121417;
+  --showcase-card-hover-muted: #3f4650;
   --showcase-border: rgb(24 24 24 / 0.18);
+  transition:
+    --showcase-bg-current 620ms cubic-bezier(0.22, 0.8, 0.22, 1),
+    --showcase-bg-next 620ms cubic-bezier(0.22, 0.8, 0.22, 1);
 }
 
 .home-showcase::before,
@@ -434,7 +452,7 @@ canvas {
     radial-gradient(circle at 12% 74%, rgb(37 99 235 / 0.18), transparent 34%),
     var(--showcase-bg-next);
   opacity: var(--showcase-bg-mix);
-  transition: opacity 80ms linear;
+  transition: opacity 260ms linear;
 }
 
 .home-showcase > * {
@@ -578,6 +596,12 @@ canvas {
   color: var(--showcase-foreground);
   font-size: clamp(2rem, 5.4vw, 4.8rem);
   line-height: 0.97;
+}
+
+.home-showcase-copy .topic-index-link {
+  display: inline-block;
+  width: fit-content;
+  margin-top: clamp(0.95rem, 1.8vw, 1.25rem);
 }
 
 @media (min-width: 821px) {
@@ -787,14 +811,14 @@ canvas {
 
 .home-showcase-section .topic-card {
   min-height: 8.5rem;
-  padding: 1.7rem 0.85rem 0.85rem;
+  padding: 2.65rem 0.85rem 0.85rem;
   border-color: var(--showcase-border);
   background: var(--showcase-card);
   color: var(--showcase-card-foreground);
 }
 
 .home-showcase-writing .topic-card {
-  padding: 3rem 1rem 1rem;
+  padding: 3.35rem 1rem 1rem;
 }
 
 .home-showcase-writing .topic-card::before {
@@ -812,11 +836,30 @@ canvas {
   font-size: 1.05rem;
 }
 
+.home-showcase-section .topic-card:hover,
+.home-showcase-section .topic-card:focus-visible {
+  border-color: color-mix(in oklab, var(--showcase-card-hover-foreground) 42%, var(--showcase-border));
+  background: var(--showcase-card-hover);
+  color: var(--showcase-card-hover-foreground);
+}
+
+.home-showcase-section .topic-card:hover .topic-card-title,
+.home-showcase-section .topic-card:focus-visible .topic-card-title {
+  color: var(--showcase-card-hover-foreground);
+}
+
 .home-showcase-section .topic-card-description {
   margin-top: 0.55rem;
   color: var(--showcase-card-muted);
   font-size: 0.82rem;
   line-height: 1.45;
+}
+
+.home-showcase-section .topic-card:hover .topic-card-description,
+.home-showcase-section .topic-card:focus-visible .topic-card-description,
+.home-showcase-section .topic-card:hover .topic-card-parent,
+.home-showcase-section .topic-card:focus-visible .topic-card-parent {
+  color: var(--showcase-card-hover-muted);
 }
 
 .home-showcase-section.home-showcase-research .home-showcase-cards {
@@ -1743,7 +1786,7 @@ canvas {
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: color-mix(in oklab, var(--surface) 88%, transparent);
-  padding: 2.1rem 1rem 1rem;
+  padding: 2.55rem 1rem 1rem;
   text-decoration: none;
   transition: background 160ms ease, color 160ms ease;
 }
@@ -1756,6 +1799,7 @@ canvas {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.7rem;
+  line-height: 1;
 }
 
 .topic-card::after {
@@ -3034,7 +3078,7 @@ mjx-container[jax="SVG"][display="true"] {
 
   .home-showcase-section .topic-card {
     min-height: auto;
-    padding: 1.45rem 0.7rem 0.7rem;
+    padding: 2.35rem 0.7rem 0.7rem;
   }
 
   .home-showcase-section .topic-card-title {

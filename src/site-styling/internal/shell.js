@@ -388,13 +388,24 @@ function renderLayout({
             const progress = clamp(value, 0, 1);
             return progress * progress * (3 - 2 * progress);
           };
+          const setStyleProperty = (element, propertyName, value) => {
+            if (element.style.getPropertyValue(propertyName) !== value) {
+              element.style.setProperty(propertyName, value);
+            }
+          };
           const palettes = sections.map((section) => ({
             background: section.dataset.motionBg || "#05060a",
             next: section.dataset.motionNext || section.dataset.motionBg || "#05060a",
           }));
           let ticking = false;
+          let currentActiveIndex = -1;
 
           function setActiveSection(activeIndex) {
+            if (activeIndex === currentActiveIndex) {
+              return;
+            }
+
+            currentActiveIndex = activeIndex;
             const activeSection = sections[activeIndex] || sections[0];
             root.dataset.activeSection = activeSection.id || "";
             sections.forEach((section, index) => {
@@ -429,30 +440,30 @@ function renderLayout({
               const indexRule = motionStyle === "index" ? actionsProgress : 1;
               const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
 
-              section.style.setProperty("--section-progress", progress.toFixed(3));
-              section.style.setProperty("--stage-title-progress", titleProgress.toFixed(3));
-              section.style.setProperty("--stage-copy-progress", copyProgress.toFixed(3));
-              section.style.setProperty("--stage-actions-progress", actionsProgress.toFixed(3));
-              section.style.setProperty("--stage-hold-progress", holdProgress.toFixed(3));
-              section.style.setProperty("--stage-exit-progress", exitProgress.toFixed(3));
-              section.style.setProperty("--stage-title-opacity", (0.2 + titleProgress * 0.8).toFixed(3));
-              section.style.setProperty("--stage-copy-opacity", (0.24 + copyProgress * 0.76).toFixed(3));
-              section.style.setProperty("--stage-actions-opacity", (0.22 + actionsProgress * 0.78).toFixed(3));
-              section.style.setProperty("--stage-visual-opacity", (0.36 + copyProgress * 0.64).toFixed(3));
-              section.style.setProperty("--stage-title-x", ((1 - titleProgress) * -56).toFixed(1) + "px");
-              section.style.setProperty("--stage-copy-x", ((1 - copyProgress) * -28).toFixed(1) + "px");
-              section.style.setProperty("--stage-copy-y", ((1 - copyProgress) * 10).toFixed(1) + "px");
-              section.style.setProperty("--stage-actions-x", ((1 - actionsProgress) * actionTravel * actionsDirection).toFixed(1) + "px");
-              section.style.setProperty("--stage-actions-y", actionLift.toFixed(1) + "px");
-              section.style.setProperty("--stage-actions-scale", actionScale.toFixed(3));
-              section.style.setProperty("--stage-actions-clip", scanClip.toFixed(1) + "%");
-              section.style.setProperty("--stage-visual-x", ((1 - copyProgress) * 42).toFixed(1) + "px");
-              section.style.setProperty("--stage-exit-y", (exitProgress * -14).toFixed(1) + "px");
-              section.style.setProperty("--build-card-x", buildCardX.toFixed(1) + "px");
-              section.style.setProperty("--build-card-y", buildCardY.toFixed(1) + "px");
-              section.style.setProperty("--index-rule-progress", indexRule.toFixed(3));
-              section.style.setProperty("--line-offset", (220 - progress * 220).toFixed(1));
-              section.style.setProperty("--band-offset", ((progress - 0.5) * 70).toFixed(1) + "px");
+              setStyleProperty(section, "--section-progress", progress.toFixed(3));
+              setStyleProperty(section, "--stage-title-progress", titleProgress.toFixed(3));
+              setStyleProperty(section, "--stage-copy-progress", copyProgress.toFixed(3));
+              setStyleProperty(section, "--stage-actions-progress", actionsProgress.toFixed(3));
+              setStyleProperty(section, "--stage-hold-progress", holdProgress.toFixed(3));
+              setStyleProperty(section, "--stage-exit-progress", exitProgress.toFixed(3));
+              setStyleProperty(section, "--stage-title-opacity", (0.2 + titleProgress * 0.8).toFixed(3));
+              setStyleProperty(section, "--stage-copy-opacity", (0.24 + copyProgress * 0.76).toFixed(3));
+              setStyleProperty(section, "--stage-actions-opacity", (0.22 + actionsProgress * 0.78).toFixed(3));
+              setStyleProperty(section, "--stage-visual-opacity", (0.36 + copyProgress * 0.64).toFixed(3));
+              setStyleProperty(section, "--stage-title-x", ((1 - titleProgress) * -56).toFixed(1) + "px");
+              setStyleProperty(section, "--stage-copy-x", ((1 - copyProgress) * -28).toFixed(1) + "px");
+              setStyleProperty(section, "--stage-copy-y", ((1 - copyProgress) * 10).toFixed(1) + "px");
+              setStyleProperty(section, "--stage-actions-x", ((1 - actionsProgress) * actionTravel * actionsDirection).toFixed(1) + "px");
+              setStyleProperty(section, "--stage-actions-y", actionLift.toFixed(1) + "px");
+              setStyleProperty(section, "--stage-actions-scale", actionScale.toFixed(3));
+              setStyleProperty(section, "--stage-actions-clip", scanClip.toFixed(1) + "%");
+              setStyleProperty(section, "--stage-visual-x", ((1 - copyProgress) * 42).toFixed(1) + "px");
+              setStyleProperty(section, "--stage-exit-y", (exitProgress * -14).toFixed(1) + "px");
+              setStyleProperty(section, "--build-card-x", buildCardX.toFixed(1) + "px");
+              setStyleProperty(section, "--build-card-y", buildCardY.toFixed(1) + "px");
+              setStyleProperty(section, "--index-rule-progress", indexRule.toFixed(3));
+              setStyleProperty(section, "--line-offset", (220 - progress * 220).toFixed(1));
+              setStyleProperty(section, "--band-offset", ((progress - 0.5) * 70).toFixed(1) + "px");
 
               if (visibleHeight > activeVisibility) {
                 activeVisibility = visibleHeight;
@@ -464,15 +475,15 @@ function renderLayout({
             const activeSection = sections[activeIndex] || sections[0];
             const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
             const bgMix = smoothstep((activeProgress - 0.18) / 0.68);
-            root.style.setProperty("--showcase-bg-current", activePalette.background);
-            root.style.setProperty("--showcase-bg-next", activePalette.next);
-            root.style.setProperty("--showcase-bg-mix", bgMix.toFixed(3));
+            setStyleProperty(root, "--showcase-bg-current", activePalette.background);
+            setStyleProperty(root, "--showcase-bg-next", activePalette.next);
+            setStyleProperty(root, "--showcase-bg-mix", bgMix.toFixed(3));
             setActiveSection(activeIndex);
 
             if (notesHub) {
               const notesRect = notesHub.getBoundingClientRect();
               const notesProgress = smoothstep((viewportHeight * 0.78 - notesRect.top) / (viewportHeight * 0.38));
-              notesHub.style.setProperty("--notes-reveal-progress", notesProgress.toFixed(3));
+              setStyleProperty(notesHub, "--notes-reveal-progress", notesProgress.toFixed(3));
             }
           }
 
@@ -486,9 +497,9 @@ function renderLayout({
 
           if (reduceMotion.matches) {
             root.classList.add("home-showcase-motion-reduced");
-            root.style.setProperty("--showcase-bg-current", palettes[0].background);
-            root.style.setProperty("--showcase-bg-next", palettes[0].next);
-            root.style.setProperty("--showcase-bg-mix", "0");
+            setStyleProperty(root, "--showcase-bg-current", palettes[0].background);
+            setStyleProperty(root, "--showcase-bg-next", palettes[0].next);
+            setStyleProperty(root, "--showcase-bg-mix", "0");
             setActiveSection(0);
             return;
           }

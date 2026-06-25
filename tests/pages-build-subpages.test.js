@@ -449,6 +449,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".home-showcase-section"));
     assert.ok(siteCss.includes(".home-visual"));
     assert.ok(siteCss.includes(".home-showcase-motion"));
+    assert.ok(siteCss.includes("@property --showcase-bg-current"));
+    assert.ok(siteCss.includes("--showcase-card-hover-foreground"));
     assert.ok(siteCss.includes("scroll-snap-type: none;"));
     assert.ok(!siteCss.includes(".home-showcase-rail a.is-active"));
     assert.ok(!homeHtml.includes("home-showcase-rail a"));
@@ -480,6 +482,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("--showcase-bg-current"));
     assert.ok(siteCss.includes("--showcase-bg-next"));
     assert.ok(siteCss.includes("--showcase-bg-mix"));
+    assert.ok(siteCss.includes("transition: opacity 260ms linear;"));
+    assert.ok(siteCss.includes(".home-showcase-copy .topic-index-link"));
+    assert.ok(siteCss.includes("padding: 2.65rem 0.85rem 0.85rem;"));
+    assert.ok(siteCss.includes(".home-showcase-section .topic-card:hover .topic-card-title"));
     assert.ok(siteCss.includes(".home-showcase::before"));
     assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-copy .home-title"));
     assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-cards .topic-card"));
