@@ -616,7 +616,7 @@ canvas {
   }
 
   .home-showcase-hero {
-    min-height: clamp(52rem, 148vh, 78rem);
+    min-height: clamp(34rem, 82vh, 44rem);
   }
 
   .home-showcase-section > .home-showcase-copy,
@@ -627,9 +627,7 @@ canvas {
   }
 
   .home-showcase-hero > .home-showcase-copy,
-  .home-showcase-hero > .home-visual,
-  .home-showcase-contact > .home-showcase-copy,
-  .home-showcase-contact > .home-visual {
+  .home-showcase-hero > .home-visual {
     position: relative;
     top: auto;
   }
@@ -651,7 +649,7 @@ canvas {
 
 .home-showcase-hero {
   grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.92fr);
-  min-height: clamp(52rem, 148vh, 78rem);
+  min-height: clamp(34rem, 82vh, 44rem);
   --section-band: rgb(99 91 255 / 0.26);
   --showcase-foreground: #f7f7f2;
   --showcase-muted: #cbd5e1;
@@ -692,30 +690,64 @@ canvas {
 }
 
 .home-section-map {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
+  grid-template-columns: auto repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+  align-items: center;
   margin-top: clamp(1.2rem, 3vw, 2rem);
-  border: 1px solid var(--showcase-border);
-  background: var(--showcase-border);
+  border-top: 1px solid var(--showcase-border);
+  padding-top: 1rem;
+}
+
+.home-section-map p {
+  margin: 0;
+  color: var(--showcase-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .home-section-map a {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.45rem;
   align-items: center;
-  min-height: 3.4rem;
-  padding: 0.75rem;
-  background: rgb(15 23 42 / 0.62);
+  min-height: 2.6rem;
+  border: 1px solid rgb(247 247 242 / 0.16);
+  border-radius: 999px;
+  padding: 0.45rem 0.65rem 0.45rem 0.45rem;
+  background: rgb(15 23 42 / 0.34);
   color: var(--showcase-foreground);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 800;
   text-decoration: none;
 }
 
+.home-section-map a span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border: 1px solid var(--showcase-border);
+  border-radius: 50%;
+  color: var(--showcase-muted);
+  font-size: 0.62rem;
+  line-height: 1;
+}
+
 .home-section-map a:hover,
 .home-section-map a:focus-visible {
+  border-color: var(--showcase-foreground);
   background: var(--showcase-foreground);
+  color: #111827;
+}
+
+.home-section-map a:hover span,
+.home-section-map a:focus-visible span {
+  border-color: rgb(17 24 39 / 0.25);
   color: #111827;
 }
 
@@ -1586,12 +1618,15 @@ canvas {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: end;
-  margin-top: 3rem;
-  border-top: 1px solid var(--border);
-  padding: 1.25rem 0 0;
+  grid-template-columns: minmax(16rem, 0.65fr) minmax(0, 1.35fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  margin-top: clamp(2rem, 6vw, 4rem);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(118deg, rgb(15 23 42 / 0.06) 0 34%, transparent 34% 100%),
+    var(--surface);
+  padding: clamp(1rem, 2.5vw, 1.4rem);
 }
 
 .site-footer p {
@@ -1605,23 +1640,27 @@ canvas {
   display: flex;
   flex-wrap: wrap;
   justify-content: end;
-  gap: 0.5rem 0.85rem;
+  gap: 0.5rem;
 }
 
 .footer-links a {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.42rem 0.55rem;
+  background: rgb(30 30 30 / 0.035);
   color: var(--text);
   font-family: var(--font-mono);
   font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .footer-links a:hover,
 .footer-links a:focus-visible {
-  color: var(--accent-strong);
-  text-decoration: underline;
-  text-underline-offset: 0.18rem;
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--bg);
+  text-decoration: none;
 }
 
 .topic-hub-header {
@@ -3144,7 +3183,8 @@ mjx-container[jax="SVG"][display="true"] {
   }
 
   .home-section-map {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
   }
 
   .home-section-map a {

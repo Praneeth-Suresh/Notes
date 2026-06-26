@@ -84,6 +84,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Homepage image asset slots | Use five stable checked-in homepage PNG slots under `content/home/images/`, copied to `/assets/home/`, so future visual swaps can be image-only changes without altering homepage markup, CSS, or build logic. | 2026-06-25 | n/a |
 | Homepage image placement containment | Render homepage visual slots with real intrinsic dimensions and contained object fit, with the portrait hero using a portrait frame, so placeholder image swaps remain fully visible rather than cropped by shared landscape framing. | 2026-06-26 | n/a |
 | Homepage five-section routing | Keep the homepage as a motion showcase but make it a concise router to five first-class areas: Research, Projects, Writing, Asks, and Notes. Move searchable topic browsing to `/notes/` so homepage sections stay one message, one action, and one image. | 2026-06-26 | n/a |
+| Homepage section rail and footer | Present the five homepage areas as an indexed independent section rail, keep the hero panel compact, apply the same sticky hold behavior to every non-hero showcase panel, and render the footer as a bordered site-map surface. | 2026-06-26 | n/a |
 
 ## Pressure Points
 
@@ -160,6 +161,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Homepage showcase visuals now render through stable `/assets/home/home-*.png` image slots copied from `content/home/images/`, allowing future homepage visual replacements by changing image files only.
 - Homepage image slots now preserve full-image visibility: the portrait hero uses a portrait-friendly frame, generated markup carries each asset's real intrinsic dimensions, and section cards no longer cover the image placeholder.
 - Homepage now introduces exactly five main areas: Research, Projects, Writing, Asks, and Notes. Each showcase section has concise factual copy, one primary button to the corresponding route, and one image; the searchable topic archive moved to the generated `/notes/` route.
+- Homepage now presents those five main areas as a compact indexed section rail, reduces the hero panel height, keeps Asks on the same sticky scroll-hold behavior as the other showcase panels, and closes the page with a bordered site-map footer.
 
 ## Recording Rule (Design Tree vs ADR)
 

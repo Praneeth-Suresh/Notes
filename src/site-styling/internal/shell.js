@@ -123,21 +123,22 @@ function renderSiteFooter() {
   return `
       <footer class="site-footer" aria-label="Site footer">
         <div>
-          <p class="section-kicker">/ Discovery</p>
-          <p>Static notes, RSS, and source trails for rigorous computer science reading.</p>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
         </div>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start</a>
-          <a href="/research-taste/">Research taste</a>
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
           <a href="/notes/">Notes</a>
           <a href="/projects/">Projects</a>
-          <a href="/blog/">Blog</a>
-          <a href="/about/">Portfolio</a>
-          <a href="/contact/">Contact</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Asks</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
           <a href="/collaborate/">Collaborate</a>
-          <a href="/errata/">Errata</a>
           <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
@@ -1080,13 +1081,15 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
 
 function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const siteSections = [
-    { label: "Research", href: "#home-research" },
-    { label: "Projects", href: "#home-projects" },
-    { label: "Writing", href: "#home-writing" },
-    { label: "Asks", href: "#home-asks" },
-    { label: "Notes", href: "#home-notes" },
+    { index: "01", label: "Research", href: "#home-research" },
+    { index: "02", label: "Projects", href: "#home-projects" },
+    { index: "03", label: "Writing", href: "#home-writing" },
+    { index: "04", label: "Asks", href: "#home-asks" },
+    { index: "05", label: "Notes", href: "#home-notes" },
   ]
-    .map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
+    .map(
+      (item) => `<a href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span> ${escapeHtml(item.label)}</a>`,
+    )
     .join("");
   const conciseSections = [
     {
@@ -1176,7 +1179,8 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
           <p class="home-kicker">[ Computer Science Notes ]</p>
           <h1 id="home-title" class="home-title">Computer Science Notes</h1>
           <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
-          <nav class="home-section-map" aria-label="Five main site sections">
+          <nav class="home-section-map" aria-label="Five independent site sections">
+            <p>Five independent sections</p>
             ${siteSections}
           </nav>
         </div>

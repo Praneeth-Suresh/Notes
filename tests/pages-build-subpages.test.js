@@ -411,6 +411,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes('class="home-bio"'));
     assert.ok(!homeHtml.includes("Start exploring"));
     assert.ok(homeHtml.includes('class="home-section-map"'));
+    assert.ok(homeHtml.includes("Five independent sections"));
+    assert.ok(homeHtml.includes("<span>01</span> Research"));
+    assert.ok(homeHtml.includes("<span>02</span> Projects"));
+    assert.ok(homeHtml.includes("<span>03</span> Writing"));
+    assert.ok(homeHtml.includes("<span>04</span> Asks"));
+    assert.ok(homeHtml.includes("<span>05</span> Notes"));
     assert.ok(homeHtml.includes('href="#home-research"'));
     assert.ok(homeHtml.includes('href="#home-projects"'));
     assert.ok(homeHtml.includes('href="#home-writing"'));
@@ -446,6 +452,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('href="/notes/"'));
     assert.ok(homeHtml.includes("Searchable computer science notes."));
     assert.ok(homeHtml.includes('<footer class="site-footer"'));
+    assert.ok(homeHtml.includes('href="/">Home</a>'));
+    assert.ok(homeHtml.includes('href="/research-taste/">Research</a>'));
+    assert.ok(homeHtml.includes('href="/blog/">Writing</a>'));
+    assert.ok(homeHtml.includes('href="/contact/">Asks</a>'));
     assert.ok(homeHtml.includes('href="/sitemap.xml"'));
     assert.ok(homeHtml.includes('href="/errata/"'));
     assert.ok(homeHtml.includes('href="/subscribe/"'));
@@ -501,6 +511,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("word-break: normal;"));
     assert.ok(siteCss.includes("hyphens: manual;"));
     assert.ok(siteCss.includes(".home-section-map"));
+    assert.ok(siteCss.includes(".home-section-map a span"));
+    assert.ok(siteCss.includes("grid-template-columns: auto repeat(5, minmax(0, 1fr));"));
+    assert.ok(siteCss.includes("border-radius: 999px;"));
+    assert.ok(siteCss.includes("min-height: clamp(34rem, 82vh, 44rem);"));
     assert.ok(siteCss.includes(".home-showcase-notes"));
     assert.ok(siteCss.includes(".home-visual-notes"));
     assert.ok(!siteCss.includes(".home-showcase-fade"));
@@ -533,7 +547,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".home-showcase-section.home-showcase-research .home-showcase-cards"));
     assert.ok(siteCss.includes(".home-showcase-projects .topic-card:nth-child(2)"));
     assert.ok(siteCss.includes(".home-showcase-writing .home-showcase-cards::before"));
-    assert.ok(siteCss.includes(".home-showcase-contact > .home-showcase-copy"));
+    assert.ok(!siteCss.includes(".home-showcase-contact > .home-showcase-copy,\n  .home-showcase-contact > .home-visual"));
     assert.ok(siteCss.includes("position: sticky;"));
     assert.ok(!siteCss.includes("--card-drift"));
     assert.ok(!siteCss.includes("--card-swing"));
