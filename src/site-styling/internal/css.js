@@ -714,10 +714,10 @@ canvas {
 
 .home-showcase-section:not(.home-showcase-hero) .home-showcase-cards {
   z-index: 2;
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1 / -1;
+  grid-row: auto;
   align-self: end;
-  margin-top: clamp(3rem, 12vh, 7rem);
+  margin-top: clamp(1.5rem, 6vh, 4rem);
   overflow: visible;
 }
 
@@ -1028,13 +1028,17 @@ canvas {
 }
 
 .home-visual {
+  --home-visual-ratio: 11 / 6;
   position: relative;
   z-index: 1;
   display: grid;
+  place-items: center;
   min-width: 0;
-  aspect-ratio: 11 / 6;
-  min-height: 100%;
-  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: var(--home-visual-ratio);
+  min-height: 0;
+  align-self: start;
   border: 1px solid var(--showcase-border);
   background: color-mix(in srgb, var(--showcase-card) 78%, transparent);
   color: var(--showcase-foreground);
@@ -1048,8 +1052,14 @@ canvas {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: clamp(20rem, 38vw, 32rem);
-  object-fit: cover;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.home-visual-hero {
+  --home-visual-ratio: 1032 / 1377;
+  justify-self: end;
+  max-width: min(100%, clamp(19rem, 34vw, 34rem));
 }
 
 .home-visual-base {
@@ -3068,12 +3078,8 @@ mjx-container[jax="SVG"][display="true"] {
     line-height: 0.92;
   }
 
-  .home-visual svg {
-    min-height: 16rem;
-  }
-
   .home-showcase-section:not(.home-showcase-hero) .home-visual {
-    display: none;
+    display: grid;
   }
 
   .home-showcase-section .topic-grid {

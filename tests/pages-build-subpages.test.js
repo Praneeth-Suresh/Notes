@@ -385,6 +385,11 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('src="/assets/home/home-projects.png"'));
     assert.ok(homeHtml.includes('src="/assets/home/home-writing.png"'));
     assert.ok(homeHtml.includes('src="/assets/home/home-contact.png"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-hero.png" alt="Notebook, laptop, and technical notes introducing Computer Science Notes." width="1032" height="1377"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-research.png" alt="AI research workspace with paper excerpts, model diagrams, and analysis traces." width="1672" height="941"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-projects.png" alt="Software project workspace with code, tests, prototypes, and implementation notes." width="1320" height="720"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-writing.png" alt="Technical writing desk with marked-up drafts, diagrams, and code references." width="1672" height="941"'));
+    assert.ok(homeHtml.includes('src="/assets/home/home-contact.png" alt="Technical collaboration table with workshop notes, agenda, and project discussion materials." width="1698" height="926"'));
     assert.ok(homeHtml.includes('alt="AI research workspace with paper excerpts, model diagrams, and analysis traces."'));
     assert.ok(!homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes("Theoretical CS: No Handwaving Allowed"));
@@ -466,7 +471,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".home-showcase-section"));
     assert.ok(siteCss.includes(".home-visual"));
     assert.ok(siteCss.includes(".home-visual img"));
-    assert.ok(siteCss.includes("object-fit: cover;"));
+    assert.ok(siteCss.includes("object-fit: contain;"));
+    assert.ok(siteCss.includes("--home-visual-ratio: 11 / 6;"));
+    assert.ok(siteCss.includes(".home-visual-hero"));
+    assert.ok(siteCss.includes("--home-visual-ratio: 1032 / 1377;"));
     assert.ok(siteCss.includes(".home-showcase-motion"));
     assert.ok(siteCss.includes("@property --showcase-bg-current"));
     assert.ok(siteCss.includes("--showcase-card-hover-foreground"));

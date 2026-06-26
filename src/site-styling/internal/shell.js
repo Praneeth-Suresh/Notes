@@ -868,28 +868,38 @@ function renderHomeVisual(kind) {
     hero: {
       src: "/assets/home/home-hero.png",
       alt: "Notebook, laptop, and technical notes introducing Computer Science Notes.",
+      width: 1032,
+      height: 1377,
     },
     research: {
       src: "/assets/home/home-research.png",
       alt: "AI research workspace with paper excerpts, model diagrams, and analysis traces.",
+      width: 1672,
+      height: 941,
     },
     projects: {
       src: "/assets/home/home-projects.png",
       alt: "Software project workspace with code, tests, prototypes, and implementation notes.",
+      width: 1320,
+      height: 720,
     },
     writing: {
       src: "/assets/home/home-writing.png",
       alt: "Technical writing desk with marked-up drafts, diagrams, and code references.",
+      width: 1672,
+      height: 941,
     },
     contact: {
       src: "/assets/home/home-contact.png",
       alt: "Technical collaboration table with workshop notes, agenda, and project discussion materials.",
+      width: 1698,
+      height: 926,
     },
   };
   const visual = variants[kind] || variants.hero;
 
   return `<div class="home-visual home-visual-${kind}">
-  <img src="${visual.src}" alt="${escapeHtml(visual.alt)}" width="1320" height="720" loading="eager" decoding="async" />
+  <img src="${visual.src}" alt="${escapeHtml(visual.alt)}" width="${visual.width}" height="${visual.height}" loading="eager" decoding="async" />
 </div>`;
 }
 
