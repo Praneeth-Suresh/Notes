@@ -652,6 +652,7 @@ async function buildPagesSite({
       { urlPath: "/errata/" },
       { urlPath: "/subscribe/" },
       { urlPath: "/about/" },
+      { urlPath: "/notes/" },
       { urlPath: "/projects/" },
       { urlPath: "/contact/" },
       { urlPath: "/collaborate/" },
@@ -727,6 +728,12 @@ async function buildPagesSite({
       topics,
       searchEntries: searchIndex,
     });
+    const notesHtml = stylingContext.renderNotesIndexPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+      topics,
+      searchEntries: searchIndex,
+    });
     const researchTasteHtml = stylingContext.renderResearchTastePage({
       siteTitle,
       siteUrl: normalizedSiteUrl,
@@ -760,6 +767,7 @@ async function buildPagesSite({
     await writeUtf8File(path.join(buildOutputDir, "errata", "index.html"), errataHtml);
     await writeUtf8File(path.join(buildOutputDir, "subscribe", "index.html"), subscribeHtml);
     await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
+    await writeUtf8File(path.join(buildOutputDir, "notes", "index.html"), notesHtml);
     await writeUtf8File(path.join(buildOutputDir, "projects", "index.html"), projectsHtml);
     await writeUtf8File(path.join(buildOutputDir, "contact", "index.html"), contactHtml);
     await writeUtf8File(path.join(buildOutputDir, "collaborate", "index.html"), collaborateHtml);

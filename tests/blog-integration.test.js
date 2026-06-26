@@ -331,6 +331,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     // Check discovery files include generated blog routes
     const sitemapXml = await fs.readFile(path.join(tmpOut, "sitemap.xml"), "utf8");
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/notes/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/subscribe/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/errata/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</loc>"));
@@ -355,7 +356,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
 
     const homeHtml = await fs.readFile(path.join(tmpOut, "index.html"), "utf8");
     assert.ok(homeHtml.includes('href="/blog/"'));
-    assert.ok(homeHtml.includes("Read writings"));
+    assert.ok(homeHtml.includes("Read writing"));
 
     const algorithmsHtml = await fs.readFile(path.join(tmpOut, "topics", "algorithms", "index.html"), "utf8");
     assert.ok(!algorithmsHtml.includes("Flagship essay"));

@@ -83,6 +83,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Homepage showcase spacing and palette polish | Keep numbered showcase cards clear of titles, make hover states invert card/title contrast together, add explicit heading-to-link spacing, and smooth palette transitions with registered color variables plus reduced redundant scroll style writes. | 2026-06-25 | n/a |
 | Homepage image asset slots | Use five stable checked-in homepage PNG slots under `content/home/images/`, copied to `/assets/home/`, so future visual swaps can be image-only changes without altering homepage markup, CSS, or build logic. | 2026-06-25 | n/a |
 | Homepage image placement containment | Render homepage visual slots with real intrinsic dimensions and contained object fit, with the portrait hero using a portrait frame, so placeholder image swaps remain fully visible rather than cropped by shared landscape framing. | 2026-06-26 | n/a |
+| Homepage five-section routing | Keep the homepage as a motion showcase but make it a concise router to five first-class areas: Research, Projects, Writing, Asks, and Notes. Move searchable topic browsing to `/notes/` so homepage sections stay one message, one action, and one image. | 2026-06-26 | n/a |
 
 ## Pressure Points
 
@@ -158,6 +159,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Homepage showcase cards now reserve more space between index labels and titles, link CTAs below large headings use an explicit vertical gap, hover cards keep titles readable on light emphasis surfaces, and fixed palette changes animate instead of snapping on active-section changes.
 - Homepage showcase visuals now render through stable `/assets/home/home-*.png` image slots copied from `content/home/images/`, allowing future homepage visual replacements by changing image files only.
 - Homepage image slots now preserve full-image visibility: the portrait hero uses a portrait-friendly frame, generated markup carries each asset's real intrinsic dimensions, and section cards no longer cover the image placeholder.
+- Homepage now introduces exactly five main areas: Research, Projects, Writing, Asks, and Notes. Each showcase section has concise factual copy, one primary button to the corresponding route, and one image; the searchable topic archive moved to the generated `/notes/` route.
 
 ## Recording Rule (Design Tree vs ADR)
 

@@ -2,6 +2,7 @@
 
 const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 const HOME_DESCRIPTION = "A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.";
+const NOTES_DESCRIPTION = "Searchable computer science notes organized by topic, subpage, and study trail across algorithms, systems, AI engineering, software engineering, and agentic coding.";
 const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflections from Computer Science Notes.";
 const START_HERE_DESCRIPTION = "A guided first path through Computer Science Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
 const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails.";
@@ -128,7 +129,7 @@ function renderSiteFooter() {
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="/start-here/">Start</a>
           <a href="/research-taste/">Research taste</a>
-          <a href="/#main-content">Notes</a>
+          <a href="/notes/">Notes</a>
           <a href="/projects/">Projects</a>
           <a href="/blog/">Blog</a>
           <a href="/about/">Portfolio</a>
@@ -223,7 +224,7 @@ function createSiteIdentitySchemas({ siteTitle, canonicalUrl }) {
         "@type": "SearchAction",
         target: {
           "@type": "EntryPoint",
-          urlTemplate: `${siteUrl}/?q={search_term_string}#topic-search`,
+          urlTemplate: `${siteUrl}/notes/?q={search_term_string}#topic-search`,
         },
         "query-input": "required name=search_term_string",
       },
@@ -552,7 +553,7 @@ ${metadataHtml}
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
           <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/#main-content" data-hotkey="N">Notes</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
           <a href="/contact/" data-hotkey="C">Contact</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
@@ -895,12 +896,130 @@ function renderHomeVisual(kind) {
       width: 1698,
       height: 926,
     },
+    notes: {
+      src: "/assets/home/home-hero.png",
+      alt: "Notebook, laptop, and technical notes introducing Computer Science Notes.",
+      width: 1032,
+      height: 1377,
+    },
   };
   const visual = variants[kind] || variants.hero;
 
   return `<div class="home-visual home-visual-${kind}">
   <img src="${visual.src}" alt="${escapeHtml(visual.alt)}" width="${visual.width}" height="${visual.height}" loading="eager" decoding="async" />
 </div>`;
+}
+
+function renderTopicHub({ topics, searchEntries = [] }) {
+  const topicCount = topics.length;
+  const topicWord = topicCount === 1 ? "topic" : "topics";
+  const firstTopicLink =
+    topics.length > 0
+      ? `<a class="topic-index-link" href="/start-here/">Start here</a>`
+      : "";
+  const cards = topics
+    .map(
+      (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}"${index < 9 ? ` data-hotkey="${index + 1}"` : ""}>
+  <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
+  <p class="topic-card-description">${escapeHtml(topic.description ?? "")}</p>
+</a>`,
+    )
+    .join("");
+  const topicsPayload = safeJsonForScript(
+    topics.map((topic) => ({
+      slug: topic.slug,
+      title: topic.title,
+      description: topic.description ?? "",
+      urlPath: `/topics/${topic.slug}/`,
+    })),
+  );
+  const searchPayload = safeJsonForScript(
+    searchEntries.length > 0
+      ? searchEntries.map((entry) => ({
+          slug: entry.slug,
+          title: entry.title,
+          description: entry.description ?? "",
+          searchableText: entry.searchableText ?? "",
+          urlPath: entry.urlPath ?? `/topics/${entry.slug}/`,
+          parentTitle: entry.parentTitle ?? "",
+        }))
+      : topics.map((topic) => ({
+          slug: topic.slug,
+          title: topic.title,
+          description: topic.description ?? "",
+          searchableText: `${topic.title} ${topic.description ?? ""}`,
+          urlPath: `/topics/${topic.slug}/`,
+          parentTitle: "",
+        })),
+  );
+
+  return `
+    <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
+      <div class="topic-hub-header">
+        <div>
+          <p class="section-kicker">/ Notes</p>
+          <h1 id="topics-title" class="section-title">Search the notes archive.</h1>
+          <p class="topic-hub-intro">Topic archives pulled from my study system. Search algorithms, operating systems, AI engineering, software engineering, and agentic coding subpages.</p>
+        </div>
+        ${firstTopicLink}
+      </div>
+      <label class="topic-search-label" for="topic-search">Search topics and subpages</label>
+      <input id="topic-search" class="topic-search" type="search" placeholder="Try algorithms, systems, coding..." aria-describedby="topic-search-status" />
+      <p id="topic-search-status" class="topic-search-status" aria-live="polite">${topicCount} ${topicWord} available.</p>
+      <div id="topic-grid" class="topic-grid">${cards}</div>
+    </section>
+    <script>
+      const topics = ${topicsPayload};
+      const searchEntries = ${searchPayload};
+      const input = document.getElementById("topic-search");
+      const grid = document.getElementById("topic-grid");
+      const status = document.getElementById("topic-search-status");
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function render(items) {
+        grid.innerHTML = items.map((topic, index) => \`
+          <a class="topic-card" href="\${topic.urlPath}" data-index="\${String(index + 1).padStart(2, "0")}"\${index < 9 ? \` data-hotkey="\${index + 1}"\` : ""}>
+            <h3 class="topic-card-title">\${escapeHtml(topic.title)}</h3>
+            \${topic.parentTitle ? \`<p class="topic-card-parent">\${escapeHtml(topic.parentTitle)}</p>\` : ""}
+            <p class="topic-card-description">\${escapeHtml(topic.description)}</p>
+          </a>
+        \`).join("");
+        const word = items.length === 1 ? "result" : "results";
+        status.textContent = \`\${items.length} \${word} shown.\`;
+      }
+
+      function applySearch() {
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+          render(topics);
+          return;
+        }
+
+        const filtered = searchEntries.filter((topic) =>
+          topic.title.toLowerCase().includes(query) ||
+          topic.description.toLowerCase().includes(query) ||
+          topic.searchableText.toLowerCase().includes(query) ||
+          topic.parentTitle.toLowerCase().includes(query)
+        );
+        render(filtered);
+      }
+
+      const initialQuery = new URLSearchParams(window.location.search).get("q");
+      if (initialQuery) {
+        input.value = initialQuery;
+      }
+      input.addEventListener("input", applySearch);
+      applySearch();
+    </script>
+  `;
 }
 
 function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicContentHtml, topics }) {
@@ -959,267 +1078,112 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
   });
 }
 
-function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [], projectsData = DEFAULT_PROJECTS_DATA }) {
-  const topicCount = topics.length;
-  const topicWord = topicCount === 1 ? "topic" : "topics";
-  const firstTopicLink =
-    topics.length > 0
-      ? `<a class="topic-index-link" href="/start-here/">Start here</a>`
-      : "";
-  const cards = topics
-    .map(
-      (topic, index) => `<a class="topic-card" href="/topics/${escapeHtml(topic.slug)}/" data-index="${String(index + 1).padStart(2, "0")}"${index < 9 ? ` data-hotkey="${index + 1}"` : ""}>
-  <h3 class="topic-card-title">${escapeHtml(topic.title)}</h3>
-  <p class="topic-card-description">${escapeHtml(topic.description ?? "")}</p>
-</a>`,
-    )
-    .join("");
-  const exploreCards = [
-    {
-      index: "01",
-      title: "Notes by topic",
-      description: "Browse organized computer science notes across algorithms, systems, AI engineering, software engineering, and agent-building.",
-      href: "#main-content",
-    },
-    {
-      index: "02",
-      title: "Essays and research notes",
-      description: "Read longer-form writing about AI research, interpretability, deep learning, projects, and technical thinking.",
-      href: "/blog/",
-    },
-    {
-      index: "03",
-      title: "AI research trail",
-      description: "Follow the papers and questions shaping my current research taste.",
-      href: "/research-taste/",
-    },
-    {
-      index: "04",
-      title: "Projects",
-      description: "See selected software, AI, and systems work behind the notes.",
-      href: "/projects/",
-    },
-    {
-      index: "05",
-      title: "Portfolio",
-      description: "Inspect the author, research taste, leadership, and professional context behind the site.",
-      href: "/about/",
-    },
-    {
-      index: "06",
-      title: "Start here",
-      description: "Use a guided path if you want a first route through the site.",
-      href: "/start-here/",
-    },
+function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const siteSections = [
+    { label: "Research", href: "#home-research" },
+    { label: "Projects", href: "#home-projects" },
+    { label: "Writing", href: "#home-writing" },
+    { label: "Asks", href: "#home-asks" },
+    { label: "Notes", href: "#home-notes" },
   ]
-    .map(
-      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
-  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
-  <p class="topic-card-description">${escapeHtml(card.description)}</p>
-</a>`,
-    )
+    .map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
     .join("");
-  const selectedProjects = getProjectItems(projectsData)
-    .slice(0, 3)
-    .map(
-      (project, index) => `<a class="topic-card" href="/projects/${escapeHtml(project.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
-  <h3 class="topic-card-title">${escapeHtml(project.title)}</h3>
-  <p class="topic-card-description">${escapeHtml(project.summary)}</p>
-</a>`,
-    )
-    .join("");
-  const selectedWriting = [
+  const conciseSections = [
     {
-      index: "01",
-      title: "The mental models of deep learning",
-      description: "A paper-backed AI research trail through universal approximation, CNNs, transformers, and deep RL.",
-      href: FLAGSHIP_ESSAY_PATH,
+      id: "home-research",
+      className: "home-showcase-research",
+      kicker: "/ Research",
+      title: "Paper-backed AI research notes.",
+      copy: "Reading trails and essays that connect papers to mechanisms: interpretability, model evaluation, deep learning, memory, routing, and agent reliability.",
+      buttonText: "Read research trail",
+      buttonHref: "/research-taste/",
+      visual: "research",
+      motionBg: "#0b1220",
+      motionNext: "#10231e",
+      motionStyle: "scan",
     },
     {
-      index: "02",
-      title: "NP-Completeness: formal definitions and reductions",
-      description: "A proof-backed algorithms essay about hardness evidence and how reductions change design targets.",
-      href: "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/",
+      id: "home-projects",
+      className: "home-showcase-projects",
+      kicker: "/ Projects",
+      title: "Selected systems with evidence.",
+      copy: "Software and AI projects shown with problem, method, result, code links, write-ups, status, and tradeoffs.",
+      buttonText: "View projects",
+      buttonHref: "/projects/",
+      visual: "projects",
+      motionBg: "#10231e",
+      motionNext: "#6f7a6f",
+      motionStyle: "build",
     },
     {
-      index: "03",
-      title: "Peeking inside the black box",
-      description: "Interpretability notes that connect AI research reading to practical model-inspection questions.",
-      href: "/blog/peeking-inside-the-black-box/",
+      id: "home-writing",
+      className: "home-showcase-writing",
+      kicker: "/ Writing",
+      title: "Essays about technical ideas.",
+      copy: "Longer-form writing on deep learning, algorithms, project lessons, and the process behind building technical systems.",
+      buttonText: "Read writing",
+      buttonHref: "/blog/",
+      visual: "writing",
+      motionBg: "#6f7a6f",
+      motionNext: "#253340",
+      motionStyle: "index",
     },
-  ]
+    {
+      id: "home-asks",
+      className: "home-showcase-contact",
+      kicker: "/ Asks",
+      title: "Open routes for specific conversations.",
+      copy: "Contact me about research, AI engineering internships, consulting prototypes, or NUS AI Society speakers, workshops, sponsors, and partnerships.",
+      buttonText: "Contact me",
+      buttonHref: "/contact/",
+      visual: "contact",
+      motionBg: "#253340",
+      motionNext: "#7c8894",
+    },
+    {
+      id: "home-notes",
+      className: "home-showcase-notes",
+      kicker: "/ Notes",
+      title: "Searchable computer science notes.",
+      copy: "Topic archives pulled from my study system, organized by topic and subpage across algorithms, systems, AI engineering, software engineering, and agentic coding.",
+      buttonText: "Browse notes",
+      buttonHref: "/notes/",
+      visual: "notes",
+      motionBg: "#7c8894",
+      motionNext: "#f1efe7",
+    },
+  ];
+  const showcaseSections = conciseSections
     .map(
-      (card) => `<a class="topic-card" href="${escapeHtml(card.href)}" data-index="${card.index}">
-  <h3 class="topic-card-title">${escapeHtml(card.title)}</h3>
-  <p class="topic-card-description">${escapeHtml(card.description)}</p>
-</a>`,
+      (section) => `<section id="${escapeHtml(section.id)}" class="home-showcase-section ${escapeHtml(section.className)}" aria-labelledby="${escapeHtml(section.id)}-title" data-motion-bg="${escapeHtml(section.motionBg)}" data-motion-next="${escapeHtml(section.motionNext)}"${section.motionStyle ? ` data-motion-style="${escapeHtml(section.motionStyle)}"` : ""}>
+        <div class="home-showcase-copy">
+          <p class="section-kicker">${escapeHtml(section.kicker)}</p>
+          <h2 id="${escapeHtml(section.id)}-title" class="section-title">${escapeHtml(section.title)}</h2>
+          <p class="home-intro">${escapeHtml(section.copy)}</p>
+          <div class="home-actions" aria-label="${escapeHtml(section.kicker.replace("/", "").trim())} actions">
+            <a class="primary-action" href="${escapeHtml(section.buttonHref)}">${escapeHtml(section.buttonText)}</a>
+          </div>
+        </div>
+        ${renderHomeVisual(section.visual)}
+      </section>`,
     )
     .join("");
-  const currentAsks = [
-    "Research conversations around interpretability, model evaluation, representation analysis, memory, routing, and agent reliability.",
-    "AI engineering internship paths where rigorous ML systems, tooling, and evaluation matter.",
-    "Consulting or prototype work for founders who need fast, inspectable AI engineering execution.",
-    "NUS AI Society collaboration, speakers, workshops, sponsors, and technically serious community projects.",
-  ]
-    .map((ask) => `<li class="ask-item">${escapeHtml(ask)}</li>`)
-    .join("");
-
-  const topicsPayload = safeJsonForScript(
-    topics.map((topic) => ({
-      slug: topic.slug,
-      title: topic.title,
-      description: topic.description ?? "",
-      urlPath: `/topics/${topic.slug}/`,
-    })),
-  );
-  const searchPayload = safeJsonForScript(
-    searchEntries.length > 0
-      ? searchEntries.map((entry) => ({
-          slug: entry.slug,
-          title: entry.title,
-          description: entry.description ?? "",
-          searchableText: entry.searchableText ?? "",
-          urlPath: entry.urlPath ?? `/topics/${entry.slug}/`,
-          parentTitle: entry.parentTitle ?? "",
-        }))
-      : topics.map((topic) => ({
-          slug: topic.slug,
-          title: topic.title,
-          description: topic.description ?? "",
-          searchableText: `${topic.title} ${topic.description ?? ""}`,
-          urlPath: `/topics/${topic.slug}/`,
-          parentTitle: "",
-        })),
-  );
-
   const content = `
+    <span id="main-content" class="skip-target" tabindex="-1"></span>
     <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
       <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#05060a" data-motion-next="#0b1220">
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Computer Science Notes ]</p>
-          <h1 id="home-title" class="home-title" aria-label="Theoretical CS: No Handwaving Allowed"><span>Theoretical CS:</span><span>No Handwaving</span><span>Allowed</span></h1>
-          <p class="home-intro">A collection of my work across computer science: notes from what I study, essays about ideas I am working through, research reading in AI, and projects that turn those ideas into systems.</p>
-          <div class="home-actions" aria-label="Primary actions">
-            <a class="primary-action" href="#main-content">Explore notes</a>
-            <a class="secondary-action" href="/start-here/" data-hotkey="S">Start here</a>
-            <a class="secondary-action" href="/blog/">Read writings</a>
-            <a class="secondary-action" href="/research-taste/">AI research trail</a>
-            <a class="secondary-action" href="/projects/" data-hotkey="P">Projects</a>
-            <a class="secondary-action" href="/about/" data-hotkey="A">Portfolio</a>
-            <a class="secondary-action" href="#topic-search" data-hotkey="/">Search notes</a>
-          </div>
+          <h1 id="home-title" class="home-title">Computer Science Notes</h1>
+          <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
+          <nav class="home-section-map" aria-label="Five main site sections">
+            ${siteSections}
+          </nav>
         </div>
         ${renderHomeVisual("hero")}
-        <div class="home-explore-band" aria-labelledby="home-explore-title">
-          <div>
-            <p class="section-kicker">/ Start exploring</p>
-            <h2 id="home-explore-title" class="section-title">Pick a doorway</h2>
-          </div>
-          <div class="topic-grid">${exploreCards}</div>
-        </div>
       </section>
-      <section id="home-research" class="home-showcase-section home-showcase-research" aria-labelledby="home-research-title" data-motion-bg="#0b1220" data-motion-next="#10231e" data-motion-style="scan">
-        <div class="home-showcase-copy">
-          <p class="section-kicker">/ Research</p>
-          <h2 id="home-research-title" class="section-title">Read my best technical write-ups.</h2>
-          <a class="topic-index-link" href="/blog/">Read all writing</a>
-        </div>
-        ${renderHomeVisual("research")}
-        <div class="home-showcase-cards topic-grid">${selectedWriting}</div>
-      </section>
-      <section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#10231e" data-motion-next="#6f7a6f" data-motion-style="build">
-        <div class="home-showcase-copy">
-          <p class="section-kicker">/ Selected projects</p>
-          <h2 id="home-projects-title" class="section-title">See the work, not just the archive.</h2>
-          <a class="topic-index-link" href="/projects/">See my projects</a>
-        </div>
-        ${renderHomeVisual("projects")}
-        <div class="home-showcase-cards topic-grid">${selectedProjects}</div>
-      </section>
-      <section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#6f7a6f" data-motion-next="#f1efe7" data-motion-style="index">
-        <div class="home-showcase-copy">
-          <p class="section-kicker">/ Selected writing</p>
-          <h2 id="home-writing-title" class="section-title">Read my best technical write-ups.</h2>
-          <a class="topic-index-link" href="/blog/">Read all writing</a>
-        </div>
-        ${renderHomeVisual("writing")}
-        <div class="home-showcase-cards topic-grid">${selectedWriting}</div>
-      </section>
-      <section id="home-contact" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#253340" data-motion-next="#7c8894">
-        <div class="home-showcase-copy">
-          <p class="section-kicker">/ Current asks</p>
-          <h2 id="home-asks-title" class="section-title">Contact me about research, internships, consulting, or NUS AI Society collaboration.</h2>
-          <div class="home-actions" aria-label="Current ask actions">
-            <a class="primary-action" href="/contact/">Contact me</a>
-            <a class="secondary-action" href="/collaborate/">Collaborate</a>
-          </div>
-        </div>
-        ${renderHomeVisual("contact")}
-        <div class="portfolio-philosophy-grid">
-          <ul class="ask-list">${currentAsks}</ul>
-          <p>Best next step: start from a specific overlap, link, paper, project, team, or event idea. The site is designed to make that context quick to inspect.</p>
-        </div>
-        ${renderSubscribePanel({ source: "home" })}
-      </section>
+      ${showcaseSections}
     </div>
-    <section id="main-content" class="panel topic-hub" aria-labelledby="topics-title">
-      <div class="topic-hub-header">
-        <div>
-          <p class="section-kicker">/ Notes</p>
-          <h2 id="topics-title" class="section-title">Browse by topic</h2>
-          <p class="topic-hub-intro">These are my computer science notes: linked topic archives pulled from my study system, organized so you can move from a broad field into the exact subpage you want to read.</p>
-        </div>
-        ${firstTopicLink}
-      </div>
-      <label class="topic-search-label" for="topic-search">Search topics</label>
-      <input id="topic-search" class="topic-search" type="search" placeholder="Try algorithms, systems, coding..." aria-describedby="topic-search-status" />
-      <p id="topic-search-status" class="topic-search-status" aria-live="polite">${topicCount} ${topicWord} available.</p>
-      <div id="topic-grid" class="topic-grid">${cards}</div>
-    </section>
-    <script>
-      const topics = ${topicsPayload};
-      const searchEntries = ${searchPayload};
-      const input = document.getElementById("topic-search");
-      const grid = document.getElementById("topic-grid");
-      const status = document.getElementById("topic-search-status");
-
-      function escapeHtml(value) {
-        return String(value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#39;");
-      }
-
-      function render(items) {
-        grid.innerHTML = items.map((topic, index) => \`
-          <a class="topic-card" href="\${topic.urlPath}" data-index="\${String(index + 1).padStart(2, "0")}"\${index < 9 ? \` data-hotkey="\${index + 1}"\` : ""}>
-            <h3 class="topic-card-title">\${escapeHtml(topic.title)}</h3>
-            \${topic.parentTitle ? \`<p class="topic-card-parent">\${escapeHtml(topic.parentTitle)}</p>\` : ""}
-            <p class="topic-card-description">\${escapeHtml(topic.description)}</p>
-          </a>
-        \`).join("");
-        const word = items.length === 1 ? "result" : "results";
-        status.textContent = \`\${items.length} \${word} shown.\`;
-      }
-
-      input.addEventListener("input", () => {
-        const query = input.value.trim().toLowerCase();
-        if (!query) {
-          render(topics);
-          return;
-        }
-
-        const filtered = searchEntries.filter((topic) =>
-          topic.title.toLowerCase().includes(query) ||
-          topic.description.toLowerCase().includes(query) ||
-          topic.searchableText.toLowerCase().includes(query) ||
-          topic.parentTitle.toLowerCase().includes(query)
-        );
-        render(filtered);
-      });
-    </script>
   `;
 
   return renderLayout({
@@ -1230,8 +1194,28 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchE
     includeHomeShowcaseMotion: true,
     description: HOME_DESCRIPTION,
     canonicalUrl: absoluteUrl(siteUrl, "/"),
-    ogTitle: `Theoretical CS: No Handwaving Allowed · ${siteTitle}`,
+    ogTitle: siteTitle,
     ogDescription: HOME_DESCRIPTION,
+  });
+}
+
+function renderNotesIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [] }) {
+  const content = renderTopicHub({ topics, searchEntries });
+
+  return renderLayout({
+    pageTitle: `Notes · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "notes-index-page",
+    description: NOTES_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, "/notes/"),
+    ogTitle: `Notes · ${siteTitle}`,
+    ogDescription: NOTES_DESCRIPTION,
+    pageSchemaType: "CollectionPage",
+    structuredData: createBreadcrumbSchema([
+      { name: "Home", url: absoluteUrl(siteUrl, "/") },
+      { name: "Notes", url: absoluteUrl(siteUrl, "/notes/") },
+    ]),
   });
 }
 
@@ -1358,7 +1342,7 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
     <nav class="topic-nav" aria-label="Start here navigation">
       <a href="/" data-hotkey="H">Home</a>
       <a class="active" href="/start-here/" data-hotkey="S" aria-current="page">Start here</a>
-      <a href="/#main-content" data-hotkey="N">Notes</a>
+      <a href="/notes/" data-hotkey="N">Notes</a>
       <a href="/blog/" data-hotkey="B">Blog</a>
     </nav>
     <section id="main-content" class="start-hero" aria-labelledby="start-title">
@@ -1460,7 +1444,7 @@ function renderResearchTastePage({
       <a href="/" data-hotkey="H">Home</a>
       <a href="/start-here/" data-hotkey="S">Start here</a>
       <a class="active" href="/research-taste/" aria-current="page">Research taste</a>
-      <a href="/#main-content" data-hotkey="N">Notes</a>
+      <a href="/notes/" data-hotkey="N">Notes</a>
       <a href="/blog/" data-hotkey="B">Blog</a>
     </nav>
     <section id="main-content" class="research-hero" aria-labelledby="research-title">
@@ -2172,6 +2156,7 @@ module.exports = {
   renderContactPage,
   renderErrataPage,
   renderHomePage,
+  renderNotesIndexPage,
   renderPersonalPage,
   renderProjectPage,
   renderProjectsIndexPage,
