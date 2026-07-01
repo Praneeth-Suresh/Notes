@@ -1193,12 +1193,13 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
           <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
           <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
           <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
-          <nav class="home-section-map" aria-label="Five independent site sections">
-            <p>Section atlas</p>
-            ${siteSections}
-          </nav>
         </div>
         ${renderHomeVisual("hero")}
+        <nav class="home-section-map" aria-label="Five independent site sections">
+          <div class="home-section-count" aria-hidden="true"><strong>5</strong><span>sections</span></div>
+          <p>Section atlas</p>
+          ${siteSections}
+        </nav>
       </section>
       ${showcaseSections}
     </div>

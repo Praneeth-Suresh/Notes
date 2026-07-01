@@ -411,6 +411,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes('class="home-bio"'));
     assert.ok(!homeHtml.includes("Start exploring"));
     assert.ok(homeHtml.includes('class="home-section-map"'));
+    assert.ok(homeHtml.includes('class="home-section-count"'));
+    assert.ok(homeHtml.includes("<strong>5</strong><span>sections</span>"));
     assert.ok(homeHtml.includes("Section atlas"));
     assert.ok(homeHtml.includes("<span>01</span><strong>/ Research</strong><em>Paper trails</em>"));
     assert.ok(homeHtml.includes("<span>02</span><strong>/ Projects</strong><em>Proof of work</em>"));
@@ -512,10 +514,14 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("hyphens: manual;"));
     assert.ok(siteCss.includes(".home-section-map"));
     assert.ok(siteCss.includes(".home-section-map a span"));
-    assert.ok(siteCss.includes("grid-template-columns: repeat(5, minmax(0, 1fr));"));
+    assert.ok(siteCss.includes("grid-template-columns: minmax(7rem, 0.36fr) repeat(5, minmax(0, 1fr));"));
+    assert.ok(siteCss.includes(".home-section-count"));
     assert.ok(siteCss.includes(".home-section-map a strong"));
+    assert.ok(siteCss.includes("white-space: nowrap;"));
     assert.ok(siteCss.includes("border-right: 1px solid var(--showcase-border);"));
     assert.ok(!siteCss.includes("grid-template-columns: auto minmax(0, 1fr);"));
+    assert.ok(siteCss.includes(".home-section-map a:last-child"));
+    assert.ok(siteCss.includes("linear-gradient(180deg, #000, #030308 58%, #05080a);"));
     assert.ok(siteCss.includes("min-height: clamp(34rem, 82vh, 44rem);"));
     assert.ok(siteCss.includes(".home-showcase-notes"));
     assert.ok(siteCss.includes(".home-visual-notes"));
