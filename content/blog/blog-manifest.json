@@ -8,6 +8,25 @@
       "subtitle": "paper-backed essays",
       "posts": [
         {
+          "slug": "a-research-program-for-inspectable-ml",
+          "title": "A Research Program for Inspectable ML",
+          "description": "An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.",
+          "socialPreview": "Why the next phase of deep learning depends on making interpretability and representation analysis rigorous, not just scaling models.",
+          "tags": ["AI research", "interpretability", "representation analysis"],
+          "faq": [
+            {
+              "question": "Is this just about scaling models?",
+              "answer": "No. The essay argues that progress comes from organizing computation around the structure of a task, then making learned representations inspectable enough to evaluate and trust."
+            },
+            {
+              "question": "What kind of interpretability does this argue for?",
+              "answer": "It favors frozen-model tools such as probing, representation analysis, attribution, and information-theoretic views that can become standard evaluation interfaces around trained systems."
+            }
+          ],
+          "chapter": null,
+          "markdownFile": "posts/a-research-program-for-inspectable-ml.md"
+        },
+        {
           "slug": "tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers",
           "title": "The mental models of deep learning",
           "description": "AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.",
@@ -71,6 +90,50 @@
           "tags": ["AI", "reflection"],
           "chapter": null,
           "markdownFile": "posts/what-exactly-are-we-doing.md"
+        }
+      ]
+    },
+    {
+      "title": "Engineering & Research Write-Ups",
+      "subtitle": "project deep dives",
+      "posts": [
+        {
+          "slug": "engineering-discipline-for-agentic-coding",
+          "title": "An Engineering Discipline for Agentic Coding",
+          "description": "A project write-up on treating agent-assisted development as a verifiable engineering system with operating rules, skills, checks, and review boundaries.",
+          "socialPreview": "Agentic coding works best when stochastic generation is surrounded by deterministic checks, clear boundaries, and human accountability.",
+          "tags": ["agents", "AI engineering", "developer-tools"],
+          "faq": [
+            {
+              "question": "Is AgentCoding just a prompt collection?",
+              "answer": "No. The write-up frames AgentCoding as an operating system for agent-assisted development: canonical instructions, task routing, deterministic gates, security policy, and final reporting."
+            },
+            {
+              "question": "What problem does it solve?",
+              "answer": "It targets the reliability problem created when agents can generate code faster than humans can inspect it, using repository rules and checks to keep behavior bounded and reviewable."
+            }
+          ],
+          "chapter": null,
+          "markdownFile": "posts/engineering-discipline-for-agentic-coding.md"
+        },
+        {
+          "slug": "forecasting-the-limit-order-book",
+          "title": "Forecasting the Limit Order Book",
+          "description": "An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.",
+          "socialPreview": "A candid applied-ML case study on noisy limit order book forecasting, strong baselines, sequence models, and what the current metrics do and do not prove.",
+          "tags": ["machine-learning", "forecasting", "interpretability"],
+          "faq": [
+            {
+              "question": "Does this claim to be a production trading model?",
+              "answer": "No. The write-up presents exploratory notebook results and explicitly separates baseline metrics, validation signals, and reproducibility limitations from production claims."
+            },
+            {
+              "question": "Why include interpretability probes?",
+              "answer": "Because noisy financial data can reward artifacts. Feature ablation, saliency, and integrated gradients help test whether model behavior is tied to plausible order-book structure."
+            }
+          ],
+          "chapter": null,
+          "markdownFile": "posts/forecasting-the-limit-order-book.md"
         }
       ]
     },

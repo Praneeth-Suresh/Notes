@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Forecasting the Limit Order Book · Blog · Computer Science Notes</title>
+
+    <meta name="description" content="An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" />
+    <meta property="og:title" content="Forecasting the Limit Order Book · Blog · Computer Science Notes" />
+    <meta property="og:description" content="A candid applied-ML case study on noisy limit order book forecasting, strong baselines, sequence models, and what the current metrics do and do not prove." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Forecasting the Limit Order Book · Blog · Computer Science Notes" />
+    <meta name="twitter:description" content="A candid applied-ML case study on noisy limit order book forecasting, strong baselines, sequence models, and what the current metrics do and do not prove." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/","name":"Forecasting the Limit Order Book · Blog · Computer Science Notes","description":"An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#blogposting","headline":"Forecasting the Limit Order Book","description":"An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/","keywords":"machine-learning, forecasting, interpretability"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#faq","mainEntity":[{"@type":"Question","name":"Does this claim to be a production trading model?","acceptedAnswer":{"@type":"Answer","text":"No. The write-up presents exploratory notebook results and explicitly separates baseline metrics, validation signals, and reproducibility limitations from production claims."}},{"@type":"Question","name":"Why include interpretability probes?","acceptedAnswer":{"@type":"Answer","text":"Because noisy financial data can reward artifacts. Feature ablation, saliency, and integrated gradients help test whether model behavior is tied to plausible order-book structure."}}]}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Computer Science Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Engineering &amp; Research Write-Ups</p>
+        <h1>Forecasting the Limit Order Book</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">machine-learning</span><span class="topic-label topic-label-default">forecasting</span><span class="topic-label topic-label-default">interpretability</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" data-analytics-event="copy_share_link_click">Copy link</button>
+      </header>
+      <article class="blog-article"><p>I built a research notebook that studies whether short-horizon mid-price movement can be predicted from raw limit order book (LOB) features, benchmarking a logistic baseline, an MLP, and a DeepLOB-style sequence model, and then interrogating the best model with feature ablation and gradient-based interpretability probes.</p>
+<h2>Why This Matters</h2>
+<p>Limit order books are one of the hardest, most honest datasets in applied machine learning. They are high-frequency, non-stationary, heavily imbalanced, and have a brutally weak signal-to-noise ratio. If you want to find out quickly whether a modeling idea actually carries information or is just memorizing noise, market microstructure is an unforgiving place to test it.</p>
+<p>That is precisely why I chose it. Mid-price forecasting forces a model to confront the three problems that quietly break most real-world ML systems at once: class imbalance (price often does not move at all within a short horizon), temporal dependence (rows are not i.i.d., so naive shuffling leaks information), and low signal strength (the gap between a strong baseline and a &quot;smart&quot; model is small and easy to fake). A method that looks impressive on clean benchmarks frequently collapses here.</p>
+<p>There is a second reason this project matters to me, and it connects to my broader thesis of building inspectable systems. A model that claims to predict price movement should be able to tell you <em>why</em> - which book levels, which side of the book, which engineered features drive the decision. So I deliberately treated this not only as a forecasting task but as a testbed for interpretability. A predictor that cannot expose its own reasoning is not trustworthy, and in a domain where the &quot;signal&quot; can easily be an artifact of the split, interpretability is not a nice-to-have. It is the difference between a result and a coincidence.</p>
+<h2>Problem Setup</h2>
+<p>The task is short-horizon mid-price movement classification. Given a window of recent order-book state - bid and ask prices and volumes across multiple levels - predict whether the mid-price will move up, down, or stay flat over a short future horizon.</p>
+<p>I used the benchmark dataset by Ntakaris et al., &quot;Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods&quot; (<em>Journal of Forecasting</em>, 2018), accessed through Kaggle. This dataset is a good choice because it is an established academic benchmark rather than a bespoke scrape, which makes the framing comparable to prior work and keeps me honest about whether my numbers are reasonable.</p>
+<p>The hard parts of the setup are not the model - they are everything before it:</p>
+<ul>
+<li><strong>Imbalance.</strong> The &quot;no movement&quot; class dominates, so accuracy alone is a misleading headline metric. A model that always predicts &quot;flat&quot; can look deceptively competent.</li>
+<li><strong>Temporal leakage.</strong> Order-book rows are sequential and autocorrelated. If you build train/validation/test splits by random shuffling, future information bleeds into training and inflates every number you report. Splits have to respect time.</li>
+<li><strong>Feature scale.</strong> Price and volume features live on very different scales and drift over time, so normalization choices materially change what the model can learn.</li>
+</ul>
+<p>The notebook (<code>baseline.ipynb</code>) contains the full pipeline end to end: parsing the raw LOB text files, cleaning and normalizing features, constructing splits, training each model, evaluating with class-aware reports, and running interpretability probes on the strongest model.</p>
+<h2>Method</h2>
+<p>I structured the work as a ladder of increasing model complexity, so that every step up has to <em>earn</em> its complexity against a simpler predecessor.</p>
+<pre><code class="language-text">Kaggle LOB text files
+      -&gt; Parse order-book rows
+      -&gt; Clean and normalize features
+      -&gt; Time-respecting train/validation/test splits
+      -&gt; [Logistic baseline] [MLP baseline] [DeepLOB-style sequence model]
+      -&gt; Accuracy and per-class reports
+      -&gt; Feature ablation, saliency, integrated gradients (on best model)
+</code></pre>
+<p><strong>Baseline 1 - Logistic regression.</strong> The cheapest possible model on normalized features. Its job is to set the bar. In noisy financial data, a well-regularized linear model is shockingly hard to beat, and if a deep model cannot clear it, the deep model is not learning structure - it is learning to overfit.</p>
+<p><strong>Baseline 2 - MLP.</strong> A small feedforward network on the same features. This isolates one question: does adding non-linear capacity on the <em>same</em> representation help? If the MLP underperforms the logistic baseline, the bottleneck is the representation, not the model class.</p>
+<p><strong>Sequence model - DeepLOB-style architecture.</strong> The most expressive model, designed around the structure of the data rather than against it. DeepLOB-style architectures combine convolutional feature extraction over the book levels with sequence modeling over time, so the model can learn local spatial patterns across the order book and temporal dynamics jointly. This is the model that <em>should</em> win if there is genuinely sequential, microstructural signal to exploit.</p>
+<p><strong>Interpretability layer.</strong> On the best-performing model I ran feature ablation (removing or perturbing groups of features to measure their contribution), saliency, and integrated gradients via Captum. The goal was to check whether the model&#39;s attributed importance lands on plausible book levels and sides, or whether it is leaning on artifacts. This is the part of the project I care about most: it is the mechanism by which I distinguish a real result from a lucky split.</p>
+<p>I kept the technical stack deliberately standard - Python, pandas, scikit-learn, PyTorch, matplotlib, and Captum - because the contribution here is the experimental design and the honesty of the evaluation, not an exotic toolchain.</p>
+<h2>Results</h2>
+<p>The checked-in notebook reports the following representative metrics on the current split. I present them exactly as they are, with the caveats attached, because misrepresenting financial ML results is both intellectually dishonest and easy to do accidentally.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th align="right">Validation accuracy</th>
+<th align="right">Test accuracy</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Logistic regression baseline</td>
+<td align="right">0.6087</td>
+<td align="right">0.7091</td>
+<td>Strong baseline on simple normalized features</td>
+</tr>
+<tr>
+<td>MLP baseline</td>
+<td align="right">0.5494</td>
+<td align="right">0.5943</td>
+<td>Did not outperform the simpler baseline on this split</td>
+</tr>
+<tr>
+<td>DeepLOB-style sequence model</td>
+<td align="right">0.8040 (validation during training)</td>
+<td align="right">Sequence evaluation workflow in notebook</td>
+<td>Best direction for further work</td>
+</tr>
+</tbody></table>
+<p>Three things stand out, and none of them are &quot;the deep model won, ship it.&quot;</p>
+<p>First, the <strong>logistic baseline is genuinely strong</strong> - 0.7091 test accuracy. This is the single most important number in the project, because it sets the honest bar. Any future claim about a fancier model has to be measured against this, not against a strawman.</p>
+<p>Second, the <strong>MLP underperformed the logistic baseline</strong> (0.5494 / 0.5943). That is not a failure to hide; it is information. It tells me that simply adding non-linear capacity on top of the existing flat feature representation does not help, which points the finger at the representation and the way temporal structure is (not) being used.</p>
+<p>Third, the <strong>DeepLOB-style model reached 0.8040 validation accuracy during training</strong>, which is the most encouraging signal and the clearest direction for further work - but I am explicit that this is a validation-during-training number with a sequence evaluation workflow still being hardened, not a clean apples-to-apples test figure. I have not let it masquerade as a final result.</p>
+<p>These are exploratory notebook results, not production trading claims. The point of the project was never to claim alpha; it was to build a rigorous, interpretable pipeline and to be precise about what the numbers do and do not support.</p>
+<h2>What Worked</h2>
+<ul>
+<li><strong>Starting with a strong baseline.</strong> The logistic regression model anchored the entire project. Without it, the DeepLOB number would be a meaningless 0.80 floating in a vacuum. With it, every comparison has a reference point.</li>
+<li><strong>Treating complexity as something to be earned.</strong> The ladder of logistic to MLP to sequence model made the MLP&#39;s underperformance <em>legible</em> instead of confusing. The structure of the experiment turned a disappointing model into a useful diagnostic.</li>
+<li><strong>Building interpretability in, not bolting it on.</strong> Using ablation, saliency, and integrated gradients on the best model meant I could ask whether the model&#39;s attention landed on plausible book features rather than just trusting an accuracy number. In a domain this prone to artifacts, that is the difference between a finding and a fluke.</li>
+<li><strong>Respecting the data&#39;s structure.</strong> Convolution over book levels plus temporal modeling matched the actual geometry of an order book, and that is where the most promising signal appeared.</li>
+</ul>
+<h2>What Failed</h2>
+<ul>
+<li><strong>The MLP was a dead end on this representation.</strong> More parameters on flat features did not buy generalization - it cost it. Honestly reporting this was more valuable than quietly dropping it.</li>
+<li><strong>Reproducibility is currently weak.</strong> The dataset is external and not committed, results depend on the current notebook state and split, and there is no fixed environment file or scriptable training entry point. Someone cloning the repo today cannot reproduce my exact numbers in one command. That is a real limitation, not a footnote.</li>
+<li><strong>Evaluation is not yet fully standardized across models.</strong> The DeepLOB validation number and the baselines&#39; test numbers are not yet reported through one identical evaluation harness, which makes the headline comparison softer than I want it to be.</li>
+<li><strong>Accuracy is doing too much work as a metric.</strong> Given class imbalance, I should be leaning harder on per-class precision/recall and a confusion-matrix-level view rather than letting accuracy headline the result.</li>
+</ul>
+<h2>What I Would Do Next</h2>
+<ol>
+<li><strong>Make it reproducible.</strong> Add a scriptable training entry point, a pinned environment file, a deterministic seed, and saved result artifacts so the numbers are regenerable from a clean checkout - turning a notebook into an experiment others can trust.</li>
+<li><strong>Unify the evaluation harness.</strong> Run every model - baselines and sequence model - through one identical, time-respecting evaluation path so the comparison table is truly apples-to-apples, and report per-class metrics and confusion matrices alongside accuracy.</li>
+<li><strong>Stress-test the DeepLOB result.</strong> Confirm the 0.80 holds on a held-out test split under the unified harness, and check it is not an artifact of the particular split or of temporal leakage.</li>
+<li><strong>Deepen the interpretability story.</strong> Move from per-prediction attributions to aggregate, dataset-level statements: which book levels and which side of the book carry the most predictive weight, and whether that is economically plausible.</li>
+<li><strong>Test robustness across regimes.</strong> Evaluate stability across different market conditions and horizons, since a model that only works in one regime is not really predicting microstructure - it is fitting one.</li>
+</ol>
+<h2>Links</h2>
+<ul>
+<li>Repository: <a href="https://github.com/Praneeth-Suresh/LOBForecasting">https://github.com/Praneeth-Suresh/LOBForecasting</a></li>
+<li>Dataset: Ntakaris et al. (2018), &quot;Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods,&quot; <em>Journal of Forecasting</em> 37(8): 852-866, via Kaggle.</li>
+<li>Contact: <a href="mailto:praneeth.suresh.s@gmail.com">praneeth.suresh.s@gmail.com</a></li>
+</ul>
+</article>
+      
+    <section id="subscribe-blog-post" class="subscribe-panel" aria-labelledby="subscribe-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-blog-post">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="mailto:praneeth.suresh.s@gmail.com?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates" data-analytics-event="email_subscribe_click" data-subscribe-source="blog-post">Subscribe by email</a>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <nav class="blog-post-nav"><a href="/blog/engineering-discipline-for-agentic-coding/">&larr; An Engineering Discipline for Agentic Coding</a><span></span></nav>
+    </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Asks</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/collaborate/">Collaborate</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

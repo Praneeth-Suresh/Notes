@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Research Program for Inspectable ML · Blog · Computer Science Notes</title>
+
+    <meta name="description" content="An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/" />
+    <meta property="og:title" content="A Research Program for Inspectable ML · Blog · Computer Science Notes" />
+    <meta property="og:description" content="Why the next phase of deep learning depends on making interpretability and representation analysis rigorous, not just scaling models." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/" />
+    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A Research Program for Inspectable ML · Blog · Computer Science Notes" />
+    <meta name="twitter:description" content="Why the next phase of deep learning depends on making interpretability and representation analysis rigorous, not just scaling models." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/","name":"A Research Program for Inspectable ML · Blog · Computer Science Notes","description":"An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#blogposting","headline":"A Research Program for Inspectable ML","description":"An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/","keywords":"AI research, interpretability, representation analysis"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#faq","mainEntity":[{"@type":"Question","name":"Is this just about scaling models?","acceptedAnswer":{"@type":"Answer","text":"No. The essay argues that progress comes from organizing computation around the structure of a task, then making learned representations inspectable enough to evaluate and trust."}},{"@type":"Question","name":"What kind of interpretability does this argue for?","acceptedAnswer":{"@type":"Answer","text":"It favors frozen-model tools such as probing, representation analysis, attribution, and information-theoretic views that can become standard evaluation interfaces around trained systems."}}]}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Computer Science Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">AI Research Deep Dives</p>
+        <h1>A Research Program for Inspectable ML</h1>
+        <div class="topic-labels" aria-label="Post tags"><span class="topic-label topic-label-default">AI research</span><span class="topic-label topic-label-default">interpretability</span><span class="topic-label topic-label-default">representation analysis</span></div>
+        <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/" data-analytics-event="copy_share_link_click">Copy link</button>
+      </header>
+      <article class="blog-article"><p>I read foundational deep learning papers as a single research program about trainable computation, and I argue that the discipline&#39;s next phase depends on turning interpretability and representation analysis from heuristic art into a rigorous science of how models compress, store, and use knowledge.</p>
+<h2>Why This Matters</h2>
+<p>The dominant story about AI right now is a story about scale: bigger models, more data, more compute. I think that story is true but shallow. The common thread running through the papers I keep returning to is not &quot;bigger is better.&quot; It is more precise and more useful: progress comes when we find a better way to organize computation around the structure of a task.</p>
+<p>Convolutional networks organize visual computation around locality and weight sharing. Transformers organize sequence computation around attention and parallelism. Deep Q-learning organizes control around value estimates, replay, and delayed reward. Each is a different answer to the same design question. If that is the real engine of the field, then the questions worth my time are mechanistic ones: what is the model actually doing inside, which priors made the task learnable, and whether the surrounding system makes that behavior reliable enough to deploy.</p>
+<p>This matters because we are at an inflection point. We are leaving the era where knowledge about AI is gathered heuristically - train, measure accuracy, keep what wins - and entering one where knowledge can be gained through rigorous methods. The work done now, on how to evaluate and explain models with the same seriousness we bring to building them, will shape how AI interacts with society. I want to do that work, and this essay is my attempt to make my position on it legible.</p>
+<h2>Problem Setup</h2>
+<p>The question I use to read the foundational literature is deliberately narrow:</p>
+<blockquote>
+<p>How do we design trainable systems whose architecture, objective, and data interface make the target behavior easier to learn?</p>
+</blockquote>
+<p>Cybenko&#39;s universal approximation theorem is where I start, and it is also where I stop treating expressivity as the point. The theorem says finite combinations of sigmoidal units can approximate a broad class of continuous functions. That is a permission slip, not a research program. It separates representation from feasibility: a network <em>can</em> be expressive enough, but the theorem is silent on how many units, how much data, which architecture, and which training procedure will actually find the useful function. That silence is exactly where modern AI research lives.</p>
+<p>Layered on top of this design question is a second, harder one that has come to occupy most of my reading: once a model has learned to do something, can we understand <em>how</em>? I have come to believe interpretability is not a nice-to-have decoration on a finished model. It is the missing half of the science. The research gap I keep circling is concrete: interpretability techniques are not widely deployed in real model evaluation, and the reason is that current techniques are too complicated and not meaningful enough to be worth the effort. Closing that gap - making explanation cheap, faithful, and standard - is the problem I most want to work on.</p>
+<h2>Method</h2>
+<p>My method is to read foundational papers as a connected trail rather than as isolated results, and to ask of each one what mental model it forces.</p>
+<p>From LeCun et al. on convolutional networks, the mental model is that <em>architecture is a way of encoding assumptions about the structure of the world</em>. Nearby pixels matter, patterns repeat across space, and higher-level features compose from lower-level ones. CNNs do not just perform well; they make the task easier by shaping computation to match the domain.</p>
+<p>From Vaswani et al., the mental model is that <em>better architectures change the path length information must travel</em>. Attention lets tokens connect directly, turning relationships between elements into the primary computation and removing sequential bottlenecks.</p>
+<p>From Mnih et al. on deep Q-learning, the mental model is that <em>the learning setup is part of the system</em>. With sparse, noisy, correlated feedback and a shifting data distribution, experience replay and value learning are not implementation trivia - they are the mechanisms that make learning stable at all.</p>
+<p>So my unit of analysis is never just the trained weights. It is the whole pipeline: data interface, architecture, objective, optimizer, memory or replay mechanism, evaluation protocol, and deployment constraint.</p>
+<p>For interpretability specifically, my method is to treat explanation as a <em>wrapper applied around an already-trained model</em>, a layer in the development process that comes after the black box exists, following Molnar&#39;s framing. This gives a hard constraint I hold myself to: a real interpretability technique must not change the original model&#39;s weights. Probing satisfies this - you freeze the model and train a simpler model on a subset of its representations to detect what information is present. So does representation analysis. I prefer these top-down methods over full mechanistic interpretability because much of what large models do is <em>emergent</em>. The analogy I trust here is from physics: Newtonian mechanics is an emergent regime that does not resemble the rules governing atoms. As the critique in &quot;The Misguided Quest for Mechanistic AI Interpretability&quot; puts it, quoting Gell-Mann, you want to &quot;operate at the level of most invariances and find generalizable rules that apply at the level of these phenomena.&quot; Probing and representational geometry are early attempts to understand models at that level of invariances, without pretending we must account for every weight.</p>
+<p>To ground this empirically, I lean on information-theoretic structure. The Information Bottleneck framework gives normative criteria for a good representation - sufficiency, invariance, disentanglement, compression - and lets us write a loss as a proxy for them. The bottleneck loss is usually impractical to compute directly, but it is the theoretical anchor that practical tools like probing approximate, including minimum-description-length probing. Representational geometry then lets me study not just a model&#39;s end state but how its representation of information evolves and how it compares across models on the same task.</p>
+<h2>Results</h2>
+<p>Reading this way produced a set of positions I now hold with some confidence.</p>
+<p>First, interpretability&#39;s usefulness is inseparable from how the model will be used. Explanations earn their keep precisely when accuracy or AUC are insufficient measures of quality: when you need to check the model learned the right thing (the wolf-versus-dog classifier that actually detects snow in the background and will not generalize), when the training objective diverges from the deployment objective (a bail-recommendation system trained for accuracy but expected to be fair), when you want to extract new scientific knowledge, or when you need to build warranted trust. Good explanations therefore differ by domain, because models differ in how they balance memorization against experiential learning.</p>
+<p>Second, progress in interpretability has been overwhelmingly <em>incremental</em>: each paper improves one desired property. LIME reweights toward plausible feature values; Shapley values import the only attribution scheme satisfying axioms argued to matter for human understanding; SHAP makes those exponential-time values computable; DeepLIFT uses gradients and activation differences to interpret deep nets efficiently while dodging saturation and discontinuity. This incrementalism is a symptom: there is no gold standard, only application-specific goals, so we get many methods each solving a small slice of the larger problem.</p>
+<p>Third, and most synthesizing: I have come to accept Yi Ma&#39;s framing that learning is the process of finding a low-rank representation of a data distribution, which reframes AI as algorithmically extracting compressed representations of reality - the more efficiently, the better the algorithm. This connects everything. LLMs memorize a low-rank representation of human knowledge; LoRA and distillation show that knowledge in over-parametrized models is itself low-rank and can be re-encoded more cheaply; RL methods like GRPO add experiential, goal-directed learning on top of that memorized base. And it gives interpretability a clean target: if a model explicitly builds a low-rank representation, that representation has the same dimensionality as the knowledge it encodes, so it should in principle be convertible into human-understandable knowledge.</p>
+<h2>What Worked</h2>
+<p>Reading papers as a trail rather than as trophies worked. It let me see CNNs, transformers, and deep RL as three answers to one design question instead of three separate techniques, which is far more generative when I think about new architectures.</p>
+<p>Treating interpretability as a frozen-model wrapper worked as a discipline. It immediately tells me which methods are honest about the constraint (probing, representation analysis, post-hoc attribution) and which quietly relax it, and it points interpretability toward becoming an <em>engineering</em> problem - a standard interface into which trained models plug - rather than an open-ended philosophical one.</p>
+<p>Borrowing rigor from adjacent fields worked best of all. Information theory gave me a definition of a good representation. Game theory (Shapley) gave attribution its only axiomatic footing. Physics gave me the emergence/invariance lens. The move from alchemy to science, for me, has literally meant importing the science that already exists elsewhere and testing whether it survives contact with deep networks.</p>
+<p>Finally, insisting on human-centered evaluation worked as a filter. The standout there is Ribeiro et al.&#39;s &quot;Why Should I Trust You?&quot;, which runs real and simulated human studies to check whether an explanation lets a person pick the better classifier. That is the right shape of evidence for a field whose end user is a human making a deployment decision.</p>
+<h2>What Failed</h2>
+<p>Some reasoning approaches did not pay off, and I want to be honest about them.</p>
+<p>The hope that universal approximation would say something practically useful failed completely; expressivity guarantees turned out to be the least actionable part of the theory. The instinct that interpretability methods are self-evidently informative also failed: a saliency method that highlights an animal&#39;s face in every case has told me nothing about <em>how</em> the prediction was made. And surrogate methods can quietly fail their own premise - if the decision tree fitted to a text classifier&#39;s local behavior grows too deep to read, substituting it has not bought any interpretability at all.</p>
+<p>More broadly, the assumption that statistical tools built for understanding large systems will transfer cleanly to deep networks is still unproven. The jury is genuinely out on whether these methods scale to AI or whether the field needs new primitives. I hold my information-theoretic and probing commitments provisionally for exactly this reason. I also remain unsure whether the scale-first paradigm is necessary: LoRA and distillation suggest much of the captured knowledge is low-rank, which makes me suspect we are spending compute we do not fundamentally need - but I cannot yet prove the cheaper system exists.</p>
+<h2>What I Would Do Next</h2>
+<p>Three directions follow directly from the gaps above.</p>
+<p>First, make interpretability deployable. I want a framework that consumes the output of interpretability methods and turns it into engineering decisions, so explanation becomes more than a box-ticking exercise. The concrete move is a standard interface into which existing models plug - converting interpretability from a research curiosity into an MLOps component whose benefit clearly exceeds its cost.</p>
+<p>Second, pursue unification. The proliferation of methods, each optimizing a different goal, means we lack an overarching theory; I want to work toward a unified framework from which special cases are derived, ideally building on the kind of gold standards the field currently lacks. SHAP unifying additive attribution methods is a small proof that this is possible.</p>
+<p>Third, fold interpretability into training. &quot;SHAP-Guided Regularization&quot; shows models can be adapted at training time to encode information in a form that is easier to extract, without sacrificing predictive performance. Combined with representation analysis and the low-rank view of knowledge, this is the most direct path to <em>inspectable architectures by construction</em> - and the closest to translating rigorous ML theory into systems people can trust and scale, which is the work I most want to do.</p>
+<h2>Links</h2>
+<ul>
+<li>Blog: <a href="https://notes.praneeth-suresh-s.workers.dev/blog/">https://notes.praneeth-suresh-s.workers.dev/blog/</a></li>
+<li>Essays this write-up draws from:<ul>
+<li><code>tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers</code></li>
+<li><code>peeking-inside-the-black-box</code></li>
+<li><code>more-on-interpretability</code></li>
+<li><code>from-alchemy-to-science</code></li>
+<li><code>approaching-the-frontiers</code></li>
+<li><code>the-era-we-live-in</code></li>
+<li><code>what-exactly-are-we-doing</code></li>
+</ul>
+</li>
+<li>Contact: <a href="mailto:praneeth.suresh.s@gmail.com">praneeth.suresh.s@gmail.com</a></li>
+</ul>
+</article>
+      
+    <section id="subscribe-blog-post" class="subscribe-panel" aria-labelledby="subscribe-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-blog-post">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="mailto:praneeth.suresh.s@gmail.com?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates" data-analytics-event="email_subscribe_click" data-subscribe-source="blog-post">Subscribe by email</a>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <nav class="blog-post-nav"><span></span><a href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/">The mental models of deep learning &rarr;</a></nav>
+    </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Asks</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/collaborate/">Collaborate</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

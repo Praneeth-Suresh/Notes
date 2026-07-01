@@ -21,19 +21,19 @@
       "method": "Study and document agent harnesses, feedback loops, review boundaries, prompt contracts, and workflow patterns while keeping implementation habits testable.",
       "result": "The site now exposes an agentic-coding topic path and public repository trail that can anchor outreach around AI engineering and tooling reliability.",
       "codeUrl": "https://github.com/Praneeth-Suresh/AgentCoding",
-      "writeupUrl": "/topics/agent-coding/",
+      "writeupUrl": "/blog/engineering-discipline-for-agentic-coding/",
       "tags": ["agents", "developer-tools", "evaluation", "software-engineering"]
     },
     {
       "slug": "lob-forecasting",
       "title": "LOBForecasting",
-      "status": "supporting ML research asset",
+      "status": "applied ML case study candidate",
       "summary": "A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.",
       "problem": "Forecasting projects need to make assumptions, data constraints, evaluation choices, and failure modes visible enough for others to inspect.",
       "method": "Use notebook-based exploration to model forecasting behavior, then prepare the work for a stronger project page with setup, evaluation, and limitations.",
-      "result": "The repository is present as public proof of applied ML exploration; the next step is to add a stronger README, reproducible setup, and written analysis.",
+      "result": "The write-up documents a strong logistic baseline, an MLP that underperforms it, a promising DeepLOB-style validation signal, and the need for a unified reproducible evaluation harness.",
       "codeUrl": "https://github.com/Praneeth-Suresh/LOBForecasting",
-      "writeupUrl": "/research-taste/",
+      "writeupUrl": "/blog/forecasting-the-limit-order-book/",
       "tags": ["machine-learning", "forecasting", "notebook", "research-candidate"]
     }
   ]

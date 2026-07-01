@@ -42,6 +42,12 @@
       <description>SWE Principles for Building Out Agents</description>
     </item>
     <item>
+      <title>A Research Program for Inspectable ML</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/</guid>
+      <description>An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.</description>
+    </item>
+    <item>
       <title>The mental models of deep learning</title>
       <link>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</link>
       <guid>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</guid>
@@ -82,6 +88,18 @@
       <link>https://notes.praneeth-suresh-s.workers.dev/blog/what-exactly-are-we-doing/</link>
       <guid>https://notes.praneeth-suresh-s.workers.dev/blog/what-exactly-are-we-doing/</guid>
       <description>paper-backed essays</description>
+    </item>
+    <item>
+      <title>An Engineering Discipline for Agentic Coding</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/engineering-discipline-for-agentic-coding/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/engineering-discipline-for-agentic-coding/</guid>
+      <description>A project write-up on treating agent-assisted development as a verifiable engineering system with operating rules, skills, checks, and review boundaries.</description>
+    </item>
+    <item>
+      <title>Forecasting the Limit Order Book</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/</guid>
+      <description>An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.</description>
     </item>
     <item>
       <title>Launching Off</title>
