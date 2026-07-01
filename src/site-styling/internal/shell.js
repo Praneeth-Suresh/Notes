@@ -3,11 +3,11 @@
 const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 const HOME_DESCRIPTION = "A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.";
 const NOTES_DESCRIPTION = "Searchable computer science notes organized by topic, subpage, and study trail across algorithms, systems, AI engineering, software engineering, and agentic coding.";
-const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflections from Computer Science Notes.";
-const START_HERE_DESCRIPTION = "A guided first path through Computer Science Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
-const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Computer Science Notes: AI research topics, why they matter, selected essays, and source trails.";
-const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Computer Science Notes.";
-const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project updates from Computer Science Notes by email request or RSS.";
+const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflections from Praneeth's CS Field Notes.";
+const START_HERE_DESCRIPTION = "A guided first path through Praneeth's CS Field Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
+const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Praneeth's CS Field Notes: AI research topics, why they matter, selected essays, and source trails.";
+const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Praneeth's CS Field Notes.";
+const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project updates from Praneeth's CS Field Notes by email request or RSS.";
 const PROJECTS_DESCRIPTION = "Selected projects from Praneeth Suresh across static knowledge systems, AI engineering, research notebooks, and agentic tooling.";
 const CONTACT_DESCRIPTION = "Contact Praneeth Suresh about research, internships, consulting, NUS AI Society collaboration, and technical projects.";
 const COLLABORATE_DESCRIPTION = "Collaboration and consulting route for research, AI engineering, project work, and NUS AI Society opportunities.";
@@ -319,7 +319,7 @@ function renderContactCtaPanel({ source = "site" } = {}) {
       </div>
       <div class="portfolio-philosophy-grid">
         <p>Useful messages usually start from a specific overlap: a paper, project, team, startup problem, internship role, workshop, sponsor idea, or AI Society collaboration.</p>
-        <p>Calendly is intentionally omitted until availability can be honored reliably.</p>
+        <p>Email is the best first step. Include the context, timeline, and the kind of response that would be useful.</p>
       </div>
       <div class="home-actions" aria-label="Contact actions">
         <a class="primary-action" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="${escapeHtml(source)}">Email me</a>
@@ -843,6 +843,20 @@ function renderTagList(tags, ariaLabel = "Tags") {
     .join("")}</div>`;
 }
 
+function renderBlogTagLinks(tags, ariaLabel = "Post topics") {
+  if (!Array.isArray(tags) || tags.length === 0) {
+    return "";
+  }
+
+  return `<div class="topic-labels blog-topic-links" aria-label="${escapeHtml(ariaLabel)}">${tags
+    .map((tag) => {
+      const normalizedTag = tag.trim();
+      const href = `/blog/?topic=${encodeURIComponent(normalizedTag)}#blog-posts`;
+      return `<a class="topic-label topic-label-default" href="${escapeHtml(href)}">${escapeHtml(normalizedTag)}</a>`;
+    })
+    .join("")}</div>`;
+}
+
 function renderProjectTagList(tags) {
   return renderTagList(tags, "Project tags");
 }
@@ -869,7 +883,7 @@ function renderHomeVisual(kind) {
   const variants = {
     hero: {
       src: "/assets/home/home-hero.png",
-      alt: "Notebook, laptop, and technical notes introducing Computer Science Notes.",
+      alt: "Notebook, laptop, and technical notes introducing Praneeth's CS Field Notes.",
       width: 1032,
       height: 1377,
     },
@@ -899,7 +913,7 @@ function renderHomeVisual(kind) {
     },
     notes: {
       src: "/assets/home/home-hero.png",
-      alt: "Notebook, laptop, and technical notes introducing Computer Science Notes.",
+      alt: "Notebook, laptop, and technical notes introducing Praneeth's CS Field Notes.",
       width: 1032,
       height: 1377,
     },
@@ -1081,14 +1095,14 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
 
 function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const siteSections = [
-    { index: "01", label: "Research", href: "#home-research" },
-    { index: "02", label: "Projects", href: "#home-projects" },
-    { index: "03", label: "Writing", href: "#home-writing" },
-    { index: "04", label: "Asks", href: "#home-asks" },
-    { index: "05", label: "Notes", href: "#home-notes" },
+    { index: "01", label: "/ Research", subtitle: "Paper trails", href: "#home-research" },
+    { index: "02", label: "/ Projects", subtitle: "Proof of work", href: "#home-projects" },
+    { index: "03", label: "/ Writing", subtitle: "Essays", href: "#home-writing" },
+    { index: "04", label: "/ Asks", subtitle: "Collaboration", href: "#home-asks" },
+    { index: "05", label: "/ Notes", subtitle: "Archive", href: "#home-notes" },
   ]
     .map(
-      (item) => `<a href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span> ${escapeHtml(item.label)}</a>`,
+      (item) => `<a href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span><strong>${escapeHtml(item.label)}</strong><em>${escapeHtml(item.subtitle)}</em></a>`,
     )
     .join("");
   const conciseSections = [
@@ -1101,8 +1115,8 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Read research trail",
       buttonHref: "/research-taste/",
       visual: "research",
-      motionBg: "#0b1220",
-      motionNext: "#10231e",
+      motionBg: "#10231e",
+      motionNext: "#132d25",
       motionStyle: "scan",
     },
     {
@@ -1114,7 +1128,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "View projects",
       buttonHref: "/projects/",
       visual: "projects",
-      motionBg: "#10231e",
+      motionBg: "#132d25",
       motionNext: "#6f7a6f",
       motionStyle: "build",
     },
@@ -1160,8 +1174,8 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     .map(
       (section) => `<section id="${escapeHtml(section.id)}" class="home-showcase-section ${escapeHtml(section.className)}" aria-labelledby="${escapeHtml(section.id)}-title" data-motion-bg="${escapeHtml(section.motionBg)}" data-motion-next="${escapeHtml(section.motionNext)}"${section.motionStyle ? ` data-motion-style="${escapeHtml(section.motionStyle)}"` : ""}>
         <div class="home-showcase-copy">
-          <p class="section-kicker">${escapeHtml(section.kicker)}</p>
-          <h2 id="${escapeHtml(section.id)}-title" class="section-title">${escapeHtml(section.title)}</h2>
+          <h2 id="${escapeHtml(section.id)}-title" class="section-title">${escapeHtml(section.kicker)}</h2>
+          <p class="section-subtitle">${escapeHtml(section.title)}</p>
           <p class="home-intro">${escapeHtml(section.copy)}</p>
           <div class="home-actions" aria-label="${escapeHtml(section.kicker.replace("/", "").trim())} actions">
             <a class="primary-action" href="${escapeHtml(section.buttonHref)}">${escapeHtml(section.buttonText)}</a>
@@ -1174,13 +1188,13 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
     <span id="main-content" class="skip-target" tabindex="-1"></span>
     <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
-      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#05060a" data-motion-next="#0b1220">
+      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#030308" data-motion-next="#10231e">
         <div class="home-showcase-copy">
-          <p class="home-kicker">[ Computer Science Notes ]</p>
-          <h1 id="home-title" class="home-title">Computer Science Notes</h1>
+          <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
+          <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
           <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
           <nav class="home-section-map" aria-label="Five independent site sections">
-            <p>Five independent sections</p>
+            <p>Section atlas</p>
             ${siteSections}
           </nav>
         </div>
@@ -1343,12 +1357,6 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
     .join("");
 
   const content = `
-    <nav class="topic-nav" aria-label="Start here navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a class="active" href="/start-here/" data-hotkey="S" aria-current="page">Start here</a>
-      <a href="/notes/" data-hotkey="N">Notes</a>
-      <a href="/blog/" data-hotkey="B">Blog</a>
-    </nav>
     <section id="main-content" class="start-hero" aria-labelledby="start-title">
       <p class="home-kicker">[ Start here ]</p>
       <h1 id="start-title">A first path through the notes.</h1>
@@ -1444,13 +1452,6 @@ function renderResearchTastePage({
     .join("");
 
   const content = `
-    <nav class="topic-nav" aria-label="Research taste navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/start-here/" data-hotkey="S">Start here</a>
-      <a class="active" href="/research-taste/" aria-current="page">Research taste</a>
-      <a href="/notes/" data-hotkey="N">Notes</a>
-      <a href="/blog/" data-hotkey="B">Blog</a>
-    </nav>
     <section id="main-content" class="research-hero" aria-labelledby="research-title">
       <p class="home-kicker">[ Research taste ]</p>
       <h1 id="research-title">Research taste</h1>
@@ -1486,7 +1487,7 @@ function renderErrataPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="errata-hero" aria-labelledby="errata-title">
       <p class="home-kicker">[ Corrections ]</p>
       <h1 id="errata-title">Errata</h1>
-      <p>Public corrections and clarifications for Computer Science Notes. The goal is to make mistakes visible, bounded, and easy to trace back to the affected page.</p>
+      <p>Public corrections and clarifications for Praneeth's CS Field Notes. The goal is to make mistakes visible, bounded, and easy to trace back to the affected page.</p>
     </section>
     <section class="panel errata-panel" aria-labelledby="errata-current">
       <div class="portfolio-section-header">
@@ -1523,12 +1524,6 @@ function renderErrataPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
 
 function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
-    <nav class="topic-nav" aria-label="Subscribe navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/start-here/">Start here</a>
-      <a href="/blog/" data-hotkey="B">Blog</a>
-      <a class="active" href="/subscribe/" aria-current="page">Subscribe</a>
-    </nav>
     <section id="main-content" class="subscribe-page-hero" aria-labelledby="subscribe-page-title">
       <p class="home-kicker">[ Subscribe ]</p>
       <h1 id="subscribe-page-title">Subscribe</h1>
@@ -1536,9 +1531,9 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     </section>
     <section class="subscribe-route" aria-labelledby="subscribe-route-title">
       <div>
-        <p class="section-kicker">/ Owned channel</p>
+        <p class="section-kicker">/ Updates</p>
         <h2 id="subscribe-route-title">Subscribe for monthly AI research/project updates.</h2>
-        <p>Email provider automation is still intentionally simple: send a subscribe request by email, or use RSS as the instant self-serve feed for notes, flagship essays, and future deep dives.</p>
+        <p>Get one substantial update every few weeks: paper trails, project write-ups, implementation tradeoffs, and new notes worth revisiting.</p>
       </div>
       <div class="subscribe-route-actions" aria-label="Subscribe page actions">
         <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="subscribe-page">Subscribe by email</a>
@@ -1689,12 +1684,12 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="start-hero" aria-labelledby="contact-title">
       <p class="home-kicker">[ Contact ]</p>
       <h1 id="contact-title">Contact</h1>
-      <p>Prepared contact route for research, internships, consulting, NUS AI Society collaboration, and technical project conversations.</p>
+      <p>Reach out about research, internships, consulting, NUS AI Society collaboration, and technical project conversations.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="contact-route-title">
       <div class="portfolio-section-header">
         <p class="section-kicker">/ Available channels</p>
-        <h2 id="contact-route-title" class="section-title">Start with public professional links.</h2>
+        <h2 id="contact-route-title" class="section-title">Use the channel that matches the conversation.</h2>
       </div>
       <div class="contact-channel-layout">
         ${renderRouteFigure("contact")}
@@ -1767,11 +1762,11 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
       <p class="home-kicker">[ Collaborate ]</p>
       <h1 id="collaborate-title">Collaboration and consulting</h1>
-      <p>A prepared route for research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
+      <p>A focused route for research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="collaborate-route-title">
       <div class="portfolio-section-header">
-        <p class="section-kicker">/ Prepared route</p>
+        <p class="section-kicker">/ Collaboration fit</p>
         <h2 id="collaborate-route-title" class="section-title">Useful collaborations need a specific technical overlap.</h2>
       </div>
       <div class="portfolio-philosophy-grid">
@@ -1974,9 +1969,8 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
         : `<span class="blog-post-chapter">&bull;</span>`;
       const tags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
       const tagText = tags.join(" ");
-      const tagHtml = renderTagList(tags, `Tags for ${post.title}`);
       const searchableText = `${section.title} ${section.subtitle || ""} ${post.title} ${post.description || ""} ${tagText}`;
-      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchableText.toLowerCase())}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a>${tagHtml}</li>`;
+      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchableText.toLowerCase())}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a></li>`;
     }).join("");
     return `<div class="blog-section-group" data-blog-section><h3 class="blog-section-heading">${escapeHtml(section.title)}</h3><p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p><ul class="blog-post-list">${posts}</ul></div>`;
   }).join("");
@@ -1988,7 +1982,7 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       <p class="blog-subtitle">The thought processes behind the projects.</p>
     </section>
     <div class="blog-home-content" id="main-content">${homeContentHtml}</div>
-    <section class="blog-toc" aria-label="Blog search and tagged index">
+    <section id="blog-posts" class="blog-toc" aria-label="Blog search and topic index">
       <label class="topic-search-label" for="blog-search">Search writing</label>
       <input id="blog-search" class="topic-search" type="search" placeholder="Try interpretability, proofs, project story..." aria-describedby="blog-search-status" />
       <p id="blog-search-status" class="topic-search-status" aria-live="polite">Showing all posts.</p>
@@ -2001,6 +1995,7 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
         const status = document.getElementById("blog-search-status");
         const items = Array.from(document.querySelectorAll(".blog-post-item"));
         const sections = Array.from(document.querySelectorAll("[data-blog-section]"));
+        const initialTopic = new URLSearchParams(window.location.search).get("topic");
 
         function update() {
           const query = input.value.trim().toLowerCase();
@@ -2019,7 +2014,11 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
           status.textContent = query ? \`\${shown} result\${shown === 1 ? "" : "s"} shown.\` : "Showing all posts.";
         }
 
+        if (initialTopic) {
+          input.value = initialTopic;
+        }
         input.addEventListener("input", update);
+        update();
       })();
     </script>
   `;
@@ -2108,8 +2107,10 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       <header class="blog-post-header">
         <p class="blog-post-section">${escapeHtml(section)}</p>
         <h1>${escapeHtml(post.title)}</h1>
-        ${renderTagList(blogTags, "Post tags")}
-        <button class="secondary-action blog-share-button" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
+        <div class="blog-post-meta-actions">
+          ${renderBlogTagLinks(blogTags, "Post topics")}
+          <button class="secondary-action blog-share-button" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
+        </div>
       </header>
       ${blogContentHtml}
       ${renderSubscribePanel({ source: "blog-post" })}

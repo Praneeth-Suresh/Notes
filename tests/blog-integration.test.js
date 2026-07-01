@@ -135,6 +135,9 @@ test("renderBlogIndexPage produces valid HTML with sections and posts", () => {
   assert.ok(html.includes("Search writing"));
   assert.ok(html.includes("project story"));
   assert.ok(html.includes('data-blog-search='));
+  assert.ok(!html.includes('aria-label="Tags for Chapter 1"'));
+  assert.ok(!html.includes('class="topic-labels"'));
+  assert.ok(html.includes('new URLSearchParams(window.location.search).get("topic")'));
   assert.ok(html.includes("<p>Welcome</p>"));
   assert.ok(html.includes("Blog &middot; Test Site") || html.includes("Blog · Test Site"));
 });
@@ -167,6 +170,8 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
   assert.ok(html.includes("Dev Memoir"));
   assert.ok(html.includes("<p>Post body here</p>"));
   assert.ok(html.includes("project story"));
+  assert.ok(html.includes('class="blog-post-meta-actions"'));
+  assert.ok(html.includes('href="/blog/?topic=project%20story#blog-posts"'));
   assert.ok(html.includes("Copy link"));
   assert.ok(html.includes('data-share-url='));
   assert.ok(html.includes('data-analytics-event="copy_share_link_click"'));
@@ -197,9 +202,12 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes('id="blog-search"'));
     assert.ok(blogIndex.includes("AI research"));
     assert.ok(blogIndex.includes("project story"));
+    assert.ok(!blogIndex.includes('aria-label="Tags for'));
+    assert.ok(!blogIndex.includes('class="topic-labels"'));
+    assert.ok(blogIndex.includes('new URLSearchParams(window.location.search).get("topic")'));
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(blogIndex.includes('class="subscribe-panel"'));
-    assert.ok(blogIndex.includes('<meta name="description" content="Stories, project notes, and AI research reflections from Computer Science Notes." />'));
+    assert.ok(blogIndex.includes(`<meta name="description" content="Stories, project notes, and AI research reflections from Praneeth&#39;s CS Field Notes." />`));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));
     assert.ok(blogIndex.includes('<meta property="og:title" content="Blog · Test" />'));
     assert.equal(
@@ -220,6 +228,8 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(postHtml.includes("Copy link"));
     assert.ok(postHtml.includes('data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/"'));
     assert.ok(postHtml.includes("project story"));
+    assert.ok(postHtml.includes('class="blog-post-meta-actions"'));
+    assert.ok(postHtml.includes('href="/blog/?topic=project%20story#blog-posts"'));
     assert.ok(postHtml.includes('data-analytics-event="rss_click"'));
     assert.ok(postHtml.includes('<meta property="og:type" content="article" />'));
     assert.ok(postHtml.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/" />'));

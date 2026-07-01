@@ -121,7 +121,7 @@ To make the generated site output include the new topic, rebuild after the pull:
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
   --out dist \
-  --site-title "Computer Science Notes"
+  --site-title "Praneeth's CS Field Notes"
 ```
 
 For a brand-new topic, the command sequence is:
@@ -135,7 +135,7 @@ node scripts/pull-notion-topic.js \
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
   --out dist \
-  --site-title "Computer Science Notes"
+  --site-title "Praneeth's CS Field Notes"
 ```
 
 After that build completes, the topic is rendered at:
@@ -279,7 +279,7 @@ The build reads `content/topic-manifest.json`, renders all topic pages and subpa
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
   --out dist \
-  --site-title "Computer Science Notes" \
+  --site-title "Praneeth's CS Field Notes" \
   --site-url "https://notes.praneeth-suresh-s.workers.dev"
 ```
 
@@ -357,7 +357,7 @@ If you intentionally changed tests, update the test manifest:
 | Setting                | Value                                                                                                                   |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | Framework preset       | None                                                                                                                    |
-| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Computer Science Notes" --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
+| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Praneeth's CS Field Notes" --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
 | Build output directory | `dist`                                                                                                                |
 | Root directory         | `/`                                                                                                                   |
 

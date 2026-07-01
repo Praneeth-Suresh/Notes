@@ -44,7 +44,7 @@ function parseArgs(argv) {
     portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
     projectsData: DEFAULT_PROJECTS_DATA_PATH,
     researchTasteData: DEFAULT_RESEARCH_TASTE_DATA_PATH,
-    siteTitle: "Computer Science Notes",
+    siteTitle: "Praneeth's CS Field Notes",
     siteUrl: DEFAULT_SITE_URL,
   };
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Computer Science Notes</title>
+    <title>Praneeth&apos;s CS Field Notes</title>
     <link>https://notes.praneeth-suresh-s.workers.dev/</link>
     <atom:link href="https://notes.praneeth-suresh-s.workers.dev/feed.xml" rel="self" type="application/rss+xml" />
     <description>Rigorous computer science notes across algorithms, systems, AI engineering, and software engineering.</description>
