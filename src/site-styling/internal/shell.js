@@ -395,9 +395,43 @@ function renderLayout({
               element.style.setProperty(propertyName, value);
             }
           };
+          const pillarMenu = root.querySelector("[data-home-pillars]");
+          const pillarButton = root.querySelector("[data-home-pillars-button]");
+          const pillarPanel = root.querySelector("[data-home-pillars-panel]");
+          const setPillarMenuOpen = (isOpen) => {
+            if (!pillarButton || !pillarPanel) {
+              return;
+            }
+
+            pillarButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            pillarPanel.hidden = !isOpen;
+            root.classList.toggle("has-open-pillars", isOpen);
+          };
+          if (pillarMenu && pillarButton && pillarPanel) {
+            setPillarMenuOpen(false);
+            pillarButton.addEventListener("click", () => {
+              setPillarMenuOpen(pillarButton.getAttribute("aria-expanded") !== "true");
+            });
+            pillarPanel.addEventListener("click", (event) => {
+              if (event.target.closest("a")) {
+                setPillarMenuOpen(false);
+              }
+            });
+            document.addEventListener("click", (event) => {
+              if (pillarButton.getAttribute("aria-expanded") === "true" && !pillarMenu.contains(event.target)) {
+                setPillarMenuOpen(false);
+              }
+            });
+            document.addEventListener("keydown", (event) => {
+              if (event.key === "Escape" && pillarButton.getAttribute("aria-expanded") === "true") {
+                setPillarMenuOpen(false);
+                pillarButton.focus();
+              }
+            });
+          }
           const palettes = sections.map((section) => ({
-            background: section.dataset.motionBg || "#05060a",
-            next: section.dataset.motionNext || section.dataset.motionBg || "#05060a",
+            background: section.dataset.motionHold || section.dataset.motionBg || "#05060a",
+            next: section.dataset.motionExit || section.dataset.motionNext || section.dataset.motionHold || section.dataset.motionBg || "#05060a",
           }));
           let ticking = false;
           let currentActiveIndex = -1;
@@ -479,7 +513,7 @@ function renderLayout({
             const bgMix =
               activeIndex === 0
                 ? smoothstep(window.scrollY / (viewportHeight * 0.72))
-                : smoothstep((activeProgress - 0.18) / 0.68);
+                : smoothstep((activeProgress - 0.78) / 0.16);
             setStyleProperty(root, "--showcase-bg-current", activePalette.background);
             setStyleProperty(root, "--showcase-bg-next", activePalette.next);
             setStyleProperty(root, "--showcase-bg-mix", bgMix.toFixed(3));
@@ -1098,14 +1132,15 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
 
 function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const siteSections = [
-    { index: "01", label: "/ Research", subtitle: "Paper trails", href: "#home-research" },
-    { index: "02", label: "/ Projects", subtitle: "Proof of work", href: "#home-projects" },
-    { index: "03", label: "/ Writing", subtitle: "Essays", href: "#home-writing" },
-    { index: "04", label: "/ Asks", subtitle: "Collaboration", href: "#home-asks" },
-    { index: "05", label: "/ Notes", subtitle: "Archive", href: "#home-notes" },
-  ]
+    { index: "01", label: "/ Research", subtitle: "Paper trails", purpose: "Paper-backed reading that turns AI research into mechanisms.", href: "#home-research" },
+    { index: "02", label: "/ Projects", subtitle: "Proof of work", purpose: "Systems, prototypes, and write-ups with evidence attached.", href: "#home-projects" },
+    { index: "03", label: "/ Writing", subtitle: "Essays", purpose: "Longer arguments about technical ideas and building practice.", href: "#home-writing" },
+    { index: "04", label: "/ Asks", subtitle: "Collaboration", purpose: "Specific routes for research, internships, talks, and partnerships.", href: "#home-asks" },
+    { index: "05", label: "/ Notes", subtitle: "Archive", purpose: "Searchable CS notes organized from topic roots into subpages.", href: "#home-notes" },
+  ];
+  const pillarLinks = siteSections
     .map(
-      (item) => `<a href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span><strong>${escapeHtml(item.label)}</strong><em>${escapeHtml(item.subtitle)}</em></a>`,
+      (item) => `<a class="home-pillar-link" href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span><strong>${escapeHtml(item.label)}</strong><em>${escapeHtml(item.subtitle)}</em><small>${escapeHtml(item.purpose)}</small></a>`,
     )
     .join("");
   const conciseSections = [
@@ -1119,7 +1154,8 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonHref: "/research-taste/",
       visual: "research",
       motionBg: "#10231e",
-      motionNext: "#132d25",
+      motionNext: "#18372f",
+      motionExit: "#18372f",
       motionStyle: "scan",
     },
     {
@@ -1131,8 +1167,9 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "View projects",
       buttonHref: "/projects/",
       visual: "projects",
-      motionBg: "#132d25",
-      motionNext: "#f1efe7",
+      motionBg: "#172231",
+      motionNext: "#253245",
+      motionExit: "#253245",
       motionStyle: "build",
     },
     {
@@ -1144,8 +1181,9 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Read writing",
       buttonHref: "/blog/",
       visual: "writing",
-      motionBg: "#f1efe7",
-      motionNext: "#253340",
+      motionBg: "#f4f1e8",
+      motionNext: "#ece5d8",
+      motionExit: "#ece5d8",
       motionStyle: "index",
     },
     {
@@ -1157,8 +1195,9 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Contact me",
       buttonHref: "/contact/",
       visual: "contact",
-      motionBg: "#253340",
-      motionNext: "#eef2f6",
+      motionBg: "#2f1838",
+      motionNext: "#3b2142",
+      motionExit: "#3b2142",
     },
     {
       id: "home-notes",
@@ -1169,13 +1208,14 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Browse notes",
       buttonHref: "/notes/",
       visual: "notes",
-      motionBg: "#eef2f6",
-      motionNext: "#f1efe7",
+      motionBg: "#eef3f7",
+      motionNext: "#dfeaf1",
+      motionExit: "#dfeaf1",
     },
   ];
   const showcaseSections = conciseSections
     .map(
-      (section) => `<section id="${escapeHtml(section.id)}" class="home-showcase-section ${escapeHtml(section.className)}" aria-labelledby="${escapeHtml(section.id)}-title" data-motion-bg="${escapeHtml(section.motionBg)}" data-motion-next="${escapeHtml(section.motionNext)}"${section.motionStyle ? ` data-motion-style="${escapeHtml(section.motionStyle)}"` : ""}>
+      (section) => `<section id="${escapeHtml(section.id)}" class="home-showcase-section ${escapeHtml(section.className)}" aria-labelledby="${escapeHtml(section.id)}-title" data-motion-bg="${escapeHtml(section.motionBg)}" data-motion-hold="${escapeHtml(section.motionBg)}" data-motion-next="${escapeHtml(section.motionNext)}" data-motion-exit="${escapeHtml(section.motionExit)}"${section.motionStyle ? ` data-motion-style="${escapeHtml(section.motionStyle)}"` : ""}>
         <div class="home-showcase-copy">
           <h2 id="${escapeHtml(section.id)}-title" class="section-title">${escapeHtml(section.kicker)}</h2>
           <p class="section-subtitle">${escapeHtml(section.title)}</p>
@@ -1191,18 +1231,25 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const content = `
     <span id="main-content" class="skip-target" tabindex="-1"></span>
     <div class="home-showcase" data-home-motion="ready" data-active-section="home-start">
-      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#030308" data-motion-next="#10231e">
+      <section id="home-start" class="home-showcase-section home-showcase-hero" aria-labelledby="home-title" data-motion-bg="#030308" data-motion-hold="#030308" data-motion-next="#1a0b36" data-motion-exit="#1a0b36">
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
           <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
           <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
+          <div class="home-pillar-menu" data-home-pillars>
+            <button class="home-pillar-trigger" type="button" aria-expanded="false" aria-controls="home-pillar-panel" data-home-pillars-button>
+              <span class="home-pillar-number">5</span>
+              <span class="home-pillar-trigger-copy"><strong>pillars</strong><em>Open the public knowledge map</em></span>
+            </button>
+            <div id="home-pillar-panel" class="home-pillar-panel" data-home-pillars-panel hidden>
+              <p>Five areas where I contribute to public knowledge: research, projects, writing, asks, and notes.</p>
+              <nav class="home-pillar-links" aria-label="Five homepage pillars">
+                ${pillarLinks}
+              </nav>
+            </div>
+          </div>
         </div>
         ${renderHomeVisual("hero")}
-        <nav class="home-section-map" aria-label="Five independent site sections">
-          <div class="home-section-count" aria-hidden="true"><strong>5</strong><span>sections</span></div>
-          <p>Section atlas</p>
-          ${siteSections}
-        </nav>
       </section>
       ${showcaseSections}
     </div>

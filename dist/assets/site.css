@@ -547,7 +547,7 @@ canvas {
 
 .home-showcase-motion .home-showcase-copy .home-intro,
 .home-showcase-motion .home-showcase-copy .home-actions,
-.home-showcase-motion .home-section-map,
+.home-showcase-motion .home-pillar-menu,
 .home-showcase-motion .home-showcase-copy .topic-index-link {
   opacity: var(--stage-copy-opacity);
   transform: translate3d(var(--stage-copy-x), calc(var(--stage-copy-y) + var(--stage-exit-y)), 0);
@@ -614,6 +614,10 @@ canvas {
   line-height: 1.18;
 }
 
+.home-showcase-section .home-intro {
+  color: var(--showcase-muted);
+}
+
 .home-showcase-copy .section-subtitle + .home-intro {
   margin-top: clamp(0.95rem, 1.5vw, 1.2rem);
 }
@@ -664,17 +668,18 @@ canvas {
 .home-showcase-hero {
   grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.92fr);
   min-height: clamp(34rem, 82vh, 44rem);
-  --section-band: rgb(99 91 255 / 0.26);
+  --section-band: rgb(139 92 246 / 0.38);
   --showcase-foreground: #f7f7f2;
   --showcase-muted: #cbd5e1;
   --showcase-link: #f7f7f2;
-  --showcase-card: #111827;
+  --showcase-card: #120b22;
   --showcase-card-foreground: #f7f7f2;
-  --showcase-card-muted: #cbd5e1;
-  --showcase-border: rgb(247 247 242 / 0.2);
+  --showcase-card-muted: #d9ccff;
+  --showcase-border: rgb(216 180 254 / 0.26);
   background:
-    linear-gradient(118deg, rgb(255 255 255 / 0.045) 0 31%, transparent 31% 100%),
-    linear-gradient(146deg, transparent 0 57%, rgb(255 255 255 / 0.04) 57% 100%),
+    radial-gradient(circle at 78% 19%, rgb(139 92 246 / 0.34), transparent 31%),
+    linear-gradient(118deg, rgb(216 180 254 / 0.08) 0 31%, transparent 31% 100%),
+    linear-gradient(146deg, transparent 0 57%, rgb(109 40 217 / 0.12) 57% 100%),
     linear-gradient(180deg, #000, #030308 58%, #05080a);
   background-color: #030308;
 }
@@ -702,77 +707,118 @@ canvas {
   color: var(--showcase-muted);
 }
 
-.home-section-map {
+.home-pillar-menu {
   position: relative;
   z-index: 1;
-  grid-column: 1 / -1;
+  width: min(100%, 42rem);
+  margin-top: clamp(1.35rem, 2.8vw, 2.1rem);
+}
+
+.home-pillar-trigger {
+  display: inline-grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+  max-width: 100%;
+  border: 1px solid rgb(216 180 254 / 0.38);
+  border-radius: 0;
+  padding: 0.62rem 0.85rem 0.62rem 0.62rem;
+  background:
+    linear-gradient(135deg, rgb(139 92 246 / 0.36), rgb(88 28 135 / 0.18)),
+    rgb(8 5 16 / 0.82);
+  color: #f8fafc;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 0 0 1px rgb(139 92 246 / 0.08),
+    0 1rem 2.4rem rgb(76 29 149 / 0.26);
+}
+
+.home-pillar-trigger:hover,
+.home-pillar-trigger:focus-visible,
+.home-showcase.has-open-pillars .home-pillar-trigger {
+  border-color: rgb(233 213 255 / 0.72);
+  background:
+    linear-gradient(135deg, rgb(168 85 247 / 0.52), rgb(91 33 182 / 0.3)),
+    rgb(10 6 22 / 0.94);
+}
+
+.home-pillar-number {
   display: grid;
-  grid-template-columns: minmax(7rem, 0.36fr) repeat(5, minmax(0, 1fr));
-  gap: 0;
-  align-items: stretch;
-  margin-top: clamp(1.2rem, 3vw, 2.4rem);
-  border: 1px solid var(--showcase-border);
-  background: rgb(3 7 14 / 0.52);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
-  overflow: clip;
-}
-
-.home-section-map p {
-  margin: 0;
-  grid-column: 2 / -1;
-  grid-row: 1;
-  color: var(--showcase-muted);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 800;
-  line-height: 1.2;
-  padding: 0.75rem clamp(0.75rem, 1.4vw, 1rem);
-  border-bottom: 1px solid var(--showcase-border);
-}
-
-.home-section-count {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  display: grid;
-  align-content: center;
-  min-height: 100%;
-  border-right: 1px solid var(--showcase-border);
-  padding: clamp(0.8rem, 1.5vw, 1.15rem);
-  background: #030308;
-  color: var(--showcase-foreground);
-}
-
-.home-section-count strong {
-  display: block;
-  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  place-items: center;
+  width: clamp(3.8rem, 7.5vw, 5.4rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(233 213 255 / 0.42);
+  background: #7c3aed;
+  color: #fff;
+  font-size: clamp(2.25rem, 4.8vw, 4rem);
   font-weight: 950;
-  line-height: 0.85;
-  letter-spacing: 0;
+  line-height: 0.9;
 }
 
-.home-section-count span {
-  display: block;
-  margin-top: 0.4rem;
-  color: var(--showcase-muted);
+.home-pillar-trigger-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.18rem;
+}
+
+.home-pillar-trigger-copy strong {
+  color: #fff;
+  font-size: clamp(1.05rem, 1.8vw, 1.38rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.home-pillar-trigger-copy em {
+  color: #d9ccff;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
+  font-style: normal;
   font-weight: 800;
-  text-transform: uppercase;
+  line-height: 1.25;
 }
 
-.home-section-map a {
+.home-pillar-panel {
+  margin-top: 0.7rem;
+  border: 1px solid rgb(216 180 254 / 0.32);
+  background:
+    linear-gradient(118deg, rgb(139 92 246 / 0.18) 0 28%, transparent 28% 100%),
+    linear-gradient(145deg, transparent 0 62%, rgb(16 185 129 / 0.11) 62% 100%),
+    rgb(6 4 14 / 0.96);
+  box-shadow: 0 1.2rem 3.4rem rgb(0 0 0 / 0.34);
+}
+
+.home-pillar-panel[hidden] {
+  display: none;
+}
+
+.home-pillar-panel p {
+  margin: 0;
+  border-bottom: 1px solid rgb(216 180 254 / 0.2);
+  padding: 0.85rem clamp(0.85rem, 1.8vw, 1.1rem);
+  color: #d9ccff;
+  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+  line-height: 1.45;
+}
+
+.home-pillar-links {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.home-pillar-link {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 0.5rem;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 0.38rem;
   align-items: start;
-  min-height: clamp(8.5rem, 13vw, 11.5rem);
-  border: 0;
+  min-height: clamp(10rem, 14vw, 12.5rem);
   border-right: 1px solid var(--showcase-border);
-  border-bottom: 0;
-  padding: clamp(0.75rem, 1.4vw, 1rem);
-  background: rgb(5 10 18 / 0.5);
-  color: var(--showcase-foreground);
+  padding: clamp(0.75rem, 1.35vw, 1rem);
+  background: rgb(255 255 255 / 0.035);
+  color: #f8fafc;
   text-decoration: none;
   transition:
     background 180ms ease,
@@ -780,28 +826,28 @@ canvas {
     border-color 180ms ease;
 }
 
-.home-section-map a span {
+.home-pillar-link span {
   font-family: var(--font-mono);
-  color: var(--showcase-muted);
+  color: #c4b5fd;
   font-size: 0.68rem;
   font-weight: 800;
   line-height: 1;
 }
 
-.home-section-map a strong {
+.home-pillar-link strong {
   display: block;
   min-width: 0;
   color: inherit;
-  font-size: clamp(1rem, 1.55vw, 1.45rem);
+  font-size: clamp(1rem, 1.35vw, 1.28rem);
   font-weight: 900;
   line-height: 1;
   overflow-wrap: normal;
   white-space: nowrap;
 }
 
-.home-section-map a em {
+.home-pillar-link em {
   display: block;
-  color: var(--showcase-muted);
+  color: #d9ccff;
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-style: normal;
@@ -809,21 +855,32 @@ canvas {
   line-height: 1.2;
 }
 
-.home-section-map a:hover,
-.home-section-map a:focus-visible {
-  border-color: var(--showcase-foreground);
-  background: var(--showcase-foreground);
-  color: #111827;
+.home-pillar-link small {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgb(226 232 240 / 0.82);
+  font-size: 0.72rem;
+  font-weight: 640;
+  line-height: 1.35;
 }
 
-.home-section-map a:hover span,
-.home-section-map a:focus-visible span,
-.home-section-map a:hover em,
-.home-section-map a:focus-visible em {
-  color: #111827;
+.home-pillar-link:hover,
+.home-pillar-link:focus-visible {
+  border-color: #f8fafc;
+  background: #f8fafc;
+  color: #120b22;
 }
 
-.home-section-map a:last-child {
+.home-pillar-link:hover span,
+.home-pillar-link:focus-visible span,
+.home-pillar-link:hover em,
+.home-pillar-link:focus-visible em,
+.home-pillar-link:hover small,
+.home-pillar-link:focus-visible small {
+  color: #312e81;
+}
+
+.home-pillar-link:last-child {
   border-right: 0;
 }
 
@@ -1032,36 +1089,61 @@ canvas {
 }
 
 .home-showcase-research {
-  --section-band: rgb(52 211 153 / 0.34);
+  --section-band: rgb(45 212 191 / 0.32);
   --showcase-foreground: #f4fff8;
-  --showcase-muted: #c2d8cd;
+  --showcase-muted: #b8d8cc;
   --showcase-link: #f4fff8;
-  --showcase-card: #16342d;
+  --showcase-card: #13372e;
   --showcase-card-foreground: #f4fff8;
-  --showcase-card-muted: #c6ded1;
+  --showcase-card-muted: #c6e1d2;
+  --showcase-card-hover: #e9fff5;
+  --showcase-card-hover-foreground: #0f2a23;
+  --showcase-card-hover-muted: #31554b;
   --showcase-border: rgb(244 255 248 / 0.24);
   background:
-    linear-gradient(112deg, rgb(167 243 208 / 0.14) 0 36%, transparent 36% 100%),
-    linear-gradient(145deg, transparent 0 56%, rgb(124 58 237 / 0.11) 56% 100%),
+    radial-gradient(circle at 78% 22%, rgb(45 212 191 / 0.18), transparent 27%),
+    linear-gradient(112deg, rgb(167 243 208 / 0.12) 0 36%, transparent 36% 100%),
     linear-gradient(135deg, #10231e, #17352e 58%, #07120f);
   background-color: #10231e;
 }
 
+.home-showcase-research::before {
+  background:
+    radial-gradient(circle, rgb(167 243 208 / 0.2) 0 2px, transparent 2.5px) 0 0 / 5rem 5rem,
+    linear-gradient(132deg, transparent 0 47%, rgb(167 243 208 / 0.12) 47% 48%, transparent 48% 100%),
+    linear-gradient(90deg, rgb(167 243 208 / 0.045) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(167 243 208 / 0.045) 1px, transparent 1px);
+  background-size: 5rem 5rem, 100% 100%, 32px 32px, 32px 32px;
+}
+
 .home-showcase-projects {
-  --section-band: rgb(255 122 26 / 0.38);
-  --showcase-foreground: #f4fff8;
-  --showcase-muted: #c2d8cd;
-  --showcase-link: #f4fff8;
-  --showcase-card: #16342d;
-  --showcase-card-foreground: #f4fff8;
-  --showcase-card-muted: #c6ded1;
-  --showcase-border: rgb(244 255 248 / 0.24);
+  --section-band: rgb(240 163 95 / 0.38);
+  --showcase-foreground: #f3f7fb;
+  --showcase-muted: #bac7d5;
+  --showcase-link: #f3f7fb;
+  --showcase-card: #1e2d3d;
+  --showcase-card-foreground: #f3f7fb;
+  --showcase-card-muted: #c8d2dd;
+  --showcase-card-hover: #ffe7c9;
+  --showcase-card-hover-foreground: #1a2230;
+  --showcase-card-hover-muted: #4f4537;
+  --showcase-border: rgb(224 232 240 / 0.22);
   color: var(--showcase-foreground);
   background:
-    linear-gradient(118deg, rgb(167 243 208 / 0.14) 0 27%, transparent 27% 100%),
-    linear-gradient(145deg, transparent 0 59%, rgb(125 211 252 / 0.12) 59% 100%),
-    linear-gradient(135deg, #10231e, #17352e 58%, #07120f);
-  background-color: #10231e;
+    radial-gradient(circle at 82% 24%, rgb(240 163 95 / 0.18), transparent 29%),
+    linear-gradient(118deg, rgb(96 165 250 / 0.1) 0 27%, transparent 27% 100%),
+    linear-gradient(145deg, transparent 0 59%, rgb(240 163 95 / 0.11) 59% 100%),
+    linear-gradient(135deg, #172231, #223147 58%, #0d1420);
+  background-color: #172231;
+}
+
+.home-showcase-projects::before {
+  background:
+    linear-gradient(90deg, transparent 0 13%, rgb(240 163 95 / 0.2) 13% calc(13% + 2px), transparent calc(13% + 2px) 100%),
+    linear-gradient(90deg, rgb(147 197 253 / 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(147 197 253 / 0.07) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 0 49%, rgb(240 163 95 / 0.13) 49% 50%, transparent 50% 100%);
+  background-size: 100% 100%, 28px 28px, 28px 28px, 100% 100%;
 }
 
 .home-showcase-projects .home-kicker,
@@ -1084,36 +1166,58 @@ canvas {
 }
 
 .home-showcase-writing {
-  --section-band: rgb(0 166 118 / 0.3);
-  --showcase-foreground: #121417;
-  --showcase-muted: #4b5563;
-  --showcase-link: #121417;
-  --showcase-card: #fff;
-  --showcase-card-foreground: #121417;
-  --showcase-card-muted: #4b5563;
-  --showcase-border: rgb(18 20 23 / 0.18);
+  --section-band: rgb(185 28 28 / 0.22);
+  --showcase-foreground: #161616;
+  --showcase-muted: #57504a;
+  --showcase-link: #161616;
+  --showcase-card: #fffdf8;
+  --showcase-card-foreground: #161616;
+  --showcase-card-muted: #57504a;
+  --showcase-card-hover: #161616;
+  --showcase-card-hover-foreground: #fffdf8;
+  --showcase-card-hover-muted: #eadfd1;
+  --showcase-border: rgb(31 24 18 / 0.18);
   background:
-    linear-gradient(118deg, #f1efe7 0 34%, transparent 34% 100%),
-    linear-gradient(145deg, transparent 0 58%, rgb(233 238 245 / 0.92) 58% 100%),
-    linear-gradient(320deg, rgb(217 119 6 / 0.14), transparent 42%),
-    #f1efe7;
+    linear-gradient(90deg, rgb(185 28 28 / 0.08) 0 2px, transparent 2px 100%),
+    linear-gradient(118deg, #f4f1e8 0 34%, transparent 34% 100%),
+    linear-gradient(145deg, transparent 0 58%, rgb(236 229 216 / 0.92) 58% 100%),
+    #f4f1e8;
+}
+
+.home-showcase-writing::before {
+  background:
+    linear-gradient(90deg, transparent 0 11%, rgb(185 28 28 / 0.24) 11% calc(11% + 2px), transparent calc(11% + 2px) 100%),
+    repeating-linear-gradient(180deg, transparent 0 2.1rem, rgb(31 24 18 / 0.075) 2.1rem calc(2.1rem + 1px)),
+    linear-gradient(90deg, rgb(31 24 18 / 0.035) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px;
 }
 
 .home-showcase-contact {
-  --section-band: rgb(125 211 252 / 0.24);
-  --showcase-foreground: #f8fafc;
-  --showcase-muted: #d5dde8;
-  --showcase-link: #f8fafc;
-  --showcase-card: #314154;
-  --showcase-card-foreground: #f8fafc;
-  --showcase-card-muted: #d5dde8;
-  --showcase-border: rgb(226 232 240 / 0.22);
+  --section-band: rgb(251 113 133 / 0.3);
+  --showcase-foreground: #fff7fb;
+  --showcase-muted: #f4c7d8;
+  --showcase-link: #fff7fb;
+  --showcase-card: #462050;
+  --showcase-card-foreground: #fff7fb;
+  --showcase-card-muted: #f3cad8;
+  --showcase-card-hover: #ffe4ec;
+  --showcase-card-hover-foreground: #35133d;
+  --showcase-card-hover-muted: #6d3045;
+  --showcase-border: rgb(255 228 236 / 0.24);
   color: var(--showcase-foreground);
   background:
-    linear-gradient(118deg, rgb(244 63 94 / 0.12) 0 32%, transparent 32% 100%),
-    linear-gradient(145deg, transparent 0 60%, rgb(125 211 252 / 0.16) 60% 100%),
-    linear-gradient(135deg, #253340, #334557 58%, #1c2834);
-  background-color: #253340;
+    radial-gradient(circle at 78% 24%, rgb(251 113 133 / 0.22), transparent 29%),
+    linear-gradient(118deg, rgb(251 113 133 / 0.13) 0 32%, transparent 32% 100%),
+    linear-gradient(145deg, transparent 0 60%, rgb(168 85 247 / 0.13) 60% 100%),
+    linear-gradient(135deg, #2f1838, #462050 58%, #1f0d28);
+  background-color: #2f1838;
+}
+
+.home-showcase-contact::before {
+  background:
+    radial-gradient(ellipse at 68% 42%, transparent 0 34%, rgb(251 113 133 / 0.18) 34% calc(34% + 2px), transparent calc(34% + 2px) 100%),
+    radial-gradient(ellipse at 36% 68%, transparent 0 29%, rgb(216 180 254 / 0.14) 29% calc(29% + 2px), transparent calc(29% + 2px) 100%),
+    linear-gradient(120deg, transparent 0 47%, rgb(251 113 133 / 0.12) 47% 48%, transparent 48% 100%);
 }
 
 .home-showcase-contact .home-kicker,
@@ -1124,20 +1228,30 @@ canvas {
 }
 
 .home-showcase-notes {
-  --section-band: rgb(15 23 42 / 0.2);
-  --showcase-foreground: #111827;
+  --section-band: rgb(14 165 233 / 0.22);
+  --showcase-foreground: #0f172a;
   --showcase-muted: #4b5563;
-  --showcase-link: #111827;
-  --showcase-card: #f8fafc;
-  --showcase-card-foreground: #111827;
+  --showcase-link: #0f172a;
+  --showcase-card: #f8fbff;
+  --showcase-card-foreground: #0f172a;
   --showcase-card-muted: #4b5563;
-  --showcase-border: rgb(17 24 39 / 0.18);
+  --showcase-card-hover: #0f172a;
+  --showcase-card-hover-foreground: #f8fbff;
+  --showcase-card-hover-muted: #d9e9f5;
+  --showcase-border: rgb(15 23 42 / 0.18);
   background:
     linear-gradient(118deg, rgb(255 255 255 / 0.58) 0 30%, transparent 30% 100%),
-    linear-gradient(145deg, transparent 0 59%, rgb(226 232 240 / 0.78) 59% 100%),
-    linear-gradient(320deg, rgb(59 130 246 / 0.12), transparent 42%),
-    #eef2f6;
-  background-color: #eef2f6;
+    linear-gradient(145deg, transparent 0 59%, rgb(223 234 241 / 0.82) 59% 100%),
+    linear-gradient(320deg, rgb(14 165 233 / 0.1), transparent 42%),
+    #eef3f7;
+  background-color: #eef3f7;
+}
+
+.home-showcase-notes::before {
+  background:
+    linear-gradient(90deg, transparent 0 18%, rgb(14 165 233 / 0.16) 18% calc(18% + 3px), transparent calc(18% + 3px) 100%),
+    repeating-linear-gradient(180deg, rgb(15 23 42 / 0.04) 0 1px, transparent 1px 2.45rem),
+    radial-gradient(circle at 76% 32%, rgb(14 165 233 / 0.14), transparent 22%);
 }
 
 .home-showcase-notes .primary-action {
@@ -1209,13 +1323,30 @@ canvas {
   overflow: hidden;
 }
 
+.home-visual::before,
+.home-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-visual::after {
+  opacity: 0.84;
+}
+
 .home-visual img,
 .home-visual svg {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
   min-height: 0;
   object-fit: contain;
+  opacity: 0.72;
+  mix-blend-mode: luminosity;
 }
 
 .home-visual-hero {
@@ -1228,6 +1359,80 @@ canvas {
   --home-visual-ratio: 1032 / 1377;
   justify-self: end;
   max-width: min(100%, clamp(18rem, 30vw, 30rem));
+}
+
+.home-showcase-hero .home-visual::before {
+  background:
+    radial-gradient(circle at 50% 28%, rgb(139 92 246 / 0.28), transparent 30%),
+    linear-gradient(135deg, rgb(216 180 254 / 0.14) 0 1px, transparent 1px 100%);
+  background-size: 100% 100%, 34px 34px;
+}
+
+.home-showcase-hero .home-visual::after {
+  background:
+    linear-gradient(90deg, transparent 0 44%, rgb(216 180 254 / 0.36) 44% calc(44% + 2px), transparent calc(44% + 2px) 100%),
+    radial-gradient(circle at 64% 58%, rgb(139 92 246 / 0.26), transparent 18%);
+}
+
+.home-showcase-research .home-visual::before {
+  background:
+    radial-gradient(circle, rgb(167 243 208 / 0.28) 0 2px, transparent 2.5px) 0 0 / 4.2rem 4.2rem,
+    linear-gradient(140deg, transparent 0 46%, rgb(167 243 208 / 0.22) 46% calc(46% + 2px), transparent calc(46% + 2px) 100%);
+}
+
+.home-showcase-research .home-visual::after {
+  background:
+    linear-gradient(90deg, rgb(167 243 208 / 0.18), transparent 38%),
+    repeating-linear-gradient(180deg, transparent 0 2.4rem, rgb(167 243 208 / 0.16) 2.4rem calc(2.4rem + 1px));
+}
+
+.home-showcase-projects .home-visual::before {
+  background:
+    linear-gradient(90deg, rgb(147 197 253 / 0.14) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(147 197 253 / 0.14) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.home-showcase-projects .home-visual::after {
+  background:
+    linear-gradient(90deg, transparent 0 18%, rgb(240 163 95 / 0.48) 18% calc(18% + 3px), transparent calc(18% + 3px) 100%),
+    linear-gradient(135deg, transparent 0 54%, rgb(240 163 95 / 0.2) 54% 55%, transparent 55% 100%);
+}
+
+.home-showcase-writing .home-visual::before {
+  background:
+    linear-gradient(90deg, transparent 0 14%, rgb(185 28 28 / 0.24) 14% calc(14% + 2px), transparent calc(14% + 2px) 100%),
+    repeating-linear-gradient(180deg, transparent 0 2.1rem, rgb(31 24 18 / 0.14) 2.1rem calc(2.1rem + 1px));
+}
+
+.home-showcase-writing .home-visual::after {
+  background:
+    linear-gradient(12deg, transparent 0 61%, rgb(185 28 28 / 0.18) 61% 62%, transparent 62% 100%),
+    radial-gradient(circle at 73% 26%, rgb(185 28 28 / 0.16), transparent 16%);
+}
+
+.home-showcase-contact .home-visual::before {
+  background:
+    radial-gradient(ellipse at 62% 38%, transparent 0 34%, rgb(251 113 133 / 0.36) 34% calc(34% + 2px), transparent calc(34% + 2px) 100%),
+    radial-gradient(ellipse at 34% 72%, transparent 0 28%, rgb(216 180 254 / 0.24) 28% calc(28% + 2px), transparent calc(28% + 2px) 100%);
+}
+
+.home-showcase-contact .home-visual::after {
+  background:
+    linear-gradient(118deg, transparent 0 49%, rgb(251 113 133 / 0.28) 49% 50%, transparent 50% 100%),
+    radial-gradient(circle at 72% 62%, rgb(251 113 133 / 0.22), transparent 17%);
+}
+
+.home-showcase-notes .home-visual::before {
+  background:
+    linear-gradient(90deg, transparent 0 20%, rgb(14 165 233 / 0.22) 20% calc(20% + 3px), transparent calc(20% + 3px) 100%),
+    repeating-linear-gradient(180deg, rgb(15 23 42 / 0.1) 0 1px, transparent 1px 2.2rem);
+}
+
+.home-showcase-notes .home-visual::after {
+  background:
+    radial-gradient(circle at 68% 24%, rgb(14 165 233 / 0.24), transparent 19%),
+    linear-gradient(145deg, transparent 0 56%, rgb(15 23 42 / 0.12) 56% 57%, transparent 57% 100%);
 }
 
 .home-visual-base {
@@ -1734,33 +1939,33 @@ canvas {
   position: relative;
   z-index: 1;
   margin-top: clamp(2.5rem, 7vw, 5.5rem);
-  border-color: rgb(248 250 252 / 0.22);
+  border-color: rgb(125 211 252 / 0.26);
   background:
-    linear-gradient(118deg, rgb(139 92 246 / 0.14) 0 31%, transparent 31% 100%),
-    linear-gradient(145deg, transparent 0 60%, rgb(16 185 129 / 0.12) 60% 100%),
-    #030308;
-  color: #f8fafc;
+    linear-gradient(118deg, rgb(14 165 233 / 0.14) 0 31%, transparent 31% 100%),
+    linear-gradient(145deg, transparent 0 60%, rgb(148 163 184 / 0.12) 60% 100%),
+    #101924;
+  color: #f8fbff;
 }
 
 .home-page .site-footer p {
-  color: rgb(203 213 225 / 0.86);
+  color: rgb(217 233 245 / 0.88);
 }
 
 .home-page .site-footer .section-kicker {
-  color: rgb(203 213 225 / 0.9);
+  color: rgb(186 230 253 / 0.9);
 }
 
 .home-page .footer-links a {
-  border-color: rgb(248 250 252 / 0.18);
-  background: rgb(248 250 252 / 0.055);
-  color: #f8fafc;
+  border-color: rgb(186 230 253 / 0.22);
+  background: rgb(248 251 255 / 0.055);
+  color: #f8fbff;
 }
 
 .home-page .footer-links a:hover,
 .home-page .footer-links a:focus-visible {
-  border-color: rgb(248 250 252 / 0.72);
-  background: #f8fafc;
-  color: #030308;
+  border-color: rgb(186 230 253 / 0.78);
+  background: #e0f2fe;
+  color: #0f172a;
 }
 
 .footer-links a:hover,
@@ -3143,14 +3348,14 @@ mjx-container[jax="SVG"][display="true"] {
   .home-showcase-section > .home-visual,
   .home-showcase-cards,
   .home-explore-band,
-  .home-section-map {
+  .home-pillar-menu {
     position: static;
   }
 
   .home-showcase-motion .home-showcase-copy,
   .home-showcase-motion .home-showcase-cards,
   .home-showcase-motion .home-explore-band,
-  .home-showcase-motion .home-section-map,
+  .home-showcase-motion .home-pillar-menu,
   .home-showcase-motion .home-visual,
   .home-showcase-motion .home-showcase-contact .portfolio-philosophy-grid,
   .home-showcase-motion .home-showcase-contact .subscribe-panel {
@@ -3262,7 +3467,7 @@ mjx-container[jax="SVG"][display="true"] {
   .home-showcase-section > .home-visual,
   .home-showcase-cards,
   .home-explore-band,
-  .home-section-map {
+  .home-pillar-menu {
     position: static;
   }
 
@@ -3272,7 +3477,7 @@ mjx-container[jax="SVG"][display="true"] {
   .home-showcase-motion .home-showcase-copy .section-title,
   .home-showcase-motion .home-showcase-copy .home-intro,
   .home-showcase-motion .home-showcase-copy .home-actions,
-  .home-showcase-motion .home-section-map,
+  .home-showcase-motion .home-pillar-menu,
   .home-showcase-motion .home-showcase-copy .topic-index-link,
   .home-showcase-motion .home-showcase-cards,
   .home-showcase-motion .home-explore-band,
@@ -3291,33 +3496,21 @@ mjx-container[jax="SVG"][display="true"] {
     line-height: 0.96;
   }
 
-  .home-section-map {
+  .home-pillar-menu {
+    width: 100%;
+  }
+
+  .home-pillar-links {
     grid-template-columns: 1fr;
-    gap: 0.45rem;
   }
 
-  .home-section-count,
-  .home-section-map p {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .home-section-count {
+  .home-pillar-link {
+    min-height: 5.6rem;
     border-right: 0;
     border-bottom: 1px solid var(--showcase-border);
   }
 
-  .home-section-map p {
-    border-bottom: 1px solid var(--showcase-border);
-  }
-
-  .home-section-map a {
-    min-height: 2.85rem;
-    border-right: 0;
-    border-bottom: 1px solid var(--showcase-border);
-  }
-
-  .home-section-map a strong {
+  .home-pillar-link strong {
     white-space: normal;
   }
 
