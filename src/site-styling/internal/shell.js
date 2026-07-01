@@ -476,7 +476,10 @@ function renderLayout({
             const activePalette = palettes[activeIndex] || palettes[0];
             const activeSection = sections[activeIndex] || sections[0];
             const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
-            const bgMix = smoothstep((activeProgress - 0.18) / 0.68);
+            const bgMix =
+              activeIndex === 0
+                ? smoothstep(window.scrollY / (viewportHeight * 0.72))
+                : smoothstep((activeProgress - 0.18) / 0.68);
             setStyleProperty(root, "--showcase-bg-current", activePalette.background);
             setStyleProperty(root, "--showcase-bg-next", activePalette.next);
             setStyleProperty(root, "--showcase-bg-mix", bgMix.toFixed(3));
@@ -1129,7 +1132,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonHref: "/projects/",
       visual: "projects",
       motionBg: "#132d25",
-      motionNext: "#6f7a6f",
+      motionNext: "#f1efe7",
       motionStyle: "build",
     },
     {
@@ -1141,7 +1144,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Read writing",
       buttonHref: "/blog/",
       visual: "writing",
-      motionBg: "#6f7a6f",
+      motionBg: "#f1efe7",
       motionNext: "#253340",
       motionStyle: "index",
     },
@@ -1155,7 +1158,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonHref: "/contact/",
       visual: "contact",
       motionBg: "#253340",
-      motionNext: "#7c8894",
+      motionNext: "#eef2f6",
     },
     {
       id: "home-notes",
@@ -1166,7 +1169,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       buttonText: "Browse notes",
       buttonHref: "/notes/",
       visual: "notes",
-      motionBg: "#7c8894",
+      motionBg: "#eef2f6",
       motionNext: "#f1efe7",
     },
   ];

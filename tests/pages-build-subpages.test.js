@@ -434,6 +434,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes("initHomeShowcaseMotion"));
     assert.ok(homeHtml.includes("prefers-reduced-motion: reduce"));
     assert.ok(homeHtml.includes("--section-progress"));
+    assert.ok(homeHtml.includes("window.scrollY / (viewportHeight * 0.72)"));
     assert.ok(homeHtml.includes("data-active-section"));
     assert.ok(!homeHtml.includes("A static technical hub."));
     assert.ok(!homeHtml.includes('href="/projects/notes/"'));
@@ -523,6 +524,11 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".home-section-map a:last-child"));
     assert.ok(siteCss.includes("linear-gradient(180deg, #000, #030308 58%, #05080a);"));
     assert.ok(siteCss.includes("min-height: clamp(34rem, 82vh, 44rem);"));
+    assert.ok(siteCss.includes(".home-showcase-copy .section-subtitle + .home-intro"));
+    assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-section:not(.home-showcase-hero) .home-showcase-copy .section-subtitle"));
+    assert.ok(siteCss.includes("background: var(--showcase-bg-current);"));
+    assert.ok(siteCss.includes("background: var(--showcase-bg-next);"));
+    assert.ok(siteCss.includes(".home-page .site-footer"));
     assert.ok(siteCss.includes(".home-showcase-notes"));
     assert.ok(siteCss.includes(".home-visual-notes"));
     assert.ok(!siteCss.includes(".home-showcase-fade"));
@@ -566,10 +572,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("background-color: #253340;"));
     assert.ok(homeHtml.includes('data-motion-bg="#030308" data-motion-next="#10231e"'));
     assert.ok(homeHtml.includes('data-motion-bg="#10231e" data-motion-next="#132d25"'));
-    assert.ok(homeHtml.includes('data-motion-bg="#132d25" data-motion-next="#6f7a6f"'));
-    assert.ok(homeHtml.includes('data-motion-bg="#6f7a6f" data-motion-next="#253340"'));
-    assert.ok(homeHtml.includes('data-motion-bg="#253340" data-motion-next="#7c8894"'));
-    assert.ok(homeHtml.includes('data-motion-bg="#7c8894" data-motion-next="#f1efe7"'));
+    assert.ok(homeHtml.includes('data-motion-bg="#132d25" data-motion-next="#f1efe7"'));
+    assert.ok(homeHtml.includes('data-motion-bg="#f1efe7" data-motion-next="#253340"'));
+    assert.ok(homeHtml.includes('data-motion-bg="#253340" data-motion-next="#eef2f6"'));
+    assert.ok(homeHtml.includes('data-motion-bg="#eef2f6" data-motion-next="#f1efe7"'));
     assert.ok(!homeHtml.includes('class="home-showcase-fade" aria-hidden="true"'));
     assert.ok(siteCss.includes(".topic-hub-intro"));
     assert.ok(siteCss.includes(".home-showcase-contact .subscribe-panel p:not(.section-kicker)"));

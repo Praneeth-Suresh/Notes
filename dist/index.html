@@ -88,7 +88,7 @@
         <div class="home-visual home-visual-research">
   <img src="/assets/home/home-research.png" alt="AI research workspace with paper excerpts, model diagrams, and analysis traces." width="1672" height="941" loading="eager" decoding="async" />
 </div>
-      </section><section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#132d25" data-motion-next="#6f7a6f" data-motion-style="build">
+      </section><section id="home-projects" class="home-showcase-section home-showcase-projects" aria-labelledby="home-projects-title" data-motion-bg="#132d25" data-motion-next="#f1efe7" data-motion-style="build">
         <div class="home-showcase-copy">
           <h2 id="home-projects-title" class="section-title">/ Projects</h2>
           <p class="section-subtitle">Selected systems with evidence.</p>
@@ -100,7 +100,7 @@
         <div class="home-visual home-visual-projects">
   <img src="/assets/home/home-projects.png" alt="Software project workspace with code, tests, prototypes, and implementation notes." width="1320" height="720" loading="eager" decoding="async" />
 </div>
-      </section><section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#6f7a6f" data-motion-next="#253340" data-motion-style="index">
+      </section><section id="home-writing" class="home-showcase-section home-showcase-writing" aria-labelledby="home-writing-title" data-motion-bg="#f1efe7" data-motion-next="#253340" data-motion-style="index">
         <div class="home-showcase-copy">
           <h2 id="home-writing-title" class="section-title">/ Writing</h2>
           <p class="section-subtitle">Essays about technical ideas.</p>
@@ -112,7 +112,7 @@
         <div class="home-visual home-visual-writing">
   <img src="/assets/home/home-writing.png" alt="Technical writing desk with marked-up drafts, diagrams, and code references." width="1672" height="941" loading="eager" decoding="async" />
 </div>
-      </section><section id="home-asks" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#253340" data-motion-next="#7c8894">
+      </section><section id="home-asks" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#253340" data-motion-next="#eef2f6">
         <div class="home-showcase-copy">
           <h2 id="home-asks-title" class="section-title">/ Asks</h2>
           <p class="section-subtitle">Open routes for specific conversations.</p>
@@ -124,7 +124,7 @@
         <div class="home-visual home-visual-contact">
   <img src="/assets/home/home-contact.png" alt="Technical collaboration table with workshop notes, agenda, and project discussion materials." width="1698" height="926" loading="eager" decoding="async" />
 </div>
-      </section><section id="home-notes" class="home-showcase-section home-showcase-notes" aria-labelledby="home-notes-title" data-motion-bg="#7c8894" data-motion-next="#f1efe7">
+      </section><section id="home-notes" class="home-showcase-section home-showcase-notes" aria-labelledby="home-notes-title" data-motion-bg="#eef2f6" data-motion-next="#f1efe7">
         <div class="home-showcase-copy">
           <h2 id="home-notes-title" class="section-title">/ Notes</h2>
           <p class="section-subtitle">Searchable computer science notes.</p>
@@ -347,7 +347,10 @@
             const activePalette = palettes[activeIndex] || palettes[0];
             const activeSection = sections[activeIndex] || sections[0];
             const activeProgress = Number.parseFloat(activeSection.style.getPropertyValue("--section-progress")) || 0;
-            const bgMix = smoothstep((activeProgress - 0.18) / 0.68);
+            const bgMix =
+              activeIndex === 0
+                ? smoothstep(window.scrollY / (viewportHeight * 0.72))
+                : smoothstep((activeProgress - 0.18) / 0.68);
             setStyleProperty(root, "--showcase-bg-current", activePalette.background);
             setStyleProperty(root, "--showcase-bg-next", activePalette.next);
             setStyleProperty(root, "--showcase-bg-mix", bgMix.toFixed(3));

@@ -140,6 +140,10 @@ test("renderBlogIndexPage produces valid HTML with sections and posts", () => {
   assert.ok(html.includes('new URLSearchParams(window.location.search).get("topic")'));
   assert.ok(html.includes("<p>Welcome</p>"));
   assert.ok(html.includes("Blog &middot; Test Site") || html.includes("Blog · Test Site"));
+
+  const siteCss = siteStyling.getSiteCss();
+  assert.ok(siteCss.includes(".blog-post-list { list-style: none; padding-left: 0; margin: 0; }"));
+  assert.ok(!siteCss.includes(".blog-post-list li::marker"));
 });
 
 // --- renderBlogPostPage ---
