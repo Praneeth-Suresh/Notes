@@ -70,9 +70,9 @@ The site should separate deep technical reading from fast visitor orientation.
   Completed: ran a static artifact size pass on the critical routes. Current HTML sizes are: home 26.6 KB, blog index 19.3 KB, notes index 580.9 KB. CSS is 82.9 KB and self-hosted MathJax is 2221.8 KB. The only launch concern is `/notes/`, which is heavy because it embeds the searchable notes payload; this is acceptable for launch but should be revisited later if first-load performance becomes a problem.
 
 ### P1 - launch quality
-- [ ] Add route-level CTA copy review for Home, Start Here, Subscribe, Contact, Collaborate, Projects, and About Me.
+- [x] Add route-level CTA copy review for Home, Start Here, Subscribe, Contact, Collaborate, Projects, and About Me.
 
-  Partially complete: Home, Start Here, Subscribe, Contact, Collaborate, and Projects now have clearer CTA copy and first-step routing. This remains unchecked until the About Me restyle is finished, because About Me is part of this route-level CTA review.
+  Completed: Home, Start Here, Subscribe, Contact, Collaborate, and Projects were tightened in the launch-quality pass. About Me now opens with direct personal positioning and explicit actions for Email, GitHub, LinkedIn, and Selected Projects.
 
 - [x] Keep `/notes/`, `/topics/...`, and `/blog/...` deep, but add stronger internal trails and next-step CTAs after substantial sections.
 
@@ -86,7 +86,9 @@ The site should separate deep technical reading from fast visitor orientation.
 
   Completed: adjusted the Start Here intro to clarify that it orients new visitors into serious technical reading without flattening the notes. The RSS step now states that RSS is the reliable current path while email stays lightweight until a provider is worth adding.
 
-- [ ] Refine `/about/` as an About Me page focused on identity, credibility, work, and current opportunities.
+- [x] Refine `/about/` as an About Me page focused on identity, credibility, work, and current opportunities.
+
+  Completed: `/about/` now functions as an About Me dossier: personal identity first, then proof points, current focus, credibility, selected work, opportunities, repository map, and contact routes. It no longer duplicates the homepage or Start Here site introduction.
 - [ ] Add a lightweight onboarding prompt only if analytics show visitors are bouncing before entering deeper pages.
 
   Blocked by evidence: this requires analytics or qualitative user evidence showing visitors are bouncing before reaching deeper pages. Conversion tracking is intentionally out of scope for this run, so no onboarding prompt should be added yet.
@@ -148,19 +150,36 @@ The site should separate deep technical reading from fast visitor orientation.
 ## 6) Loose ends you likely still need to address
 
 - Confirm live website accessibility from outside this runner (the crawler here cannot currently load `notes.praneeth-suresh-s.workers.dev`).
-- About Me needs a clearer personal narrative, not more website explanation.
+- About Me now has a clearer personal narrative and no longer explains the website redundantly.
 - Marketing pages need to be concise enough to hold attention before directing readers into the technical material.
 - Monetization decision is now documented as RSS-first with lightweight email request; provider setup and conversion tracking remain intentionally deferred.
 - No dedicated legal/privacy copy page for newsletter/contact data handling (needed if collecting emails).
 
 ## 7) Mandatory About Me requirement
 
-- [ ] **Complete restyle of `/about/` as an About Me page, not a website introduction page.**
-- [ ] First screen should introduce Praneeth Suresh directly: role, current context, technical taste, and what kind of work he wants to be known for.
-- [ ] Replace redundant site explanation with personal narrative: education, current focus, selected proof of work, research/engineering interests, leadership, and opportunities.
-- [ ] Make the page feel professional enough for recruiters, collaborators, AI Society partners, and serious technical readers.
-- [ ] Keep the page concise compared with the technical corpus, but not shallow. It should be high-signal personal positioning.
-- [ ] Preserve links to GitHub, LinkedIn, research taste, selected projects, and contact routes.
+- [x] **Complete restyle of `/about/` as an About Me page, not a website introduction page.**
+
+  Completed: the page has been rebuilt as a personal About Me dossier. Home and Start Here remain responsible for site orientation; `/about/` now introduces Praneeth Suresh directly.
+
+- [x] First screen should introduce Praneeth Suresh directly: role, current context, technical taste, and what kind of work he wants to be known for.
+
+  Completed: the hero now states Praneeth's NUS CS + Mathematics context, inspectable AI systems focus, agent workflow interest, and technical taste around research becoming working software.
+
+- [x] Replace redundant site explanation with personal narrative: education, current focus, selected proof of work, research/engineering interests, leadership, and opportunities.
+
+  Completed: the page now includes proof points, current focus, education, leadership, public work, selected projects, opportunity categories, repository map, and contact routes.
+
+- [x] Make the page feel professional enough for recruiters, collaborators, AI Society partners, and serious technical readers.
+
+  Completed: the visual structure now uses a professional dossier layout with a proof strip, restrained grid system, direct profile actions, and clear opportunity sections for research, internships, and NUS AI Society collaboration.
+
+- [x] Keep the page concise compared with the technical corpus, but not shallow. It should be high-signal personal positioning.
+
+  Completed: the page avoids long essay-style explanation and uses compact, high-signal sections. It preserves substantive credentials and project evidence without trying to re-explain the whole site.
+
+- [x] Preserve links to GitHub, LinkedIn, research taste, selected projects, and contact routes.
+
+  Completed: GitHub, LinkedIn, Selected Projects, Research Taste, Email, Contact, and Collaborate routes remain available through hero actions, footer links, selected sections, or the contact CTA.
 
 ## 8) Reference website direction for About Me styling
 
