@@ -93,6 +93,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Blog index topic restraint | Keep the blog index visually limited to section headings and post-title bullet links; tags/topics remain searchable metadata on the index and visible clickable organization on individual blog posts. | 2026-07-01 | n/a |
 | Public contact copy | Keep contact surfaces reader-facing and provider-neutral: no visible Calendly notes or maintainer/developer-facing implementation language on public routes. | 2026-07-01 | n/a |
 | Static 404 recovery route | Generate a first-class `/404.html` Pages artifact through the build pipeline, with stable links back to Home, Notes, Writing, Contact, Start Here, and Subscribe; do not include it in the sitemap. | 2026-07-04 | n/a |
+| Technical depth with concise gateways | Preserve dense technical notes/blog/topic pages as the value core, while making Home, Start Here, Subscribe, Projects, Contact, Collaborate, and About Me concise navigation surfaces that move interested readers into the deeper corpus. | 2026-07-04 | n/a |
 
 ## Pressure Points
 
@@ -180,6 +181,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - The blog index no longer renders visible topic/tag pills under posts; individual blog posts keep clickable topic links that filter the blog index by topic.
 - Blog post headers now separate topic links from the Copy link action, and subscribe panels use a bounded desktop type scale so wide screens remain readable.
 - The build now emits a static `/404.html` recovery page with the shared shell, metadata, and stable links back into the primary site routes.
+- Technical pages now include a compact "Follow the technical trail" next-step panel, while Home, Start Here, Subscribe, Projects, Contact, and Collaborate use sharper gateway copy and explicit reader actions.
 
 ## Recording Rule (Design Tree vs ADR)
 

@@ -369,6 +369,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes("Next reading"));
     assert.ok(parentHtml.includes('class="next-reading-link" href="/topics/algorithms/dynamic-programming/"'));
     assert.ok(parentHtml.includes("Dynamic Programming"));
+    assert.ok(parentHtml.includes("Follow the technical trail."));
     assert.ok(homeHtml.includes('class="home-showcase"'));
     assert.ok(homeHtml.includes('data-home-motion="ready"'));
     assert.ok(!homeHtml.includes('class="home-showcase-rail"'));
@@ -399,6 +400,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes('class="stripe-field"'));
     assert.ok(homeHtml.includes("Praneeth&#39;s CS Field Notes"));
     assert.ok(homeHtml.includes("Five entry points into my work"));
+    assert.ok(homeHtml.includes('href="/start-here/">Start here</a>'));
+    assert.ok(homeHtml.includes('href="/notes/">Search notes</a>'));
     assert.ok(homeHtml.includes('id="main-content" class="skip-target"'));
     assert.ok(!homeHtml.includes('class="primary-action" href="#main-content"'));
     assert.ok(!homeHtml.includes("Explore notes"));
@@ -623,6 +626,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!startHereHtml.includes('aria-label="Start here navigation"'));
     assert.ok(!startHereHtml.includes('class="topic-nav"'));
     assert.ok(startHereHtml.includes("Start with the AI research trail"));
+    assert.ok(startHereHtml.includes("without flattening the notes themselves"));
     assert.ok(startHereHtml.includes('href="/research-taste/"'));
     assert.ok(startHereHtml.includes("Read one paper-backed essay"));
     assert.ok(startHereHtml.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
@@ -660,6 +664,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!subscribeHtml.includes('class="topic-nav"'));
     assert.ok(subscribeHtml.includes("Monthly AI research and project updates, with RSS available now."));
     assert.ok(subscribeHtml.includes("Subscribe for monthly AI research/project updates."));
+    assert.ok(subscribeHtml.includes("RSS is live now."));
     assert.ok(subscribeHtml.includes("Subscribe by email"));
     assert.ok(subscribeHtml.includes('data-analytics-event="email_subscribe_click"'));
     assert.ok(subscribeHtml.includes('href="/feed.xml"'));

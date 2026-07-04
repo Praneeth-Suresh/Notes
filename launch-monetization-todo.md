@@ -71,12 +71,29 @@ The site should separate deep technical reading from fast visitor orientation.
 
 ### P1 - launch quality
 - [ ] Add route-level CTA copy review for Home, Start Here, Subscribe, Contact, Collaborate, Projects, and About Me.
-- [ ] Keep `/notes/`, `/topics/...`, and `/blog/...` deep, but add stronger internal trails and next-step CTAs after substantial sections.
-- [ ] Refine `/` as the high-level public gateway: research, projects, writing, asks, and notes.
-- [ ] Refine `/start-here/` as the site introduction and guided reading path.
+
+  Partially complete: Home, Start Here, Subscribe, Contact, Collaborate, and Projects now have clearer CTA copy and first-step routing. This remains unchecked until the About Me restyle is finished, because About Me is part of this route-level CTA review.
+
+- [x] Keep `/notes/`, `/topics/...`, and `/blog/...` deep, but add stronger internal trails and next-step CTAs after substantial sections.
+
+  Completed: added a reusable `Follow the technical trail` panel to topic pages, blog index, and blog posts. This preserves long technical material while giving readers clean next steps into Start Here, Writing, Projects, and Subscribe.
+
+- [x] Refine `/` as the high-level public gateway: research, projects, writing, asks, and notes.
+
+  Completed: added explicit first-screen actions for Start Here, Search Notes, and Read Writing while preserving the existing five-pillar homepage structure.
+
+- [x] Refine `/start-here/` as the site introduction and guided reading path.
+
+  Completed: adjusted the Start Here intro to clarify that it orients new visitors into serious technical reading without flattening the notes. The RSS step now states that RSS is the reliable current path while email stays lightweight until a provider is worth adding.
+
 - [ ] Refine `/about/` as an About Me page focused on identity, credibility, work, and current opportunities.
 - [ ] Add a lightweight onboarding prompt only if analytics show visitors are bouncing before entering deeper pages.
-- [ ] Confirm there are no stale/redundant links in `content/` and `dist/` after next content regeneration.
+
+  Blocked by evidence: this requires analytics or qualitative user evidence showing visitors are bouncing before reaching deeper pages. Conversion tracking is intentionally out of scope for this run, so no onboarding prompt should be added yet.
+
+- [x] Confirm there are no stale/redundant links in `content/` and `dist/` after next content regeneration.
+
+  Completed: regenerated `dist/` and ran an internal link/asset audit across 141 generated HTML files. The audit found no missing internal routes or missing static assets.
 
 ### P2 - monetization pathway
 - [ ] Decide the initial funnel explicitly:

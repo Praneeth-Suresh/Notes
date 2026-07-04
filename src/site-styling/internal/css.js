@@ -2104,6 +2104,42 @@ canvas {
   max-width: 24rem;
 }
 
+.reading-trail {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(13rem, auto);
+  gap: 1rem;
+  align-items: center;
+  margin: 1.2rem 0;
+  padding: 1rem;
+  border: 1px solid var(--hairline);
+  background: color-mix(in oklab, var(--bg) 58%, transparent);
+}
+
+.reading-trail h2,
+.reading-trail p {
+  margin: 0;
+}
+
+.reading-trail h2 {
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.reading-trail p:not(.section-kicker) {
+  max-width: 42rem;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.reading-trail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: 0.45rem;
+}
+
 .start-hero {
   max-width: 900px;
   margin: 0 auto 1rem;
@@ -3586,6 +3622,14 @@ mjx-container[jax="SVG"][display="true"] {
   }
 
   .subscribe-route-actions {
+    justify-content: start;
+  }
+
+  .reading-trail {
+    grid-template-columns: 1fr;
+  }
+
+  .reading-trail-actions {
     justify-content: start;
   }
 

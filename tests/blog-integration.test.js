@@ -211,6 +211,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes('new URLSearchParams(window.location.search).get("topic")'));
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(blogIndex.includes('class="subscribe-panel"'));
+    assert.ok(blogIndex.includes("Follow the technical trail."));
     assert.ok(blogIndex.includes(`<meta name="description" content="Stories, project notes, and AI research reflections from Praneeth&#39;s CS Field Notes." />`));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));
     assert.ok(blogIndex.includes('<meta property="og:title" content="Blog · Test" />'));
@@ -227,6 +228,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
       "utf8",
     );
     assert.ok(postHtml.includes('class="subscribe-panel"'));
+    assert.ok(postHtml.includes("Follow the technical trail."));
     assert.ok(postHtml.includes('href="/subscribe/"'));
     assert.ok(postHtml.includes('href="/feed.xml"'));
     assert.ok(postHtml.includes("Copy link"));

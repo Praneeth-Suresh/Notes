@@ -331,6 +331,24 @@ function renderContactCtaPanel({ source = "site" } = {}) {
   `;
 }
 
+function renderReadingTrailPanel({ source = "site" } = {}) {
+  return `
+    <section class="reading-trail" aria-labelledby="reading-trail-title-${escapeHtml(source)}">
+      <div>
+        <p class="section-kicker">/ Continue</p>
+        <h2 id="reading-trail-title-${escapeHtml(source)}">Follow the technical trail.</h2>
+        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Reader next steps">
+        <a class="secondary-action" href="/start-here/">Start Here</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/projects/">Projects</a>
+        <a class="secondary-action" href="/subscribe/">Subscribe</a>
+      </div>
+    </section>
+  `;
+}
+
 function renderLayout({
   pageTitle,
   siteTitle,
@@ -1114,6 +1132,7 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
       })}
       ${topicContentHtml}
       ${renderNextReading(topic.nextReading)}
+      ${renderReadingTrailPanel({ source: topic.parentTitle ? "topic-subpage" : "topic" })}
       ${renderSubscribePanel({ source: topic.parentTitle ? "topic-subpage" : "topic" })}
     </section>
   `;
@@ -1248,6 +1267,11 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
                 ${pillarLinks}
               </nav>
             </div>
+          </div>
+          <div class="home-actions" aria-label="Primary site actions">
+            <a class="primary-action" href="/start-here/">Start here</a>
+            <a class="secondary-action" href="/notes/">Search notes</a>
+            <a class="secondary-action" href="/blog/">Read writing</a>
           </div>
         </div>
         ${renderHomeVisual("hero")}
@@ -1412,7 +1436,7 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
     <section id="main-content" class="start-hero" aria-labelledby="start-title">
       <p class="home-kicker">[ Start here ]</p>
       <h1 id="start-title">A first path through the notes.</h1>
-      <p>Use this route if you are new to the site and want the AI research thread before browsing the full corpus.</p>
+      <p>Use this route if you are new to the site. It gives you the shortest path from orientation into serious technical reading without flattening the notes themselves.</p>
     </section>
     <section class="start-path" aria-label="First reading path">
       <a class="start-step" href="/research-taste/">
@@ -1428,7 +1452,7 @@ function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, se
       <a class="start-step" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="start-here">
         <span>03</span>
         <h2>Subscribe when the shape is useful</h2>
-        <p>RSS is the stable owned-audience path until a newsletter provider is selected.</p>
+        <p>RSS is the reliable path today; email updates remain a simple request path until a newsletter provider is worth adding.</p>
       </a>
     </section>
     <section class="panel start-topics" aria-labelledby="start-topics-title">
@@ -1585,7 +1609,7 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       <div>
         <p class="section-kicker">/ Updates</p>
         <h2 id="subscribe-route-title">Subscribe for monthly AI research/project updates.</h2>
-        <p>Get one substantial update every few weeks: paper trails, project write-ups, implementation tradeoffs, and new notes worth revisiting.</p>
+        <p>RSS is live now. Email is intentionally lightweight: send a subscribe request and I will use it for future monthly research and project updates.</p>
       </div>
       <div class="subscribe-route-actions" aria-label="Subscribe page actions">
         <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="subscribe-page">Subscribe by email</a>
@@ -1623,7 +1647,7 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
     <section id="main-content" class="start-hero" aria-labelledby="projects-title">
       <p class="home-kicker">[ Projects ]</p>
       <h1 id="projects-title">Selected projects</h1>
-      <p>Inspectable project case studies: problem, method, result, code, write-up, and status.</p>
+      <p>Inspectable proof of work: problem, method, result, code, write-up, and status for selected technical projects.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="projects-route-title">
       <div class="route-proof-layout">
@@ -1736,7 +1760,7 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="start-hero" aria-labelledby="contact-title">
       <p class="home-kicker">[ Contact ]</p>
       <h1 id="contact-title">Contact</h1>
-      <p>Reach out about research, internships, consulting, NUS AI Society collaboration, and technical project conversations.</p>
+      <p>Reach out when there is a specific overlap: research, internships, consulting, NUS AI Society collaboration, or a technical project conversation.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="contact-route-title">
       <div class="portfolio-section-header">
@@ -1814,7 +1838,7 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
       <p class="home-kicker">[ Collaborate ]</p>
       <h1 id="collaborate-title">Collaboration and consulting</h1>
-      <p>A focused route for research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
+      <p>A focused route for concrete research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
     </section>
     <section class="panel portfolio-section" aria-labelledby="collaborate-route-title">
       <div class="portfolio-section-header">
@@ -2087,6 +2111,7 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       <p id="blog-search-status" class="topic-search-status" aria-live="polite">Showing all posts.</p>
       <nav aria-label="Blog table of contents">${toc}</nav>
     </section>
+    ${renderReadingTrailPanel({ source: "blog-index" })}
     ${renderSubscribePanel({ source: "blog-index" })}
     <script>
       (() => {
@@ -2212,6 +2237,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
         </div>
       </header>
       ${blogContentHtml}
+      ${renderReadingTrailPanel({ source: "blog-post" })}
       ${renderSubscribePanel({ source: "blog-post" })}
       ${navHtml}
     </div>
