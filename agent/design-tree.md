@@ -92,6 +92,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Public site title | Use `Praneeth's CS Field Notes` as the public site title and metadata name while allowing the Notes repository/project to remain a named project where context requires it. | 2026-07-01 | n/a |
 | Blog index topic restraint | Keep the blog index visually limited to section headings and post-title bullet links; tags/topics remain searchable metadata on the index and visible clickable organization on individual blog posts. | 2026-07-01 | n/a |
 | Public contact copy | Keep contact surfaces reader-facing and provider-neutral: no visible Calendly notes or maintainer/developer-facing implementation language on public routes. | 2026-07-01 | n/a |
+| Static 404 recovery route | Generate a first-class `/404.html` Pages artifact through the build pipeline, with stable links back to Home, Notes, Writing, Contact, Start Here, and Subscribe; do not include it in the sitemap. | 2026-07-04 | n/a |
 
 ## Pressure Points
 
@@ -178,6 +179,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Public contact CTAs no longer mention Calendly and use practical email-first guidance instead of maintainer-facing implementation notes.
 - The blog index no longer renders visible topic/tag pills under posts; individual blog posts keep clickable topic links that filter the blog index by topic.
 - Blog post headers now separate topic links from the Copy link action, and subscribe panels use a bounded desktop type scale so wide screens remain readable.
+- The build now emits a static `/404.html` recovery page with the shared shell, metadata, and stable links back into the primary site routes.
 
 ## Recording Rule (Design Tree vs ADR)
 

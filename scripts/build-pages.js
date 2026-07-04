@@ -760,8 +760,13 @@ async function buildPagesSite({
       siteTitle,
       siteUrl: normalizedSiteUrl,
     });
+    const notFoundHtml = stylingContext.renderNotFoundPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
 
     await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
+    await writeUtf8File(path.join(buildOutputDir, "404.html"), notFoundHtml);
     await writeUtf8File(path.join(buildOutputDir, "start-here", "index.html"), startHereHtml);
     await writeUtf8File(path.join(buildOutputDir, "research-taste", "index.html"), researchTasteHtml);
     await writeUtf8File(path.join(buildOutputDir, "errata", "index.html"), errataHtml);

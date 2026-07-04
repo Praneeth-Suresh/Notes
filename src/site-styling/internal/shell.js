@@ -11,6 +11,7 @@ const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project upd
 const PROJECTS_DESCRIPTION = "Selected projects from Praneeth Suresh across static knowledge systems, AI engineering, research notebooks, and agentic tooling.";
 const CONTACT_DESCRIPTION = "Contact Praneeth Suresh about research, internships, consulting, NUS AI Society collaboration, and technical projects.";
 const COLLABORATE_DESCRIPTION = "Collaboration and consulting route for research, AI engineering, project work, and NUS AI Society opportunities.";
+const NOT_FOUND_DESCRIPTION = "The requested page was not found. Continue to Praneeth's CS Field Notes home, notes, writing, or contact routes.";
 const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
 const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
@@ -1840,6 +1841,53 @@ function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   });
 }
 
+function renderNotFoundPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const content = `
+    <section id="main-content" class="start-hero" aria-labelledby="not-found-title">
+      <p class="home-kicker">[ 404 ]</p>
+      <h1 id="not-found-title">Page not found</h1>
+      <p>The page you requested is not available. Use one of the stable routes below to continue into the notes, writing, projects, or contact pages.</p>
+      <div class="home-actions" aria-label="404 recovery links">
+        <a class="primary-action" href="/">Home</a>
+        <a class="secondary-action" href="/notes/">Notes</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/contact/">Contact</a>
+      </div>
+    </section>
+    <section class="panel portfolio-section" aria-labelledby="not-found-routes-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Recovery</p>
+        <h2 id="not-found-routes-title" class="section-title">Stable entry points</h2>
+      </div>
+      <div class="repo-map">
+        <section class="repo-group" aria-label="Start here">
+          <h3>Start here</h3>
+          <p><a href="/start-here/">Use the guided first path</a> if you are new to the site.</p>
+        </section>
+        <section class="repo-group" aria-label="Search notes">
+          <h3>Search notes</h3>
+          <p><a href="/notes/">Search the notes archive</a> across topics and subpages.</p>
+        </section>
+        <section class="repo-group" aria-label="Subscribe">
+          <h3>Subscribe</h3>
+          <p><a href="/subscribe/">Choose RSS or email request</a> for future research and project updates.</p>
+        </section>
+      </div>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Page not found · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page utility-page",
+    description: NOT_FOUND_DESCRIPTION,
+    canonicalUrl: absoluteUrl(siteUrl, "/404.html"),
+    ogTitle: `Page not found · ${siteTitle}`,
+    ogDescription: NOT_FOUND_DESCRIPTION,
+  });
+}
+
 function normalizeRepositoryLink(repo) {
   if (typeof repo === "string") {
     return {
@@ -2213,6 +2261,7 @@ module.exports = {
   renderErrataPage,
   renderHomePage,
   renderNotesIndexPage,
+  renderNotFoundPage,
   renderPersonalPage,
   renderProjectPage,
   renderProjectsIndexPage,

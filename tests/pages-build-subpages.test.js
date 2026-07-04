@@ -291,6 +291,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const feedXml = await fs.readFile(path.join(outDir, "feed.xml"), "utf8");
     const sitemapXml = await fs.readFile(path.join(outDir, "sitemap.xml"), "utf8");
     const robotsTxt = await fs.readFile(path.join(outDir, "robots.txt"), "utf8");
+    const notFoundHtml = await fs.readFile(path.join(outDir, "404.html"), "utf8");
     const searchIndex = JSON.parse(
       await fs.readFile(path.join(outDir, "search-index.json"), "utf8"),
     );
@@ -779,6 +780,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(feedXml.includes("<guid>https://example.test/topics/algorithms/</guid>"));
     assert.ok(feedXml.includes("<description>Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</description>"));
     assert.ok(sitemapXml.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
+    assert.ok(sitemapXml.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'));
     assert.ok(sitemapXml.includes("<loc>https://example.test/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/start-here/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/research-taste/</loc>"));
@@ -796,6 +798,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(robotsTxt.includes("User-agent: *"));
     assert.ok(robotsTxt.includes("Allow: /"));
     assert.ok(robotsTxt.includes("Sitemap: https://example.test/sitemap.xml"));
+    assert.ok(notFoundHtml.includes("<h1 id=\"not-found-title\">Page not found</h1>"));
+    assert.ok(notFoundHtml.includes('href="/notes/"'));
+    assert.ok(notFoundHtml.includes('href="/subscribe/"'));
+    assert.ok(notFoundHtml.includes('<link rel="canonical" href="https://example.test/404.html" />'));
     const sitemapLocations = extractSitemapLocations(sitemapXml);
     assert.equal(sitemapLocations.length, new Set(sitemapLocations).size);
     for (const routePath of await collectHtmlRoutePaths(outDir)) {
