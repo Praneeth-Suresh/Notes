@@ -96,20 +96,45 @@ The site should separate deep technical reading from fast visitor orientation.
   Completed: regenerated `dist/` and ran an internal link/asset audit across 141 generated HTML files. The audit found no missing internal routes or missing static assets.
 
 ### P2 - monetization pathway
-- [ ] Decide the initial funnel explicitly:
+- [x] Decide the initial funnel explicitly:
   - Option A: RSS-first + delayed email list
   - Option B: RSS + active newsletter provider
   - Option C: paid advisory/consulting CTA only
+
+  Completed: selected Option A for launch. `Distribution.md` now documents RSS-first with a lightweight email request path, deferred newsletter provider setup, and contact-led consulting/collaboration through `/contact/` and `/collaborate/`.
+
 - [ ] If Option B, wire a production email provider and implement a real signup endpoint + confirmation UX.
+
+  Not selected for this launch: Option B is intentionally deferred. The site should not add provider setup until there is enough reader demand and enough maintainer time to follow through.
+
 - [ ] If Option C, add dedicated consultation inquiry form or short form flow (calendar + qualification questions).
+
+  Not selected for this launch: consulting/collaboration remains email-first and contact-led. A dedicated form or calendar flow should wait until availability and qualification criteria are stable.
+
 - [ ] Add conversion tracking for: feed click, subscribe click, contact click, external click, page visits.
+
+  Deferred by user instruction: conversion tracking is intentionally not implemented in this run because the maintainer will not have enough time to act on the insights.
+
 - [ ] Add conversion goals in GA/SIEM equivalent and weekly reporting template.
 
+  Deferred by user instruction: conversion goals depend on the analytics/conversion tracking work above, which is explicitly out of scope for this run.
+
 ### P2 - content and credibility pipeline
-- [ ] Keep a single flagship publishing cadence (1 feature post every 2-4 weeks).
-- [ ] Add “next step” blocks to every flagship post linking to related post + subscription + one CTA.
-- [ ] Publish a public correction workflow for `/errata/` and integrate it with blog updates.
-- [ ] Add one public proof artifact per flagship post (diagram, proof sketch, code/notebook, or benchmark summary).
+- [x] Keep a single flagship publishing cadence (1 feature post every 2-4 weeks).
+
+  Completed: the cadence remains documented in this launch list and the distribution playbook. No extra publishing lanes were added, which keeps the launch focused on one substantial feature post every 2-4 weeks.
+
+- [x] Add “next step” blocks to every flagship post linking to related post + subscription + one CTA.
+
+  Completed: blog posts now inherit a `Follow the technical trail` next-step panel and retain the subscription panel. This gives flagship posts a clear path to Start Here, Writing, Projects, Subscribe, and RSS without shortening the essays.
+
+- [x] Publish a public correction workflow for `/errata/` and integrate it with blog updates.
+
+  Completed: `/errata/` already exists as the public correction log, and every blog post now includes a visible errata note linking corrections and clarifications back to that page.
+
+- [x] Add one public proof artifact per flagship post (diagram, proof sketch, code/notebook, or benchmark summary).
+
+  Completed: the archived NP-completeness flagship already exposes `/artifacts/np-completeness-reduction-template.tex`. The current AI flagship now links `/artifacts/deep-learning-paper-trail.md`, a reusable source-trail checklist for the four anchor papers.
 
 ## 5) Launch timeline (rough)
 
@@ -125,7 +150,7 @@ The site should separate deep technical reading from fast visitor orientation.
 - Confirm live website accessibility from outside this runner (the crawler here cannot currently load `notes.praneeth-suresh-s.workers.dev`).
 - About Me needs a clearer personal narrative, not more website explanation.
 - Marketing pages need to be concise enough to hold attention before directing readers into the technical material.
-- No clearly documented monetization decision in repo besides RSS + mailto intent in `/subscribe/`.
+- Monetization decision is now documented as RSS-first with lightweight email request; provider setup and conversion tracking remain intentionally deferred.
 - No dedicated legal/privacy copy page for newsletter/contact data handling (needed if collecting emails).
 
 ## 7) Mandatory About Me requirement

@@ -3709,6 +3709,10 @@ mjx-container[jax="SVG"][display="true"] {
 .blog-reading-panel .blog-article strong { color: var(--text); }
 .blog-reading-panel .blog-article ul, .blog-reading-panel .blog-article ol { padding-left: 1.5rem; }
 
+.blog-correction-note { border-top: 1px solid var(--hairline); margin: 1rem 0 0; padding-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+.blog-correction-note a { color: var(--blog-accent); text-decoration: none; }
+.blog-correction-note a:hover, .blog-correction-note a:focus-visible { text-decoration: underline; }
+
 .blog-post-nav { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
 .blog-post-nav a { font-size: 0.85rem; color: var(--blog-accent); text-decoration: none; }
 .blog-post-nav a:hover { text-decoration: underline; }

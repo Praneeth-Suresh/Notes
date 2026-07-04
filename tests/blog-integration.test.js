@@ -237,6 +237,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(postHtml.includes('class="blog-post-meta-actions"'));
     assert.ok(postHtml.includes('href="/blog/?topic=project%20story#blog-posts"'));
     assert.ok(postHtml.includes('data-analytics-event="rss_click"'));
+    assert.ok(postHtml.includes('href="/errata/">errata page</a>'));
     assert.ok(postHtml.includes('<meta property="og:type" content="article" />'));
     assert.ok(postHtml.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/" />'));
     assert.ok(postHtml.includes('<meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />'));
@@ -278,6 +279,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(flagshipHtml.includes("Why include reinforcement learning beside architecture papers?"));
     assert.ok(flagshipHtml.includes("Further reading"));
     assert.ok(flagshipHtml.includes("Corrections and clarifications"));
+    assert.ok(flagshipHtml.includes('href="/artifacts/deep-learning-paper-trail.md"'));
     assert.ok(flagshipHtml.includes('href="/subscribe/"'));
     assert.ok(flagshipHtml.includes('href="/errata/"'));
     assert.ok(flagshipHtml.includes('href="/research-taste/"'));
@@ -336,6 +338,12 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(reductionTemplate.includes("construction"));
     assert.ok(reductionTemplate.includes("Forward direction"));
     assert.ok(reductionTemplate.includes("Reverse direction"));
+    const deepLearningArtifact = await fs.readFile(
+      path.join(tmpOut, "artifacts", "deep-learning-paper-trail.md"),
+      "utf8",
+    );
+    assert.ok(deepLearningArtifact.includes("Deep Learning Paper Trail"));
+    assert.ok(deepLearningArtifact.includes("Reading Checklist"));
 
     // Check RSS feed includes blog posts
     const feedXml = await fs.readFile(path.join(tmpOut, "feed.xml"), "utf8");

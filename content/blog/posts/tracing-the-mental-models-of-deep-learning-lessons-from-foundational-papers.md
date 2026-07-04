@@ -98,6 +98,10 @@ This is why I want the website to reflect AI research throughout. Algorithms, sy
 - Read [Diving Deep into interpretability](/blog/more-on-interpretability/) for the deployment and evaluation angle.
 - Browse [AI Engineering](/topics/ai-engineer/) for systems notes around accelerating AI.
 
+## Reusable artifact
+
+- Use the [deep learning paper trail artifact](/artifacts/deep-learning-paper-trail.md) as a compact checklist for reading architecture, objective, feedback, and evaluation choices across the four anchor papers.
+
 ## Further reading
 
 - George Cybenko, [Approximation by Superpositions of a Sigmoidal Function](https://doi.org/10.1007/BF02551274).

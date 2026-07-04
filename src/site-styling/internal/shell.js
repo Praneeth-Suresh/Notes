@@ -2239,6 +2239,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       ${blogContentHtml}
       ${renderReadingTrailPanel({ source: "blog-post" })}
       ${renderSubscribePanel({ source: "blog-post" })}
+      <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
       ${navHtml}
     </div>
     <script>

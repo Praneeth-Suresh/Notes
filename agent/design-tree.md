@@ -94,6 +94,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | Public contact copy | Keep contact surfaces reader-facing and provider-neutral: no visible Calendly notes or maintainer/developer-facing implementation language on public routes. | 2026-07-01 | n/a |
 | Static 404 recovery route | Generate a first-class `/404.html` Pages artifact through the build pipeline, with stable links back to Home, Notes, Writing, Contact, Start Here, and Subscribe; do not include it in the sitemap. | 2026-07-04 | n/a |
 | Technical depth with concise gateways | Preserve dense technical notes/blog/topic pages as the value core, while making Home, Start Here, Subscribe, Projects, Contact, Collaborate, and About Me concise navigation surfaces that move interested readers into the deeper corpus. | 2026-07-04 | n/a |
+| Launch monetization funnel | Keep launch monetization RSS-first with lightweight email requests and contact-led consulting/collaboration; defer newsletter provider setup, paid checkout, and conversion tracking until the maintainer can act on the operational follow-through. | 2026-07-04 | n/a |
 
 ## Pressure Points
 
@@ -182,6 +183,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Blog post headers now separate topic links from the Copy link action, and subscribe panels use a bounded desktop type scale so wide screens remain readable.
 - The build now emits a static `/404.html` recovery page with the shared shell, metadata, and stable links back into the primary site routes.
 - Technical pages now include a compact "Follow the technical trail" next-step panel, while Home, Start Here, Subscribe, Projects, Contact, and Collaborate use sharper gateway copy and explicit reader actions.
+- The current AI flagship essay now links a reusable deep-learning paper-trail artifact, and all blog posts surface a visible errata route for corrections and clarifications.
 
 ## Recording Rule (Design Tree vs ADR)
 

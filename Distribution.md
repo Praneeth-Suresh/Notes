@@ -9,6 +9,13 @@ Use this as the only follow-up document for publicising the site. It starts from
 - Primary audience: serious CS readers, algorithms students, engineers who care about formal reasoning, and AI/systems builders who like proof-backed technical writing.
 - First distribution rule: use one primary channel first, respond to the discussion, measure it, then decide the next channel.
 
+## Current Monetization Decision
+
+- Launch funnel: RSS-first with lightweight email request.
+- Email provider: intentionally deferred until there is enough reader demand to justify setup and follow-through.
+- Paid offer: consulting/collaboration remains contact-led through `/contact/` and `/collaborate/`, not a productized checkout flow.
+- Analytics/conversion tracking: intentionally deferred for this launch pass because the maintainer is not ready to act on the insights yet.
+
 ## Tasks
 
 ### 1. Deploy and verify the live site
@@ -54,8 +61,8 @@ node scripts/build-pages.js \
 
 ### 3. Decide whether email capture is live or RSS-only
 
-- [ ] Choose a newsletter provider, or intentionally stay RSS-only for the first distribution cycle.
-- [ ] If email capture is not live, do not claim a newsletter signup exists. Say "subscribe by RSS" or "monthly updates by email are coming."
+- [x] Choose a newsletter provider, or intentionally stay RSS-only for the first distribution cycle.
+- [x] If email capture is not live, do not claim a newsletter signup exists. Say "subscribe by RSS" or "monthly updates by email are coming."
 - [ ] If email capture is live, test the full path:
   - Visit `/subscribe/`.
   - Submit with a test email.

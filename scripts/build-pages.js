@@ -21,6 +21,7 @@ const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-
 const HOME_IMAGE_SOURCE_DIR = path.join("content", "home", "images");
 const HOME_IMAGE_ASSET_DIR = path.join("assets", "home");
 const STATIC_ARTIFACTS = [
+  "deep-learning-paper-trail.md",
   "np-completeness-reduction-template.tex",
 ];
 const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
