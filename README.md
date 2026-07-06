@@ -354,19 +354,19 @@ If you intentionally changed tests, update the test manifest:
 3. Select this repository.
 4. Configure build settings:
 
-| Setting                | Value                                                                                                                   |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Framework preset       | None                                                                                                                    |
+| Setting                | Value                                                                                                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework preset       | None                                                                                                                                                                                |
 | Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Praneeth's CS Field Notes" --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
-| Build output directory | `dist`                                                                                                                |
-| Root directory         | `/`                                                                                                                   |
+| Build output directory | `dist`                                                                                                                                                                            |
+| Root directory         | `/`                                                                                                                                                                               |
 
 5. Configure environment variables in Cloudflare Pages project:
 
-| Variable             | Required                                             | Why                                |
-| -------------------- | ---------------------------------------------------- | ---------------------------------- |
-| `NOTION_API_TOKEN` | Required only if any topic source is `notion-page` | Allows build-time read from Notion |
-| `NODE_VERSION`     | Recommended (`20`)                                 | Keeps build runtime predictable    |
+| Variable             | Required                                            | Why                                |
+| -------------------- | --------------------------------------------------- | ---------------------------------- |
+| `NOTION_API_TOKEN` | Required only if any topic source is`notion-page` | Allows build-time read from Notion |
+| `NODE_VERSION`     | Recommended (`20`)                                | Keeps build runtime predictable    |
 
 6. Save and deploy.
 
