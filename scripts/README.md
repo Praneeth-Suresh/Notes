@@ -16,7 +16,7 @@ Single entrypoint:
 
 This repo uses a committed SHA-256 manifest over a configurable test scope.
 
-- Scope is configured in `agent/test-manifest.conf` via:
+- Scope is configured in `.beryl/agent/test-manifest.conf` via:
   - `MANIFEST_PATH`
   - `INCLUDE_GLOBS`
   - `EXCLUDE_GLOBS`
@@ -33,10 +33,10 @@ This mechanism provides deterministic detection of test changes. It does not cre
 
 ## Run On Every Commit (Optional)
 
-This repo includes a git hook at `githooks/pre-commit`.
+This repo includes a git hook at `.beryl/githooks/pre-commit`.
 
 Enable it locally:
 
 ```bash
-git config core.hooksPath githooks
+git config core.hooksPath .beryl/githooks
 ```

@@ -1978,130 +1978,72 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     .join("");
 
   const content = `
-    <section id="main-content" class="portfolio-hero about-me-hero" aria-labelledby="portfolio-title">
-      <div class="portfolio-hero-copy about-me-copy">
-        <p class="home-kicker">[ About me ]</p>
+    <section id="main-content" class="about-linear-hero" aria-labelledby="portfolio-title">
+      <div class="about-linear-hero-copy">
+        <p class="home-kicker">[ About ]</p>
         <h1 id="portfolio-title" class="portfolio-title">Praneeth Suresh</h1>
-        <p class="portfolio-positioning">NUS Computer Science + Mathematics student building inspectable AI systems, agentic workflows, and rigorous technical writing.</p>
-        <p class="portfolio-intro">I care about the layer where research taste becomes working software: model evaluation, representation analysis, reliable agents, static knowledge systems, and the engineering habits that make complex systems easier to inspect.</p>
-        <div class="portfolio-actions" aria-label="Profile links">
-          <a class="primary-action" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="about-hero">Email me</a>
-          <a class="secondary-action" href="https://github.com/Praneeth-Suresh" data-hotkey="G" data-analytics-event="outbound_github_click">GitHub</a>
-          <a class="secondary-action" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-hotkey="L" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
-          <a class="secondary-action" href="/projects/">Selected projects</a>
-        </div>
+        <p class="about-linear-deck">I study AI systems, write rigorous notes, and build tools that make research easier to inspect.</p>
+        <a class="about-scroll-cue" href="#about-now" aria-label="Continue reading about Praneeth">Scroll for the signal ↓</a>
       </div>
-      <aside class="portfolio-signal about-me-dossier" aria-label="Personal profile summary">
-        <span class="portfolio-signal-label">about.me / signal</span>
-        <div class="about-me-dossier-grid">
-          <div>
-            <span>NUS</span>
-            <p>Computer Science + Mathematics</p>
-          </div>
-          <div>
-            <span>AI</span>
-            <p>Research reading, evaluation, interpretability, agents</p>
-          </div>
-          <div>
-            <span>SWE</span>
-            <p>Static systems, workflows, developer tooling</p>
-          </div>
-          <div>
-            <span>${escapeHtml(reviewedRepositoryCount)}</span>
-            <p>public repositories reviewed</p>
-          </div>
-        </div>
-      </aside>
-    </section>
-    <section class="portfolio-strip about-me-proof" aria-label="About me proof points">
-      <div>
-        <span>Perfect GPA</span>
-        <p>NUS Computer Science with a second major in Mathematics.</p>
-      </div>
-      <div>
-        <span>AI Society</span>
-        <p>Tech and Research Director of the NUS AI Society.</p>
-      </div>
-      <div>
-        <span>Public work</span>
-        <p>Notes, essays, projects, and GitHub repositories that can be inspected directly.</p>
+      <div class="about-signal-weave" aria-hidden="true">
+        <span class="weave-line weave-line-a"></span>
+        <span class="weave-line weave-line-b"></span>
+        <span class="weave-line weave-line-c"></span>
+        <span class="weave-node weave-node-a"></span>
+        <span class="weave-node weave-node-b"></span>
+        <span class="weave-node weave-node-c"></span>
+        <span class="weave-label">research → systems → writing</span>
       </div>
     </section>
-    <section class="panel portfolio-section about-me-section" aria-labelledby="about-me-focus">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Current focus</p>
-        <h2 id="about-me-focus" class="section-title">Turning AI research questions into inspectable systems.</h2>
-      </div>
-      <div class="portfolio-philosophy-grid">
-        <p>My current research interests are interpretability, representation analysis, model evaluation, memory, routing, agent reliability, and the systems layer around AI research.</p>
-        <p>My working style is to pair deep reading with implementation: read papers, identify mechanisms, build small systems, and make the tradeoffs visible enough for someone else to inspect.</p>
+    <section id="about-now" class="about-linear-section" aria-labelledby="about-now-title">
+      <p class="section-kicker">/ Now</p>
+      <h2 id="about-now-title" class="section-title">NUS Computer Science + Mathematics. AI Society Tech and Research Director.</h2>
+      <p>I spend most of my time around interpretability, model evaluation, agent reliability, and the engineering layer that turns research taste into working software.</p>
+      <a class="about-inline-link" href="/research-taste/">Read my research taste →</a>
+    </section>
+    <section class="about-linear-section" aria-labelledby="about-method-title">
+      <p class="section-kicker">/ Method</p>
+      <h2 id="about-method-title" class="section-title">Read deeply. Build small. Make the mechanism visible.</h2>
+      <p>My default loop is simple: study a paper or system, extract the mechanism, build a minimal implementation, and write down the tradeoffs clearly enough that someone else can challenge them.</p>
+      <a class="about-inline-link" href="/notes/">Browse the notes →</a>
+    </section>
+    <section class="about-linear-section" aria-labelledby="about-proof-title">
+      <p class="section-kicker">/ Proof</p>
+      <h2 id="about-proof-title" class="section-title">Public work beats long biographies.</h2>
+      <p>Instead of front-loading every credential, this site points outward: selected projects, essays, repositories, and research trails carry the detail.</p>
+      <div class="about-link-stack" aria-label="Proof links">
+        <a href="/projects/">Selected projects <span>case studies</span></a>
+        <a href="/blog/">Writing <span>essays and notes</span></a>
+        <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub <span>${escapeHtml(reviewedRepositoryCount)} public repositories reviewed</span></a>
+        <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn <span>education, leadership, experience</span></a>
       </div>
     </section>
-    <section class="panel portfolio-section about-me-section" aria-labelledby="about-me-credentials">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Credibility</p>
-        <h2 id="about-me-credentials" class="section-title">Academic depth, leadership, and public proof of work.</h2>
-      </div>
-      <div class="repo-map">
-        <section class="repo-group" aria-label="Education">
-          <h3>Education</h3>
-          <p>NUS Computer Science student with a second major in Mathematics and a perfect GPA.</p>
-        </section>
-        <section class="repo-group" aria-label="Leadership roles">
-          <h3>Leadership</h3>
-          <p>Tech and Research Director of the NUS AI Society, and Tech Director of the residence student committee.</p>
-        </section>
-        <section class="repo-group" aria-label="Public work">
-          <h3>Public work</h3>
-          <p>Maintains a technical notes site, AI research reading trail, GitHub project trail, and selected project case studies.</p>
-        </section>
-      </div>
+    <section class="about-linear-section" aria-labelledby="about-work-title">
+      <p class="section-kicker">/ Selected work</p>
+      <h2 id="about-work-title" class="section-title">A few systems worth inspecting first.</h2>
+      <div class="portfolio-project-grid about-linear-projects">${projectCards}</div>
     </section>
-    <section class="panel portfolio-section about-me-section" aria-labelledby="about-me-work">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Selected work</p>
-        <h2 id="about-me-work" class="section-title">A working portfolio, not a trophy shelf.</h2>
-      </div>
-      <div class="portfolio-project-grid">${projectCards}</div>
+    <section class="about-linear-section" aria-labelledby="about-opportunities-title">
+      <p class="section-kicker">/ Conversations</p>
+      <h2 id="about-opportunities-title" class="section-title">Useful conversations start from concrete technical overlap.</h2>
+      <p>Reach out about AI engineering, applied ML, developer tools, ML systems, interpretability, efficient inference, agent reliability, internships, or NUS AI Society collaboration.</p>
+      <a class="about-inline-link" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="about-hero">Email me →</a>
     </section>
-    <section class="panel portfolio-section about-me-section" aria-labelledby="about-me-opportunities">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Opportunities</p>
-        <h2 id="about-me-opportunities" class="section-title">Useful conversations start from a concrete technical overlap.</h2>
-      </div>
-      <div class="repo-map">
-        <section class="repo-group" aria-label="Research collaborations">
-          <h3>Research</h3>
-          <p>Interpretability, model evaluation, representation analysis, efficient inference, and agent reliability.</p>
-        </section>
-        <section class="repo-group" aria-label="Internship opportunities">
-          <h3>Internships</h3>
-          <p>AI engineering, applied ML, developer tools, ML systems, and research-adjacent engineering teams.</p>
-        </section>
-        <section class="repo-group" aria-label="NUS AI Society collaboration">
-          <h3>NUS AI Society</h3>
-          <p>Speaker, workshop, sponsor, partner, and community-infrastructure conversations.</p>
-        </section>
-      </div>
+    <section class="about-linear-section" aria-labelledby="portfolio-index">
+      <p class="section-kicker">/ Repository map</p>
+      <h2 id="portfolio-index" class="section-title">Project terrain</h2>
+      <div class="repo-map about-linear-repo-map">${repoGroups}</div>
     </section>
-    <section class="panel portfolio-section about-me-section" aria-labelledby="portfolio-index">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Repository map</p>
-        <h2 id="portfolio-index" class="section-title">Project terrain</h2>
-      </div>
-      <div class="repo-map">${repoGroups}</div>
-    </section>
-    <section class="portfolio-quote about-me-quote" aria-label="About me quote">
+    <section class="portfolio-quote about-me-quote about-linear-quote" aria-label="About me quote">
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
     ${renderContactCtaPanel({ source: "about" })}
-  `;
-
+  `
   return renderLayout({
     pageTitle: `Praneeth Suresh · ${siteTitle}`,
     siteTitle,
     contentHtml: content,
-    bodyClass: "portfolio-page",
+    bodyClass: "portfolio-page about-linear-page",
     description: "About Praneeth Suresh: NUS Computer Science and Mathematics student building inspectable AI systems, agent workflows, and technical projects.",
     canonicalUrl: absoluteUrl(siteUrl, "/about/"),
     ogTitle: `Praneeth Suresh · ${siteTitle}`,

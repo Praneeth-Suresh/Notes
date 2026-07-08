@@ -34,7 +34,7 @@ tm_match_any() {
 
 tm_load_manifest_config() {
   local root_dir="$1"
-  local config_path="${root_dir}/agent/test-manifest.conf"
+  local config_path="${root_dir}/.beryl/agent/test-manifest.conf"
 
   MANIFEST_PATH=""
   INCLUDE_GLOBS=()
