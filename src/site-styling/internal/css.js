@@ -32,7 +32,7 @@ const SITE_CSS = `
   --inline-code-bg: rgb(30 30 30 / 0.07);
   --code-bg: #011627;
   --code-text: #f6f8ff;
-  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: Calibri, Candara, "Segoe UI", Optima, Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
@@ -712,7 +712,7 @@ canvas {
 .home-pillar-menu {
   position: relative;
   z-index: 1;
-  width: min(100%, 42rem);
+  width: min(100%, 38rem);
   margin-top: clamp(1.35rem, 2.8vw, 2.1rem);
 }
 
@@ -722,29 +722,28 @@ canvas {
   gap: 0.85rem;
   align-items: center;
   max-width: 100%;
-  border: 1px solid rgb(216 180 254 / 0.38);
+  border: 1px solid rgb(216 180 254 / 0.28);
   border-radius: 0;
-  padding: 0.62rem 0.85rem 0.62rem 0.62rem;
+  padding: 0.58rem 0.82rem 0.58rem 0.58rem;
   background:
-    linear-gradient(135deg, rgb(139 92 246 / 0.36), rgb(88 28 135 / 0.18)),
-    rgb(8 5 16 / 0.82);
+    linear-gradient(135deg, rgb(139 92 246 / 0.16), rgb(88 28 135 / 0.1)),
+    rgb(8 5 16 / 0.74);
   color: #f8fafc;
   font: inherit;
   text-align: left;
   cursor: pointer;
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.16),
-    0 0 0 1px rgb(139 92 246 / 0.08),
-    0 1rem 2.4rem rgb(76 29 149 / 0.26);
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 0 0 1px rgb(139 92 246 / 0.06);
 }
 
 .home-pillar-trigger:hover,
 .home-pillar-trigger:focus-visible,
 .home-showcase.has-open-pillars .home-pillar-trigger {
-  border-color: rgb(233 213 255 / 0.72);
+  border-color: rgb(233 213 255 / 0.62);
   background:
-    linear-gradient(135deg, rgb(168 85 247 / 0.52), rgb(91 33 182 / 0.3)),
-    rgb(10 6 22 / 0.94);
+    linear-gradient(135deg, rgb(168 85 247 / 0.28), rgb(91 33 182 / 0.18)),
+    rgb(10 6 22 / 0.9);
 }
 
 .home-pillar-number {
@@ -753,9 +752,9 @@ canvas {
   width: clamp(3.8rem, 7.5vw, 5.4rem);
   aspect-ratio: 1;
   border: 1px solid rgb(233 213 255 / 0.42);
-  background: #7c3aed;
-  color: #fff;
-  font-size: clamp(2.25rem, 4.8vw, 4rem);
+  background: rgb(124 58 237 / 0.28);
+  color: #f8fafc;
+  font-size: clamp(2.05rem, 4.2vw, 3.4rem);
   font-weight: 950;
   line-height: 0.9;
 }
@@ -796,29 +795,21 @@ canvas {
   display: none;
 }
 
-.home-pillar-panel p {
-  margin: 0;
-  border-bottom: 1px solid rgb(216 180 254 / 0.2);
-  padding: 0.85rem clamp(0.85rem, 1.8vw, 1.1rem);
-  color: #d9ccff;
-  font-size: clamp(0.92rem, 1.25vw, 1.05rem);
-  line-height: 1.45;
-}
-
 .home-pillar-links {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
 }
 
 .home-pillar-link {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto 1fr;
-  gap: 0.38rem;
+  grid-template-rows: auto auto;
+  gap: clamp(0.85rem, 1.8vw, 1.35rem);
   align-items: start;
-  min-height: clamp(10rem, 14vw, 12.5rem);
+  min-height: clamp(6.5rem, 9vw, 8rem);
   border-right: 1px solid var(--showcase-border);
-  padding: clamp(0.75rem, 1.35vw, 1rem);
+  padding: clamp(1.05rem, 2vw, 1.45rem);
   background: rgb(255 255 255 / 0.035);
   color: #f8fafc;
   text-decoration: none;
@@ -840,30 +831,11 @@ canvas {
   display: block;
   min-width: 0;
   color: inherit;
-  font-size: clamp(1rem, 1.35vw, 1.28rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   font-weight: 900;
   line-height: 1;
   overflow-wrap: normal;
   white-space: nowrap;
-}
-
-.home-pillar-link em {
-  display: block;
-  color: #d9ccff;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.home-pillar-link small {
-  display: block;
-  margin-top: 0.25rem;
-  color: rgb(226 232 240 / 0.82);
-  font-size: 0.72rem;
-  font-weight: 640;
-  line-height: 1.35;
 }
 
 .home-pillar-link:hover,

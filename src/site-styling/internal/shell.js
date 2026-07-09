@@ -4,7 +4,7 @@ const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 const HOME_DESCRIPTION = "A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.";
 const NOTES_DESCRIPTION = "Searchable computer science notes organized by topic, subpage, and study trail across algorithms, systems, AI engineering, software engineering, and agentic coding.";
 const BLOG_INDEX_DESCRIPTION = "Stories, project notes, and AI research reflections from Praneeth's CS Field Notes.";
-const START_HERE_DESCRIPTION = "A guided first path through Praneeth's CS Field Notes: start with AI research, read one paper-backed essay, and subscribe by RSS.";
+const START_HERE_DESCRIPTION = "Choose your route through Praneeth's CS Field Notes: notes for theory, writing for voice, AI research trails, and subscription or contact for ongoing work.";
 const RESEARCH_TASTE_DESCRIPTION = "A public research taste list for Praneeth's CS Field Notes: AI research topics, why they matter, selected essays, and source trails.";
 const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Praneeth's CS Field Notes.";
 const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project updates from Praneeth's CS Field Notes by email request or RSS.";
@@ -609,7 +609,6 @@ ${metadataHtml}
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
           <a href="/notes/" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
           <a href="/contact/" data-hotkey="C">Contact</a>
@@ -1152,15 +1151,15 @@ function renderTopicPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topic, topicCo
 
 function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   const siteSections = [
-    { index: "01", label: "/ Research", subtitle: "Paper trails", purpose: "Paper-backed reading that turns AI research into mechanisms.", href: "#home-research" },
-    { index: "02", label: "/ Projects", subtitle: "Proof of work", purpose: "Systems, prototypes, and write-ups with evidence attached.", href: "#home-projects" },
-    { index: "03", label: "/ Writing", subtitle: "Essays", purpose: "Longer arguments about technical ideas and building practice.", href: "#home-writing" },
-    { index: "04", label: "/ Asks", subtitle: "Collaboration", purpose: "Specific routes for research, internships, talks, and partnerships.", href: "#home-asks" },
-    { index: "05", label: "/ Notes", subtitle: "Archive", purpose: "Searchable CS notes organized from topic roots into subpages.", href: "#home-notes" },
+    { index: "01", label: "Research", href: "#home-research" },
+    { index: "02", label: "Projects", href: "#home-projects" },
+    { index: "03", label: "Writing", href: "#home-writing" },
+    { index: "04", label: "Asks", href: "#home-asks" },
+    { index: "05", label: "Notes", href: "#home-notes" },
   ];
   const pillarLinks = siteSections
     .map(
-      (item) => `<a class="home-pillar-link" href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span><strong>${escapeHtml(item.label)}</strong><em>${escapeHtml(item.subtitle)}</em><small>${escapeHtml(item.purpose)}</small></a>`,
+      (item) => `<a class="home-pillar-link" href="${escapeHtml(item.href)}"><span>${escapeHtml(item.index)}</span><strong>${escapeHtml(item.label)}</strong></a>`,
     )
     .join("");
   const conciseSections = [
@@ -1169,7 +1168,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       className: "home-showcase-research",
       kicker: "/ Research",
       title: "Paper-backed AI research notes.",
-      copy: "Reading trails and essays that connect papers to mechanisms: interpretability, model evaluation, deep learning, memory, routing, and agent reliability.",
       buttonText: "Read research trail",
       buttonHref: "/research-taste/",
       visual: "research",
@@ -1183,7 +1181,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       className: "home-showcase-projects",
       kicker: "/ Projects",
       title: "Selected systems with evidence.",
-      copy: "Software and AI projects shown with problem, method, result, code links, write-ups, status, and tradeoffs.",
       buttonText: "View projects",
       buttonHref: "/projects/",
       visual: "projects",
@@ -1197,7 +1194,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       className: "home-showcase-writing",
       kicker: "/ Writing",
       title: "Essays about technical ideas.",
-      copy: "Longer-form writing on deep learning, algorithms, project lessons, and the process behind building technical systems.",
       buttonText: "Read writing",
       buttonHref: "/blog/",
       visual: "writing",
@@ -1211,7 +1207,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       className: "home-showcase-contact",
       kicker: "/ Asks",
       title: "Open routes for specific conversations.",
-      copy: "Contact me about research, AI engineering internships, consulting prototypes, or NUS AI Society speakers, workshops, sponsors, and partnerships.",
       buttonText: "Contact me",
       buttonHref: "/contact/",
       visual: "contact",
@@ -1224,7 +1219,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       className: "home-showcase-notes",
       kicker: "/ Notes",
       title: "Searchable computer science notes.",
-      copy: "Topic archives pulled from my study system, organized by topic and subpage across algorithms, systems, AI engineering, software engineering, and agentic coding.",
       buttonText: "Browse notes",
       buttonHref: "/notes/",
       visual: "notes",
@@ -1239,7 +1233,6 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <div class="home-showcase-copy">
           <h2 id="${escapeHtml(section.id)}-title" class="section-title">${escapeHtml(section.kicker)}</h2>
           <p class="section-subtitle">${escapeHtml(section.title)}</p>
-          <p class="home-intro">${escapeHtml(section.copy)}</p>
           <div class="home-actions" aria-label="${escapeHtml(section.kicker.replace("/", "").trim())} actions">
             <a class="primary-action" href="${escapeHtml(section.buttonHref)}">${escapeHtml(section.buttonText)}</a>
           </div>
@@ -1255,14 +1248,12 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
           <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
-          <p class="home-intro">Five entry points into my work: AI research reading, selected projects, technical writing, current collaboration asks, and searchable CS notes.</p>
           <div class="home-pillar-menu" data-home-pillars>
             <button class="home-pillar-trigger" type="button" aria-expanded="false" aria-controls="home-pillar-panel" data-home-pillars-button>
               <span class="home-pillar-number">5</span>
-              <span class="home-pillar-trigger-copy"><strong>pillars</strong><em>Open the public knowledge map</em></span>
+              <span class="home-pillar-trigger-copy"><strong>pillars</strong><em>Choose a route</em></span>
             </button>
             <div id="home-pillar-panel" class="home-pillar-panel" data-home-pillars-panel hidden>
-              <p>Five areas where I contribute to public knowledge: research, projects, writing, asks, and notes.</p>
               <nav class="home-pillar-links" aria-label="Five homepage pillars">
                 ${pillarLinks}
               </nav>
@@ -1422,46 +1413,38 @@ function findSearchEntry(searchEntries, slug) {
 }
 
 function renderStartHerePage({ siteTitle, siteUrl = DEFAULT_SITE_URL, topics, searchEntries = [] }) {
-  const topicRows = topics
-    .slice(0, 6)
-    .map(
-      (topic) => `<a class="start-topic-link" href="/topics/${escapeHtml(topic.slug)}/">
-  <span>${escapeHtml(topic.title)}</span>
-  <p>${escapeHtml(topic.description || `${topic.title} notes.`)}</p>
-</a>`,
-    )
-    .join("");
-
   const content = `
     <section id="main-content" class="start-hero" aria-labelledby="start-title">
       <p class="home-kicker">[ Start here ]</p>
-      <h1 id="start-title">A first path through the notes.</h1>
-      <p>Use this route if you are new to the site. It gives you the shortest path from orientation into serious technical reading without flattening the notes themselves.</p>
+      <h1 id="start-title">Choose the route that matches what you want.</h1>
+      <p>This page is a switchboard, not a tour. Pick the door that fits your intent.</p>
     </section>
-    <section class="start-path" aria-label="First reading path">
-      <a class="start-step" href="/research-taste/">
+    <section class="start-path start-choice-path" aria-label="Self-selection routes">
+      <a class="start-step" href="/notes/">
         <span>01</span>
-        <h2>Start with the AI research trail</h2>
-        <p>See the paper map behind the site: deep learning foundations, interpretability, reinforcement learning, agents, routing, and efficient inference.</p>
+        <h2>I want the basics of theoretical CS.</h2>
+        <p>Go to Notes for searchable topic roots and subpages.</p>
       </a>
-      <a class="start-step" href="${FLAGSHIP_ESSAY_PATH}">
+      <a class="start-step" href="/blog/">
         <span>02</span>
-        <h2>Read one paper-backed essay</h2>
-        <p>${FLAGSHIP_ESSAY_TITLE} is the entry point into the research style this site rewards.</p>
+        <h2>I want to know how Praneeth writes.</h2>
+        <p>Read the essays and project stories.</p>
       </a>
-      <a class="start-step" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="start-here">
+      <a class="start-step" href="/research-taste/">
         <span>03</span>
-        <h2>Subscribe when the shape is useful</h2>
-        <p>RSS is the reliable path today; email updates remain a simple request path until a newsletter provider is worth adding.</p>
+        <h2>I am here for AI research.</h2>
+        <p>Explore the research trail and paper-backed questions.</p>
       </a>
-    </section>
-    <section class="panel start-topics" aria-labelledby="start-topics-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Browse next</p>
-        <h2 id="start-topics-title" class="section-title">Pick a durable thread</h2>
-      </div>
-      <div class="start-topic-grid">${topicRows}</div>
-      <p class="start-research-link"><a href="/research-taste/">See the research taste list that guides future notes.</a></p>
+      <a class="start-step" href="/contact/">
+        <span>04</span>
+        <h2>I want to work together or support the work.</h2>
+        <p>Reach out directly with a concrete overlap.</p>
+      </a>
+      <a class="start-step" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="start-here">
+        <span>05</span>
+        <h2>Best: subscribe for monthly project updates.</h2>
+        <p>Follow the work without checking the site manually.</p>
+      </a>
     </section>
     ${renderSubscribePanel({ source: "start-here" })}
   `;
@@ -1962,21 +1945,6 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     )
     .join("");
 
-  const repoGroups = repositoryGroups
-    .map(
-      (group) => `<section class="repo-group" aria-label="${escapeHtml(group.label)}">
-  <h3>${escapeHtml(group.label)}</h3>
-  <ul>
-    ${group.repos
-      .map((repo) => normalizeRepositoryLink(repo))
-      .filter(Boolean)
-      .map((repo) => `<li><a href="${escapeHtml(repo.href)}">${escapeHtml(repo.name)}</a></li>`)
-      .join("")}
-  </ul>
-</section>`,
-    )
-    .join("");
-
   const content = `
     <section id="main-content" class="about-linear-hero" aria-labelledby="portfolio-title">
       <div class="about-linear-hero-copy">
@@ -1997,8 +1965,8 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     </section>
     <section id="about-now" class="about-linear-section" aria-labelledby="about-now-title">
       <p class="section-kicker">/ Now</p>
-      <h2 id="about-now-title" class="section-title">NUS Computer Science + Mathematics. AI Society Tech and Research Director.</h2>
-      <p>I spend most of my time around interpretability, model evaluation, agent reliability, and the engineering layer that turns research taste into working software.</p>
+      <h2 id="about-now-title" class="section-title">I turn research taste into inspectable systems.</h2>
+      <p>Current focus: interpretability, model evaluation, agent reliability, and the engineering layer that makes ideas testable.</p>
       <a class="about-inline-link" href="/research-taste/">Read my research taste →</a>
     </section>
     <section class="about-linear-section" aria-labelledby="about-method-title">
@@ -2015,7 +1983,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
         <a href="/projects/">Selected projects <span>case studies</span></a>
         <a href="/blog/">Writing <span>essays and notes</span></a>
         <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub <span>${escapeHtml(reviewedRepositoryCount)} public repositories reviewed</span></a>
-        <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn <span>education, leadership, experience</span></a>
+        <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn <span>background</span></a>
       </div>
     </section>
     <section class="about-linear-section" aria-labelledby="about-work-title">
@@ -2029,11 +1997,6 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <p>Reach out about AI engineering, applied ML, developer tools, ML systems, interpretability, efficient inference, agent reliability, internships, or NUS AI Society collaboration.</p>
       <a class="about-inline-link" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="about-hero">Email me →</a>
     </section>
-    <section class="about-linear-section" aria-labelledby="portfolio-index">
-      <p class="section-kicker">/ Repository map</p>
-      <h2 id="portfolio-index" class="section-title">Project terrain</h2>
-      <div class="repo-map about-linear-repo-map">${repoGroups}</div>
-    </section>
     <section class="portfolio-quote about-me-quote about-linear-quote" aria-label="About me quote">
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
@@ -2044,10 +2007,10 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     siteTitle,
     contentHtml: content,
     bodyClass: "portfolio-page about-linear-page",
-    description: "About Praneeth Suresh: NUS Computer Science and Mathematics student building inspectable AI systems, agent workflows, and technical projects.",
+    description: "About Praneeth Suresh: inspectable AI systems, agent workflows, research notes, and technical projects.",
     canonicalUrl: absoluteUrl(siteUrl, "/about/"),
     ogTitle: `Praneeth Suresh · ${siteTitle}`,
-    ogDescription: "NUS Computer Science and Mathematics student building inspectable AI systems, agent workflows, and technical projects.",
+    ogDescription: "Inspectable AI systems, agent workflows, research notes, and technical projects by Praneeth Suresh.",
     pageSchemaType: "ProfilePage",
   });
 }
