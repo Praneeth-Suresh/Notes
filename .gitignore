@@ -38,6 +38,8 @@ ingest-details.md
 !.dev.vars.example
 !.env.example
 
-agent/session-state.md
+.beryl/agent/session-state.md
 
 *.png
+
+node_modules/
