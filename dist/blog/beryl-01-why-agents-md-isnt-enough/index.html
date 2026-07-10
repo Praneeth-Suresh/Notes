@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes</title>
+
+    <meta name="description" content="A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" />
+    <meta property="og:title" content="Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/","name":"Why AGENTS.md Wasn't Enough for My Repo · Blog · Praneeth's CS Field Notes","description":"A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#blogposting","headline":"Why AGENTS.md Wasn't Enough for My Repo","description":"A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/","keywords":"AGENTS.md, agent workflows, repo governance"}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">A Developer&#39;s Memoir</p>
+        <h1>Why AGENTS.md Wasn&#39;t Enough for My Repo</h1>
+        <div class="blog-post-meta-actions">
+          <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=AGENTS.md#blog-posts">AGENTS.md</a><a class="topic-label topic-label-default" href="/blog/?topic=agent%20workflows#blog-posts">agent workflows</a><a class="topic-label topic-label-default" href="/blog/?topic=repo%20governance#blog-posts">repo governance</a></div>
+          <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" data-analytics-event="copy_share_link_click">Copy link</button>
+        </div>
+      </header>
+      <article class="blog-article"><p><em>I had a PR land that &quot;should have&quot; failed every guardrail.<br>The code changed a file the instructions said should never change.</em></p>
+<p><img src="/blog/images/beryl-01-why-agents-md-isnt-enough.png" alt="A terminal log on a rainy night"></p>
+<p>This was my trigger moment.<br>I had four instruction files in the repo telling me what agents should do: <code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>copilot-instructions.md</code>, and a rule file from Cursor. They all looked sensible in isolation.</p>
+<p>Then I ran the review on a weekend and realised three of them disagreed on the same behavior.</p>
+<p>The result was not one instruction failure.</p>
+<p>The failure was that I had no single source of truth for <strong>repo-level behavior</strong>.</p>
+<p>I could make this a generic startup post and say &quot;AI agents are hard to trust.&quot; That is true, but it is not the point.</p>
+<p>The real problem was practical:</p>
+<ul>
+<li>one file said one thing,</li>
+<li>another file said another thing,</li>
+<li>and the command history only showed the final files, not the reasoning path.</li>
+</ul>
+<p>In other words, the tools were okay.</p>
+<p>My repo process was not.</p>
+<p>That’s why I started writing the same sentence everywhere over and over:<br><strong>&quot;AGENTS.md tells the agent what you want. It doesn&#39;t check that it happened.&quot;</strong></p>
+<p>And that sentence is the one that changed the project.</p>
+<hr>
+<p>What I learned the hard way</p>
+<ul>
+<li>&quot;Prompt quality&quot; made the output nicer, but not more reliable.</li>
+<li>&quot;More tools&quot; made things faster, but not more grounded.</li>
+<li>&quot;More files&quot; made the system more fragmented.</li>
+</ul>
+<p>I wanted one narrow boundary that could be versioned, checked, and reviewed the same way as any other code path.</p>
+<p>I started with a tiny thesis:</p>
+<p><code>repo rules should be in one place, and every agent run should be checkable against it</code>.</p>
+<p>I am still tightening the edges. But that one sentence is the split between this story and everything before it.</p>
+<p>This is also why I wrote the second one line in the same way:</p>
+<blockquote>
+<p>Skills make the agent smarter. I wanted the repo to get stricter.</p>
+</blockquote>
+<p>When I say I’m building this in public, this is the thing I am building first:</p>
+<p>not a better model, not a bigger agent, and not a prettier dashboard.</p>
+<p>just a stricter repo.</p>
+<p>Next up is the concrete build notes, not the theory: what I put in and what I intentionally left out.</p>
+<p><a href="/blog/beryl-02-what-i-built/">Read Part 2: What Beryl Actually Does (and What It Deliberately Doesn&#39;t)</a></p>
+</article>
+      
+    <section class="reading-trail" aria-labelledby="reading-trail-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Continue</p>
+        <h2 id="reading-trail-title-blog-post">Follow the technical trail.</h2>
+        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Reader next steps">
+        <a class="secondary-action" href="/start-here/">Start Here</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/projects/">Projects</a>
+        <a class="secondary-action" href="/subscribe/">Subscribe</a>
+      </div>
+    </section>
+  
+      
+    <section id="subscribe-blog-post" class="subscribe-panel" aria-labelledby="subscribe-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-blog-post">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="mailto:praneeth.suresh.s@gmail.com?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates" data-analytics-event="email_subscribe_click" data-subscribe-source="blog-post">Subscribe by email</a>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
+      <nav class="blog-post-nav"><a href="/blog/how-to-turn-any-big-idea-into-real-impact/">&larr; Tech for society</a><span></span></nav>
+    </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Asks</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/collaborate/">Collaborate</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

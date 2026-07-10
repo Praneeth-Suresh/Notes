@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Computer Science Notes</title>
+    <title>Praneeth&apos;s CS Field Notes</title>
     <link>https://notes.praneeth-suresh-s.workers.dev/</link>
     <atom:link href="https://notes.praneeth-suresh-s.workers.dev/feed.xml" rel="self" type="application/rss+xml" />
     <description>Rigorous computer science notes across algorithms, systems, AI engineering, and software engineering.</description>
@@ -124,6 +124,24 @@
       <link>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-turn-any-big-idea-into-real-impact/</link>
       <guid>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-turn-any-big-idea-into-real-impact/</guid>
       <description>my blog</description>
+    </item>
+    <item>
+      <title>Why AGENTS.md Wasn&apos;t Enough for My Repo</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/</guid>
+      <description>A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.</description>
+    </item>
+    <item>
+      <title>What Beryl Actually Does (and What It Deliberately Doesn&apos;t)</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-02-what-i-built/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-02-what-i-built/</guid>
+      <description>A practical walkthrough of the first working structure: `.beryl/agent/`, a deterministic check, and review evidence in files.</description>
+    </item>
+    <item>
+      <title>Week 1 of Building Beryl in Public: What People Told Me</title>
+      <link>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/</link>
+      <guid>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/</guid>
+      <description>What the first feedback cycle exposed in week one: strictness tradeoffs, false positives, and direction for future iterations.</description>
     </item>
     <item>
       <title>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</title>

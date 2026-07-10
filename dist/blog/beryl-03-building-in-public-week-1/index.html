@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Week 1 of Building Beryl in Public: What People Told Me · Blog · Praneeth&#39;s CS Field Notes</title>
+
+    <meta name="description" content="What the first feedback cycle exposed in week one: strictness tradeoffs, false positives, and direction for future iterations." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/" />
+    <meta property="og:title" content="Week 1 of Building Beryl in Public: What People Told Me · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="The check surfaced real mismatch cases, and this week shaped the first iteration around realistic review boundaries and feedback loops." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Week 1 of Building Beryl in Public: What People Told Me · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="The check surfaced real mismatch cases, and this week shaped the first iteration around realistic review boundaries and feedback loops." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/","name":"Week 1 of Building Beryl in Public: What People Told Me · Blog · Praneeth's CS Field Notes","description":"What the first feedback cycle exposed in week one: strictness tradeoffs, false positives, and direction for future iterations.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/#blogposting","headline":"Week 1 of Building Beryl in Public: What People Told Me","description":"What the first feedback cycle exposed in week one: strictness tradeoffs, false positives, and direction for future iterations.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/","keywords":"feedback, agent governance, open build"}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body class="blog-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+        </nav>
+      </header>
+      
+    <div class="blog-reading-panel" id="main-content">
+      <a class="blog-back" href="/blog/">&larr; All posts</a>
+      <header class="blog-post-header">
+        <p class="blog-post-section">Beryl in Public</p>
+        <h1>Week 1 of Building Beryl in Public: What People Told Me</h1>
+        <div class="blog-post-meta-actions">
+          <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=feedback#blog-posts">feedback</a><a class="topic-label topic-label-default" href="/blog/?topic=agent%20governance#blog-posts">agent governance</a><a class="topic-label topic-label-default" href="/blog/?topic=open%20build#blog-posts">open build</a></div>
+          <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/" data-analytics-event="copy_share_link_click">Copy link</button>
+        </div>
+      </header>
+      <article class="blog-article"><p><em>A project is a claim. A build log is the answer key.</em></p>
+<p><img src="/blog/images/beryl-03-building-in-public-week-1.png" alt="A whiteboard sketch with sticky notes and comments"></p>
+<p>This week is over.<br>That is exactly the point.</p>
+<p>I wanted this post to read like a memo that actually changes.<br>So here is the unstyled version of what happened.</p>
+<h2>What I shipped and what broke</h2>
+<p>I shipped a strict check early and called it done too soon.</p>
+<p>One person reported a false positive case.<br>The check had flagged behavior that should have passed.</p>
+<p>Could I have ignored it and marked &quot;not our problem yet&quot;?<br>No, because that false positive was doing exactly the job the project was supposed to do:
+surfacing mismatches early.</p>
+<p>I edited the boundary and kept moving.</p>
+<p>That felt a little uncomfortable, and that was good feedback.</p>
+<h2>What I changed this week</h2>
+<ul>
+<li>Added a short section in the docs that explains where strictness is intentional.</li>
+<li>Kept the rule format as text files and still reviewable in PRs.</li>
+<li>Made the check output more readable so the failure path is obvious.</li>
+<li>Kept one thing unchanged: it is still deterministic.</li>
+</ul>
+<h2>The open question that changed the project direction</h2>
+<p>I asked people whether this should be built first for:</p>
+<ul>
+<li>maintainers reviewing AI-assisted PRs in a single repo, or</li>
+<li>teams running agents across many repos with mixed styles.</li>
+</ul>
+<p>The split was real.<br>Most comments landed near both.<br>For now I am still prioritising the first one and writing around that.</p>
+<h2>What’s next</h2>
+<p>I am not calling this complete.</p>
+<p>I am testing these edges:</p>
+<ol>
+<li>where strict checks feel too brittle,</li>
+<li>how to make failure triage clearer,</li>
+<li>what the default boundary should look like on small personal repos.</li>
+</ol>
+<p>If you used this or tried a draft version, I want your input.</p>
+<p>Ask me for:</p>
+<ul>
+<li>the one flag you want to enforce first,</li>
+<li>the first case you think should skip with a warning,</li>
+<li>the one hard line where the check should stay strict and never loosen.</li>
+</ul>
+<p>If you are interested, I’m also happy to share a practical install pack for your first test repo.</p>
+</article>
+      
+    <section class="reading-trail" aria-labelledby="reading-trail-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Continue</p>
+        <h2 id="reading-trail-title-blog-post">Follow the technical trail.</h2>
+        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Reader next steps">
+        <a class="secondary-action" href="/start-here/">Start Here</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/projects/">Projects</a>
+        <a class="secondary-action" href="/subscribe/">Subscribe</a>
+      </div>
+    </section>
+  
+      
+    <section id="subscribe-blog-post" class="subscribe-panel" aria-labelledby="subscribe-title-blog-post">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-blog-post">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <a class="primary-action" href="mailto:praneeth.suresh.s@gmail.com?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates" data-analytics-event="email_subscribe_click" data-subscribe-source="blog-post">Subscribe by email</a>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
+      <nav class="blog-post-nav"><a href="/blog/beryl-02-what-i-built/">&larr; What Beryl Actually Does (and What It Deliberately Doesn&#39;t)</a><span></span></nav>
+    </div>
+    <script>
+      (() => {
+        const button = document.querySelector("[data-share-url]");
+        if (!button) {
+          return;
+        }
+        button.addEventListener("click", async () => {
+          const shareUrl = button.dataset.shareUrl || window.location.href;
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(shareUrl);
+              button.textContent = "Copied";
+              return;
+            }
+          } catch (error) {
+            // Keep the visible URL fallback below.
+          }
+          button.textContent = shareUrl;
+        });
+      })();
+    </script>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Asks</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/collaborate/">Collaborate</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

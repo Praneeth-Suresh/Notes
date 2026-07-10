@@ -168,6 +168,39 @@
           "tags": ["impact", "project story"],
           "chapter": 4,
           "markdownFile": "posts/how-to-turn-any-big-idea-into-real-impact.md"
+        },
+        {
+          "slug": "beryl-01-why-agents-md-isnt-enough",
+          "title": "Why AGENTS.md Wasn't Enough for My Repo",
+          "description": "A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.",
+          "socialPreview": "I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows.",
+          "tags": ["AGENTS.md", "agent workflows", "repo governance"],
+          "chapter": 5,
+          "markdownFile": "posts/beryl-01-why-agents-md-isnt-enough.md"
+        }
+      ]
+    },
+    {
+      "title": "Beryl in Public",
+      "subtitle": "build notes from week one",
+      "posts": [
+        {
+          "slug": "beryl-02-what-i-built",
+          "title": "What Beryl Actually Does (and What It Deliberately Doesn't)",
+          "description": "A practical walkthrough of the first working structure: `.beryl/agent/`, a deterministic check, and review evidence in files.",
+          "socialPreview": "The difference was moving checks from prompts to versioned repository files, then proving the behavior through deterministic checks.",
+          "tags": ["agent tooling", "automation", "developer workflow"],
+          "chapter": 1,
+          "markdownFile": "posts/beryl-02-what-i-built.md"
+        },
+        {
+          "slug": "beryl-03-building-in-public-week-1",
+          "title": "Week 1 of Building Beryl in Public: What People Told Me",
+          "description": "What the first feedback cycle exposed in week one: strictness tradeoffs, false positives, and direction for future iterations.",
+          "socialPreview": "The check surfaced real mismatch cases, and this week shaped the first iteration around realistic review boundaries and feedback loops.",
+          "tags": ["feedback", "agent governance", "open build"],
+          "chapter": 2,
+          "markdownFile": "posts/beryl-03-building-in-public-week-1.md"
         }
       ]
     },
