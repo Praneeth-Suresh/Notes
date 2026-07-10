@@ -2723,6 +2723,190 @@ canvas {
     var(--surface);
 }
 
+.about-linear-page .layout {
+  width: min(100%, 1120px);
+}
+
+.about-linear-hero,
+.about-linear-section,
+.about-linear-quote {
+  margin-bottom: 0.75rem;
+}
+
+.about-linear-hero {
+  min-height: clamp(38rem, 82vh, 52rem);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 72% 22%, rgb(157 183 255 / 0.22), transparent 24rem),
+    linear-gradient(180deg, color-mix(in oklab, var(--surface-strong) 90%, transparent), var(--surface));
+  overflow: hidden;
+}
+
+.about-linear-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  min-height: 28rem;
+  padding: clamp(1rem, 5vw, 4rem);
+}
+
+.about-linear-hero .portfolio-title {
+  max-width: 10ch;
+  font-size: clamp(4rem, 13vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: -0.09em;
+}
+
+.about-linear-deck {
+  max-width: 36rem;
+  margin: 1.1rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2.3vw, 1.55rem);
+  line-height: 1.35;
+}
+
+.about-scroll-cue,
+.about-inline-link {
+  width: fit-content;
+  margin-top: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.about-signal-weave {
+  position: relative;
+  min-height: clamp(10rem, 22vw, 16rem);
+  border-top: 1px solid var(--border);
+  background:
+    linear-gradient(90deg, rgb(30 30 30 / 0.055) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(30 30 30 / 0.055) 1px, transparent 1px),
+    color-mix(in oklab, var(--surface-soft) 82%, white);
+  background-size: 28px 28px;
+  overflow: hidden;
+}
+
+.weave-line,
+.weave-node,
+.weave-label {
+  position: absolute;
+  pointer-events: none;
+}
+
+.weave-line {
+  left: -8%;
+  right: -8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), var(--green), transparent);
+  transform-origin: center;
+  animation: about-weave-drift 11s ease-in-out infinite;
+}
+
+.weave-line-a { top: 24%; --angle: -5deg; transform: rotate(-5deg); }
+.weave-line-b { top: 52%; --angle: 3deg; animation-delay: -3s; transform: rotate(3deg); }
+.weave-line-c { top: 78%; --angle: -2deg; animation-delay: -6s; transform: rotate(-2deg); }
+
+.weave-node {
+  width: clamp(4rem, 8vw, 7rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface-strong) 68%, transparent);
+  box-shadow: 0 1rem 3rem rgb(5 6 10 / 0.12);
+  animation: about-node-pulse 8s ease-in-out infinite;
+}
+
+.weave-node-a { left: 14%; top: 18%; }
+.weave-node-b { left: 48%; top: 46%; animation-delay: -2.4s; }
+.weave-node-c { right: 13%; top: 24%; animation-delay: -4.8s; }
+
+.weave-label {
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(0.9rem, 3vw, 2rem);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.about-linear-section {
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  padding: clamp(1.15rem, 5vw, 4rem);
+}
+
+.about-linear-section .section-title {
+  max-width: 18ch;
+  font-size: clamp(2.25rem, 6vw, 5.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+}
+
+.about-linear-section > p:not(.section-kicker) {
+  max-width: 42rem;
+  margin: 1.25rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.24rem);
+  line-height: 1.55;
+}
+
+.about-link-stack {
+  display: grid;
+  gap: 1px;
+  margin-top: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--border);
+  background: var(--border);
+}
+
+.about-link-stack a {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--surface-strong);
+  text-decoration: none;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.about-link-stack span {
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.about-linear-projects,
+.about-linear-repo-map {
+  margin-top: 1.25rem;
+}
+
+.about-linear-page .repo-map,
+.about-linear-page .portfolio-project-grid,
+.about-linear-page .portfolio-philosophy-grid {
+  grid-template-columns: 1fr;
+}
+
+.about-linear-quote p {
+  max-width: 18ch;
+}
+
+@keyframes about-weave-drift {
+  0%, 100% { transform: translateX(-7%) rotate(var(--angle, 0deg)); opacity: 0.55; }
+  50% { transform: translateX(7%) rotate(var(--angle, 0deg)); opacity: 1; }
+}
+
+@keyframes about-node-pulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-0.7rem) scale(1.04); }
+}
+
+
 @keyframes portfolio-scan {
   0%,
   100% {
