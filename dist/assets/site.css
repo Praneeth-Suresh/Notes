@@ -108,6 +108,16 @@ summary:focus-visible {
   transform: translateY(0);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 .skip-target {
   display: block;
   scroll-margin-top: 1rem;
@@ -2728,17 +2738,20 @@ canvas {
 .about-linear-hero,
 .about-linear-section,
 .about-linear-quote {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
 }
 
 .about-linear-hero {
   min-height: clamp(38rem, 82vh, 52rem);
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  border: 1px solid var(--border);
+  border: 0;
+  color: #f8fafc;
   background:
-    radial-gradient(circle at 72% 22%, rgb(157 183 255 / 0.22), transparent 24rem),
-    linear-gradient(180deg, color-mix(in oklab, var(--surface-strong) 90%, transparent), var(--surface));
+    radial-gradient(circle at 82% 24%, rgb(255 255 255 / 0.2), transparent 7rem),
+    radial-gradient(circle at 17% 78%, rgb(103 232 249 / 0.16), transparent 19rem),
+    radial-gradient(circle at 48% 12%, rgb(226 232 240 / 0.1), transparent 24rem),
+    linear-gradient(180deg, #020305 0%, #05070d 54%, #0b0d12 100%);
   overflow: hidden;
 }
 
@@ -2751,10 +2764,93 @@ canvas {
 }
 
 .about-linear-hero .portfolio-title {
-  max-width: 10ch;
-  font-size: clamp(4rem, 13vw, 10rem);
-  line-height: 0.88;
-  letter-spacing: -0.09em;
+  max-width: none;
+  font-size: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.about-dot-wordmark {
+  margin: 0;
+}
+
+.about-dot-word {
+  --dot-size: clamp(0.34rem, 1.55vw, 0.96rem);
+  --dot-gap: clamp(0.08rem, 0.28vw, 0.24rem);
+  --letter-gap: clamp(0.2rem, 0.72vw, 0.6rem);
+  display: flex;
+  align-items: center;
+  gap: var(--letter-gap);
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.4rem 0;
+  cursor: crosshair;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.about-dot-letter {
+  display: grid;
+  grid-template-columns: repeat(5, var(--dot-size));
+  grid-auto-rows: var(--dot-size);
+  gap: var(--dot-gap);
+}
+
+.about-dot-cell {
+  --heat: 0;
+  --push-x: 0px;
+  --push-y: 0px;
+  display: block;
+  width: var(--dot-size);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: rgb(255 255 255 / calc(0.11 + var(--heat) * 0.38));
+  box-shadow:
+    0 0 calc(var(--heat) * 1rem) rgb(255 255 255 / 0.56),
+    0 0 calc(var(--heat) * 2.4rem) rgb(157 183 255 / 0.28);
+  opacity: calc(0.62 + var(--heat) * 0.38);
+  transform: translate(var(--push-x), var(--push-y)) scale(calc(1 + var(--heat) * 0.55));
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.about-dot-cell[data-active="true"] {
+  background: rgb(255 255 255 / calc(0.88 + var(--heat) * 0.12));
+  box-shadow:
+    0 0 calc(0.18rem + var(--heat) * 1rem) rgb(255 255 255 / 0.44),
+    0 0 calc(0.7rem + var(--heat) * 2rem) rgb(255 255 255 / 0.18);
+  opacity: 1;
+  animation: about-dot-active-breathe 4.8s ease-in-out infinite;
+}
+
+.about-dot-word:hover .about-dot-cell:not([data-active="true"]) {
+  background: rgb(255 255 255 / calc(0.18 + var(--heat) * 0.52));
+}
+
+.about-dot-word:hover .about-dot-cell[data-active="true"] {
+  background: #ffffff;
+}
+
+.about-linear-hero .home-kicker,
+.about-linear-hero .about-linear-deck,
+.about-linear-hero .about-scroll-cue {
+  color: #f8fafc;
+}
+
+.about-linear-hero .home-kicker {
+  opacity: 0.76;
+}
+
+.about-linear-hero .about-linear-deck {
+  max-width: 41rem;
+  color: rgb(248 250 252 / 0.78);
+}
+
+.about-linear-hero .about-scroll-cue {
+  border-bottom-color: rgb(248 250 252 / 0.74);
 }
 
 .about-linear-deck {
@@ -2779,11 +2875,11 @@ canvas {
 .about-signal-weave {
   position: relative;
   min-height: clamp(10rem, 22vw, 16rem);
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgb(248 250 252 / 0.24);
   background:
-    linear-gradient(90deg, rgb(30 30 30 / 0.055) 1px, transparent 1px),
-    linear-gradient(180deg, rgb(30 30 30 / 0.055) 1px, transparent 1px),
-    color-mix(in oklab, var(--surface-soft) 82%, white);
+    linear-gradient(90deg, rgb(248 250 252 / 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(248 250 252 / 0.07) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02));
   background-size: 28px 28px;
   overflow: hidden;
 }
@@ -2811,9 +2907,9 @@ canvas {
 .weave-node {
   width: clamp(4rem, 8vw, 7rem);
   aspect-ratio: 1;
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--surface-strong) 68%, transparent);
-  box-shadow: 0 1rem 3rem rgb(5 6 10 / 0.12);
+  border: 1px solid rgb(248 250 252 / 0.42);
+  background: rgb(248 250 252 / 0.08);
+  box-shadow: 0 1rem 3rem rgb(5 6 10 / 0.36);
   animation: about-node-pulse 8s ease-in-out infinite;
 }
 
@@ -2826,23 +2922,30 @@ canvas {
   bottom: clamp(0.9rem, 3vw, 2rem);
   font-family: var(--font-mono);
   font-size: 0.76rem;
-  color: var(--muted);
+  color: rgb(248 250 252 / 0.68);
 }
 
 .about-linear-section {
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--surface) 92%, transparent);
-  padding: clamp(1.15rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.26fr) minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 5vw, 5rem);
+  align-items: start;
+  border: 0;
+  background: transparent;
+  padding: clamp(4rem, 9vw, 7.25rem) clamp(1rem, 5vw, 4rem) 0;
 }
 
 .about-linear-section .section-title {
-  max-width: 18ch;
-  font-size: clamp(2.25rem, 6vw, 5.4rem);
-  line-height: 0.96;
-  letter-spacing: -0.065em;
+  grid-column: 2;
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(2.7rem, 7vw, 6.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.07em;
 }
 
 .about-linear-section > p:not(.section-kicker) {
+  grid-column: 2;
   max-width: 42rem;
   margin: 1.25rem 0 0;
   color: var(--muted);
@@ -2850,24 +2953,49 @@ canvas {
   line-height: 1.55;
 }
 
+.about-linear-section > .section-kicker {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  position: sticky;
+  top: 1.25rem;
+  margin: 0;
+  padding-top: 0.28rem;
+  color: var(--faint);
+}
+
+.about-linear-section > .about-inline-link,
+.about-linear-section > .about-link-stack,
+.about-linear-section > .about-linear-projects,
+.about-linear-section > .about-linear-repo-map {
+  grid-column: 2;
+}
+
 .about-link-stack {
   display: grid;
-  gap: 1px;
+  gap: 0;
   margin-top: clamp(1.2rem, 3vw, 2rem);
-  border: 1px solid var(--border);
-  background: var(--border);
+  border: 0;
+  background: transparent;
 }
 
 .about-link-stack a {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem;
-  background: var(--surface-strong);
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
+  background: transparent;
   text-decoration: none;
   font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: 750;
   letter-spacing: -0.04em;
+  transition: color 160ms ease, padding-left 160ms ease;
+}
+
+.about-link-stack a:hover,
+.about-link-stack a:focus-visible {
+  color: var(--accent-strong);
+  padding-left: 0.8rem;
 }
 
 .about-link-stack span {
@@ -2881,7 +3009,7 @@ canvas {
 
 .about-linear-projects,
 .about-linear-repo-map {
-  margin-top: 1.25rem;
+  margin-top: clamp(1.5rem, 4vw, 2.6rem);
 }
 
 .about-linear-page .repo-map,
@@ -2890,8 +3018,120 @@ canvas {
   grid-template-columns: 1fr;
 }
 
+.about-linear-page .portfolio-project-grid {
+  border: 0;
+  gap: clamp(1rem, 2.4vw, 1.7rem);
+}
+
+.about-linear-page .portfolio-project {
+  min-height: auto;
+  border: 0;
+  border-left: 0.28rem solid var(--border);
+  background: transparent;
+  padding: 0.35rem 0 0.35rem clamp(1rem, 2vw, 1.5rem);
+}
+
+.about-linear-page .portfolio-project::before {
+  top: 0.42rem;
+  left: auto;
+  right: 0;
+}
+
+.about-linear-page .portfolio-project:hover,
+.about-linear-page .portfolio-project:focus-visible {
+  background: transparent;
+  color: var(--accent-strong);
+  border-left-color: var(--accent-strong);
+}
+
+.about-linear-page .portfolio-project p,
+.about-linear-page .portfolio-project:hover p,
+.about-linear-page .portfolio-project:focus-visible p,
+.about-linear-page .portfolio-project-kind,
+.about-linear-page .portfolio-project:hover .portfolio-project-kind,
+.about-linear-page .portfolio-project:focus-visible .portfolio-project-kind {
+  color: var(--muted);
+}
+
+.about-linear-page .repo-map {
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  border: 0;
+  background: transparent;
+}
+
+.about-linear-page .repo-group {
+  border: 0;
+  border-left: 1px solid var(--hairline);
+  background: transparent;
+  padding: 0.1rem 0 0.1rem clamp(1rem, 2vw, 1.5rem);
+}
+
+.about-linear-page .repo-group h3 {
+  margin-top: 0;
+}
+
 .about-linear-quote p {
   max-width: 18ch;
+}
+
+.about-linear-page .about-linear-quote {
+  margin: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem) 0;
+  border: 0;
+  background: transparent;
+}
+
+.about-linear-page .about-linear-quote p {
+  max-width: 24ch;
+  margin: 0;
+  color: var(--text);
+}
+
+.about-linear-page .panel.portfolio-section {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.26fr) minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 5vw, 5rem);
+  margin-top: clamp(4rem, 8vw, 7rem);
+  border: 0;
+  background: transparent;
+  padding: 0 clamp(1rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem);
+}
+
+.about-linear-page .panel.portfolio-section .portfolio-section-header {
+  display: contents;
+}
+
+.about-linear-page .panel.portfolio-section .section-kicker {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  position: sticky;
+  top: 1.25rem;
+  margin: 0;
+  padding-top: 0.28rem;
+  color: var(--faint);
+}
+
+.about-linear-page .panel.portfolio-section .section-title,
+.about-linear-page .panel.portfolio-section .portfolio-philosophy-grid,
+.about-linear-page .panel.portfolio-section .home-actions {
+  grid-column: 2;
+}
+
+.about-linear-page .panel.portfolio-section .section-title {
+  max-width: 15ch;
+  margin: 0;
+}
+
+.about-linear-page .panel.portfolio-section .portfolio-philosophy-grid {
+  margin-top: 1.5rem;
+  border: 0;
+  background: transparent;
+  gap: 1rem;
+}
+
+.about-linear-page .panel.portfolio-section .portfolio-philosophy-grid p {
+  border-left: 1px solid var(--hairline);
+  background: transparent;
+  padding: 0 0 0 1rem;
 }
 
 @keyframes about-weave-drift {
@@ -2902,6 +3142,11 @@ canvas {
 @keyframes about-node-pulse {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-0.7rem) scale(1.04); }
+}
+
+@keyframes about-dot-active-breathe {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.18); }
 }
 
 
@@ -3854,6 +4099,8 @@ mjx-container[jax="SVG"][display="true"] {
   .portfolio-section-header,
   .route-proof-layout,
   .contact-channel-layout,
+  .about-linear-section,
+  .about-linear-page .panel.portfolio-section,
   .portfolio-philosophy-grid,
   .repo-map,
   .home-bio,
@@ -3866,6 +4113,42 @@ mjx-container[jax="SVG"][display="true"] {
   .subscribe-panel,
   .about-me-dossier-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-linear-section,
+  .about-linear-page .panel.portfolio-section {
+    padding-inline: 0.35rem;
+  }
+
+  .about-linear-section .section-title,
+  .about-linear-section > p:not(.section-kicker),
+  .about-linear-section > .section-kicker,
+  .about-linear-section > .about-inline-link,
+  .about-linear-section > .about-link-stack,
+  .about-linear-section > .about-linear-projects,
+  .about-linear-section > .about-linear-repo-map,
+  .about-linear-page .panel.portfolio-section .section-kicker,
+  .about-linear-page .panel.portfolio-section .section-title,
+  .about-linear-page .panel.portfolio-section .portfolio-philosophy-grid,
+  .about-linear-page .panel.portfolio-section .home-actions {
+    grid-column: 1;
+  }
+
+  .about-linear-section > .section-kicker,
+  .about-linear-page .panel.portfolio-section .section-kicker {
+    position: static;
+    grid-row: auto;
+    margin-bottom: 0.9rem;
+  }
+
+  .about-linear-section .section-title,
+  .about-linear-page .panel.portfolio-section .section-title {
+    max-width: 100%;
+    font-size: clamp(2.25rem, 11vw, 3.65rem);
+  }
+
+  .about-linear-page .about-linear-quote {
+    margin-inline: 0.35rem;
   }
 
   .home-bio-actions {

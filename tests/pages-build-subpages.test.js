@@ -731,7 +731,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesHtml.includes('searchInput.focus();'));
     assert.ok(homeHtml.includes('document.addEventListener("keydown"'));
     assert.ok(homeHtml.includes('target.tagName === "INPUT"'));
-    assert.ok(personalHtml.includes("Praneeth Suresh"));
+    assert.ok(personalHtml.includes("PRANEETH"));
+    assert.ok(personalHtml.includes("ABOUT_PAGE_PERMANENT_WORDMARK"));
+    assert.ok(personalHtml.includes('class="portfolio-title about-dot-wordmark"'));
+    assert.ok(personalHtml.includes("data-about-wordmark"));
     assert.ok(personalHtml.includes("[ About ]"));
     assert.ok(personalHtml.includes("I study AI systems, write rigorous notes"));
     assert.ok(personalHtml.includes("Scroll for the signal"));
@@ -770,6 +773,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
     assert.ok(siteCss.includes(".portfolio-quote"));
     assert.ok(siteCss.includes(".about-linear-hero"));
+    assert.ok(siteCss.includes(".about-linear-section {\n  display: grid;"));
+    assert.ok(siteCss.includes(".about-linear-page .panel.portfolio-section"));
+    assert.ok(siteCss.includes(".about-dot-word"));
+    assert.ok(siteCss.includes("@keyframes about-dot-active-breathe"));
     assert.ok(siteCss.includes("@keyframes about-weave-drift"));
     assert.ok(siteCss.includes(".site-links a[data-hotkey]::before"));
     assert.ok(!siteCss.includes(".site-links a::before,\n.topic-nav a::before"));

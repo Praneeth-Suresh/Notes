@@ -1413,6 +1413,92 @@ const DEFAULT_PORTFOLIO_DATA = {
   ],
 };
 
+const ABOUT_WORDMARK_TEXT = "PRANEETH";
+const ABOUT_WORDMARK_MATRIX = {
+  P: ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+  R: ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
+  A: ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+  N: ["10001", "11001", "10101", "10011", "10001", "10001", "10001"],
+  E: ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+  T: ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+  H: ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+};
+
+function renderAboutWordmark() {
+  const letters = ABOUT_WORDMARK_TEXT.split("")
+    .map((letter) => {
+      const rows = ABOUT_WORDMARK_MATRIX[letter] || ABOUT_WORDMARK_MATRIX.E;
+      const dots = rows
+        .flatMap((row, rowIndex) => row.split("").map((cell, columnIndex) => ({ cell, rowIndex, columnIndex })))
+        .map(({ cell, rowIndex, columnIndex }) => {
+          const activeAttribute = cell === "1" ? ` data-active="true"` : "";
+          return `<span class="about-dot-cell" data-dot${activeAttribute} style="--row: ${rowIndex}; --column: ${columnIndex};"></span>`;
+        })
+        .join("");
+
+      return `<span class="about-dot-letter" data-letter="${escapeHtml(letter)}">${dots}</span>`;
+    })
+    .join("");
+
+  return `<!-- ABOUT_PAGE_PERMANENT_WORDMARK: Keep the PRANEETH dot-matrix wordmark on /about/. Do not remove. -->
+        <h1 id="portfolio-title" class="portfolio-title about-dot-wordmark" aria-label="${ABOUT_WORDMARK_TEXT}">
+          <span class="sr-only">${ABOUT_WORDMARK_TEXT}</span>
+          <span class="about-dot-word" data-about-wordmark aria-hidden="true">${letters}</span>
+        </h1>`;
+}
+
+function renderAboutWordmarkScript() {
+  return `<script>
+      (() => {
+        function initAboutWordmark() {
+          const wordmark = document.querySelector("[data-about-wordmark]");
+          if (!wordmark) {
+            return;
+          }
+
+          const dots = Array.from(wordmark.querySelectorAll("[data-dot]"));
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+          const radius = 94;
+          const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+          function setDotHeat(dot, heat, dx = 0, dy = 0) {
+            const motionHeat = reduceMotion.matches ? 0 : heat;
+            dot.style.setProperty("--heat", heat.toFixed(3));
+            dot.style.setProperty("--push-x", \`\${(dx * motionHeat * -0.08).toFixed(2)}px\`);
+            dot.style.setProperty("--push-y", \`\${(dy * motionHeat * -0.08).toFixed(2)}px\`);
+          }
+
+          function resetDots() {
+            dots.forEach((dot) => setDotHeat(dot, 0));
+          }
+
+          function updateDots(event) {
+            dots.forEach((dot) => {
+              const rect = dot.getBoundingClientRect();
+              const centerX = rect.left + rect.width / 2;
+              const centerY = rect.top + rect.height / 2;
+              const dx = centerX - event.clientX;
+              const dy = centerY - event.clientY;
+              const distance = Math.hypot(dx, dy);
+              const heat = clamp(1 - distance / radius, 0, 1);
+              setDotHeat(dot, heat, dx, dy);
+            });
+          }
+
+          wordmark.addEventListener("pointermove", updateDots);
+          wordmark.addEventListener("pointerleave", resetDots);
+          wordmark.addEventListener("pointercancel", resetDots);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initAboutWordmark, { once: true });
+        } else {
+          initAboutWordmark();
+        }
+      })();
+    </script>`;
+}
+
 function findTopicBySlug(topics, slug) {
   return topics.find((topic) => topic.slug === slug) || null;
 }
@@ -1981,7 +2067,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
     <section id="main-content" class="about-linear-hero" aria-labelledby="portfolio-title">
       <div class="about-linear-hero-copy">
         <p class="home-kicker">[ About ]</p>
-        <h1 id="portfolio-title" class="portfolio-title">Praneeth Suresh</h1>
+        ${renderAboutWordmark()}
         <p class="about-linear-deck">I study AI systems, write rigorous notes, and build tools that make research easier to inspect.</p>
         <a class="about-scroll-cue" href="#about-now" aria-label="Continue reading about Praneeth">Scroll for the signal ↓</a>
       </div>
@@ -2038,6 +2124,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
     ${renderContactCtaPanel({ source: "about" })}
+    ${renderAboutWordmarkScript()}
   `
   return renderLayout({
     pageTitle: `Praneeth Suresh · ${siteTitle}`,
