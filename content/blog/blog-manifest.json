@@ -177,6 +177,15 @@
           "tags": ["AGENTS.md", "agent workflows", "repo governance"],
           "chapter": 5,
           "markdownFile": "posts/beryl-01-why-agents-md-isnt-enough.md"
+        },
+        {
+          "slug": "how-to-win-a-hackathon",
+          "title": "How to Win a Hackathon",
+          "description": "A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria.",
+          "socialPreview": "Hackathons are not won by technical sophistication alone. They are won by understanding the requirements, the judges, and the idea they are ready to reward.",
+          "tags": ["hackathons", "product", "builder journal"],
+          "chapter": 6,
+          "markdownFile": "posts/how-to-win-a-hackathon.md"
         }
       ]
     },

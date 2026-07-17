@@ -256,6 +256,21 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("WebSite")));
     assert.equal(postSchemas.some((schema) => schema["@type"] === "FAQPage"), false);
 
+    const hackathonHtml = await fs.readFile(
+      path.join(tmpOut, "blog", "how-to-win-a-hackathon", "index.html"),
+      "utf8",
+    );
+    assert.ok(hackathonHtml.includes("<h1>How to Win a Hackathon</h1>"));
+    assert.ok(hackathonHtml.includes("I used to think hackathons were coding competitions."));
+    assert.ok(hackathonHtml.includes("The code is not the point"));
+    assert.ok(hackathonHtml.includes("Breadth gives you better ideas"));
+    assert.ok(hackathonHtml.includes("The judges are the customer"));
+    assert.ok(hackathonHtml.includes("Build the clearest answer to the challenge in front of you."));
+    assert.ok(hackathonHtml.includes("hackathons"));
+    assert.ok(hackathonHtml.includes("Copy link"));
+    assert.ok(hackathonHtml.includes('data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/"'));
+    assert.ok(hackathonHtml.includes('"headline":"How to Win a Hackathon"'));
+
     const flagshipHtml = await fs.readFile(
       path.join(
         tmpOut,
@@ -351,6 +366,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(feedXml.includes("<link>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</link>"));
     assert.ok(feedXml.includes("<title>The mental models of deep learning</title>"));
     assert.ok(feedXml.includes("<description>AI research explained through foundational deep learning papers: universal approximation, convolutional architectures, transformers, reinforcement learning, and the open question of task-fit architecture.</description>"));
+    assert.ok(feedXml.includes("<title>How to Win a Hackathon</title>"));
+    assert.ok(feedXml.includes("<link>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/</link>"));
+    assert.ok(feedXml.includes("<description>A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria.</description>"));
 
     // Check discovery files include generated blog routes
     const sitemapXml = await fs.readFile(path.join(tmpOut, "sitemap.xml"), "utf8");
@@ -360,6 +378,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/errata/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/</loc>"));
     const robotsTxt = await fs.readFile(path.join(tmpOut, "robots.txt"), "utf8");
     assert.ok(robotsTxt.includes("Sitemap: https://notes.praneeth-suresh-s.workers.dev/sitemap.xml"));
 
@@ -377,6 +396,12 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(
       flagshipSearchEntry.searchableText.includes("Research question"),
     );
+    const hackathonSearchEntry = searchIndex.find((entry) => entry.slug === "blog/how-to-win-a-hackathon");
+    assert.equal(
+      hackathonSearchEntry.description,
+      "A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria.",
+    );
+    assert.ok(hackathonSearchEntry.searchableText.includes("judging criteria"));
 
     const homeHtml = await fs.readFile(path.join(tmpOut, "index.html"), "utf8");
     assert.ok(homeHtml.includes('href="/blog/"'));

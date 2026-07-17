@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes</title>
+    <title>How to Win a Hackathon · Blog · Praneeth&#39;s CS Field Notes</title>
 
-    <meta name="description" content="A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve." />
-    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" />
-    <meta property="og:title" content="Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes" />
-    <meta property="og:description" content="I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows." />
+    <meta name="description" content="A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/" />
+    <meta property="og:title" content="How to Win a Hackathon · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="Hackathons are not won by technical sophistication alone. They are won by understanding the requirements, the judges, and the idea they are ready to reward." />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/" />
     <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
@@ -18,15 +18,15 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Why AGENTS.md Wasn&#39;t Enough for My Repo · Blog · Praneeth&#39;s CS Field Notes" />
-    <meta name="twitter:description" content="I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows." />
+    <meta name="twitter:title" content="How to Win a Hackathon · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="Hackathons are not won by technical sophistication alone. They are won by understanding the requirements, the judges, and the idea they are ready to reward." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/","name":"Why AGENTS.md Wasn't Enough for My Repo · Blog · Praneeth's CS Field Notes","description":"A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#blogposting","headline":"Why AGENTS.md Wasn't Enough for My Repo","description":"A first-person account of why scattered instruction files failed me and why a repo-owned boundary became the real problem to solve.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/","keywords":"AGENTS.md, agent workflows, repo governance"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/","name":"How to Win a Hackathon · Blog · Praneeth's CS Field Notes","description":"A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/#blogposting","headline":"How to Win a Hackathon","description":"A practical essay on why hackathons are won by matching the idea, demo, and technical work to the organizers and judging criteria.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/","keywords":"hackathons, product, builder journal"}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
@@ -64,49 +64,34 @@
       <a class="blog-back" href="/blog/">&larr; All posts</a>
       <header class="blog-post-header">
         <p class="blog-post-section">A Developer&#39;s Memoir</p>
-        <h1>Why AGENTS.md Wasn&#39;t Enough for My Repo</h1>
+        <h1>How to Win a Hackathon</h1>
         <div class="blog-post-meta-actions">
-          <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=AGENTS.md#blog-posts">AGENTS.md</a><a class="topic-label topic-label-default" href="/blog/?topic=agent%20workflows#blog-posts">agent workflows</a><a class="topic-label topic-label-default" href="/blog/?topic=repo%20governance#blog-posts">repo governance</a></div>
-          <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/" data-analytics-event="copy_share_link_click">Copy link</button>
+          <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=hackathons#blog-posts">hackathons</a><a class="topic-label topic-label-default" href="/blog/?topic=product#blog-posts">product</a><a class="topic-label topic-label-default" href="/blog/?topic=builder%20journal#blog-posts">builder journal</a></div>
+          <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/" data-analytics-event="copy_share_link_click">Copy link</button>
         </div>
       </header>
-      <article class="blog-article"><p><em>I had a PR land that &quot;should have&quot; failed every guardrail.<br>The code changed a file the instructions said should never change.</em></p>
-<p><img src="/blog/images/beryl-01-why-agents-md-isnt-enough.png" alt="A terminal log on a rainy night"></p>
-<p>This was my trigger moment.<br>I had four instruction files in the repo telling me what agents should do: <code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>copilot-instructions.md</code>, and a rule file from Cursor. They all looked sensible in isolation.</p>
-<p>Then I ran the review on a weekend and realised three of them disagreed on the same behavior.</p>
-<p>The result was not one instruction failure.</p>
-<p>The failure was that I had no single source of truth for <strong>repo-level behavior</strong>.</p>
-<p>I could make this a generic startup post and say &quot;AI agents are hard to trust.&quot; That is true, but it is not the point.</p>
-<p>The real problem was practical:</p>
-<ul>
-<li>one file said one thing,</li>
-<li>another file said another thing,</li>
-<li>and the command history only showed the final files, not the reasoning path.</li>
-</ul>
-<p>In other words, the tools were okay.</p>
-<p>My repo process was not.</p>
-<p>That’s why I started writing the same sentence everywhere over and over:<br><strong>&quot;AGENTS.md tells the agent what you want. It doesn&#39;t check that it happened.&quot;</strong></p>
-<p>And that sentence is the one that changed the project.</p>
-<hr>
-<p>What I learned the hard way</p>
-<ul>
-<li>&quot;Prompt quality&quot; made the output nicer, but not more reliable.</li>
-<li>&quot;More tools&quot; made things faster, but not more grounded.</li>
-<li>&quot;More files&quot; made the system more fragmented.</li>
-</ul>
-<p>I wanted one narrow boundary that could be versioned, checked, and reviewed the same way as any other code path.</p>
-<p>I started with a tiny thesis:</p>
-<p><code>repo rules should be in one place, and every agent run should be checkable against it</code>.</p>
-<p>I am still tightening the edges. But that one sentence is the split between this story and everything before it.</p>
-<p>This is also why I wrote the second one line in the same way:</p>
-<blockquote>
-<p>Skills make the agent smarter. I wanted the repo to get stricter.</p>
-</blockquote>
-<p>When I say I’m building this in public, this is the thing I am building first:</p>
-<p>not a better model, not a bigger agent, and not a prettier dashboard.</p>
-<p>just a stricter repo.</p>
-<p>Next up is the concrete build notes, not the theory: what I put in and what I intentionally left out.</p>
-<p><a href="/blog/beryl-02-what-i-built/">Read Part 2: What Beryl Actually Does (and What It Deliberately Doesn&#39;t)</a></p>
+      <article class="blog-article"><p><em>I used to think hackathons were coding competitions. I was wrong. After winning a few, the lesson became much clearer: hackathons are about building the right idea for the right people.</em></p>
+<p>That sounds simple, but it changes how you approach the whole event.</p>
+<p>When I was starting out, my instinct was to show technical ability. Build something complicated. Use the newest tool. Add one more feature. Make the architecture sound impressive.</p>
+<p>There is nothing wrong with strong engineering. But in a hackathon, technical execution only matters if it makes the idea more relevant to the people judging it.</p>
+<p>You can build the most sophisticated thing in the room and still lose if the judges cannot see why it matters.</p>
+<h2>The code is not the point</h2>
+<p>The first lesson is that hackathons are not really about technical execution capability.</p>
+<p>They look that way because everyone is coding under pressure. But the winning project is usually not the one with the most difficult backend or the fanciest model. It is the one where the technical work supports a clear idea.</p>
+<p>If the hackathon is about education, the project should make the education problem obvious. If the hackathon is about finance, the project should speak directly to a finance problem. If the organizers are promoting a tool, the tool should feel central to the solution.</p>
+<p>Technical sophistication is useful only when it helps the judges understand the value of the project faster.</p>
+<h2>Breadth gives you better ideas</h2>
+<p>The second lesson is that breadth of knowledge matters a lot.</p>
+<p>Hackathons are idea-first. If I only know one stack, one domain, or one type of product, I will naturally force every idea into that shape. That is limiting.</p>
+<p>Breadth gives you more combinations to work with. A little AI, a little design, a little finance, a little education, a little product thinking: these all become raw material for better ideas.</p>
+<p>You do not need to be an expert in everything. But you need enough range to avoid being trapped by the one thing you know best.</p>
+<h2>The judges are the customer</h2>
+<p>The most important lesson is this: understand the requirements and understand the judges.</p>
+<p>Read the brief properly. Read the judging criteria. Ask what the organizers are trying to reward. Then build something that makes those boxes easy to check.</p>
+<p>This is not about gaming the system. It is about respecting the problem you were asked to solve.</p>
+<p>In a hackathon, the judges are your first customer. Your demo, your story, and your technical choices should all help them say: yes, this is what we were looking for.</p>
+<p>So if I had to compress everything I know about winning hackathons into one line, it would be this:</p>
+<p><strong>do not build the most impressive thing you can imagine. Build the clearest answer to the challenge in front of you.</strong></p>
 </article>
       
     <section class="reading-trail" aria-labelledby="reading-trail-title-blog-post">
@@ -138,7 +123,7 @@
     </section>
   
       <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
-      <nav class="blog-post-nav"><a href="/blog/how-to-turn-any-big-idea-into-real-impact/">&larr; Tech for society</a><a href="/blog/how-to-win-a-hackathon/">How to Win a Hackathon &rarr;</a></nav>
+      <nav class="blog-post-nav"><a href="/blog/beryl-01-why-agents-md-isnt-enough/">&larr; Why AGENTS.md Wasn&#39;t Enough for My Repo</a><span></span></nav>
     </div>
     <script>
       (() => {
