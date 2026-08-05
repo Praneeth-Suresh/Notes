@@ -10,7 +10,6 @@ const ERRATA_DESCRIPTION = "Public corrections and clarification policy for Pran
 const SUBSCRIBE_DESCRIPTION = "Subscribe for monthly AI research and project updates from Praneeth's CS Field Notes by email request or RSS.";
 const PROJECTS_DESCRIPTION = "Selected projects from Praneeth Suresh across static knowledge systems, AI engineering, research notebooks, and agentic tooling.";
 const CONTACT_DESCRIPTION = "Contact Praneeth Suresh about research, internships, consulting, NUS AI Society collaboration, and technical projects.";
-const COLLABORATE_DESCRIPTION = "Collaboration and consulting route for research, AI engineering, project work, and NUS AI Society opportunities.";
 const NOT_FOUND_DESCRIPTION = "The requested page was not found. Continue to Praneeth's CS Field Notes home, notes, writing, or contact routes.";
 const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
 const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
@@ -133,10 +132,9 @@ function renderSiteFooter() {
           <a href="/notes/">Notes</a>
           <a href="/projects/">Projects</a>
           <a href="/blog/">Writing</a>
-          <a href="/contact/">Asks</a>
+          <a href="/contact/">Contact</a>
           <a href="/start-here/">Start</a>
           <a href="/about/">About</a>
-          <a href="/collaborate/">Collaborate</a>
           <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
           <a href="/errata/">Errata</a>
@@ -325,7 +323,7 @@ function renderContactCtaPanel({ source = "site" } = {}) {
       <div class="home-actions" aria-label="Contact actions">
         <a class="primary-action" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="${escapeHtml(source)}">Email me</a>
         <a class="secondary-action" href="/contact/">Contact page</a>
-        <a class="secondary-action" href="/collaborate/">Collaborate</a>
+        <a class="secondary-action" href="/contact/#collaboration-fit">Collaboration fit</a>
       </div>
     </section>
   `;
@@ -1881,6 +1879,16 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         </section>
       </div>
     </section>
+    <section id="collaboration-fit" class="panel portfolio-section" aria-labelledby="collaboration-fit-title">
+      <div class="portfolio-section-header">
+        <p class="section-kicker">/ Collaboration fit</p>
+        <h2 id="collaboration-fit-title" class="section-title">Useful collaborations need a specific technical overlap.</h2>
+      </div>
+      <div class="portfolio-philosophy-grid">
+        <p>The collaboration surface stays narrow: research conversations, internship paths, AI engineering work, flagship project feedback, and AI Society partnerships.</p>
+        <p>This keeps the site aligned with the mission: build real professional leverage from rigorous public work instead of broad self-promotion.</p>
+      </div>
+    </section>
   `;
 
   return renderLayout({
@@ -1893,44 +1901,6 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     ogTitle: `Contact · ${siteTitle}`,
     ogDescription: CONTACT_DESCRIPTION,
     pageSchemaType: "ContactPage",
-  });
-}
-
-function renderCollaboratePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
-  const content = `
-    <nav class="topic-nav" aria-label="Collaborate navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/" data-hotkey="P">Projects</a>
-      <a href="/contact/" data-hotkey="C">Contact</a>
-      <a class="active" href="/collaborate/" aria-current="page">Collaborate</a>
-    </nav>
-    <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
-      <p class="home-kicker">[ Collaborate ]</p>
-      <h1 id="collaborate-title">Collaboration and consulting</h1>
-      <p>A focused route for concrete research collaborations, AI engineering prototypes, technical writing, consulting, and NUS AI Society partnership conversations.</p>
-    </section>
-    <section class="panel portfolio-section" aria-labelledby="collaborate-route-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Collaboration fit</p>
-        <h2 id="collaborate-route-title" class="section-title">Useful collaborations need a specific technical overlap.</h2>
-      </div>
-      <div class="portfolio-philosophy-grid">
-        <p>The collaboration surface will stay narrow: research conversations, internship paths, AI engineering work, flagship project feedback, and AI Society partnerships.</p>
-        <p>This keeps the site aligned with the mission: build real professional leverage from rigorous public work instead of broad self-promotion.</p>
-      </div>
-    </section>
-    ${renderContactCtaPanel({ source: "collaborate" })}
-  `;
-
-  return renderLayout({
-    pageTitle: `Collaborate · ${siteTitle}`,
-    siteTitle,
-    contentHtml: content,
-    bodyClass: "portfolio-page utility-page",
-    description: COLLABORATE_DESCRIPTION,
-    canonicalUrl: absoluteUrl(siteUrl, "/collaborate/"),
-    ogTitle: `Collaborate · ${siteTitle}`,
-    ogDescription: COLLABORATE_DESCRIPTION,
   });
 }
 
@@ -2083,7 +2053,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <p>Reach out about AI engineering, applied ML, developer tools, ML systems, interpretability, efficient inference, agent reliability, internships, or NUS AI Society collaboration.</p>
       <a class="about-inline-link" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="about-hero">Email me →</a>
     </section>
-    <section class="portfolio-quote about-me-quote about-linear-quote" aria-label="About me quote">
+    <section class="portfolio-quote about-me-quote about-linear-quote quote-attention" aria-label="About me quote">
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
     ${renderContactCtaPanel({ source: "about" })}
@@ -2301,7 +2271,6 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
 module.exports = {
   renderBlogIndexPage,
   renderBlogPostPage,
-  renderCollaboratePage,
   renderContactPage,
   renderErrataPage,
   renderHomePage,

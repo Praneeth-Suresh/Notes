@@ -245,6 +245,7 @@ canvas {
   background: color-mix(in oklab, var(--surface) 92%, transparent);
   border: 1px solid var(--border);
   border-radius: 0;
+  padding: clamp(1rem, 2.4vw, 1.5rem);
 }
 
 .home-hero {
@@ -993,7 +994,7 @@ canvas {
 
 .home-showcase-section .topic-card {
   min-height: 8.5rem;
-  padding: 2.65rem 0.85rem 0.85rem;
+  padding: 2.65rem 1.2rem 1.2rem;
   border-color: var(--showcase-border);
   background: var(--showcase-card);
   color: var(--showcase-card-foreground);
@@ -3057,7 +3058,8 @@ canvas {
 .about-linear-page .about-linear-quote p {
   max-width: 24ch;
   margin: 0;
-  color: var(--text);
+  color: var(--accent-strong);
+  font-style: italic;
 }
 
 .about-linear-page .panel.portfolio-section {
@@ -3393,7 +3395,7 @@ canvas {
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: var(--surface);
-  padding: 3rem 1rem 1rem;
+  padding: 3rem 1.2rem 1.2rem;
   text-decoration: none;
   transition: background 160ms ease, color 160ms ease;
 }
@@ -3493,6 +3495,23 @@ canvas {
 
 .portfolio-quote p {
   margin: 0;
+}
+
+.quote-attention {
+  display: grid;
+  place-items: center;
+  min-height: clamp(12rem, 24vw, 19rem);
+  padding: clamp(2rem, 6vw, 4.5rem);
+  text-align: center;
+  color: var(--accent-strong);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.45rem, 3.4vw, 2.8rem);
+  font-style: italic;
+  line-height: 1.16;
+}
+
+.quote-attention p {
+  max-width: 35ch;
 }
 
 .notion-page-content {

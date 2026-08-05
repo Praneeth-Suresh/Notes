@@ -4,7 +4,6 @@ const { SITE_CSS } = require("./internal/css");
 const {
   renderBlogIndexPage,
   renderBlogPostPage,
-  renderCollaboratePage,
   renderContactPage,
   renderErrataPage,
   renderHomePage,
@@ -26,7 +25,6 @@ function createSiteStylingContext() {
     },
     renderBlogIndexPage,
     renderBlogPostPage,
-    renderCollaboratePage,
     renderContactPage,
     renderErrataPage,
     renderHomePage,

@@ -286,7 +286,6 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     const contactHtml = await fs.readFile(path.join(outDir, "contact", "index.html"), "utf8");
-    const collaborateHtml = await fs.readFile(path.join(outDir, "collaborate", "index.html"), "utf8");
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
     const feedXml = await fs.readFile(path.join(outDir, "feed.xml"), "utf8");
     const sitemapXml = await fs.readFile(path.join(outDir, "sitemap.xml"), "utf8");
@@ -478,13 +477,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('href="/">Home</a>'));
     assert.ok(homeHtml.includes('href="/research-taste/">Research</a>'));
     assert.ok(homeHtml.includes('href="/blog/">Writing</a>'));
-    assert.ok(homeHtml.includes('href="/contact/">Asks</a>'));
+    assert.ok(homeHtml.includes('href="/contact/">Contact</a>'));
     assert.ok(homeHtml.includes('href="/sitemap.xml"'));
     assert.ok(homeHtml.includes('href="/errata/"'));
     assert.ok(homeHtml.includes('href="/subscribe/"'));
     assert.ok(homeHtml.includes('href="/projects/"'));
     assert.ok(homeHtml.includes('href="/contact/"'));
-    assert.ok(homeHtml.includes('href="/collaborate/"'));
+    assert.ok(!homeHtml.includes('href="/collaborate/"'));
     assert.ok(homeHtml.includes('data-subscribe-source="footer"'));
     assert.ok(homeHtml.includes('href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer"'));
     assert.ok(homeHtml.includes('rel="alternate" type="application/rss+xml"'));
@@ -575,7 +574,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("--showcase-bg-mix"));
     assert.ok(siteCss.includes("transition: opacity 260ms linear;"));
     assert.ok(siteCss.includes(".home-showcase-copy .topic-index-link"));
-    assert.ok(siteCss.includes("padding: 2.65rem 0.85rem 0.85rem;"));
+    assert.ok(siteCss.includes("padding: 2.65rem 1.2rem 1.2rem;"));
     assert.ok(siteCss.includes(".home-showcase-section .topic-card:hover .topic-card-title"));
     assert.ok(siteCss.includes(".home-showcase::before"));
     assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-copy .home-title"));
@@ -718,17 +717,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes("praneeth.suresh.s@gmail.com"));
     assert.ok(contactHtml.includes("Research, internships, consulting, and AI Society collaboration."));
     assert.ok(contactHtml.includes("Speaker, workshop, sponsor, partner"));
+    assert.ok(contactHtml.includes('id="collaboration-fit"'));
+    assert.ok(contactHtml.includes("Useful collaborations need a specific technical overlap."));
+    assert.ok(contactHtml.includes("The collaboration surface stays narrow"));
     assert.ok(!contactHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(contactHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(contactHtml.includes('<link rel="canonical" href="https://example.test/contact/" />'));
     assert.equal(findSchemaByType(contactHtml, "ContactPage").url, "https://example.test/contact/");
-    assert.ok(collaborateHtml.includes("<title>Collaborate · Praneeth&#39;s CS Field Notes</title>"));
-    assert.ok(collaborateHtml.includes("Collaboration and consulting"));
-    assert.ok(collaborateHtml.includes("AI Society partnerships"));
-    assert.ok(collaborateHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
-    assert.ok(collaborateHtml.includes("Email is the best first step."));
-    assert.ok(!collaborateHtml.includes("Calendly"));
-    assert.ok(collaborateHtml.includes('<link rel="canonical" href="https://example.test/collaborate/" />'));
     assert.ok(homeHtml.includes('href="/start-here/" data-hotkey="S"'));
     assert.ok(homeHtml.includes('href="/about/" data-hotkey="A"'));
     assert.ok(!homeHtml.includes('href="/projects/" data-hotkey="P"'));
@@ -764,6 +759,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes('href="/notes/"'));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
+    assert.ok(personalHtml.includes('class="portfolio-quote about-me-quote about-linear-quote quote-attention"'));
     assert.ok(personalHtml.includes("NewRepo"));
     assert.ok(personalHtml.includes("A newly refreshed public repository."));
     assert.ok(personalHtml.includes('data-analytics-event="outbound_github_click"'));
@@ -782,6 +778,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("50% {\n    transform: translateX(18%) skewY(-10deg);"));
     assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
     assert.ok(siteCss.includes(".portfolio-quote"));
+    assert.ok(siteCss.includes(".quote-attention"));
+    assert.ok(siteCss.includes("padding: clamp(1rem, 2.4vw, 1.5rem);"));
     assert.ok(siteCss.includes(".about-linear-hero"));
     assert.ok(siteCss.includes(".about-linear-section {\n  display: grid;"));
     assert.ok(siteCss.includes(".about-linear-page .panel.portfolio-section"));
@@ -820,7 +818,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/notes/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/agentic-coding/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/contact/</loc>"));
-    assert.ok(sitemapXml.includes("<loc>https://example.test/collaborate/</loc>"));
+    assert.ok(!sitemapXml.includes("/collaborate/"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/dynamic-programming/</loc>"));
     assert.ok(robotsTxt.includes("User-agent: *"));
