@@ -3,33 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>A Research Program for Inspectable ML · Blog · Computer Science Notes</title>
+    <title>A Research Program for Inspectable ML · Blog · Praneeth&#39;s CS Field Notes</title>
 
     <meta name="description" content="An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/" />
-    <meta property="og:title" content="A Research Program for Inspectable ML · Blog · Computer Science Notes" />
+    <meta property="og:title" content="A Research Program for Inspectable ML · Blog · Praneeth&#39;s CS Field Notes" />
     <meta property="og:description" content="Why the next phase of deep learning depends on making interpretability and representation analysis rigorous, not just scaling models." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/" />
-    <meta property="og:site_name" content="Computer Science Notes" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="A Research Program for Inspectable ML · Blog · Computer Science Notes" />
+    <meta name="twitter:title" content="A Research Program for Inspectable ML · Blog · Praneeth&#39;s CS Field Notes" />
     <meta name="twitter:description" content="Why the next phase of deep learning depends on making interpretability and representation analysis rigorous, not just scaling models." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Computer Science Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/","name":"A Research Program for Inspectable ML · Blog · Computer Science Notes","description":"An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/","name":"A Research Program for Inspectable ML · Blog · Praneeth's CS Field Notes","description":"An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#blogposting","headline":"A Research Program for Inspectable ML","description":"An essay on reading foundational deep learning papers as one research program and turning interpretability and representation analysis into a rigorous science.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/","keywords":"AI research, interpretability, representation analysis"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/#faq","mainEntity":[{"@type":"Question","name":"Is this just about scaling models?","acceptedAnswer":{"@type":"Answer","text":"No. The essay argues that progress comes from organizing computation around the structure of a task, then making learned representations inspectable enough to evaluate and trust."}},{"@type":"Question","name":"What kind of interpretability does this argue for?","acceptedAnswer":{"@type":"Answer","text":"It favors frozen-model tools such as probing, representation analysis, attribution, and information-theoretic views that can become standard evaluation interfaces around trained systems."}}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Computer Science Notes RSS" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <link rel="stylesheet" href="/assets/site.css" />
     <script>
       window.MathJax = {
@@ -49,7 +49,7 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     <main class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Computer Science Notes home">Home</a>
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
