@@ -472,8 +472,12 @@ function renderLayout({
             let activeIndex = 0;
             let activeVisibility = -1;
 
-            sections.forEach((section, index) => {
-              const rect = section.getBoundingClientRect();
+            const sectionMetrics = sections.map((section) => ({
+              section,
+              rect: section.getBoundingClientRect(),
+            }));
+
+            sectionMetrics.forEach(({ section, rect }, index) => {
               const travelWindow = Math.max(rect.height - viewportHeight * 0.18, viewportHeight * 0.82);
               const rawProgress = (viewportHeight * 0.82 - rect.top) / travelWindow;
               const progress = clamp(rawProgress, 0, 1);

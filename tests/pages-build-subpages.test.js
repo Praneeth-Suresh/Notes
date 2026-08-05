@@ -401,6 +401,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes("Five entry points into my work"));
     assert.ok(homeHtml.includes('href="/start-here/">Start here</a>'));
     assert.ok(homeHtml.includes('href="/notes/">Search notes</a>'));
+    assert.ok(homeHtml.includes("const sectionMetrics = sections.map((section) => ({"));
+    assert.ok(homeHtml.includes("sectionMetrics.forEach(({ section, rect }, index) => {"));
     assert.ok(homeHtml.includes('id="main-content" class="skip-target"'));
     assert.ok(!homeHtml.includes('class="primary-action" href="#main-content"'));
     assert.ok(!homeHtml.includes("Explore notes"));
@@ -572,11 +574,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("--showcase-bg-current"));
     assert.ok(siteCss.includes("--showcase-bg-next"));
     assert.ok(siteCss.includes("--showcase-bg-mix"));
-    assert.ok(siteCss.includes("transition: opacity 260ms linear;"));
+    assert.ok(siteCss.includes("transition: opacity 420ms cubic-bezier(0.22, 0.8, 0.22, 1);"));
     assert.ok(siteCss.includes(".home-showcase-copy .topic-index-link"));
     assert.ok(siteCss.includes("padding: 2.65rem 1.2rem 1.2rem;"));
     assert.ok(siteCss.includes(".home-showcase-section .topic-card:hover .topic-card-title"));
     assert.ok(siteCss.includes(".home-showcase::before"));
+    assert.ok(siteCss.includes("transform: translateZ(0);"));
     assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-copy .home-title"));
     assert.ok(siteCss.includes(".home-showcase-motion .home-showcase-cards .topic-card"));
     assert.ok(siteCss.includes(".home-showcase-section > .home-showcase-copy"));
@@ -783,6 +786,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".about-linear-hero"));
     assert.ok(siteCss.includes(".about-linear-section {\n  display: grid;"));
     assert.ok(siteCss.includes(".about-linear-page .panel.portfolio-section"));
+    assert.ok(siteCss.includes(".about-linear-page .layout {\n  width: min(100%, 1280px);"));
     assert.ok(siteCss.includes(".about-dot-word"));
     assert.ok(siteCss.includes("@keyframes about-dot-active-breathe"));
     assert.ok(siteCss.includes("@keyframes about-weave-drift"));
