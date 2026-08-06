@@ -5,8 +5,10 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs/promises");
 const os = require("node:os");
 const path = require("node:path");
+const vm = require("node:vm");
 
 const { buildPagesSite } = require("../scripts/build-pages");
+const { renderHomePage, renderPersonalPage } = require("../src/site-styling/internal/shell");
 
 function parseJsonLd(html) {
   return Array.from(html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/gu), (match) =>
@@ -59,6 +61,126 @@ async function withTempDir(callback) {
     await fs.rm(root, { recursive: true, force: true });
   }
 }
+
+function createThemeScriptHarness({ savedTheme = null, systemTheme = "light", disabled = false } = {}) {
+  const listeners = new Map();
+  const attributes = new Map();
+  const themeToggle = {
+    disabled,
+    textContent: "",
+    setAttribute(name, value) {
+      attributes.set(name, String(value));
+    },
+    getAttribute(name) {
+      return attributes.get(name) || null;
+    },
+    addEventListener(name, callback) {
+      listeners.set(name, callback);
+    },
+    click() {
+      listeners.get("click")?.();
+    },
+  };
+  const storedValues = new Map(savedTheme ? [["notes-theme", savedTheme]] : []);
+  const root = { dataset: {} };
+  const document = {
+    body: { dataset: {} },
+    documentElement: root,
+    querySelector(selector) {
+      return selector === ".theme-toggle" ? themeToggle : null;
+    },
+    addEventListener() {},
+  };
+  const window = {
+    CustomEvent: class CustomEvent {
+      constructor(name, options) {
+        this.name = name;
+        this.detail = options?.detail;
+      }
+    },
+    HTMLElement: class HTMLElement {},
+    Element: class Element {},
+    location: { pathname: "/" },
+    localStorage: {
+      getItem(name) {
+        return storedValues.get(name) || null;
+      },
+      setItem(name, value) {
+        storedValues.set(name, value);
+      },
+    },
+    matchMedia() {
+      return { matches: systemTheme === "dark" };
+    },
+    dispatchEvent() {},
+  };
+
+  return { attributes, document, root, storedValues, themeToggle, window };
+}
+
+function executeGeneratedThemeScript(harness, renderPage = renderPersonalPage) {
+  const html = renderPage({ siteTitle: "Praneeth's CS Field Notes" });
+  const scriptMatch = html.match(/<script>\s*\(\(\) => \{\s*window\.notesAnalyticsEvents[\s\S]*?\n\s*\}\)\(\);\s*<\/script>/u);
+  assert.ok(scriptMatch, "expected the shared client script in generated home HTML");
+  const script = scriptMatch[0].replace(/^<script>\s*/u, "").replace(/\s*<\/script>$/u, "");
+  vm.runInNewContext(script, {
+    CustomEvent: harness.window.CustomEvent,
+    Element: harness.window.Element,
+    HTMLElement: harness.window.HTMLElement,
+    document: harness.document,
+    window: harness.window,
+  });
+}
+
+function executeGeneratedThemeBootstrap(harness, renderPage = renderPersonalPage) {
+  const html = renderPage({ siteTitle: "Praneeth's CS Field Notes" });
+  const scriptMatch = html.match(/<script>\s*\(\(\) => \{\s*try \{\s*const savedTheme[\s\S]*?\n\s*\}\)\(\);\s*<\/script>/u);
+  assert.ok(scriptMatch, "expected the pre-stylesheet theme bootstrap in generated home HTML");
+  const script = scriptMatch[0].replace(/^<script>\s*/u, "").replace(/\s*<\/script>$/u, "");
+  vm.runInNewContext(script, {
+    document: harness.document,
+    window: harness.window,
+  });
+}
+
+test("icon-only theme toggle applies and persists the visitor's explicit color preference", () => {
+  const darkHarness = createThemeScriptHarness({ systemTheme: "dark" });
+  executeGeneratedThemeBootstrap(darkHarness);
+  executeGeneratedThemeScript(darkHarness);
+
+  assert.equal(darkHarness.themeToggle.textContent, "");
+  assert.equal(darkHarness.attributes.get("aria-pressed"), "true");
+  assert.equal(darkHarness.attributes.get("aria-label"), "Switch to light mode");
+
+  darkHarness.themeToggle.click();
+  assert.equal(darkHarness.root.dataset.theme, "light");
+  assert.equal(darkHarness.storedValues.get("notes-theme"), "light");
+  assert.equal(darkHarness.themeToggle.textContent, "");
+  assert.equal(darkHarness.attributes.get("aria-pressed"), "false");
+  assert.equal(darkHarness.attributes.get("aria-label"), "Switch to dark mode");
+
+  const reloadedHarness = createThemeScriptHarness({ savedTheme: "light", systemTheme: "dark" });
+  executeGeneratedThemeBootstrap(reloadedHarness);
+  executeGeneratedThemeScript(reloadedHarness);
+  assert.equal(reloadedHarness.root.dataset.theme, "light");
+  assert.equal(reloadedHarness.themeToggle.textContent, "");
+  assert.equal(reloadedHarness.attributes.get("aria-pressed"), "false");
+});
+
+test("home locks its theme to dark and renders a disabled icon-only theme indicator", () => {
+  const homeHtml = renderHomePage({ siteTitle: "Praneeth's CS Field Notes" });
+  assert.ok(homeHtml.includes('<html lang="en" data-home-page="true">'));
+  assert.ok(homeHtml.includes('class="theme-toggle theme-toggle--locked"'));
+  assert.ok(homeHtml.includes('disabled aria-disabled="true"'));
+  assert.ok(homeHtml.includes('aria-label="Theme locked to dark mode on Home"'));
+
+  const homeHarness = createThemeScriptHarness({ systemTheme: "light", disabled: true });
+  homeHarness.root.dataset.homePage = "true";
+  executeGeneratedThemeBootstrap(homeHarness, renderHomePage);
+  executeGeneratedThemeScript(homeHarness, renderHomePage);
+  assert.equal(homeHarness.root.dataset.theme, "dark");
+  assert.equal(homeHarness.themeToggle.textContent, "");
+});
 
 test("builds child_page routes and makes subpages searchable", async () => {
   await withTempDir(async (root) => {
@@ -732,6 +854,15 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(homeHtml.includes('href="/notes/" data-hotkey="N"'));
     assert.ok(homeHtml.includes('href="/contact/" data-hotkey="C"'));
+    assert.ok(homeHtml.includes('class="theme-toggle theme-toggle--locked"'));
+    assert.ok(homeHtml.includes('aria-label="Theme locked to dark mode on Home"'));
+    assert.ok(!homeHtml.includes('>Light mode</button>'));
+    assert.ok(!homeHtml.includes('>Dark mode</button>'));
+    assert.ok(homeHtml.includes('window.localStorage.getItem("notes-theme")'));
+    assert.ok(homeHtml.includes('document.documentElement.dataset.theme = resolvedTheme'));
+    assert.ok(homeHtml.includes('window.localStorage.setItem("notes-theme", nextTheme)'));
+    assert.ok(homeHtml.includes('root.dataset.theme = nextTheme'));
+    assert.ok(!homeHtml.includes('themeToggle.textContent'));
     assert.ok(!homeHtml.includes('href="#topic-search" data-hotkey="/"'));
     assert.ok(notesHtml.includes('target.tagName === "INPUT"'));
     assert.ok(notesHtml.includes('searchInput.focus();'));
@@ -777,6 +908,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes("@keyframes stripe-drift"));
     assert.ok(siteCss.includes("--accent: #9db7ff;"));
     assert.ok(siteCss.includes("--accent-strong: #b8c3ff;"));
+    assert.ok(siteCss.includes("--bg: #f5f4ef;"));
+    assert.ok(siteCss.includes(':root[data-theme="dark"]'));
+    assert.ok(siteCss.includes(':root:not([data-theme])'));
+    assert.ok(siteCss.includes('.theme-toggle--locked'));
+    assert.ok(siteCss.includes('.theme-icon-sun'));
+    assert.ok(siteCss.includes(':root[data-theme="light"] .about-linear-hero .weave-label'));
     assert.ok(siteCss.includes("background: rgb(212 76 71 / 0.18);"));
     assert.ok(siteCss.includes("50% {\n    transform: translateX(18%) skewY(-10deg);"));
     assert.ok(siteCss.includes("100% {\n    transform: translateX(-18%) skewY(-10deg);"));
