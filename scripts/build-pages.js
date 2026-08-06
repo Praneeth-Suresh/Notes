@@ -656,6 +656,7 @@ async function buildPagesSite({
       { urlPath: "/notes/" },
       { urlPath: "/projects/" },
       { urlPath: "/contact/" },
+      { urlPath: "/collaborate/" },
     ];
 
     for (const topic of topics) {
@@ -756,6 +757,10 @@ async function buildPagesSite({
       siteTitle,
       siteUrl: normalizedSiteUrl,
     });
+    const collaborateHtml = stylingContext.renderCollaborateRedirectPage({
+      siteTitle,
+      siteUrl: normalizedSiteUrl,
+    });
     const notFoundHtml = stylingContext.renderNotFoundPage({
       siteTitle,
       siteUrl: normalizedSiteUrl,
@@ -771,6 +776,7 @@ async function buildPagesSite({
     await writeUtf8File(path.join(buildOutputDir, "notes", "index.html"), notesHtml);
     await writeUtf8File(path.join(buildOutputDir, "projects", "index.html"), projectsHtml);
     await writeUtf8File(path.join(buildOutputDir, "contact", "index.html"), contactHtml);
+    await writeUtf8File(path.join(buildOutputDir, "collaborate", "index.html"), collaborateHtml);
 
     const projectItems = Array.isArray(projectsData?.projects) ? projectsData.projects : [];
     for (const project of projectItems) {

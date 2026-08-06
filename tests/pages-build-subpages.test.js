@@ -408,6 +408,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
       "utf8",
     );
     const contactHtml = await fs.readFile(path.join(outDir, "contact", "index.html"), "utf8");
+    const collaborateHtml = await fs.readFile(
+      path.join(outDir, "collaborate", "index.html"),
+      "utf8",
+    );
     const siteCss = await fs.readFile(path.join(outDir, "assets", "site.css"), "utf8");
     const feedXml = await fs.readFile(path.join(outDir, "feed.xml"), "utf8");
     const sitemapXml = await fs.readFile(path.join(outDir, "sitemap.xml"), "utf8");
@@ -492,6 +496,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(parentHtml.includes("Dynamic Programming"));
     assert.ok(parentHtml.includes("Follow the technical trail."));
     assert.ok(homeHtml.includes('class="home-showcase"'));
+    assert.ok(homeHtml.includes("<title>Praneeth&#39;s CS Field Notes</title>"));
     assert.ok(homeHtml.includes('data-home-motion="ready"'));
     assert.ok(!homeHtml.includes('class="home-showcase-rail"'));
     assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-hero"'));
@@ -627,7 +632,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes('class="route-figure route-figure-contact"'));
     assert.ok(contactHtml.includes('class="contact-channel-layout"'));
     assert.ok(contactHtml.indexOf('class="portfolio-project-grid"') > contactHtml.indexOf('class="route-figure route-figure-contact"'));
-    assert.ok(!contactHtml.includes('href="/projects/" data-hotkey="P"'));
+    assert.ok(contactHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(contactHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(siteCss.includes(".route-figure"));
     assert.ok(siteCss.includes(".route-proof-layout"));
@@ -812,7 +817,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes("active flagship"));
     assert.ok(projectsHtml.includes("Contact me about research, internships, consulting, or NUS AI Society collaboration."));
     assert.ok(projectsHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
-    assert.ok(!projectsHtml.includes('href="/projects/" data-hotkey="P"'));
+    assert.ok(projectsHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
     assert.equal(findSchemaByType(projectsHtml, "CollectionPage").url, "https://example.test/projects/");
@@ -845,13 +850,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes('id="collaboration-fit"'));
     assert.ok(contactHtml.includes("Useful collaborations need a specific technical overlap."));
     assert.ok(contactHtml.includes("The collaboration surface stays narrow"));
-    assert.ok(!contactHtml.includes('href="/projects/" data-hotkey="P"'));
+    assert.ok(contactHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(contactHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(contactHtml.includes('<link rel="canonical" href="https://example.test/contact/" />'));
     assert.equal(findSchemaByType(contactHtml, "ContactPage").url, "https://example.test/contact/");
     assert.ok(homeHtml.includes('href="/start-here/" data-hotkey="S"'));
     assert.ok(homeHtml.includes('href="/about/" data-hotkey="A"'));
-    assert.ok(!homeHtml.includes('href="/projects/" data-hotkey="P"'));
+    assert.ok(homeHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(homeHtml.includes('href="/notes/" data-hotkey="N"'));
     assert.ok(homeHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(homeHtml.includes('class="theme-toggle theme-toggle--locked"'));
@@ -959,7 +964,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/notes/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/agentic-coding/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/contact/</loc>"));
-    assert.ok(!sitemapXml.includes("/collaborate/"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/collaborate/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/dynamic-programming/</loc>"));
     assert.ok(robotsTxt.includes("User-agent: *"));
@@ -969,6 +974,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notFoundHtml.includes('href="/notes/"'));
     assert.ok(notFoundHtml.includes('href="/subscribe/"'));
     assert.ok(notFoundHtml.includes('<link rel="canonical" href="https://example.test/404.html" />'));
+    assert.ok(collaborateHtml.includes("Collaboration moved"));
+    assert.ok(collaborateHtml.includes('href="/contact/#collaboration-fit"'));
+    assert.ok(collaborateHtml.includes('<link rel="canonical" href="https://example.test/collaborate/" />'));
     const sitemapLocations = extractSitemapLocations(sitemapXml);
     assert.equal(sitemapLocations.length, new Set(sitemapLocations).size);
     for (const routePath of await collectHtmlRoutePaths(outDir)) {

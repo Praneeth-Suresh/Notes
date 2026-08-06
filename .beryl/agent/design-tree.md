@@ -192,7 +192,7 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 - Blog post headers now separate topic links from the Copy link action, and subscribe panels use a bounded desktop type scale so wide screens remain readable.
 - The build now emits a static `/404.html` recovery page with the shared shell, metadata, and stable links back into the primary site routes.
 - Technical pages now include a compact "Follow the technical trail" next-step panel, while Home, Start Here, Subscribe, Projects, Contact, and Collaborate use sharper gateway copy and explicit reader actions.
-- Contact now owns the collaboration-fit guidance previously published at `/collaborate/`, and the site-map link is labeled Contact so navigation copy matches its destination.
+- Contact owns the collaboration-fit guidance; the legacy `/collaborate/` route remains as a lightweight static handoff to the Contact anchor so existing links receive the shared site shell instead of a browser 404.
 - Homepage box padding is normalized through shared panel/card spacing, the About quote is intentionally centered and accent-italicized, and the Projects image slot now contains a generated software-building illustration matched to the Research/Writing art direction.
 - The current AI flagship essay now links a reusable deep-learning paper-trail artifact, and all blog posts surface a visible errata route for corrections and clarifications.
 - `/about/` is now a linear About Me page inspired by Kyle Chung's homepage rhythm: minimal top copy, a CSS-only signal-weave hero animation, progressively revealed sections, contextual outbound links, selected work, repository map, and contact routes instead of a front-loaded dossier grid.

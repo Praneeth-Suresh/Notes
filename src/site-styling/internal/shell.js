@@ -632,6 +632,7 @@ ${metadataHtml}
         <nav class="site-links" aria-label="Site navigation">
           <a href="/start-here/" data-hotkey="S">Start</a>
           <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
           <a href="/notes/" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
           <a href="/contact/" data-hotkey="C">Contact</a>
@@ -2012,6 +2013,31 @@ function renderNotFoundPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
   });
 }
 
+function renderCollaborateRedirectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
+  const content = `
+    <section id="main-content" class="start-hero" aria-labelledby="collaborate-title">
+      <p class="home-kicker">[ Collaboration ]</p>
+      <h1 id="collaborate-title">Collaboration moved</h1>
+      <p>Collaboration guidance now lives on the Contact page, alongside the routes for research, internships, consulting, and AI Society work.</p>
+      <div class="home-actions" aria-label="Collaboration recovery links">
+        <a class="primary-action" href="/contact/#collaboration-fit">Go to Contact</a>
+        <a class="secondary-action" href="/projects/">View projects</a>
+      </div>
+    </section>
+  `;
+
+  return renderLayout({
+    pageTitle: `Collaboration · ${siteTitle}`,
+    siteTitle,
+    contentHtml: content,
+    bodyClass: "portfolio-page utility-page",
+    description: "Collaboration guidance has moved to the Contact page.",
+    canonicalUrl: absoluteUrl(siteUrl, "/collaborate/"),
+    ogTitle: `Collaboration · ${siteTitle}`,
+    ogDescription: "Collaboration guidance has moved to the Contact page.",
+  });
+}
+
 function normalizeRepositoryLink(repo) {
   if (typeof repo === "string") {
     return {
@@ -2332,6 +2358,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
 module.exports = {
   renderBlogIndexPage,
   renderBlogPostPage,
+  renderCollaborateRedirectPage,
   renderContactPage,
   renderErrataPage,
   renderHomePage,
