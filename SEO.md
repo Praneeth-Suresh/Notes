@@ -2,34 +2,6 @@
 
 The repository now generates crawlable static pages, canonical URLs, `robots.txt`, a complete sitemap with `<lastmod>` dates, and page-type structured data. The remaining work requires access to search-engine or Cloudflare accounts, a verification token, or your choice of domain.
 
-## 1. Deploy the current repository build
-
-The production site checked on 2026-08-07 is crawlable, but it is behind the current repository output. Build and deploy before submitting URLs so crawlers receive the newest sitemap and metadata:
-
-```bash
-node scripts/build-pages.js \
-  --manifest content/topic-manifest.json \
-  --out dist \
-  --site-title "Praneeth's CS Field Notes" \
-  --site-url "https://notes.praneeth-suresh-s.workers.dev"
-npx wrangler deploy
-```
-
-After deployment, verify the public files and headers:
-
-```bash
-curl -I https://notes.praneeth-suresh-s.workers.dev/
-curl https://notes.praneeth-suresh-s.workers.dev/robots.txt
-curl https://notes.praneeth-suresh-s.workers.dev/sitemap.xml
-```
-
-Expected results:
-
-- The homepage returns `200` and does not include `X-Robots-Tag: noindex`.
-- `robots.txt` contains `Allow: /` and the absolute sitemap URL.
-- Each sitemap `<url>` has one canonical trailing-slash `<loc>` and a `<lastmod>` date.
-- Cloudflare's default `Cache-Control: public, max-age=0, must-revalidate` is correct for this static site; do not replace it with a long HTML browser-cache lifetime.
-
 ## 2. Verify Google Search Console
 
 1. Open [Google Search Console](https://search.google.com/search-console).
