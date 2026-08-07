@@ -30,6 +30,7 @@ const DEFAULT_PORTFOLIO_DATA_PATH = "content/portfolio-repositories.json";
 const DEFAULT_RESEARCH_TASTE_DATA_PATH = "content/research-taste.json";
 const DEFAULT_PROJECTS_DATA_PATH = "content/projects.json";
 const DEFAULT_BLOG_MANIFEST_PATH = "content/blog/blog-manifest.json";
+const DEFAULT_SITE_METADATA_PATH = "content/site-metadata.json";
 const DEFAULT_SITE_URL = "https://notes.praneeth-suresh-s.workers.dev";
 
 function assertNonEmptyString(value, label) {
@@ -47,6 +48,7 @@ function parseArgs(argv) {
     portfolioData: DEFAULT_PORTFOLIO_DATA_PATH,
     projectsData: DEFAULT_PROJECTS_DATA_PATH,
     researchTasteData: DEFAULT_RESEARCH_TASTE_DATA_PATH,
+    siteMetadata: DEFAULT_SITE_METADATA_PATH,
     siteTitle: "Praneeth's CS Field Notes",
     siteUrl: DEFAULT_SITE_URL,
   };
@@ -86,6 +88,12 @@ function parseArgs(argv) {
 
     if (item === "--research-taste-data") {
       args.researchTasteData = assertNonEmptyString(argv[index + 1], "--research-taste-data value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--site-metadata") {
+      args.siteMetadata = assertNonEmptyString(argv[index + 1], "--site-metadata value");
       index += 1;
       continue;
     }
@@ -186,6 +194,28 @@ function absoluteSiteUrl(siteUrl, urlPath) {
   return `${siteUrl}${pathPart}`;
 }
 
+function normalizeLastModified(value, label) {
+  if (typeof value !== "string" || value.trim() === "") {
+    return null;
+  }
+
+  const normalized = value.trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/u.test(normalized)) {
+    throw new Error(`${label} must use YYYY-MM-DD format.`);
+  }
+
+  const parsed = new Date(`${normalized}T00:00:00.000Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== normalized) {
+    throw new Error(`${label} must be a valid calendar date.`);
+  }
+
+  return normalized;
+}
+
+function latestLastModified(values) {
+  return values.filter(Boolean).sort().at(-1) || null;
+}
+
 function renderRssFeed({ siteTitle, siteUrl, feedItems }) {
   const items = feedItems
     .map((item) => {
@@ -217,24 +247,30 @@ ${items}
 }
 
 function uniqueSitemapItems(items) {
-  const seen = new Set();
-  return items.filter((item) => {
+  const uniqueItems = new Map();
+  for (const item of items) {
     const pathPart = typeof item.urlPath === "string" && item.urlPath.startsWith("/")
       ? item.urlPath
       : null;
-    if (!pathPart || seen.has(pathPart)) {
-      return false;
+    if (!pathPart) {
+      continue;
     }
 
-    seen.add(pathPart);
-    return true;
-  });
+    const existing = uniqueItems.get(pathPart);
+    uniqueItems.set(pathPart, {
+      urlPath: pathPart,
+      lastModified: latestLastModified([existing?.lastModified, item.lastModified]),
+    });
+  }
+
+  return [...uniqueItems.values()];
 }
 
 function renderSitemapXml({ siteUrl, sitemapItems }) {
   const urls = uniqueSitemapItems(sitemapItems)
     .map((item) => `  <url>
-    <loc>${escapeXml(absoluteSiteUrl(siteUrl, item.urlPath))}</loc>
+    <loc>${escapeXml(absoluteSiteUrl(siteUrl, item.urlPath))}</loc>${item.lastModified ? `
+    <lastmod>${escapeXml(item.lastModified)}</lastmod>` : ""}
   </url>`)
     .join("\n");
 
@@ -321,6 +357,7 @@ function validateManifestEntry(entry) {
     slug,
     title,
     description,
+    updatedAt: normalizeLastModified(entry.updatedAt, `Manifest entry "${slug}" updatedAt`),
     databaseLabelProperties: Array.isArray(entry.databaseLabelProperties)
       ? entry.databaseLabelProperties
           .filter((propertyName) => typeof propertyName === "string" && propertyName.trim() !== "")
@@ -558,6 +595,7 @@ async function buildPagesSite({
   portfolioDataPath = DEFAULT_PORTFOLIO_DATA_PATH,
   projectsDataPath = DEFAULT_PROJECTS_DATA_PATH,
   researchTasteDataPath = DEFAULT_RESEARCH_TASTE_DATA_PATH,
+  siteMetadataPath = DEFAULT_SITE_METADATA_PATH,
   siteTitle,
   siteUrl = DEFAULT_SITE_URL,
   mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
@@ -589,6 +627,14 @@ async function buildPagesSite({
     path.resolve(process.cwd(), researchTasteDataPath),
     "research taste data",
   );
+  const siteMetadata = await readOptionalJsonFromFile(
+    path.resolve(process.cwd(), siteMetadataPath),
+    "site metadata",
+  );
+  const configuredSiteLastModified = normalizeLastModified(
+    siteMetadata?.lastModified,
+    "site metadata lastModified",
+  );
 
   const topics = [];
   for (const rawEntry of manifest) {
@@ -603,9 +649,36 @@ async function buildPagesSite({
       slug: manifestEntry.slug,
       title: topicDocument.title,
       description: topicDocument.description,
+      updatedAt: manifestEntry.updatedAt,
       pillar: manifestEntry.pillar,
       topicDocument,
     });
+  }
+
+  const blogManifestPath = path.resolve(manifestDir, "blog", "blog-manifest.json");
+  const blogManifest = await readOptionalJsonFromFile(blogManifestPath, "blog manifest");
+  const blogPosts = Array.isArray(blogManifest?.sections)
+    ? blogManifest.sections.flatMap((section) => Array.isArray(section?.posts) ? section.posts : [])
+    : [];
+  const siteLastModified = latestLastModified([
+    configuredSiteLastModified,
+    ...topics.map((topic) => topic.updatedAt),
+    ...(Array.isArray(projectsData?.projects)
+      ? projectsData.projects.map((project) =>
+          normalizeLastModified(project?.updatedAt, `Project "${project?.slug || "unknown"}" updatedAt`),
+        )
+      : []),
+    ...blogPosts.map((post) =>
+      normalizeLastModified(
+        post?.updatedAt || post?.publishedAt,
+        `Blog post "${post?.slug || "unknown"}" modified date`,
+      ),
+    ),
+  ]);
+  if (!siteLastModified) {
+    throw new Error(
+      "A sitemap freshness date is required. Set content/site-metadata.json lastModified or add dated content metadata.",
+    );
   }
 
   await fs.mkdir(outputParentDir, { recursive: true });
@@ -655,17 +728,17 @@ async function buildPagesSite({
       urlPath: `/topics/${topic.slug}/`,
     }));
     const sitemapItems = [
-      { urlPath: "/" },
-      { urlPath: "/start-here/" },
-      { urlPath: "/research-taste/" },
-      { urlPath: "/errata/" },
-      { urlPath: "/subscribe/" },
-      { urlPath: "/about/" },
-      { urlPath: "/notes/" },
-      { urlPath: "/projects/" },
-      { urlPath: "/contact/" },
-      { urlPath: "/collaborate/" },
-    ];
+      "/",
+      "/start-here/",
+      "/research-taste/",
+      "/errata/",
+      "/subscribe/",
+      "/about/",
+      "/notes/",
+      "/projects/",
+      "/contact/",
+      "/collaborate/",
+    ].map((urlPath) => ({ urlPath, lastModified: siteLastModified }));
 
     for (const topic of topics) {
       const pageRecords = collectPageRecords({
@@ -705,7 +778,10 @@ async function buildPagesSite({
 
         const topicPath = path.join(buildOutputDir, ...pageRecord.outputSegments, "index.html");
         await writeUtf8File(topicPath, topicPageHtml);
-        sitemapItems.push({ urlPath: pageRecord.urlPath });
+        sitemapItems.push({
+          urlPath: pageRecord.urlPath,
+          lastModified: latestLastModified([siteLastModified, topic.updatedAt]),
+        });
 
         searchIndex.push({
           ...notesContentContext.createSearchEntry({
@@ -802,12 +878,16 @@ async function buildPagesSite({
         projectsData,
       });
       await writeUtf8File(path.join(buildOutputDir, "projects", slug, "index.html"), projectHtml);
-      sitemapItems.push({ urlPath: `/projects/${slug}/` });
+      sitemapItems.push({
+        urlPath: `/projects/${slug}/`,
+        lastModified: latestLastModified([
+          siteLastModified,
+          normalizeLastModified(project.updatedAt, `Project "${slug}" updatedAt`),
+        ]),
+      });
     }
 
     // Blog
-    const blogManifestPath = path.resolve(manifestDir, "blog", "blog-manifest.json");
-    const blogManifest = await readOptionalJsonFromFile(blogManifestPath, "blog manifest");
     if (blogManifest) {
       const blogContentDir = path.dirname(blogManifestPath);
 
@@ -824,7 +904,7 @@ async function buildPagesSite({
         homeContentHtml,
       });
       await writeUtf8File(path.join(buildOutputDir, "blog", "index.html"), blogIndexHtml);
-      sitemapItems.push({ urlPath: "/blog/" });
+      sitemapItems.push({ urlPath: "/blog/", lastModified: siteLastModified });
 
       // Render each post
       for (const section of blogManifest.sections) {
@@ -840,7 +920,16 @@ async function buildPagesSite({
             blogManifest,
           });
           await writeUtf8File(path.join(buildOutputDir, "blog", post.slug, "index.html"), postHtml);
-          sitemapItems.push({ urlPath: `/blog/${post.slug}/` });
+          sitemapItems.push({
+            urlPath: `/blog/${post.slug}/`,
+            lastModified: latestLastModified([
+              siteLastModified,
+              normalizeLastModified(
+                post.updatedAt || post.publishedAt,
+                `Blog post "${post.slug}" modified date`,
+              ),
+            ]),
+          });
 
           feedItems.push({
             title: post.title,
@@ -908,6 +997,7 @@ if (require.main === module) {
     portfolioDataPath: args.portfolioData,
     projectsDataPath: args.projectsData,
     researchTasteDataPath: args.researchTasteData,
+    siteMetadataPath: args.siteMetadata,
     siteTitle: args.siteTitle,
     siteUrl: args.siteUrl,
   }).catch((error) => {

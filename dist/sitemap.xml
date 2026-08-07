@@ -2,434 +2,578 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/start-here/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/research-taste/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/errata/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/subscribe/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/about/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/notes/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/projects/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/contact/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/collaborate/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/scheduling/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/primality-tests/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/greedy-successes/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/advanced-dynamic-programming/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/convex-hull-trick/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/savitchs-algorithm/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/matrix-based-solutions/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/fibonacci/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/minmax-path-problem/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/the-traveling-salesperson-problem-tsp/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/the-knapsack-problem/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/counting-sort/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/network-flow/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/a-search/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/interpolation-search/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/exponential-search/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/parallel-algorithms-for-linked-list-and-beyond/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/linear-time-selection/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/rabin-karp/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/merge-sort/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/insertion-sort/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/meta-algorithm/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/johnsons/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/floyd-warshall/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/bellman-ford/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/optimal-binary-search-tree/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/minimum-spanning-trees/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/huffman-codes/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/scheduling-2/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/dynamic-programming/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/greedy/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/heap-sort/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/dijkstra/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/linear-time-selection-2/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/quick-sort/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/binary-search/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/depth-first-search-dfs/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/breadth-first-search-bfs/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/graph-traversal/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/sorting/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/recursion/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/harnesses/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/code-review/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/prompting-basics/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/skills/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/putting-it-together/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/leverage-and-locality/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/domain-driven-design/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/coupling/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/test-driven-development/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/modularity/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/entropy/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/feedback-loops/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/shared-language/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/the-design-concept/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/faster-concurrency/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/synchronisation/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/interrupts/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/preemptive-multitasking/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/more-about-threads/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/context-switching/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/process-scheduling/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/thread-pools/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communcation/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/interprocess-communication/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/semaphores/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/file-and-i-o-abstractions/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/dual-mode/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/processes/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/address-space/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/reliability-and-security/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/distributed-systems/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/file-systems/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/address-space-2/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/concurrency/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/os-basics/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/os/what-is-an-operating-system/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/systolic-arrays/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/matrix-multiplication/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/distributed-ai-systems/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/compiler-optimizations/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/kernal-and-os-optimisations/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/memory-systems/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/gpus/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/ai-engineer/hardware-acceleration/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/event-streaming/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/microservices/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/testing/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/security/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/collaboration/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/standards/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/scalability/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/swe/swe-study-plan/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/what-can-agents-do/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/what-is-an-agent/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/when-to-use-an-agent/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/workflows/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/advanced-agentic-engineering/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/second-brain/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/projects/computer-science-notes/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/projects/agentic-coding-workflows/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/a-research-program-for-inspectable-ml/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/peeking-inside-the-black-box/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/more-on-interpretability/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/from-alchemy-to-science/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/approaching-the-frontiers/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/the-era-we-live-in/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/what-exactly-are-we-doing/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/engineering-discipline-for-agentic-coding/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/putting-users-first-rewrote-our-code/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-turn-any-big-idea-into-real-impact/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-01-why-agents-md-isnt-enough/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/how-to-win-a-hackathon/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-02-what-i-built/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/beryl-03-building-in-public-week-1/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
   <url>
     <loc>https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/</loc>
+    <lastmod>2026-08-07</lastmod>
   </url>
 </urlset>

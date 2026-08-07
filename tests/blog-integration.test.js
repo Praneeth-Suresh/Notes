@@ -255,6 +255,8 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.equal(postBlogSchema["@id"], "https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/#blogposting");
     assert.equal(postBlogSchema.mainEntityOfPage["@id"], "https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/#webpage");
     assert.equal(postBlogSchema.isPartOf["@id"], "https://notes.praneeth-suresh-s.workers.dev/#website");
+    assert.equal(postBlogSchema.datePublished, "2026-06-04");
+    assert.equal(postBlogSchema.dateModified, "2026-06-04");
     assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("Person")));
     assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("Organization")));
     assert.ok(postSchemas.some((schema) => schemaTypes(schema).includes("WebSite")));

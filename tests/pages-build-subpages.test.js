@@ -31,6 +31,11 @@ function extractSitemapLocations(xml) {
   return Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/gu), (match) => match[1]);
 }
 
+function extractSitemapEntries(xml) {
+  return Array.from(xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>\s*<\/url>/gu),
+    (match) => ({ location: match[1], lastModified: match[2] }));
+}
+
 async function collectHtmlRoutePaths(rootDir) {
   const routes = [];
 
@@ -410,6 +415,10 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const projectsHtml = await fs.readFile(path.join(outDir, "projects", "index.html"), "utf8");
     const notesProjectHtml = await fs.readFile(
       path.join(outDir, "projects", "notes", "index.html"),
+      "utf8",
+    );
+    const agenticCodingProjectHtml = await fs.readFile(
+      path.join(outDir, "projects", "agentic-coding", "index.html"),
       "utf8",
     );
     const contactHtml = await fs.readFile(path.join(outDir, "contact", "index.html"), "utf8");
@@ -866,6 +875,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesProjectHtml.includes('href="/cv.pdf" data-analytics-event="cv_download_click"'));
     assert.ok(!notesProjectHtml.includes("Calendly"));
     assert.ok(notesProjectHtml.includes("static-site"));
+    assert.ok(!notesProjectHtml.includes('aria-label="Project navigation"'));
+    assert.ok(!notesProjectHtml.includes('class="topic-nav"'));
+    assert.ok(notesProjectHtml.includes('class="site-links" aria-label="Site navigation"'));
+    assert.ok(!agenticCodingProjectHtml.includes('aria-label="Project navigation"'));
+    assert.ok(!agenticCodingProjectHtml.includes('class="topic-nav"'));
+    assert.ok(agenticCodingProjectHtml.includes('class="site-links" aria-label="Site navigation"'));
     assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
     assert.ok(notesProjectHtml.includes('<link rel="canonical" href="https://example.test/projects/notes/" />'));
     assert.equal(findSchemaByType(notesProjectHtml, "CreativeWork").url, "https://example.test/projects/notes/");
@@ -1001,6 +1016,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapXml.includes("<loc>https://example.test/collaborate/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/dynamic-programming/</loc>"));
+    const sitemapEntries = extractSitemapEntries(sitemapXml);
+    assert.equal(sitemapEntries.length, extractSitemapLocations(sitemapXml).length);
+    assert.ok(sitemapEntries.every((entry) => /^\d{4}-\d{2}-\d{2}$/u.test(entry.lastModified)));
+    assert.deepEqual(
+      sitemapEntries.find((entry) => entry.location === "https://example.test/"),
+      { location: "https://example.test/", lastModified: "2026-08-07" },
+    );
     assert.ok(robotsTxt.includes("User-agent: *"));
     assert.ok(robotsTxt.includes("Allow: /"));
     assert.ok(robotsTxt.includes("Sitemap: https://example.test/sitemap.xml"));

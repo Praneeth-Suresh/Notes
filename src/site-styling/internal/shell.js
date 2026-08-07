@@ -1853,11 +1853,6 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
     : "";
 
   const content = `
-    <nav class="topic-nav" aria-label="Project navigation">
-      <a href="/" data-hotkey="H">Home</a>
-      <a href="/projects/" data-hotkey="P">Projects</a>
-      <a href="/contact/" data-hotkey="C">Contact</a>
-    </nav>
     <section id="main-content" class="start-hero" aria-labelledby="project-title">
       <p class="home-kicker">[ Project ]</p>
       <h1 id="project-title">${escapeHtml(normalizedProject.title)}</h1>
@@ -2282,6 +2277,9 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
   const normalizedSiteUrl = normalizeSiteUrl(siteUrl);
   const socialImageUrl = absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH);
   const publishedAt = typeof post.publishedAt === "string" ? post.publishedAt.trim() : "";
+  const updatedAt = typeof post.updatedAt === "string" && post.updatedAt.trim() !== ""
+    ? post.updatedAt.trim()
+    : publishedAt;
   const blogTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const faqItems = Array.isArray(post.faq)
     ? post.faq
@@ -2304,7 +2302,8 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
     isPartOf: { "@id": `${normalizedSiteUrl}/#website` },
     mainEntityOfPage: { "@id": `${canonicalUrl}#webpage` },
     url: canonicalUrl,
-    ...(publishedAt ? { dateModified: publishedAt } : {}),
+    ...(publishedAt ? { datePublished: publishedAt } : {}),
+    ...(updatedAt ? { dateModified: updatedAt } : {}),
   };
   if (blogTags.length > 0) {
     articleSchema.keywords = blogTags.join(", ");
