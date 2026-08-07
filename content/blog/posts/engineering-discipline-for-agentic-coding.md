@@ -71,5 +71,4 @@ This connects directly to the thesis I hold across my work: I want to build insp
 ## Links
 
 - Repository: https://github.com/Praneeth-Suresh/AgentCoding
-- Contact: praneeth.suresh.s@gmail.com
-
+- Contact: praneeth[dot]suresh[dot]s [at] gmail[dot]com

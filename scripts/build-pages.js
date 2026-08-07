@@ -18,6 +18,8 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
 const SOCIAL_PREVIEW_SOURCE_PATH = path.join("content", "social", "theoretical-cs-preview.svg");
 const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-preview.svg");
+const CV_SOURCE_PATH = "cv.pdf";
+const CV_ASSET_PATH = "cv.pdf";
 const HOME_IMAGE_SOURCE_DIR = path.join("content", "home", "images");
 const HOME_IMAGE_ASSET_DIR = path.join("assets", "home");
 const STATIC_ARTIFACTS = [
@@ -624,6 +626,12 @@ async function buildPagesSite({
       outputDir: buildOutputDir,
       outputRelativePath: SOCIAL_PREVIEW_ASSET_PATH,
       label: "social preview asset",
+    });
+    await copyFileToOutput({
+      sourcePath: CV_SOURCE_PATH,
+      outputDir: buildOutputDir,
+      outputRelativePath: CV_ASSET_PATH,
+      label: "CV",
     });
     await copyDirectoryFilesToOutput({
       sourceDir: HOME_IMAGE_SOURCE_DIR,

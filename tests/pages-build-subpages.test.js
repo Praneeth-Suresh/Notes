@@ -10,6 +10,9 @@ const vm = require("node:vm");
 const { buildPagesSite } = require("../scripts/build-pages");
 const { renderHomePage, renderPersonalPage } = require("../src/site-styling/internal/shell");
 
+const OBFUSCATED_CONTACT_EMAIL = "praneeth[dot]suresh[dot]s [at] gmail[dot]com";
+const RAW_CONTACT_EMAIL = ["praneeth", "suresh", "s@gmail.com"].join(".");
+
 function parseJsonLd(html) {
   return Array.from(html.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/gu), (match) =>
     JSON.parse(match[1]),
@@ -310,6 +313,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
               slug: "notes",
               title: "Notes",
               status: "active flagship",
+              updatedAt: "2026-08-07",
               summary: "A static technical hub.",
               problem: "Readers need searchable and shareable notes.",
               method: "Generate static pages from normalized note data.",
@@ -322,6 +326,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
               slug: "agentic-coding",
               title: "Agentic Coding",
               status: "active research and tooling",
+              updatedAt: "2026-08-07",
               summary: "A public workflow trail around agentic coding.",
               problem: "Agentic coding needs reliable boundaries.",
               method: "Document harnesses, feedback loops, and review habits.",
@@ -428,6 +433,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
       path.join(outDir, "assets", "social", "theoretical-cs-preview.svg"),
       "utf8",
     );
+    const cvStat = await fs.stat(path.join(outDir, "cv.pdf"));
+    assert.ok(cvStat.size > 0);
     const homeImageFiles = [
       "home-hero.png",
       "home-research.png",
@@ -438,6 +445,26 @@ test("builds child_page routes and makes subpages searchable", async () => {
     for (const imageFile of homeImageFiles) {
       const imageStat = await fs.stat(path.join(outDir, "assets", "home", imageFile));
       assert.ok(imageStat.size > 0);
+    }
+
+    for (const renderedHtml of [
+      parentHtml,
+      childHtml,
+      homeHtml,
+      notesHtml,
+      startHereHtml,
+      researchTasteHtml,
+      errataHtml,
+      subscribeHtml,
+      personalHtml,
+      projectsHtml,
+      notesProjectHtml,
+      contactHtml,
+      collaborateHtml,
+      notFoundHtml,
+    ]) {
+      assert.ok(!renderedHtml.includes(RAW_CONTACT_EMAIL));
+      assert.ok(!renderedHtml.includes(`mailto:${RAW_CONTACT_EMAIL}`));
     }
 
     assert.ok(parentHtml.includes('href="/topics/algorithms/dynamic-programming/"'));
@@ -472,6 +499,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const homePersonSchema = findSchemaByType(homeHtml, "Person");
     assert.equal(homePersonSchema.name, "Praneeth Suresh");
     assert.equal(homePersonSchema.url, "https://example.test/about/");
+    assert.equal(homePersonSchema.email, undefined);
     assert.ok(homePersonSchema.sameAs.includes("https://github.com/Praneeth-Suresh"));
     const homeOrganizationSchema = findSchemaByType(homeHtml, "Organization");
     assert.equal(homeOrganizationSchema.name, "Praneeth's CS Field Notes");
@@ -504,7 +532,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-projects"'));
     assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-writing"'));
     assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-contact"'));
-    assert.ok(homeHtml.includes('id="home-asks" class="home-showcase-section home-showcase-contact"'));
+    assert.ok(homeHtml.includes('id="home-collaborate" class="home-showcase-section home-showcase-contact"'));
+    assert.ok(homeHtml.includes("Praneeth Suresh&rsquo;s public work on AI systems"));
+    assert.ok(homeHtml.includes("/ Collaborate"));
     assert.ok(homeHtml.includes('class="home-showcase-section home-showcase-notes"'));
     assert.ok(homeHtml.includes('class="home-visual home-visual-hero"'));
     assert.ok(homeHtml.includes('class="home-visual home-visual-research"'));
@@ -558,14 +588,14 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes("Systems, prototypes, and write-ups with evidence attached."));
     assert.ok(homeHtml.includes("<span>03</span><strong>Writing</strong>"));
     assert.ok(!homeHtml.includes("Longer arguments about technical ideas"));
-    assert.ok(homeHtml.includes("<span>04</span><strong>Asks</strong>"));
+    assert.ok(homeHtml.includes("<span>04</span><strong>Collaborate</strong>"));
     assert.ok(!homeHtml.includes("Specific routes for research"));
     assert.ok(homeHtml.includes("<span>05</span><strong>Notes</strong>"));
     assert.ok(!homeHtml.includes("Searchable CS notes organized from topic roots into subpages."));
     assert.ok(homeHtml.includes('href="#home-research"'));
     assert.ok(homeHtml.includes('href="#home-projects"'));
     assert.ok(homeHtml.includes('href="#home-writing"'));
-    assert.ok(homeHtml.includes('href="#home-asks"'));
+    assert.ok(homeHtml.includes('href="#home-collaborate"'));
     assert.ok(homeHtml.includes('href="#home-notes"'));
     assert.ok(homeHtml.includes("Paper-backed AI research notes."));
     assert.ok(!homeHtml.includes("Reading trails and essays that connect papers to mechanisms"));
@@ -591,7 +621,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes("The mental models of deep learning"));
     assert.ok(!homeHtml.includes("NP-Completeness: formal definitions and reductions"));
     assert.ok(!homeHtml.includes("Peeking inside the black box"));
-    assert.ok(homeHtml.includes("Open routes for specific conversations."));
+    assert.ok(homeHtml.includes("Research, internships, and technical conversations."));
     assert.ok(!homeHtml.includes('class="ask-list"'));
     assert.ok(!homeHtml.includes('class="ask-item"'));
     assert.ok(!homeHtml.includes("NUS AI Society speakers, workshops, sponsors, and partnerships"));
@@ -748,7 +778,6 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesHtml.includes("Topic archives pulled from my study system."));
     assert.ok(!homeHtml.includes('data-subscribe-source="home"'));
     assert.ok(!homeHtml.includes("Subscribe for monthly AI research/project updates."));
-    assert.ok(!homeHtml.includes("mailto:praneeth.suresh.s@gmail.com?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates"));
     assert.ok(!homeHtml.includes('data-analytics-event="email_subscribe_click"'));
     assert.ok(!homeHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
     assert.ok(notesHtml.includes('class="topic-card" href="/topics/algorithms/" data-index="01" data-hotkey="1"'));
@@ -775,6 +804,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(startHereHtml.includes(`<meta name="description" content="Choose your route through Praneeth&#39;s CS Field Notes: notes for theory, writing for voice, AI research trails, and subscription or contact for ongoing work." />`));
     assert.ok(researchTasteHtml.includes("<title>Research Taste · Praneeth&#39;s CS Field Notes</title>"));
     assert.ok(researchTasteHtml.includes("Research taste"));
+    assert.ok(researchTasteHtml.includes("Start with 01&ndash;03 for foundations and architecture"));
     assert.ok(!researchTasteHtml.includes('aria-label="Research taste navigation"'));
     assert.ok(!researchTasteHtml.includes('class="topic-nav"'));
     assert.ok(researchTasteHtml.includes("Deep learning foundations"));
@@ -802,8 +832,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(subscribeHtml.includes("Monthly AI research and project updates, with RSS available now."));
     assert.ok(subscribeHtml.includes("Subscribe for monthly AI research/project updates."));
     assert.ok(subscribeHtml.includes("RSS is live now."));
-    assert.ok(subscribeHtml.includes("Subscribe by email"));
-    assert.ok(subscribeHtml.includes('data-analytics-event="email_subscribe_click"'));
+    assert.ok(subscribeHtml.includes(OBFUSCATED_CONTACT_EMAIL));
     assert.ok(subscribeHtml.includes('href="/feed.xml"'));
     assert.ok(subscribeHtml.includes('data-analytics-event="rss_click"'));
     assert.ok(subscribeHtml.includes('href="/start-here/"'));
@@ -815,8 +844,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes("problem, method, result, code, write-up, and status"));
     assert.ok(projectsHtml.includes('href="/projects/notes/"'));
     assert.ok(projectsHtml.includes("active flagship"));
+    assert.ok(projectsHtml.includes("as of 2026-08-07"));
     assert.ok(projectsHtml.includes("Contact me about research, internships, consulting, or NUS AI Society collaboration."));
-    assert.ok(projectsHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
+    assert.ok(projectsHtml.includes(OBFUSCATED_CONTACT_EMAIL));
     assert.ok(projectsHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
@@ -832,8 +862,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(notesProjectHtml.includes("active flagship"));
     assert.ok(notesProjectHtml.includes('href="https://github.com/Praneeth-Suresh/Notes"'));
     assert.ok(notesProjectHtml.includes('href="/topics/agent-coding/the-design-concept/"'));
-    assert.ok(notesProjectHtml.includes('data-contact-source="project-notes"'));
-    assert.ok(notesProjectHtml.includes("Email is the best first step."));
+    assert.ok(notesProjectHtml.includes("Have a concrete technical overlap?"));
+    assert.ok(notesProjectHtml.includes('href="/cv.pdf" data-analytics-event="cv_download_click"'));
     assert.ok(!notesProjectHtml.includes("Calendly"));
     assert.ok(notesProjectHtml.includes("static-site"));
     assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
@@ -843,8 +873,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(contactHtml.includes("research, internships, consulting, NUS AI Society collaboration"));
     assert.ok(contactHtml.includes("https://github.com/Praneeth-Suresh"));
     assert.ok(contactHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
-    assert.ok(contactHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
-    assert.ok(contactHtml.includes("praneeth.suresh.s@gmail.com"));
+    assert.ok(contactHtml.includes("Professional background and affiliations."));
+    assert.ok(contactHtml.includes(OBFUSCATED_CONTACT_EMAIL));
     assert.ok(contactHtml.includes("Research, internships, consulting, and AI Society collaboration."));
     assert.ok(contactHtml.includes("Speaker, workshop, sponsor, partner"));
     assert.ok(contactHtml.includes('id="collaboration-fit"'));
@@ -859,6 +889,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(homeHtml.includes('href="/notes/" data-hotkey="N"'));
     assert.ok(homeHtml.includes('href="/contact/" data-hotkey="C"'));
+    assert.ok(homeHtml.includes('href="/cv.pdf" data-analytics-event="cv_download_click"'));
+    assert.ok(personalHtml.includes('href="/cv.pdf" data-analytics-event="cv_download_click"'));
     assert.ok(homeHtml.includes('class="theme-toggle theme-toggle--locked"'));
     assert.ok(homeHtml.includes('aria-label="Theme locked to dark mode on Home"'));
     assert.ok(!homeHtml.includes('>Light mode</button>'));
@@ -879,6 +911,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("data-about-wordmark"));
     assert.ok(personalHtml.includes("[ About ]"));
     assert.ok(personalHtml.includes("I study AI systems, write rigorous notes"));
+    assert.ok(personalHtml.includes("Currently focused on interpretability, model evaluation, and agent reliability."));
     assert.ok(personalHtml.includes("Scroll for the signal"));
     assert.ok(personalHtml.includes("research → systems → writing"));
     assert.ok(!personalHtml.includes("NUS Computer Science + Mathematics"));
@@ -892,9 +925,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!personalHtml.includes("Repository map"));
     assert.ok(personalHtml.includes("Useful conversations start from concrete technical overlap."));
     assert.ok(personalHtml.includes("AI engineering, applied ML, developer tools"));
-    assert.ok(personalHtml.includes("mailto:praneeth.suresh.s@gmail.com"));
+    assert.ok(personalHtml.includes(OBFUSCATED_CONTACT_EMAIL));
     assert.ok(personalHtml.includes('data-contact-source="about-hero"'));
-    assert.ok(personalHtml.includes('data-contact-source="about"'));
+    assert.ok(personalHtml.includes("Have a concrete technical overlap?"));
     assert.ok(personalHtml.includes('href="/research-taste/"'));
     assert.ok(personalHtml.includes('href="/notes/"'));
     assert.ok(personalHtml.includes("Curiosity is only useful when it becomes a system"));
@@ -910,6 +943,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!personalHtml.includes("Praneeth describes himself"));
     assert.ok(!personalHtml.includes("Source note: LinkedIn required authentication"));
     assert.ok(!homeHtml.includes("notes.dev"));
+    assert.ok(homeHtml.includes('content="Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes."'));
     assert.ok(siteCss.includes("@keyframes stripe-drift"));
     assert.ok(siteCss.includes("--accent: #9db7ff;"));
     assert.ok(siteCss.includes("--accent-strong: #b8c3ff;"));

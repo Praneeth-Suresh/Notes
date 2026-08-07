@@ -83,5 +83,4 @@ Third, fold interpretability into training. "SHAP-Guided Regularization" shows m
   - `approaching-the-frontiers`
   - `the-era-we-live-in`
   - `what-exactly-are-we-doing`
-- Contact: praneeth.suresh.s@gmail.com
-
+- Contact: praneeth[dot]suresh[dot]s [at] gmail[dot]com

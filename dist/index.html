@@ -16,13 +16,13 @@
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="AI Research, from papers to mechanisms." />
+    <meta property="og:image:alt" content="Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Praneeth&#39;s CS Field Notes" />
     <meta name="twitter:description" content="A collection of Praneeth Suresh&#39;s computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="AI Research, from papers to mechanisms." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","email":"mailto:praneeth.suresh.s@gmail.com","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <meta name="twitter:image:alt" content="Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/","name":"Praneeth's CS Field Notes","description":"A collection of Praneeth Suresh's computer science notes, writings, research reading, and projects across AI research, algorithms, systems, and software engineering.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
@@ -72,6 +72,7 @@
           <a href="/notes/" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
           <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
           <button class="theme-toggle theme-toggle--locked" type="button" disabled aria-disabled="true" aria-label="Theme locked to dark mode on Home" title="Theme is locked to dark mode on Home"><svg class="theme-toggle-icon theme-icon-locked" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/><path d="m4 4 16 16"/></svg></button>
         </nav>
@@ -83,6 +84,7 @@
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
           <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
+          <p class="home-intro">Praneeth Suresh&rsquo;s public work on AI systems, rigorous computer science notes, and tools for making technical mechanisms inspectable.</p>
           <div class="home-pillar-menu" data-home-pillars>
             <button class="home-pillar-trigger" type="button" aria-expanded="false" aria-controls="home-pillar-panel" data-home-pillars-button>
               <span class="home-pillar-number">5</span>
@@ -90,7 +92,7 @@
             </button>
             <div id="home-pillar-panel" class="home-pillar-panel" data-home-pillars-panel hidden>
               <nav class="home-pillar-links" aria-label="Five homepage pillars">
-                <a class="home-pillar-link" href="#home-research"><span>01</span><strong>Research</strong></a><a class="home-pillar-link" href="#home-projects"><span>02</span><strong>Projects</strong></a><a class="home-pillar-link" href="#home-writing"><span>03</span><strong>Writing</strong></a><a class="home-pillar-link" href="#home-asks"><span>04</span><strong>Asks</strong></a><a class="home-pillar-link" href="#home-notes"><span>05</span><strong>Notes</strong></a>
+                <a class="home-pillar-link" href="#home-research"><span>01</span><strong>Research</strong></a><a class="home-pillar-link" href="#home-projects"><span>02</span><strong>Projects</strong></a><a class="home-pillar-link" href="#home-writing"><span>03</span><strong>Writing</strong></a><a class="home-pillar-link" href="#home-collaborate"><span>04</span><strong>Collaborate</strong></a><a class="home-pillar-link" href="#home-notes"><span>05</span><strong>Notes</strong></a>
               </nav>
             </div>
           </div>
@@ -137,11 +139,11 @@
         <div class="home-visual home-visual-writing">
   <img src="/assets/home/home-writing.png" alt="Technical writing desk with marked-up drafts, diagrams, and code references." width="1672" height="941" loading="eager" decoding="async" />
 </div>
-      </section><section id="home-asks" class="home-showcase-section home-showcase-contact" aria-labelledby="home-asks-title" data-motion-bg="#2f1838" data-motion-hold="#2f1838" data-motion-next="#3b2142" data-motion-exit="#3b2142">
+      </section><section id="home-collaborate" class="home-showcase-section home-showcase-contact" aria-labelledby="home-collaborate-title" data-motion-bg="#2f1838" data-motion-hold="#2f1838" data-motion-next="#3b2142" data-motion-exit="#3b2142">
         <div class="home-showcase-copy">
-          <h2 id="home-asks-title" class="section-title">/ Asks</h2>
-          <p class="section-subtitle">Open routes for specific conversations.</p>
-          <div class="home-actions" aria-label="Asks actions">
+          <h2 id="home-collaborate-title" class="section-title">/ Collaborate</h2>
+          <p class="section-subtitle">Research, internships, and technical conversations.</p>
+          <div class="home-actions" aria-label="Collaborate actions">
             <a class="primary-action" href="/contact/">Contact me</a>
           </div>
         </div>
@@ -177,6 +179,7 @@
           <a href="/contact/">Contact</a>
           <a href="/start-here/">Start</a>
           <a href="/about/">About</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
           <a href="/errata/">Errata</a>

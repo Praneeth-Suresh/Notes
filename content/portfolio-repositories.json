@@ -9,45 +9,17 @@
   "portfolioProjects": [
     {
       "name": "Notes",
-      "href": "https://github.com/Praneeth-Suresh/Notes",
+      "href": "/projects/computer-science-notes/",
       "kind": "Static knowledge system",
       "language": "JavaScript",
       "summary": "Great, no-nonsense computer science field notes"
     },
     {
       "name": "AgentCoding",
-      "href": "https://github.com/Praneeth-Suresh/AgentCoding",
+      "href": "/projects/agentic-coding-workflows/",
       "kind": "Agentic workflow",
       "language": "Shell",
-      "summary": "A public Shell repository in Praneeth Suresh's GitHub portfolio."
-    },
-    {
-      "name": "OpenAIBuild",
-      "href": "https://github.com/Praneeth-Suresh/OpenAIBuild",
-      "kind": "Applied software tool",
-      "language": "Shell",
-      "summary": "A public Shell repository in Praneeth Suresh's GitHub portfolio."
-    },
-    {
-      "name": "LOBForecasting",
-      "href": "https://github.com/Praneeth-Suresh/LOBForecasting",
-      "kind": "AI and ML research",
-      "language": "Jupyter Notebook",
-      "summary": "A public Jupyter Notebook repository in Praneeth Suresh's GitHub portfolio."
-    },
-    {
-      "name": "Praneeth-Suresh",
-      "href": "https://github.com/Praneeth-Suresh/Praneeth-Suresh",
-      "kind": "Public repository",
-      "language": "Unspecified",
-      "summary": "Config files for my GitHub profile."
-    },
-    {
-      "name": "spill",
-      "href": "https://github.com/Praneeth-Suresh/spill",
-      "kind": "Public repository",
-      "language": "TypeScript",
-      "summary": "A public TypeScript repository in Praneeth Suresh's GitHub portfolio."
+      "summary": "A repository and public notes trail for controllable agent workflows, review boundaries, and reliable AI-assisted development."
     }
   ],
   "repositoryGroups": [

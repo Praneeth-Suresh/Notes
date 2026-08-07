@@ -15,10 +15,9 @@ const SOCIAL_PREVIEW_IMAGE_PATH = "/assets/social/theoretical-cs-preview.svg";
 const SOCIAL_PREVIEW_IMAGE_ALT = "AI Research, from papers to mechanisms.";
 const FLAGSHIP_ESSAY_PATH = "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/";
 const FLAGSHIP_ESSAY_TITLE = "The mental models of deep learning";
-const PUBLIC_CONTACT_EMAIL = "praneeth.suresh.s@gmail.com";
+const PUBLIC_CONTACT_TEXT = "praneeth[dot]suresh[dot]s [at] gmail[dot]com";
 const PUBLIC_GITHUB_URL = "https://github.com/Praneeth-Suresh";
 const PUBLIC_LINKEDIN_URL = "https://www.linkedin.com/in/praneeth-suresh-a114aa250/";
-const SUBSCRIBE_MAILTO = `mailto:${PUBLIC_CONTACT_EMAIL}?subject=Subscribe%20to%20monthly%20AI%20research%20and%20project%20updates`;
 
 function escapeHtml(value) {
   return String(value)
@@ -135,6 +134,7 @@ function renderSiteFooter() {
           <a href="/contact/">Contact</a>
           <a href="/start-here/">Start</a>
           <a href="/about/">About</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
           <a href="/errata/">Errata</a>
@@ -190,7 +190,6 @@ function createSiteIdentitySchemas({ siteTitle, canonicalUrl }) {
       "@id": personId,
       name: "Praneeth Suresh",
       url: `${siteUrl}/about/`,
-      email: `mailto:${PUBLIC_CONTACT_EMAIL}`,
       sameAs: [PUBLIC_GITHUB_URL, PUBLIC_LINKEDIN_URL],
       jobTitle: "Software engineer and AI developer/researcher",
       knowsAbout: [
@@ -292,16 +291,20 @@ function composeStructuredData({
 
 function renderSubscribePanel({ source = "site", compact = false } = {}) {
   const className = compact ? "subscribe-panel subscribe-panel-compact" : "subscribe-panel";
+  const title = compact ? "Follow the work." : "Subscribe for monthly AI research/project updates.";
+  const description = compact
+    ? "Get the monthly research and project update by email request or RSS."
+    : "One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.";
 
   return `
     <section id="subscribe-${escapeHtml(source)}" class="${className}" aria-labelledby="subscribe-title-${escapeHtml(source)}">
       <div>
         <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-${escapeHtml(source)}">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+        <h2 id="subscribe-title-${escapeHtml(source)}">${escapeHtml(title)}</h2>
+          <p>${escapeHtml(description)}</p>
       </div>
       <div class="subscribe-actions" aria-label="Subscription actions">
-        <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="${escapeHtml(source)}">Subscribe by email</a>
+        <span class="primary-action" data-contact-source="${escapeHtml(source)}">${escapeHtml(PUBLIC_CONTACT_TEXT)}</span>
         <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="${escapeHtml(source)}">Subscription options</a>
         <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="${escapeHtml(source)}">Subscribe by RSS</a>
       </div>
@@ -309,7 +312,20 @@ function renderSubscribePanel({ source = "site", compact = false } = {}) {
   `;
 }
 
-function renderContactCtaPanel({ source = "site" } = {}) {
+function renderContactCtaPanel({ source = "site", compact = false } = {}) {
+  if (compact) {
+    return `<section class="reading-trail" aria-labelledby="contact-cta-title-${escapeHtml(source)}">
+      <div>
+        <p class="section-kicker">/ Contact</p>
+        <h2 id="contact-cta-title-${escapeHtml(source)}">Have a concrete technical overlap?</h2>
+        <p>Research, internships, applied ML, agent reliability, and technical project feedback are all welcome.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Contact actions">
+        <a class="secondary-action" href="/contact/">Contact</a>
+        <a class="secondary-action" href="/cv.pdf" data-analytics-event="cv_download_click">View CV</a>
+      </div>
+    </section>`;
+  }
   return `
     <section class="panel portfolio-section" aria-labelledby="contact-cta-title-${escapeHtml(source)}">
       <div class="portfolio-section-header">
@@ -321,7 +337,7 @@ function renderContactCtaPanel({ source = "site" } = {}) {
         <p>Email is the best first step. Include the context, timeline, and the kind of response that would be useful.</p>
       </div>
       <div class="home-actions" aria-label="Contact actions">
-        <a class="primary-action" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="${escapeHtml(source)}">Email me</a>
+        <span class="primary-action" data-contact-source="${escapeHtml(source)}">${escapeHtml(PUBLIC_CONTACT_TEXT)}</span>
         <a class="secondary-action" href="/contact/">Contact page</a>
         <a class="secondary-action" href="/contact/#collaboration-fit">Collaboration fit</a>
       </div>
@@ -383,7 +399,7 @@ function renderLayout({
     ogDescription,
     ogType,
     socialImageUrl,
-    socialImageAlt,
+    socialImageAlt: socialImageAlt || `${pageTitle} preview from ${siteTitle}.`,
     structuredData: composedStructuredData,
   });
   const homeShowcaseMotionScript = includeHomeShowcaseMotion
@@ -636,6 +652,7 @@ ${metadataHtml}
           <a href="/notes/" data-hotkey="N">Notes</a>
           <a href="/blog/" data-hotkey="B">Blog</a>
           <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
           ${themeControl}
         </nav>
@@ -929,6 +946,7 @@ function normalizeProject(project) {
     slug,
     title,
     status: typeof project.status === "string" ? project.status.trim() : "active",
+    updatedAt: typeof project.updatedAt === "string" ? project.updatedAt.trim() : "",
     summary: typeof project.summary === "string" ? project.summary.trim() : "",
     problem: typeof project.problem === "string" ? project.problem.trim() : "",
     method: typeof project.method === "string" ? project.method.trim() : "",
@@ -978,7 +996,7 @@ function renderProjectTagList(tags) {
 
 function renderProjectCard(project, index) {
   return `<a class="portfolio-project" href="/projects/${escapeHtml(project.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
-  <span class="portfolio-project-kind">${escapeHtml(project.status)}</span>
+  <span class="portfolio-project-kind">${escapeHtml(project.status)}${project.updatedAt ? ` · as of ${escapeHtml(project.updatedAt)}` : ""}</span>
   <h3>${escapeHtml(project.title)}</h3>
   <p>${escapeHtml(project.summary)}</p>
 </a>`;
@@ -1214,7 +1232,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
     { index: "01", label: "Research", href: "#home-research" },
     { index: "02", label: "Projects", href: "#home-projects" },
     { index: "03", label: "Writing", href: "#home-writing" },
-    { index: "04", label: "Asks", href: "#home-asks" },
+    { index: "04", label: "Collaborate", href: "#home-collaborate" },
     { index: "05", label: "Notes", href: "#home-notes" },
   ];
   const pillarLinks = siteSections
@@ -1263,10 +1281,10 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       motionStyle: "index",
     },
     {
-      id: "home-asks",
+      id: "home-collaborate",
       className: "home-showcase-contact",
-      kicker: "/ Asks",
-      title: "Open routes for specific conversations.",
+      kicker: "/ Collaborate",
+      title: "Research, internships, and technical conversations.",
       buttonText: "Contact me",
       buttonHref: "/contact/",
       visual: "contact",
@@ -1308,6 +1326,7 @@ function renderHomePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <div class="home-showcase-copy">
           <p class="home-kicker">[ Praneeth's CS Field Notes ]</p>
           <h1 id="home-title" class="home-title">Praneeth's CS Field Notes</h1>
+          <p class="home-intro">Praneeth Suresh&rsquo;s public work on AI systems, rigorous computer science notes, and tools for making technical mechanisms inspectable.</p>
           <div class="home-pillar-menu" data-home-pillars>
             <button class="home-pillar-trigger" type="button" aria-expanded="false" aria-controls="home-pillar-panel" data-home-pillars-button>
               <span class="home-pillar-number">5</span>
@@ -1660,12 +1679,12 @@ function renderResearchTastePage({
     <section id="main-content" class="research-hero" aria-labelledby="research-title">
       <p class="home-kicker">[ Research taste ]</p>
       <h1 id="research-title">Research taste</h1>
-      <p>This is the public source trail behind future AI research notes: problems, methods, selected essays, and papers that shape what gets studied next.</p>
+      <p>This is the public source trail behind future AI research notes: problems, methods, selected essays, and papers that shape what gets studied next. New here? Start with 01&ndash;03 for foundations and architecture, then use 08&ndash;13 for interpretability and agent systems.</p>
     </section>
     <section class="research-grid" aria-label="Research topics">
       ${topicCards}
     </section>
-    ${renderSubscribePanel({ source: "research-taste" })}
+    ${renderSubscribePanel({ source: "research-taste", compact: true })}
   `;
 
   return renderLayout({
@@ -1741,7 +1760,7 @@ function renderSubscribePage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
         <p>RSS is live now. Email is intentionally lightweight: send a subscribe request and I will use it for future monthly research and project updates.</p>
       </div>
       <div class="subscribe-route-actions" aria-label="Subscribe page actions">
-        <a class="primary-action" href="${escapeHtml(SUBSCRIBE_MAILTO)}" data-analytics-event="email_subscribe_click" data-subscribe-source="subscribe-page">Subscribe by email</a>
+        <span class="primary-action">${escapeHtml(PUBLIC_CONTACT_TEXT)}</span>
         <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="subscribe-page">Subscribe by RSS</a>
         <a class="secondary-action" href="/start-here/">Start here</a>
         <a class="secondary-action" href="${FLAGSHIP_ESSAY_PATH}">Read the flagship essay</a>
@@ -1856,7 +1875,7 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
       </div>
       <div class="repo-map">${details}</div>
     </section>
-    ${renderContactCtaPanel({ source: `project-${normalizedProject.slug}` })}
+    ${renderContactCtaPanel({ source: `project-${normalizedProject.slug}`, compact: true })}
     ${relatedProjects ? `<section class="panel portfolio-section" aria-labelledby="project-related-title">
       <div class="portfolio-section-header">
         <p class="section-kicker">/ More projects</p>
@@ -1899,11 +1918,11 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
       <div class="contact-channel-layout">
         ${renderRouteFigure("contact")}
         <div class="portfolio-project-grid">
-          <a class="portfolio-project" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="contact-page" data-index="01">
+          <div class="portfolio-project" data-index="01">
             <span class="portfolio-project-kind">Direct / Email</span>
             <h3>Email</h3>
-            <p>${escapeHtml(PUBLIC_CONTACT_EMAIL)}</p>
-          </a>
+            <p>${escapeHtml(PUBLIC_CONTACT_TEXT)}</p>
+          </div>
           <a class="portfolio-project" href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click" data-index="02">
             <span class="portfolio-project-kind">Code / GitHub</span>
             <h3>GitHub</h3>
@@ -1912,7 +1931,7 @@ function renderContactPage({ siteTitle, siteUrl = DEFAULT_SITE_URL }) {
           <a class="portfolio-project" href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click" data-index="03">
             <span class="portfolio-project-kind">Professional / LinkedIn</span>
             <h3>LinkedIn</h3>
-            <p>Use LinkedIn for professional context, affiliations, and warm outreach.</p>
+            <p>Professional background and affiliations.</p>
           </a>
         </div>
       </div>
@@ -2094,6 +2113,7 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
         <p class="home-kicker">[ About ]</p>
         ${renderAboutWordmark()}
         <p class="about-linear-deck">I study AI systems, write rigorous notes, and build tools that make research easier to inspect.</p>
+        <p class="about-linear-status">Currently focused on interpretability, model evaluation, and agent reliability.</p>
         <a class="about-scroll-cue" href="#about-now" aria-label="Continue reading about Praneeth">Scroll for the signal ↓</a>
       </div>
       <div class="about-signal-weave" aria-hidden="true">
@@ -2126,7 +2146,8 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
         <a href="/projects/">Selected projects <span>case studies</span></a>
         <a href="/blog/">Writing <span>essays and notes</span></a>
         <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub <span>${escapeHtml(reviewedRepositoryCount)} public repositories reviewed</span></a>
-        <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn <span>background</span></a>
+        <a href="/cv.pdf" data-analytics-event="cv_download_click">CV <span>current résumé</span></a>
+        <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn <span>professional background</span></a>
       </div>
     </section>
     <section class="about-linear-section" aria-labelledby="about-work-title">
@@ -2138,12 +2159,12 @@ function renderPersonalPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, portfolioDa
       <p class="section-kicker">/ Conversations</p>
       <h2 id="about-opportunities-title" class="section-title">Useful conversations start from concrete technical overlap.</h2>
       <p>Reach out about AI engineering, applied ML, developer tools, ML systems, interpretability, efficient inference, agent reliability, internships, or NUS AI Society collaboration.</p>
-      <a class="about-inline-link" href="mailto:${escapeHtml(PUBLIC_CONTACT_EMAIL)}" data-analytics-event="email_contact_click" data-contact-source="about-hero">Email me →</a>
+      <span class="about-inline-link" data-contact-source="about-hero">${escapeHtml(PUBLIC_CONTACT_TEXT)}</span>
     </section>
     <section class="portfolio-quote about-me-quote about-linear-quote quote-attention" aria-label="About me quote">
       <p>Curiosity is only useful when it becomes a system someone else can understand, run, and build on.</p>
     </section>
-    ${renderContactCtaPanel({ source: "about" })}
+    ${renderContactCtaPanel({ source: "about", compact: true })}
     ${renderAboutWordmarkScript()}
   `
   return renderLayout({
@@ -2168,7 +2189,8 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       const tags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
       const tagText = tags.join(" ");
       const searchableText = `${section.title} ${section.subtitle || ""} ${post.title} ${post.description || ""} ${tagText}`;
-      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchableText.toLowerCase())}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span></a></li>`;
+      const publishedAt = typeof post.publishedAt === "string" ? post.publishedAt.trim() : "";
+      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchableText.toLowerCase())}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/">${chapterHtml}<span class="blog-post-title">${escapeHtml(post.title)}</span>${publishedAt ? `<time datetime="${escapeHtml(publishedAt)}">Updated ${escapeHtml(publishedAt)}</time>` : ""}</a></li>`;
     }).join("");
     return `<div class="blog-section-group" data-blog-section><h3 class="blog-section-heading">${escapeHtml(section.title)}</h3><p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p><ul class="blog-post-list">${posts}</ul></div>`;
   }).join("");
@@ -2176,8 +2198,8 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
   const content = `
     <section class="blog-hero">
       <p class="blog-kicker">[ Blog ]</p>
-      <h1 class="blog-title">A Developer&rsquo;s Story</h1>
-      <p class="blog-subtitle">The thought processes behind the projects.</p>
+      <h1 class="blog-title">Technical writing and project notes</h1>
+      <p class="blog-subtitle">Research essays, engineering write-ups, and candid accounts of how the work changed.</p>
     </section>
     <div class="blog-home-content" id="main-content">${homeContentHtml}</div>
     <section id="blog-posts" class="blog-toc" aria-label="Blog search and topic index">
@@ -2187,7 +2209,8 @@ function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManife
       <nav aria-label="Blog table of contents">${toc}</nav>
     </section>
     ${renderReadingTrailPanel({ source: "blog-index" })}
-    ${renderSubscribePanel({ source: "blog-index" })}
+    ${renderSubscribePanel({ source: "blog-index", compact: true })}
+    <details class="blog-acknowledgements"><summary>Image and licensing note</summary><p>Unless otherwise specified, blog images were generated with Stable Diffusion XL under the CreativeML Open RAIL++-M License.</p></details>
     <script>
       (() => {
         const input = document.getElementById("blog-search");
@@ -2258,6 +2281,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
   const canonicalUrl = absoluteUrl(siteUrl, `/blog/${post.slug}/`);
   const normalizedSiteUrl = normalizeSiteUrl(siteUrl);
   const socialImageUrl = absoluteUrl(siteUrl, SOCIAL_PREVIEW_IMAGE_PATH);
+  const publishedAt = typeof post.publishedAt === "string" ? post.publishedAt.trim() : "";
   const blogTags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
   const faqItems = Array.isArray(post.faq)
     ? post.faq
@@ -2280,6 +2304,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
     isPartOf: { "@id": `${normalizedSiteUrl}/#website` },
     mainEntityOfPage: { "@id": `${canonicalUrl}#webpage` },
     url: canonicalUrl,
+    ...(publishedAt ? { dateModified: publishedAt } : {}),
   };
   if (blogTags.length > 0) {
     articleSchema.keywords = blogTags.join(", ");
@@ -2306,6 +2331,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       <header class="blog-post-header">
         <p class="blog-post-section">${escapeHtml(section)}</p>
         <h1>${escapeHtml(post.title)}</h1>
+        ${publishedAt ? `<p class="blog-post-section"><time datetime="${escapeHtml(publishedAt)}">Updated ${escapeHtml(publishedAt)}</time></p>` : ""}
         <div class="blog-post-meta-actions">
           ${renderBlogTagLinks(blogTags, "Post topics")}
           <button class="secondary-action blog-share-button" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
@@ -2313,7 +2339,7 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
       </header>
       ${blogContentHtml}
       ${renderReadingTrailPanel({ source: "blog-post" })}
-      ${renderSubscribePanel({ source: "blog-post" })}
+      ${renderSubscribePanel({ source: "blog-post", compact: true })}
       <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
       ${navHtml}
     </div>

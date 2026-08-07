@@ -199,7 +199,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     });
     const blogIndex = await fs.readFile(path.join(tmpOut, "blog", "index.html"), "utf8");
     assert.ok(blogIndex.includes("blog-page"));
-    assert.ok(blogIndex.includes("A Developer"));
+    assert.ok(blogIndex.includes("Technical writing and project notes"));
     assert.ok(blogIndex.includes("AI Research Deep Dives"));
     assert.ok(blogIndex.includes('href="/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/"'));
     assert.ok(blogIndex.includes("The mental models of deep learning"));
@@ -210,7 +210,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(!blogIndex.includes('class="topic-labels"'));
     assert.ok(blogIndex.includes('new URLSearchParams(window.location.search).get("topic")'));
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
-    assert.ok(blogIndex.includes('class="subscribe-panel"'));
+    assert.ok(blogIndex.includes('class="subscribe-panel subscribe-panel-compact"'));
+    assert.ok(blogIndex.includes("Image and licensing note"));
+    assert.ok(blogIndex.includes('Updated 2026-07-01'));
     assert.ok(blogIndex.includes("Follow the technical trail."));
     assert.ok(blogIndex.includes(`<meta name="description" content="Stories, project notes, and AI research reflections from Praneeth&#39;s CS Field Notes." />`));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));
@@ -227,7 +229,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
       path.join(tmpOut, "blog", "unic-launching-off", "index.html"),
       "utf8",
     );
-    assert.ok(postHtml.includes('class="subscribe-panel"'));
+    assert.ok(postHtml.includes('class="subscribe-panel subscribe-panel-compact"'));
+    assert.ok(postHtml.includes('Updated 2026-06-04'));
+    assert.ok(postHtml.includes('content="Launching Off · Blog · Test preview from Test."'));
     assert.ok(postHtml.includes("Follow the technical trail."));
     assert.ok(postHtml.includes('href="/subscribe/"'));
     assert.ok(postHtml.includes('href="/feed.xml"'));

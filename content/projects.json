@@ -4,6 +4,7 @@
       "slug": "computer-science-notes",
       "title": "Computer Science Notes",
       "status": "active flagship",
+      "updatedAt": "2026-08-07",
       "summary": "A static technical hub that turns Notion notes, blog essays, search, RSS, and portfolio pages into Cloudflare Pages artifacts.",
       "problem": "Technical notes are useful only if readers can navigate, search, share, and trust their formatting. The project turns a personal study corpus into a durable public knowledge system.",
       "method": "Build-time Notion ingestion normalizes topic trees into static routes. A site-styling boundary renders the shell, RSS, sitemap, metadata, and search without runtime services.",
@@ -16,6 +17,7 @@
       "slug": "agentic-coding-workflows",
       "title": "Agentic Coding Workflows",
       "status": "active research and tooling",
+      "updatedAt": "2026-08-07",
       "summary": "A public project and notes trail around controllable agent workflows, harnesses, code review, security, and maintainable AI-assisted development.",
       "problem": "Agentic coding can generate software quickly, but speed without control creates reliability, security, and maintainability problems.",
       "method": "Study and document agent harnesses, feedback loops, review boundaries, prompt contracts, and workflow patterns while keeping implementation habits testable.",
@@ -23,18 +25,6 @@
       "codeUrl": "https://github.com/Praneeth-Suresh/AgentCoding",
       "writeupUrl": "/blog/engineering-discipline-for-agentic-coding/",
       "tags": ["agents", "developer-tools", "evaluation", "software-engineering"]
-    },
-    {
-      "slug": "lob-forecasting",
-      "title": "LOBForecasting",
-      "status": "applied ML case study candidate",
-      "summary": "A public notebook project in the applied ML and forecasting cluster, useful as a case-study candidate after results and limitations are tightened.",
-      "problem": "Forecasting projects need to make assumptions, data constraints, evaluation choices, and failure modes visible enough for others to inspect.",
-      "method": "Use notebook-based exploration to model forecasting behavior, then prepare the work for a stronger project page with setup, evaluation, and limitations.",
-      "result": "The write-up documents a strong logistic baseline, an MLP that underperforms it, a promising DeepLOB-style validation signal, and the need for a unified reproducible evaluation harness.",
-      "codeUrl": "https://github.com/Praneeth-Suresh/LOBForecasting",
-      "writeupUrl": "/blog/forecasting-the-limit-order-book/",
-      "tags": ["machine-learning", "forecasting", "notebook", "research-candidate"]
     }
   ]
 }

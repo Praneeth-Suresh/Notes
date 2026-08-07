@@ -92,5 +92,4 @@ These are exploratory notebook results, not production trading claims. The point
 
 - Repository: https://github.com/Praneeth-Suresh/LOBForecasting
 - Dataset: Ntakaris et al. (2018), "Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods," *Journal of Forecasting* 37(8): 852-866, via Kaggle.
-- Contact: praneeth.suresh.s@gmail.com
-
+- Contact: praneeth[dot]suresh[dot]s [at] gmail[dot]com

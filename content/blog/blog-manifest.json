@@ -5,7 +5,7 @@
   "sections": [
     {
       "title": "AI Research Deep Dives",
-      "subtitle": "paper-backed essays",
+      "subtitle": "Paper-backed essays",
       "posts": [
         {
           "slug": "a-research-program-for-inspectable-ml",
@@ -24,6 +24,7 @@
             }
           ],
           "chapter": null,
+          "publishedAt": "2026-07-01",
           "markdownFile": "posts/a-research-program-for-inspectable-ml.md"
         },
         {
@@ -47,6 +48,7 @@
             }
           ],
           "chapter": null,
+          "publishedAt": "2026-07-04",
           "markdownFile": "posts/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers.md"
         },
         {
@@ -54,13 +56,15 @@
           "title": "Peeking Inside the Black Box",
           "tags": ["interpretability", "AI research"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/peeking-inside-the-black-box.md"
         },
         {
           "slug": "more-on-interpretability",
-          "title": "Diving Deep into interpretability",
+          "title": "Diving Deep into Interpretability",
           "tags": ["interpretability", "research notes"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/more-on-interpretability.md"
         },
         {
@@ -68,34 +72,38 @@
           "title": "From Alchemy to Science",
           "tags": ["AI research", "research taste"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/from-alchemy-to-science.md"
         },
         {
           "slug": "approaching-the-frontiers",
-          "title": "Approaching the frontiers",
+          "title": "Approaching the Frontiers",
           "tags": ["AI research", "frontiers"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/approaching-the-frontiers.md"
         },
         {
           "slug": "the-era-we-live-in",
-          "title": "The era we live in",
+          "title": "The Era We Live In",
           "tags": ["AI", "reflection"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/the-era-we-live-in.md"
         },
         {
           "slug": "what-exactly-are-we-doing",
-          "title": "Intelligence?",
+          "title": "What Intelligence Means for AI Research",
           "tags": ["AI", "reflection"],
           "chapter": null,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/what-exactly-are-we-doing.md"
         }
       ]
     },
     {
       "title": "Engineering & Research Write-Ups",
-      "subtitle": "project deep dives",
+      "subtitle": "Project deep dives",
       "posts": [
         {
           "slug": "engineering-discipline-for-agentic-coding",
@@ -114,6 +122,7 @@
             }
           ],
           "chapter": null,
+          "publishedAt": "2026-07-01",
           "markdownFile": "posts/engineering-discipline-for-agentic-coding.md"
         },
         {
@@ -133,40 +142,45 @@
             }
           ],
           "chapter": null,
+          "publishedAt": "2026-07-01",
           "markdownFile": "posts/forecasting-the-limit-order-book.md"
         }
       ]
     },
     {
       "title": "A Developer's Memoir",
-      "subtitle": "my blog",
+      "subtitle": "Project stories and reflections",
       "posts": [
         {
           "slug": "unic-launching-off",
           "title": "Launching Off",
           "tags": ["project story", "builder journal"],
           "chapter": 1,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/unic-launching-off.md"
         },
         {
           "slug": "putting-users-first-rewrote-our-code",
-          "title": "Putting users first",
+          "title": "Putting Users First",
           "tags": ["project story", "product"],
           "chapter": 2,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/putting-users-first-rewrote-our-code.md"
         },
         {
           "slug": "best-case-worst-case",
-          "title": "Best case, Worst case",
+          "title": "Best Case, Worst Case",
           "tags": ["forecasting", "ethics", "project story"],
           "chapter": 3,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/best-case-worst-case.md"
         },
         {
           "slug": "how-to-turn-any-big-idea-into-real-impact",
-          "title": "Tech for society",
+          "title": "Tech for Society",
           "tags": ["impact", "project story"],
           "chapter": 4,
+          "publishedAt": "2026-06-04",
           "markdownFile": "posts/how-to-turn-any-big-idea-into-real-impact.md"
         },
         {
@@ -176,6 +190,7 @@
           "socialPreview": "I had a PR slip through conflicting instruction files, which pushed me to build a stricter repo-level system for agent workflows.",
           "tags": ["AGENTS.md", "agent workflows", "repo governance"],
           "chapter": 5,
+          "publishedAt": "2026-07-10",
           "markdownFile": "posts/beryl-01-why-agents-md-isnt-enough.md"
         },
         {
@@ -185,13 +200,14 @@
           "socialPreview": "Hackathons are not won by technical sophistication alone. They are won by understanding the requirements, the judges, and the idea they are ready to reward.",
           "tags": ["hackathons", "product", "builder journal"],
           "chapter": 6,
+          "publishedAt": "2026-07-17",
           "markdownFile": "posts/how-to-win-a-hackathon.md"
         }
       ]
     },
     {
       "title": "Beryl in Public",
-      "subtitle": "build notes from week one",
+      "subtitle": "Build notes from week one",
       "posts": [
         {
           "slug": "beryl-02-what-i-built",
@@ -200,6 +216,7 @@
           "socialPreview": "The difference was moving checks from prompts to versioned repository files, then proving the behavior through deterministic checks.",
           "tags": ["agent tooling", "automation", "developer workflow"],
           "chapter": 1,
+          "publishedAt": "2026-07-10",
           "markdownFile": "posts/beryl-02-what-i-built.md"
         },
         {
@@ -209,13 +226,14 @@
           "socialPreview": "The check surfaced real mismatch cases, and this week shaped the first iteration around realistic review boundaries and feedback loops.",
           "tags": ["feedback", "agent governance", "open build"],
           "chapter": 2,
+          "publishedAt": "2026-07-10",
           "markdownFile": "posts/beryl-03-building-in-public-week-1.md"
         }
       ]
     },
     {
       "title": "Algorithms Archive",
-      "subtitle": "theoretical CS essay",
+      "subtitle": "Theoretical computer science essay",
       "posts": [
         {
           "slug": "np-completeness-formal-definition-proof-sketches-and-reductions",
@@ -238,6 +256,7 @@
             }
           ],
           "chapter": null,
+          "publishedAt": "2026-06-19",
           "markdownFile": "posts/np-completeness-formal-definition-proof-sketches-and-reductions.md"
         }
       ]

@@ -2929,6 +2929,15 @@ canvas {
   line-height: 1.35;
 }
 
+.about-linear-status {
+  max-width: 36rem;
+  margin: 0.55rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: rgb(248 250 252 / 0.68);
+}
+
 .about-scroll-cue,
 .about-inline-link {
   width: fit-content;
@@ -4333,10 +4342,14 @@ mjx-container[jax="SVG"][display="true"] {
 .blog-section-subtitle { font-size: 0.85rem; color: var(--muted); font-style: italic; margin: 0 0 1rem; padding-left: calc(0.75rem + 3px); }
 .blog-post-list { list-style: none; padding-left: 0; margin: 0; }
 .blog-post-list li { margin-bottom: 0.25rem; padding-left: 0.15rem; }
-.blog-post-link { display: inline-flex; align-items: baseline; gap: 0.5rem; padding: 0.28rem 0; text-decoration: none; color: var(--text); transition: color 0.15s; }
+.blog-post-link { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; padding: 0.28rem 0; text-decoration: none; color: var(--text); transition: color 0.15s; }
 .blog-post-link:hover { color: var(--blog-accent); }
 .blog-post-link .blog-post-chapter { font-family: var(--font-mono); font-size: 0.75rem; color: var(--blog-accent); min-width: 1.5rem; }
 .blog-post-link .blog-post-title { font-size: 1rem; }
+.blog-post-link time { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+.blog-acknowledgements { max-width: 52rem; margin: 1.1rem auto 0; padding: 0.8rem 1rem; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 0.82rem; }
+.blog-acknowledgements summary { cursor: pointer; color: var(--text); }
+.blog-acknowledgements p { margin: 0.6rem 0 0; }
 
 .blog-reading-panel { max-width: 44rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .blog-reading-panel .blog-back { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: var(--muted); text-decoration: none; margin-bottom: 1.5rem; }
@@ -4473,6 +4486,7 @@ mjx-container[jax="SVG"][display="true"] {
 
 :root[data-theme="light"] .about-linear-hero .home-kicker,
 :root[data-theme="light"] .about-linear-hero .about-linear-deck,
+:root[data-theme="light"] .about-linear-hero .about-linear-status,
 :root[data-theme="light"] .about-linear-hero .about-scroll-cue {
   color: var(--text);
 }
