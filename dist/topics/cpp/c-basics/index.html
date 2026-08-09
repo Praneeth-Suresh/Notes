@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>C++ Basics · Praneeth&#39;s CS Field Notes</title>
+
+    <meta name="description" content="An up close and personal look at C++." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/cpp/c-basics/" />
+    <meta property="og:title" content="C++ Basics · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="An up close and personal look at C++." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/cpp/c-basics/" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="C++ Basics · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="C++ Basics · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="An up close and personal look at C++." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="C++ Basics · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/cpp/c-basics/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/cpp/c-basics/","name":"C++ Basics · Praneeth's CS Field Notes","description":"An up close and personal look at C++.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"C++ Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/cpp/"},{"@type":"ListItem","position":3,"name":"C++ Basics","item":"https://notes.praneeth-suresh-s.workers.dev/topics/cpp/c-basics/"}]}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = window.localStorage.getItem("notes-theme");
+          const resolvedTheme = document.documentElement.dataset.homePage === "true"
+            ? "dark"
+            : savedTheme === "light" || savedTheme === "dark"
+              ? savedTheme
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.dataset.theme = resolvedTheme;
+        } catch (error) {
+          // Theme preference is optional when storage is unavailable.
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="active" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">C++ Basics</h1>
+      <p class="topic-parent">Subpage of C++ Deep Dive</p>
+      
+      <p class="topic-meta">An up close and personal look at C++.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
+          <p>Get the monthly research and project update by email request or RSS.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <article class="note-article notion-page-content"><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b717c95-99fd-809a-80a5-e575b3183461">Program Execution Model</h1><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8059-aa7f-fd2423a67a7e">Code is compiled before it in run, the same as Java and C.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-80de-8312-f62ae63aa3ce">We use the <code class="note-inline-code">gcc</code> compiler to deal with C++ compilation as follows:</p><figure class="notion-block notion-code" data-notion-block-id="3b717c95-99fd-8072-909f-e40a09569465"><pre class="note-code-block" data-language="bash"><code class="language-bash">g++ hello-world.cpp -o hello-world</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8073-9c97-cd5d70fd2cc9">This is the standard way to compile C++. It automatically treats files with extensions like <code class="note-inline-code">.cpp</code>, <code class="note-inline-code">.cc</code>, and <code class="note-inline-code">.cxx</code> as C++ and, crucially, automatically links the <strong>C++ Standard Library</strong> (<code class="note-inline-code">libstdc++</code>).</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="3b717c95-99fd-800a-96eb-e7e69a4aa1b7"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">While C++ was originally described as &quot;C with classes,&quot; it is <strong>not a strict superset of C</strong>. Some valid C code is not valid C++ (e.g., implicit function declarations).</div></aside></div><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b717c95-99fd-80dd-b3b0-e3e86e2ca15a">Basic Syntax</h1><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-80e4-8c30-e13208fe3bba">Most of this is similar to C, with headers that can be used to include packages and a <code class="note-inline-code">main()</code> function that is the core of the execution.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b717c95-99fd-80a2-a189-f8eecec0be3d">Basic I/O</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-80af-b424-c62da0a4603a">Here is a basic example of outputting a string:</p><figure class="notion-block notion-code" data-notion-block-id="3b717c95-99fd-80ed-919c-ec94da2e50a8"><pre class="note-code-block" data-language="c++"><code class="language-c++">std::cout &lt;&lt; &quot;Hello World&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-800b-bd87-db0506a86ca9">The above line prints the text to the console.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8081-be89-f703e8df529f">You can remember <code class="note-inline-code">&lt;&lt;</code> as <em>pushing</em> the text into the output stream (i.e <code class="note-inline-code">std::cout</code> in this case)</p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8084-8ed3-d1639cc565cf">To add a newline, we can add the following to the end of the string:</p><figure class="notion-block notion-code" data-notion-block-id="3b717c95-99fd-800a-8de0-cf129a303c8b"><pre class="note-code-block" data-language="c++"><code class="language-c++">std::cout &lt;&lt; &quot;Hello World&quot; &lt;&lt; std::endl;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-808f-8277-de981861d2aa">In fact, this is a general idea of how we can build streams using <code class="note-inline-code">&lt;&lt;</code> where we can chain the operator to add multiple objects to the stream.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-804e-b74b-d036bc68a4e3">Now, for inputs, we can use <code class="note-inline-code">std::cin &gt;&gt;</code>. Here is an example of how this fits into a program.</p><figure class="notion-block notion-code" data-notion-block-id="3b717c95-99fd-80c8-8e8b-c0633d0c313d"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+
+int main() {
+    int x;
+    std::cin &gt;&gt; x;
+    std::cout &lt;&lt; &quot;You entered: &quot; &lt;&lt; x &lt;&lt; std::endl;
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8032-bb71-c36045727e72">Note that the direction of the arrows (<code class="note-inline-code">&gt;&gt;</code>) for <code class="note-inline-code">std::cin</code> is now reversed compared to <code class="note-inline-code">&lt;&lt;</code>. You can remember as <strong>data flowing into </strong><strong><code class="note-inline-code">x</code></strong>.</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="3b717c95-99fd-8064-acdc-e0328ad065eb"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">If you find prefixing <code class="note-inline-code">std::</code> before the function calls cumbersome, you can omit it with <code class="note-inline-code">using namespace std</code>. Here is an example:<figure class="notion-block notion-code" data-notion-block-id="3b717c95-99fd-80fa-89c2-c65a68b1dbfb"><pre class="note-code-block" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+int main() {
+    int x;
+    cin &gt;&gt; x;
+    cout &lt;&lt; &quot;You entered: &quot; &lt;&lt; x &lt;&lt; endl;
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8035-8742-ec69e665e989">However, this is generally discouraged in larger projects as it does lead to naming conflicts.</p></div></aside></div><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b717c95-99fd-8021-98b1-f4c85ce024fb">Variables</h1><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8057-94ab-f9741f8f5d74">There are some universal programming language ideas here, which overlap with C. However, while both languages use variables as named memory locations to store data, C++ introduces significant new types and rules for how and where variables can be used. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-809e-94f2-c35b5d55458a">Here are some differences to keep in mind:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8001-b868-e5fc2a7dc36a"><strong>Reference Variables:</strong> C++ introduces <strong>references</strong> (<code class="note-inline-code">type&amp;</code>), which act as aliases for existing variables. C does not have references and must use pointers (<code class="note-inline-code">type*</code>) for similar functionality.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8082-a3a5-df47b77d3c5b"><strong>Declaration Placement:</strong> In older versions of C, local variables usually had to be declared at the very start of a block (before any statements). C++ (and modern C99+) allows variables to be declared anywhere in the code, typically right before they are first used.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8090-8fde-eb5c2ce9b4db">The rest of the basic ideas about variables such as initialization, declaration, arithmetic operations and data types are the same as C.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b717c95-99fd-80e8-9a17-ef809c44423c">Statements</h1><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-80f5-8d25-d8e288631591">The statements and operations in C++ are a super-set of what is available in C. C++ extends the set significantly with new operators, exception handling, and overloading. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-80ed-8317-dd6b47b938c2"><strong>New Operators in C++:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8036-87ee-fa77c3c36f59"><strong>Scope resolution (</strong><strong><code class="note-inline-code">::</code></strong><strong>)</strong> – lets you access global variables or class members.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-80d1-92bb-c327ef6e38dc"><strong>Member access (</strong><strong><code class="note-inline-code">&gt;*</code></strong><strong>, </strong><strong><code class="note-inline-code">.*</code></strong><strong>)</strong> – for pointers to members.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8082-924d-f9e56d0ff997"><strong>Dynamic memory (</strong><strong><code class="note-inline-code">new</code></strong><strong>, </strong><strong><code class="note-inline-code">delete</code></strong><strong>)</strong> – replaces <code class="note-inline-code">malloc</code>/<code class="note-inline-code">free</code> in idiomatic C++.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8073-9768-cf66d971141a"><strong>Type casting operators</strong> – <code class="note-inline-code">static_cast</code>, <code class="note-inline-code">dynamic_cast</code>, <code class="note-inline-code">const_cast</code>, <code class="note-inline-code">reinterpret_cast</code> (more controlled than C’s <code class="note-inline-code">(type)</code> cast).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-80e0-be71-defbff69e569"><strong>Overloading</strong> – operators can be redefined for user-defined types in C++.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8004-b664-f50c4d7b5850"><strong>New Statements in C++:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-80a7-92d2-e75db95ef785">C++ adds <strong><code class="note-inline-code">try</code></strong><strong>/</strong><strong><code class="note-inline-code">catch</code></strong><strong>/</strong><strong><code class="note-inline-code">throw</code></strong> for exception handling, which C does not have.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8075-97a7-dc784eb386bb">C++ also allows <strong>range-based </strong><strong><code class="note-inline-code">for</code></strong><strong> loops</strong> (since C++11), which don’t exist in C.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-8052-828d-ceafb6a1aff1">C++ supports <strong><code class="note-inline-code">new</code></strong><strong> control statements</strong> like <code class="note-inline-code">using</code> for namespaces and type aliases, absent in C.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b717c95-99fd-8022-a700-c528e662e7fb"><strong>Increment/Decrement Nuance:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b717c95-99fd-80c6-b198-f49dac0f3df3">Both languages have <code class="note-inline-code">++</code> and <code class="note-inline-code">-</code>, but in C++ these can be overloaded for custom classes, while in C they only apply to built-in numeric types.</li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/cpp/c-memory-model/">
+    <span>Next reading</span>
+    <strong>C++ Memory Model</strong>
+    <p>Continue inside C++ Deep Dive</p>
+  </a>
+</nav>
+      
+    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Continue</p>
+        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
+        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Reader next steps">
+        <a class="secondary-action" href="/start-here/">Start Here</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/projects/">Projects</a>
+        <a class="secondary-action" href="/subscribe/">Subscribe</a>
+      </div>
+    </section>
+  
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Contact</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        const themeToggle = document.querySelector(".theme-toggle");
+        const root = document.documentElement;
+        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function currentTheme() {
+          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
+        }
+
+        function renderThemeToggle() {
+          if (!themeToggle) {
+            return;
+          }
+
+          const isDark = currentTheme() === "dark";
+          const nextTheme = isDark ? "light" : "dark";
+          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
+        }
+
+        if (themeToggle) {
+          if (!themeToggle.disabled) {
+            renderThemeToggle();
+            themeToggle.addEventListener("click", () => {
+            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+            root.dataset.theme = nextTheme;
+            try {
+              window.localStorage.setItem("notes-theme", nextTheme);
+            } catch (error) {
+              // The selected theme still applies for this page when storage is unavailable.
+            }
+            renderThemeToggle();
+            });
+          }
+        }
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

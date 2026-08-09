@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Data Structures in C · Praneeth&#39;s CS Field Notes</title>
+
+    <meta name="description" content="A close look at the C language." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/c/data-structures-in-c/" />
+    <meta property="og:title" content="Data Structures in C · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="A close look at the C language." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/c/data-structures-in-c/" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Data Structures in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Data Structures in C · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="A close look at the C language." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="Data Structures in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/data-structures-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/data-structures-in-c/","name":"Data Structures in C · Praneeth's CS Field Notes","description":"A close look at the C language.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":3,"name":"Data Structures in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/data-structures-in-c/"}]}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = window.localStorage.getItem("notes-theme");
+          const resolvedTheme = document.documentElement.dataset.homePage === "true"
+            ? "dark"
+            : savedTheme === "light" || savedTheme === "dark"
+              ? savedTheme
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.dataset.theme = resolvedTheme;
+        } catch (error) {
+          // Theme preference is optional when storage is unavailable.
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>
+      window.MathJax = {
+        loader: {
+          paths: { mathjax: "/assets/vendor/mathjax" }
+        },
+        tex: {
+          inlineMath: [["\\(", "\\)"]],
+          displayMath: [["\\[", "\\]"]]
+        },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
+  </head>
+  <body data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main class="layout">
+      <header class="site-header">
+        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
+        <nav class="site-links" aria-label="Site navigation">
+          <a href="/start-here/" data-hotkey="S">Start</a>
+          <a href="/about/" data-hotkey="A">About</a>
+          <a href="/projects/" data-hotkey="P">Projects</a>
+          <a href="/notes/" data-hotkey="N">Notes</a>
+          <a href="/blog/" data-hotkey="B">Blog</a>
+          <a href="/contact/" data-hotkey="C">Contact</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
+          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+        </nav>
+      </header>
+      
+    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="active" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
+    <section id="main-content" class="panel notes-panel">
+      <h1 class="site-title">Data Structures in C</h1>
+      <p class="topic-parent">Subpage of C Deep Dive</p>
+      
+      <p class="topic-meta">A close look at the C language.</p>
+      
+      
+    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
+          <p>Get the monthly research and project update by email request or RSS.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+      <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8097-a6a3-e0c0ddd754fe">Arrays</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807f-8dc7-ef67329ff451">An array is a homogeneous collection of data stored in a contiguous segment of memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8076-ade2-eff686cfafe5">The array’s name, in most expressions, automatically converts (“decays”) to a pointer to its first element of type <strong><code class="note-inline-code">T *</code></strong>. This is because all that such as assignment will do is pass around pointers: C deems this unsafe.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c5-bc3f-c24d63032819"><strong>Note</strong>: Arrays themselves are not assignable: <strong><code class="note-inline-code">int a[5], b[5]; a = b;</code></strong> is illegal, but copying via <strong><code class="note-inline-code">memcpy</code></strong> or loops is fine. Instead, we need to copy all the elements of one array into another.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a9-b60d-e8bdcc1a9990">Here is example code that illustrates how we can initializing arrays:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8001-ab5a-efaed617f7f3"><pre class="note-code-block" data-language="c"><code class="language-c">int a[5] = {1,2,3,4,5};</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8069-b494-ce212141516e">If we initialize the array at the same time we declare it, we can choose to omit the number of elements in the array. So in the above example <code class="note-inline-code">int a[] = {1,2,3,4,5};</code> will be equally acceptable.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80de-a22a-c19538e59a67">Note that it is also possible to initialize less elements in the array initialization than declared in the array. It is just the other way that is not allowed. Here is an example:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80c1-9df8-f1f754da0a70"><pre class="note-code-block" data-language="c"><code class="language-c">int a[5] = {1,4}; // Only the first two elements are initialised. The rest are not the same.</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ab-b7d5-db78312926c8">If you partially initialize an array, remaining elements are zeroed. So in the above example, the array will be <span class="note-inline-equation" data-latex="{1,4,0,0,0}">\({1,4,0,0,0}\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8035-945f-f670fd16c2d0">The most important property of arrays in C is the Array–to–pointer conversion. Mastering this is required to deal with arrays effectively. Here is a more detailed exploration of this important subject: <a href="https://app.notion.com/p/213d3a21bb2d80e2bcd8c84d5ce120ff#2c7d3a21bb2d800f930edddee8187e3e" rel="noreferrer noopener">Pointer Arithmetic</a>. Also refer to <a href="https://app.notion.com/p/213d3a21bb2d80e2bcd8c84d5ce120ff#2bcd3a21bb2d802f9a8dd7f6896f6e75" rel="noreferrer noopener">Hence, although the array variable behaves like a pointer, it is not a pointer. Consider two variables s and t in the code below. We will compare their behaviour:</a>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-8ee0-e0e467950fc4">To really master arrays in C, practice these patterns:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a6-b51d-cc14823b7a16">Always pass array length explicitly, unless using a fixed‑size array parameter (<strong><code class="note-inline-code">int (*a)[N]</code></strong>) or VLA parameters.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80b3-8d9a-d64a6e7d92e1">Use <strong><code class="note-inline-code">sizeof</code></strong> only on arrays in the same scope, never on “array parameters” or generic pointers.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8066-a697-f139dd2d897e">Distinguish carefully between:<ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-807a-8f5c-f132094296f3"><strong><code class="note-inline-code">T *p;</code></strong> (pointer)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80e7-bdcf-dd976863955a"><strong><code class="note-inline-code">T a[N];</code></strong> (array)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80dd-a2c5-cb516750a242"><strong><code class="note-inline-code">T (*p)[N];</code></strong> (pointer to array)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-801a-83c6-dd4516a6026a"><strong><code class="note-inline-code">T *a[M];</code></strong> (array of pointers)</li></ul><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="3b7d3a21-bb2d-8007-a5cd-e815bc65fe77"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">In C declarations, <code class="note-inline-code">[]</code> and <code class="note-inline-code">()</code> bind more tightly than <code class="note-inline-code">*</code>, so without parentheses the structure changes. To interpret the above, start from the name and move outwards using precedence.</div></aside></div></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-806b-a8c4-ead9b73fecfc">Use structs with embedded arrays or flexible array members for more complex buffer‑carrying abstractions.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8010-9683-cfd8b175b3cb">Multidimensional Arrays</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a6-afe3-db7fe60af01f">C’s multi‑dimensional arrays are arrays of arrays, stored in row‑major order.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8006-9e96-db36aec194dd"><pre class="note-code-block" data-language="c"><code class="language-c">int m[2][3] = { {1,2,3}, {4,5,6} };  // 2 rows, 3 columns [web:7]
+int (*row)[3] = m;                   // pointer to array of 3 int
+int *flat = &amp;m[0][0];                // pointer to first int</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f5-b872-fdadf1f3ab19">Key details:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8080-a0c7-f6372cb1a3b5"><strong><code class="note-inline-code">m</code></strong> decays to <strong><code class="note-inline-code">int (*)[3]</code></strong>, a pointer to an array of 3 <strong><code class="note-inline-code">int</code></strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-808b-ad82-de467d13d9f4"><strong><code class="note-inline-code">m[i]</code></strong> has type <strong><code class="note-inline-code">int[3]</code></strong> and decays to <strong><code class="note-inline-code">int *</code></strong> when used as an expression; your function parameters must match these types exactly.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-802c-9373-f32ad31a5223">Now you might be confused about what the <code class="note-inline-code">int (*row)</code> is talking about. To clarify that, here is a differentiation between array and pointers in declarations.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80c6-bd89-e32c0f5a4db1"><strong><code class="note-inline-code">int *a[10];</code></strong> is an array of 10 pointers to <strong><code class="note-inline-code">int</code></strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80fc-8a47-c999f2469fbc"><strong><code class="note-inline-code">int (*a)[10];</code></strong> is a pointer to an array of 10 <strong><code class="note-inline-code">int</code></strong>.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-802f-87ef-e1d42490d35c">Strings</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a6-8c20-c06f64d4e87c">C is more low-level than most other languages, so instead of <strong>strings</strong>, it normally uses something similar: an array of single characters. However, there are a number of C extensions that do give you strings.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8099-b984-e51fb358b083">Note that strings are enclosed in <strong>double quotes</strong> while characters are enclosed in <strong>single quotes</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803f-831b-f1fc451d7c8a">Each of the characters in the string is just an element in an array, which is why you can refer to the individual characters in the string by using an index, like <code class="note-inline-code">s[0]</code> and <code class="note-inline-code">s[1]</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8039-b485-d8b8f1049016">Now, we go more in depth into how the exact representation of a string looks like in memory because this defined properties of how the contents of a string can be read:</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-808d-8f0c-da468e1032c4"><strong>Storing strings</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f2-b5ba-fefb89f217fe">Now, in a lot of languages, the computer keeps pretty close track of the size of an array, but C is more low-level than most languages and can’t always work out exactly how long an array is. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ca-88ba-d009b38bdb20">If C is going to display a string on the screen, it needs to know when it gets to the end of the character array. And it does this by adding a <strong>sentinel character</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c1-8b5c-f5b368f7844d">This is what differentiates a string from a normal array of characters.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80dd-ab19-ec9676004e6b">The following examples exemplifies how a string is stored in memory:</p><div class="notion-column-list" data-notion-block-id="3b7d3a21-bb2d-80bc-92d9-d3fc773fe73e"><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-8002-9245-cff57ea2475a" style="--notion-column-width: 44%;"><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80ee-b7a3-e311471d60dd"><pre class="note-code-block" data-language="c"><code class="language-c">s = &quot;Shatner&quot; // Equivalently:
+s = {&#39;S&#39;, &#39;h&#39;, &#39;a&#39;, &#39;n&#39;, &#39;t&#39;, &#39;e&#39;, &#39;r&#39;};</code></pre></figure></div><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-80a4-8d7f-cdbcca1933c6" style="--notion-column-width: 56%;"><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="3b7d3a21-bb2d-80ca-aa9e-c3ca6928c7c2"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/0da6f9a8-e9ab-4c1f-92cb-0feae0777705/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB4666B6IRE2S%2F20260809%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260809T132041Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCsl64XECto7egf1qaevWfUPopxIJFgoxepH4qbgUjEFgIgbYHCQXPMcBMNOjDpjcg4Lq80l2uNZzHW%2BS9l3MJ0EyUqiAQIg%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDERrLshZu9OEiG5PRSrcAzbCaNFXsUzNo4Yvv5tIXL%2FtF7bO7mBd6Tf4drQ7r8YDl34aZlR3iWzJU6g0tEltQWYiEL8NL0SBISlbIo1nMQ4pm9nW0R9ncmTzoWb8uBbo%2F%2BbESuwuXq49uozlayuaX6h1v%2Fs2wVtDWfqNcbP%2F%2BlRJdSHROLSmF4IDAYOxnuC3yZhQbzsnIa7iOPr9qNI7amBUuvIFt%2Bdha3jJ9LW1V9NdhAN5Hkcxybj7Ac%2FF0dxGbxuGqj2rby%2BBMWzbZ%2FkofCtPcIc5Q%2F4uT4Z5M1bvRt9DF89m%2BhWuYZsXVPNeGHck0PBhPYF3px1CBeqUK9ioZNW%2FBpc6R%2FB%2BhQLdKaizJ%2BcnoiciymSojKol3icskLkzylLY9EnD8Jfn5K5McZXXh3AYSBcgc21HI6HsWT2pnBuEvIdHiJxk7FCQsQC%2FoFEdXSnt3Te95MF4pau88WAVvegRRhEwXESQNqtABvUXqo1LR5imJjaePGUSCLR8AeCmZ7WentuQgBmklGtODSHtm4P1mbuhIAWMoOUWdFIgT2a5XFk5MmqVak2wb637UpR%2FcLAHTnWFR8xoMPttkwOgDeKlPZv2BoZU1F9fnoemST3muMpUeIyJmhESfPny%2BdMVyWpZS1JQYgoSjXXcMKmk4dMGOqUBs6edr0TRReD%2FSlFJOGTzxz1koksYA9S%2FkBIxfHko3xAiaHDRxYtKgAuznAH%2BXCItpbGxuI2vktwrT66DTWcRAStJAgsur72yB7OZOPY3s5dMoCNh3reR0X1St7MtC0f9HM%2BmGCe09Nrzm0iO3oGqaq9zv6eeaCIXPY9lbK8d43QqamrvkRte7eYzcUxuiZTsm0mmoj7PCxXcJ4k6bvww3LSlLpOl&amp;X-Amz-Signature=0e05855d1d6b72dab2459546b3fcfa7f7006ea422ce2d2618c954325d5d10677&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" /></figure></div></div><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803b-a81f-fbc0583cbb42">The sentinel character is an additional character at the end of the string that has the value <code class="note-inline-code">\0</code> (ASCII character with value 0).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8062-9eb5-eefe0b663d6c">Note that if you perform string manipulations then you need to add the null terminator at the end manually so that C still treats the list of characters as a string.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d8-a221-db010fd2dc86">As a result, if we want to store <code class="note-inline-code">n</code> characters in a string, we define a character array with length <code class="note-inline-code">n+1</code>.</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="3b7d3a21-bb2d-8011-bc70-c0052c6ce502"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">Thinking about memory addresses gives us an explanation for why indices start from 0. <p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e0-a6e0-fdea7f48a517">The index is an offset: it measures how far the character is from the first character. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b4-94bc-ebbd286817ef">The computer will store the characters in consecutive bytes of memory. It can use the index to quickly calculate the location of the character. </p></div></aside></div><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80bd-a6cb-e13407a99f45">It is possible to store an array of strings in C as follows. Here, we know that each string has a maximum length of 79 characters:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80e6-9248-e7cf98d6d76a"><pre class="note-code-block" data-language="c"><code class="language-c">char tracks[][80] = {
+&quot;I left my heart in Harvard Med School&quot;,
+&quot;Newark, Newark - a wonderful town&quot;,
+&quot;Dancing with a Dork&quot;,
+&quot;From here to maternity&quot;,
+&quot;The girl from Iwo Jima&quot;,
+};</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80be-b6e8-d23eade39ed8">There is another approach that can be used to store an array of strings. This is storing an array of pointers. This is a list of memory addresses stored in an array. It’s very useful if you want to quickly create a list of string literals. Here is how we can define one:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8025-9021-fdfc353a7bbf"><pre class="note-code-block" data-language="c"><code class="language-c">char *names_for_dog[] = {&quot;Bowser&quot;, &quot;Bonza&quot;, &quot;Snodgrass&quot;};</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ce-b14c-fecccc9b1624"></p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80d3-a923-c4a6d5bfe588"><strong>String Literals</strong></h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e7-a4b1-c74aa1c60ed4">Note however that you don’t need to define strings as arrays of characters. You can define them using quotes which will lead to a <strong>string literal</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8098-9aa1-f1c0ae9418a6">However, string literals are <u>immutable</u>. They are stored in a read-only section of memory. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f7-a1ab-e678d421bf99">The string literal is stored in the segment of memory for read only information. Only the pointer is stored on the heap.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80de-abcb-df7a8994998d">If you try to change individual characters once they are created, there will typically be a <strong>bus error</strong> which means that the program cannot update that piece of memory.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8082-9802-e0726d2145ac"><pre class="note-code-block" data-language="c"><code class="language-c">char *cards = &quot;JQK&quot;; // This is a string literal
+cards[1] = cards[2];</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8007-8428-e1f34f54f682">This for example will result in a bus error. This is why when using declarations of the format <code class="note-inline-code">char *chars = ...</code> it is advisable to put <code class="note-inline-code">const</code> in front so that a compilation error is produced instead of a failure at runtime.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8047-b75e-eb452c52f389">To fix it, the following change can be made:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8003-b1e5-f5fa9dc1e154"><pre class="note-code-block" data-language="c"><code class="language-c">char cards[] = &quot;JQK&quot;; // Even if this is a very minor change, this is not a string literal anymore
+cards[1] = cards[2];</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e5-a046-f01d77d891fc">This works because now <code class="note-inline-code">cards</code> is an array. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-8230-d799ec1a7ef0">If you declare an array called <code class="note-inline-code">cards</code> and then set it to a string literal, the cards array will be a completely new copy. The variable isn’t just pointing at the string literal in the read only memory segment. It’s a brand-new array that contains a fresh copy of the string literal.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b2-bbf0-d4da77c586bf"><strong>Note</strong>: You still need to be careful about cases where the array <u>decays</u> to a pointer.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-801f-b9a9-db0d3d366468">Structures</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e0-91ca-f7611b345055">Structures allows the grouping of heterogeneous members in one data type. Unlike an <a href="https://www.w3schools.com/c/c_arrays.php" rel="noreferrer noopener">array</a>, a structure can contain many different data types (<code class="note-inline-code">int</code>, <code class="note-inline-code">float</code>, <code class="note-inline-code">char</code>, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ea-855b-c9978d81f34a">Each variable in the structure is known as a <strong>member</strong> of the structure. The grouping of data is called a <strong>structure type</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-82da-ea5c32d42952">You can create a structure by using the <code class="note-inline-code">struct</code> keyword and declare each of its members inside curly braces.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-8029-b68a-e9016ffabfac">Definition</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8022-9c35-d7c2eff5eb3b">In C, when defining a structure, you typically need to use the <code class="note-inline-code">struct</code> keyword every time you declare a variable. <code class="note-inline-code">typedef</code> allows you to create a shorthand for the structure type, eliminating the need for the <code class="note-inline-code">struct</code> keyword. </p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80dc-bb44-c01b8678f71b"><pre class="note-code-block" data-language="c"><code class="language-c">// Without typedef
+struct Student {
+    char name[50];
+    int id;
+};
+struct Student s1; // Must use &#39;struct Student&#39;
+
+// With typedef
+typedef struct {
+    char name[50];
+    int id;
+} Student;
+Student s2; // Can use &#39;Student&#39; directly
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-806d-8ec1-c9f88034b06c">To access the structure, you must create a variable of it. This is because a data type is not a variable: however, we can create a variable of a data type.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-802d-9f63-c48a93f4cffb">Initialisation</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800c-a621-ccbce1e8ebbe">Here is how we declare and initialise <strong>structure variables</strong>:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-804b-99a4-d6a77a8cdc0c"><pre class="note-code-block" data-language="c"><code class="language-c">struct Person {
+    char name[50];
+    int age;
+    float height;
+};
+
+struct Person person1 = {&quot;Alice&quot;, 30, 5.9};
+// Alternatively, we can do this:
+struct Person person2 = { .age = 25, .name = &quot;Bob&quot;, .height = 6.1 };
+// If we only have some data:
+struct Person person3 = { .age = 40 }; // name and height are zero-initialized</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80af-a62b-e58f9c265770">There are different ways in which initialisation can be done as illustrated above.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-809c-a35d-c3a51681cc9a">Access</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80aa-a4ca-c6d63c1e2020">After declaring the variable, you can assign values to members individually using the member access operator (<code class="note-inline-code">.</code>). This is done inside a function.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80ef-a0f0-d41f7ce0c1ee"><pre class="note-code-block" data-language="c"><code class="language-c">struct Person person4;
+person4.age = 22;
+person4.height = 5.8;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8049-a4c4-f68802a40626">If we use a structure variable’s name, we are referring to the entire structure. Unlike arrays, we may do assignments with structures:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80f9-9115-c2cd56d56cd7"><pre class="note-code-block" data-language="c"><code class="language-c">person2 = person1;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8013-a949-db012534ce13">This sets all the properties of <code class="note-inline-code">person2</code> to the corresponding properties of <code class="note-inline-code">person1</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804c-9367-dd738c562269">This means that structures are <strong>pass by value</strong>. They are not like arrays which are pass by reference. Thus, be careful when trying to modify a struct within a function. Here is an example of how this can be done:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-808d-a151-fed47061290a"><pre class="note-code-block" data-language="c"><code class="language-c">// 1. Define the structure
+struct Person {
+    char name[50];
+    int age;
+};
+
+// 2. Declare a function that accepts a pointer to the structure
+void update_person_age(struct Person *person_ptr) {
+    // 3. Access members using the arrow operator (-&gt;)
+    person_ptr-&gt;age = 30;
+    // The arrow operator is a shorthand for (*person_ptr).age.
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-802e-8e89-e306655903a6">Note that we need to do two things to modify values of a struct:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80eb-a18f-d757ff2364a3">Dereference the struct (done using <code class="note-inline-code">*person_ptr</code>)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8084-a333-fb10cdce31f0">Reference the elements using the dot notation (<code class="note-inline-code">*person_ptr.age</code>)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c4-a9d9-e69fc042d57a">However, we need to be very careful with this because the priority of the dot notation is higher than the de-reference operator so we cannot write <code class="note-inline-code">*person_ptr.age</code>. This would throw an error because the pointer is not struct.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8046-9771-f3f1248922fb">To avoid the confusion, C introduces <strong>syntactic sugar </strong>where we can write <code class="note-inline-code">person_ptr-&gt;age</code> instead, significantly simplifying the referencing code.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-807f-be2e-e273d5ffd070">Storage</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8024-a25a-f6b898e973f8">When you create a <a href="https://www.w3schools.com/c/c_structs.php" rel="noreferrer noopener">struct</a> in C, the compiler may add some extra <strong>bytes of padding</strong> between members.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8080-9430-f5bacf0547e5">This is done to make the program run faster on your computer, because most CPUs read data more efficiently when it&#39;s <strong>properly aligned</strong> in memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8094-ba08-f29b86c1d1c3">Let&#39;s look at a simple struct:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8003-aee2-df29b3819804"><pre class="note-code-block" data-language="c"><code class="language-c">struct Example {
+  char a; // 1 byte
+  int b;  // 4 bytes
+  char c; // 1 byte
+};
+
+int main() {
+  printf(&quot;Size of struct: %zu bytes\n&quot;, sizeof(struct Example));
+  return 0;
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800c-838a-e29430e6ce3e">You might expect the size to be <code class="note-inline-code">1 + 4 + 1 = 6 bytes</code> - but it will usually print <strong>12 bytes</strong>! The compiler adds <strong>padding bytes</strong> so that the <code class="note-inline-code">int</code> member (<code class="note-inline-code">b</code>) starts at a memory address that&#39;s a multiple of 4. This helps the CPU read it faster.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8029-accd-ce9feee70290">Here&#39;s how memory is actually arranged:</p><table class="notion-block notion-table" data-notion-block-id="3b7d3a21-bb2d-803a-b630-d89aa19081d1"><tbody><tr><th>Member</th><th>Bytes</th><th>Notes</th></tr><tr><td>a</td><td>1</td><td>Stored first</td></tr><tr><td><em>padding</em></td><td>3</td><td>Added so <code class="note-inline-code">b</code> starts at a multiple of 4</td></tr><tr><td>b</td><td>4</td><td>Aligned to 4-byte boundary</td></tr><tr><td>c</td><td>1</td><td>Stored next</td></tr><tr><td><em>padding</em></td><td>3</td><td>Added to make total size a multiple of 4</td></tr></tbody></table><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8006-b8b2-cf1a9e24f676">Total = 1 + 3 + 4 + 1 + 3 = <strong>12 bytes</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8044-b31d-cbf5066168d5">The most portable way to minimize padding is to list struct members from largest to smallest. This allows smaller types to fill the alignment gaps left by larger ones. </p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8004-ad82-c88b938685f8"><strong>Inefficient Order:</strong> <code class="note-inline-code">char a; int b; char c;</code> (often 12 bytes because of gaps after each char).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8014-a846-e7641672300a"><strong>Optimized Order:</strong> <code class="note-inline-code">int b; char a; char c;</code> (often 8 bytes because <code class="note-inline-code">a</code> and <code class="note-inline-code">c</code> fit together after <code class="note-inline-code">b</code>).<figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="3b7d3a21-bb2d-8048-93c4-d85fe08d669a"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAflBMVEX/XgAgHB0dGx0AFx4tHxzMTwn1WwD/YQAaGx0OGR4YGh2IOhESGh0AGB0VGh4SGR7BSwudQBC6SQxFJxo1IhskHhwAEx+NOxIeHRyyRw3rWATkVgXZUwhVKxnSUQhuMhd6NhOBNxQ7JBqUPRGmQw9iLxhnMBZ1NBZbLBlKJxk8C7FfAAAELklEQVR4nO2Z67aiOBCFMcGEQECuXrgpiJfz/i84AfUIId3tmSlg9azsv7qsz6pNVSUYhpaWlpaWlpaWltZ/Ew12y8Y/uO6ZLhmfIcSb5eL7CVqt0L5ZKAfUN62VEOKHRQhEfHvVyUoOS8TPX/FbAn/+HPjv+ILAmj0H6358QWDO7YMjXg1kWeG8AOTCJYIknDcH6Z1JBGY5cxXucg5W/rwAoxzYcT5zFQqZoM5mBRAEUhU2UT4vQRl7QwIekVkBaCYTbKJ5q0DXtZyDIp00Yi6nuIxtiSCakiCLC6nlUmkqiCoUE1bhzLz9MRs+7b5MwKPJ4meuWIDY/pz2EWiZSARsMh+cus6D8H1QBzrOwWWap7FbQruWx479OgsfWHIOpiAgx3frZcmuVwcaJhIBr+AJaNhvvIgV/eE3IvBu4IOJSHm2t9fyTee7aEiAT8A5oI3U88QTH1fG63/SQCZAwMfGvLZkAFGHuCEvhIYPCZBbgQLs8Ci+kOUeX5vYKAeIg+Ygv3qjGnR1ML+LfZZzYFeQTqTh3UMKAsTq1wE5cKXP8A7UieTsMhWC5d6edXDkKlgBJIBB05vc95914NWj/QcSIdpCH5nCCCvrgKNDl+3dMAfDng0iEiClFWx+afsScXqrMnKhu1ErmlXuuCUIedhp/+77eUV7Z5qDAvFrZR1W7Cug1Di5r7KcJwnfqYmZisDCtRhR1aNhuMGEByWaO66yL9lJlfrd2MSn6cJ38guusoLoS3FbH3aD81++JopkUqOJuIJghdr4Xg0W3qBFcnd8g44gaH7aKusgzBCv4QAMjGyGcR2UqSFB0PxuKR9JG/K+ZI2fDudF1eQSA2kSxXxgkAsZ3X0/cTb3zK+qJAN7pVUi18GqQQ8Gl/7vI4th69b0bUn9y7AvIQR6ZZZHcpXRhpn3KiTftiQH3q/D5gIZ3whVRu9sGQVl9rAEJU6y+f6Mw07As7LpPm35dWryRyLWV/zMFIZ9h0EK5QryYmBeEjl+Srq+9HQgbAJSrhx8vWoIWybH1pZZ3X6VA89AX7mOyxCeaxYnx2zfoCDYmzJ6U49+RSI2m/abmyPwEF6fYow96zMKIbf882/+VHlwrRP2Oy++ZU9yM0BpFu4KjpXb6FBsqrd41Eizw7WdBsrp9xKKJ6jAG4Ia/vlaq49HzwrcJ4z/gCC57yRb/ItEsIkWcVlpc432zB5nAs91XS4sEZ7vlrDlcBDzmeI/GEgWXkzEN2+G6S0gQ1BjHdxixp6OYLCn8Q8hhC2r+HEcc2d+b/VCECrbmYVM8C6QrT9TGbRriwX+voTu9uZnSh4ehL4mpw5Dn6mzgHeEnkTU+eVCqOyDoNdy/wZgtzAAXxwA/E5EA/x1AEubEH4f+nEjAo5v0GqLf6DtFfxQQH4o6PhaWlpaWlpaWlpaWlr/f/0DViY+xu94gUsAAAAASUVORK5CYII=" alt="" /></figure></li></ul></article>
+      <nav class="next-reading" aria-label="Next reading">
+  <p class="section-kicker">/ Next</p>
+  <a class="next-reading-link" href="/topics/c/functions-in-c/">
+    <span>Next reading</span>
+    <strong>Functions in C</strong>
+    <p>Continue inside C Deep Dive</p>
+  </a>
+</nav>
+      
+    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Continue</p>
+        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
+        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
+      </div>
+      <div class="reading-trail-actions" aria-label="Reader next steps">
+        <a class="secondary-action" href="/start-here/">Start Here</a>
+        <a class="secondary-action" href="/blog/">Writing</a>
+        <a class="secondary-action" href="/projects/">Projects</a>
+        <a class="secondary-action" href="/subscribe/">Subscribe</a>
+      </div>
+    </section>
+  
+      
+    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
+      <div>
+        <p class="section-kicker">/ Subscribe</p>
+        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
+          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
+      </div>
+      <div class="subscribe-actions" aria-label="Subscription actions">
+        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
+        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
+        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
+      </div>
+    </section>
+  
+    </section>
+  
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <div>
+          <p class="section-kicker">/ Site map</p>
+          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/">Home</a>
+          <a href="/research-taste/">Research</a>
+          <a href="/notes/">Notes</a>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Writing</a>
+          <a href="/contact/">Contact</a>
+          <a href="/start-here/">Start</a>
+          <a href="/about/">About</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
+          <a href="/subscribe/">Subscribe</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </main>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        const themeToggle = document.querySelector(".theme-toggle");
+        const root = document.documentElement;
+        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function currentTheme() {
+          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
+        }
+
+        function renderThemeToggle() {
+          if (!themeToggle) {
+            return;
+          }
+
+          const isDark = currentTheme() === "dark";
+          const nextTheme = isDark ? "light" : "dark";
+          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
+        }
+
+        if (themeToggle) {
+          if (!themeToggle.disabled) {
+            renderThemeToggle();
+            themeToggle.addEventListener("click", () => {
+            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+            root.dataset.theme = nextTheme;
+            try {
+              window.localStorage.setItem("notes-theme", nextTheme);
+            } catch (error) {
+              // The selected theme still applies for this page when storage is unavailable.
+            }
+            renderThemeToggle();
+            });
+          }
+        }
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            if (searchInput) {
+              event.preventDefault();
+              searchInput.focus();
+              return;
+            }
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

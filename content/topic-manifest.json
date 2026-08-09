@@ -182,5 +182,27 @@
       "kind": "normalized-file",
       "path": "topics/agent-build.normalized.json"
     }
+  },
+  {
+    "slug": "c",
+    "title": "C Deep Dive",
+    "description": "A close look at the C language.",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/c.normalized.json"
+    },
+    "databaseLabelProperties": [
+      "Tags",
+      "Status"
+    ]
+  },
+  {
+    "slug": "cpp",
+    "title": "C++ Deep Dive",
+    "description": "An up close and personal look at C++.",
+    "source": {
+      "kind": "normalized-file",
+      "path": "topics/cpp.normalized.json"
+    }
   }
 ]

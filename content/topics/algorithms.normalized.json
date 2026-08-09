@@ -2261,10 +2261,915 @@
               "color": "default"
             },
             {
-              "type": "paragraph",
+              "type": "heading",
+              "notionType": "heading_1",
               "blockId": "351d3a21-bb2d-80fa-b3c2-e2ffb8e6449c",
-              "richText": [],
+              "level": 1,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Scheduling",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-80d6-8c59-cd71f3618efb",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "This works well because many scheduling problems have a structure where local optimal choices lead to global optimality.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
               "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "374d3a21-bb2d-8014-b178-cc1157a81eee",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Interval Scheduling (Activity Selection)",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8075-9750-caa5d31fe279",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Look for problems where tasks have ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "start and end times",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ", and the goal is to maximize the number of tasks without overlap.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8029-b2ea-d5f3448c1bb5",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The greedy solution would involve:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-80d2-acd6-e2494b974ca0",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Sort tasks by ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "earliest finish time",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ". ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-806f-803e-ece36e6e3e18",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Iteratively select the next task that starts after the last chosen task finishes.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-800c-9c1f-c9dd80933862",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "An example problem would be scheduling the maximum number of non-overlapping meetings in a single room.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "374d3a21-bb2d-8082-a836-d651294b6d43",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Job Sequencing with Deadlines",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8046-8023-cf65c2faa048",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Tasks have ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "deadlines and profits",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ", and the objective is to maximize profit while respecting deadlines.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8046-a3ce-cd9e3f6f4163",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The greedy solution would involve:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-8062-b85d-c94ca18dd024",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Sort jobs by ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "profit (descending)",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ". ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-8017-8045-f3bedfd6767c",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Place each job in the latest available slot before its deadline.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8094-a679-f19778c15af8",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "An example problem would be scheduling advertisements where each ad has a deadline and profit, and only one ad can run at a time.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "374d3a21-bb2d-80d3-b061-d1262379585f",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Minimizing Lateness",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8039-ae34-db5c01d7bb6f",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Problems where lateness is defined as ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "equation",
+                  "expression": "\\max(0, \\text{finish time} - \\text{deadline})"
+                },
+                {
+                  "type": "text",
+                  "content": ", and the goal is to minimize maximum lateness.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-80a3-8804-c1c03d1dd943",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The greedy solution would involve:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-8098-aa30-f97f7ba711e0",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Sort jobs by ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "earliest deadline first (EDF)",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ". ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "list_item",
+              "notionType": "numbered_list_item",
+              "blockId": "374d3a21-bb2d-8025-aca3-f6e52c846833",
+              "ordered": true,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Execute them in that order.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-80f1-b106-d0c15798598d",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "An example problem would be delivering packages where each has a deadline, and lateness is measured as how late the delivery is.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "heading",
+              "notionType": "heading_2",
+              "blockId": "374d3a21-bb2d-80fc-875b-e20c2a928a67",
+              "level": 2,
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "CPU Scheduling (Operating Systems)",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "isToggleable": false
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8078-a1f0-c6a60973b479",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Tasks are ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "processes with burst times or priorities",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": ", and the goal is to optimize CPU utilization or waiting time.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-8024-a500-f49fb4f92e74",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The greedy solution would use either of the following strategies:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default",
+              "children": [
+                {
+                  "type": "list_item",
+                  "notionType": "bulleted_list_item",
+                  "blockId": "374d3a21-bb2d-806c-9620-d9eabba2339d",
+                  "ordered": false,
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "Shortest Job First (SJF)",
+                      "annotations": {
+                        "bold": true,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": ": Pick the job with the shortest burst time.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                },
+                {
+                  "type": "list_item",
+                  "notionType": "bulleted_list_item",
+                  "blockId": "374d3a21-bb2d-80c7-8d72-cb161919c26b",
+                  "ordered": false,
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "Priority Scheduling",
+                      "annotations": {
+                        "bold": true,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": ": Pick the job with the highest priority.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                },
+                {
+                  "type": "list_item",
+                  "notionType": "bulleted_list_item",
+                  "blockId": "374d3a21-bb2d-80c3-b7a1-d140f81106c6",
+                  "ordered": false,
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "Round Robin",
+                      "annotations": {
+                        "bold": true,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": ": Rotate jobs in time slices (not greedy, but related).",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "blockId": "374d3a21-bb2d-801f-9eea-f598853b8531",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The choice depends on the metric we are trying to optimize for. One example would be scheduling processes in an operating system to minimize average waiting time.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "callout",
+              "blockId": "374d3a21-bb2d-8067-9685-e6def14c9d8a",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "However, not all scheduling problems have the the ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": "greedy-choice property",
+                  "annotations": {
+                    "bold": true,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "text",
+                  "content": " (a locally optimal choice leads to a globally optimal solution), so sometimes dynamic programming or other methods are needed.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "icon": {
+                "type": "emoji",
+                "emoji": "💡"
+              },
+              "color": "default_background",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "374d3a21-bb2d-8064-b7a0-fe4cfe1b879f",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "An example is ",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": "Weighted Interval Scheduling",
+                      "annotations": {
+                        "bold": true,
+                        "italic": true,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": " (given a set of jobs where each has a start time, finish time, and a specific weight or profit, the goal is to select a subset of mutually compatible (non-overlapping) jobs that maximizes the total weight). Greedy alone doesn’t work. We must use ",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": "dynamic programming",
+                      "annotations": {
+                        "bold": true,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    },
+                    {
+                      "type": "text",
+                      "content": " with binary search for compatible intervals.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
             }
           ]
         },
@@ -2408,7 +3313,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/333d3a21bb2d80b08f34fd34eef5dd2e#335d3a21bb2d800fabddfe58cd809ae1"
+                  "href": "https://app.notion.com/p/333d3a21bb2d80b08f34fd34eef5dd2e#335d3a21bb2d800fabddfe58cd809ae1"
                 },
                 {
                   "type": "text",
@@ -5274,7 +6179,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/333d3a21bb2d80b08f34fd34eef5dd2e#335d3a21bb2d8004b57febd772555216"
+                  "href": "https://app.notion.com/p/333d3a21bb2d80b08f34fd34eef5dd2e#335d3a21bb2d8004b57febd772555216"
                 },
                 {
                   "type": "text",
@@ -8780,7 +9685,7 @@
               "type": "asset",
               "kind": "image",
               "blockId": "342d3a21-bb2d-8070-a6de-d48ee9bfe45b",
-              "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/6c764775-995b-44f3-b882-01ba3a807663/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4665NAAB365%2F20260523%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260523T040313Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGQaCXVzLXdlc3QtMiJGMEQCIB7GX%2B%2F5UViYDK%2FzpZjMuDyJqpzeMtxPPAQIR0F%2BLbwDAiBBJFUZrMY2oezVEXiuxcT6Zms5n%2FQTOLyTpGvNzzYx9Cr%2FAwgtEAAaDDYzNzQyMzE4MzgwNSIMhPWEUNw5Me2u1juoKtwDiDiG3aZhcWEa%2FXTzyxmuQhQHfGkrt7yiHMAlbratvr0ak21kzc3Gc0U2i3iyCRfY8Hvwar%2F%2F6mpDbpDTbZ%2BnS4yr0ST2R%2BbDPf4%2B078PpMDeqzc50FiCJdZJSibOz1SmYwCZVgTMPzrw5F0QYolZXIA6kAPcYBDMwOjz0pLLdIHytHsZJTManABfqMJjaW1nNigNksc7c1JtUjx%2FUzD2A0H%2BeIbwAbyZhwItaP6U2jqx85llsV5N489NzAsIRDWAMIxBpOfz7JX0YqN6%2BIEb2Ukpigotzo56DBX%2FhJQDTb9zT%2F%2BA0puaaiTMpjqnzAcRPabhXFLkYtoLzMywvN1GhPWtK5TpojORWFTvuSoZIOB919w6r337vsOtkJh%2FRKmm8zIydByMUPcq%2BR%2FzHm2zuxr5t47aaWRRuK26PlrdQDR0KB4U96btjC3hn5rR%2Fq14D93Zu%2Fb58V7XFEBS%2BJiyBASA0brg%2BJ66FarabT6wlk0iWA2C1GkVG33zzBqoIIIXN6M%2BkmegVQSGNzV2HC7AoSpid2nuJTR%2F%2FFjd9cS%2BcOdWbiGZoUqffR9%2BCHIEH3RhfyPpA5u9%2Fp0KduIFbV%2B0bumHc%2FIhSl5A01uAvMBkNUdmJnSCQU%2BF0nzGMeQwgsvE0AY6pgFlbt8BPIfp1Ho3iATIB%2Bd%2BV9TgS8x7hY0VglVOR723PjG4FVTHRwl%2BhfYxEUz5TvepFVjF8kJQ1XPnCC0uWzMwssvSpprRC2yZzEZNIrWUhotUEv7maptf5BVP%2F9TmwIzYt7nWs%2BSUX%2BA6W77RVt1xlk1pL8wwXFQRuNUMMSCdfTPejdsgKhBA78rm6vmYMvZFBzdCcKkINFQPWyvPv6cu0mzkrT1x&X-Amz-Signature=710394e1d59ef00c039e3fe333d66d8cc16c92a42ab5368a88210291225fa6d9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+              "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/6c764775-995b-44f3-b882-01ba3a807663/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466S5DMZVYT%2F20260809%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260809T131713Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIGQriXAJjqJ6mWuDAyemIRqb1uwvNj99W5jKg%2BSdkT%2FiAiBKBkCbBH1MTlHKefI%2FW16elqpy8OdKBIbYzgorxXQIpiqIBAiD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMxhN3HinO3jjzhWv1KtwDfjs3L0by5L5UuqsBxkqLBgd64Ir2bc7YPYqq6%2B53crJUMlyR9f3IAGkfnBPtjKos6mGczfSO1r5o5qQFrmNnMwspqRXWqeP1QhQMj4ThW7IFZCOSCGaMXNA8oZ9jfqx0%2BoM7yEvyln71fS3O3sMCtyC%2BCIhjqfStjEmo%2BYofR0Tj2XCJcG3Pe5ooNZVUXakaL%2Bm3FdzfnFw%2FYxyaVpTQbYF%2BoCWx82Yq0UwnXSf6R0JVXSH8IUmiMmNtSN3%2B1QJzw4eMQRKUHo021Xit%2BYrwFWcpKlffRo67RGlmHBN3Er%2FB8L34BK0JWRgYM1i23u2eScCAcAEfDR6rR5nFPnlChmTfqWNX%2F0KQY8V8MUNIyaQhex8CbeC6NqGD%2BVkp5LsTJJim9MSHpyfN9Mo2xTJNeR1KmPDPKqZhRJVB9E9uw9NkxkvJ6tcpx71nscFvfOLiB6IRUWXtGjRW5QLlh0XWi8H4Odj3OddBHD7G6E4p24sVa3yC%2FEHcAm4tVHrx254hnygjeXTNPMx%2BLPxnyKs2ui4u1LDTZxFDy6rriS9USudlXwcaswGbWpMoifCiqj3wr5Pv6v8jPK1OtQnguCQ9TTAx5nYOZUzcl%2B5fCcEz1p9babgnjuYUuZ0U0bcw36Th0wY6pgHuNX72w5wmnsTWeYwSJDqBGf4H8CqhrzlLBBFp2laobhm6a51awNWjLYkBd0aNMYnTPgA37KaCdQ3nc0ALSM2hw%2Bs2hJjb6KsMyp%2BvTssWJQpuEtg%2FzPW6heMTWX6uz34pmm8s3X1RbgIm%2FfuVc3m0a9l8TyIfvwZngEkOSuX3Kf2vUG5GnL9nqcUORIEpEuwQGvvntyDSVemSp6dRL82d%2FzUzdNkL&X-Amz-Signature=601323a47c4311e2377875fc9a7c8aef15b070a1fcc3d145a15c2f5ea362fab1&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
               "caption": []
             },
             {
@@ -9384,7 +10289,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/341d3a21bb2d80e08982cee065f176f3#341d3a21bb2d809ea918c0d151c71514"
+                  "href": "https://app.notion.com/p/341d3a21bb2d80e08982cee065f176f3#341d3a21bb2d809ea918c0d151c71514"
                 },
                 {
                   "type": "text",
@@ -20168,7 +21073,7 @@
                     },
                     {
                       "type": "text",
-                      "content": "histo",
+                      "content": "histo[x]",
                       "annotations": {
                         "bold": false,
                         "italic": false,
@@ -20216,26 +21121,13 @@
                     },
                     {
                       "type": "text",
-                      "content": "histo",
+                      "content": "histo[v]",
                       "annotations": {
                         "bold": false,
                         "italic": false,
                         "strikethrough": false,
                         "underline": false,
                         "code": true,
-                        "color": "default"
-                      },
-                      "href": null
-                    },
-                    {
-                      "type": "text",
-                      "content": "[v]",
-                      "annotations": {
-                        "bold": false,
-                        "italic": false,
-                        "strikethrough": false,
-                        "underline": false,
-                        "code": false,
                         "color": "default"
                       },
                       "href": null
@@ -20655,7 +21547,7 @@
             {
               "type": "code",
               "blockId": "32dd3a21-bb2d-804f-bcf0-d55f0324711a",
-              "language": "plain text",
+              "language": "python",
               "code": "function counting_sort(array A):\n    let n = length(A)\n    let k = maximum value in A\n\n    create count[0..k] initialized to 0\n\n    for each element x in A:\n        count[x] += 1\n\n    create output array B of size n\n    index = 0\n    for value from 0 to k:\n        while count[value] > 0:\n            B[index] = value\n            index += 1\n            count[value] -= 1\n\n    return B",
               "caption": []
             },
@@ -22080,6 +22972,123 @@
           "title": "Linear-time selection ",
           "labels": [],
           "children": [
+            {
+              "type": "paragraph",
+              "blockId": "3b4d3a21-bb2d-8011-a82d-e77a095af525",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "A selection algorithm finds the  ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "equation",
+                  "expression": "k^{th}"
+                },
+                {
+                  "type": "text",
+                  "content": " smallest (or largest) value in a collection of orderable values (known as the ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "equation",
+                  "expression": "k^{th}"
+                },
+                {
+                  "type": "text",
+                  "content": " order statistic). ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "3b4d3a21-bb2d-80d7-baa9-dbae06c74a7d",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "We say this problem because although there is an easy way to do it by sorting and then extracting the element in ",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                },
+                {
+                  "type": "equation",
+                  "expression": "O(N \\log{N})"
+                },
+                {
+                  "type": "text",
+                  "content": " time, there are some clever algorithms we can deploy to solve this problem faster.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "3b4d3a21-bb2d-80f7-ae87-e5faee09cc60",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "Here we look at the clever approaches to doing selection. In addition to understanding these algorithms these algorithms are also very meaningful for analysis, because a good analysis strategy will easily lead us to the time complexity.",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "3b4d3a21-bb2d-8067-8b37-e2eeb35567c7",
+              "richText": [],
+              "color": "default"
+            },
             {
               "type": "paragraph",
               "blockId": "318d3a21-bb2d-806d-ae01-fef8cc57f22b",
@@ -29947,7 +30956,7 @@
                         "code": false,
                         "color": "default"
                       },
-                      "href": "https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de#326d3a21bb2d80b892b8c96e804cd9d7"
+                      "href": "https://app.notion.com/p/2c6d3a21bb2d805b97f4e43102dff2de#326d3a21bb2d80b892b8c96e804cd9d7"
                     },
                     {
                       "type": "text",
@@ -37472,7 +38481,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2cdd3a21bb2d8065aa34c81dee6a8175#2cdd3a21bb2d8022b694eec222315b40"
+                  "href": "https://app.notion.com/p/2cdd3a21bb2d8065aa34c81dee6a8175#2cdd3a21bb2d8022b694eec222315b40"
                 },
                 {
                   "type": "text",
@@ -38584,7 +39593,7 @@
                         "code": false,
                         "color": "default"
                       },
-                      "href": "https://www.notion.so/347d3a21bb2d805e94dfe8d1dee28da2#335d3a21bb2d80eb947effe912350326"
+                      "href": "https://app.notion.com/p/347d3a21bb2d805e94dfe8d1dee28da2#335d3a21bb2d80eb947effe912350326"
                     },
                     {
                       "type": "text",
@@ -38670,7 +39679,29 @@
                   "href": null
                 }
               ],
-              "color": "default"
+              "color": "default",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "blockId": "36bd3a21-bb2d-806d-a6dd-f3f2c2500ff2",
+                  "richText": [
+                    {
+                      "type": "text",
+                      "content": "In fact, every DP problem can be viewed as a graph.",
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "href": null
+                    }
+                  ],
+                  "color": "default"
+                }
+              ]
             },
             {
               "type": "callout",
@@ -38678,7 +39709,7 @@
               "richText": [
                 {
                   "type": "text",
-                  "content": "In fact, every DP problem can be viewed as a graph.",
+                  "content": "Identifying a DP problem may not be easy. One of the tricks that can help identify DP is a DAG relationship between the sub-problems. Then, if there is evidence of repeated sub-problem solving, we can be sure that DP is the approach.",
                   "annotations": {
                     "bold": false,
                     "italic": false,
@@ -40844,7 +41875,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/333d3a21bb2d80b08f34fd34eef5dd2e"
+                  "href": "https://app.notion.com/p/333d3a21bb2d80b08f34fd34eef5dd2e"
                 },
                 {
                   "type": "text",
@@ -41185,7 +42216,7 @@
                         "code": false,
                         "color": "default"
                       },
-                      "href": "https://www.notion.so/2d9d3a21bb2d80bf9d89c3d578dc46d4"
+                      "href": "https://app.notion.com/p/2d9d3a21bb2d80bf9d89c3d578dc46d4"
                     },
                     {
                       "type": "text",
@@ -41454,7 +42485,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2dad3a21bb2d808cad9ddad0fffa95bc"
+                  "href": "https://app.notion.com/p/2dad3a21bb2d808cad9ddad0fffa95bc"
                 },
                 {
                   "type": "text",
@@ -41489,7 +42520,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2dad3a21bb2d80f0b521edfc767b4527"
+                  "href": "https://app.notion.com/p/2dad3a21bb2d80f0b521edfc767b4527"
                 },
                 {
                   "type": "text",
@@ -50184,183 +51215,6 @@
         },
         {
           "type": "child_page",
-          "blockId": "2c9d3a21-bb2d-803c-b4a6-f5c05d49f344",
-          "title": "Linear Time Selection",
-          "labels": [],
-          "children": [
-            {
-              "type": "paragraph",
-              "blockId": "2c9d3a21-bb2d-801a-8622-e2743121c98d",
-              "richText": [
-                {
-                  "type": "text",
-                  "content": "A selection algorithm finds the  ",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                },
-                {
-                  "type": "equation",
-                  "expression": "k^{th}"
-                },
-                {
-                  "type": "text",
-                  "content": " smallest (or largest) value in a collection of orderable values (known as the ",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                },
-                {
-                  "type": "equation",
-                  "expression": "k^{th}"
-                },
-                {
-                  "type": "text",
-                  "content": " order statistic). ",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                }
-              ],
-              "color": "default"
-            },
-            {
-              "type": "paragraph",
-              "blockId": "2c9d3a21-bb2d-8052-bc5c-c4585f64de42",
-              "richText": [
-                {
-                  "type": "text",
-                  "content": "We say this problem because although there is an easy way to do it by sorting and then extracting the element in ",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                },
-                {
-                  "type": "equation",
-                  "expression": "O(N \\log{N})"
-                },
-                {
-                  "type": "text",
-                  "content": " time, there are some clever algorithms we can deploy to solve this problem faster.",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                }
-              ],
-              "color": "default"
-            },
-            {
-              "type": "paragraph",
-              "blockId": "2c9d3a21-bb2d-8076-9c47-f58928e790e2",
-              "richText": [
-                {
-                  "type": "text",
-                  "content": "Here we look at the clever approaches to doing selection. In addition to understanding these algorithms these algorithms are also very meaningful analyze because a good analysis strategy will easily lead us to the time complexity.",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                }
-              ],
-              "color": "default"
-            },
-            {
-              "type": "heading",
-              "notionType": "heading_1",
-              "blockId": "2c9d3a21-bb2d-8098-8ed7-ef0e5bb1d491",
-              "level": 1,
-              "richText": [
-                {
-                  "type": "text",
-                  "content": "Quickselect",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                }
-              ],
-              "color": "default",
-              "isToggleable": false
-            },
-            {
-              "type": "paragraph",
-              "blockId": "2c9d3a21-bb2d-8044-bc44-d3622ba453cd",
-              "richText": [],
-              "color": "default"
-            },
-            {
-              "type": "heading",
-              "notionType": "heading_1",
-              "blockId": "2c9d3a21-bb2d-80c6-9087-e46d231b557f",
-              "level": 1,
-              "richText": [
-                {
-                  "type": "text",
-                  "content": "Median of Medians",
-                  "annotations": {
-                    "bold": false,
-                    "italic": false,
-                    "strikethrough": false,
-                    "underline": false,
-                    "code": false,
-                    "color": "default"
-                  },
-                  "href": null
-                }
-              ],
-              "color": "default",
-              "isToggleable": false
-            },
-            {
-              "type": "paragraph",
-              "blockId": "2c9d3a21-bb2d-8009-9721-ce593792d8a9",
-              "richText": [],
-              "color": "default"
-            }
-          ]
-        },
-        {
-          "type": "child_page",
           "blockId": "2c9d3a21-bb2d-80be-b18b-c654d0fae6ce",
           "title": "Quick Sort",
           "labels": [],
@@ -51051,7 +51905,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/318d3a21bb2d8024b571f9e6d6b87e61#318d3a21bb2d80698fe4c5febff47dc3"
+                  "href": "https://app.notion.com/p/318d3a21bb2d8024b571f9e6d6b87e61#318d3a21bb2d80698fe4c5febff47dc3"
                 },
                 {
                   "type": "text",
@@ -51128,6 +51982,33 @@
                 }
               ],
               "color": "default"
+            },
+            {
+              "type": "paragraph",
+              "blockId": "37bd3a21-bb2d-808d-902f-dbd935fb8e12",
+              "richText": [
+                {
+                  "type": "text",
+                  "content": "The other approach to 3-way partitioning is complicated and involves maintaining pointers very carefully. Here is what the algorithm might look like:",
+                  "annotations": {
+                    "bold": false,
+                    "italic": false,
+                    "strikethrough": false,
+                    "underline": false,
+                    "code": false,
+                    "color": "default"
+                  },
+                  "href": null
+                }
+              ],
+              "color": "default"
+            },
+            {
+              "type": "code",
+              "blockId": "37bd3a21-bb2d-80b5-8203-d6af745c9a39",
+              "language": "c",
+              "code": "def partition_by_range(arr, lowVal, highVal):\n    lt = 0\n    i = 0\n    gt = len(arr) - 1\n    \n    while i <= gt:\n        if arr[i] < lowVal:\n            arr[lt], arr[i] = arr[i], arr[lt]\n            lt += 1\n            i += 1\n        elif arr[i] > highVal:\n            arr[i], arr[gt] = arr[gt], arr[i]\n            gt -= 1\n        else:\n            i += 1",
+              "caption": []
             },
             {
               "type": "heading",
@@ -52496,7 +53377,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/31ad3a21bb2d8057af65deab5b81aed4"
+                  "href": "https://app.notion.com/p/31ad3a21bb2d8057af65deab5b81aed4"
                 },
                 {
                   "type": "text",
@@ -54455,7 +55336,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de#326d3a21bb2d8043898ce19728e3d024"
+                  "href": "https://app.notion.com/p/2c6d3a21bb2d805b97f4e43102dff2de#326d3a21bb2d8043898ce19728e3d024"
                 },
                 {
                   "type": "text",
@@ -55474,7 +56355,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2c6d3a21bb2d8081ad93d257a078a51f#319d3a21bb2d8075a7b3f7d64900132b"
+                  "href": "https://app.notion.com/p/2c6d3a21bb2d8081ad93d257a078a51f#319d3a21bb2d8075a7b3f7d64900132b"
                 },
                 {
                   "type": "text",
@@ -57468,7 +58349,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2dad3a21bb2d80f0b521edfc767b4527#342d3a21bb2d80bc9767cef05c8810f5"
+                  "href": "https://app.notion.com/p/2dad3a21bb2d80f0b521edfc767b4527#342d3a21bb2d80bc9767cef05c8810f5"
                 },
                 {
                   "type": "text",
@@ -62526,7 +63407,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2c6d3a21bb2d8081ad93d257a078a51f"
+                  "href": "https://app.notion.com/p/2c6d3a21bb2d8081ad93d257a078a51f"
                 },
                 {
                   "type": "text",
@@ -62561,7 +63442,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de"
+                  "href": "https://app.notion.com/p/2c6d3a21bb2d805b97f4e43102dff2de"
                 },
                 {
                   "type": "text",
@@ -62627,7 +63508,7 @@
                     "code": false,
                     "color": "default"
                   },
-                  "href": "https://www.notion.so/2c6d3a21bb2d805b97f4e43102dff2de#2c9d3a21bb2d80a289d9e58cd90617a3"
+                  "href": "https://app.notion.com/p/2c6d3a21bb2d805b97f4e43102dff2de#2c9d3a21bb2d80a289d9e58cd90617a3"
                 },
                 {
                   "type": "text",
@@ -64484,7 +65365,7 @@
                           "code": false,
                           "color": "default"
                         },
-                        "href": "https://www.notion.so/2cbd3a21bb2d80ea95ddc2992ea6d9c4"
+                        "href": "https://app.notion.com/p/2cbd3a21bb2d80ea95ddc2992ea6d9c4"
                       },
                       {
                         "type": "text",

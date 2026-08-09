@@ -55,7 +55,7 @@ EOF
 
 ```bash
 set -a
-source .env.local
+source .env
 set +a
 ```
 
@@ -223,8 +223,8 @@ Topic subtitles are the `description` fields in `content/topic-manifest.json`. U
 
 ```bash
 node scripts/update-topic-subtitle.js \
-  --slug agent-coding \
-  --subtitle "Agents, feedback loops, and implementation habits."
+  --slug cpp \
+  --subtitle "An up close and personal look at C++."
 ```
 
 To clear a subtitle intentionally, pass an empty string:
