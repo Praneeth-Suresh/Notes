@@ -913,19 +913,19 @@ function renderNextReading(nextReading) {
 const DEFAULT_PROJECTS_DATA = {
   projects: [
     {
-      slug: "computer-science-notes",
-      title: "Computer Science Notes",
-      status: "active flagship",
+      slug: "notes",
+      title: "Notes — this site",
+      status: "active · current site",
       summary:
-        "Static technical hub with Notion ingestion, route generation, search, RSS, and formatting fidelity checks.",
+        "The site you are reading: a static technical-notes system that turns a personal study corpus into reliable public work.",
       problem:
-        "Technical notes need durable navigation, search, sharing metadata, and formatting fidelity to become useful public proof.",
+        "Technical notes need source fidelity and durable discovery to remain useful beyond their original workspace.",
       method:
         "Build-time Notion ingestion and static route generation keep the deployed site fast, inspectable, and Cloudflare Pages compatible.",
       result:
         "The site publishes topic hierarchies, child pages, blog posts, RSS, sitemap, MathJax-backed LaTeX, code blocks, and deterministic checks.",
       codeUrl: "https://github.com/Praneeth-Suresh/Notes",
-      writeupUrl: "/topics/agent-coding/the-design-concept/",
+      writeupUrl: "/notes/",
       tags: ["static-site", "notion", "search"],
     },
   ],
@@ -994,11 +994,24 @@ function renderProjectTagList(tags) {
   return renderTagList(tags, "Project tags");
 }
 
+function renderProjectTrace(project) {
+  const variant = /^[a-z0-9-]+$/u.test(project.slug) ? project.slug : "default";
+  return `<span class="project-trace project-trace--${escapeHtml(variant)}" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+</span>`;
+}
+
 function renderProjectCard(project, index) {
-  return `<a class="portfolio-project" href="/projects/${escapeHtml(project.slug)}/" data-index="${String(index + 1).padStart(2, "0")}">
-  <span class="portfolio-project-kind">${escapeHtml(project.status)}${project.updatedAt ? ` · as of ${escapeHtml(project.updatedAt)}` : ""}</span>
-  <h3>${escapeHtml(project.title)}</h3>
+  const itemNumber = String(index + 1).padStart(2, "0");
+  return `<a class="project-atlas-card" href="/projects/${escapeHtml(project.slug)}/" data-project="${escapeHtml(project.slug)}">
+  <span class="project-atlas-card-top">
+    <span class="project-atlas-coordinate">system / ${itemNumber}</span>
+    ${renderProjectTrace(project)}
+  </span>
+  <span class="project-atlas-status">${escapeHtml(project.status)}</span>
+  <h2>${escapeHtml(project.title)}</h2>
   <p>${escapeHtml(project.summary)}</p>
+  <span class="project-atlas-link">Inspect dossier <span aria-hidden="true">→</span></span>
 </a>`;
 }
 
@@ -1792,20 +1805,20 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
   const projects = getProjectItems(projectsData);
   const projectCards = projects.map((project, index) => renderProjectCard(project, index)).join("");
   const content = `
-    <section id="main-content" class="start-hero" aria-labelledby="projects-title">
-      <p class="home-kicker">[ Projects ]</p>
-      <h1 id="projects-title">Selected projects</h1>
-      <p>Inspectable proof of work: problem, method, result, code, write-up, and status for selected technical projects.</p>
-    </section>
-    <section class="panel portfolio-section" aria-labelledby="projects-route-title">
-      <div class="route-proof-layout">
-        <div class="portfolio-section-header">
-          <p class="section-kicker">/ Proof assets</p>
-          <h2 id="projects-route-title" class="section-title">A small number of strong projects beats a wall of repositories.</h2>
-        </div>
-        ${renderRouteFigure("projects")}
+    <section id="main-content" class="project-atlas-hero" aria-labelledby="projects-title">
+      <div>
+        <p class="home-kicker">[ Current systems / ${String(projects.length).padStart(2, "0")} ]</p>
+        <h1 id="projects-title">Systems with a trail.</h1>
       </div>
-      <div class="portfolio-project-grid">${projectCards}</div>
+      <p>Four active projects across knowledge systems, agentic tooling, public technical writing, and AI education. Each dossier traces the work from the constraint to the artifact.</p>
+    </section>
+    <section class="project-atlas" aria-labelledby="projects-atlas-title">
+      <div class="project-atlas-heading">
+        <p class="section-kicker">/ Project atlas</p>
+        <h2 id="projects-atlas-title">Follow the system, not the slogan.</h2>
+        <p>Each project page makes its purpose, construction, and published evidence explicit.</p>
+      </div>
+      <div class="project-atlas-grid">${projectCards}</div>
     </section>
     ${renderContactCtaPanel({ source: "projects-index" })}
   `;
@@ -1826,6 +1839,10 @@ function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projec
 function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, projectsData = DEFAULT_PROJECTS_DATA }) {
   const normalizedProject = normalizeProject(project) || getProjectItems(projectsData)[0];
   const projects = getProjectItems(projectsData);
+  const projectIndex = Math.max(
+    0,
+    projects.findIndex((candidate) => candidate.slug === normalizedProject.slug),
+  );
   const relatedProjects = projects
     .filter((candidate) => candidate.slug !== normalizedProject.slug)
     .slice(0, 2)
@@ -1833,50 +1850,58 @@ function renderProjectPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, project, pro
     .join("");
   const projectUrlPath = `/projects/${normalizedProject.slug}/`;
   const details = [
-    ["Problem", normalizedProject.problem],
-    ["Method", normalizedProject.method],
-    ["Result", normalizedProject.result],
-    ["Status", normalizedProject.status],
+    ["Constraint", normalizedProject.problem],
+    ["Construction", normalizedProject.method],
+    ["Published evidence", normalizedProject.result],
   ]
     .map(
-      ([label, value]) => `<section class="repo-group" aria-label="${escapeHtml(label)}">
-  <h3>${escapeHtml(label)}</h3>
+      ([label, value], index) => `<section class="project-dossier-evidence" aria-label="${escapeHtml(label)}" data-index="${String(index + 1).padStart(2, "0")}">
+  <p>${escapeHtml(label)}</p>
   <p>${escapeHtml(value || "To be documented.")}</p>
 </section>`,
     )
     .join("");
   const codeLink = normalizedProject.codeUrl
-    ? `<a class="primary-action" href="${escapeHtml(normalizedProject.codeUrl)}">Code</a>`
+    ? `<a class="primary-action" href="${escapeHtml(normalizedProject.codeUrl)}">View repository</a>`
     : "";
   const writeupLink = normalizedProject.writeupUrl
-    ? `<a class="secondary-action" href="${escapeHtml(normalizedProject.writeupUrl)}">Write-up</a>`
+    ? `<a class="secondary-action" href="${escapeHtml(normalizedProject.writeupUrl)}">Open companion</a>`
     : "";
 
   const content = `
-    <section id="main-content" class="start-hero" aria-labelledby="project-title">
-      <p class="home-kicker">[ Project ]</p>
-      <h1 id="project-title">${escapeHtml(normalizedProject.title)}</h1>
-      <p>${escapeHtml(normalizedProject.summary)}</p>
-      ${renderProjectTagList(normalizedProject.tags)}
-      <div class="home-actions" aria-label="Project actions">
-        ${codeLink}
-        ${writeupLink}
+    <section id="main-content" class="project-dossier-hero" aria-labelledby="project-title">
+      <div class="project-dossier-identity">
+        <p class="home-kicker">[ Project dossier / ${String(projectIndex + 1).padStart(2, "0")} ]</p>
+        <h1 id="project-title">${escapeHtml(normalizedProject.title)}</h1>
+        <p>${escapeHtml(normalizedProject.summary)}</p>
+        <div class="home-actions" aria-label="Project actions">
+          ${codeLink}
+          ${writeupLink}
+        </div>
       </div>
+      <aside class="project-dossier-signal" aria-label="Project metadata">
+        ${renderProjectTrace(normalizedProject)}
+        <dl>
+          <div><dt>Status</dt><dd>${escapeHtml(normalizedProject.status)}</dd></div>
+          <div><dt>Updated</dt><dd>${escapeHtml(normalizedProject.updatedAt || "Current")}</dd></div>
+        </dl>
+        ${renderProjectTagList(normalizedProject.tags)}
+      </aside>
     </section>
-    <section class="panel portfolio-section" aria-labelledby="project-case-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ Case study</p>
-        <h2 id="project-case-title" class="section-title">Problem, method, result, code, write-up, and status.</h2>
+    <section class="project-dossier-evidence-grid" aria-labelledby="project-evidence-title">
+      <div class="project-dossier-evidence-intro">
+        <p class="section-kicker">/ Evidence trail</p>
+        <h2 id="project-evidence-title">What the project makes inspectable.</h2>
       </div>
-      <div class="repo-map">${details}</div>
+      ${details}
     </section>
     ${renderContactCtaPanel({ source: `project-${normalizedProject.slug}`, compact: true })}
-    ${relatedProjects ? `<section class="panel portfolio-section" aria-labelledby="project-related-title">
-      <div class="portfolio-section-header">
-        <p class="section-kicker">/ More projects</p>
-        <h2 id="project-related-title" class="section-title">Continue inspecting the project trail.</h2>
+    ${relatedProjects ? `<section class="project-atlas project-atlas-related" aria-labelledby="project-related-title">
+      <div class="project-atlas-heading">
+        <p class="section-kicker">/ Continue the trail</p>
+        <h2 id="project-related-title">More current systems.</h2>
       </div>
-      <div class="portfolio-project-grid">${relatedProjects}</div>
+      <div class="project-atlas-grid">${relatedProjects}</div>
     </section>` : ""}
   `;
 

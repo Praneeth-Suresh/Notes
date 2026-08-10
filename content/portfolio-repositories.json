@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-23T04:00:09.850Z",
+  "generatedAt": "2026-08-10T00:00:00.000Z",
   "source": {
     "provider": "github",
     "username": "Praneeth-Suresh",
@@ -8,18 +8,32 @@
   "reviewedRepositoryCount": 29,
   "portfolioProjects": [
     {
-      "name": "Notes",
-      "href": "/projects/computer-science-notes/",
-      "kind": "Static knowledge system",
-      "language": "JavaScript",
-      "summary": "Great, no-nonsense computer science field notes"
+      "name": "AI Society Corpus",
+      "href": "/projects/ai-society-corpus/",
+      "kind": "NUS AI Society knowledge graph",
+      "language": "Astro",
+      "summary": "Interactive AI/ML learning paths mapped through prerequisite, similarity, and backlink relationships."
     },
     {
-      "name": "AgentCoding",
-      "href": "/projects/agentic-coding-workflows/",
-      "kind": "Agentic workflow",
+      "name": "Beryl",
+      "href": "/projects/beryl/",
+      "kind": "Agentic development control plane",
       "language": "Shell",
-      "summary": "A repository and public notes trail for controllable agent workflows, review boundaries, and reliable AI-assisted development."
+      "summary": "Repository-owned task routing, deterministic checks, and review evidence for AI-assisted development."
+    },
+    {
+      "name": "Notes — this site",
+      "href": "/projects/notes/",
+      "kind": "Static knowledge system",
+      "language": "JavaScript",
+      "summary": "The public technical-notes system behind this site."
+    },
+    {
+      "name": "SIAP",
+      "href": "/projects/siap/",
+      "kind": "Agentic-systems manuscript",
+      "language": "Python",
+      "summary": "A theory-backed book and static reader for the structure of agentic systems."
     }
   ],
   "repositoryGroups": [

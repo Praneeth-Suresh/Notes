@@ -315,30 +315,54 @@ test("builds child_page routes and makes subpages searchable", async () => {
         {
           projects: [
             {
+              slug: "ai-society-corpus",
+              title: "AI Society Corpus",
+              status: "active · NUS AI Society",
+              updatedAt: "2026-08-10",
+              summary: "An interactive AI/ML knowledge graph.",
+              problem: "AI/ML learners need connected study paths.",
+              method: "Generate prerequisite, similarity, and backlink edges from Markdown topics.",
+              result: "Readers can inspect a navigable concept network.",
+              codeUrl: "https://github.com/NUSAISoc/aisoc-corpus",
+              tags: ["knowledge-graph", "astro"],
+            },
+            {
+              slug: "beryl",
+              title: "Beryl",
+              status: "active · developer tooling",
+              updatedAt: "2026-08-10",
+              summary: "A repository-owned guarantee layer for AI-assisted development.",
+              problem: "Agents need one source of truth and reviewable evidence.",
+              method: "Install task routing, deterministic checks, and test-manifest protection.",
+              result: "Teams can inspect a repeatable intent-to-signoff loop.",
+              codeUrl: "https://github.com/Praneeth-Suresh/Beryl",
+              writeupUrl: "/blog/beryl-02-what-i-built/",
+              tags: ["agentic-coding", "testing"],
+            },
+            {
               slug: "notes",
-              title: "Notes",
-              status: "active flagship",
-              updatedAt: "2026-08-07",
-              summary: "A static technical hub.",
-              problem: "Readers need searchable and shareable notes.",
-              method: "Generate static pages from normalized note data.",
-              result: "The site exposes topics, search, RSS, and project pages.",
+              title: "Notes — this site",
+              status: "active · current site",
+              updatedAt: "2026-08-10",
+              summary: "The site you are reading.",
+              problem: "Technical notes need source fidelity and durable discovery.",
+              method: "Normalize Notion topic trees into static Cloudflare Pages artifacts.",
+              result: "The site preserves LaTeX, code blocks, paths, search, and RSS.",
               codeUrl: "https://github.com/Praneeth-Suresh/Notes",
-              writeupUrl: "/topics/agent-coding/the-design-concept/",
+              writeupUrl: "/notes/",
               tags: ["static-site", "notion"],
             },
             {
-              slug: "agentic-coding",
-              title: "Agentic Coding",
-              status: "active research and tooling",
-              updatedAt: "2026-08-07",
-              summary: "A public workflow trail around agentic coding.",
-              problem: "Agentic coding needs reliable boundaries.",
-              method: "Document harnesses, feedback loops, and review habits.",
-              result: "The notes provide a practical reliability path.",
-              codeUrl: "https://github.com/Praneeth-Suresh/AgentCoding",
-              writeupUrl: "/topics/agent-coding/",
-              tags: ["agents"],
+              slug: "siap",
+              title: "SIAP",
+              status: "active · research manuscript",
+              updatedAt: "2026-08-10",
+              summary: "A theory-backed agentic systems book.",
+              problem: "Agent engineering needs explicit system semantics.",
+              method: "Build a Markdown manuscript into a static reader and print artifacts.",
+              result: "The project publishes a MathJax book with PDF outputs and editorial checks.",
+              codeUrl: "https://github.com/Praneeth-Suresh/SIAP",
+              tags: ["agentic-systems", "technical-writing"],
             },
           ],
         },
@@ -413,14 +437,20 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const subscribeHtml = await fs.readFile(path.join(outDir, "subscribe", "index.html"), "utf8");
     const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
     const projectsHtml = await fs.readFile(path.join(outDir, "projects", "index.html"), "utf8");
+    const corpusProjectHtml = await fs.readFile(
+      path.join(outDir, "projects", "ai-society-corpus", "index.html"),
+      "utf8",
+    );
     const notesProjectHtml = await fs.readFile(
       path.join(outDir, "projects", "notes", "index.html"),
       "utf8",
     );
-    const agenticCodingProjectHtml = await fs.readFile(
-      path.join(outDir, "projects", "agentic-coding", "index.html"),
+    const siapProjectHtml = await fs.readFile(
+      path.join(outDir, "projects", "siap", "index.html"),
       "utf8",
     );
+    await assert.rejects(fs.access(path.join(outDir, "projects", "agentic-coding", "index.html")));
+    await assert.rejects(fs.access(path.join(outDir, "projects", "computer-science-notes", "index.html")));
     const contactHtml = await fs.readFile(path.join(outDir, "contact", "index.html"), "utf8");
     const collaborateHtml = await fs.readFile(
       path.join(outDir, "collaborate", "index.html"),
@@ -467,7 +497,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
       subscribeHtml,
       personalHtml,
       projectsHtml,
+      corpusProjectHtml,
       notesProjectHtml,
+      siapProjectHtml,
       contactHtml,
       collaborateHtml,
       notFoundHtml,
@@ -662,10 +694,9 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(homeHtml.includes('<meta property="og:url" content="https://example.test/" />'));
     assert.ok(homeHtml.includes('<meta property="og:image" content="https://example.test/assets/social/theoretical-cs-preview.svg" />'));
     assert.ok(homeHtml.includes('<meta property="og:image:width" content="1200" />'));
-    assert.ok(projectsHtml.includes('class="route-figure route-figure-projects"'));
-    assert.ok(projectsHtml.includes('class="route-proof-layout"'));
-    assert.ok(projectsHtml.indexOf('class="route-figure route-figure-projects"') > projectsHtml.indexOf('id="projects-route-title"'));
-    assert.ok(projectsHtml.indexOf('class="portfolio-project-grid"') > projectsHtml.indexOf('class="route-figure route-figure-projects"'));
+    assert.ok(projectsHtml.includes('class="project-atlas-hero"'));
+    assert.ok(projectsHtml.includes('class="project-atlas-heading"'));
+    assert.ok(projectsHtml.indexOf('class="project-atlas-grid"') > projectsHtml.indexOf('id="projects-atlas-title"'));
     assert.ok(projectsHtml.includes('href="/" data-hotkey="H"'));
     assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(contactHtml.includes('class="route-figure route-figure-contact"'));
@@ -676,6 +707,8 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(siteCss.includes(".route-figure"));
     assert.ok(siteCss.includes(".route-proof-layout"));
     assert.ok(siteCss.includes(".contact-channel-layout"));
+    assert.ok(siteCss.includes(".project-atlas-card"));
+    assert.ok(siteCss.includes(".project-dossier-evidence-grid"));
     assert.ok(siteCss.includes(".home-showcase"));
     assert.ok(siteCss.includes(".home-showcase-section"));
     assert.ok(siteCss.includes(".home-visual"));
@@ -849,28 +882,42 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(subscribeHtml.includes('<link rel="canonical" href="https://example.test/subscribe/" />'));
     assert.ok(subscribeHtml.includes(`<meta name="description" content="Subscribe for monthly AI research and project updates from Praneeth&#39;s CS Field Notes by email request or RSS." />`));
     assert.ok(projectsHtml.includes("<title>Projects · Praneeth&#39;s CS Field Notes</title>"));
-    assert.ok(projectsHtml.includes("Selected projects"));
-    assert.ok(projectsHtml.includes("problem, method, result, code, write-up, and status"));
+    assert.ok(projectsHtml.includes("Systems with a trail."));
+    assert.ok(projectsHtml.includes("Project atlas"));
+    assert.ok(projectsHtml.includes("Follow the system, not the slogan."));
+    assert.ok(projectsHtml.includes('class="project-atlas-grid"'));
+    assert.ok(projectsHtml.includes('href="/projects/ai-society-corpus/"'));
+    assert.ok(projectsHtml.includes('href="/projects/beryl/"'));
     assert.ok(projectsHtml.includes('href="/projects/notes/"'));
-    assert.ok(projectsHtml.includes("active flagship"));
-    assert.ok(projectsHtml.includes("as of 2026-08-07"));
+    assert.ok(projectsHtml.includes('href="/projects/siap/"'));
+    assert.ok(projectsHtml.includes("active · current site"));
+    assert.ok(!projectsHtml.includes('href="/projects/agentic-coding/"'));
+    assert.ok(!projectsHtml.includes('href="/projects/computer-science-notes/"'));
     assert.ok(projectsHtml.includes("Contact me about research, internships, consulting, or NUS AI Society collaboration."));
     assert.ok(projectsHtml.includes(OBFUSCATED_CONTACT_EMAIL));
     assert.ok(projectsHtml.includes('href="/projects/" data-hotkey="P"'));
     assert.ok(projectsHtml.includes('href="/contact/" data-hotkey="C"'));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
     assert.equal(findSchemaByType(projectsHtml, "CollectionPage").url, "https://example.test/projects/");
-    assert.ok(notesProjectHtml.includes("<title>Notes · Projects · Praneeth&#39;s CS Field Notes</title>"));
-    assert.ok(notesProjectHtml.includes("Problem"));
-    assert.ok(notesProjectHtml.includes("Readers need searchable and shareable notes."));
-    assert.ok(notesProjectHtml.includes("Method"));
-    assert.ok(notesProjectHtml.includes("Generate static pages from normalized note data."));
-    assert.ok(notesProjectHtml.includes("Result"));
-    assert.ok(notesProjectHtml.includes("The site exposes topics, search, RSS, and project pages."));
+    assert.ok(corpusProjectHtml.includes("<title>AI Society Corpus · Projects · Praneeth&#39;s CS Field Notes</title>"));
+    assert.ok(corpusProjectHtml.includes("Constraint"));
+    assert.ok(corpusProjectHtml.includes("AI/ML learners need connected study paths."));
+    assert.ok(corpusProjectHtml.includes("Construction"));
+    assert.ok(corpusProjectHtml.includes("Generate prerequisite, similarity, and backlink edges from Markdown topics."));
+    assert.ok(corpusProjectHtml.includes("Published evidence"));
+    assert.ok(corpusProjectHtml.includes("Readers can inspect a navigable concept network."));
+    assert.ok(corpusProjectHtml.includes('href="https://github.com/NUSAISoc/aisoc-corpus"'));
+    assert.ok(corpusProjectHtml.includes("knowledge-graph"));
+    assert.ok(corpusProjectHtml.includes('class="project-dossier-evidence-grid"'));
+    assert.ok(notesProjectHtml.includes("<title>Notes — this site · Projects · Praneeth&#39;s CS Field Notes</title>"));
+    assert.ok(notesProjectHtml.includes("The site you are reading."));
+    assert.ok(notesProjectHtml.includes("Technical notes need source fidelity and durable discovery."));
+    assert.ok(notesProjectHtml.includes("Normalize Notion topic trees into static Cloudflare Pages artifacts."));
+    assert.ok(notesProjectHtml.includes("The site preserves LaTeX, code blocks, paths, search, and RSS."));
     assert.ok(notesProjectHtml.includes("Status"));
-    assert.ok(notesProjectHtml.includes("active flagship"));
+    assert.ok(notesProjectHtml.includes("active · current site"));
     assert.ok(notesProjectHtml.includes('href="https://github.com/Praneeth-Suresh/Notes"'));
-    assert.ok(notesProjectHtml.includes('href="/topics/agent-coding/the-design-concept/"'));
+    assert.ok(notesProjectHtml.includes('href="/notes/"'));
     assert.ok(notesProjectHtml.includes("Have a concrete technical overlap?"));
     assert.ok(notesProjectHtml.includes('href="/cv.pdf" data-analytics-event="cv_download_click"'));
     assert.ok(!notesProjectHtml.includes("Calendly"));
@@ -878,9 +925,15 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!notesProjectHtml.includes('aria-label="Project navigation"'));
     assert.ok(!notesProjectHtml.includes('class="topic-nav"'));
     assert.ok(notesProjectHtml.includes('class="site-links" aria-label="Site navigation"'));
-    assert.ok(!agenticCodingProjectHtml.includes('aria-label="Project navigation"'));
-    assert.ok(!agenticCodingProjectHtml.includes('class="topic-nav"'));
-    assert.ok(agenticCodingProjectHtml.includes('class="site-links" aria-label="Site navigation"'));
+    assert.ok(siapProjectHtml.includes("<title>SIAP · Projects · Praneeth&#39;s CS Field Notes</title>"));
+    assert.ok(siapProjectHtml.includes("A theory-backed agentic systems book."));
+    assert.ok(siapProjectHtml.includes("Agent engineering needs explicit system semantics."));
+    assert.ok(siapProjectHtml.includes("Build a Markdown manuscript into a static reader and print artifacts."));
+    assert.ok(siapProjectHtml.includes("The project publishes a MathJax book with PDF outputs and editorial checks."));
+    assert.ok(siapProjectHtml.includes('href="https://github.com/Praneeth-Suresh/SIAP"'));
+    assert.ok(!siapProjectHtml.includes('aria-label="Project navigation"'));
+    assert.ok(!siapProjectHtml.includes('class="topic-nav"'));
+    assert.ok(siapProjectHtml.includes('class="site-links" aria-label="Site navigation"'));
     assert.ok(notesProjectHtml.includes('"@type":"BreadcrumbList"'));
     assert.ok(notesProjectHtml.includes('<link rel="canonical" href="https://example.test/projects/notes/" />'));
     assert.equal(findSchemaByType(notesProjectHtml, "CreativeWork").url, "https://example.test/projects/notes/");
@@ -1010,8 +1063,12 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapXml.includes("<loc>https://example.test/about/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/notes/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/ai-society-corpus/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/beryl/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/projects/notes/</loc>"));
-    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/agentic-coding/</loc>"));
+    assert.ok(sitemapXml.includes("<loc>https://example.test/projects/siap/</loc>"));
+    assert.ok(!sitemapXml.includes("<loc>https://example.test/projects/agentic-coding/</loc>"));
+    assert.ok(!sitemapXml.includes("<loc>https://example.test/projects/computer-science-notes/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/contact/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/collaborate/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://example.test/topics/algorithms/</loc>"));
@@ -1021,7 +1078,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(sitemapEntries.every((entry) => /^\d{4}-\d{2}-\d{2}$/u.test(entry.lastModified)));
     assert.deepEqual(
       sitemapEntries.find((entry) => entry.location === "https://example.test/"),
-      { location: "https://example.test/", lastModified: "2026-08-07" },
+      { location: "https://example.test/", lastModified: "2026-08-10" },
     );
     assert.ok(robotsTxt.includes("User-agent: *"));
     assert.ok(robotsTxt.includes("Allow: /"));

@@ -1,30 +1,54 @@
 {
   "projects": [
     {
-      "slug": "computer-science-notes",
-      "title": "Computer Science Notes",
-      "status": "active flagship",
-      "updatedAt": "2026-08-07",
-      "summary": "A static technical hub that turns Notion notes, blog essays, search, RSS, and portfolio pages into Cloudflare Pages artifacts.",
-      "problem": "Technical notes are useful only if readers can navigate, search, share, and trust their formatting. The project turns a personal study corpus into a durable public knowledge system.",
-      "method": "Build-time Notion ingestion normalizes topic trees into static routes. A site-styling boundary renders the shell, RSS, sitemap, metadata, and search without runtime services.",
-      "result": "The site publishes topic hierarchies, child pages, blog posts, RSS, sitemap, MathJax-backed LaTeX, code blocks, and deterministic build checks.",
-      "codeUrl": "https://github.com/Praneeth-Suresh/Notes",
-      "writeupUrl": "/topics/agent-coding/the-design-concept/",
-      "tags": ["static-site", "notion", "search", "cloudflare-pages"]
+      "slug": "ai-society-corpus",
+      "title": "AI Society Corpus",
+      "status": "active · NUS AI Society",
+      "updatedAt": "2026-08-10",
+      "summary": "An interactive knowledge graph that turns NUS AI Society's AI/ML learning material into connected study paths rather than isolated pages.",
+      "problem": "AI/ML learners need to see how concepts depend on, resemble, and refer to one another—not merely read a long list of topics.",
+      "method": "Topics live in validated Markdown with structured frontmatter. A static Astro build derives prerequisite, tag-similarity, and WikiLink-backlink edges, then renders them through React and a D3 force graph.",
+      "result": "The corpus gives readers a navigable concept network alongside a reviewable contribution workflow, content validation, unit tests, and Playwright checks.",
+      "codeUrl": "https://github.com/NUSAISoc/aisoc-corpus",
+      "tags": ["knowledge-graph", "astro", "react", "d3", "ai-education"]
     },
     {
-      "slug": "agentic-coding-workflows",
-      "title": "Agentic Coding Workflows",
-      "status": "active research and tooling",
-      "updatedAt": "2026-08-07",
-      "summary": "A public project and notes trail around controllable agent workflows, harnesses, code review, security, and maintainable AI-assisted development.",
-      "problem": "Agentic coding can generate software quickly, but speed without control creates reliability, security, and maintainability problems.",
-      "method": "Study and document agent harnesses, feedback loops, review boundaries, prompt contracts, and workflow patterns while keeping implementation habits testable.",
-      "result": "The site now exposes an agentic-coding topic path and public repository trail that can anchor outreach around AI engineering and tooling reliability.",
-      "codeUrl": "https://github.com/Praneeth-Suresh/AgentCoding",
-      "writeupUrl": "/blog/engineering-discipline-for-agentic-coding/",
-      "tags": ["agents", "developer-tools", "evaluation", "software-engineering"]
+      "slug": "beryl",
+      "title": "Beryl",
+      "status": "active · developer tooling",
+      "updatedAt": "2026-08-10",
+      "summary": "A repository-owned guarantee layer for AI-assisted development: it makes workflow rules, checks, and review boundaries visible before agent output is trusted.",
+      "problem": "Scattered prompts and instruction files can guide an agent, but they do not provide one source of truth or evidence that repository rules were followed.",
+      "method": "Beryl installs a durable control plane for task routing, project context, deterministic checks, test-manifest protection, and optional local Git hooks—while preserving human review.",
+      "result": "Teams get a repeatable loop of intent, bounded changes, checks, evidence, and signoff that is inspectable in the repository instead of trapped in chat history.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/Beryl",
+      "writeupUrl": "/blog/beryl-02-what-i-built/",
+      "tags": ["agentic-coding", "developer-tools", "testing", "code-review"]
+    },
+    {
+      "slug": "notes",
+      "title": "Notes — this site",
+      "status": "active · current site",
+      "updatedAt": "2026-08-10",
+      "summary": "The site you are reading: a static technical-notes system that turns a personal study corpus into searchable, shareable, reliable public work.",
+      "problem": "Technical notes lose value when source structure, mathematical notation, code, navigation, and discovery break as they move from a private workspace to the web.",
+      "method": "A strict Notion ingestion pipeline normalizes topic trees at build time; separate rendering and styling boundaries publish static Cloudflare Pages routes, search, metadata, RSS, and portfolio evidence.",
+      "result": "The site preserves nested note paths, LaTeX, code blocks, and source formatting while producing a fast static archive with deterministic build checks.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/Notes",
+      "writeupUrl": "/notes/",
+      "tags": ["static-site", "notion", "cloudflare-pages", "technical-writing"]
+    },
+    {
+      "slug": "siap",
+      "title": "SIAP",
+      "status": "active · research manuscript",
+      "updatedAt": "2026-08-10",
+      "summary": "Structure and Interpretation of Agentic Patterns: a theory-backed, publishable book for making agent orchestration more explicit, testable, and teachable.",
+      "problem": "Agent engineering is often held together by framework defaults, prompt folklore, and local craft knowledge, leaving objectives, memory, tool contracts, and failure modes under-specified.",
+      "method": "The manuscript teaches agent systems by construction: Markdown chapters connect decision theory, planning, retrieval, safety, and multi-agent coordination to interpreters for reasoning and tool-use loops. Python scripts produce a static reader and print-ready artifacts.",
+      "result": "SIAP publishes a navigable, MathJax-enabled web book and PDF outputs, with citation rules, editorial audits, and reproducible manuscript checks protecting the research program.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/SIAP",
+      "tags": ["agentic-systems", "technical-writing", "decision-theory", "multi-agent-systems"]
     }
   ]
 }
