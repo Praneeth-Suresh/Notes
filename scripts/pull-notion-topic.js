@@ -27,6 +27,12 @@ function parseArgs(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const item = argv[index];
 
+    if (item === "--media-dir") {
+      args.mediaDir = assertNonEmptyString(argv[index + 1], "--media-dir value");
+      index += 1;
+      continue;
+    }
+
     if (item === "--page-id") {
       args.pageId = assertNonEmptyString(argv[index + 1], "--page-id value");
       index += 1;
@@ -236,6 +242,18 @@ async function main() {
 
   if (args.title) {
     topicDocument.title = args.title;
+  }
+
+  // Persist Notion-hosted images locally so checked-in content never depends on
+  // short-lived signed URLs.
+  const mediaDir = args.mediaDir ?? path.join("content", "media");
+  const persistedMedia = await notionContext.persistTopicMedia({
+    topicDocument,
+    topicSlug: args.slug,
+    mediaDir,
+  });
+  if (persistedMedia.length > 0) {
+    console.log(`Persisted ${persistedMedia.length} image(s) to ${mediaDir}/${args.slug}/`);
   }
 
   await notionContext.writeNormalizedTopicFile({

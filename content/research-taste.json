@@ -1,4 +1,51 @@
 {
+  "currentQuestions": [
+    {
+      "question": "Can interpretability become a cheap, standard part of model evaluation instead of a research project per model?",
+      "why": "My position essay argues that explanation methods are rarely used in real evaluation because they are too costly and not meaningful enough. Probing and representation analysis on frozen models are the most promising candidates because they do not change the model being explained.",
+      "wouldChangeMyView": "Evidence that frozen-model probes routinely disagree with causal interventions on the same model, or that they add nothing over held-out accuracy when choosing between models.",
+      "links": [
+        {
+          "label": "A research program for inspectable ML",
+          "href": "/blog/a-research-program-for-inspectable-ml/"
+        },
+        {
+          "label": "Hewitt and Liang, Designing and Interpreting Probes with Control Tasks",
+          "href": "https://arxiv.org/abs/1909.03368"
+        }
+      ]
+    },
+    {
+      "question": "Do machine-readable repository policies, enforced by deterministic checks, make coding agents more reliable than the same rules written in prose?",
+      "why": "This is the question behind Beryl and my CP3106 independent research. Prose instructions are easy to write but give no evidence they were followed.",
+      "wouldChangeMyView": "If agents given equivalent natural-language guidance pass as many hidden tests and policy checks as agents given enforced policies, the extra machinery is not earning its cost.",
+      "links": [
+        {
+          "label": "Beryl project page",
+          "href": "/projects/beryl/"
+        },
+        {
+          "label": "Kapoor et al., AI Agents That Matter",
+          "href": "https://arxiv.org/abs/2407.01502"
+        }
+      ]
+    },
+    {
+      "question": "Is learning usefully described as finding a low-rank representation of the data, and does that make learned knowledge easier to read out?",
+      "why": "LoRA and distillation suggest much of what large models store can be re-encoded compactly. If that is general, a compact representation should be convertible into something a person can inspect.",
+      "wouldChangeMyView": "Tasks where adaptation needs high-rank updates to reach full-fine-tuning quality, or where compact representations stay no more interpretable than the full model.",
+      "links": [
+        {
+          "label": "What exactly are we doing?",
+          "href": "/blog/what-exactly-are-we-doing/"
+        },
+        {
+          "label": "Hu et al., LoRA",
+          "href": "https://arxiv.org/abs/2106.09685"
+        }
+      ]
+    }
+  ],
   "topics": [
     {
       "title": "Deep learning foundations",

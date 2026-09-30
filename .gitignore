@@ -43,3 +43,10 @@ ingest-details.md
 *.png
 
 node_modules/
+
+# Stable local copies of Notion images are required by the build.
+!content/media/**/*.png
+!dist/assets/notes-media/**/*.png
+
+# Audit screenshots stay local.
+audit-evidence/

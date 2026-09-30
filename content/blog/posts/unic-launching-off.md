@@ -77,17 +77,17 @@ _To learn how to use tools such as this Eisenhower matrix, open the below toggle
 
 To introduce you to the world of strategy let me show you the tool I find the most versatile: the Eisenhower matrix. It allows you to see the trade-off in doing anything: the opportunity cost is obvious if you choose the right combination of axes. The default matrix is urgent vs important but I find it useful to think about knowledge vs impact.
     
-Once you have the matrix you can easily build your own workflow for elements in different quadrants or search for existing workflows. I asked [draw.io](http://draw.io/) to generate a workflow for me and I did a great job! I will share it here.
+Once you have the matrix you can easily build your own workflow for elements in different quadrants or search for existing workflows. I used [draw.io](https://www.drawio.com/) to draw a workflow for it. I will share it here.
     
 ![Eisenhower matrix follow up](/blog/images/EisenhowerFollowUp.png)
 
-*“Eisenhower matrix with axes: Impact vs Knowledge for a software developer.” from [drawio.com](http://drawio.com/)*
+*“Eisenhower matrix with axes: Impact vs Knowledge for a software developer.” made with [draw.io](https://www.drawio.com/)*
   </ul>
 </details>
 
 Once you know what you want to focus on, simply ignore the rest. You’ll get work done faster this way, and with less stress on your mind. Remember, there is no trophy for over-engineering.
 
-Most importantly, it will give you motivation. Mastery over one important skill made me excited to work on that project: and every project I’ve built ever since. Most recently, it's been my experience working with RAG that has pushed me through building a mobile application. Using this “splint” I’ve supported myself in learning React Native and [Node.js](http://node.js/) by creating a reliable AI learning assistant for myself, letting me code faster.
+Most importantly, it will give you motivation. Mastery over one important skill made me excited to work on that project: and every project I’ve built ever since. Most recently, it's been my experience working with RAG that has pushed me through building a mobile application. Using this “splint” I’ve supported myself in learning React Native and [Node.js](https://nodejs.org/) by creating a reliable AI learning assistant for myself, letting me code faster.
 
 ## Final
 

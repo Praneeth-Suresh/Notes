@@ -18,9 +18,9 @@ Cybenko's universal approximation theorem is where I start, and it is also where
 
 Layered on top of this design question is a second, harder one that has come to occupy most of my reading: once a model has learned to do something, can we understand *how*? I have come to believe interpretability is not a nice-to-have decoration on a finished model. It is the missing half of the science. The research gap I keep circling is concrete: interpretability techniques are not widely deployed in real model evaluation, and the reason is that current techniques are too complicated and not meaningful enough to be worth the effort. Closing that gap - making explanation cheap, faithful, and standard - is the problem I most want to work on.
 
-## Method
+## How I read the literature
 
-My method is to read foundational papers as a connected trail rather than as isolated results, and to ask of each one what mental model it forces.
+This essay is a position and synthesis, not an empirical study: no experiments were run for it. My method is to read foundational papers as a connected trail rather than as isolated results, and to ask of each one what mental model it forces.
 
 From LeCun et al. on convolutional networks, the mental model is that *architecture is a way of encoding assumptions about the structure of the world*. Nearby pixels matter, patterns repeat across space, and higher-level features compose from lower-level ones. CNNs do not just perform well; they make the task easier by shaping computation to match the domain.
 
@@ -34,9 +34,9 @@ For interpretability specifically, my method is to treat explanation as a *wrapp
 
 To ground this empirically, I lean on information-theoretic structure. The Information Bottleneck framework gives normative criteria for a good representation - sufficiency, invariance, disentanglement, compression - and lets us write a loss as a proxy for them. The bottleneck loss is usually impractical to compute directly, but it is the theoretical anchor that practical tools like probing approximate, including minimum-description-length probing. Representational geometry then lets me study not just a model's end state but how its representation of information evolves and how it compares across models on the same task.
 
-## Results
+## Positions I hold
 
-Reading this way produced a set of positions I now hold with some confidence.
+Reading this way produced a set of positions I now hold with some confidence. They are interpretations of the cited work, not findings I measured.
 
 First, interpretability's usefulness is inseparable from how the model will be used. Explanations earn their keep precisely when accuracy or AUC are insufficient measures of quality: when you need to check the model learned the right thing (the wolf-versus-dog classifier that actually detects snow in the background and will not generalize), when the training objective diverges from the deployment objective (a bail-recommendation system trained for accuracy but expected to be fair), when you want to extract new scientific knowledge, or when you need to build warranted trust. Good explanations therefore differ by domain, because models differ in how they balance memorization against experiential learning.
 
@@ -72,15 +72,28 @@ Second, pursue unification. The proliferation of methods, each optimizing a diff
 
 Third, fold interpretability into training. "SHAP-Guided Regularization" shows models can be adapted at training time to encode information in a form that is easier to extract, without sacrificing predictive performance. Combined with representation analysis and the low-rank view of knowledge, this is the most direct path to *inspectable architectures by construction* - and the closest to translating rigorous ML theory into systems people can trust and scale, which is the work I most want to do.
 
-## Links
+## Sources
 
-- Blog: https://notes.praneeth-suresh-s.workers.dev/blog/
-- Essays this write-up draws from:
-  - `tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers`
-  - `peeking-inside-the-black-box`
-  - `more-on-interpretability`
-  - `from-alchemy-to-science`
-  - `approaching-the-frontiers`
-  - `the-era-we-live-in`
-  - `what-exactly-are-we-doing`
-- Contact: praneeth[dot]suresh[dot]s [at] gmail[dot]com
+Primary papers referred to above:
+
+- Cybenko, [Approximation by Superpositions of a Sigmoidal Function](https://doi.org/10.1007/BF02551274) (1989)
+- LeCun et al., [Gradient-Based Learning Applied to Document Recognition](https://doi.org/10.1109/5.726791) (1998)
+- Vaswani et al., [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017)
+- Mnih et al., [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/abs/1312.5602) (2013)
+- Molnar, [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
+- Tishby, Pereira and Bialek, [The Information Bottleneck Method](https://arxiv.org/abs/physics/0004057) (2000)
+- Ribeiro, Singh and Guestrin, ["Why Should I Trust You?"](https://arxiv.org/abs/1602.04938) (2016)
+- Lundberg and Lee, [A Unified Approach to Interpreting Model Predictions](https://arxiv.org/abs/1705.07874) (SHAP, 2017)
+- Shrikumar, Greenside and Kundaje, [Learning Important Features Through Propagating Activation Differences](https://arxiv.org/abs/1704.02685) (DeepLIFT, 2017)
+- Hu et al., [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) (2021)
+- Shao et al., [DeepSeekMath](https://arxiv.org/abs/2402.03300) (introduces GRPO, 2024)
+
+Essays on this site that this write-up draws from:
+
+- [The mental models of deep learning](/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/)
+- [Peeking inside the black box](/blog/peeking-inside-the-black-box/)
+- [More on interpretability](/blog/more-on-interpretability/)
+- [From alchemy to science](/blog/from-alchemy-to-science/)
+- [Approaching the frontiers](/blog/approaching-the-frontiers/)
+- [The era we live in](/blog/the-era-we-live-in/)
+- [What exactly are we doing?](/blog/what-exactly-are-we-doing/)

@@ -243,6 +243,17 @@ async function getPage({ fetchImpl, pageId, notionToken, notionVersion, requestO
   });
 }
 
+async function getBlock({ fetchImpl, blockId, notionToken, notionVersion, requestOptions }) {
+  const normalizedBlockId = assertNonEmptyString(blockId, "blockId");
+  return notionRequest({
+    fetchImpl,
+    path: `/blocks/${encodeURIComponent(normalizedBlockId)}`,
+    notionToken,
+    notionVersion,
+    ...requestOptions,
+  });
+}
+
 async function listBlockChildrenPage({
   fetchImpl,
   blockId,
@@ -580,6 +591,7 @@ module.exports = {
   DEFAULT_NOTION_VERSION,
   extractPageLabels,
   extractPageTitle,
+  getBlock,
   getBlockChildrenTree,
   getPage,
 };

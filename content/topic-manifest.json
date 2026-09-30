@@ -137,56 +137,335 @@
     "slug": "agent-coding",
     "updatedAt": "2026-05-23",
     "title": "Agentic Coding",
-    "description": "Agents, feedback loops, and implementation habits.",
+    "description": "Engineering habits for working with coding agents: design concepts, feedback loops, tests, and review.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/agent-coding.normalized.json"
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "Design first",
+          "links": [
+            {
+              "title": "The Design Concept",
+              "href": "/topics/agent-coding/the-design-concept/"
+            },
+            {
+              "title": "Shared Language",
+              "href": "/topics/agent-coding/shared-language/"
+            },
+            {
+              "title": "Domain Driven Design",
+              "href": "/topics/agent-coding/domain-driven-design/"
+            },
+            {
+              "title": "Modularity",
+              "href": "/topics/agent-coding/modularity/"
+            },
+            {
+              "title": "Coupling",
+              "href": "/topics/agent-coding/coupling/"
+            }
+          ]
+        },
+        {
+          "label": "Keep it correct",
+          "links": [
+            {
+              "title": "Feedback Loops",
+              "href": "/topics/agent-coding/feedback-loops/"
+            },
+            {
+              "title": "Test Driven Development",
+              "href": "/topics/agent-coding/test-driven-development/"
+            },
+            {
+              "title": "Entropy",
+              "href": "/topics/agent-coding/entropy/"
+            },
+            {
+              "title": "Code Review",
+              "href": "/topics/agent-coding/code-review/"
+            },
+            {
+              "title": "Security Issues",
+              "href": "/topics/agent-coding/security-issues/"
+            }
+          ]
+        },
+        {
+          "label": "Put it together",
+          "links": [
+            {
+              "title": "Prompting Basics",
+              "href": "/topics/agent-coding/prompting-basics/"
+            },
+            {
+              "title": "Skills",
+              "href": "/topics/agent-coding/skills/"
+            },
+            {
+              "title": "Putting it together",
+              "href": "/topics/agent-coding/putting-it-together/"
+            }
+          ]
+        }
+      ]
     }
   },
   {
     "slug": "os",
     "updatedAt": "2026-05-25",
     "title": "Operating Systems",
-    "description": "Diving deep into the design and structure of Operating Systems.",
+    "description": "Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/os.normalized.json"
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "Foundations",
+          "links": [
+            {
+              "title": "What is an Operating System?",
+              "href": "/topics/os/what-is-an-operating-system/"
+            },
+            {
+              "title": "Dual Mode",
+              "href": "/topics/os/dual-mode/"
+            },
+            {
+              "title": "Interrupts",
+              "href": "/topics/os/interrupts/"
+            },
+            {
+              "title": "Processes",
+              "href": "/topics/os/processes/"
+            }
+          ]
+        },
+        {
+          "label": "Concurrency",
+          "links": [
+            {
+              "title": "Threads",
+              "href": "/topics/os/threads/"
+            },
+            {
+              "title": "Context Switching",
+              "href": "/topics/os/context-switching/"
+            },
+            {
+              "title": "Process Scheduling",
+              "href": "/topics/os/process-scheduling/"
+            },
+            {
+              "title": "Synchronisation",
+              "href": "/topics/os/synchronisation/"
+            },
+            {
+              "title": "Semaphores",
+              "href": "/topics/os/semaphores/"
+            }
+          ]
+        },
+        {
+          "label": "Memory and I/O",
+          "links": [
+            {
+              "title": "Address Space",
+              "href": "/topics/os/address-space/"
+            },
+            {
+              "title": "File and I/O Abstractions",
+              "href": "/topics/os/file-and-i-o-abstractions/"
+            },
+            {
+              "title": "Interprocess Communication",
+              "href": "/topics/os/interprocess-communication/"
+            },
+            {
+              "title": "Network Communication",
+              "href": "/topics/os/network-communication/"
+            }
+          ]
+        }
+      ]
     }
   },
   {
     "slug": "ai-engineer",
     "updatedAt": "2026-05-25",
     "title": "AI Engineering",
-    "description": "Accelerating AI: across all layers",
+    "description": "How ML workloads run on hardware: GPUs, matrix multiplication, memory systems, compilers, and distributed training. Assumes basic linear algebra and some systems background.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/ai-engineer.normalized.json"
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "Compute",
+          "links": [
+            {
+              "title": "Hardware Acceleration",
+              "href": "/topics/ai-engineer/hardware-acceleration/"
+            },
+            {
+              "title": "GPUs",
+              "href": "/topics/ai-engineer/gpus/"
+            },
+            {
+              "title": "Matrix Multiplication",
+              "href": "/topics/ai-engineer/matrix-multiplication/"
+            },
+            {
+              "title": "Systolic Arrays",
+              "href": "/topics/ai-engineer/systolic-arrays/"
+            }
+          ]
+        },
+        {
+          "label": "Software stack",
+          "links": [
+            {
+              "title": "Memory Systems",
+              "href": "/topics/ai-engineer/memory-systems/"
+            },
+            {
+              "title": "Compiler Optimizations",
+              "href": "/topics/ai-engineer/compiler-optimizations/"
+            },
+            {
+              "title": "Kernel and OS Optimisations",
+              "href": "/topics/ai-engineer/kernel-and-os-optimisations/"
+            },
+            {
+              "title": "Distributed AI Systems",
+              "href": "/topics/ai-engineer/distributed-ai-systems/"
+            }
+          ]
+        }
+      ]
     }
   },
   {
     "slug": "swe",
     "updatedAt": "2026-05-25",
-    "title": "SWE for Pros",
-    "description": "Sophisticated software systems under the hood",
+    "title": "Software Systems",
+    "description": "How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/swe.normalized.json"
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "Architecture",
+          "links": [
+            {
+              "title": "Microservices",
+              "href": "/topics/swe/microservices/"
+            },
+            {
+              "title": "Service Mesh",
+              "href": "/topics/swe/service-mesh/"
+            },
+            {
+              "title": "Distributed Systems",
+              "href": "/topics/swe/distributed-systems/"
+            },
+            {
+              "title": "Under the Hood: The Log",
+              "href": "/topics/swe/under-the-hood-the-log/"
+            }
+          ]
+        },
+        {
+          "label": "Practice",
+          "links": [
+            {
+              "title": "Testing",
+              "href": "/topics/swe/testing/"
+            },
+            {
+              "title": "Reliability",
+              "href": "/topics/swe/reliability/"
+            },
+            {
+              "title": "Scalability",
+              "href": "/topics/swe/scalability/"
+            },
+            {
+              "title": "Security",
+              "href": "/topics/swe/security/"
+            },
+            {
+              "title": "Standards",
+              "href": "/topics/swe/standards/"
+            },
+            {
+              "title": "Collaboration",
+              "href": "/topics/swe/collaboration/"
+            }
+          ]
+        }
+      ]
     }
   },
   {
     "slug": "agent-build",
     "updatedAt": "2026-07-06",
     "title": "Building Agents",
-    "description": "SWE Principles for Building Out Agents",
+    "description": "Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/agent-build.normalized.json"
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "In order",
+          "links": [
+            {
+              "title": "What is an Agent?",
+              "href": "/topics/agent-build/what-is-an-agent/"
+            },
+            {
+              "title": "What can Agents do?",
+              "href": "/topics/agent-build/what-can-agents-do/"
+            },
+            {
+              "title": "When to use an Agent?",
+              "href": "/topics/agent-build/when-to-use-an-agent/"
+            },
+            {
+              "title": "Workflows",
+              "href": "/topics/agent-build/workflows/"
+            },
+            {
+              "title": "Agents",
+              "href": "/topics/agent-build/agents/"
+            },
+            {
+              "title": "Advanced Agentic Engineering",
+              "href": "/topics/agent-build/advanced-agentic-engineering/"
+            },
+            {
+              "title": "Second Brain",
+              "href": "/topics/agent-build/second-brain/"
+            }
+          ]
+        }
+      ]
     }
   },
   {
     "slug": "c",
     "title": "C Deep Dive",
-    "description": "A close look at the C language.",
+    "description": "The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files.",
     "source": {
       "kind": "normalized-file",
       "path": "topics/c.normalized.json"
@@ -194,15 +473,88 @@
     "databaseLabelProperties": [
       "Tags",
       "Status"
-    ]
+    ],
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "Language",
+          "links": [
+            {
+              "title": "Syntax in C",
+              "href": "/topics/c/syntax-in-c/"
+            },
+            {
+              "title": "Types in C",
+              "href": "/topics/c/types-in-c/"
+            },
+            {
+              "title": "Operators in C",
+              "href": "/topics/c/operators-in-c/"
+            },
+            {
+              "title": "Statements in C",
+              "href": "/topics/c/statements-in-c/"
+            },
+            {
+              "title": "Functions in C",
+              "href": "/topics/c/functions-in-c/"
+            }
+          ]
+        },
+        {
+          "label": "Memory",
+          "links": [
+            {
+              "title": "Pointers in C",
+              "href": "/topics/c/pointers-in-c/"
+            },
+            {
+              "title": "Dynamic Memory Allocation in C",
+              "href": "/topics/c/dynamic-memory-allocation-in-c/"
+            },
+            {
+              "title": "Data Structures in C",
+              "href": "/topics/c/data-structures-in-c/"
+            },
+            {
+              "title": "File Handling in C",
+              "href": "/topics/c/file-handling-in-c/"
+            }
+          ]
+        }
+      ]
+    },
+    "updatedAt": "2026-08-09"
   },
   {
     "slug": "cpp",
     "title": "C++ Deep Dive",
-    "description": "An up close and personal look at C++.",
+    "description": "C++ from a C programmer's point of view: the build model, memory layout, and ownership with RAII and smart pointers. Examples assume C++14 or later (they use std::make_unique).",
     "source": {
       "kind": "normalized-file",
       "path": "topics/cpp.normalized.json"
-    }
+    },
+    "pillar": {
+      "readingPath": [
+        {
+          "label": "In order",
+          "links": [
+            {
+              "title": "C++ Basics",
+              "href": "/topics/cpp/c-basics/"
+            },
+            {
+              "title": "C++ Memory Model",
+              "href": "/topics/cpp/c-memory-model/"
+            },
+            {
+              "title": "C++ Memory Ownership",
+              "href": "/topics/cpp/c-memory-ownership/"
+            }
+          ]
+        }
+      ]
+    },
+    "updatedAt": "2026-08-09"
   }
 ]

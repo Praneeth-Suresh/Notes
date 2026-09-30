@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "images": {
+    "AD_4nXdbi-KWvGrtZ-P5usZqH0dhzEvfr7gq5_qcuiH_TkFl2EfC5XmMIkoE0U4yOp-l9-jBCV2GXv8pFitDYv78Xfot5tzEKYyvky1QcOik9HWRKepzd13mJpxUCbaYVAvoZuwhBTH2Zw": {
+      "file": "AD_4nXdbi-KWvGrtZ-P5usZqH0dhzEvfr7gq5_qcuiH_TkFl2EfC5XmMIkoE0U4yOp-l9-jBCV2GXv8pFitDYv78Xfot5tzEKYyvky1QcOik9HWRKepzd13mJpxUCbaYVAvoZuwhBTH2Zw.webp",
+      "width": 1014,
+      "height": 536,
+      "bytes": 32662,
+      "originalBytes": 568760
+    },
+    "EisenhowerFollowUp.png": {
+      "file": "EisenhowerFollowUp.webp",
+      "width": 1379,
+      "height": 658,
+      "bytes": 19954,
+      "originalBytes": 81598
+    },
+    "beryl-01-why-agents-md-isnt-enough.png": {
+      "file": "beryl-01-why-agents-md-isnt-enough.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 63536,
+      "originalBytes": 2473291
+    },
+    "beryl-02-what-i-built.png": {
+      "file": "beryl-02-what-i-built.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 112898,
+      "originalBytes": 1552190
+    },
+    "beryl-03-building-in-public-week-1.png": {
+      "file": "beryl-03-building-in-public-week-1.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 96004,
+      "originalBytes": 288582
+    },
+    "blog1.png": {
+      "file": "blog1.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 80094,
+      "originalBytes": 1292696
+    },
+    "blog2.png": {
+      "file": "blog2.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 109450,
+      "originalBytes": 1482601
+    },
+    "blog3.png": {
+      "file": "blog3.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 152008,
+      "originalBytes": 1744086
+    },
+    "blog4.png": {
+      "file": "blog4.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 77902,
+      "originalBytes": 1535704
+    },
+    "blog_intro.png": {
+      "file": "blog_intro.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 176304,
+      "originalBytes": 1898096
+    },
+    "image.png": {
+      "file": "image.webp",
+      "width": 1109,
+      "height": 789,
+      "bytes": 58604,
+      "originalBytes": 110575
+    }
+  }
+}

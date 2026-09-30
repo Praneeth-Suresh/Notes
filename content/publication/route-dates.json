@@ -1,0 +1,638 @@
+{
+  "version": 1,
+  "description": "Per-route sitemap dates. A route's date changes only when the fingerprint of its authoritative content changes. Maintained by scripts/update-route-dates.js; the build fails if this file is stale.",
+  "routes": {
+    "/": {
+      "fingerprint": "b079274264543053ad2db4a86ff6bddf",
+      "lastModified": "2026-09-30"
+    },
+    "/about/": {
+      "fingerprint": "166147e3b3cddfab83921e2dc1349e56",
+      "lastModified": "2026-09-30"
+    },
+    "/blog/": {
+      "fingerprint": "863395ac227490ebee041177941c5202",
+      "lastModified": "2026-09-30"
+    },
+    "/blog/a-research-program-for-inspectable-ml/": {
+      "fingerprint": "258cb22b1173cf94d78a25f372468b0d",
+      "lastModified": "2026-07-01"
+    },
+    "/blog/approaching-the-frontiers/": {
+      "fingerprint": "df64b46baadb90b3982eaf6894a6e003",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/beryl-01-why-agents-md-isnt-enough/": {
+      "fingerprint": "e73243f8fc05a0e9c728b103b8298c6f",
+      "lastModified": "2026-07-10"
+    },
+    "/blog/beryl-02-what-i-built/": {
+      "fingerprint": "7a115cebb120bdb61c2629cb3cfa2063",
+      "lastModified": "2026-07-10"
+    },
+    "/blog/beryl-03-building-in-public-week-1/": {
+      "fingerprint": "641159c6e39b131c1b6df8f4add9e56b",
+      "lastModified": "2026-07-10"
+    },
+    "/blog/best-case-worst-case/": {
+      "fingerprint": "cba9170932038d79ccf524901408b974",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/engineering-discipline-for-agentic-coding/": {
+      "fingerprint": "446729ec2a41485fc6c4cad1c96cc379",
+      "lastModified": "2026-07-01"
+    },
+    "/blog/forecasting-the-limit-order-book/": {
+      "fingerprint": "3a21f786429773744a6143d2a9150899",
+      "lastModified": "2026-07-01"
+    },
+    "/blog/from-alchemy-to-science/": {
+      "fingerprint": "ee2b26d7fc1b8e537e03be80ce6318b7",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/how-to-turn-any-big-idea-into-real-impact/": {
+      "fingerprint": "3ed704433ae898750e8207234c630abf",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/how-to-win-a-hackathon/": {
+      "fingerprint": "554c4813e662b6d015358f0c099f352c",
+      "lastModified": "2026-07-17"
+    },
+    "/blog/more-on-interpretability/": {
+      "fingerprint": "d79c8b7c81bbe1d5b7efef5e210bdfd7",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/": {
+      "fingerprint": "c3b9940c75a0a7246e91a08919d062d9",
+      "lastModified": "2026-06-19"
+    },
+    "/blog/peeking-inside-the-black-box/": {
+      "fingerprint": "604fae755700df8d6cea239309a50708",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/putting-users-first-rewrote-our-code/": {
+      "fingerprint": "92fdb73e7790c2263acd88903126ee14",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/the-era-we-live-in/": {
+      "fingerprint": "4e642439a10df31b9ccc7a48e3940335",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/": {
+      "fingerprint": "691bc9911457d2d83a950a050c9cfa5a",
+      "lastModified": "2026-07-04"
+    },
+    "/blog/unic-launching-off/": {
+      "fingerprint": "9106d89ea4906d304281d5086f22645a",
+      "lastModified": "2026-06-04"
+    },
+    "/blog/what-exactly-are-we-doing/": {
+      "fingerprint": "eb14effc981b3423ecd8e88e56c1a2b5",
+      "lastModified": "2026-06-04"
+    },
+    "/contact/": {
+      "fingerprint": "3bd3e39544bb08c861034b905cdd3120",
+      "lastModified": "2026-09-30"
+    },
+    "/errata/": {
+      "fingerprint": "c7d0b2c3eef2050a0ca935d252dad69f",
+      "lastModified": "2026-09-30"
+    },
+    "/notes/": {
+      "fingerprint": "e6aba9ffc0d6570f62fd96523b7300ef",
+      "lastModified": "2026-09-30"
+    },
+    "/projects/": {
+      "fingerprint": "11c09980321d8597d3ba16d002ecc936",
+      "lastModified": "2026-09-30"
+    },
+    "/projects/ai-society-corpus/": {
+      "fingerprint": "42e7751099e0d6232d7bffca54c43bb8",
+      "lastModified": "2026-09-30"
+    },
+    "/projects/beryl/": {
+      "fingerprint": "e204fff879e411c35810fb38fc4d7712",
+      "lastModified": "2026-09-30"
+    },
+    "/projects/notes/": {
+      "fingerprint": "ad24177960e4ac37bf389764850c37bf",
+      "lastModified": "2026-09-30"
+    },
+    "/projects/siap/": {
+      "fingerprint": "0edcfd96b7bc0bf613cea4ce06a85a7a",
+      "lastModified": "2026-09-30"
+    },
+    "/research-taste/": {
+      "fingerprint": "ebaabb10a1305e1cab49edb6328b3e49",
+      "lastModified": "2026-09-30"
+    },
+    "/start-here/": {
+      "fingerprint": "38a68578d08b2974f12c4e56596386f0",
+      "lastModified": "2026-09-30"
+    },
+    "/subscribe/": {
+      "fingerprint": "f077722806448e62f438510b5645b45a",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/": {
+      "fingerprint": "6db9ac76d482f300b6b6ed7d1e697cec",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/advanced-agentic-engineering/": {
+      "fingerprint": "af89d9650c858628491d287b0da04633",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/agents/": {
+      "fingerprint": "bdf0690b4022839b1cbe787ead452934",
+      "lastModified": "2026-07-06"
+    },
+    "/topics/agent-build/second-brain/": {
+      "fingerprint": "10e8decdc8ee2a5b8085a96a8bb13495",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/what-can-agents-do/": {
+      "fingerprint": "a9d75af8559e33cfc29631c5e4e10ac6",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/what-is-an-agent/": {
+      "fingerprint": "25a17f95e93481e08820b0712ce33a12",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/when-to-use-an-agent/": {
+      "fingerprint": "3cbcfbc9e53fca9f4585579ca50627f2",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-build/workflows/": {
+      "fingerprint": "381089424ef54d37647ab4b015883f62",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/": {
+      "fingerprint": "5e7572c7c608b484d86a5219eda141b8",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/code-review/": {
+      "fingerprint": "4b608d7d929a775c5f76b129945d4057",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/agent-coding/coupling/": {
+      "fingerprint": "d9ed3b1657935508b93d6f76f2b74bbd",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/agent-coding/domain-driven-design/": {
+      "fingerprint": "03aeaa0fa648d746fa18d0864d210dd3",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/entropy/": {
+      "fingerprint": "369f9966ba4fc047044be19ecdb507a8",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/feedback-loops/": {
+      "fingerprint": "0b83d96d211881f67a0b950e148b77b5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/harnesses/": {
+      "fingerprint": "3bcd3d9fadb2257a62ae69e2a6c65e49",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/agent-coding/leverage-and-locality/": {
+      "fingerprint": "8f0c5ec0eb680685ed64d71da82a8289",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/agent-coding/modularity/": {
+      "fingerprint": "72e3e5752c96954f2c1d9a507aff7859",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/prompting-basics/": {
+      "fingerprint": "9ded360e96de3f60d2f336707b43d675",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/putting-it-together/": {
+      "fingerprint": "14eea8a53cf60870a828445a76566153",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/agent-coding/security-issues/": {
+      "fingerprint": "96f909d3604b466b1e5971cf791fc956",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/shared-language/": {
+      "fingerprint": "a118bf4d9167010f95447cbae81c1b15",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/skills/": {
+      "fingerprint": "588a0b2a40643a1529e0a4664443715e",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/test-driven-development/": {
+      "fingerprint": "089c2de3ded62c72d5cacca5bab71f69",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/agent-coding/the-design-concept/": {
+      "fingerprint": "6a15367167b40876dc4a5357d4450dc8",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/": {
+      "fingerprint": "01085453141edf4d011c9ae5d82449eb",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/compiler-optimizations/": {
+      "fingerprint": "5776a3f87f77f7f019c72e1fbec1d245",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/distributed-ai-systems/": {
+      "fingerprint": "1a0da06c7f3bb27f675964272726a2a3",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/gpus/": {
+      "fingerprint": "01b0000fd475fd65c6e53f079dae75e2",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/hardware-acceleration/": {
+      "fingerprint": "b8466658b448d4be5419b2deb540cb54",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/kernel-and-os-optimisations/": {
+      "fingerprint": "65a8e9f4c2d665738ddf048fc8eceed9",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/matrix-multiplication/": {
+      "fingerprint": "8f1931f317b3a9f42e0200cbba4a94b7",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/memory-systems/": {
+      "fingerprint": "eb425070a22f33790322038c169b953d",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/ai-engineer/systolic-arrays/": {
+      "fingerprint": "5ded5a1da0c5b7e07718437c6076a683",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/": {
+      "fingerprint": "9dffffddfbeb81bb52dd42269fb0c841",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/a-search/": {
+      "fingerprint": "58370dbe6aee9621c140346b3750f22a",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/advanced-dynamic-programming/": {
+      "fingerprint": "67d9fa4643554eaa3d81b6c6832ab2a6",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/bellman-ford/": {
+      "fingerprint": "4f875571ddd7bba5b1f674a46b1d7528",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/binary-search/": {
+      "fingerprint": "aa4ad8239650b7d10d6abd2975886b37",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/breadth-first-search-bfs/": {
+      "fingerprint": "8eb3605de8d7b3f1e9691c9efe94b7c9",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/convex-hull-trick/": {
+      "fingerprint": "463362ebd33cd988003d13359edc6f61",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/counting-sort/": {
+      "fingerprint": "d23a368ec4e63ea4fd83efc7dbb4c518",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/depth-first-search-dfs/": {
+      "fingerprint": "e630ed169dd848ad6995132797efc6f3",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/dijkstra/": {
+      "fingerprint": "8d3e3b8cd81563d06c940231f2b1ee7f",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/dynamic-programming/": {
+      "fingerprint": "a692866213c6b0bc778cfd33de1008ab",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/exponential-search/": {
+      "fingerprint": "3ac6cee1b642d6be71530d3ac2cf6ecf",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/fibonacci/": {
+      "fingerprint": "6c8035ee60a9e914da81ef018d02ffb3",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/floyd-warshall/": {
+      "fingerprint": "34e308b5c35a57eeb585bdd87049700c",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/graph-traversal/": {
+      "fingerprint": "c5d35c5de5b0a6fbdb2f9e916c333ddf",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/greedy-successes/": {
+      "fingerprint": "0f81ede3b72dede158dc87a692862359",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/greedy/": {
+      "fingerprint": "88c28f92cc8dde917aa9f2077c68af44",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/heap-sort/": {
+      "fingerprint": "b9ebf21d3ef57f0ee83c9410832cfe9c",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/huffman-codes/": {
+      "fingerprint": "b816f15fe247ab8cd25f061087dfb3cd",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/insertion-sort/": {
+      "fingerprint": "990150be05329ab985e1924847fcfcae",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/interpolation-search/": {
+      "fingerprint": "174d068eba41a2a1f0aed27915e2180d",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/job-sequencing-with-deadlines/": {
+      "fingerprint": "98892e5217b5a5deb64a035565d00c6b",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/johnsons/": {
+      "fingerprint": "b3d6848eab65029b369c596132104039",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/linear-time-selection/": {
+      "fingerprint": "65652b4cb6c8aa8318f0b2eed8f0b5ed",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/matrix-based-solutions/": {
+      "fingerprint": "153bb813d802a4aa96100c1d82b7cda4",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/merge-sort/": {
+      "fingerprint": "af61de4922b0d2e8e5cc439fe78861b0",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/meta-algorithm/": {
+      "fingerprint": "cd3e2dd44d4081f4f2cdf817fabafd83",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/minimum-spanning-trees/": {
+      "fingerprint": "faf3c0610a3e31768f1ff41ca17ce762",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/minmax-path-problem/": {
+      "fingerprint": "5603fda88e21e26c16b88e9f880fce49",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/network-flow/": {
+      "fingerprint": "c4ab9022c9cb4fe990ae20f7f8c42c79",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/optimal-binary-search-tree/": {
+      "fingerprint": "2ae828821fdda71946a6c113c56495f0",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/parallel-algorithms-for-linked-list-and-beyond/": {
+      "fingerprint": "f8e906c738f87c99809548f886200f61",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/primality-tests/": {
+      "fingerprint": "eca6b80ad5130482ba0f83a90c22437b",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/quick-sort/": {
+      "fingerprint": "c09ec7883c0501eb68b97bb2f7cf69e5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/rabin-karp/": {
+      "fingerprint": "54ea36d62357e96b4a92adc22459956f",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/recursion/": {
+      "fingerprint": "ad8037acba7b1e98b7d6d07f73bed27c",
+      "lastModified": "2026-05-23"
+    },
+    "/topics/algorithms/savitchs-algorithm/": {
+      "fingerprint": "688437cfb66f78acaebb34bddcf9e267",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/sorting/": {
+      "fingerprint": "5107db6f1daeeef451532b7ec536231a",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/the-knapsack-problem/": {
+      "fingerprint": "5085eca1a60a66e45ef600ac16532be2",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/the-traveling-salesperson-problem-tsp/": {
+      "fingerprint": "de1b86dd93b09d2277f941b8b0e15e27",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/algorithms/when-greedy-scheduling-works/": {
+      "fingerprint": "4f0d5c263576eadbee9ed2a2969bd665",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/": {
+      "fingerprint": "5739350684f0a0b51c3c847c62c21a02",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/data-structures-in-c/": {
+      "fingerprint": "a84006ef6e80438bf81c26ec47e6efdc",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/dynamic-memory-allocation-in-c/": {
+      "fingerprint": "6f9cc7d9cdc3e887b21104dbf2314eec",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/file-handling-in-c/": {
+      "fingerprint": "a4e151e70e667547c9e6d361b79d61f2",
+      "lastModified": "2026-08-09"
+    },
+    "/topics/c/functions-in-c/": {
+      "fingerprint": "77496685d3c88457e2e9024e26b4d369",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/operators-in-c/": {
+      "fingerprint": "513dfd52d2f8f2425acb95ea10701bb9",
+      "lastModified": "2026-08-09"
+    },
+    "/topics/c/pointers-in-c/": {
+      "fingerprint": "dc2d4c0364dc1ccd6a8a9b62886546c5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/statements-in-c/": {
+      "fingerprint": "25c69e188aefc98bca945f7408ccdee9",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/syntax-in-c/": {
+      "fingerprint": "1df38097819b868641e16fb614ef0e7e",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/c/types-in-c/": {
+      "fingerprint": "b76431ff0b27b3a699de88dc23250b11",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/cpp/": {
+      "fingerprint": "4f2843651b127ff755c641394e4cb60a",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/cpp/c-basics/": {
+      "fingerprint": "9a25255faad7611ce34e10fa18eabfd0",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/cpp/c-memory-model/": {
+      "fingerprint": "bff8230e627e81d12ed8113cce470fc1",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/cpp/c-memory-ownership/": {
+      "fingerprint": "95e6c82fa365fd04338c6284c706aaaf",
+      "lastModified": "2026-08-09"
+    },
+    "/topics/os/": {
+      "fingerprint": "ed292bcc7ed90bcf8c9801f5c4206314",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/address-space-study-plan/": {
+      "fingerprint": "eb55248dc3ddf981507f26998b8cda2c",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/address-space/": {
+      "fingerprint": "fa765cb6c59d4b03ac4c4497e91f310d",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/os/concurrency/": {
+      "fingerprint": "b9c3494155640ae196473904a61adbd1",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/context-switching/": {
+      "fingerprint": "8fa5fce66a826782f768e383454135a2",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/distributed-systems/": {
+      "fingerprint": "1c15e1819ed6dc076398968f657f477a",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/dual-mode/": {
+      "fingerprint": "ca9fde627fd44f9efe5102c1422ed9e1",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/faster-concurrency/": {
+      "fingerprint": "d77e78cabdd150db114621fcb82d48f0",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/file-and-i-o-abstractions/": {
+      "fingerprint": "e06fdf0be657756c3246ccfa5d2ecfca",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/file-systems/": {
+      "fingerprint": "50fa308ac090092d0605fd144a92d9eb",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/interprocess-communication/": {
+      "fingerprint": "088439df4bbae2ccc484314ec9c880e5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/interrupts/": {
+      "fingerprint": "c9a3a59daa9cf4ca1a2a3ceeafac5b7d",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/more-about-threads/": {
+      "fingerprint": "048ca923ea70e84746592d9699bdd2fe",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/network-communication/": {
+      "fingerprint": "b4fec8ef249da9426c685f665e57edbe",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/os-basics/": {
+      "fingerprint": "6d9b581c7b2ff987b0b11e13a9a551db",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/preemptive-multitasking/": {
+      "fingerprint": "cd29b0c87645260bc36f6aabaa508420",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/os/process-scheduling/": {
+      "fingerprint": "ce84d6c93a0464a322c56d33a5c646f5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/processes/": {
+      "fingerprint": "8b5d88f2df81d48deee9ac0f118e63ce",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/reliability-and-security/": {
+      "fingerprint": "b2adf58ed8ec5d54dccc61eeeb9ed89d",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/semaphores/": {
+      "fingerprint": "da88f3f05200229b7064416111df1694",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/synchronisation/": {
+      "fingerprint": "3eca0a49287547bf35ecd4e07121e178",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/thread-pools/": {
+      "fingerprint": "dcb1e2e3f576438ef6a02ed5788c0128",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/os/threads/": {
+      "fingerprint": "2845a207f1c4b0f59e6a8f4122677b69",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/os/what-is-an-operating-system/": {
+      "fingerprint": "c45c45c88c1a45d65791d8a6cc742893",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/": {
+      "fingerprint": "626054c0dc1e2594d4938620721ca1e5",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/collaboration/": {
+      "fingerprint": "34d35a18acc326955e340d62f37234f6",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/distributed-systems/": {
+      "fingerprint": "4c91039fc5b1a12226d7bca3a181b250",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/event-streaming/": {
+      "fingerprint": "49677dd2413a3f0a5061d0e3e86a28e6",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/swe/microservices/": {
+      "fingerprint": "8cf83c74481aeae5f5fc2d2d9585f655",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/swe/reliability/": {
+      "fingerprint": "d279e3e4dc7225f6862386aac76e8c30",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/scalability/": {
+      "fingerprint": "7c4c364c691bfca8736b901645526844",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/security/": {
+      "fingerprint": "a299ef7d6467a60ce63a364dd9789853",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/service-mesh/": {
+      "fingerprint": "b0aa6eef43250e933c29f611347bf840",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/standards/": {
+      "fingerprint": "bfbfd1e024669385e82e204ab945e626",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/swe-study-plan/": {
+      "fingerprint": "5d69c52c17f5c5bf7a6cb294d518fb87",
+      "lastModified": "2026-05-25"
+    },
+    "/topics/swe/testing/": {
+      "fingerprint": "276773cf4236cb698011f70d90fdfa4d",
+      "lastModified": "2026-09-30"
+    },
+    "/topics/swe/under-the-hood-the-log/": {
+      "fingerprint": "6c8c613380bde4a960d99347eee4aa2b",
+      "lastModified": "2026-09-30"
+    }
+  }
+}

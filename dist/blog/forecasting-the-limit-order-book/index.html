@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Forecasting the Limit Order Book · Blog · Praneeth&#39;s CS Field Notes</title>
+    <title>Forecasting the Limit Order Book · Writing · Praneeth&#39;s CS Field Notes</title>
 
     <meta name="description" content="An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" />
-    <meta property="og:title" content="Forecasting the Limit Order Book · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Forecasting the Limit Order Book · Writing · Praneeth&#39;s CS Field Notes" />
     <meta property="og:description" content="A candid applied-ML case study on noisy limit order book forecasting, strong baselines, sequence models, and what the current metrics do and do not prove." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" />
@@ -16,16 +16,16 @@
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Forecasting the Limit Order Book · Blog · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Forecasting the Limit Order Book · Writing · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Forecasting the Limit Order Book · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Forecasting the Limit Order Book · Writing · Praneeth&#39;s CS Field Notes" />
     <meta name="twitter:description" content="A candid applied-ML case study on noisy limit order book forecasting, strong baselines, sequence models, and what the current metrics do and do not prove." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Forecasting the Limit Order Book · Blog · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <meta name="twitter:image:alt" content="Forecasting the Limit Order Book · Writing · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/","name":"Forecasting the Limit Order Book · Blog · Praneeth's CS Field Notes","description":"An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/","name":"Forecasting the Limit Order Book · Writing · Praneeth's CS Field Notes","description":"An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#blogposting","headline":"Forecasting the Limit Order Book","description":"An applied ML write-up on mid-price movement forecasting with logistic regression, MLP, DeepLOB-style sequence modeling, and interpretability probes.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/","datePublished":"2026-07-01","dateModified":"2026-07-01","keywords":"machine-learning, forecasting, interpretability"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/#faq","mainEntity":[{"@type":"Question","name":"Does this claim to be a production trading model?","acceptedAnswer":{"@type":"Answer","text":"No. The write-up presents exploratory notebook results and explicitly separates baseline metrics, validation signals, and reproducibility limitations from production claims."}},{"@type":"Question","name":"Why include interpretability probes?","acceptedAnswer":{"@type":"Answer","text":"Because noisy financial data can reward artifacts. Feature ablation, saliency, and integrated gradients help test whether model behavior is tied to plausible order-book structure."}}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
@@ -34,13 +34,11 @@
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -48,55 +46,37 @@
       })();
     </script>
     <link rel="stylesheet" href="/assets/site.css" />
-    <script>
-      window.MathJax = {
-        loader: {
-          paths: { mathjax: "/assets/vendor/mathjax" }
-        },
-        tex: {
-          inlineMath: [["\\(", "\\)"]],
-          displayMath: [["\\[", "\\]"]]
-        },
-        svg: { fontCache: "global" }
-      };
-    </script>
-    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body class="blog-page" data-analytics-event="page_view">
+  <body class="blog-page blog-post-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
-      </header>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W" aria-current="page">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
       
-    <div class="blog-reading-panel" id="main-content">
-      <a class="blog-back" href="/blog/">&larr; All posts</a>
+    <div class="blog-reading-panel">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/blog/">Writing</a></li><li aria-current="page">Forecasting the Limit Order Book</li></ol></nav>
       <header class="blog-post-header">
         <p class="blog-post-section">Engineering &amp; Research Write-Ups</p>
         <h1>Forecasting the Limit Order Book</h1>
-        <p class="blog-post-section"><time datetime="2026-07-01">Updated 2026-07-01</time></p>
+        <p class="blog-post-dates">Published <time datetime="2026-07-01">2026-07-01</time></p>
         <div class="blog-post-meta-actions">
           <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=machine-learning#blog-posts">machine-learning</a><a class="topic-label topic-label-default" href="/blog/?topic=forecasting#blog-posts">forecasting</a><a class="topic-label topic-label-default" href="/blog/?topic=interpretability#blog-posts">interpretability</a></div>
           <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/forecasting-the-limit-order-book/" data-analytics-event="copy_share_link_click">Copy link</button>
         </div>
       </header>
       <article class="blog-article"><p>I built a research notebook that studies whether short-horizon mid-price movement can be predicted from raw limit order book (LOB) features, benchmarking a logistic baseline, an MLP, and a DeepLOB-style sequence model, and then interrogating the best model with feature ablation and gradient-based interpretability probes.</p>
-<h2>Why This Matters</h2>
+<h3>Why This Matters</h3>
 <p>Limit order books are one of the hardest, most honest datasets in applied machine learning. They are high-frequency, non-stationary, heavily imbalanced, and have a brutally weak signal-to-noise ratio. If you want to find out quickly whether a modeling idea actually carries information or is just memorizing noise, market microstructure is an unforgiving place to test it.</p>
 <p>That is precisely why I chose it. Mid-price forecasting forces a model to confront the three problems that quietly break most real-world ML systems at once: class imbalance (price often does not move at all within a short horizon), temporal dependence (rows are not i.i.d., so naive shuffling leaks information), and low signal strength (the gap between a strong baseline and a &quot;smart&quot; model is small and easy to fake). A method that looks impressive on clean benchmarks frequently collapses here.</p>
 <p>There is a second reason this project matters to me, and it connects to my broader thesis of building inspectable systems. A model that claims to predict price movement should be able to tell you <em>why</em> - which book levels, which side of the book, which engineered features drive the decision. So I deliberately treated this not only as a forecasting task but as a testbed for interpretability. A predictor that cannot expose its own reasoning is not trustworthy, and in a domain where the &quot;signal&quot; can easily be an artifact of the split, interpretability is not a nice-to-have. It is the difference between a result and a coincidence.</p>
-<h2>Problem Setup</h2>
+<h3>Problem Setup</h3>
 <p>The task is short-horizon mid-price movement classification. Given a window of recent order-book state - bid and ask prices and volumes across multiple levels - predict whether the mid-price will move up, down, or stay flat over a short future horizon.</p>
 <p>I used the benchmark dataset by Ntakaris et al., &quot;Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods&quot; (<em>Journal of Forecasting</em>, 2018), accessed through Kaggle. This dataset is a good choice because it is an established academic benchmark rather than a bespoke scrape, which makes the framing comparable to prior work and keeps me honest about whether my numbers are reasonable.</p>
 <p>The hard parts of the setup are not the model - they are everything before it:</p>
@@ -106,9 +86,9 @@
 <li><strong>Feature scale.</strong> Price and volume features live on very different scales and drift over time, so normalization choices materially change what the model can learn.</li>
 </ul>
 <p>The notebook (<code>baseline.ipynb</code>) contains the full pipeline end to end: parsing the raw LOB text files, cleaning and normalizing features, constructing splits, training each model, evaluating with class-aware reports, and running interpretability probes on the strongest model.</p>
-<h2>Method</h2>
+<h3>Method</h3>
 <p>I structured the work as a ladder of increasing model complexity, so that every step up has to <em>earn</em> its complexity against a simpler predecessor.</p>
-<pre><code class="language-text">Kaggle LOB text files
+<pre tabindex="0"><code class="language-text">Kaggle LOB text files
       -&gt; Parse order-book rows
       -&gt; Clean and normalize features
       -&gt; Time-respecting train/validation/test splits
@@ -121,9 +101,9 @@
 <p><strong>Sequence model - DeepLOB-style architecture.</strong> The most expressive model, designed around the structure of the data rather than against it. DeepLOB-style architectures combine convolutional feature extraction over the book levels with sequence modeling over time, so the model can learn local spatial patterns across the order book and temporal dynamics jointly. This is the model that <em>should</em> win if there is genuinely sequential, microstructural signal to exploit.</p>
 <p><strong>Interpretability layer.</strong> On the best-performing model I ran feature ablation (removing or perturbing groups of features to measure their contribution), saliency, and integrated gradients via Captum. The goal was to check whether the model&#39;s attributed importance lands on plausible book levels and sides, or whether it is leaning on artifacts. This is the part of the project I care about most: it is the mechanism by which I distinguish a real result from a lucky split.</p>
 <p>I kept the technical stack deliberately standard - Python, pandas, scikit-learn, PyTorch, matplotlib, and Captum - because the contribution here is the experimental design and the honesty of the evaluation, not an exotic toolchain.</p>
-<h2>Results</h2>
+<h3>Results</h3>
 <p>The checked-in notebook reports the following representative metrics on the current split. I present them exactly as they are, with the caveats attached, because misrepresenting financial ML results is both intellectually dishonest and easy to do accidentally.</p>
-<table>
+<div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table>
 <thead>
 <tr>
 <th>Model</th>
@@ -150,27 +130,27 @@
 <td align="right">Sequence evaluation workflow in notebook</td>
 <td>Best direction for further work</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 <p>Three things stand out, and none of them are &quot;the deep model won, ship it.&quot;</p>
 <p>First, the <strong>logistic baseline is genuinely strong</strong> - 0.7091 test accuracy. This is the single most important number in the project, because it sets the honest bar. Any future claim about a fancier model has to be measured against this, not against a strawman.</p>
 <p>Second, the <strong>MLP underperformed the logistic baseline</strong> (0.5494 / 0.5943). That is not a failure to hide; it is information. It tells me that simply adding non-linear capacity on top of the existing flat feature representation does not help, which points the finger at the representation and the way temporal structure is (not) being used.</p>
 <p>Third, the <strong>DeepLOB-style model reached 0.8040 validation accuracy during training</strong>, which is the most encouraging signal and the clearest direction for further work - but I am explicit that this is a validation-during-training number with a sequence evaluation workflow still being hardened, not a clean apples-to-apples test figure. I have not let it masquerade as a final result.</p>
 <p>These are exploratory notebook results, not production trading claims. The point of the project was never to claim alpha; it was to build a rigorous, interpretable pipeline and to be precise about what the numbers do and do not support.</p>
-<h2>What Worked</h2>
+<h3>What Worked</h3>
 <ul>
 <li><strong>Starting with a strong baseline.</strong> The logistic regression model anchored the entire project. Without it, the DeepLOB number would be a meaningless 0.80 floating in a vacuum. With it, every comparison has a reference point.</li>
 <li><strong>Treating complexity as something to be earned.</strong> The ladder of logistic to MLP to sequence model made the MLP&#39;s underperformance <em>legible</em> instead of confusing. The structure of the experiment turned a disappointing model into a useful diagnostic.</li>
 <li><strong>Building interpretability in, not bolting it on.</strong> Using ablation, saliency, and integrated gradients on the best model meant I could ask whether the model&#39;s attention landed on plausible book features rather than just trusting an accuracy number. In a domain this prone to artifacts, that is the difference between a finding and a fluke.</li>
 <li><strong>Respecting the data&#39;s structure.</strong> Convolution over book levels plus temporal modeling matched the actual geometry of an order book, and that is where the most promising signal appeared.</li>
 </ul>
-<h2>What Failed</h2>
+<h3>What Failed</h3>
 <ul>
 <li><strong>The MLP was a dead end on this representation.</strong> More parameters on flat features did not buy generalization - it cost it. Honestly reporting this was more valuable than quietly dropping it.</li>
 <li><strong>Reproducibility is currently weak.</strong> The dataset is external and not committed, results depend on the current notebook state and split, and there is no fixed environment file or scriptable training entry point. Someone cloning the repo today cannot reproduce my exact numbers in one command. That is a real limitation, not a footnote.</li>
 <li><strong>Evaluation is not yet fully standardized across models.</strong> The DeepLOB validation number and the baselines&#39; test numbers are not yet reported through one identical evaluation harness, which makes the headline comparison softer than I want it to be.</li>
 <li><strong>Accuracy is doing too much work as a metric.</strong> Given class imbalance, I should be leaning harder on per-class precision/recall and a confusion-matrix-level view rather than letting accuracy headline the result.</li>
 </ul>
-<h2>What I Would Do Next</h2>
+<h3>What I Would Do Next</h3>
 <ol>
 <li><strong>Make it reproducible.</strong> Add a scriptable training entry point, a pinned environment file, a deterministic seed, and saved result artifacts so the numbers are regenerable from a clean checkout - turning a notebook into an experiment others can trust.</li>
 <li><strong>Unify the evaluation harness.</strong> Run every model - baselines and sequence model - through one identical, time-respecting evaluation path so the comparison table is truly apples-to-apples, and report per-class metrics and confusion matrices alongside accuracy.</li>
@@ -178,44 +158,16 @@
 <li><strong>Deepen the interpretability story.</strong> Move from per-prediction attributions to aggregate, dataset-level statements: which book levels and which side of the book carry the most predictive weight, and whether that is economically plausible.</li>
 <li><strong>Test robustness across regimes.</strong> Evaluate stability across different market conditions and horizons, since a model that only works in one regime is not really predicting microstructure - it is fitting one.</li>
 </ol>
-<h2>Links</h2>
+<h3>Links</h3>
 <ul>
 <li>Repository: <a href="https://github.com/Praneeth-Suresh/LOBForecasting">https://github.com/Praneeth-Suresh/LOBForecasting</a></li>
 <li>Dataset: Ntakaris et al. (2018), &quot;Benchmark dataset for mid-price forecasting of limit order book data with machine learning methods,&quot; <em>Journal of Forecasting</em> 37(8): 852-866, via Kaggle.</li>
 <li>Contact: praneeth[dot]suresh[dot]s [at] gmail[dot]com</li>
 </ul>
 </article>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-blog-post">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-blog-post">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
-      </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
-  
-      
-    <section id="subscribe-blog-post" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-blog-post">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-blog-post">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="blog-post">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
-      </div>
-    </section>
-  
       <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
-      <nav class="blog-post-nav"><a href="/blog/engineering-discipline-for-agentic-coding/">&larr; An Engineering Discipline for Agentic Coding</a><span></span></nav>
+      <nav class="blog-post-nav" aria-label="More in Engineering &amp; Research Write-Ups"><a href="/blog/engineering-discipline-for-agentic-coding/">&larr; An Engineering Discipline for Agentic Coding</a><span></span></nav>
+      <a class="blog-back" href="/blog/">&larr; All writing</a>
     </div>
     <script>
       (() => {
@@ -239,30 +191,22 @@
       })();
     </script>
   
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -300,10 +244,9 @@
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -312,8 +255,7 @@
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -344,11 +286,13 @@
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -374,6 +318,31 @@
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

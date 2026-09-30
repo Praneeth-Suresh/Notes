@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img" aria-labelledby="t d">
+  <title id="t">An array occupies contiguous memory</title>
+  <desc id="d">int a[4] holds 10, 20, 30, 40 in four adjacent 4-byte slots at addresses 0x1000, 0x1004, 0x1008 and 0x100C. In most expressions the name a decays to a pointer to a[0], and a[i] means *(a + i).</desc>
+  <rect width="640" height="260" fill="#F7F7F5"/>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" fill="#202124">
+    <text x="320" y="36" font-size="18" font-weight="600" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">int a[4] = {10, 20, 30, 40};</text>
+    <g stroke="#202124" stroke-width="2" fill="#FFFFFF">
+      <rect x="120" y="90" width="100" height="64"/><rect x="220" y="90" width="100" height="64"/>
+      <rect x="320" y="90" width="100" height="64"/><rect x="420" y="90" width="100" height="64"/>
+    </g>
+    <g font-size="22" text-anchor="middle" font-family="ui-monospace, Menlo, monospace">
+      <text x="170" y="130">10</text><text x="270" y="130">20</text><text x="370" y="130">30</text><text x="470" y="130">40</text>
+    </g>
+    <g font-size="13" text-anchor="middle" fill="#5F666A" font-family="ui-monospace, Menlo, monospace">
+      <text x="170" y="80">a[0]</text><text x="270" y="80">a[1]</text><text x="370" y="80">a[2]</text><text x="470" y="80">a[3]</text>
+      <text x="170" y="174">0x1000</text><text x="270" y="174">0x1004</text><text x="370" y="174">0x1008</text><text x="470" y="174">0x100C</text>
+    </g>
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#315F9C"/></marker></defs>
+    <path d="M60 210 L60 160 L116 130" stroke="#315F9C" stroke-width="2" fill="none" marker-end="url(#a)"/>
+    <text x="60" y="228" font-size="14" text-anchor="middle" fill="#315F9C" font-family="ui-monospace, Menlo, monospace">a → &amp;a[0]</text>
+    <text x="340" y="222" font-size="14" text-anchor="middle" fill="#5F666A">Adjacent 4-byte slots (sizeof(int) is 4 on common platforms).</text>
+    <text x="340" y="244" font-size="14" text-anchor="middle" fill="#5F666A">a[i] is defined as *(a + i).</text>
+  </g>
+</svg>

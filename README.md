@@ -120,8 +120,7 @@ To make the generated site output include the new topic, rebuild after the pull:
 ```bash
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
-  --out dist \
-  --site-title "Praneeth's CS Field Notes"
+  --out dist
 ```
 
 For a brand-new topic, the command sequence is:
@@ -134,8 +133,7 @@ node scripts/pull-notion-topic.js \
 
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
-  --out dist \
-  --site-title "Praneeth's CS Field Notes"
+  --out dist
 ```
 
 After that build completes, the topic is rendered at:
@@ -279,7 +277,6 @@ The build reads `content/topic-manifest.json`, renders all topic pages and subpa
 node scripts/build-pages.js \
   --manifest content/topic-manifest.json \
   --out dist \
-  --site-title "Praneeth's CS Field Notes" \
   --site-url "https://notes.praneeth-suresh-s.workers.dev"
 ```
 
@@ -296,19 +293,23 @@ The build uses a temporary output directory and replaces `dist/` only after rend
 
 The `--site-url` value is used for absolute canonical URLs, Open Graph URLs, structured-data URLs, and RSS item links. If omitted, the build defaults to the current production Workers URL.
 
-## RSS and Subscription Capture
+## Site Name, RSS, and Analytics Hooks
 
-The static build emits `dist/feed.xml` from root topic pages and blog posts, then adds RSS discovery links to generated HTML. The shared shell also renders subscription panels on the home page, topic pages, the blog index, and blog posts.
+The public site name lives in `content/site-metadata.json` (`siteTitle`) and is used for every page title, JSON-LD block, and the RSS channel, so a build command cannot drift from it. `--site-title` is only a fallback when the metadata has no name.
 
-The email newsletter provider is intentionally not hard-coded. Until a public signup endpoint is selected, subscription panels use RSS as the live owned-audience path and expose provider-neutral analytics hooks:
+The build emits `dist/feed.xml` from topic overviews and posts. RSS is the only follow option; there is no email newsletter, and pages carry no subscribe panels (the footer links the feed). Pages expose provider-neutral analytics hooks that buffer events in `window.notesAnalyticsEvents` and dispatch a `notes-analytics` browser event:
 
-- `data-analytics-event="page_view"`
-- `data-analytics-event="rss_click"`
-- `data-analytics-event="newsletter_cta_click"`
-- `data-analytics-event="outbound_github_click"`
-- `data-analytics-event="outbound_linkedin_click"`
+- `data-analytics-event="page_view"`, `rss_click`, `cv_download_click`, `copy_share_link_click`
+- `data-analytics-event="outbound_github_click"`, `outbound_linkedin_click`
 
-The generated pages buffer those events in `window.notesAnalyticsEvents` and dispatch a `notes-analytics` browser event. A future analytics provider can listen to that event without changing the content templates or committing provider secrets.
+## Navigation, Search, Sitemap Dates, and Redirects
+
+- Reading paths: each topic's `pillar.readingPath` in `content/topic-manifest.json` is its recommended order and drives "Next" links on notes (then siblings, then the parent). A note can override it with `next: { href, reason }` in `content/publication/notes.json`. Links must resolve to generated notes or the build fails.
+- Home and Start Here entry points live in `content/reading-paths.json`.
+- Search: `/notes/` fetches `search-index.json` on first use; results rank exact titles first and show the matching passage. `?q=` is kept in the URL so Back restores results.
+- Sitemap dates: `content/publication/route-dates.json` records a content fingerprint and date per route. The build fails when a route changed without a new date; run `node scripts/update-route-dates.js` (today's date for changed routes only).
+- Renames and retired pages: `content/publication/redirects.json` becomes `dist/_redirects` (Cloudflare static assets). A retitle in `corrections.json` changes a note's slug, so add a redirect from the old path.
+- Blog images: run `python3 scripts/optimize-images.py` (needs Pillow) after pulling new images; the build serves the WebP copies in `content/blog/images-optimized/` with their dimensions.
 
 ## Preview Locally
 
@@ -331,6 +332,14 @@ Useful manual checks:
 - `/topics/algorithms/` should include links for child pages from the Algorithms database.
 - Child pages should be available at static routes such as `/topics/algorithms/sorting/`.
 - LaTeX and code blocks should render without losing source formatting.
+
+## Publication Status, Corrections, and Note Media
+
+Three checked-in sidecars are joined at build time. None of them is written by ingestion, so a fresh Notion pull cannot undo them.
+
+- `content/publication/notes.json` has one entry per note, keyed by the Notion root page ID or child page `blockId`. It records `status` (`Working note`, `Reviewed note`, or `Archived`), `contentType`, `reviewedAt`, `knownGaps`, `related` links with a `reason`, and, for Archived notes, `archiveReason`. The build fails on missing, duplicate, or stale IDs. After pulling new notes, run `node scripts/sync-publication-sidecar.js`; it adds new notes as `Working note` and never promotes an existing entry. To mark a note reviewed, set `status` to `Reviewed note` and `reviewedAt` to the review date by hand.
+- `content/publication/corrections.json` holds text-guarded edits keyed by `blockId`. Each one is published on `/errata/`. If the guarded text no longer matches (for example, after the fix was made in Notion and re-pulled), the build fails; remove or update that entry.
+- `content/media/` stores Notion images as stable local files. `content/media/media-manifest.json` supplies alt text and records whether each file is the Notion original or a redrawn replacement. `pull-notion-topic.js` downloads images automatically. To repair checked-in topics that still have signed URLs, run `NOTION_API_TOKEN=... node scripts/persist-topic-media.js`. The build refuses to publish any expiring Notion/S3 URL.
 
 ## Verify Changes
 
@@ -357,7 +366,7 @@ If you intentionally changed tests, update the test manifest:
 | Setting                | Value                                                                                                                                                                               |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Framework preset       | None                                                                                                                                                                                |
-| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-title "Praneeth's CS Field Notes" --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
+| Build command          | `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist --site-url "https://notes.praneeth-suresh-s.workers.dev"` |
 | Build output directory | `dist`                                                                                                                                                                            |
 | Root directory         | `/`                                                                                                                                                                               |
 
@@ -389,10 +398,11 @@ Use this when you want manual deploys from local output.
 4. The pull command writes the normalized topic file and updates `content/topic-manifest.json` for that slug.
 5. Update subtitles with `node scripts/update-topic-subtitle.js ...` when topic descriptions need to change.
 6. Refresh portfolio repository data with `node scripts/refresh-portfolio-repositories.js` when public GitHub repositories change.
-7. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
-8. Preview with `python3 -m http.server 4173 --directory dist`.
-9. Run `./scripts/check.sh`.
-10. Commit the generated data and `dist/` changes, then push to `main` so Cloudflare Pages deploys through Git integration.
+7. Run `node scripts/sync-publication-sidecar.js` for new notes, `python3 scripts/optimize-images.py` for new blog images, and `node scripts/update-route-dates.js` for changed routes.
+8. Build with `node scripts/build-pages.js --manifest content/topic-manifest.json --out dist`.
+9. Preview with `python3 -m http.server 4173 --directory dist`.
+10. Run `./scripts/check.sh`.
+11. Commit the generated data and `dist/` changes, then push to `main` so Cloudflare Pages deploys through Git integration.
 
 ## Reliability and Fidelity Guarantees
 

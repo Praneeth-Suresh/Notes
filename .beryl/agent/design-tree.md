@@ -10,14 +10,12 @@ Use three bounded contexts with a Cloudflare Pages composition boundary:
 
 The Pages build contract composes these contexts into static deploy artifacts so reliability and scalability are handled at build time, not runtime.
 Formatting fidelity is a hard requirement: notion-authored structure, especially LaTeX and code blocks, must be preserved exactly through publish artifacts.
-The home page should express a minimalist technical hub aesthetic, borrowing static-friendly cues from Stripe.dev while making topic discovery and navigation the dominant interaction.
+Since 2026-09-30 (website audit) the site uses a quiet, Notion-inspired reading surface for recruiters and collaborators: paper/ink tokens with one blue accent and an amber Working-note status, one H1 per page, a reading margin that shows each note's status and from/next links, and Colin Moy-style in-place disclosure only for curated reading paths and topic rows. Older Stripe- and Apple-inspired decisions below are superseded where they conflict.
 
 ## Open Decisions
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
-| Stripe-inspired motion depth | CSS-only generated motifs vs. JS/canvas animation vs. remote asset reproduction | CSS-only generated motifs | Cloudflare Pages static compatibility and reduced-motion support make CSS-only motion the safest first slice. |
-| Topic feed density | Card grid vs. compact blog-feed rows | Hybrid feed cards | Preserves the existing topic scan UX while moving visual rhythm closer to Stripe.dev's developer feed. |
 | Portfolio source fidelity | Static curated facts from approved profile/repo pages vs. runtime profile fetch vs. user-authenticated scrape | Static curated facts from approved public GitHub pages, with LinkedIn unavailable if auth-walled | Keeps Cloudflare Pages static and avoids inventing inaccessible LinkedIn-only details. |
 | Portfolio repository refresh source | Manual local GitHub API refresh vs. Pages Function runtime fetch vs. Cloudflare Worker trigger | Manual local GitHub API refresh | The maintainer wants manual local triggering; Cloudflare Pages builds must consume checked-in static JSON and never call GitHub directly. |
 | Notion database label rendering | Render all database properties vs. manifest-configured select/multi-select properties vs. infer labels from page text | Manifest-configured select/multi-select properties | Keeps labels explicit, avoids noisy database metadata, and preserves Notion property intent. |
@@ -107,6 +105,15 @@ The home page should express a minimalist technical hub aesthetic, borrowing sta
 | About page permanent wordmark | Keep a Build Week clock-inspired dot-matrix `PRANEETH` wordmark in the `/about/` hero as a durable identity element; future about-page redesigns may restyle surrounding sections but must not remove this wordmark. | 2026-07-14 | n/a |
 | About page continuous layout | Remove the bordered block-by-block section treatment from `/about/` and use a continuous editorial flow: the dot-matrix hero remains the identity anchor, while subsequent sections align on an open label/content rail with whitespace, type scale, and lightweight separators instead of boxed panels. | 2026-07-14 | n/a |
 | Beryl repository control-plane layout | Use the current `.beryl/` layout for agent instructions, scripts, driver, and githooks; root shims are generated from `.beryl/agent/tool-instruction-template.md`, and deterministic gates run through `./.beryl/scripts/check.sh`. | 2026-07-06 | n/a |
+
+- 2026-09-30 (audit Phases 3–7), superseding the homepage showcase, subscribe, and Stripe-styling rows above:
+  - Visual system: Notion-like tokens in `site-styling/internal/css.js`; no forced dark Home, no per-section themes, no decorative Home imagery; motion limited to 150 ms colour transitions and removed under reduced motion.
+  - Navigation: primary Notes, Projects, Writing (route stays `/blog/`), About, plus Search; Start here, Contact, CV, RSS, Research questions, Errata in the footer. `/collaborate/` is a 301 to `/contact/`.
+  - Notes: one H1 (Notion/Markdown headings shift down a level), local scrolling for code, tables, and math; next reading comes from curated reading paths (`scripts/lib/reading-paths.js`), not build order.
+  - Search: ranking and snippets in `site-styling/internal/notes-search.js`; `/notes/` fetches the index lazily.
+  - Follow: RSS only; no email newsletter (owner decision 2026-09-30).
+  - Sitemap dates come from a fingerprinted ledger, and renames go through `_redirects` (ADR 0009).
+- 2026-09-30 (audit Phase 1–2): Publication status, content corrections, and note media are checked-in sidecars joined by `pages-build`, never written into normalized ingestion output. Every note defaults to Working note; Reviewed note needs a hand-written `reviewedAt`. Substantive corrections are published on `/errata/` and linked from the note's status block. See ADR 0008.
 
 ## Pressure Points
 

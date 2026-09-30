@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Functions in C · Praneeth&#39;s CS Field Notes</title>
 
-    <meta name="description" content="A close look at the C language." />
+    <meta name="description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/" />
     <meta property="og:title" content="Functions in C · Praneeth&#39;s CS Field Notes" />
-    <meta property="og:description" content="A close look at the C language." />
+    <meta property="og:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/" />
     <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
@@ -19,27 +19,25 @@
     <meta property="og:image:alt" content="Functions in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Functions in C · Praneeth&#39;s CS Field Notes" />
-    <meta name="twitter:description" content="A close look at the C language." />
+    <meta name="twitter:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="Functions in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/","name":"Functions in C · Praneeth's CS Field Notes","description":"A close look at the C language.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":3,"name":"Functions in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/","name":"Functions in C · Praneeth's CS Field Notes","description":"The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":4,"name":"Functions in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/functions-in-c/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <script>
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -47,60 +45,39 @@
       })();
     </script>
     <link rel="stylesheet" href="/assets/site.css" />
-    <script>
-      window.MathJax = {
-        loader: {
-          paths: { mathjax: "/assets/vendor/mathjax" }
-        },
-        tex: {
-          inlineMath: [["\\(", "\\)"]],
-          displayMath: [["\\[", "\\]"]]
-        },
-        svg: { fontCache: "global" }
-      };
-    </script>
-    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body data-analytics-event="page_view">
+  <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/c/">C Deep Dive</a></li><li aria-current="page">Functions in C</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">Functions in C</h1>
+        <p class="topic-parent">In <a href="/topics/c/">C Deep Dive</a></p>
+        
+        
       </header>
-      
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="active" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
-    <section id="main-content" class="panel notes-panel">
-      <h1 class="site-title">Functions in C</h1>
-      <p class="topic-parent">Subpage of C Deep Dive</p>
-      
-      <p class="topic-meta">A close look at the C language.</p>
-      
-      
-    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801d-9bae-feb4c2a6ca43">A function has two essential parts: </p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8043-9038-cb0cc551169e"><strong>declaration</strong> (or prototype) that specifies its interface. This tells the compiler the function&#39;s name, return type, and parameter types. This allows the compiler to check that calls to the function are correct. The declaration typically appears at the top of a file or in a header file. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f0-b30f-cdce034c663d"><strong>definition</strong> that provides its implementation The definition contains the actual code that executes when the function is called.</li></ul><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80be-8423-e662ffb82362"><pre class="note-code-block" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Declaration/definition explanation; show prototype placement and scope in one compiling example.</li></ul></div>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/c/">C Deep Dive</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/c/pointers-in-c/">Pointers in C</a><p>Next step in the C Deep Dive reading path (Memory).</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801d-9bae-feb4c2a6ca43">A function has two essential parts: </p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8043-9038-cb0cc551169e"><strong>declaration</strong> (or prototype) that specifies its interface. This tells the compiler the function&#39;s name, return type, and parameter types. This allows the compiler to check that calls to the function are correct. The declaration typically appears at the top of a file or in a header file. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f0-b30f-cdce034c663d"><strong>definition</strong> that provides its implementation The definition contains the actual code that executes when the function is called.</li></ul><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80be-8423-e662ffb82362"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">#include &lt;stdio.h&gt;
 
 /* Function declaration (prototype) - tells compiler about the function */
 int add(int a, int b);
@@ -114,77 +91,42 @@ int main() {
 /* Function definition - implements what the function does */
 int add(int a, int b) {
     return a + b;  /* Returns the sum to the caller */
-}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8086-bfd5-d48a4cce569d">Parameters in C are <strong>passed by value</strong>, meaning the function receives copies of the arguments, not the original variables. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8062-8cbb-e072f4292970">This protects the original data from being modified unintentionally. However, if you need to modify the original variable or return multiple values, you must use <strong>pointers</strong> to pass the address of the variable instead of its value.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-809b-ab35-d16e1f94cd86">We call the the specific values or expressions that are passed to a function when it is called the <strong>actual parameters</strong>. This will always be a particular value which is inside the box representing the variable.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80cc-96d1-faad07968e13">Scoping</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801f-9c93-cca66cc9545f">C uses <strong>lexical (or static) scoping</strong>, meaning the scope is determined entirely by where the variable is declared in the source code at compile time, not by how the code runs. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a8-b698-da40d51deef1">When dealing with functions, variables declared within the parameter list of a function declaration (prototype) have this scope. They are only visible until the end of the function declarator. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804b-8b94-e21440e3754e">However, we can overcome the limitations of scoping by <u>passing around </u><u><strong>pointers</strong></u>. If we have a pointer to a value, we can modify the value.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-a5ee-e751b4227283">Here is what the prototype of such a function might look like. Specifically, below we present a function that takes in 3 integer pointers:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8021-8d44-d01b3dfe18db"><pre class="note-code-block" data-language="c"><code class="language-c">void f(int *, int *, int *);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8008-b829-dfe3a08c683d">Here are key concepts associated with scoping:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f2-a711-f06dfac76e36"><strong>Shadowing:</strong> If a variable declared in an inner block has the same name as one in an outer block, the inner variable &quot;shadows&quot; (hides) the outer one.<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-801c-80cb-c5b3f13c7e03"><pre class="note-code-block" data-language="c"><code class="language-c">int x = 10; // Outer variable
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8086-bfd5-d48a4cce569d">Parameters in C are <strong>passed by value</strong>, meaning the function receives copies of the arguments, not the original variables. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8062-8cbb-e072f4292970">This protects the original data from being modified unintentionally. However, if you need to modify the original variable or return multiple values, you must use <strong>pointers</strong> to pass the address of the variable instead of its value.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-809b-ab35-d16e1f94cd86">We call the the specific values or expressions that are passed to a function when it is called the <strong>actual parameters</strong>. This will always be a particular value which is inside the box representing the variable.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80cc-96d1-faad07968e13">Scoping</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801f-9c93-cca66cc9545f">C uses <strong>lexical (or static) scoping</strong>, meaning the scope is determined entirely by where the variable is declared in the source code at compile time, not by how the code runs. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a8-b698-da40d51deef1">When dealing with functions, variables declared within the parameter list of a function declaration (prototype) have this scope. They are only visible until the end of the function declarator. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804b-8b94-e21440e3754e">However, we can overcome the limitations of scoping by <u>passing around </u><u><strong>pointers</strong></u>. If we have a pointer to a value, we can modify the value.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-a5ee-e751b4227283">Here is what the prototype of such a function might look like. Specifically, below we present a function that takes in 3 integer pointers:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8021-8d44-d01b3dfe18db"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">void f(int *, int *, int *);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8008-b829-dfe3a08c683d">Here are key concepts associated with scoping:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f2-a711-f06dfac76e36"><strong>Shadowing:</strong> If a variable declared in an inner block has the same name as one in an outer block, the inner variable &quot;shadows&quot; (hides) the outer one.<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-801c-80cb-c5b3f13c7e03"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int x = 10; // Outer variable
 {
     int x = 5; // Inner variable shadows outer x
     printf(&quot;%d&quot;, x); // Prints 5
 }
-printf(&quot;%d&quot;, x); // Prints 10</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-800c-ae9a-e188215868e7"><strong>Static Variables:</strong> If you declare a local variable as <code class="note-inline-code">static</code>, its scope remains local, but its lifetime extends to the entire program, retaining its value between function calls.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f5-b57e-f4318264ec22"><strong>Global vs Local:</strong> It is considered best practice to use local variables to limit the scope and make code easier to debug.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-802a-91d9-fd971d118de2"><strong>Linkage:</strong> Global variables have <em>external linkage</em> by default, meaning they can be accessed in other files using the <code class="note-inline-code">extern</code> keyword. Marking them as <code class="note-inline-code">static</code> gives them <em>internal linkage</em>, restricting them to the current file.</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8074-af6c-cc799290e024">Ordering</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803f-9235-e63168a91e7a">Remember that all functions need to be declared <strong>before</strong> the <code class="note-inline-code">main</code> function so that the compiler knows what parameters a function and take and what its return type is before it can be called. Not adhering to the ordering will result in warnings (or at worst, compilation errors).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-806c-86e0-db52cd34e027">The <em>function definition</em> (outline of what the function does) can happen later however.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8040-9da8-c4834c4f41d7">To understand why this might be the case, we go through how the compiler works:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-803b-a9b8-d6d3c671ae5d">The compiler reads the source code top down.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8001-a2ab-d4e48271cd09">When the compiler sees a call to a function it doesn’t recognize, rather than complain about it, the compiler figures that it will find out more about the function later in the source file. The compiler simply remembers to look out for the function later on in the file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8055-ac4b-f7c17588e078">The compiler needs to know what data type the function will return. It doesn’t know yet so it makes an assumption. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8081-9412-fb52594a526d">When it reaches the code for the actual function it checks the return type. If the return type is different, the compiler thinks there are two functions with the same name and throws a <code class="note-inline-code">conflicting types</code> error.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-809c-bfad-de764787d620">To avoid this problem, we use <strong>function declarations</strong> (also called a function prototype). </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8070-a9d7-fb930212ab5e">The declaration is just a function signature: a record of what the function will be called, what kind of parameters it will accept, and what type of data it will return.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8088-aa1b-deece9c868d9">This is why you will often see a whole bunch of declarations at the start of a C program.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800d-ae07-e0274633fb1b">Even better, all the function declarations can be put in a separate file called the header file. Here is how to create a header file:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80c7-9264-d29818ae35c4">Create a new file with a .h extension.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e8-9f02-d76a4c2ed383">If you are writing a program called <code class="note-inline-code">totaller</code>, then create a file called <code class="note-inline-code">totaller.h</code> and write your declarations inside it.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8006-8fd3-fd1e9a778a33">This file will contain declarations and nothing else.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8095-afa4-e1e8363aabe2">Include your header file in your main program.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8070-9bd0-d27024d63e75">Here is an example:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8069-9e18-f20c2f681b73"><pre class="note-code-block" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &quot;totaller.h&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8009-a60a-c7fafc3627b9">By wrapping the header filename in quotes, you are telling the compiler to look for a local file.</p></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8077-9039-d26b8204f25e">Here are some pointers about <u><strong>prototypes</strong></u><strong> </strong>that are useful to keep in mind:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80ab-a6c6-d7bb02359a03">In a prototype, identifiers can differ or be omitted:<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80c4-b7d1-f145704efda9"><pre class="note-code-block" data-language="c"><code class="language-c">int f(int x, double y);
+printf(&quot;%d&quot;, x); // Prints 10</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-800c-ae9a-e188215868e7"><strong>Static Variables:</strong> If you declare a local variable as <code class="note-inline-code">static</code>, its scope remains local, but its lifetime extends to the entire program, retaining its value between function calls.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f5-b57e-f4318264ec22"><strong>Global vs Local:</strong> It is considered best practice to use local variables to limit the scope and make code easier to debug.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-802a-91d9-fd971d118de2"><strong>Linkage:</strong> Global variables have <em>external linkage</em> by default, meaning they can be accessed in other files using the <code class="note-inline-code">extern</code> keyword. Marking them as <code class="note-inline-code">static</code> gives them <em>internal linkage</em>, restricting them to the current file.</li></ul><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8074-af6c-cc799290e024">Ordering</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803f-9235-e63168a91e7a">Remember that all functions need to be declared <strong>before</strong> the <code class="note-inline-code">main</code> function so that the compiler knows what parameters a function and take and what its return type is before it can be called. Not adhering to the ordering will result in warnings (or at worst, compilation errors).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-806c-86e0-db52cd34e027">The <em>function definition</em> (outline of what the function does) can happen later however.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8040-9da8-c4834c4f41d7">To understand why this might be the case, we go through how the compiler works:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-803b-a9b8-d6d3c671ae5d">The compiler reads the source code top down.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8001-a2ab-d4e48271cd09">When the compiler sees a call to a function it doesn’t recognize, rather than complain about it, the compiler figures that it will find out more about the function later in the source file. The compiler simply remembers to look out for the function later on in the file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8055-ac4b-f7c17588e078">The compiler needs to know what data type the function will return. It doesn’t know yet so it makes an assumption. </li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8081-9412-fb52594a526d">When it reaches the code for the actual function it checks the return type. If the return type is different, the compiler thinks there are two functions with the same name and throws a <code class="note-inline-code">conflicting types</code> error.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-809c-bfad-de764787d620">To avoid this problem, we use <strong>function declarations</strong> (also called a function prototype). </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8070-a9d7-fb930212ab5e">The declaration is just a function signature: a record of what the function will be called, what kind of parameters it will accept, and what type of data it will return.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8088-aa1b-deece9c868d9">This is why you will often see a whole bunch of declarations at the start of a C program.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800d-ae07-e0274633fb1b">Even better, all the function declarations can be put in a separate file called the header file. Here is how to create a header file:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80c7-9264-d29818ae35c4">Create a new file with a .h extension.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e8-9f02-d76a4c2ed383">If you are writing a program called <code class="note-inline-code">totaller</code>, then create a file called <code class="note-inline-code">totaller.h</code> and write your declarations inside it.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8006-8fd3-fd1e9a778a33">This file will contain declarations and nothing else.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8095-afa4-e1e8363aabe2">Include your header file in your main program.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8070-9bd0-d27024d63e75">Here is an example:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8069-9e18-f20c2f681b73"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">#include &lt;stdio.h&gt;
+#include &quot;totaller.h&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8009-a60a-c7fafc3627b9">By wrapping the header filename in quotes, you are telling the compiler to look for a local file.</p></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8077-9039-d26b8204f25e">Here are some pointers about <u><strong>prototypes</strong></u><strong> </strong>that are useful to keep in mind:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80ab-a6c6-d7bb02359a03">In a prototype, identifiers can differ or be omitted:<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80c4-b7d1-f145704efda9"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int f(int x, double y);
 int f(int, double);    // equivalent prototype []</code></pre></figure></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8082-bd00-c848953285cd">In a parameter list, <strong><code class="note-inline-code">int a[]</code></strong> and <strong><code class="note-inline-code">int a[10]</code></strong> are both <strong>exactly equivalent</strong> to <strong><code class="note-inline-code">int *a</code></strong>: they declare a pointer parameter, not an array parameter. In fact, <code class="note-inline-code">a[]</code> is just <u>syntactic sugar</u>.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b0-bd7a-e51889abe48b">This is why, inside <strong><code class="note-inline-code">f</code></strong>, <strong><code class="note-inline-code">sizeof a</code></strong> is the size of <strong><code class="note-inline-code">int *</code></strong>, <strong>not</strong> the size of the caller’s array.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804a-a898-c13e4966e5e8">It also means that the function cannot “see” the length of the array; you must pass it separately or encode it in the type (e.g., pointer to array).</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f9-90a8-da407b4bf8f3">For true multidimensional C arrays (arrays of arrays), trailing dimensions must be known so that indexing works. <p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804c-8de9-f6175fee92cc"><strong><code class="note-inline-code">int a[][4]</code></strong> in a prototype is equivalent to <strong><code class="note-inline-code">int (*a)[4]</code></strong>: a pointer to an array of 4 <strong><code class="note-inline-code">int</code></strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e8-b56b-c79d03c28f92">The <strong>rightmost</strong> dimension must be specified (or be a VLA parameter), because <strong><code class="note-inline-code">a[i][j]</code></strong> is compiled as <strong><code class="note-inline-code">(*(a + i) + j)</code></strong>, which needs the size of a row.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8047-bf5f-c4186ec43fd1">A declaration with an empty parameter list, like <strong><code class="note-inline-code">int f();</code></strong>, is <strong>not</strong> a prototype; it says “f is a function returning int, parameters not specified”.</li></ul></article>
-      <nav class="next-reading" aria-label="Next reading">
-  <p class="section-kicker">/ Next</p>
-  <a class="next-reading-link" href="/topics/c/file-handling-in-c/">
-    <span>Next reading</span>
-    <strong>File handling in C</strong>
-    <p>Continue inside C Deep Dive</p>
+        
+        <nav class="next-reading" aria-label="Next reading">
+  <a class="next-reading-link" href="/topics/c/pointers-in-c/">
+    <span class="next-reading-label">Next</span>
+    <strong>Pointers in C</strong>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
   </a>
+  <p>Next step in the C Deep Dive reading path (Memory).</p>
 </nav>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
       </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
+    </div>
   
-      
-    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-    </section>
-  
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -222,10 +164,9 @@ int f(int, double);    // equivalent prototype []</code></pre></figure></li><li 
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -234,8 +175,7 @@ int f(int, double);    // equivalent prototype []</code></pre></figure></li><li 
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -266,11 +206,13 @@ int f(int, double);    // equivalent prototype []</code></pre></figure></li><li 
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -296,6 +238,31 @@ int f(int, double);    // equivalent prototype []</code></pre></figure></li><li 
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

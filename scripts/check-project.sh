@@ -13,7 +13,9 @@ node --test \
   "${ROOT_DIR}/tests/portfolio-repositories.test.js" \
   "${ROOT_DIR}/tests/pull-notion-topic-manifest.test.js" \
   "${ROOT_DIR}/tests/update-topic-subtitle.test.js" \
-  "${ROOT_DIR}/tests/blog-integration.test.js"
+  "${ROOT_DIR}/tests/blog-integration.test.js" \
+  "${ROOT_DIR}/tests/publication-trust.test.js" \
+  "${ROOT_DIR}/tests/site-navigation.test.js"
 
 printf "check-project: running static build smoke check\n"
 node "${ROOT_DIR}/scripts/build-pages.js" \

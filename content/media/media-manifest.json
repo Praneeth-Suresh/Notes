@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "description": "Stable local media for Notion image blocks, keyed by Notion blockId. Applied at build time so a re-pull cannot reintroduce expiring signed URLs or drop alt text. origin=notion-original means the file was downloaded from Notion; origin=replacement means the original was unavailable and a faithful diagram was redrawn from the surrounding note text.",
+  "images": {
+    "342d3a21-bb2d-8070-a6de-d48ee9bfe45b": {
+      "topic": "algorithms",
+      "src": "/assets/notes-media/algorithms/342d3a21-bb2d-8070-a6de-d48ee9bfe45b.svg",
+      "alt": "Savitch's recursion: a path from u to v of at most t steps is split at an intermediate node m into halves of at most floor(t/2) and ceil(t/2) steps, recursing to depth log t.",
+      "origin": "replacement",
+      "note": "Original Notion upload unavailable to the ingestion integration (HTTP 404); redrawn from the note's reachable_within_t_steps pseudocode.",
+      "caption": "Diagram redrawn in September 2026 from the surrounding text; the original image was no longer retrievable.",
+      "width": 720,
+      "height": 360,
+      "updatedAt": "2026-09-30"
+    },
+    "35617c95-99fd-8027-910e-d331f53c777d": {
+      "topic": "os",
+      "src": "/assets/notes-media/os/35617c95-99fd-8027-910e-d331f53c777d.png",
+      "alt": "Without Intel Hyper-Threading one thread runs on a core holding one architectural state; with Hyper-Threading two threads share one core that holds two architectural states.",
+      "origin": "notion-original",
+      "width": 480,
+      "height": 292,
+      "updatedAt": "2026-09-30"
+    },
+    "35417c95-99fd-809e-8ba4-cc2b887aef0c": {
+      "topic": "os",
+      "src": "/assets/notes-media/os/35417c95-99fd-809e-8ba4-cc2b887aef0c.png",
+      "alt": "Layered UNIX structure: users, then shells, compilers and system libraries, then the system-call interface, the kernel (file system, CPU scheduling, virtual memory, drivers), the kernel-hardware interface, and hardware controllers.",
+      "origin": "notion-original",
+      "width": 623,
+      "height": 376,
+      "updatedAt": "2026-09-30"
+    },
+    "3b717c95-99fd-80a7-ac4b-c83a8bc9b455": {
+      "topic": "cpp",
+      "src": "/assets/notes-media/cpp/3b717c95-99fd-80a7-ac4b-c83a8bc9b455.png",
+      "alt": "Memory regions of a C++ program from top to bottom: stack for function calls and local variables, heap for dynamic allocation, static storage for global and static variables, and code (text) for compiled instructions.",
+      "origin": "notion-original",
+      "width": 960,
+      "height": 1036,
+      "updatedAt": "2026-09-30"
+    },
+    "3b7d3a21-bb2d-8052-9492-d19a0a4dea6f": {
+      "topic": "c",
+      "src": "/assets/notes-media/c/3b7d3a21-bb2d-8052-9492-d19a0a4dea6f.svg",
+      "alt": "Two boxes: int x at address 0x1000 holds 42; the separate pointer variable p at address 0x2000 holds 0x1000 and points to x.",
+      "origin": "replacement",
+      "note": "Original Notion upload unavailable to the ingestion integration (HTTP 404); redrawn from the note's 'a pointer is also a box' explanation.",
+      "caption": "Diagram redrawn in September 2026 from the surrounding text; the original image was no longer retrievable.",
+      "width": 720,
+      "height": 300,
+      "updatedAt": "2026-09-30"
+    },
+    "3b7d3a21-bb2d-8009-a921-d5ae92bdca4e": {
+      "topic": "c",
+      "src": "/assets/notes-media/c/3b7d3a21-bb2d-8009-a921-d5ae92bdca4e.svg",
+      "alt": "Typical C process memory layout from high to low addresses: stack growing down, unmapped gap, heap growing up, BSS, data, and read-only text segment.",
+      "origin": "replacement",
+      "note": "Original Notion upload unavailable to the ingestion integration (HTTP 404); redrawn from the note's list of memory segments.",
+      "caption": "Diagram redrawn in September 2026 from the surrounding text; the original image was no longer retrievable.",
+      "width": 600,
+      "height": 440,
+      "updatedAt": "2026-09-30"
+    },
+    "3b7d3a21-bb2d-80ca-aa9e-c3ca6928c7c2": {
+      "topic": "c",
+      "src": "/assets/notes-media/c/3b7d3a21-bb2d-80ca-aa9e-c3ca6928c7c2.svg",
+      "alt": "int a[4] holding 10, 20, 30, 40 in four adjacent slots at 0x1000 to 0x100C; the name a decays to a pointer to a[0].",
+      "origin": "replacement",
+      "note": "Original Notion upload unavailable to the ingestion integration (HTTP 404); redrawn from the note's array contiguity and decay explanation.",
+      "caption": "Diagram redrawn in September 2026 from the surrounding text; the original image was no longer retrievable.",
+      "width": 640,
+      "height": 260,
+      "updatedAt": "2026-09-30"
+    }
+  }
+}

@@ -1,0 +1,1004 @@
+{
+  "version": 1,
+  "description": "Checked-in content corrections applied at build time to normalized Notion content, keyed by Notion blockId and guarded by the block's original text. Each entry is also published on /errata/. If a guard stops matching (for example because the fix was made in Notion and re-pulled), the build fails: retire or update the entry.",
+  "entries": [
+    {
+      "id": "algorithms-loop-cost-composition",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "algorithms",
+      "noteId": "2c0d3a21bb2d8031bb05f06833e69bd3",
+      "summary": "The runtime rule said loops 'in parallel' multiply. Nesting, not parallel execution, is what multiplies, and only when the inner cost does not depend on the outer index.",
+      "original": "When loops (functions) are in series: do addition; when loops are in parallel: do multiplication",
+      "corrected": "Sequential loops add; a nested loop multiplies the outer iteration count by the inner cost, or sums the inner cost when it varies with the outer index.",
+      "edits": [
+        {
+          "blockId": "2c0d3a21-bb2d-80ee-99e5-ff3e0fd8d8b2",
+          "action": "replace",
+          "match": "When loops (functions) are in series: do addition; when loops are in parallel: do multiplication",
+          "richText": [
+            {
+              "text": "When loops run one after another, add their costs: "
+            },
+            {
+              "math": "O(f(n)) + O(g(n)) = O(f(n) + g(n))"
+            },
+            {
+              "text": ". When one loop is nested inside another, multiply the outer iteration count by the cost of one inner run: "
+            },
+            {
+              "math": "n"
+            },
+            {
+              "text": " outer iterations of "
+            },
+            {
+              "math": "O(g(n))"
+            },
+            {
+              "text": " work cost "
+            },
+            {
+              "math": "O(n \\cdot g(n))"
+            },
+            {
+              "text": ". If the inner cost depends on the outer index, sum it instead, e.g. "
+            },
+            {
+              "math": "\\sum_{i=1}^{n} i = \\Theta(n^2)"
+            },
+            {
+              "text": ". It is nesting, not parallel execution, that multiplies: running independent loops concurrently changes elapsed time, not the total work counted."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "algorithms-pairwise-increment-invariant",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "algorithms",
+      "noteId": "2c0d3a21bb2d8031bb05f06833e69bd3",
+      "summary": "For the move 'add 1 to two chosen elements', the note claimed every fixed pairwise difference is unchanged. Only the chosen pair's difference is preserved; the invariant is the parity of the sum, and matching parity is necessary but not sufficient.",
+      "original": "Invariant: The difference a_i - a_j for any fixed pair is unchanged, or the array sum parity stays the same. / Conclusion: If target has different parity or inconsistent differences, it is unreachable.",
+      "corrected": "Invariant: the parity of the array sum. Differences between a chosen and an unchosen element change by 1. Reachability also needs every target entry to be at least its start value and no entry to need more increments than all others combined.",
+      "edits": [
+        {
+          "blockId": "2edd3a21-bb2d-8054-92f6-e8b1f5d756da",
+          "action": "replace",
+          "match": "Invariant: The difference a_i - a_j for any fixed pair is unchanged, or the array sum parity stays the same.",
+          "richText": [
+            {
+              "text": "Invariant: the parity of the array sum never changes, because every move adds exactly 2 to the sum. Pairwise differences are "
+            },
+            {
+              "italic": "not"
+            },
+            {
+              "text": " invariant in general: the move preserves "
+            },
+            {
+              "math": "a_i - a_j"
+            },
+            {
+              "text": " for the two chosen elements, but a difference between a chosen and an unchosen element changes by 1."
+            }
+          ]
+        },
+        {
+          "blockId": "2edd3a21-bb2d-80b0-afb7-d54ee7686c15",
+          "action": "replace",
+          "match": "Conclusion: If target has different parity or inconsistent differences, it is unreachable.",
+          "richText": [
+            {
+              "text": "Conclusion: if the target's sum has a different parity from the starting sum, the target is unreachable. Matching parity is necessary but not sufficient: values only grow, so each target entry must be at least its starting value, and no single entry can need more increments than all the other entries combined, because every move increments two distinct entries."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c-wall-does-not-enable-all-warnings",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "c",
+      "noteId": "213d3a21bb2d80e2bcd8c84d5ce120ff",
+      "summary": "The note said -Wall turns on all warnings. The GCC manual documents many warnings outside -Wall, some enabled by -Wextra and others only individually.",
+      "original": "Note: Use the -Wall option to turn on all warnings.",
+      "corrected": "-Wall enables a large set of commonly useful warnings, not all of them; add -Wextra and specific flags such as -Wconversion as needed.",
+      "edits": [
+        {
+          "blockId": "2e6d3a21-bb2d-808c-884c-f8da7f23bc4c",
+          "action": "replace",
+          "match": "Note: Use the -Wall option to turn on all warnings.",
+          "richText": [
+            {
+              "text": "Note: add "
+            },
+            {
+              "code": "-Wall"
+            },
+            {
+              "text": " to enable a large set of commonly useful warnings. Despite the name, it does not turn on every warning: the "
+            },
+            {
+              "text": "GCC warning options manual",
+              "href": "https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html"
+            },
+            {
+              "text": " lists further warnings enabled by "
+            },
+            {
+              "code": "-Wextra"
+            },
+            {
+              "text": " and others, such as "
+            },
+            {
+              "code": "-Wconversion"
+            },
+            {
+              "text": ", that must be requested individually. A reasonable default is "
+            },
+            {
+              "code": "gcc -Wall -Wextra zork.c -o zork"
+            },
+            {
+              "text": "."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c-gcc-driver-output",
+      "date": "2026-09-30",
+      "kind": "Clarification",
+      "topic": "c",
+      "noteId": "213d3a21bb2d80e2bcd8c84d5ce120ff",
+      "summary": "The description of gcc's output conflated the executable with 'assembler output'. gcc is a driver that preprocesses, compiles, assembles, and links; a.out is only the historical default name.",
+      "original": "The output file is the executable file called assembler output.",
+      "corrected": "The driver runs the preprocessor, compiler, assembler, and linker; -o names the linked executable.",
+      "edits": [
+        {
+          "blockId": "2bed3a21-bb2d-80a0-8e36-d31ffece6cf7",
+          "action": "replace",
+          "match": "gcc refers to the GNU Compiler Collection (GCC) is a compiler system produced by the GNU Project supporting various programming languages. The output file is the executable file called assembler output.",
+          "richText": [
+            {
+              "code": "gcc"
+            },
+            {
+              "text": " is the C compiler driver of the GNU Compiler Collection (GCC), a compiler system from the GNU Project that supports several languages. The driver runs the preprocessor, compiler, assembler, and linker in turn; the file named by "
+            },
+            {
+              "code": "-o"
+            },
+            {
+              "text": " is the linked executable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c-not-every-line-ends-with-semicolon",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "c",
+      "noteId": "3b7d3a21-bb2d-80e6-bc11-e879f29d7f5c",
+      "summary": "The syntax summary said every line ends with a semicolon. Statements and declarations do; preprocessor directives, function headers, and block braces do not.",
+      "original": "Every line ends with a semicolon",
+      "corrected": "Statements and declarations end with a semicolon; directives, function headers, and block braces do not, while struct/union/enum definitions do after the closing brace.",
+      "edits": [
+        {
+          "blockId": "3b7d3a21-bb2d-807c-92a3-e7a3280a16a2",
+          "action": "replace",
+          "match": "Every line ends with a semicolon",
+          "richText": [
+            {
+              "text": "Statements and declarations end with a semicolon ("
+            },
+            {
+              "code": "int x = 1;"
+            },
+            {
+              "text": ", "
+            },
+            {
+              "code": "return 0;"
+            },
+            {
+              "text": "). Not every line does: preprocessor directives such as "
+            },
+            {
+              "code": "#include"
+            },
+            {
+              "text": " and "
+            },
+            {
+              "code": "#define"
+            },
+            {
+              "text": ", a function header followed by its body, and the braces that open and close a block take no semicolon. A "
+            },
+            {
+              "code": "struct"
+            },
+            {
+              "text": ", "
+            },
+            {
+              "code": "union"
+            },
+            {
+              "text": ", or "
+            },
+            {
+              "code": "enum"
+            },
+            {
+              "text": " definition does need one after its closing brace ("
+            },
+            {
+              "code": "struct point { int x; };"
+            },
+            {
+              "text": ")."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cpp-build-model",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "cpp",
+      "noteId": "3b717c95-99fd-801e-b8b4-ce580482fb86",
+      "summary": "The build explanation equated C++ compilation with Java's and blurred the compiler and linker steps; it also cited implicit function declarations, which modern C no longer allows either, as C-but-not-C++ code.",
+      "original": "Code is compiled before it in run, the same as Java and C. / We use the gcc compiler to deal with C++ compilation / ... automatically links the C++ Standard Library (libstdc++). / e.g., implicit function declarations",
+      "corrected": "C++ is compiled ahead of time to native object files that the linker combines; Java compiles to JVM bytecode. g++ (not gcc) links libstdc++ by default. Example of valid C that is not C++: implicit conversion from void *.",
+      "edits": [
+        {
+          "blockId": "3b717c95-99fd-8059-aa7f-fd2423a67a7e",
+          "action": "replace",
+          "match": "Code is compiled before it in run, the same as Java and C.",
+          "richText": [
+            {
+              "text": "C++, like C, is compiled ahead of time to native machine code. Each source file (a translation unit) is preprocessed and compiled into an object file; the linker then combines the object files with libraries into one executable. Java is different: "
+            },
+            {
+              "code": "javac"
+            },
+            {
+              "text": " produces bytecode, which the JVM loads, verifies, and may JIT-compile while the program runs."
+            }
+          ]
+        },
+        {
+          "blockId": "3b717c95-99fd-80de-8312-f62ae63aa3ce",
+          "action": "replace",
+          "match": "We use the gcc compiler to deal with C++ compilation as follows:",
+          "richText": [
+            {
+              "text": "With GCC, use the "
+            },
+            {
+              "code": "g++"
+            },
+            {
+              "text": " driver to compile and link C++ in one step:"
+            }
+          ]
+        },
+        {
+          "blockId": "3b717c95-99fd-8073-9c97-cd5d70fd2cc9",
+          "action": "replace",
+          "match": "This is the standard way to compile C++. It automatically treats files with extensions like .cpp, .cc, and .cxx as C++ and, crucially, automatically links the C++ Standard Library (libstdc++).",
+          "richText": [
+            {
+              "code": "g++"
+            },
+            {
+              "text": " compiles "
+            },
+            {
+              "code": ".cpp"
+            },
+            {
+              "text": ", "
+            },
+            {
+              "code": ".cc"
+            },
+            {
+              "text": ", and "
+            },
+            {
+              "code": ".cxx"
+            },
+            {
+              "text": " files as C++ and, in the link step, adds the C++ standard library ("
+            },
+            {
+              "code": "libstdc++"
+            },
+            {
+              "text": "). Running "
+            },
+            {
+              "code": "gcc"
+            },
+            {
+              "text": " on a "
+            },
+            {
+              "code": ".cpp"
+            },
+            {
+              "text": " file also compiles it as C++, but "
+            },
+            {
+              "code": "gcc"
+            },
+            {
+              "text": " does not link "
+            },
+            {
+              "code": "libstdc++"
+            },
+            {
+              "text": " by default, which is why that command often fails at link time with undefined "
+            },
+            {
+              "code": "std::"
+            },
+            {
+              "text": " symbols."
+            }
+          ]
+        },
+        {
+          "blockId": "3b717c95-99fd-800a-96eb-e7e69a4aa1b7",
+          "action": "replace",
+          "match": "While C++ was originally described as \"C with classes,\" it is not a strict superset of C. Some valid C code is not valid C++ (e.g., implicit function declarations).",
+          "richText": [
+            {
+              "text": "While C++ was originally described as \"C with classes,\" it is not a strict superset of C. Some valid C is not valid C++: for example, "
+            },
+            {
+              "code": "int *p = malloc(sizeof *p);"
+            },
+            {
+              "text": " compiles as C because "
+            },
+            {
+              "code": "void *"
+            },
+            {
+              "text": " converts implicitly to other object pointer types, but C++ requires an explicit cast."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agent-coding-tool-notes-attribution-and-trust",
+      "date": "2026-09-30",
+      "kind": "Correction",
+      "topic": "agent-coding",
+      "noteId": "352d3a21bb2d80a395bcd186ff1aa5c8",
+      "summary": "The Kiro section reproduced the tool's own tips in its first-person voice ('so I can search them', 'while I'm still working'), recommended --trust-all-tools to skip approval prompts and in unattended headless runs, and misspelled two flags. It is now attributed and dated, written in the author's voice, and limits pre-approval to named tools.",
+      "original": "-trust-all-tools or --trust-tools=fs_read,fs_write,execute_bash to skip approval prompts / Headless mode: kiro-cli chat --no-interactive --trust-all-tools \"run tests and fix failures\"",
+      "corrected": "Pre-approve only the tools a task needs; keep --trust-all-tools to disposable sandboxes; unattended runs that write or execute belong in a throwaway checkout or CI container.",
+      "edits": [
+        {
+          "blockId": "365d3a21-bb2d-80c0-b5c6-caaa7c1d64b2",
+          "action": "replace",
+          "match": "Here, I go through Hacks & Tips for using Kiro:",
+          "richText": [
+            {
+              "text": "Tool-specific notes for the Kiro CLI, checked against "
+            },
+            {
+              "code": "kiro-cli 2.8.1"
+            },
+            {
+              "text": " in September 2026. Several items are adapted from the tips the CLI itself displays. Commands and flags change between releases, so confirm them with "
+            },
+            {
+              "code": "kiro-cli chat --help"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-8055-9f2a-db7b9c51926d",
+          "action": "replace",
+          "match": "Type your next message while I'm still working — messages queue automatically (Activity Tray: Ctrl+X)",
+          "richText": [
+            {
+              "text": "You can type the next message while the agent is still working; messages queue automatically (Activity Tray: Ctrl+X)."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-80e6-8653-fef5a19e60a7",
+          "action": "replace",
+          "match": "Index your docs with knowledge bases so I can search them semantically: ask me to \"add ./docs to knowledge\"",
+          "richText": [
+            {
+              "text": "Index project docs in a knowledge base so the agent can search them semantically, for example by asking it to add "
+            },
+            {
+              "code": "./docs"
+            },
+            {
+              "text": " to knowledge."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-801f-ac71-db03e525b2ce",
+          "action": "replace",
+          "match": "-trust-all-tools or --trust-tools=fs_read,fs_write,execute_bash to skip approval prompts",
+          "richText": [
+            {
+              "code": "--trust-tools=<names>"
+            },
+            {
+              "text": " pre-approves only the listed tools. Keep the list as narrow as the task allows, e.g. "
+            },
+            {
+              "code": "--trust-tools=fs_read"
+            },
+            {
+              "text": " for a read-only review. Avoid "
+            },
+            {
+              "code": "--trust-all-tools"
+            },
+            {
+              "text": " ("
+            },
+            {
+              "code": "-a"
+            },
+            {
+              "text": ") outside a disposable sandbox: it lets the agent run any shell command and write any file without asking."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-80f1-a4a7-fc537ebee617",
+          "action": "replace",
+          "match": "Set allowedTools in agent config for permanent auto-approval",
+          "richText": [
+            {
+              "code": "allowedTools"
+            },
+            {
+              "text": " in an agent config makes auto-approval permanent for that agent, so apply the same least-privilege rule there."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-8045-b011-e83d56d328fe",
+          "action": "replace",
+          "match": "Headless mode: kiro-cli chat --no-interactive --trust-all-tools \"run tests and fix failures\"",
+          "richText": [
+            {
+              "text": "Headless mode: "
+            },
+            {
+              "code": "kiro-cli chat --no-interactive \"<prompt>\""
+            },
+            {
+              "text": " runs one prompt without expecting user input. An unattended run cannot answer approval prompts, so grant only the tools the task needs, and run anything that writes files or executes commands in a throwaway checkout or CI container."
+            }
+          ]
+        },
+        {
+          "blockId": "365d3a21-bb2d-80ac-a41e-cbadc2f6f6e4",
+          "action": "replace",
+          "match": "-resume to pick up where you left off",
+          "richText": [
+            {
+              "code": "--resume"
+            },
+            {
+              "text": " ("
+            },
+            {
+              "code": "-r"
+            },
+            {
+              "text": ") resumes the most recent conversation from the current directory."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agent-coding-private-task-list",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "agent-coding",
+      "noteId": "352d3a21bb2d80a395bcd186ff1aa5c8",
+      "summary": "Removed a private to-do list of future additions to the guide (tools to try, 'figure out how to code faster') that read as instructions rather than published guidance.",
+      "original": "Here are other things to add on into this guide to take this to the next level: …",
+      "corrected": "Removed from the public page.",
+      "edits": [
+        {
+          "blockId": "360d3a21-bb2d-8027-bd80-e358545adeba",
+          "action": "remove",
+          "match": ""
+        },
+        {
+          "blockId": "360d3a21-bb2d-805a-84d2-faf884e218ca",
+          "action": "remove",
+          "match": "Here are other things to add on into this guide to take this to the next level:"
+        }
+      ]
+    },
+    {
+      "id": "agent-coding-grill-me-attribution",
+      "date": "2026-09-30",
+      "kind": "Clarification",
+      "topic": "agent-coding",
+      "noteId": "352d3a21-bb2d-80c7-be4d-efb0ba74f27b",
+      "summary": "Attributed the /grill-me skill to its published source and separated the general principle from this tool-specific recipe.",
+      "original": "The idea of using this skill is that it forces a shared design concept to exist before implementation.",
+      "corrected": "grill-me is a published agent skill; the principle is a shared design concept before implementation, and other harnesses need an equivalent planning step.",
+      "edits": [
+        {
+          "blockId": "352d3a21-bb2d-802f-b3aa-fa8cb5006c15",
+          "action": "replace",
+          "match": "The idea of using this skill is that it forces a shared design concept to exist before implementation.",
+          "richText": [
+            {
+              "code": "grill-me"
+            },
+            {
+              "text": " is a published agent skill ("
+            },
+            {
+              "text": "Matt Pocock's skills repository",
+              "href": "https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md"
+            },
+            {
+              "text": ") that makes the agent interrogate a plan before coding. The principle matters more than the command: it forces a shared design concept to exist before implementation. The steps below are how I apply it; other harnesses need an equivalent planning step, not this exact skill."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agent-build-second-brain-prompt-safety",
+      "date": "2026-09-30",
+      "kind": "Clarification",
+      "topic": "agent-build",
+      "noteId": "395d3a21-bb2d-801e-9c4d-fbc4ca1a3df3",
+      "summary": "Added permission and owner-review guidance before the copy-ready migration prompt.",
+      "original": "Use this prompt when starting from a legacy folder of documents and asking a coding agent to build the second brain.",
+      "corrected": "Run the prompt on a copy and review the agent's migration diff before deleting anything.",
+      "edits": [
+        {
+          "blockId": "395d3a21-bb2d-81c4-8690-d847cb34b6db",
+          "action": "replace",
+          "match": "Use this prompt when starting from a legacy folder of documents and asking a coding agent to build the second brain.",
+          "richText": [
+            {
+              "text": "Use this prompt when starting from a legacy folder of documents and asking a coding agent to build the second brain. Run it on a copy of the folder rather than the only original, give the agent write access to that working copy only, and review its migration diff before deleting or replacing anything. The prompt asks the agent to preserve originals; that is an instruction, not a guarantee."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-os-basics",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-8039-b1e8-cc510da8fef3",
+      "summary": "OS Basics: removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-809c-94dd-f14d2eac366d",
+          "action": "replace",
+          "match": "Phase 1 — Basics (Weeks 1–4). This is the most important phase. Every subsequent topic assumes fluency here. Focus on the process lifecycle, system calls, and the kernel/user boundary. Your computer organization background will make interrupts and privileged instructions click quickly — lean into that.",
+          "richText": [
+            {
+              "text": "Phase 1 — Basics (Weeks 1–4). This is the most important phase. Every subsequent topic assumes fluency here. Focus on the process lifecycle, system calls, and the kernel/user boundary. A computer-organization background makes interrupts and privileged instructions easier to follow."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-804d-b740-c3568699c7bb",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-8083-a54a-f20a2923c244",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-concurrency",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-80d9-959b-e2aea158c792",
+      "summary": "Concurrency: removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-8031-bd7d-ff41adf99f53",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-80fd-a7c6-cd0ba4f5e2b9",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-address-space-study-plan",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-8007-aa94-eca310fb0ef6",
+      "summary": "Address Space (study plan): removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-801c-b5f3-dc2b871b7e4b",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-80fa-870b-f3128bb3e259",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-file-systems",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-80bd-a574-f9a5f37eb3da",
+      "summary": "File Systems: removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-809c-9656-ca421cdf53fd",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-8050-8106-d2d57663d7d4",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-distributed-systems",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-80eb-b553-dc0a57641ca4",
+      "summary": "Distributed Systems: removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-8027-a068-ef760303254b",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-804a-aa4a-c009ccb0ea42",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "id": "os-study-plan-reliability-and-security",
+      "date": "2026-09-30",
+      "kind": "Removal",
+      "topic": "os",
+      "noteId": "35017c95-99fd-80a1-b3da-ef3f277ccce6",
+      "summary": "Reliability and Security: removed a private workflow instruction (\"make a page for each topic… then delete this page\") and reframed the checklist as a public study plan.",
+      "original": "As you go along, you need to finish the following topics: / Make a page for each topic as you go along and then delete this page once you are done.",
+      "corrected": "Planned topics for this phase; the page is labelled as a study plan.",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-8017-aae3-cf5d99490b04",
+          "action": "replace",
+          "match": "Phase 6 — Reliability and Security (Weeks 23–26). This is an integrative phase — every topic here refers back to something in Phases 1–5. Side-channel attacks are particularly rewarding because they connect your computer organization background directly to OS security.",
+          "richText": [
+            {
+              "text": "Phase 6 — Reliability and Security (Weeks 23–26). This is an integrative phase — every topic here refers back to something in Phases 1–5. Side-channel attacks are a good example: they connect computer organization directly to OS security."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-80c5-b802-f22fea2929f8",
+          "action": "replace",
+          "match": "As you go along, you need to finish the following topics:",
+          "richText": [
+            {
+              "text": "Planned topics for this phase. This page is a public study plan, not a finished note; items marked done already have notes in this topic."
+            }
+          ]
+        },
+        {
+          "blockId": "35017c95-99fd-80c9-aa5c-d630b6f6a6fa",
+          "action": "remove",
+          "match": "Make a page for each topic as you go along and then delete this page once you are done."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "algorithms-job-sequencing-title-and-scope",
+      "kind": "Correction",
+      "topic": "algorithms",
+      "noteId": "365d3a21-bb2d-809a-9c85-d76fbddbb1a3",
+      "summary": "The first Scheduling note shared its title with another note and called its problem \"Interval Scheduling with Profits\", which is a different problem (weighted interval scheduling needs dynamic programming). It is now titled for the problem it solves and states the unit-length-job assumption the greedy proof relies on.",
+      "original": "Scheduling — This is often called “Greedy Scheduling with Deadlines” or “Interval Scheduling with Profits.”",
+      "corrected": "Job Sequencing with Deadlines — unit-length jobs, one slot each; weighted interval scheduling is a different problem.",
+      "edits": [
+        {
+          "blockId": "365d3a21-bb2d-809a-9c85-d76fbddbb1a3",
+          "action": "retitle",
+          "match": "Scheduling",
+          "title": "Job Sequencing with Deadlines"
+        },
+        {
+          "blockId": "365d3a21-bb2d-80b3-95db-f73ee6e85490",
+          "action": "replace",
+          "match": "This is often called “Greedy Scheduling with Deadlines” or “Interval Scheduling with Profits.”",
+          "richText": [
+            {
+              "text": "This problem is usually called job sequencing with deadlines. Each job takes exactly one unit time slot, has a profit, and must finish by its deadline. That unit-length assumption is what makes the greedy below optimal. It is not the same as weighted interval scheduling, where jobs are intervals of different lengths; that problem needs "
+            },
+            {
+              "text": "dynamic programming",
+              "href": "/topics/algorithms/dynamic-programming/"
+            },
+            {
+              "text": "."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "algorithms-greedy-scheduling-limits",
+      "kind": "Correction",
+      "topic": "algorithms",
+      "noteId": "2ced3a21-bb2d-802a-b4d3-e445bd888279",
+      "summary": "The second Scheduling note listed two problems as ones greedy cannot solve, but both examples as stated are classic cases where greedy is optimal: unit-length job sequencing with deadlines, and shortest-processing-time for total completion time on one machine. It also said greedy works whenever optimal substructure holds (it also needs the greedy-choice property) and ended with a broken sentence. The note is renamed and the failing cases now name variants where greedy really fails.",
+      "original": "General Job Sequencing with Deadlines: picking the highest profit job first might block…; SPT … isn't always optimal; Greedy algorithms work when there are optimal substructure properties.",
+      "corrected": "Greedy fails for jobs of different lengths with deadlines (weighted on-time jobs) and for weighted completion time without Smith's ratio rule; greedy needs both the greedy-choice property and optimal substructure.",
+      "edits": [
+        {
+          "blockId": "2ced3a21-bb2d-802a-b4d3-e445bd888279",
+          "action": "retitle",
+          "match": "Scheduling",
+          "title": "When Greedy Scheduling Works"
+        },
+        {
+          "blockId": "2ced3a21-bb2d-80f2-be6b-ee06f5f1a2e1",
+          "action": "replace",
+          "match": "Not all scheduling problems can be solved using greedy methods. Greedy algorithms work when there are optimal substructure properties.",
+          "richText": [
+            {
+              "text": "Not all scheduling problems can be solved using greedy methods. A greedy algorithm is correct only when the problem has both the greedy-choice property (some optimal solution starts with the locally best choice) and optimal substructure (what remains is a smaller instance of the same problem)."
+            }
+          ]
+        },
+        {
+          "blockId": "2ced3a21-bb2d-80de-98f9-fa2ca2004e48",
+          "action": "replace",
+          "match": "General Job Sequencing with Deadlines: Picking the highest profit job first might block other profitable jobs that could have been scheduled, leading to a lower total profit than an optimal solution (which requires considering all possibilities).",
+          "richText": [
+            {
+              "text": "Jobs with different processing times and deadlines, maximizing the profit of jobs finished on time: taking the most profitable job first can crowd out several smaller jobs that together earn more. This variant is NP-hard in general and is usually solved with pseudo-polynomial dynamic programming. (With unit-length jobs the greedy in "
+            },
+            {
+              "text": "Job Sequencing with Deadlines",
+              "href": "/topics/algorithms/job-sequencing-with-deadlines/"
+            },
+            {
+              "text": " is optimal.)"
+            }
+          ]
+        },
+        {
+          "blockId": "2ced3a21-bb2d-8012-b5ef-eb11b0fad2b9",
+          "action": "replace",
+          "match": "Shortest Processing Time (SPT) for all tasks: If the goal is to minimize total completion time, simply processing shortest jobs first isn't always optimal; it depends on the exact objective and constraints.",
+          "richText": [
+            {
+              "text": "Weighted completion time: on one machine, shortest processing time first (SPT) is optimal for minimizing the plain sum of completion times, but not when jobs carry different weights; then jobs must be ordered by the ratio of processing time to weight (Smith's rule). SPT also stops being optimal once jobs have release times and cannot be preempted."
+            }
+          ]
+        },
+        {
+          "blockId": "2ced3a21-bb2d-806f-a14e-ddf5956f567f",
+          "action": "replace",
+          "match": "Scheduling problems leads to canonical greedy algorithms. The proof of the greedy approach to a scheduling problem is outlined in A simple illustrative case is the scheduling problem. The greedy approach picks the task that has the earliest deadline..",
+          "richText": [
+            {
+              "text": "Scheduling problems lead to canonical greedy algorithms. A simple illustrative case is minimizing the maximum lateness of jobs on one machine: processing jobs in order of earliest deadline is optimal, which an exchange argument proves by swapping any adjacent pair that is out of deadline order without increasing the maximum lateness."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "algorithms-quick-sort-opening-sentence",
+      "kind": "Wording",
+      "topic": "algorithms",
+      "noteId": "2c9d3a21-bb2d-80be-b18b-c654d0fae6ce",
+      "summary": "Completed a truncated opening sentence.",
+      "edits": [
+        {
+          "blockId": "2c9d3a21-bb2d-80c8-8fba-fb28e7be4a29",
+          "action": "replace",
+          "match": "Quicksort is one of the most popular algorithms of all time because. While in running time it performs the same as merge sort, it sorts in place so does not come with significant space overhead.",
+          "richText": [
+            {
+              "text": "Quicksort is one of the most widely used sorting algorithms. Its expected running time matches merge sort's "
+            },
+            {
+              "math": "O(N \\log N)"
+            },
+            {
+              "text": ", and it sorts in place, needing only the recursion stack (expected "
+            },
+            {
+              "math": "O(\\log N)"
+            },
+            {
+              "text": " extra space) rather than a second array. Its worst case is "
+            },
+            {
+              "math": "O(N^2)"
+            },
+            {
+              "text": ", which random pivot choice makes unlikely."
+            }
+          ]
+        },
+        {
+          "blockId": "2f4d3a21-bb2d-80cf-bba9-ec8ce8b1e24c",
+          "action": "replace",
+          "match": "Quicksort is a divide and conquer algorithm where the divide step is non-trivial. However, this makes the merge sort algorithm simple.",
+          "richText": [
+            {
+              "text": "Quicksort is a divide-and-conquer algorithm where the divide step (partitioning) does the real work, so the combine step is trivial. Merge sort is the mirror image: a trivial divide and a non-trivial merge."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "os-threads-heading-typo",
+      "kind": "Wording",
+      "topic": "os",
+      "noteId": "35317c95-99fd-8061-a6ff-e40a8a9d4fe5",
+      "summary": "Fixed a heading typo.",
+      "edits": [
+        {
+          "blockId": "35417c95-99fd-80a2-a195-c759db50faa4",
+          "action": "replace",
+          "match": "Dealing with Concrrency",
+          "richText": [
+            {
+              "text": "Dealing with Concurrency"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "os-network-communication-title",
+      "kind": "Wording",
+      "topic": "os",
+      "noteId": "35617c95-99fd-809a-874f-d3a35737d45e",
+      "summary": "Corrected the misspelled title Network Communcation; the old URL redirects.",
+      "edits": [
+        {
+          "blockId": "35617c95-99fd-809a-874f-d3a35737d45e",
+          "action": "retitle",
+          "match": "Network Communcation",
+          "title": "Network Communication"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "ai-engineer-kernel-title",
+      "kind": "Wording",
+      "topic": "ai-engineer",
+      "noteId": "36917c95-99fd-80ce-a83e-ff03194ecba6",
+      "summary": "Corrected the misspelled title Kernal and OS Optimisations; the old URL redirects.",
+      "edits": [
+        {
+          "blockId": "36917c95-99fd-80ce-a83e-ff03194ecba6",
+          "action": "retitle",
+          "match": "Kernal and OS Optimisations",
+          "title": "Kernel and OS Optimisations"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-30",
+      "id": "os-address-space-study-plan-title",
+      "kind": "Clarification",
+      "topic": "os",
+      "noteId": "35017c95-99fd-8007-aa94-eca310fb0ef6",
+      "summary": "Two OS pages were both titled Address Space. The study-plan page is now titled Address Space Study Plan so it is not mistaken for the concept note; its old URL redirects.",
+      "original": "Address Space (second page, /topics/os/address-space-2/)",
+      "corrected": "Address Space Study Plan (/topics/os/address-space-study-plan/)",
+      "edits": [
+        {
+          "blockId": "35017c95-99fd-8007-aa94-eca310fb0ef6",
+          "action": "retitle",
+          "match": "Address Space",
+          "title": "Address Space Study Plan"
+        }
+      ]
+    }
+  ]
+}

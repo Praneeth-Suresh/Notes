@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "description": "Curated entry points used by Home and Start Here. Every href must resolve to a generated route; the build fails otherwise.",
+  "paths": [
+    {
+      "id": "recruiters",
+      "title": "Evaluating my work",
+      "audience": "For recruiters and potential collaborators.",
+      "summary": "Who I am, two projects with real output and stated limits, then the CV and a way to reach me.",
+      "steps": [
+        { "href": "/about/", "note": "Current role, experience, and focus." },
+        { "href": "/projects/beryl/", "note": "Repository checks for AI-assisted development, with a real check result." },
+        { "href": "/projects/notes/", "note": "How this site turns Notion notes into static pages." },
+        { "href": "/cv.pdf", "title": "CV (PDF)", "note": "Two-page résumé." },
+        { "href": "/contact/", "note": "Email, GitHub, and LinkedIn." }
+      ]
+    },
+    {
+      "id": "algorithms",
+      "title": "Learning algorithms",
+      "audience": "For readers who want a guided route through the Algorithms notes.",
+      "summary": "From recursion and invariants to graph search and dynamic programming.",
+      "steps": [
+        { "href": "/topics/algorithms/recursion/", "note": "Recurrences and how to reason about recursive cost." },
+        { "href": "/topics/algorithms/binary-search/", "note": "Interval invariants on the simplest divide-and-conquer." },
+        { "href": "/topics/algorithms/sorting/", "note": "Comparison models, stability, and lower bounds." },
+        { "href": "/topics/algorithms/graph-traversal/", "note": "Representations and BFS/DFS basics." },
+        { "href": "/topics/algorithms/dijkstra/", "note": "Shortest paths with non-negative weights." },
+        { "href": "/topics/algorithms/dynamic-programming/", "note": "States, transitions, and reconstruction." }
+      ]
+    },
+    {
+      "id": "systems-programming",
+      "title": "Learning C and C++",
+      "audience": "For readers who want to understand memory from the language up.",
+      "summary": "C syntax and pointers, then how C++ builds, lays out memory, and manages ownership.",
+      "steps": [
+        { "href": "/topics/c/syntax-in-c/", "note": "What a C program is made of." },
+        { "href": "/topics/c/pointers-in-c/", "note": "Pointers as variables that hold addresses." },
+        { "href": "/topics/c/dynamic-memory-allocation-in-c/", "note": "malloc, realloc, and free." },
+        { "href": "/topics/cpp/c-basics/", "note": "How C++ is compiled and linked." },
+        { "href": "/topics/cpp/c-memory-model/", "note": "Stack, heap, and static storage." },
+        { "href": "/topics/cpp/c-memory-ownership/", "note": "RAII, smart pointers, and move semantics." }
+      ]
+    }
+  ],
+  "homeReadings": [
+    { "href": "/topics/algorithms/dynamic-programming/", "note": "A long guide to states, transitions, and reconstruction." },
+    { "href": "/topics/cpp/c-memory-ownership/", "note": "Ownership in modern C++, with more than a hundred code examples." },
+    { "href": "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/", "note": "An essay reading foundational deep learning papers as one research program." }
+  ],
+  "homeProjects": ["beryl", "notes"]
+}

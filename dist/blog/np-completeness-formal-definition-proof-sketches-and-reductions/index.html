@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth&#39;s CS Field Notes</title>
+    <title>NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth&#39;s CS Field Notes</title>
 
     <meta name="description" content="NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" />
-    <meta property="og:title" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth&#39;s CS Field Notes" />
     <meta property="og:description" content="A proof-backed guide to NP-completeness: formal definition, reductions, Cook, Karp, and the design consequences of hardness evidence." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" />
@@ -16,16 +16,16 @@
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth&#39;s CS Field Notes" />
     <meta name="twitter:description" content="A proof-backed guide to NP-completeness: formal definition, reductions, Cook, Karp, and the design consequences of hardness evidence." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <meta name="twitter:image:alt" content="NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/","name":"NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Blog · Praneeth's CS Field Notes","description":"NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/","name":"NP-Completeness: Formal Definition, Proof Sketches, and Reductions · Writing · Praneeth's CS Field Notes","description":"NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/#blogposting","headline":"NP-Completeness: Formal Definition, Proof Sketches, and Reductions","description":"NP-completeness explained through formal definitions, proof sketches, reductions, and why hardness evidence changes algorithm design.","image":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"mainEntityOfPage":{"@id":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/#webpage"},"url":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/","datePublished":"2026-06-19","dateModified":"2026-06-19","keywords":"algorithms, complexity, proofs"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/#faq","mainEntity":[{"@type":"Question","name":"Does NP-complete mean impossible to solve quickly?","acceptedAnswer":{"@type":"Answer","text":"No. NP-complete means that a polynomial-time exact algorithm for this problem would imply polynomial-time algorithms for every problem in NP. It is strong evidence to change the design target, not a proof that every useful instance is hopeless."}},{"@type":"Question","name":"Why do NP-completeness proofs use decision problems?","acceptedAnswer":{"@type":"Answer","text":"The definitions of P, NP, and NP-completeness are stated for languages with yes/no answers. Optimization problems usually enter the framework through threshold versions, such as asking whether there is a tour with cost at most K."}},{"@type":"Question","name":"What is the most common weak point in a reduction proof?","acceptedAnswer":{"@type":"Answer","text":"The reverse direction. It is not enough to show that a satisfying source solution creates a target solution. You also need to show that every target solution decodes into a valid source solution."}}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
@@ -34,13 +34,11 @@
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -62,30 +60,25 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body class="blog-page" data-analytics-event="page_view">
+  <body class="blog-page blog-post-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
-      </header>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W" aria-current="page">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
       
-    <div class="blog-reading-panel" id="main-content">
-      <a class="blog-back" href="/blog/">&larr; All posts</a>
+    <div class="blog-reading-panel">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/blog/">Writing</a></li><li aria-current="page">NP-Completeness: Formal Definition, Proof Sketches, and Reductions</li></ol></nav>
       <header class="blog-post-header">
         <p class="blog-post-section">Algorithms Archive</p>
         <h1>NP-Completeness: Formal Definition, Proof Sketches, and Reductions</h1>
-        <p class="blog-post-section"><time datetime="2026-06-19">Updated 2026-06-19</time></p>
+        <p class="blog-post-dates">Published <time datetime="2026-06-19">2026-06-19</time></p>
         <div class="blog-post-meta-actions">
           <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=algorithms#blog-posts">algorithms</a><a class="topic-label topic-label-default" href="/blog/?topic=complexity#blog-posts">complexity</a><a class="topic-label topic-label-default" href="/blog/?topic=proofs#blog-posts">proofs</a></div>
           <button class="secondary-action blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/np-completeness-formal-definition-proof-sketches-and-reductions/" data-analytics-event="copy_share_link_click">Copy link</button>
@@ -93,7 +86,7 @@
       </header>
       <article class="blog-article"><p>There is a moment in algorithm design where the problem stops feeling like an implementation challenge and starts looking like a warning sign. You try dynamic programming. You try graph modeling. You try a greedy invariant. Every route seems to move the difficulty somewhere else instead of removing it.</p>
 <p>NP-completeness is the language for that moment. It does not prove that your problem is impossible to solve quickly. It does something more precise and more useful: it says that a polynomial-time algorithm for this problem would also give polynomial-time algorithms for every problem whose solutions can be checked efficiently.</p>
-<h2>In this post</h2>
+<h3>In this post</h3>
 <ul>
 <li>We will define P, NP, NP-hard, and NP-complete in the decision-problem model.</li>
 <li>We will separate verification from search, because that is the whole tension behind P vs NP.</li>
@@ -101,16 +94,16 @@
 <li>We will sketch why Cook&#39;s SAT result and Karp&#39;s reductions changed algorithm design.</li>
 <li>We will connect the idea back to the Algorithms pillar and practical design choices.</li>
 </ul>
-<h2>The question</h2>
+<h3>The question</h3>
 <p>Suppose a problem gives you a proposed solution and asks: &quot;Can you check this quickly?&quot;</p>
 <p>For many problems, the answer is yes. If someone hands you a Hamiltonian cycle, a satisfying assignment, a clique, or a traveling-salesperson tour under a stated budget, checking the certificate is straightforward. The harder question is whether you can find the certificate quickly from scratch.</p>
 <p>The Clay Mathematics Institute frames P vs NP around exactly this gap: if a solution is easy to check, must it also be easy to find? That is not just a philosophical question. It decides whether a huge class of search, scheduling, routing, allocation, and verification problems have efficient exact algorithms.</p>
-<h2>Intuition</h2>
+<h3>Intuition</h3>
 <p>Think of NP as a class of problems with short receipts.</p>
 <p>For a yes-instance, there is some certificate that convinces a verifier in polynomial time. The verifier does not need to know how the certificate was found. It only needs to check it.</p>
 <p>NP-completeness says that some problems are universal bottlenecks for this entire class. If you can solve one NP-complete problem in polynomial time, you can solve every problem in NP in polynomial time by translating instances into that problem and translating the answer back.</p>
 <p>That translation is the reduction.</p>
-<h2>Formal statement</h2>
+<h3>Formal statement</h3>
 <p>Work with decision problems, so each input has answer yes or no.</p>
 <ul>
 <li>P is the class of decision problems solvable in polynomial time by a deterministic algorithm.</li>
@@ -123,7 +116,7 @@
 x \in B \iff f(x) \in A
 \]</p>
 <p>So if A has a polynomial-time solver and B &lt;=p A, then B has a polynomial-time solver: compute f(x), solve A, and return the same yes/no answer.</p>
-<h2>Model and assumptions</h2>
+<h3>Model and assumptions</h3>
 <p>This post uses the standard asymptotic model from complexity theory:</p>
 <ul>
 <li>Inputs are finite strings or clean encodings of combinatorial objects.</li>
@@ -133,7 +126,7 @@ x \in B \iff f(x) \in A
 <li>Optimization problems can often be connected to decision versions by asking whether there is a solution with value at most or at least a threshold.</li>
 </ul>
 <p>These assumptions matter. If the reduction is too expensive, it does not transfer efficient solvability. If the problem is not in NP, it may be NP-hard without being NP-complete. If we silently switch from optimization to decision, we must state the threshold version clearly.</p>
-<h2>Proof sketch</h2>
+<h3>Proof sketch</h3>
 <p>To prove that a new problem A is NP-complete, the proof has two jobs.</p>
 <p>First, show A is in NP. That means describing the certificate and the polynomial-time verifier.</p>
 <p>Second, show A is NP-hard. Pick a known NP-complete problem B and give a polynomial-time reduction B &lt;=p A. The reduction must preserve yes/no answers:</p>
@@ -147,7 +140,7 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
 <li>Correctness: prove both directions of the iff statement.</li>
 </ol>
 <p>This is why reductions are easy to misuse. A reduction is not just a clever analogy between two problems. It is a transformation with a runtime bound and a bidirectional correctness argument.</p>
-<h2>Worked example shape</h2>
+<h3>Worked example shape</h3>
 <p>Imagine you want to prove that a scheduling problem is hard.</p>
 <p>You might start from a known NP-complete problem such as SAT or 3-SAT. Variables and clauses become scheduling gadgets. A truth assignment becomes a choice of schedule components. Clause satisfaction becomes a feasibility constraint.</p>
 <p>The reduction is successful only if:</p>
@@ -156,11 +149,11 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
 <li>every feasible schedule can be decoded into a satisfying assignment.</li>
 </ul>
 <p>The second direction is often where weak proofs fail. It is not enough to show that your construction can represent solutions. You must show that any solution to the constructed instance corresponds to a valid solution of the original instance.</p>
-<h2>Why Cook and Karp mattered</h2>
+<h3>Why Cook and Karp mattered</h3>
 <p>Stephen Cook&#39;s 1971 theorem gave the first central NP-completeness result by showing that satisfiability sits at the core of efficient verification. Richard Karp&#39;s 1972 paper then showed that many natural combinatorial problems are tied together by polynomial reductions.</p>
 <p>Karp&#39;s result made NP-completeness feel less like an artifact of logic and more like a map of real algorithmic terrain. Covering, matching, packing, routing, assignment, sequencing, and graph problems could now be studied through a shared hardness language.</p>
 <p>That is why NP-completeness changed the daily practice of algorithm design. It gave engineers and researchers a disciplined way to stop searching for the wrong kind of exact polynomial-time algorithm and start asking better questions.</p>
-<h2>Why this matters</h2>
+<h3>Why this matters</h3>
 <p>NP-completeness is not a reason to give up. It is a reason to change the target.</p>
 <p>Once you have credible hardness evidence, you can ask:</p>
 <ul>
@@ -172,71 +165,43 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
 <li>Should the product surface uncertainty instead of pretending the exact optimum is cheap?</li>
 </ul>
 <p>This is the practical value of theory. A hardness proof does not ship a feature, but it can prevent months of chasing a fantasy algorithm.</p>
-<h2>Internal trail</h2>
+<h3>Internal trail</h3>
 <ul>
 <li>Start with the <a href="/topics/algorithms/">Algorithms pillar</a>.</li>
 <li>Read <a href="/topics/algorithms/the-traveling-salesperson-problem-tsp/">The Traveling Salesperson Problem</a> for a concrete optimization problem with a decision version.</li>
 <li>Read <a href="/topics/algorithms/savitchs-algorithm/">Savitch&#39;s Algorithm</a> for another view of complexity classes and resource bounds.</li>
 <li>Use the <a href="/research-taste/">research taste list</a> for the broader source trail behind future theoretical-CS posts.</li>
 </ul>
-<h2>Further reading</h2>
+<h3>Further reading</h3>
 <ul>
 <li>Stephen Cook, <a href="https://doi.org/10.1145/800157.805047">The Complexity of Theorem-Proving Procedures</a>.</li>
 <li>Richard Karp, <a href="https://doi.org/10.1007/978-1-4684-2001-2_9">Reducibility among Combinatorial Problems</a>.</li>
 <li>Clay Mathematics Institute, <a href="https://www.claymath.org/millennium/p-vs-np/">P vs NP</a>.</li>
 <li>Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein, <a href="https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/">Introduction to Algorithms</a>.</li>
 </ul>
-<h2>Reusable artifact</h2>
+<h3>Reusable artifact</h3>
 <ul>
 <li>Download the <a href="/artifacts/np-completeness-reduction-template.tex">NP-completeness reduction proof template</a> as a small LaTeX scaffold for checking the construction, runtime, and both correctness directions in a reduction proof.</li>
 </ul>
-<h2>Questions readers usually ask</h2>
-<h3>Does NP-complete mean impossible to solve quickly?</h3>
+<h3>Questions readers usually ask</h3>
+<h4>Does NP-complete mean impossible to solve quickly?</h4>
 <p>No. NP-complete means that a polynomial-time exact algorithm for this problem would imply polynomial-time algorithms for every problem in NP. It is strong evidence to change the design target, not a proof that every useful instance is hopeless.</p>
-<h3>Why do NP-completeness proofs use decision problems?</h3>
+<h4>Why do NP-completeness proofs use decision problems?</h4>
 <p>The definitions of P, NP, and NP-completeness are stated for languages with yes/no answers. Optimization problems usually enter the framework through threshold versions, such as asking whether there is a tour with cost at most K.</p>
-<h3>What is the most common weak point in a reduction proof?</h3>
+<h4>What is the most common weak point in a reduction proof?</h4>
 <p>The reverse direction. It is not enough to show that a satisfying source solution creates a target solution. You also need to show that every target solution decodes into a valid source solution.</p>
-<h2>Next questions</h2>
+<h3>Next questions</h3>
 <ul>
 <li>What does a reduction proof look like when every gadget has to be drawn explicitly?</li>
 <li>When does an approximation algorithm give a useful guarantee for an NP-hard optimization problem?</li>
 <li>Which special cases of a hard problem explain why production inputs are still tractable?</li>
 </ul>
-<h2>Corrections and clarifications</h2>
+<h3>Corrections and clarifications</h3>
 <p>If a technical claim in this essay needs correction, it will be logged on the public <a href="/errata/">Errata</a> page with the affected claim, correction, and date.</p>
 </article>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-blog-post">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-blog-post">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
-      </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
-  
-      
-    <section id="subscribe-blog-post" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-blog-post">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-blog-post">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="blog-post">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="blog-post">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="blog-post">Subscribe by RSS</a>
-      </div>
-    </section>
-  
       <p class="blog-correction-note">Corrections and clarifications for this post are tracked through the <a href="/errata/">errata page</a>.</p>
       
+      <a class="blog-back" href="/blog/">&larr; All writing</a>
     </div>
     <script>
       (() => {
@@ -260,30 +225,22 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
       })();
     </script>
   
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -321,10 +278,9 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -333,8 +289,7 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -365,11 +320,13 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -395,6 +352,31 @@ B\text{ is yes} \iff A\text{ instance produced by the reduction is yes}
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

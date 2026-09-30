@@ -7,6 +7,27 @@ const path = require("node:path");
 const { createNotionIngestionContext } = require("../src/notion-ingestion");
 const { createNotesContentContext } = require("../src/notes-content");
 const { createSiteStylingContext } = require("../src/site-styling");
+const { applyCorrectionsToTopic, validateCorrections } = require("./lib/content-corrections");
+const {
+  MEDIA_PUBLIC_PREFIX,
+  applyMediaToTopic,
+  assertAllMediaUsed,
+  validateMediaManifest,
+} = require("./lib/note-media");
+const {
+  STATUSES,
+  joinPublication,
+  normalizeNoteId,
+  validatePublicationSidecar,
+} = require("./lib/publication-metadata");
+
+const { computeNextReadings } = require("./lib/reading-paths");
+const { fingerprint, resolveRouteDates, validateRouteDates } = require("./lib/route-dates");
+const { assertRedirectsConsistent, renderRedirectsFile, validateRedirects } = require("./lib/redirects");
+
+const DEFAULT_PUBLICATION_PATH = "content/publication/notes.json";
+const DEFAULT_CORRECTIONS_PATH = "content/publication/corrections.json";
+const DEFAULT_MEDIA_DIR = "content/media";
 
 const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
   __dirname,
@@ -20,8 +41,6 @@ const SOCIAL_PREVIEW_SOURCE_PATH = path.join("content", "social", "theoretical-c
 const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-preview.svg");
 const CV_SOURCE_PATH = "cv.pdf";
 const CV_ASSET_PATH = "cv.pdf";
-const HOME_IMAGE_SOURCE_DIR = path.join("content", "home", "images");
-const HOME_IMAGE_ASSET_DIR = path.join("assets", "home");
 const STATIC_ARTIFACTS = [
   "deep-learning-paper-trail.md",
   "np-completeness-reduction-template.tex",
@@ -51,10 +70,31 @@ function parseArgs(argv) {
     siteMetadata: DEFAULT_SITE_METADATA_PATH,
     siteTitle: "Praneeth's CS Field Notes",
     siteUrl: DEFAULT_SITE_URL,
+    publication: DEFAULT_PUBLICATION_PATH,
+    corrections: DEFAULT_CORRECTIONS_PATH,
+    mediaDir: DEFAULT_MEDIA_DIR,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
     const item = argv[index];
+
+    if (item === "--publication") {
+      args.publication = assertNonEmptyString(argv[index + 1], "--publication value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--corrections") {
+      args.corrections = assertNonEmptyString(argv[index + 1], "--corrections value");
+      index += 1;
+      continue;
+    }
+
+    if (item === "--media-dir") {
+      args.mediaDir = assertNonEmptyString(argv[index + 1], "--media-dir value");
+      index += 1;
+      continue;
+    }
 
     if (item === "--manifest") {
       args.manifest = assertNonEmptyString(argv[index + 1], "--manifest value");
@@ -224,11 +264,13 @@ function renderRssFeed({ siteTitle, siteUrl, feedItems }) {
         ? item.description.trim()
         : `Read ${item.title} on ${siteTitle}.`;
 
+      const pubDate = item.date ? `
+      <pubDate>${new Date(`${item.date}T00:00:00.000Z`).toUTCString()}</pubDate>` : "";
       return `    <item>
       <title>${escapeXml(item.title)}</title>
       <link>${escapeXml(absoluteUrl)}</link>
       <guid>${escapeXml(absoluteUrl)}</guid>
-      <description>${escapeXml(description)}</description>
+      <description>${escapeXml(description)}</description>${pubDate}
     </item>`;
     })
     .join("\n");
@@ -239,7 +281,7 @@ function renderRssFeed({ siteTitle, siteUrl, feedItems }) {
     <title>${escapeXml(siteTitle)}</title>
     <link>${escapeXml(siteUrl)}/</link>
     <atom:link href="${escapeXml(siteUrl)}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Rigorous computer science notes across algorithms, systems, AI engineering, and software engineering.</description>
+    <description>Praneeth Suresh's public computer science notes and writing: algorithms, systems, AI engineering, and software engineering.</description>
 ${items}
   </channel>
 </rss>
@@ -444,6 +486,158 @@ function cloneBlockForPage(block, childPageRecords, parentUrlPath) {
   return cloned;
 }
 
+const GATEWAY_ROUTES = [
+  "/",
+  "/start-here/",
+  "/research-taste/",
+  "/errata/",
+  "/subscribe/",
+  "/about/",
+  "/notes/",
+  "/projects/",
+  "/contact/",
+];
+const GATEWAY_TITLES = {
+  "/": "Home",
+  "/start-here/": "Start here",
+  "/research-taste/": "Research questions",
+  "/errata/": "Errata",
+  "/subscribe/": "Follow by RSS",
+  "/about/": "About",
+  "/notes/": "Notes",
+  "/projects/": "Projects",
+  "/contact/": "Contact",
+  "/blog/": "Writing",
+};
+
+function ancestorsOf(record, recordsByUrl) {
+  const chain = [];
+  let parentUrl = record.parentUrlPath;
+  while (parentUrl) {
+    const parent = recordsByUrl.get(parentUrl);
+    if (!parent) {
+      break;
+    }
+    chain.unshift({ title: parent.title, urlPath: parent.urlPath });
+    parentUrl = parent.parentUrlPath;
+  }
+  return chain;
+}
+
+// Blog images: prefer the checked-in optimized WebP (content/blog/images-optimized,
+// produced by scripts/optimize-images.py) and give <img> its intrinsic size.
+async function loadBlogImageInfo(blogContentDir) {
+  const manifestPath = path.join(blogContentDir, "images-optimized", "manifest.json");
+  const optimized = (await readOptionalJsonFromFile(manifestPath, "optimized blog images"))?.images || {};
+  function lookup(src) {
+    const match = /^\/blog\/images\/([^/?#]+)$/u.exec(src);
+    const entry = match ? optimized[decodeURIComponent(match[1])] : null;
+    return entry
+      ? { src: `/blog/images/${entry.file}`, width: entry.width, height: entry.height }
+      : null;
+  }
+  return { optimized, lookup };
+}
+
+async function copyBlogImages({ blogContentDir, outputDir, imageInfo }) {
+  const sourceDir = path.join(blogContentDir, "images");
+  if (!(await pathExists(sourceDir))) {
+    return;
+  }
+  const files = await fs.readdir(sourceDir, { withFileTypes: true });
+  for (const file of files) {
+    if (!file.isFile()) {
+      continue;
+    }
+    const optimized = imageInfo.optimized[file.name];
+    await copyFileToOutput({
+      sourcePath: optimized
+        ? path.join(blogContentDir, "images-optimized", optimized.file)
+        : path.join(sourceDir, file.name),
+      outputDir,
+      outputRelativePath: path.join("blog", "images", optimized ? optimized.file : file.name),
+      label: `blog image ${file.name}`,
+    });
+  }
+}
+
+// The blog index shows its own heading; drop the Markdown intro's heading and banner image.
+function stripLeadingHeadingAndImage(markdown) {
+  return markdown
+    .replace(/^\s*#\s+[^\n]*\n+/u, "")
+    .replace(/^\s*!\[[^\]]*\]\([^)]*\)\s*\n+/u, "");
+}
+
+function compactSearchEntry(entry) {
+  const compact = {
+    slug: entry.slug,
+    title: entry.title,
+    description: entry.description,
+    searchableText: String(entry.searchableText || "").replace(/\s+/gu, " ").trim(),
+    urlPath: entry.urlPath,
+    parentTitle: entry.parentTitle || "",
+    topicTitle: entry.topicTitle || "",
+    labels: entry.labels || [],
+    status: entry.status || null,
+    contentType: entry.contentType || null,
+    reviewedAt: entry.reviewedAt || null,
+  };
+  return compact;
+}
+
+function defaultPublication(record) {
+  // Used only when no publication sidecar is configured (e.g. isolated fixture builds).
+  // The safe default is always Working note; nothing is ever promoted automatically.
+  return {
+    id: normalizeNoteId(record.noteId),
+    route: record.urlPath,
+    status: "Working note",
+    statusSlug: STATUSES["Working note"].slug,
+    statusSummary: STATUSES["Working note"].summary,
+    contentType: record.parentTitle ? "Explainer" : "Topic overview",
+    reviewedAt: null,
+    knownGaps: [],
+    related: [],
+    archiveReason: null,
+  };
+}
+
+function publicationSummary(publication) {
+  if (!publication) {
+    return null;
+  }
+  return {
+    status: publication.status,
+    statusSlug: publication.statusSlug,
+    contentType: publication.contentType,
+    reviewedAt: publication.reviewedAt,
+  };
+}
+
+function publicationSearchFields(publication) {
+  return {
+    status: publication?.status ?? null,
+    contentType: publication?.contentType ?? null,
+    reviewedAt: publication?.reviewedAt ?? null,
+  };
+}
+
+function annotateChildPagePublication(blocks, recordsByUrl) {
+  if (!Array.isArray(blocks)) {
+    return blocks;
+  }
+  return blocks.map((block) => {
+    if (block?.type === "child_page") {
+      const record = typeof block.href === "string" ? recordsByUrl.get(block.href) : null;
+      return record ? { ...block, publication: publicationSummary(record.publication) } : block;
+    }
+    if (Array.isArray(block?.children)) {
+      return { ...block, children: annotateChildPagePublication(block.children, recordsByUrl) };
+    }
+    return block;
+  });
+}
+
 function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescription }) {
   const childPageRecords = new Map();
   const pageRecords = [];
@@ -475,6 +669,9 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
         usedSegmentsForParent(parentSegments),
       );
       const routeSegments = [...parentSegments, segment];
+      const parentUrlPath = parentSegments.length > 0
+        ? `/topics/${topicSlug}/${parentSegments.join("/")}/`
+        : `/topics/${topicSlug}/`;
       const title = typeof block.title === "string" && block.title.trim() !== ""
         ? block.title.trim()
         : "Untitled subpage";
@@ -489,6 +686,8 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
         description: parentDescription,
         labels: Array.isArray(block.labels) ? block.labels : [],
         parentTitle,
+        parentUrlPath,
+        noteId: typeof block.blockId === "string" ? block.blockId : null,
         sourceBlock: block,
         sourceBlocks: childBlocks,
       };
@@ -510,6 +709,7 @@ function collectPageRecords({ rootDocument, topicSlug, topicTitle, topicDescript
     description: topicDescription,
     labels: Array.isArray(rootDocument.labels) ? rootDocument.labels : [],
     parentTitle: null,
+    noteId: typeof rootDocument.source?.pageId === "string" ? rootDocument.source.pageId : null,
     sourceBlock: null,
     sourceBlocks: rootDocument.blocks,
   };
@@ -599,6 +799,10 @@ async function buildPagesSite({
   siteTitle,
   siteUrl = DEFAULT_SITE_URL,
   mathJaxSourcePath = DEFAULT_MATHJAX_SOURCE_PATH,
+  publicationPath = null,
+  correctionsPath = null,
+  mediaDir = null,
+  routeDatesMode = "enforce",
 }) {
   const absoluteManifestPath = path.resolve(process.cwd(), manifestPath);
   const manifestDir = path.dirname(absoluteManifestPath);
@@ -631,10 +835,43 @@ async function buildPagesSite({
     path.resolve(process.cwd(), siteMetadataPath),
     "site metadata",
   );
+  // One public site name for HTML, JSON-LD, and RSS: content/site-metadata.json wins over
+  // the CLI flag so a deployment's build command cannot drift from the checked-in name.
+  if (typeof siteMetadata?.siteTitle === "string" && siteMetadata.siteTitle.trim() !== "") {
+    siteTitle = siteMetadata.siteTitle.trim();
+  }
   const configuredSiteLastModified = normalizeLastModified(
     siteMetadata?.lastModified,
     "site metadata lastModified",
   );
+
+  // Checked-in sidecars live beside the topic manifest (content/publication/*.json,
+  // content/media/). Explicit paths must exist; otherwise adjacent files are discovered.
+  // Isolated fixture builds without sidecars fall back to Working note for every page.
+  const adjacent = async (explicitPath, relativeToManifest) => {
+    if (explicitPath) {
+      return path.resolve(process.cwd(), explicitPath);
+    }
+    const candidate = path.join(manifestDir, relativeToManifest);
+    return (await pathExists(candidate)) ? candidate : null;
+  };
+  const resolvedCorrectionsPath = await adjacent(correctionsPath, path.join("publication", "corrections.json"));
+  const resolvedPublicationPath = await adjacent(publicationPath, path.join("publication", "notes.json"));
+  const absoluteMediaDir = await adjacent(mediaDir, "media");
+
+  const corrections = resolvedCorrectionsPath
+    ? validateCorrections(await readJsonFromFile(resolvedCorrectionsPath, "content corrections"))
+    : [];
+  const mediaImages = absoluteMediaDir
+    ? validateMediaManifest(
+        await readJsonFromFile(path.join(absoluteMediaDir, "media-manifest.json"), "media manifest"),
+        { mediaDir: absoluteMediaDir },
+      )
+    : new Map();
+  const usedMediaIds = new Set();
+  const publicationSidecar = resolvedPublicationPath
+    ? validatePublicationSidecar(await readJsonFromFile(resolvedPublicationPath, "publication sidecar"))
+    : null;
 
   const topics = [];
   for (const rawEntry of manifest) {
@@ -644,7 +881,18 @@ async function buildPagesSite({
       notionContext,
       manifestDir,
     });
-    const topicDocument = normalizeTopicDocument(loadedDocument, manifestEntry);
+    const normalizedDocument = normalizeTopicDocument(loadedDocument, manifestEntry);
+    const correctedDocument = applyCorrectionsToTopic({
+      topicSlug: manifestEntry.slug,
+      topicDocument: normalizedDocument,
+      corrections,
+    });
+    const topicDocument = applyMediaToTopic({
+      topicSlug: manifestEntry.slug,
+      topicDocument: correctedDocument,
+      images: mediaImages,
+      usedIds: usedMediaIds,
+    });
     topics.push({
       slug: manifestEntry.slug,
       title: topicDocument.title,
@@ -681,9 +929,265 @@ async function buildPagesSite({
     );
   }
 
+  assertAllMediaUsed(mediaImages, usedMediaIds);
+  const loadedTopicSlugs = new Set(topics.map((topic) => topic.slug));
+  for (const entry of corrections) {
+    if (!loadedTopicSlugs.has(entry.topic)) {
+      throw new Error(`Correction "${entry.id}" targets unknown topic "${entry.topic}".`);
+    }
+  }
+
+  // Collect every note route, then join publication metadata across the whole archive
+  // so missing, duplicate, or stale ids fail before any output is written.
+  const recordsByTopic = new Map();
+  let allRecords = [];
+  for (const topic of topics) {
+    const pageRecords = collectPageRecords({
+      rootDocument: topic.topicDocument,
+      topicSlug: topic.slug,
+      topicTitle: topic.title,
+      topicDescription: topic.description,
+    });
+    recordsByTopic.set(topic.slug, pageRecords);
+    allRecords = allRecords.concat(pageRecords);
+  }
+
+  const joinedRecords = publicationSidecar
+    ? joinPublication({ pageRecords: allRecords, sidecar: publicationSidecar })
+    : allRecords.map((record) => ({ ...record, publication: defaultPublication(record) }));
+  const joinedByUrl = new Map(joinedRecords.map((record) => [record.urlPath, record]));
+  const recordByNoteId = new Map(joinedRecords.map((record) => [normalizeNoteId(record.noteId), record]));
+
+  for (const [slug, pageRecords] of recordsByTopic) {
+    recordsByTopic.set(
+      slug,
+      pageRecords.map((record) => {
+        const joined = joinedByUrl.get(record.urlPath);
+        return {
+          ...joined,
+          // Fingerprint the page's own content before listing annotations are added.
+          contentFingerprint: fingerprint({
+            title: joined.title,
+            description: joined.description,
+            labels: joined.labels,
+            blocks: joined.topicDocument.blocks,
+            publication: {
+              status: joined.publication?.status ?? null,
+              reviewedAt: joined.publication?.reviewedAt ?? null,
+              contentType: joined.publication?.contentType ?? null,
+              knownGaps: joined.publication?.knownGaps ?? [],
+              archiveReason: joined.publication?.archiveReason ?? null,
+            },
+          }),
+          topicDocument: {
+            ...joined.topicDocument,
+            blocks: annotateChildPagePublication(joined.topicDocument.blocks, joinedByUrl),
+          },
+        };
+      }),
+    );
+  }
+
+  // Topic-level summaries used by listings (Home, Notes, topic roots).
+  for (const topic of topics) {
+    const records = recordsByTopic.get(topic.slug);
+    topic.publication = publicationSummary(joinedByUrl.get(`/topics/${topic.slug}/`)?.publication);
+    topic.noteCount = records.length - 1;
+    topic.statusCounts = records.slice(1).reduce((counts, record) => {
+      const status = record.publication?.status ?? "Working note";
+      counts[status] = (counts[status] || 0) + 1;
+      return counts;
+    }, {});
+    topic.notes = records.slice(1).map((record) => ({
+      title: record.title,
+      urlPath: record.urlPath,
+      parentTitle: record.parentTitle,
+      depth: record.outputSegments.length - 2,
+      publication: publicationSummary(record.publication),
+    }));
+    // Pillar links resolve against generated routes so a rename cannot leave a stale path.
+    if (topic.pillar) {
+      for (const link of [...topic.pillar.startHere, ...topic.pillar.readingPath.flatMap((section) => section.links)]) {
+        if (link.href.startsWith("/topics/") && !joinedByUrl.has(link.href)) {
+          throw new Error(`Topic "${topic.slug}" reading path links to ${link.href}, which is not a generated note.`);
+        }
+      }
+    }
+  }
+
+  // Dates on which a route's own content changed through a sidecar: its corrections
+  // (including silent wording fixes), a renamed child page, or a replaced image.
+  const changeDatesByUrl = new Map();
+  const addChangeDate = (urlPath, date) => {
+    if (urlPath && date) {
+      changeDatesByUrl.set(urlPath, [...(changeDatesByUrl.get(urlPath) || []), date]);
+    }
+  };
+  for (const entry of corrections) {
+    const record = recordByNoteId.get(normalizeNoteId(entry.noteId));
+    addChangeDate(record?.urlPath, entry.date);
+    if (entry.edits.some((edit) => edit.action === "retitle")) {
+      addChangeDate(record?.parentUrlPath, entry.date);
+    }
+  }
+  for (const record of joinedRecords) {
+    (function visit(blocks) {
+      for (const block of blocks || []) {
+        const media = block?.type === "asset" && typeof block.blockId === "string"
+          ? mediaImages.get(block.blockId.toLowerCase())
+          : null;
+        if (media?.updatedAt) {
+          addChangeDate(record.urlPath, media.updatedAt);
+        }
+        if (block?.type !== "child_page") {
+          visit(block?.children);
+        }
+      }
+    })(record.topicDocument.blocks);
+  }
+
+  const correctionsByNoteId = new Map();
+  const errataEntries = [];
+  for (const entry of corrections) {
+    const record = recordByNoteId.get(normalizeNoteId(entry.noteId));
+    if (!record) {
+      throw new Error(`Correction "${entry.id}" references note ${entry.noteId}, which is not a published route.`);
+    }
+    if (entry.kind === "Wording") {
+      continue;
+    }
+    const errataEntry = {
+      id: entry.id,
+      date: entry.date,
+      kind: entry.kind,
+      summary: entry.summary,
+      original: entry.original,
+      corrected: entry.corrected,
+      noteTitle: record.title,
+      noteUrlPath: record.urlPath,
+      topicTitle: topics.find((topic) => topic.slug === entry.topic)?.title ?? entry.topic,
+    };
+    const key = normalizeNoteId(entry.noteId);
+    correctionsByNoteId.set(key, [...(correctionsByNoteId.get(key) || []), errataEntry]);
+    errataEntries.push(errataEntry);
+  }
+  errataEntries.sort((a, b) => (a.date === b.date ? a.noteUrlPath.localeCompare(b.noteUrlPath) : b.date.localeCompare(a.date)));
+
+  function describeLink(href) {
+    const target = joinedByUrl.get(href.split("#")[0]);
+    return target
+      ? { title: target.title, publication: publicationSummary(target.publication) }
+      : { title: null, publication: null };
+  }
+
+  function annotatePillar(pillar) {
+    if (!pillar) {
+      return pillar;
+    }
+    const annotate = (link) => {
+      const described = describeLink(link.href);
+      return { ...link, title: described.title || link.title, publication: described.publication };
+    };
+    return {
+      startHere: pillar.startHere.map(annotate),
+      readingPath: pillar.readingPath.map((section) => ({ ...section, links: section.links.map(annotate) })),
+    };
+  }
+
+  function resolveRelated(publication) {
+    return (publication?.related || []).map((link) => {
+      const described = describeLink(link.href);
+      return {
+        href: link.href,
+        reason: link.reason,
+        title: described.title || link.href,
+        publication: described.publication,
+      };
+    });
+  }
+
+  const nextReadingByUrl = new Map();
+  for (const topic of topics) {
+    const computed = computeNextReadings({
+      topic,
+      records: recordsByTopic.get(topic.slug),
+      recordsByUrl: joinedByUrl,
+    });
+    for (const [urlPath, next] of computed) {
+      nextReadingByUrl.set(urlPath, next ? { ...next, publication: publicationSummary(next.publication) } : null);
+    }
+  }
+
+  // Blog entries resolved up front so gateway pages can reference them.
+  const blogEntries = new Map();
+  const blogImageInfo = await loadBlogImageInfo(path.dirname(blogManifestPath));
+  if (blogManifest) {
+    for (const section of blogManifest.sections) {
+      for (const post of section.posts) {
+        blogEntries.set(`/blog/${post.slug}/`, { post, section });
+      }
+    }
+  }
+
+  const readingPathsData = await readOptionalJsonFromFile(
+    path.join(manifestDir, "reading-paths.json"),
+    "reading paths",
+  );
+  const generatedRouteSet = new Set([
+    ...joinedByUrl.keys(),
+    ...blogEntries.keys(),
+    ...GATEWAY_ROUTES,
+    "/blog/",
+    "/cv.pdf",
+    ...(Array.isArray(projectsData?.projects) ? projectsData.projects.map((project) => `/projects/${project.slug}/`) : []),
+  ]);
+  function resolveCuratedLink(step, label) {
+    if (!generatedRouteSet.has(step.href)) {
+      throw new Error(`${label} links to ${step.href}, which the build does not generate.`);
+    }
+    const described = describeLink(step.href);
+    const blog = blogEntries.get(step.href);
+    const project = Array.isArray(projectsData?.projects)
+      ? projectsData.projects.find((candidate) => `/projects/${candidate.slug}/` === step.href)
+      : null;
+    return {
+      href: step.href,
+      note: step.note || "",
+      title: step.title || described.title || blog?.post.title || project?.title || GATEWAY_TITLES[step.href] || step.href,
+      kind: step.href.startsWith("/topics/") ? "Note" : blog ? "Writing" : project ? "Project" : "Page",
+      publication: described.publication,
+    };
+  }
+  const readingPaths = Array.isArray(readingPathsData?.paths)
+    ? readingPathsData.paths.map((pathEntry) => ({
+        ...pathEntry,
+        steps: pathEntry.steps.map((step) => resolveCuratedLink(step, `Reading path "${pathEntry.id}"`)),
+      }))
+    : [];
+  const homeReadings = Array.isArray(readingPathsData?.homeReadings)
+    ? readingPathsData.homeReadings.map((step) => resolveCuratedLink(step, "Home reading"))
+    : [];
+  const homeProjectSlugs = Array.isArray(readingPathsData?.homeProjects) ? readingPathsData.homeProjects : [];
+
+  const redirectsData = await readOptionalJsonFromFile(
+    path.join(manifestDir, "publication", "redirects.json"),
+    "redirects",
+  );
+  const redirects = redirectsData ? validateRedirects(redirectsData) : [];
+
+  const routeDatesPath = path.join(manifestDir, "publication", "route-dates.json");
+  const routeDatesLedger = routeDatesMode === "enforce" && (await pathExists(routeDatesPath))
+    ? validateRouteDates(await readJsonFromFile(routeDatesPath, "route dates"))
+    : null;
+
+  // Gateway pages are fingerprinted from their rendered HTML, independent of the
+  // deployment origin so preview and production builds agree.
+  const htmlFingerprint = (html) => fingerprint(html.replaceAll(normalizedSiteUrl, ""));
+
   await fs.mkdir(outputParentDir, { recursive: true });
   const buildOutputDir = await fs.mkdtemp(path.join(outputParentDir, `.${outputBaseName}.tmp-`));
   let committedOutput = false;
+  const routeFingerprints = [];
 
   try {
     const cssPath = path.join(buildOutputDir, "assets", "site.css");
@@ -706,18 +1210,20 @@ async function buildPagesSite({
       outputRelativePath: CV_ASSET_PATH,
       label: "CV",
     });
-    await copyDirectoryFilesToOutput({
-      sourceDir: HOME_IMAGE_SOURCE_DIR,
-      outputDir: buildOutputDir,
-      outputRelativeDir: HOME_IMAGE_ASSET_DIR,
-      label: "home image",
-    });
     for (const artifactFile of STATIC_ARTIFACTS) {
       await copyFileToOutput({
         sourcePath: path.join("content", "artifacts", artifactFile),
         outputDir: buildOutputDir,
         outputRelativePath: path.join("artifacts", artifactFile),
         label: `static artifact ${artifactFile}`,
+      });
+    }
+    for (const media of mediaImages.values()) {
+      await copyFileToOutput({
+        sourcePath: media.filePath,
+        outputDir: buildOutputDir,
+        outputRelativePath: path.join(MEDIA_PUBLIC_PREFIX.slice(1), media.relative),
+        label: `note media ${media.relative}`,
       });
     }
 
@@ -727,30 +1233,11 @@ async function buildPagesSite({
       description: topic.description,
       urlPath: `/topics/${topic.slug}/`,
     }));
-    const sitemapItems = [
-      "/",
-      "/start-here/",
-      "/research-taste/",
-      "/errata/",
-      "/subscribe/",
-      "/about/",
-      "/notes/",
-      "/projects/",
-      "/contact/",
-      "/collaborate/",
-    ].map((urlPath) => ({ urlPath, lastModified: siteLastModified }));
 
     for (const topic of topics) {
-      const pageRecords = collectPageRecords({
-        rootDocument: topic.topicDocument,
-        topicSlug: topic.slug,
-        topicTitle: topic.title,
-        topicDescription: topic.description,
-      });
+      const pageRecords = recordsByTopic.get(topic.slug);
 
       for (const pageRecord of pageRecords) {
-        const pageRecordIndex = pageRecords.indexOf(pageRecord);
-        const nextPageRecord = pageRecords[pageRecordIndex + 1] || null;
         const topicBodyHtml = notesContentContext.renderTopicBody(pageRecord.topicDocument);
         const topicPageHtml = stylingContext.renderTopicPage({
           siteTitle,
@@ -763,14 +1250,13 @@ async function buildPagesSite({
             description: pageRecord.description,
             labels: pageRecord.labels,
             parentTitle: pageRecord.parentTitle,
-            pillar: pageRecord.parentTitle ? null : topic.pillar,
-            nextReading: nextPageRecord
-              ? {
-                  title: nextPageRecord.title,
-                  urlPath: nextPageRecord.urlPath,
-                  parentTitle: nextPageRecord.parentTitle,
-                }
-              : null,
+            parentUrlPath: pageRecord.parentUrlPath,
+            ancestors: ancestorsOf(pageRecord, joinedByUrl),
+            publication: pageRecord.publication,
+            related: resolveRelated(pageRecord.publication),
+            corrections: correctionsByNoteId.get(normalizeNoteId(pageRecord.noteId)) || [],
+            pillar: pageRecord.parentTitle ? null : annotatePillar(topic.pillar),
+            nextReading: nextReadingByUrl.get(pageRecord.urlPath) || null,
           },
           topicContentHtml: topicBodyHtml,
           topics,
@@ -778,9 +1264,14 @@ async function buildPagesSite({
 
         const topicPath = path.join(buildOutputDir, ...pageRecord.outputSegments, "index.html");
         await writeUtf8File(topicPath, topicPageHtml);
-        sitemapItems.push({
+        routeFingerprints.push({
           urlPath: pageRecord.urlPath,
-          lastModified: latestLastModified([siteLastModified, topic.updatedAt]),
+          fingerprint: pageRecord.contentFingerprint,
+          fallbackDate: latestLastModified([
+            topic.updatedAt || siteLastModified,
+            pageRecord.publication?.reviewedAt,
+            ...(changeDatesByUrl.get(pageRecord.urlPath) || []),
+          ]),
         });
 
         searchIndex.push({
@@ -790,77 +1281,42 @@ async function buildPagesSite({
           }),
           urlPath: pageRecord.urlPath,
           parentTitle: pageRecord.parentTitle,
+          topicTitle: topic.title,
           labels: pageRecord.labels,
+          ...publicationSearchFields(pageRecord.publication),
         });
       }
     }
 
-    const indexHtml = stylingContext.renderHomePage({
+    const gatewayContext = {
       siteTitle,
       siteUrl: normalizedSiteUrl,
       topics,
-      searchEntries: searchIndex,
       projectsData,
-    });
-    const personalHtml = stylingContext.renderPersonalPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-      portfolioData,
-    });
-    const startHereHtml = stylingContext.renderStartHerePage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-      topics,
-      searchEntries: searchIndex,
-    });
-    const notesHtml = stylingContext.renderNotesIndexPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-      topics,
-      searchEntries: searchIndex,
-    });
-    const researchTasteHtml = stylingContext.renderResearchTastePage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-      researchTasteData,
-    });
-    const errataHtml = stylingContext.renderErrataPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-    });
-    const subscribeHtml = stylingContext.renderSubscribePage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-    });
-    const projectsHtml = stylingContext.renderProjectsIndexPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-      projectsData,
-    });
-    const contactHtml = stylingContext.renderContactPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-    });
-    const collaborateHtml = stylingContext.renderCollaborateRedirectPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-    });
-    const notFoundHtml = stylingContext.renderNotFoundPage({
-      siteTitle,
-      siteUrl: normalizedSiteUrl,
-    });
-
-    await writeUtf8File(path.join(buildOutputDir, "index.html"), indexHtml);
-    await writeUtf8File(path.join(buildOutputDir, "404.html"), notFoundHtml);
-    await writeUtf8File(path.join(buildOutputDir, "start-here", "index.html"), startHereHtml);
-    await writeUtf8File(path.join(buildOutputDir, "research-taste", "index.html"), researchTasteHtml);
-    await writeUtf8File(path.join(buildOutputDir, "errata", "index.html"), errataHtml);
-    await writeUtf8File(path.join(buildOutputDir, "subscribe", "index.html"), subscribeHtml);
-    await writeUtf8File(path.join(buildOutputDir, "about", "index.html"), personalHtml);
-    await writeUtf8File(path.join(buildOutputDir, "notes", "index.html"), notesHtml);
-    await writeUtf8File(path.join(buildOutputDir, "projects", "index.html"), projectsHtml);
-    await writeUtf8File(path.join(buildOutputDir, "contact", "index.html"), contactHtml);
-    await writeUtf8File(path.join(buildOutputDir, "collaborate", "index.html"), collaborateHtml);
+      readingPaths,
+      homeReadings,
+      homeProjectSlugs,
+      errataEntries,
+    };
+    const gatewayPages = [
+      ["/", "index.html", stylingContext.renderHomePage(gatewayContext)],
+      ["/start-here/", "start-here/index.html", stylingContext.renderStartHerePage(gatewayContext)],
+      ["/research-taste/", "research-taste/index.html", stylingContext.renderResearchTastePage({ siteTitle, siteUrl: normalizedSiteUrl, researchTasteData })],
+      ["/errata/", "errata/index.html", stylingContext.renderErrataPage({ siteTitle, siteUrl: normalizedSiteUrl, errataEntries })],
+      ["/subscribe/", "subscribe/index.html", stylingContext.renderSubscribePage({ siteTitle, siteUrl: normalizedSiteUrl })],
+      ["/about/", "about/index.html", stylingContext.renderPersonalPage({ siteTitle, siteUrl: normalizedSiteUrl, portfolioData, projectsData })],
+      ["/notes/", "notes/index.html", stylingContext.renderNotesIndexPage({ ...gatewayContext, searchEntries: searchIndex })],
+      ["/projects/", "projects/index.html", stylingContext.renderProjectsIndexPage({ siteTitle, siteUrl: normalizedSiteUrl, projectsData })],
+      ["/contact/", "contact/index.html", stylingContext.renderContactPage({ siteTitle, siteUrl: normalizedSiteUrl })],
+    ];
+    for (const [urlPath, relativePath, html] of gatewayPages) {
+      await writeUtf8File(path.join(buildOutputDir, relativePath), html);
+      routeFingerprints.push({ urlPath, fingerprint: htmlFingerprint(html), fallbackDate: siteLastModified });
+    }
+    await writeUtf8File(
+      path.join(buildOutputDir, "404.html"),
+      stylingContext.renderNotFoundPage({ siteTitle, siteUrl: normalizedSiteUrl }),
+    );
 
     const projectItems = Array.isArray(projectsData?.projects) ? projectsData.projects : [];
     for (const project of projectItems) {
@@ -878,24 +1334,23 @@ async function buildPagesSite({
         projectsData,
       });
       await writeUtf8File(path.join(buildOutputDir, "projects", slug, "index.html"), projectHtml);
-      sitemapItems.push({
+      routeFingerprints.push({
         urlPath: `/projects/${slug}/`,
-        lastModified: latestLastModified([
-          siteLastModified,
-          normalizeLastModified(project.updatedAt, `Project "${slug}" updatedAt`),
-        ]),
+        fingerprint: fingerprint(project),
+        fallbackDate: normalizeLastModified(project.updatedAt, `Project "${slug}" updatedAt`) || siteLastModified,
       });
     }
 
     // Blog
     if (blogManifest) {
       const blogContentDir = path.dirname(blogManifestPath);
+      const renderMarkdown = (markdown) =>
+        notesContentContext.renderBlogBody(markdown, { imageInfo: blogImageInfo.lookup });
 
-      // Render home/index page
       let homeContentHtml = "";
       if (blogManifest.home && blogManifest.home.markdownFile) {
         const homeMd = await fs.readFile(path.join(blogContentDir, blogManifest.home.markdownFile), "utf8");
-        homeContentHtml = notesContentContext.renderBlogBody(homeMd);
+        homeContentHtml = renderMarkdown(stripLeadingHeadingAndImage(homeMd));
       }
       const blogIndexHtml = stylingContext.renderBlogIndexPage({
         siteTitle,
@@ -904,13 +1359,12 @@ async function buildPagesSite({
         homeContentHtml,
       });
       await writeUtf8File(path.join(buildOutputDir, "blog", "index.html"), blogIndexHtml);
-      sitemapItems.push({ urlPath: "/blog/", lastModified: siteLastModified });
+      routeFingerprints.push({ urlPath: "/blog/", fingerprint: htmlFingerprint(blogIndexHtml), fallbackDate: siteLastModified });
 
-      // Render each post
       for (const section of blogManifest.sections) {
         for (const post of section.posts) {
           const postMd = await fs.readFile(path.join(blogContentDir, post.markdownFile), "utf8");
-          const blogContentHtml = notesContentContext.renderBlogBody(postMd);
+          const blogContentHtml = renderMarkdown(postMd);
           const postHtml = stylingContext.renderBlogPostPage({
             siteTitle,
             siteUrl: normalizedSiteUrl,
@@ -920,21 +1374,20 @@ async function buildPagesSite({
             blogManifest,
           });
           await writeUtf8File(path.join(buildOutputDir, "blog", post.slug, "index.html"), postHtml);
-          sitemapItems.push({
+          routeFingerprints.push({
             urlPath: `/blog/${post.slug}/`,
-            lastModified: latestLastModified([
-              siteLastModified,
-              normalizeLastModified(
-                post.updatedAt || post.publishedAt,
-                `Blog post "${post.slug}" modified date`,
-              ),
-            ]),
+            fingerprint: fingerprint({ markdown: postMd, post }),
+            fallbackDate: normalizeLastModified(
+              post.updatedAt || post.publishedAt,
+              `Blog post "${post.slug}" modified date`,
+            ) || siteLastModified,
           });
 
           feedItems.push({
             title: post.title,
             description: post.description || section.subtitle || section.title,
             urlPath: `/blog/${post.slug}/`,
+            date: post.updatedAt || post.publishedAt || null,
           });
 
           searchIndex.push({
@@ -946,24 +1399,24 @@ async function buildPagesSite({
             }),
             urlPath: `/blog/${post.slug}/`,
             parentTitle: section.title,
+            topicTitle: "Writing",
             labels: [],
+            status: null,
+            contentType: "Essay",
+            reviewedAt: null,
           });
         }
       }
 
-      // Copy blog images
-      const blogImagesDir = path.join(blogContentDir, "images");
-      await copyDirectoryFilesToOutput({
-        sourceDir: blogImagesDir,
-        outputDir: buildOutputDir,
-        outputRelativeDir: path.join("blog", "images"),
-        label: "blog image",
-      });
+      await copyBlogImages({ blogContentDir, outputDir: buildOutputDir, imageInfo: blogImageInfo });
     }
+
+    const sitemapItems = resolveRouteDates({ items: routeFingerprints, ledger: routeDatesLedger });
+    assertRedirectsConsistent({ redirects, generatedRoutes: sitemapItems.map((item) => item.urlPath) });
 
     await writeUtf8File(
       path.join(buildOutputDir, "search-index.json"),
-      `${JSON.stringify(searchIndex, null, 2)}\n`,
+      `${JSON.stringify(searchIndex.map(compactSearchEntry))}\n`,
     );
     await writeUtf8File(
       path.join(buildOutputDir, "feed.xml"),
@@ -977,6 +1430,9 @@ async function buildPagesSite({
       path.join(buildOutputDir, "robots.txt"),
       renderRobotsTxt({ siteUrl: normalizedSiteUrl }),
     );
+    if (redirects.length > 0) {
+      await writeUtf8File(path.join(buildOutputDir, "_redirects"), renderRedirectsFile(redirects));
+    }
     await replaceDirectoryAtomically({
       sourceDir: buildOutputDir,
       targetDir: absoluteOutputDir,
@@ -987,6 +1443,8 @@ async function buildPagesSite({
       await fs.rm(buildOutputDir, { recursive: true, force: true });
     }
   }
+
+  return { routeFingerprints };
 }
 
 if (require.main === module) {
@@ -1000,6 +1458,9 @@ if (require.main === module) {
     siteMetadataPath: args.siteMetadata,
     siteTitle: args.siteTitle,
     siteUrl: args.siteUrl,
+    publicationPath: args.publication,
+    correctionsPath: args.corrections,
+    mediaDir: args.mediaDir,
   }).catch((error) => {
     console.error(`build-pages failed: ${error.message}`);
     process.exitCode = 1;
@@ -1008,4 +1469,5 @@ if (require.main === module) {
 
 module.exports = {
   buildPagesSite,
+  collectPageRecords,
 };

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "description": "Permanent redirects for renamed or retired routes, emitted as dist/_redirects. Every source must no longer be generated and every destination must be a generated route; the build fails otherwise.",
+  "redirects": [
+    { "from": "/topics/algorithms/scheduling/", "to": "/topics/algorithms/job-sequencing-with-deadlines/", "reason": "Duplicate Scheduling title renamed for its actual problem (2026-09-30)." },
+    { "from": "/topics/algorithms/scheduling-2/", "to": "/topics/algorithms/when-greedy-scheduling-works/", "reason": "Duplicate Scheduling title renamed for its actual topic (2026-09-30)." },
+    { "from": "/topics/os/address-space-2/", "to": "/topics/os/address-space-study-plan/", "reason": "Duplicate Address Space title renamed to mark the study plan (2026-09-30)." },
+    { "from": "/topics/os/network-communcation/", "to": "/topics/os/network-communication/", "reason": "Misspelled title corrected (2026-09-30)." },
+    { "from": "/topics/ai-engineer/kernal-and-os-optimisations/", "to": "/topics/ai-engineer/kernel-and-os-optimisations/", "reason": "Misspelled title corrected (2026-09-30)." },
+    { "from": "/collaborate/", "to": "/contact/", "reason": "Collaboration guidance lives on the Contact page; the old placeholder page is retired." }
+  ]
+}

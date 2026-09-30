@@ -1,0 +1,1497 @@
+{
+  "version": 1,
+  "description": "Publication metadata for every public note, keyed by the stable Notion id (topic root page id or child page blockId). Missing, duplicate, or stale ids fail the build. status is one of Working note, Reviewed note, Archived; notes stay Working note until a person reviews them and records reviewedAt. Nothing promotes a note automatically. route and title are informational and validated against the generated route. Run node scripts/sync-publication-sidecar.js after pulling new notes.",
+  "statuses": {
+    "Working note": "Incomplete or not yet checked. Known factual errors are still corrected.",
+    "Reviewed note": "Praneeth checked claims, examples, links, and layout on reviewedAt (not peer review).",
+    "Archived": "Retained but no longer maintained; archiveReason is required."
+  },
+  "notes": [
+    {
+      "id": "2c0d3a21bb2d8031bb05f06833e69bd3",
+      "route": "/topics/algorithms/",
+      "title": "Algorithms",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "365d3a21-bb2d-809a-9c85-d76fbddbb1a3",
+      "route": "/topics/algorithms/job-sequencing-with-deadlines/",
+      "title": "Job Sequencing with Deadlines",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35bd3a21-bb2d-8093-ab36-e93b44d0ed35",
+      "route": "/topics/algorithms/primality-tests/",
+      "title": "Primality Tests",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Introduces sieve and Miller–Rabin; distinguish exact sieve results from probabilistic testing assumptions."
+      ],
+      "related": []
+    },
+    {
+      "id": "351d3a21-bb2d-8018-b3f0-e58abcd2a5e2",
+      "route": "/topics/algorithms/greedy-successes/",
+      "title": "Greedy Successes",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Schedules and absolute-difference cases share a page; state the greedy-choice condition for each."
+      ],
+      "related": []
+    },
+    {
+      "id": "347d3a21-bb2d-805e-94df-e8d1dee28da2",
+      "route": "/topics/algorithms/advanced-dynamic-programming/",
+      "title": "Advanced Dynamic Programming 👹",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Advanced variants in one long page; give prerequisite path and separate worked recurrences."
+      ],
+      "related": []
+    },
+    {
+      "id": "345d3a21-bb2d-802d-9576-e98816196808",
+      "route": "/topics/algorithms/convex-hull-trick/",
+      "title": "Convex Hull Trick",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Moves from geometric convex hull to the line-envelope trick; distinguish the two tasks with one worked case."
+      ],
+      "related": []
+    },
+    {
+      "id": "342d3a21-bb2d-8000-8d19-fc24fcf65e7d",
+      "route": "/topics/algorithms/savitchs-algorithm/",
+      "title": "Savitch's algorithm",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "The illustration was redrawn from the text because the original image could not be recovered."
+      ],
+      "related": []
+    },
+    {
+      "id": "341d3a21-bb2d-80d9-aced-ceb2119fc279",
+      "route": "/topics/algorithms/matrix-based-solutions/",
+      "title": "Matrix Based Solutions",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Lists reachability, path counting, shortest paths, and more; work through one matrix multiplication example."
+      ],
+      "related": []
+    },
+    {
+      "id": "341d3a21-bb2d-80e0-8982-cee065f176f3",
+      "route": "/topics/algorithms/fibonacci/",
+      "title": "Fibonacci",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Compares several paradigms with 25 rendered equations; anchor them to one input and explicit costs."
+      ],
+      "related": []
+    },
+    {
+      "id": "33dd3a21-bb2d-805b-88c6-e6ac7fdfca35",
+      "route": "/topics/algorithms/minmax-path-problem/",
+      "title": "Minmax Path Problem",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. 4,531 indexed words; split proof, MST relation, and implementation examples into a readable path."
+      ],
+      "related": []
+    },
+    {
+      "id": "33bd3a21-bb2d-8071-8ee9-d40bd96ae114",
+      "route": "/topics/algorithms/the-traveling-salesperson-problem-tsp/",
+      "title": "The Traveling Salesperson Problem (TSP)",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Brief TSP definition; add a small tour example and distinguish decision versus optimization forms."
+      ],
+      "related": []
+    },
+    {
+      "id": "333d3a21-bb2d-80b0-8f34-fd34eef5dd2e",
+      "route": "/topics/algorithms/the-knapsack-problem/",
+      "title": "The Knapsack Problem",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Covers four variants; separate assumptions and recurrences, especially fractional versus integer cases."
+      ],
+      "related": []
+    },
+    {
+      "id": "32dd3a21-bb2d-80a9-8e64-cb66e52fa726",
+      "route": "/topics/algorithms/counting-sort/",
+      "title": "Counting Sort",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Pseudocode emits keys only; show how stable sorting of records preserves equal-key order."
+      ],
+      "related": []
+    },
+    {
+      "id": "325d3a21-bb2d-80c6-9106-e663cbcaa7b8",
+      "route": "/topics/algorithms/network-flow/",
+      "title": "Network Flow",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Defines max flow/min cut but no worked network; add one and state capacity assumptions."
+      ],
+      "related": []
+    },
+    {
+      "id": "31ed3a21-bb2d-80da-9fa2-c178751c19e3",
+      "route": "/topics/algorithms/a-search/",
+      "title": "A* Search",
+      "status": "Working note",
+      "contentType": "Stub",
+      "reviewedAt": null,
+      "knownGaps": [
+        "No definition, algorithm, or worked example yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/algorithms/dijkstra/",
+          "reason": "A* is Dijkstra's algorithm with a heuristic added to each priority, so start there."
+        }
+      ]
+    },
+    {
+      "id": "31ed3a21-bb2d-8058-9693-e34bc7b17a9b",
+      "route": "/topics/algorithms/interpolation-search/",
+      "title": "Interpolation Search",
+      "status": "Working note",
+      "contentType": "Stub",
+      "reviewedAt": null,
+      "knownGaps": [
+        "No definition, cost analysis, or example yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/algorithms/binary-search/",
+          "reason": "Interpolation search changes only how binary search picks its probe; the interval invariant is the same."
+        }
+      ]
+    },
+    {
+      "id": "31ad3a21-bb2d-8057-af65-deab5b81aed4",
+      "route": "/topics/algorithms/exponential-search/",
+      "title": "Exponential Search",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Explains doubling probes; specify bounds behavior for finite arrays and the assumed access model."
+      ],
+      "related": []
+    },
+    {
+      "id": "318d3a21-bb2d-80cc-a836-fd4f557356b8",
+      "route": "/topics/algorithms/parallel-algorithms-for-linked-list-and-beyond/",
+      "title": "Parallel Algorithms for Linked List and Beyond",
+      "status": "Working note",
+      "contentType": "Reading bookmark",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Only a pointer to a paper; no summary of its question or results yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "318d3a21-bb2d-8024-b571-f9e6d6b87e61",
+      "route": "/topics/algorithms/linear-time-selection/",
+      "title": "Linear-time selection",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Quickselect and median-of-medians share a note; show partition trace and worst-case proof assumptions."
+      ],
+      "related": []
+    },
+    {
+      "id": "303d3a21-bb2d-8018-bea8-e6e3b119609e",
+      "route": "/topics/algorithms/rabin-karp/",
+      "title": "Rabin-Karp",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Rolling-hash explanation needs explicit collision verification and one traced match."
+      ],
+      "related": []
+    },
+    {
+      "id": "2f4d3a21-bb2d-80b5-acbf-f3fed6c5f73f",
+      "route": "/topics/algorithms/merge-sort/",
+      "title": "Merge Sort",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Implementation advice is brief; show merge trace and auxiliary-space tradeoff."
+      ],
+      "related": []
+    },
+    {
+      "id": "2efd3a21-bb2d-8044-af06-c1ec065d1022",
+      "route": "/topics/algorithms/insertion-sort/",
+      "title": "Insertion Sort",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Includes loop invariants and code; check index boundaries and show one full insertion trace."
+      ],
+      "related": []
+    },
+    {
+      "id": "2e6d3a21-bb2d-80c3-91aa-f9fa9255b253",
+      "route": "/topics/algorithms/meta-algorithm/",
+      "title": "Meta-Algorithm",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. General algorithm-design advice and Java contest hacks mix audiences; split process from language appendix."
+      ],
+      "related": []
+    },
+    {
+      "id": "2ded3a21-bb2d-80de-9bd9-d2793765ee60",
+      "route": "/topics/algorithms/johnsons/",
+      "title": "Johnsons",
+      "status": "Working note",
+      "contentType": "Stub",
+      "reviewedAt": null,
+      "knownGaps": [
+        "No definition or example yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/algorithms/bellman-ford/",
+          "reason": "Johnson's algorithm first reweights edges using Bellman-Ford."
+        },
+        {
+          "href": "/topics/algorithms/dijkstra/",
+          "reason": "After reweighting, it runs Dijkstra from every vertex."
+        }
+      ]
+    },
+    {
+      "id": "2dad3a21-bb2d-80f0-b521-edfc767b4527",
+      "route": "/topics/algorithms/floyd-warshall/",
+      "title": "Floyd-Warshall",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. All-pairs recurrence and applications; add negative-cycle caveat and one k-step matrix example."
+      ],
+      "related": []
+    },
+    {
+      "id": "2dad3a21-bb2d-808c-ad9d-dad0fffa95bc",
+      "route": "/topics/algorithms/bellman-ford/",
+      "title": "Bellman-Ford",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Negative-edge treatment has multiple variants; show relaxation-round invariant and cycle detection trace."
+      ],
+      "related": []
+    },
+    {
+      "id": "2d9d3a21-bb2d-80bf-9d89-c3d578dc46d4",
+      "route": "/topics/algorithms/optimal-binary-search-tree/",
+      "title": "Optimal Binary Search Tree",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Short root-choice sketch lacks a complete state/recurrence worked example."
+      ],
+      "related": []
+    },
+    {
+      "id": "2cfd3a21-bb2d-807f-8121-d91082c36518",
+      "route": "/topics/algorithms/minimum-spanning-trees/",
+      "title": "Minimum Spanning Trees",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Many MST applications in one page; separate core cut/cycle proof from application examples."
+      ],
+      "related": []
+    },
+    {
+      "id": "2ced3a21-bb2d-8095-b6cf-c80b011a4988",
+      "route": "/topics/algorithms/huffman-codes/",
+      "title": "Huffman Codes",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Short proof sketch; show one merge tree and why sibling exchange is valid."
+      ],
+      "related": []
+    },
+    {
+      "id": "2ced3a21-bb2d-802a-b4d3-e445bd888279",
+      "route": "/topics/algorithms/when-greedy-scheduling-works/",
+      "title": "When Greedy Scheduling Works",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "2cdd3a21-bb2d-805a-b55f-d2422e51e6ae",
+      "route": "/topics/algorithms/dynamic-programming/",
+      "title": "Dynamic Programming",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Long guide spans recurrences, reconstruction, and anti-patterns; give a staged reading outline."
+      ],
+      "related": []
+    },
+    {
+      "id": "2cdd3a21-bb2d-8065-aa34-c81dee6a8175",
+      "route": "/topics/algorithms/greedy/",
+      "title": "Greedy",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Explains exchange arguments; pair each proof pattern with assumptions and a failing counterexample."
+      ],
+      "related": []
+    },
+    {
+      "id": "2cbd3a21-bb2d-80ea-95dd-c2992ea6d9c4",
+      "route": "/topics/algorithms/heap-sort/",
+      "title": "Heap Sort",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "No heap construction or extraction example yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "2cad3a21-bb2d-80a1-a267-fa50fcb095a4",
+      "route": "/topics/algorithms/dijkstra/",
+      "title": "Dijkstra",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Many variants and examples; keep nonnegative-weight assumption and unsupported variants conspicuous."
+      ],
+      "related": []
+    },
+    {
+      "id": "2c9d3a21-bb2d-80be-b18b-c654d0fae6ce",
+      "route": "/topics/algorithms/quick-sort/",
+      "title": "Quick Sort",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "2c9d3a21-bb2d-8077-8ca8-d1f51ee1e6bf",
+      "route": "/topics/algorithms/binary-search/",
+      "title": "Binary Search",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Worked variants present; state interval invariant and edge-case contract beside code."
+      ],
+      "related": []
+    },
+    {
+      "id": "2c6d3a21-bb2d-805b-97f4-e43102dff2de",
+      "route": "/topics/algorithms/depth-first-search-dfs/",
+      "title": "Depth-first search (DFS)",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Long multi-use guide; check each algorithm/proof example and add section outline."
+      ],
+      "related": []
+    },
+    {
+      "id": "2c6d3a21-bb2d-8081-ad93-d257a078a51f",
+      "route": "/topics/algorithms/breadth-first-search-bfs/",
+      "title": "Breadth-first search (BFS)",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "2c6d3a21-bb2d-804f-9443-e19a435fa0f8",
+      "route": "/topics/algorithms/graph-traversal/",
+      "title": "Graph Traversal",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Broad “blazingly fast” introduction; name graph representation and traversal cost precisely."
+      ],
+      "related": []
+    },
+    {
+      "id": "2c6d3a21-bb2d-8011-9f95-c23f86c6ebd3",
+      "route": "/topics/algorithms/sorting/",
+      "title": "Sorting",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Comparator requirements and stability discussion; state total-order assumption before comparing methods."
+      ],
+      "related": []
+    },
+    {
+      "id": "2c6d3a21-bb2d-80d8-841e-cebffc59119f",
+      "route": "/topics/algorithms/recursion/",
+      "title": "Recursion",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "352d3a21bb2d80a395bcd186ff1aa5c8",
+      "route": "/topics/agent-coding/",
+      "title": "Agentic Coding",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "363d3a21-bb2d-80e3-8045-f72b16cf7772",
+      "route": "/topics/agent-coding/harnesses/",
+      "title": "Harnesses",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Definition only; no worked example of a failed check and retry."
+      ],
+      "related": []
+    },
+    {
+      "id": "363d3a21-bb2d-80ad-8703-d9177f4cc009",
+      "route": "/topics/agent-coding/code-review/",
+      "title": "Code Review",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Sketch only; does not yet separate automated flags from accountable human review."
+      ],
+      "related": []
+    },
+    {
+      "id": "363d3a21-bb2d-8004-8fa4-d75a54b9fd77",
+      "route": "/topics/agent-coding/security-issues/",
+      "title": "Security Issues",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Tool/security list includes dated practices and code; attach threat model, versions, and sources."
+      ],
+      "related": []
+    },
+    {
+      "id": "361d3a21-bb2d-8057-8723-f269a7ca10f1",
+      "route": "/topics/agent-coding/prompting-basics/",
+      "title": "Prompting Basics",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Role/goal/context tips are broad; add one before/after task prompt with limits."
+      ],
+      "related": []
+    },
+    {
+      "id": "353d3a21-bb2d-8023-a400-dfa5a30e2276",
+      "route": "/topics/agent-coding/skills/",
+      "title": "Skills",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Defines skills briefly; show a bounded use case and date tool-specific claims."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-8040-999e-fd82ea9e1e88",
+      "route": "/topics/agent-coding/putting-it-together/",
+      "title": "Putting it together",
+      "status": "Working note",
+      "contentType": "Worked guide",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-8085-876c-c5466be0868a",
+      "route": "/topics/agent-coding/leverage-and-locality/",
+      "title": "Leverage and Locality",
+      "status": "Working note",
+      "contentType": "Stub",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Neither term is explained yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/agent-coding/coupling/",
+          "reason": "Coupling covers the closest published material on keeping changes local."
+        },
+        {
+          "href": "/topics/agent-coding/modularity/",
+          "reason": "Modularity discusses deep modules, which give leverage per interface."
+        }
+      ]
+    },
+    {
+      "id": "352d3a21-bb2d-8087-aa6e-ca59447d5fe6",
+      "route": "/topics/agent-coding/domain-driven-design/",
+      "title": "Domain Driven Design",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Short DDD summary; give one concrete domain term and bounded-context example."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-809a-85e3-ed5440b47744",
+      "route": "/topics/agent-coding/coupling/",
+      "title": "Coupling",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-80ae-8703-cf3800edba58",
+      "route": "/topics/agent-coding/test-driven-development/",
+      "title": "Test Driven Development",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Six code blocks and “freeze tests” advice; specify when tests may legitimately change."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-806c-84cf-d50131b2ed95",
+      "route": "/topics/agent-coding/modularity/",
+      "title": "Modularity",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Lists three fixes without an example; show one shallow-to-deep module decision."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-8042-863a-ff555ca8a221",
+      "route": "/topics/agent-coding/entropy/",
+      "title": "Entropy",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Entropy warning needs a concrete symptom/measure and a correction example."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-80bf-b0ea-ebc07044c077",
+      "route": "/topics/agent-coding/feedback-loops/",
+      "title": "Feedback Loops",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Static types, MCP, and tests do different jobs; explain what each can detect."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-808b-b241-e9b0fe662e2b",
+      "route": "/topics/agent-coding/shared-language/",
+      "title": "Shared Language",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. One abstract DDD principle; show a term carried through code and documentation."
+      ],
+      "related": []
+    },
+    {
+      "id": "352d3a21-bb2d-80c7-be4d-efb0ba74f27b",
+      "route": "/topics/agent-coding/the-design-concept/",
+      "title": "The Design Concept",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "33717c9599fd8042815fc6a4ff957a4d",
+      "route": "/topics/os/",
+      "title": "Operating Systems",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Topic contains two Address Space routes and study to-do pages; lead with foundations-first path."
+      ],
+      "related": []
+    },
+    {
+      "id": "35e17c95-99fd-8006-9442-f7123d54d284",
+      "route": "/topics/os/faster-concurrency/",
+      "title": "Faster Concurrency",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Mutex-versus-processor-speed claim needs workload/architecture qualification and a measured example."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-8027-8ecc-ebf8049d37f6",
+      "route": "/topics/os/synchronisation/",
+      "title": "Synchronisation",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Covers races, locks, busy waiting, livelock; add one coherent shared-state running example."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-803a-b5d2-c7037b85db97",
+      "route": "/topics/os/interrupts/",
+      "title": "Interrupts",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Interrupt path includes TSS; label architecture/OS-specific behavior."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-80ee-88f4-dd110f3e8eb7",
+      "route": "/topics/os/preemptive-multitasking/",
+      "title": "Preemptive Multitasking",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-8034-8a1e-fe526959adc5",
+      "route": "/topics/os/more-about-threads/",
+      "title": "More about Threads",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-808e-934d-de52602da9fd",
+      "route": "/topics/os/context-switching/",
+      "title": "Context Switching",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Distinguish thread versus process switch costs with a concrete state diagram."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-80aa-a38d-d36d20795c15",
+      "route": "/topics/os/process-scheduling/",
+      "title": "Process Scheduling",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Calls MLFQ “the practical winner”; narrow by objective/workload and compare tradeoffs."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-802a-b5eb-ed96fa0e971e",
+      "route": "/topics/os/thread-pools/",
+      "title": "Thread Pools",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Does not yet cover queue bounds, saturation, or backpressure."
+      ],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-809a-874f-d3a35737d45e",
+      "route": "/topics/os/network-communication/",
+      "title": "Network Communication",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35617c95-99fd-8005-8ec7-c48704a5e51e",
+      "route": "/topics/os/interprocess-communication/",
+      "title": "Interprocess Communication",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Pipes, queues, and kernel controls are broad; show one producer/consumer path."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-80e5-b9d6-cd02bf1abd5f",
+      "route": "/topics/os/semaphores/",
+      "title": "Semaphores",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Definition and C++ cases; show count invariant for one producer-consumer example."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-807f-932f-dc2e6637246e",
+      "route": "/topics/os/file-and-i-o-abstractions/",
+      "title": "File and I/O Abstractions",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. “Everything is a file” and C/Unix APIs need platform scope and a realistic read/write example."
+      ],
+      "related": []
+    },
+    {
+      "id": "35317c95-99fd-8020-bee3-f849fcb0e2c1",
+      "route": "/topics/os/dual-mode/",
+      "title": "Dual Mode",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35317c95-99fd-8054-a10b-df3fd18c3a41",
+      "route": "/topics/os/processes/",
+      "title": "Processes",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Large process/Unix API guide; distinguish abstract process model from platform-specific calls."
+      ],
+      "related": []
+    },
+    {
+      "id": "35317c95-99fd-8001-a572-e12b07ca6ea8",
+      "route": "/topics/os/address-space/",
+      "title": "Address Space",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35317c95-99fd-8061-a6ff-e40a8a9d4fe5",
+      "route": "/topics/os/threads/",
+      "title": "Threads",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-80a1-b3da-ef3f277ccce6",
+      "route": "/topics/os/reliability-and-security/",
+      "title": "Reliability and Security",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-80eb-b553-dc0a57641ca4",
+      "route": "/topics/os/distributed-systems/",
+      "title": "Distributed Systems",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-80bd-a574-f9a5f37eb3da",
+      "route": "/topics/os/file-systems/",
+      "title": "File Systems",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-8007-aa94-eca310fb0ef6",
+      "route": "/topics/os/address-space-study-plan/",
+      "title": "Address Space Study Plan",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/os/address-space/",
+          "reason": "The Address Space note explains the concept this plan schedules."
+        }
+      ]
+    },
+    {
+      "id": "35017c95-99fd-80d9-959b-e2aea158c792",
+      "route": "/topics/os/concurrency/",
+      "title": "Concurrency",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-8039-b1e8-cc510da8fef3",
+      "route": "/topics/os/os-basics/",
+      "title": "OS Basics",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [
+        "This is a study plan: most listed topics do not have notes yet."
+      ],
+      "related": []
+    },
+    {
+      "id": "35017c95-99fd-8012-b160-d54988ccfab1",
+      "route": "/topics/os/what-is-an-operating-system/",
+      "title": "What is an Operating System?",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Historical overview and abstractions; supply a simple kernel/user boundary example."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c9599fd80d5b642cf3c570eef03",
+      "route": "/topics/ai-engineer/",
+      "title": "AI Engineering",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Hardware/execution scope needs precise title and prerequisites; correct “Kernal” child title."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-8046-9e8d-cdc5886887b8",
+      "route": "/topics/ai-engineer/systolic-arrays/",
+      "title": "Systolic Arrays",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Duplicate “Systolic Arrays” headings; explain one tile/dataflow rather than repeating label."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-8091-8208-dda2f2a99fb4",
+      "route": "/topics/ai-engineer/matrix-multiplication/",
+      "title": "Matrix Multiplication",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Data reuse and tensor cores overview; work one tiling/precision example."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-8093-9c18-efbed0865757",
+      "route": "/topics/ai-engineer/distributed-ai-systems/",
+      "title": "Distributed AI Systems",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Names NVLink/NCCL and parallelism forms; date platform claims and show one scaling constraint."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-80a9-bee8-d3bdd71c9062",
+      "route": "/topics/ai-engineer/compiler-optimizations/",
+      "title": "Compiler Optimizations",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Six compiler mechanisms listed; trace one tensor operation from graph to kernel."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-80ce-a83e-ff03194ecba6",
+      "route": "/topics/ai-engineer/kernel-and-os-optimisations/",
+      "title": "Kernel and OS Optimisations",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-80a5-affb-ca4ded272673",
+      "route": "/topics/ai-engineer/memory-systems/",
+      "title": "Memory Systems",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. PagedAttention and tiling overview; distinguish generic memory behavior from named techniques."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-800d-a6eb-d9b885071155",
+      "route": "/topics/ai-engineer/gpus/",
+      "title": "GPUs",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. GPU hierarchy and profiling outline; add one measured kernel bottleneck example."
+      ],
+      "related": []
+    },
+    {
+      "id": "36917c95-99fd-8011-a8ff-c9a1a07497d4",
+      "route": "/topics/ai-engineer/hardware-acceleration/",
+      "title": "Hardware Acceleration",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Hardware/precision catalog; tie choices to a defined model workload and error budget."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c9599fd804dbc31cc4d0ab62ee0",
+      "route": "/topics/swe/",
+      "title": "SWE for Pros",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. “SWE for Pros” overstates scope; use a factual software-systems introduction."
+      ],
+      "related": []
+    },
+    {
+      "id": "35517c95-99fd-8051-a032-e69b6518f5e2",
+      "route": "/topics/swe/event-streaming/",
+      "title": "Event Streaming",
+      "status": "Working note",
+      "contentType": "Reading bookmark",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Only a pointer to Kafka material; event-stream semantics are not explained yet."
+      ],
+      "related": [
+        {
+          "href": "/topics/swe/under-the-hood-the-log/",
+          "reason": "The log note explains the append-only log that event streams are built on."
+        }
+      ]
+    },
+    {
+      "id": "35517c95-99fd-8024-b2b4-e9f87ac8c5e0",
+      "route": "/topics/swe/under-the-hood-the-log/",
+      "title": "Under the Hood: The log",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Uses LinkedIn log article as a base; clearly attribute derived ideas and show one append/replay example."
+      ],
+      "related": []
+    },
+    {
+      "id": "35517c95-99fd-8092-9b8d-ef4c430e6fdd",
+      "route": "/topics/swe/service-mesh/",
+      "title": "Service Mesh",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Explains sidecars and tradeoffs; compare a case with and without a mesh."
+      ],
+      "related": []
+    },
+    {
+      "id": "35517c95-99fd-805f-96e4-dc8451409177",
+      "route": "/topics/swe/microservices/",
+      "title": "Microservices",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-80b7-9793-fd23a73c2092",
+      "route": "/topics/swe/testing/",
+      "title": "Testing",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Many testing modes and 18 code blocks; give one running system and versioned runnable examples."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-8013-b822-fc727b4ec55c",
+      "route": "/topics/swe/security/",
+      "title": "Security",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Resource-heavy defense-in-depth overview; link claims directly to OWASP/NIST sources."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-80e9-8985-ede68b125b23",
+      "route": "/topics/swe/collaboration/",
+      "title": "Collaboration",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Social-process guide; show a real RFC/design-review artifact and distinguish advice from evidence."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-800a-9db6-e33c11efcaef",
+      "route": "/topics/swe/standards/",
+      "title": "Standards",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Standards examples and resource list; explain one interface contract and its failure mode."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-805c-995d-fbef3f488460",
+      "route": "/topics/swe/reliability/",
+      "title": "Reliability",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Observability resources; trace one incident from signal to diagnosis and recovery."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-800e-842f-c061f31660d8",
+      "route": "/topics/swe/scalability/",
+      "title": "Scalability",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Redis/Kafka examples are broad; qualify latency/throughput claims by workload."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-808c-a0e2-d4bf42d13787",
+      "route": "/topics/swe/distributed-systems/",
+      "title": "Distributed Systems",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Unbroken`GoogleCloudPlatform/microservices-demo` heading exceeds mobile column."
+      ],
+      "related": []
+    },
+    {
+      "id": "35417c95-99fd-8028-bd8e-f0e9384c7848",
+      "route": "/topics/swe/swe-study-plan/",
+      "title": "SWE Study Plan",
+      "status": "Working note",
+      "contentType": "Study plan",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "352d3a21bb2d80198f63db44c103abee",
+      "route": "/topics/agent-build/",
+      "title": "Building Agents",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Define building agent applications and distinguish from using coding agents."
+      ],
+      "related": []
+    },
+    {
+      "id": "354d3a21-bb2d-801f-8403-ed0f9a5a4660",
+      "route": "/topics/agent-build/what-can-agents-do/",
+      "title": "What can agents do?",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Product examples may age quickly; date/verify them and lead with durable capability categories."
+      ],
+      "related": []
+    },
+    {
+      "id": "354d3a21-bb2d-806e-9541-d6cfc16717e5",
+      "route": "/topics/agent-build/what-is-an-agent/",
+      "title": "What is an Agent?",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Brain/tool/memory framing is useful; define where deterministic workflows end and agent choice begins."
+      ],
+      "related": []
+    },
+    {
+      "id": "354d3a21-bb2d-80a6-a7c6-dd88c42daaaf",
+      "route": "/topics/agent-build/when-to-use-an-agent/",
+      "title": "When to use an Agent?",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Choice ladder from rules to agents is useful; make failure/cost criteria explicit."
+      ],
+      "related": []
+    },
+    {
+      "id": "354d3a21-bb2d-807b-958e-d76f945350a6",
+      "route": "/topics/agent-build/workflows/",
+      "title": "Workflows",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Vercel AI SDK examples are version-sensitive; pin version and run both code examples."
+      ],
+      "related": []
+    },
+    {
+      "id": "354d3a21-bb2d-80b0-9b3e-e76a833935d0",
+      "route": "/topics/agent-build/agents/",
+      "title": "Agents",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "36bd3a21-bb2d-80c3-a128-ed01a7b70a0c",
+      "route": "/topics/agent-build/advanced-agentic-engineering/",
+      "title": "Advanced Agentic Engineering",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Twelve-part checklist spans safety, memory, and traces; organize by deployment stage."
+      ],
+      "related": []
+    },
+    {
+      "id": "395d3a21-bb2d-801e-9c4d-fbc4ca1a3df3",
+      "route": "/topics/agent-build/second-brain/",
+      "title": "Second Brain",
+      "status": "Working note",
+      "contentType": "Worked guide",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "213d3a21bb2d80e2bcd8c84d5ce120ff",
+      "route": "/topics/c/",
+      "title": "C Deep Dive",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-80e6-bc11-e879f29d7f5c",
+      "route": "/topics/c/syntax-in-c/",
+      "title": "Syntax in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Says every line ends with a semicolon, which is false for directives and blocks; correct and test examples."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-80fa-86f3-e438681e50f0",
+      "route": "/topics/c/operators-in-c/",
+      "title": "Operators in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-80e4-b1cb-dc76d5b57832",
+      "route": "/topics/c/statements-in-c/",
+      "title": "Statements in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Twenty code blocks cover control flow; compile representative cases and show common edge failures."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-8096-9c90-dba5bece896c",
+      "route": "/topics/c/pointers-in-c/",
+      "title": "Pointers in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Illustrations were redrawn from the text because the original images could not be recovered."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-802e-bb69-d3a2fb2d3833",
+      "route": "/topics/c/dynamic-memory-allocation-in-c/",
+      "title": "Dynamic Memory Allocation in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Skyscraper metaphor obscures allocation contract; show`malloc`/`realloc` failure handling."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-80aa-a1bd-cdc3917a0f54",
+      "route": "/topics/c/types-in-c/",
+      "title": "Types in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Type history and ranges need platform/standard scope; verify claims against cited C standard."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-808a-9428-c0a500f768f8",
+      "route": "/topics/c/data-structures-in-c/",
+      "title": "Data Structures in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Illustrations were redrawn from the text because the original images could not be recovered."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-802a-9dd4-d1f0183a064c",
+      "route": "/topics/c/functions-in-c/",
+      "title": "Functions in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Declaration/definition explanation; show prototype placement and scope in one compiling example."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b7d3a21-bb2d-80de-ae76-ca6993e07124",
+      "route": "/topics/c/file-handling-in-c/",
+      "title": "File handling in C",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "33b17c9599fd804f972ae448763c2825",
+      "route": "/topics/cpp/",
+      "title": "C++ Deep Dive",
+      "status": "Working note",
+      "contentType": "Topic overview",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. Only three children; state current scope and target C++ version plainly."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b717c95-99fd-801e-b8b4-ce580482fb86",
+      "route": "/topics/cpp/c-basics/",
+      "title": "C++ Basics",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [
+        "Not yet addressed from the September 2026 site review. “Compiled before it in run, same as Java” is imprecise; explain native C++ build and compiler/linker choice."
+      ],
+      "related": []
+    },
+    {
+      "id": "3b717c95-99fd-80d7-a239-de202c70a922",
+      "route": "/topics/cpp/c-memory-model/",
+      "title": "C++ Memory Model",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    },
+    {
+      "id": "3b717c95-99fd-802b-9a93-d14685e3e45f",
+      "route": "/topics/cpp/c-memory-ownership/",
+      "title": "C++ Memory Ownership",
+      "status": "Working note",
+      "contentType": "Explainer",
+      "reviewedAt": null,
+      "knownGaps": [],
+      "related": []
+    }
+  ]
+}

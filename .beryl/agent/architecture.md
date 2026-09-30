@@ -7,7 +7,7 @@
 | `notion-ingestion` | Notion API retrieval, recursive block tree collection, strict normalization to canonical note schema | Rendering, page shell, CSS, route generation | `src/notion-ingestion/index.js` |
 | `notes-content` | Canonical note-to-HTML transformation, fidelity-safe escaping, search text extraction, blog markdown rendering | Notion API calls, styling tokens, output filesystem layout | `src/notes-content/index.js` |
 | `site-styling` | Page shell composition, typography/layout tokens, topic list presentation | Content normalization, Notion retrieval semantics | `src/site-styling/index.js` |
-| `pages-build` | Build orchestration, topic manifest loading, Cloudflare Pages static artifact output | Internal logic of any bounded context | `scripts/build-pages.js` |
+| `pages-build` | Build orchestration, topic manifest loading, joining checked-in publication/correction/media sidecars (`scripts/lib/`), Cloudflare Pages static artifact output | Internal logic of any bounded context | `scripts/build-pages.js` |
 
 ## Boundary Rules
 

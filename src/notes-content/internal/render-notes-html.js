@@ -260,7 +260,9 @@ function renderBlock(block) {
   switch (block.type) {
     case "heading": {
       const level = Number.isInteger(block.level) ? Math.min(Math.max(block.level, 1), 6) : 2;
-      const htmlLevel = Math.min(level, 6);
+      // The page shell owns the single <h1> (the note title). Notion headings nest one
+      // level below it; the notion-heading-N class keeps Notion's visual hierarchy.
+      const htmlLevel = Math.min(level + 1, 6);
       const classes = notionBlockClass(block, "heading", ` notion-heading-${level}`);
       return `<h${htmlLevel} class="${classes}"${notionBlockIdAttribute(block)}>${renderRichText(block.richText ?? [])}</h${htmlLevel}>`;
     }
@@ -285,7 +287,7 @@ function renderBlock(block) {
 
       const language = normalizeLanguageClass(block.language);
       const caption = renderCaption(block.caption);
-      return `<figure class="${notionBlockClass(block, "code")}"${notionBlockIdAttribute(block)}><pre class="note-code-block" data-language="${escapeHtml(language)}"><code class="language-${escapeHtml(language)}">${escapeHtml(block.code)}</code></pre>${caption}</figure>`;
+      return `<figure class="${notionBlockClass(block, "code")}"${notionBlockIdAttribute(block)}><pre class="note-code-block" data-language="${escapeHtml(language)}" tabindex="0"><code class="language-${escapeHtml(language)}">${escapeHtml(block.code)}</code></pre>${caption}</figure>`;
     }
     case "table":
       return renderTable(block);
@@ -384,7 +386,20 @@ function renderColumn(block) {
 function renderLinkPreviewBlock(block) {
   const url = sanitizeAssetUrl(block.url);
   const caption = renderCaption(block.caption);
-  return `<figure class="${notionBlockClass(block, block.type.replaceAll("_", "-"))}"${notionBlockIdAttribute(block)}><a href="${escapeHtml(url)}" rel="noreferrer noopener">${escapeHtml(url)}</a>${caption}</figure>`;
+  return `<figure class="${notionBlockClass(block, block.type.replaceAll("_", "-"))}"${notionBlockIdAttribute(block)}><a class="note-link-preview" href="${escapeHtml(url)}" rel="noreferrer noopener">${escapeHtml(describeUrl(url))}</a>${caption}</figure>`;
+}
+
+// Bookmarks and embeds have no link text in Notion, so show a readable host + path
+// instead of the raw query-laden URL (the full URL stays in href).
+function describeUrl(url) {
+  try {
+    const parsed = new URL(url);
+    const pathPart = decodeURIComponent(parsed.pathname).replace(/\/+$/u, "");
+    const trimmedPath = pathPart.length > 60 ? `${pathPart.slice(0, 57)}…` : pathPart;
+    return `${parsed.hostname.replace(/^www\./u, "")}${trimmedPath}`;
+  } catch (error) {
+    return url;
+  }
 }
 
 function renderTableCell(cell, tag) {
@@ -414,7 +429,8 @@ function renderTable(block) {
     return `<tr>${cells.join("")}</tr>`;
   });
 
-  return `<table class="${notionBlockClass(block, "table")}"${notionBlockIdAttribute(block)}><tbody>${rows.join("")}</tbody></table>`;
+  // Wide tables scroll inside their own focusable region instead of clipping the page.
+  return `<div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table class="${notionBlockClass(block, "table")}"${notionBlockIdAttribute(block)}><tbody>${rows.join("")}</tbody></table></div>`;
 }
 
 function renderChildDatabase(block) {
@@ -422,7 +438,23 @@ function renderChildDatabase(block) {
     ? block.title
     : "Linked database";
   const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
-  return `<section class="note-child-database"${blockId}><h3>${escapeHtml(title)}</h3><div class="note-database-entries">${renderNestedChildren(block)}</div></section>`;
+  return `<section class="note-child-database"${blockId}><h2 class="note-child-database-title">${escapeHtml(title)}</h2><div class="note-database-entries">${renderNestedChildren(block)}</div></section>`;
+}
+
+const PUBLICATION_STATUS_SLUGS = new Set(["working", "reviewed", "archived"]);
+
+function renderPublicationBadge(publication) {
+  if (!publication || typeof publication !== "object" || typeof publication.status !== "string") {
+    return "";
+  }
+  const slug = PUBLICATION_STATUS_SLUGS.has(publication.statusSlug) ? publication.statusSlug : "working";
+  const type = typeof publication.contentType === "string" && publication.contentType !== ""
+    ? `<span class="note-type">${escapeHtml(publication.contentType)}</span>`
+    : "";
+  const reviewed = typeof publication.reviewedAt === "string" && publication.reviewedAt !== ""
+    ? ` <time datetime="${escapeHtml(publication.reviewedAt)}">${escapeHtml(publication.reviewedAt)}</time>`
+    : "";
+  return `<span class="note-publication"><span class="note-status note-status-${slug}">${escapeHtml(publication.status)}${reviewed}</span>${type}</span>`;
 }
 
 function renderChildPage(block) {
@@ -431,12 +463,13 @@ function renderChildPage(block) {
     : "Untitled subpage";
   const href = sanitizeHref(block.href ?? null);
   const blockId = typeof block.blockId === "string" ? ` data-notion-block-id="${escapeHtml(block.blockId)}"` : "";
+  const publication = renderPublicationBadge(block.publication);
 
   if (!href) {
-    return `<section class="note-child-page"${blockId}><h3>${escapeHtml(title)}</h3>${renderLabels(block.labels)}</section>`;
+    return `<section class="note-child-page"${blockId}><h3>${escapeHtml(title)}</h3>${renderLabels(block.labels)}${publication}</section>`;
   }
 
-  return `<section class="note-child-page"${blockId}><a class="note-child-page-link" href="${escapeHtml(href)}">${escapeHtml(title)}</a>${renderLabels(block.labels)}</section>`;
+  return `<section class="note-child-page"${blockId}><a class="note-child-page-link" href="${escapeHtml(href)}">${escapeHtml(title)}</a>${renderLabels(block.labels)}${publication}</section>`;
 }
 
 function renderAsset(block) {
@@ -446,8 +479,15 @@ function renderAsset(block) {
     : "";
 
   if (block.kind === "image") {
-    const alt = escapeHtml(plainTextFromRichText(block.caption));
-    return `<figure class="${notionBlockClass(block, "asset", " note-asset note-asset-image")}"${notionBlockIdAttribute(block)}><img src="${escapeHtml(url)}" alt="${alt}" />${caption}</figure>`;
+    // Explicit alt text (joined from the media sidecar) wins; otherwise fall back to the caption.
+    const altSource = typeof block.alt === "string" && block.alt.trim() !== ""
+      ? block.alt.trim()
+      : plainTextFromRichText(block.caption);
+    const alt = escapeHtml(altSource);
+    const dimensions = Number.isInteger(block.width) && Number.isInteger(block.height) && block.width > 0 && block.height > 0
+      ? ` width="${block.width}" height="${block.height}"`
+      : "";
+    return `<figure class="${notionBlockClass(block, "asset", " note-asset note-asset-image")}"${notionBlockIdAttribute(block)}><img src="${escapeHtml(url)}" alt="${alt}"${dimensions} loading="lazy" decoding="async" />${caption}</figure>`;
   }
 
   if (block.kind === "file") {

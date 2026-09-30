@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" width="720" height="300" role="img" aria-labelledby="t d">
+  <title id="t">A pointer is its own variable</title>
+  <desc id="d">An int variable x at address 0x1000 holds 42. A separate pointer variable p at address 0x2000 holds the value 0x1000, the address of x, so p points to x.</desc>
+  <rect width="720" height="300" fill="#F7F7F5"/>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" fill="#202124">
+    <text x="360" y="36" font-size="18" font-weight="600" text-anchor="middle">int x = 42;  int *p = &amp;x;</text>
+    <rect x="80" y="100" width="200" height="90" rx="6" fill="#FFFFFF" stroke="#202124" stroke-width="2"/>
+    <text x="180" y="155" font-size="26" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">42</text>
+    <text x="180" y="88" font-size="16" text-anchor="middle" font-weight="600">x  (int)</text>
+    <text x="180" y="215" font-size="14" text-anchor="middle" fill="#5F666A" font-family="ui-monospace, Menlo, monospace">address 0x1000</text>
+    <rect x="440" y="100" width="200" height="90" rx="6" fill="#FFFFFF" stroke="#315F9C" stroke-width="2"/>
+    <text x="540" y="155" font-size="26" text-anchor="middle" fill="#315F9C" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">0x1000</text>
+    <text x="540" y="88" font-size="16" text-anchor="middle" font-weight="600">p  (int *)</text>
+    <text x="540" y="215" font-size="14" text-anchor="middle" fill="#5F666A" font-family="ui-monospace, Menlo, monospace">address 0x2000</text>
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#315F9C"/></marker></defs>
+    <path d="M440 145 C 380 145, 340 145, 284 145" stroke="#315F9C" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+    <text x="362" y="135" font-size="14" text-anchor="middle" fill="#315F9C">points to</text>
+    <text x="360" y="262" font-size="14" text-anchor="middle" fill="#5F666A">*p reads the box at 0x1000 (42); p itself is a separate box with its own address.</text>
+    <text x="360" y="284" font-size="12" text-anchor="middle" fill="#5F666A">Addresses are illustrative.</text>
+  </g>
+</svg>

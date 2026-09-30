@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 440" width="600" height="440" role="img" aria-labelledby="t d">
+  <title id="t">Typical virtual memory layout of a C program</title>
+  <desc id="d">From high to low addresses: stack, which grows downward; unused gap; heap, which grows upward; BSS for zero-initialised globals; data for initialised globals and statics; text for machine code. The exact layout depends on the platform.</desc>
+  <rect width="600" height="440" fill="#F7F7F5"/>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" fill="#202124">
+    <g stroke="#202124" stroke-width="1.5">
+      <rect x="150" y="30" width="300" height="60" fill="#FFFFFF"/>
+      <rect x="150" y="90" width="300" height="90" fill="#EEF0EF" stroke-dasharray="5 4"/>
+      <rect x="150" y="180" width="300" height="60" fill="#FFFFFF"/>
+      <rect x="150" y="240" width="300" height="50" fill="#FFFFFF"/>
+      <rect x="150" y="290" width="300" height="50" fill="#FFFFFF"/>
+      <rect x="150" y="340" width="300" height="60" fill="#FFFFFF"/>
+    </g>
+    <g font-size="16" text-anchor="middle" font-weight="600">
+      <text x="300" y="58">Stack</text>
+      <text x="300" y="210">Heap</text>
+      <text x="300" y="266">BSS</text>
+      <text x="300" y="316">Data</text>
+      <text x="300" y="368">Text (code)</text>
+    </g>
+    <g font-size="13" text-anchor="middle" fill="#5F666A">
+      <text x="300" y="78">locals, return addresses; grows ↓</text>
+      <text x="300" y="140">unmapped gap</text>
+      <text x="300" y="228">malloc / calloc / free; grows ↑</text>
+      <text x="300" y="282">zero-initialised globals &amp; statics</text>
+      <text x="300" y="332">initialised globals &amp; statics</text>
+      <text x="300" y="386">compiled machine instructions (read-only)</text>
+    </g>
+    <g font-size="13" fill="#5F666A" font-family="ui-monospace, Menlo, monospace">
+      <text x="140" y="40" text-anchor="end">high</text>
+      <text x="140" y="398" text-anchor="end">low</text>
+    </g>
+    <text x="300" y="428" font-size="12" text-anchor="middle" fill="#5F666A">Typical layout on Linux-like systems; exact placement and randomisation vary by platform.</text>
+  </g>
+</svg>

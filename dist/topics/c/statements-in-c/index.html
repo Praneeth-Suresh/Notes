@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Statements in C · Praneeth&#39;s CS Field Notes</title>
 
-    <meta name="description" content="A close look at the C language." />
+    <meta name="description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/" />
     <meta property="og:title" content="Statements in C · Praneeth&#39;s CS Field Notes" />
-    <meta property="og:description" content="A close look at the C language." />
+    <meta property="og:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/" />
     <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
@@ -19,27 +19,25 @@
     <meta property="og:image:alt" content="Statements in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Statements in C · Praneeth&#39;s CS Field Notes" />
-    <meta name="twitter:description" content="A close look at the C language." />
+    <meta name="twitter:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="Statements in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/","name":"Statements in C · Praneeth's CS Field Notes","description":"A close look at the C language.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":3,"name":"Statements in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/","name":"Statements in C · Praneeth's CS Field Notes","description":"The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":4,"name":"Statements in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/statements-in-c/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <script>
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -47,71 +45,50 @@
       })();
     </script>
     <link rel="stylesheet" href="/assets/site.css" />
-    <script>
-      window.MathJax = {
-        loader: {
-          paths: { mathjax: "/assets/vendor/mathjax" }
-        },
-        tex: {
-          inlineMath: [["\\(", "\\)"]],
-          displayMath: [["\\[", "\\]"]]
-        },
-        svg: { fontCache: "global" }
-      };
-    </script>
-    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body data-analytics-event="page_view">
+  <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/c/">C Deep Dive</a></li><li aria-current="page">Statements in C</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">Statements in C</h1>
+        <p class="topic-parent">In <a href="/topics/c/">C Deep Dive</a></p>
+        
+        
       </header>
-      
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="active" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
-    <section id="main-content" class="panel notes-panel">
-      <h1 class="site-title">Statements in C</h1>
-      <p class="topic-parent">Subpage of C Deep Dive</p>
-      
-      <p class="topic-meta">A close look at the C language.</p>
-      
-      
-    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8052-b14c-fcff35f3cc33">Statements are the heart of imperative structure in C. Their simplicity gives the programmer direct control over computation and flow.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8095-8fe0-f786f85a1ee6">The most basic statement is the combination of a <em>declaration </em>and a <em>definition</em>. An example is <code class="note-inline-code">int x = 5</code> where <code class="note-inline-code">int x</code> is the declaration and <code class="note-inline-code">x = 5</code> is the definition.</p><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-803b-adcb-f92ddeffe1c5">Expression Statements</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d0-8aef-f9798819c9b8">An <strong>expression statement</strong> consists of any valid C expression followed by a semicolon. The expression is evaluated for its side effects, and any result value is discarded.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807f-945b-c412ba8cdf13"><pre class="note-code-block" data-language="c"><code class="language-c">int x;          /* Declaration expression */
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Twenty code blocks cover control flow; compile representative cases and show common edge failures.</li></ul></div>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/c/">C Deep Dive</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/c/functions-in-c/">Functions in C</a><p>Next step in the C Deep Dive reading path (Language).</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8052-b14c-fcff35f3cc33">Statements are the heart of imperative structure in C. Their simplicity gives the programmer direct control over computation and flow.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8095-8fe0-f786f85a1ee6">The most basic statement is the combination of a <em>declaration </em>and a <em>definition</em>. An example is <code class="note-inline-code">int x = 5</code> where <code class="note-inline-code">int x</code> is the declaration and <code class="note-inline-code">x = 5</code> is the definition.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-803b-adcb-f92ddeffe1c5">Expression Statements</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d0-8aef-f9798819c9b8">An <strong>expression statement</strong> consists of any valid C expression followed by a semicolon. The expression is evaluated for its side effects, and any result value is discarded.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807f-945b-c412ba8cdf13"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int x;          /* Declaration expression */
 x = 5;          /* assignment expression */
 x++;            /* increment expression */
 printf(&quot;Hello&quot;);/* function call expression */
 5 + 3;          /* valid but useless - computes 8 and discards it */
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c3-847f-c14f7e3dd65f"><strong>Key Points:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8073-b830-fd9d0eb639a6">Most statements in C are expression statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f5-b91a-f8c941e5513a">The semicolon is the <strong>terminator</strong>, not a separator</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-804f-9594-d371ea797cbb">Even a lone semicolon (<code class="note-inline-code">;</code>) is a valid (empty) statement</li></ul><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8090-a66e-c3fad27608ea">Compound Statements (Blocks)</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ec-9304-f32e7e57ee97">A <strong>compound statement</strong>, or block, groups multiple statements and declarations together within braces <code class="note-inline-code">{ }</code>.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-804b-9c7a-dd125be30df3"><pre class="note-code-block" data-language="c"><code class="language-c">{
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c3-847f-c14f7e3dd65f"><strong>Key Points:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8073-b830-fd9d0eb639a6">Most statements in C are expression statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80f5-b91a-f8c941e5513a">The semicolon is the <strong>terminator</strong>, not a separator</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-804f-9594-d371ea797cbb">Even a lone semicolon (<code class="note-inline-code">;</code>) is a valid (empty) statement</li></ul><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8090-a66e-c3fad27608ea">Compound Statements (Blocks)</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80ec-9304-f32e7e57ee97">A <strong>compound statement</strong>, or block, groups multiple statements and declarations together within braces <code class="note-inline-code">{ }</code>.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-804b-9c7a-dd125be30df3"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">{
     int x = 5;      /* declaration inside block */
     int y = 10;
     printf(&quot;%d\\n&quot;, x + y);  /* statement inside block */
     /* x and y exist only within this block */
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8016-952b-dd02519394d6"><strong>Characteristics:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a1-b1d9-f3f9e6748043">Creates a new scope: variables declared inside are local to the block</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8086-ac04-c3d8da800ecb">Can appear anywhere a single statement is expected</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8074-b162-c3721d79a9ef">Essential for control structures that need to execute multiple statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a8-b8ff-eb28be8728cc"><strong>Braces create scope, even without control structures:</strong></li></ul><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8024-bf45-ef65a24a2fb1"><pre class="note-code-block" data-language="c"><code class="language-c">/* Temporary variable scope */
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8016-952b-dd02519394d6"><strong>Characteristics:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a1-b1d9-f3f9e6748043">Creates a new scope: variables declared inside are local to the block</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8086-ac04-c3d8da800ecb">Can appear anywhere a single statement is expected</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8074-b162-c3721d79a9ef">Essential for control structures that need to execute multiple statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a8-b8ff-eb28be8728cc"><strong>Braces create scope, even without control structures:</strong></li></ul><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8024-bf45-ef65a24a2fb1"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Temporary variable scope */
 int main() {
     int x = 10;
 
@@ -123,9 +100,9 @@ int main() {
 
     return 0;
 }
-</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80f7-8c6d-d08880c14a29">Selection Statements</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-8032-bc36-f908ee0cfad1">if Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-805e-a22c-d23f0fb886e0">Executes code based on a condition. The controlling expression is evaluated and converted to boolean (0 = false, non-zero = true).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8033-8979-c2bb104ec5ee"><strong>Basic form</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8094-a41a-d1226d40f0fa"><pre class="note-code-block" data-language="c"><code class="language-c">if (condition) {
+</code></pre></figure><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80f7-8c6d-d08880c14a29">Selection Statements</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-8032-bc36-f908ee0cfad1">if Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-805e-a22c-d23f0fb886e0">Executes code based on a condition. The controlling expression is evaluated and converted to boolean (0 = false, non-zero = true).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8033-8979-c2bb104ec5ee"><strong>Basic form</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8094-a41a-d1226d40f0fa"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">if (condition) {
     /* executed if condition is true (non-zero) */
-}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8093-8cc1-e3800b56b561"><strong>Full syntax with else</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80ed-a7ba-fec716ab8ad7"><pre class="note-code-block" data-language="c"><code class="language-c">if (temperature &gt; 30) {
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8093-8cc1-e3800b56b561"><strong>Full syntax with else</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80ed-a7ba-fec716ab8ad7"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">if (temperature &gt; 30) {
     printf(&quot;It&#39;s hot outside.\\n&quot;);
 } else if (temperature &gt; 20) {
     printf(&quot;It&#39;s warm.\\n&quot;);
@@ -133,8 +110,8 @@ int main() {
     printf(&quot;It&#39;s cool.\\n&quot;);
 } else {
     printf(&quot;It&#39;s cold.\\n&quot;);
-}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80eb-84cb-c9fdab5fe6fc"><strong>Important Notes:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8045-86b6-e48f64e063b9">Dangling else problem: <code class="note-inline-code">else</code> binds to the nearest <code class="note-inline-code">if</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-808a-b327-e20c107fc6a7">Use braces even for single statements to avoid bugs (however the code will work for single statements if everything is written correctly)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-805e-87ec-ec750e4c3d7c">Assignment in conditions is a common pitfall:<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8049-b4f9-c3646c38c738"><pre class="note-code-block" data-language="c"><code class="language-c">if (x = 5) {    /* BUG: assigns 5 to x, always true! */
-if (x == 5) {   /* CORRECT: compares x with 5 */</code></pre></figure></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80c5-a207-f2669ec83aac">switch Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80bd-be09-c812d79a07f5">Dispatches execution based on an integer constant expression.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-806b-b7dc-cc6ab044f50e">This means the expression must be compared to an <strong>integral</strong> type (e.g., <code class="note-inline-code">int</code>, <code class="note-inline-code">char</code>, or <code class="note-inline-code">enum</code>).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e1-a999-cb0f6851038a">Thus, we cannot use a <code class="note-inline-code">switch</code> statement to check a string of characters or any kind of array.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8080-82dd-e942556c00f7">This mechanism allows the compiler to potentially optimize the execution dispatch using methods like jump tables, which is often more efficient than a long chain of <code class="note-inline-code">if-else if</code> statements for integral value comparisons. </p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8034-b8dd-cf280b86becb"><pre class="note-code-block" data-language="c"><code class="language-c">switch (expression) {
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80eb-84cb-c9fdab5fe6fc"><strong>Important Notes:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8045-86b6-e48f64e063b9">Dangling else problem: <code class="note-inline-code">else</code> binds to the nearest <code class="note-inline-code">if</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-808a-b327-e20c107fc6a7">Use braces even for single statements to avoid bugs (however the code will work for single statements if everything is written correctly)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-805e-87ec-ec750e4c3d7c">Assignment in conditions is a common pitfall:<figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8049-b4f9-c3646c38c738"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">if (x = 5) {    /* BUG: assigns 5 to x, always true! */
+if (x == 5) {   /* CORRECT: compares x with 5 */</code></pre></figure></li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80c5-a207-f2669ec83aac">switch Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80bd-be09-c812d79a07f5">Dispatches execution based on an integer constant expression.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-806b-b7dc-cc6ab044f50e">This means the expression must be compared to an <strong>integral</strong> type (e.g., <code class="note-inline-code">int</code>, <code class="note-inline-code">char</code>, or <code class="note-inline-code">enum</code>).</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e1-a999-cb0f6851038a">Thus, we cannot use a <code class="note-inline-code">switch</code> statement to check a string of characters or any kind of array.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8080-82dd-e942556c00f7">This mechanism allows the compiler to potentially optimize the execution dispatch using methods like jump tables, which is often more efficient than a long chain of <code class="note-inline-code">if-else if</code> statements for integral value comparisons. </p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8034-b8dd-cf280b86becb"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">switch (expression) {
     case constant1:
         /* code for constant1 */
         break;
@@ -144,7 +121,7 @@ if (x == 5) {   /* CORRECT: compares x with 5 */</code></pre></figure></li></ul>
     default:
         /* code if no case matches */
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80cc-9399-e3c97820276b"><strong>Fallthrough</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8086-8bc7-edde9dcf63a6">In C, when a <code class="note-inline-code">break</code> statement is omitted, the execution &quot;falls through&quot; to the next <code class="note-inline-code">case</code> block, regardless of whether that subsequent <code class="note-inline-code">case</code>&#39;s condition matches the <code class="note-inline-code">switch</code> expression. This means the code within the subsequent <code class="note-inline-code">case</code> will also be executed.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8099-bcac-e982a299eef9">This continues until a <code class="note-inline-code">break</code> statement is encountered, or the end of the <code class="note-inline-code">switch</code> statement is reached.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807a-9041-cf6b3718f890"><pre class="note-code-block" data-language="c"><code class="language-c">int day = 3;
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80cc-9399-e3c97820276b"><strong>Fallthrough</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8086-8bc7-edde9dcf63a6">In C, when a <code class="note-inline-code">break</code> statement is omitted, the execution &quot;falls through&quot; to the next <code class="note-inline-code">case</code> block, regardless of whether that subsequent <code class="note-inline-code">case</code>&#39;s condition matches the <code class="note-inline-code">switch</code> expression. This means the code within the subsequent <code class="note-inline-code">case</code> will also be executed.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8099-bcac-e982a299eef9">This continues until a <code class="note-inline-code">break</code> statement is encountered, or the end of the <code class="note-inline-code">switch</code> statement is reached.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807a-9041-cf6b3718f890"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int day = 3;
 switch (day) {
     case 1:
     case 2:
@@ -160,7 +137,7 @@ switch (day) {
     default:
         printf(&quot;Invalid day\\n&quot;);
 }
-// This code will output &quot;Weekday&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803c-922a-c56056f2e822"></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b8-986a-d44e3e0b14bd"><strong>Deliberate fallthrough</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8063-a133-d97fb64c0953">Fallthrough is intentional when used for scenarios where multiple <code class="note-inline-code">case</code> values should trigger the same or a cumulative set of actions.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-809f-a09f-f513a0aed1f0"><pre class="note-code-block" data-language="c"><code class="language-c">/* Count vowels, treating uppercase and lowercase the same */
+// This code will output &quot;Weekday&quot;</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-803c-922a-c56056f2e822"></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b8-986a-d44e3e0b14bd"><strong>Deliberate fallthrough</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8063-a133-d97fb64c0953">Fallthrough is intentional when used for scenarios where multiple <code class="note-inline-code">case</code> values should trigger the same or a cumulative set of actions.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-809f-a09f-f513a0aed1f0"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Count vowels, treating uppercase and lowercase the same */
 char c = &#39;E&#39;;
 int vowel_count = 0;
 
@@ -180,7 +157,7 @@ switch (c) {
     default:
         /* not a vowel */
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c1-80b5-cc62cba0905d"><strong>Critical Rules for switch:</strong></p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80cd-9369-fbe33f223b95">Expression must be of integer type (int, char, enum)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80e0-9e64-f0d0911a15c9">Case labels must be <strong>constant expressions</strong> (no variables)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8081-acf5-d8c9b5358379"><strong>Fallthrough is implicit</strong> - you <u>must</u> use <code class="note-inline-code">break</code> to exit</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a5-8035-d623bbc4fc71"><code class="note-inline-code">default:</code> is optional but good practice</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a8-ba21-c9a135a9ac1d">Variables must be declared at block scope within cases:</li></ol><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-804a-af51-e270cc247c47"><pre class="note-code-block" data-language="c"><code class="language-c">switch (x) {
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c1-80b5-cc62cba0905d"><strong>Critical Rules for switch:</strong></p><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80cd-9369-fbe33f223b95">Expression must be of integer type (int, char, enum)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80e0-9e64-f0d0911a15c9">Case labels must be <strong>constant expressions</strong> (no variables)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8081-acf5-d8c9b5358379"><strong>Fallthrough is implicit</strong> - you <u>must</u> use <code class="note-inline-code">break</code> to exit</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a5-8035-d623bbc4fc71"><code class="note-inline-code">default:</code> is optional but good practice</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80a8-ba21-c9a135a9ac1d">Variables must be declared at block scope within cases:</li></ol><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-804a-af51-e270cc247c47"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">switch (x) {
     case 1:
         int y = 10;  /* ERROR if no braces */
         break;
@@ -191,7 +168,7 @@ switch (c) {
         }
         break;
 }
-</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80cd-9bde-dab67752963c">Iteration Statements</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ba-8b1c-cf9f880b060b">while Loop</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f0-a314-e510e95f9ec5">A <strong>pre-test loop</strong> - condition is checked before each iteration.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80c9-b305-d28da34dfc30"><pre class="note-code-block" data-language="c"><code class="language-c">/* Countdown example */
+</code></pre></figure><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80cd-9bde-dab67752963c">Iteration Statements</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ba-8b1c-cf9f880b060b">while Loop</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f0-a314-e510e95f9ec5">A <strong>pre-test loop</strong> - condition is checked before each iteration.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80c9-b305-d28da34dfc30"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Countdown example */
 int count = 10;
 while (count &gt; 0) {
     printf(&quot;%d\\n&quot;, count);
@@ -208,7 +185,7 @@ while (value != 0) {
     scanf(&quot;%d&quot;, &amp;value);
 }
 printf(&quot;Sum: %d\\n&quot;, sum);
-</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ba-962c-df7201acdaad">do-while Loop</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e7-bf0d-c063ad74f5ce">A <strong>post-test loop</strong> - condition is checked after each iteration. <strong>Always executes at least once.</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80bf-b868-cf45dcf5cc95"><pre class="note-code-block" data-language="c"><code class="language-c">/* Input validation - must execute at least once */
+</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ba-962c-df7201acdaad">do-while Loop</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80e7-bf0d-c063ad74f5ce">A <strong>post-test loop</strong> - condition is checked after each iteration. <strong>Always executes at least once.</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80bf-b868-cf45dcf5cc95"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Input validation - must execute at least once */
 int number;
 do {
     printf(&quot;Enter a positive number: &quot;);
@@ -230,9 +207,9 @@ do {
         case &#39;2&#39;: /* handle option 2 */ break;
     }
 } while (choice != &#39;q&#39;);
-</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80cc-92ed-cd519eccb99d">for Loop</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804f-816b-e4517c1f3455">The most structured loop, combining initialization, condition, and update.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808b-8e6f-c18ca43df19f"><strong>Standard form:</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8014-bbe7-c8e309ea3344"><pre class="note-code-block" data-language="c"><code class="language-c">for (initialization; condition; update) {
+</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80cc-92ed-cd519eccb99d">for Loop</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-804f-816b-e4517c1f3455">The most structured loop, combining initialization, condition, and update.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808b-8e6f-c18ca43df19f"><strong>Standard form:</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8014-bbe7-c8e309ea3344"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">for (initialization; condition; update) {
     /* loop body */
-}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8096-a1d1-f527fb1ff3fb"><strong>Examples:</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-806e-bcf9-e851ea17ebaf"><pre class="note-code-block" data-language="c"><code class="language-c">/* Traditional counting loop */
+}</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8096-a1d1-f527fb1ff3fb"><strong>Examples:</strong></p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-806e-bcf9-e851ea17ebaf"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Traditional counting loop */
 for (int i = 0; i &lt; 10; i++) {
     printf(&quot;%d &quot;, i);
 }
@@ -255,11 +232,11 @@ int array[5] = {10, 20, 30, 40, 50};
 for (int i = 0; i &lt; 5; i++) {
     printf(&quot;array[%d] = %d\\n&quot;, i, array[i]);
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b2-b2a6-e21e58337dca"><strong>Scope Note:</strong> In C99 and later, the loop variable can be declared in the initialization (as shown above). In older C standards, you must declare it outside:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8024-b4b8-e1c9ccb90b91"><pre class="note-code-block" data-language="c"><code class="language-c">int i;  /* pre-C99 style */
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b2-b2a6-e21e58337dca"><strong>Scope Note:</strong> In C99 and later, the loop variable can be declared in the initialization (as shown above). In older C standards, you must declare it outside:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8024-b4b8-e1c9ccb90b91"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int i;  /* pre-C99 style */
 for (i = 0; i &lt; 10; i++) {
     /* ... */
 }
-</code></pre></figure><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8096-a065-e232240f4dc5">Jump Statements</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-8052-8391-f68086ccda67">break Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80aa-9632-f74c9210a583">Exits the innermost <strong>switch</strong> statement or <strong>loop</strong> (for, while, do-while). <strong>Note</strong> that the <code class="note-inline-code">break</code> statement cannot break out of an <strong>if</strong> statement.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8030-96a1-f7b802897326"><pre class="note-code-block" data-language="c"><code class="language-c">/* Breaking out of a loop */
+</code></pre></figure><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8096-a065-e232240f4dc5">Jump Statements</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-8052-8391-f68086ccda67">break Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80aa-9632-f74c9210a583">Exits the innermost <strong>switch</strong> statement or <strong>loop</strong> (for, while, do-while). <strong>Note</strong> that the <code class="note-inline-code">break</code> statement cannot break out of an <strong>if</strong> statement.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8030-96a1-f7b802897326"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Breaking out of a loop */
 for (int i = 0; i &lt; 100; i++) {
     if (i * i &gt; 500) {
         printf(&quot;Stopping at i=%d\\n&quot;, i);
@@ -279,7 +256,7 @@ for (int i = 0; i &lt; 10; i++) {
     }
     if (found) break;  /* Need another break for outer loop */
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80fe-83f5-d8a5a75e0bd6">Make sure that you know what you’re <code class="note-inline-code">break</code>ing out of when you <code class="note-inline-code">break</code>.</p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ad-826f-f385e45f9db0">continue Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c1-846a-e17e07e2d0e1">Skips the rest of the current loop iteration and proceeds to the next one.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80a6-8421-cf695aaedbaf"><pre class="note-code-block" data-language="c"><code class="language-c">/* Print odd numbers only */
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80fe-83f5-d8a5a75e0bd6">Make sure that you know what you’re <code class="note-inline-code">break</code>ing out of when you <code class="note-inline-code">break</code>.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80ad-826f-f385e45f9db0">continue Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80c1-846a-e17e07e2d0e1">Skips the rest of the current loop iteration and proceeds to the next one.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80a6-8421-cf695aaedbaf"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Print odd numbers only */
 for (int i = 0; i &lt; 10; i++) {
     if (i % 2 == 0) {
         continue;  /* Skip even numbers */
@@ -301,7 +278,7 @@ for (int i = 0; i &lt; 5; i++) {
 
     sum += value;
 }
-</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80be-9295-e644a513d9b1">return Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801c-887d-db30dbf225b3">Exits the current function and optionally returns a value to the caller.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8062-8a53-f54a2a44eaa7"><pre class="note-code-block" data-language="c"><code class="language-c">/* Function with return value */
+</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80be-9295-e644a513d9b1">return Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-801c-887d-db30dbf225b3">Exits the current function and optionally returns a value to the caller.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8062-8a53-f54a2a44eaa7"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Function with return value */
 int max(int a, int b) {
     if (a &gt; b) {
         return a;
@@ -330,7 +307,7 @@ int safe_divide(int a, int b, int *result) {
     *result = a / b;
     return 0;       /* Success code */
 }
-</code></pre></figure><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80eb-9787-e41e8f363c63">goto Statement</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d0-9688-d2229a9056bc">Unconditionally jumps to a labeled statement within the same function.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8089-87ca-c56bce95f4c5"><pre class="note-code-block" data-language="c"><code class="language-c">/* Error handling with goto (cleanup pattern) */
+</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80eb-9787-e41e8f363c63">goto Statement</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d0-9688-d2229a9056bc">Unconditionally jumps to a labeled statement within the same function.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8089-87ca-c56bce95f4c5"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">/* Error handling with goto (cleanup pattern) */
 int process_file(const char *filename) {
     FILE *file = fopen(filename, &quot;r&quot;);
     if (!file) {
@@ -368,7 +345,7 @@ for (int i = 0; i &lt; 10; i++) {
 }
 found_it:
 printf(&quot;Search complete.\\n&quot;);
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8066-8c76-ebbb092ad076"><strong>Guidelines for goto:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-807c-b3d1-f8f20d8cde01">Generally avoided in favor of structured control flow</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8060-92f9-ff340dbf7727">Sometimes used for <strong>cleanup/error handling</strong> in C (as shown above)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8051-95a3-c8bd571bd185">Never jump over variable initializations</li></ul><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="3b7d3a21-bb2d-804e-97e4-e382ba747dda"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">The deal with the last point is that variables may exist in scope but their initialization code never ran, so using them is unsafe or undefined. This is why “Jumping into” a block is a bad idea.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-affb-f5fe204a3e69">In C++ this is even more critical because constructors and destructors matter. </p></div></aside></div><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-800e-b651-dce2f838a56b">Best Practices</h2><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8087-a58e-c1509855d7ff"><strong>Always use braces</strong> with control structures, even for single statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8078-b1c8-cb32aca0e824"><strong>Indent consistently</strong> to show structure clearly</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-808f-8262-f9f6726e42ab"><strong>Limit loop variable scope</strong> when possible (C99 <code class="note-inline-code">for (int i = ...)</code>)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-805b-abab-d420cea6270d"><strong>Avoid complex conditions</strong> - use temporary boolean variables if needed</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8084-a313-eabf1f4e3cc1"><strong>Use </strong><strong><code class="note-inline-code">default:</code></strong><strong> in switch</strong> even if just to assert unexpected values</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80e8-a015-f5608253cc41"><strong>Reserve </strong><strong><code class="note-inline-code">goto</code></strong> for error cleanup only</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80b0-a6b5-d5ae63679648"><strong>Keep functions small</strong> so <code class="note-inline-code">return</code> points are obvious</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8045-9077-da8399d66016"><strong>Comment deliberate fallthrough</strong> in switch statements</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8069-b480-ea5e17bab340"></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b8-8a04-dc8fb5c10350">Here is an example showing how statements can be put together to create logic in C :</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807b-90bd-fbc0b023fe60"><pre class="note-code-block" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8066-8c76-ebbb092ad076"><strong>Guidelines for goto:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-807c-b3d1-f8f20d8cde01">Generally avoided in favor of structured control flow</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8060-92f9-ff340dbf7727">Sometimes used for <strong>cleanup/error handling</strong> in C (as shown above)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8051-95a3-c8bd571bd185">Never jump over variable initializations</li></ul><div class="notion-block notion-callout notion-color-default_background" data-notion-block-id="3b7d3a21-bb2d-804e-97e4-e382ba747dda"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">💡</span><div class="note-callout-body">The deal with the last point is that variables may exist in scope but their initialization code never ran, so using them is unsafe or undefined. This is why “Jumping into” a block is a bad idea.<p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-807a-affb-f5fe204a3e69">In C++ this is even more critical because constructors and destructors matter. </p></div></aside></div><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-800e-b651-dce2f838a56b">Best Practices</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8087-a58e-c1509855d7ff"><strong>Always use braces</strong> with control structures, even for single statements</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8078-b1c8-cb32aca0e824"><strong>Indent consistently</strong> to show structure clearly</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-808f-8262-f9f6726e42ab"><strong>Limit loop variable scope</strong> when possible (C99 <code class="note-inline-code">for (int i = ...)</code>)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-805b-abab-d420cea6270d"><strong>Avoid complex conditions</strong> - use temporary boolean variables if needed</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8084-a313-eabf1f4e3cc1"><strong>Use </strong><strong><code class="note-inline-code">default:</code></strong><strong> in switch</strong> even if just to assert unexpected values</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80e8-a015-f5608253cc41"><strong>Reserve </strong><strong><code class="note-inline-code">goto</code></strong> for error cleanup only</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80b0-a6b5-d5ae63679648"><strong>Keep functions small</strong> so <code class="note-inline-code">return</code> points are obvious</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8045-9077-da8399d66016"><strong>Comment deliberate fallthrough</strong> in switch statements</li></ol><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8069-b480-ea5e17bab340"></p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80b8-8a04-dc8fb5c10350">Here is an example showing how statements can be put together to create logic in C :</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-807b-90bd-fbc0b023fe60"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">#include &lt;stdio.h&gt;
 
 int find_index(int arr[], int n, int key) {
     for (int i = 0; i &lt; n; ++i) {
@@ -388,69 +365,34 @@ int main(void) {
         puts(&quot;not found&quot;);
     }
 }</code></pre></figure></article>
-      <nav class="next-reading" aria-label="Next reading">
-  <p class="section-kicker">/ Next</p>
-  <a class="next-reading-link" href="/topics/c/pointers-in-c/">
-    <span>Next reading</span>
-    <strong>Pointers in C</strong>
-    <p>Continue inside C Deep Dive</p>
+        
+        <nav class="next-reading" aria-label="Next reading">
+  <a class="next-reading-link" href="/topics/c/functions-in-c/">
+    <span class="next-reading-label">Next</span>
+    <strong>Functions in C</strong>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
   </a>
+  <p>Next step in the C Deep Dive reading path (Language).</p>
 </nav>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
       </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
+    </div>
   
-      
-    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-    </section>
-  
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -488,10 +430,9 @@ int main(void) {
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -500,8 +441,7 @@ int main(void) {
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -532,11 +472,13 @@ int main(void) {
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -562,6 +504,31 @@ int main(void) {
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

@@ -6,10 +6,18 @@ const path = require("node:path");
 const {
   DEFAULT_NOTION_VERSION,
   extractPageTitle,
+  getBlock,
   getBlockChildrenTree,
   getPage,
 } = require("./internal/notion-api-adapter");
 const { normalizeNotionTopic } = require("./internal/normalize-notion-tree");
+const {
+  findExpiringMediaUrls,
+  isExpiringMediaUrl,
+  persistNotionMedia,
+} = require("./internal/persist-notion-media");
+
+const DEFAULT_MEDIA_PUBLIC_BASE_PATH = "/assets/notes-media";
 
 function assertNonEmptyString(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -119,8 +127,48 @@ function createNotionIngestionContext({
     await fs.writeFile(`${absolutePath}`, `${JSON.stringify(topicDocument, null, 2)}\n`, "utf8");
   }
 
+  /**
+   * Download every Notion-hosted image in a normalized topic to `mediaDir/<topicSlug>/`
+   * and rewrite its URL to a stable local path. Re-reads each block from Notion to get a
+   * fresh signed URL when a token is supplied, so stale checked-in URLs can be repaired.
+   */
+  async function persistTopicMedia({
+    topicDocument,
+    topicSlug,
+    mediaDir,
+    publicBasePath = DEFAULT_MEDIA_PUBLIC_BASE_PATH,
+    notionToken = null,
+    notionVersion = DEFAULT_NOTION_VERSION,
+    continueOnError = false,
+  }) {
+    const resolveFreshUrl = notionToken
+      ? async (block) => {
+          const raw = await getBlock({
+            fetchImpl,
+            blockId: block.blockId,
+            notionToken,
+            notionVersion,
+            requestOptions,
+          });
+          const payload = raw?.image;
+          return payload?.file?.url ?? payload?.external?.url ?? null;
+        }
+      : null;
+
+    return persistNotionMedia({
+      topicDocument,
+      topicSlug,
+      mediaDir: path.resolve(process.cwd(), assertNonEmptyString(mediaDir, "mediaDir")),
+      publicBasePath,
+      fetchImpl,
+      resolveFreshUrl,
+      continueOnError,
+    });
+  }
+
   return {
     normalizeRawNotionPayload,
+    persistTopicMedia,
     pullTopicFromNotion,
     readNormalizedTopicFile,
     writeNormalizedTopicFile,
@@ -128,5 +176,8 @@ function createNotionIngestionContext({
 }
 
 module.exports = {
+  DEFAULT_MEDIA_PUBLIC_BASE_PATH,
   createNotionIngestionContext,
+  findExpiringMediaUrls,
+  isExpiringMediaUrl,
 };

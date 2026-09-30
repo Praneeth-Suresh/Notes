@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>When Greedy Scheduling Works · Praneeth&#39;s CS Field Notes</title>
+
+    <meta name="description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/when-greedy-scheduling-works/" />
+    <meta property="og:title" content="When Greedy Scheduling Works · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/when-greedy-scheduling-works/" />
+    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="When Greedy Scheduling Works · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="When Greedy Scheduling Works · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
+    <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
+    <meta name="twitter:image:alt" content="When Greedy Scheduling Works · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/when-greedy-scheduling-works/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/when-greedy-scheduling-works/","name":"When Greedy Scheduling Works · Praneeth's CS Field Notes","description":"Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":4,"name":"When Greedy Scheduling Works","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/when-greedy-scheduling-works/"}]}</script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
+    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = window.localStorage.getItem("notes-theme");
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.dataset.theme = resolvedTheme;
+        } catch (error) {
+          // Theme preference is optional when storage is unavailable.
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="/assets/site.css" />
+  </head>
+  <body class="note-page" data-analytics-event="page_view">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="layout">
+      <header class="site-header">
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/algorithms/">Algorithms</a></li><li aria-current="page">When Greedy Scheduling Works</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">When Greedy Scheduling Works</h1>
+        <p class="topic-parent">In <a href="/topics/algorithms/">Algorithms</a></p>
+        
+        
+      </header>
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div><div><dt>Corrected</dt><dd><a href="/errata/#algorithms-greedy-scheduling-limits"><time datetime="2026-09-30">2026-09-30</time></a></dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <ul class="note-corrections"><li><a href="/errata/#algorithms-greedy-scheduling-limits">Correction · 2026-09-30</a></li></ul>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/algorithms/">Algorithms</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/algorithms/dynamic-programming/">Dynamic Programming</a><p>Next note in Algorithms.</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80f2-be6b-ee06f5f1a2e1">Not all scheduling problems can be solved using greedy methods. A greedy algorithm is correct only when the problem has both the greedy-choice property (some optimal solution starts with the locally best choice) and optimal substructure (what remains is a smaller instance of the same problem).</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8037-9ad8-d2a128e31f9d">The scheduling problems that have these properties include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8086-ab68-c8f239efdc13">Activity Selection Problem: Selecting the maximum number of non-overlapping activities by always picking the one that finishes earliest.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8019-b514-ef06197bd02d">Interval Partitioning: Minimizing resources (like rooms) needed by greedily assigning intervals to available resources, which is optimal because it matches the &quot;depth&quot; (maximum overlaps). </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-807d-b593-ca30d5d69e2d">However, not all scheduling problems have the optimal substructure property. Examples include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-80de-98f9-fa2ca2004e48">Jobs with different processing times and deadlines, maximizing the profit of jobs finished on time: taking the most profitable job first can crowd out several smaller jobs that together earn more. This variant is NP-hard in general and is usually solved with pseudo-polynomial dynamic programming. (With unit-length jobs the greedy in <a href="/topics/algorithms/job-sequencing-with-deadlines/" rel="noreferrer noopener">Job Sequencing with Deadlines</a> is optimal.)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="2ced3a21-bb2d-8012-b5ef-eb11b0fad2b9">Weighted completion time: on one machine, shortest processing time first (SPT) is optimal for minimizing the plain sum of completion times, but not when jobs carry different weights; then jobs must be ordered by the ratio of processing time to weight (Smith&#39;s rule). SPT also stops being optimal once jobs have release times and cannot be preempted.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-8001-854a-e98509b6f90b">Thus, as with all other greedy algorithms, a proof of correctness is a step that cannot be skipped.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-80d8-8d82-df7bfaeecb9b">When greedy approaches fail, the best bet is to turn to<strong> dynamic programming</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="2ced3a21-bb2d-806f-a14e-ddf5956f567f">Scheduling problems lead to canonical greedy algorithms. A simple illustrative case is minimizing the maximum lateness of jobs on one machine: processing jobs in order of earliest deadline is optimal, which an exchange argument proves by swapping any adjacent pair that is out of deadline order without increasing the maximum lateness.</p><p class="notion-block notion-paragraph" data-notion-block-id="351d3a21-bb2d-8035-802e-da6077bca1dd"></p></article>
+        
+        <nav class="next-reading" aria-label="Next reading">
+  <a class="next-reading-link" href="/topics/algorithms/dynamic-programming/">
+    <span class="next-reading-label">Next</span>
+    <strong>Dynamic Programming</strong>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+  </a>
+  <p>Next note in Algorithms.</p>
+</nav>
+      </div>
+    </div>
+  
+      </main>
+      
+      <footer class="site-footer" aria-label="Site footer">
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="/start-here/">Start here</a>
+          <a href="/contact/">Contact</a>
+          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
+          <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
+          <a href="/errata/">Errata</a>
+          <a href="/sitemap.xml">Sitemap</a>
+        </nav>
+      </footer>
+  
+    </div>
+    <script>
+      (() => {
+        window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
+
+        function recordAnalyticsEvent(name, detail = {}) {
+          const payload = {
+            name,
+            path: window.location.pathname,
+            detail,
+            recordedAt: new Date().toISOString(),
+          };
+          window.notesAnalyticsEvents.push(payload);
+          window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
+        }
+
+        document.body.dataset.analyticsEvent = "page_view";
+        recordAnalyticsEvent("page_view");
+
+        const themeToggle = document.querySelector(".theme-toggle");
+        const root = document.documentElement;
+        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function currentTheme() {
+          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
+        }
+
+        function renderThemeToggle() {
+          if (!themeToggle) {
+            return;
+          }
+
+          const isDark = currentTheme() === "dark";
+          const nextTheme = isDark ? "light" : "dark";
+          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
+        }
+
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
+            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+            root.dataset.theme = nextTheme;
+            try {
+              window.localStorage.setItem("notes-theme", nextTheme);
+            } catch (error) {
+              // The selected theme still applies for this page when storage is unavailable.
+            }
+            renderThemeToggle();
+          });
+        }
+
+        function isEditableTarget(target) {
+          if (!target || !(target instanceof HTMLElement)) {
+            return false;
+          }
+
+          return (
+            target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT"
+          );
+        }
+
+        document.addEventListener("keydown", (event) => {
+          if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.key.length !== 1 ||
+            isEditableTarget(event.target)
+          ) {
+            return;
+          }
+
+          const hotkey = event.key.toUpperCase();
+          if (hotkey === "/") {
+            const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
+            if (searchInput) {
+              searchInput.focus();
+            } else {
+              window.location.href = "/notes/#topic-search";
+            }
+            return;
+          }
+
+          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
+            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
+          );
+
+          if (target) {
+            event.preventDefault();
+            target.click();
+          }
+        });
+
+        document.addEventListener("click", (event) => {
+          const target = event.target instanceof Element
+            ? event.target.closest("[data-analytics-event]")
+            : null;
+          if (!target) {
+            return;
+          }
+
+          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+            href: target.getAttribute("href") || "",
+            subscribeSource: target.dataset.subscribeSource || "",
+          });
+        });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
+      })();
+    </script>
+  </body>
+</html>

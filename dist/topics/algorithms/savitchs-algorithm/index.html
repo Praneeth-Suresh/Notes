@@ -22,24 +22,22 @@
     <meta name="twitter:description" content="Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="Savitch&#39;s algorithm · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/savitchs-algorithm/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/savitchs-algorithm/","name":"Savitch's algorithm · Praneeth's CS Field Notes","description":"Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":3,"name":"Savitch's algorithm","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/savitchs-algorithm/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Algorithms","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/"},{"@type":"ListItem","position":4,"name":"Savitch's algorithm","item":"https://notes.praneeth-suresh-s.workers.dev/topics/algorithms/savitchs-algorithm/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <script>
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -61,46 +59,38 @@
     </script>
     <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body data-analytics-event="page_view">
+  <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/algorithms/">Algorithms</a></li><li aria-current="page">Savitch&#39;s algorithm</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">Savitch&#39;s algorithm</h1>
+        <p class="topic-parent">In <a href="/topics/algorithms/">Algorithms</a></p>
+        
+        
       </header>
-      
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="active" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
-    <section id="main-content" class="panel notes-panel">
-      <h1 class="site-title">Savitch&#39;s algorithm</h1>
-      <p class="topic-parent">Subpage of Algorithms</p>
-      
-      <p class="topic-meta">Algorithms explained with intuition, formal models, proof sketches, and implementation tradeoffs.</p>
-      
-      
-    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-      <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8008-a0be-d51431b8a0c4">This solves the STCON (s-t connectivity) problem—finding a path between two nodes in a directed graph using <span class="note-inline-equation" data-latex="O(\log ^2 n)">\(O(\log ^2 n)\)</span> space.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-be13-e76e79538958">It defines a function Path<span class="note-inline-equation" data-latex="(u,v,k)">\((u,v,k)\)</span> to check if there is a path from <span class="note-inline-equation" data-latex="u">\(u\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span> of length at most <span class="note-inline-equation" data-latex="2^k">\(2^k\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8015-9445-d3eaec004f56">To compute Path(a, b, k), it uses the following divide and conquer technique:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80ea-bbad-c909d079bdbd"><strong>Base case</strong>: If k = 0, return true if (a, b) is an edge or a = b (0-length path).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80e3-afc3-d9bf32d132f9"><strong>Recursive case</strong>: For each possible intermediate node w (iterate over all n nodes), check if Path(a, w, k/2) and Path(w, b, k/2). Return true if any w works.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8032-b31a-f717c6d78890">The pseudo code can be written as:</p><figure class="notion-block notion-code" data-notion-block-id="342d3a21-bb2d-805b-9bb4-d553a068dc75"><pre class="note-code-block" data-language="python"><code class="language-python">reachable_within_t_steps(u, v, t): # letting this be the recurrence
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>The illustration was redrawn from the text because the original image could not be recovered.</li></ul></div>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/algorithms/">Algorithms</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/algorithms/matrix-based-solutions/">Matrix Based Solutions</a><p>Next step in the Algorithms reading path (Complexity).</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8008-a0be-d51431b8a0c4">This solves the STCON (s-t connectivity) problem—finding a path between two nodes in a directed graph using <span class="note-inline-equation" data-latex="O(\log ^2 n)">\(O(\log ^2 n)\)</span> space.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-be13-e76e79538958">It defines a function Path<span class="note-inline-equation" data-latex="(u,v,k)">\((u,v,k)\)</span> to check if there is a path from <span class="note-inline-equation" data-latex="u">\(u\)</span> to <span class="note-inline-equation" data-latex="v">\(v\)</span> of length at most <span class="note-inline-equation" data-latex="2^k">\(2^k\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8015-9445-d3eaec004f56">To compute Path(a, b, k), it uses the following divide and conquer technique:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80ea-bbad-c909d079bdbd"><strong>Base case</strong>: If k = 0, return true if (a, b) is an edge or a = b (0-length path).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="342d3a21-bb2d-80e3-afc3-d9bf32d132f9"><strong>Recursive case</strong>: For each possible intermediate node w (iterate over all n nodes), check if Path(a, w, k/2) and Path(w, b, k/2). Return true if any w works.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8032-b31a-f717c6d78890">The pseudo code can be written as:</p><figure class="notion-block notion-code" data-notion-block-id="342d3a21-bb2d-805b-9bb4-d553a068dc75"><pre class="note-code-block" data-language="python" tabindex="0"><code class="language-python">reachable_within_t_steps(u, v, t): # letting this be the recurrence
 	if u == v: return true
 	else if t == 1: return true if (u, v) in E else false
 
@@ -108,70 +98,35 @@
 	if reachable_within_t_steps(u, m, floor(t/2)) and
 			reachable_within_t_steps(m, v, ceil(t/2)))
 		return true
-	return false</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8013-8393-f762288b0281">The algorithm works on the idea that there must be an intermediate node <span class="note-inline-equation" data-latex="m">\(m\)</span>.</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="342d3a21-bb2d-8070-a6de-d48ee9bfe45b"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/a24d3a21-bb2d-81c6-9c06-0003d37a67be/6c764775-995b-44f3-b882-01ba3a807663/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Credential=ASIAZI2LB466S5DMZVYT%2F20260809%2Fus-west-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20260809T131713Z&amp;X-Amz-Expires=3600&amp;X-Amz-Security-Token=IQoJb3JpZ2luX2VjELr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIGQriXAJjqJ6mWuDAyemIRqb1uwvNj99W5jKg%2BSdkT%2FiAiBKBkCbBH1MTlHKefI%2FW16elqpy8OdKBIbYzgorxXQIpiqIBAiD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMxhN3HinO3jjzhWv1KtwDfjs3L0by5L5UuqsBxkqLBgd64Ir2bc7YPYqq6%2B53crJUMlyR9f3IAGkfnBPtjKos6mGczfSO1r5o5qQFrmNnMwspqRXWqeP1QhQMj4ThW7IFZCOSCGaMXNA8oZ9jfqx0%2BoM7yEvyln71fS3O3sMCtyC%2BCIhjqfStjEmo%2BYofR0Tj2XCJcG3Pe5ooNZVUXakaL%2Bm3FdzfnFw%2FYxyaVpTQbYF%2BoCWx82Yq0UwnXSf6R0JVXSH8IUmiMmNtSN3%2B1QJzw4eMQRKUHo021Xit%2BYrwFWcpKlffRo67RGlmHBN3Er%2FB8L34BK0JWRgYM1i23u2eScCAcAEfDR6rR5nFPnlChmTfqWNX%2F0KQY8V8MUNIyaQhex8CbeC6NqGD%2BVkp5LsTJJim9MSHpyfN9Mo2xTJNeR1KmPDPKqZhRJVB9E9uw9NkxkvJ6tcpx71nscFvfOLiB6IRUWXtGjRW5QLlh0XWi8H4Odj3OddBHD7G6E4p24sVa3yC%2FEHcAm4tVHrx254hnygjeXTNPMx%2BLPxnyKs2ui4u1LDTZxFDy6rriS9USudlXwcaswGbWpMoifCiqj3wr5Pv6v8jPK1OtQnguCQ9TTAx5nYOZUzcl%2B5fCcEz1p9babgnjuYUuZ0U0bcw36Th0wY6pgHuNX72w5wmnsTWeYwSJDqBGf4H8CqhrzlLBBFp2laobhm6a51awNWjLYkBd0aNMYnTPgA37KaCdQ3nc0ALSM2hw%2Bs2hJjb6KsMyp%2BvTssWJQpuEtg%2FzPW6heMTWX6uz34pmm8s3X1RbgIm%2FfuVc3m0a9l8TyIfvwZngEkOSuX3Kf2vUG5GnL9nqcUORIEpEuwQGvvntyDSVemSp6dRL82d%2FzUzdNkL&amp;X-Amz-Signature=601323a47c4311e2377875fc9a7c8aef15b070a1fcc3d145a15c2f5ea362fab1&amp;X-Amz-SignedHeaders=host&amp;x-amz-checksum-mode=ENABLED&amp;x-id=GetObject" alt="" /></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-803c-82ba-ce70ed28c3ac">The algorithm is not efficient in terms of time complexity. It achieves a time complexity of <span class="note-inline-equation" data-latex="O(n^{\log n})">\(O(n^{\log n})\)</span> which is superpolynomial. However, this is the most space optimal algorithm available to solve the connectivity problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80da-a16a-e245a4926419">Node indices and k need O(log n) bits each.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-802f-99e2-f6238f5e0237">Recursion stack has depth O(log n), so total space is <span class="note-inline-equation" data-latex="O(\log² n)">\(O(\log² n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-bc30-d5790f2858ea">No extra graph storage beyond adjacency list access (read-only).</p></article>
-      <nav class="next-reading" aria-label="Next reading">
-  <p class="section-kicker">/ Next</p>
+	return false</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-8013-8393-f762288b0281">The algorithm works on the idea that there must be an intermediate node <span class="note-inline-equation" data-latex="m">\(m\)</span>.</p><figure class="notion-block notion-asset note-asset note-asset-image" data-notion-block-id="342d3a21-bb2d-8070-a6de-d48ee9bfe45b"><img src="/assets/notes-media/algorithms/342d3a21-bb2d-8070-a6de-d48ee9bfe45b.svg" alt="Savitch&#39;s recursion: a path from u to v of at most t steps is split at an intermediate node m into halves of at most floor(t/2) and ceil(t/2) steps, recursing to depth log t." width="720" height="360" loading="lazy" decoding="async" /><figcaption>Diagram redrawn in September 2026 from the surrounding text; the original image was no longer retrievable.</figcaption></figure><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-803c-82ba-ce70ed28c3ac">The algorithm is not efficient in terms of time complexity. It achieves a time complexity of <span class="note-inline-equation" data-latex="O(n^{\log n})">\(O(n^{\log n})\)</span> which is superpolynomial. However, this is the most space optimal algorithm available to solve the connectivity problem.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80da-a16a-e245a4926419">Node indices and k need O(log n) bits each.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-802f-99e2-f6238f5e0237">Recursion stack has depth O(log n), so total space is <span class="note-inline-equation" data-latex="O(\log² n)">\(O(\log² n)\)</span>.</p><p class="notion-block notion-paragraph" data-notion-block-id="342d3a21-bb2d-80b5-bc30-d5790f2858ea">No extra graph storage beyond adjacency list access (read-only).</p></article>
+        
+        <nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/algorithms/matrix-based-solutions/">
-    <span>Next reading</span>
+    <span class="next-reading-label">Next</span>
     <strong>Matrix Based Solutions</strong>
-    <p>Continue inside Algorithms</p>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
   </a>
+  <p>Next step in the Algorithms reading path (Complexity).</p>
 </nav>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
       </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
+    </div>
   
-      
-    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-    </section>
-  
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -209,10 +164,9 @@
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -221,8 +175,7 @@
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -253,11 +206,13 @@
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -283,6 +238,31 @@
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

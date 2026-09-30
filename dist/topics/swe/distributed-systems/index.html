@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Distributed Systems · Praneeth&#39;s CS Field Notes</title>
 
-    <meta name="description" content="Sophisticated software systems under the hood" />
+    <meta name="description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/" />
     <meta property="og:title" content="Distributed Systems · Praneeth&#39;s CS Field Notes" />
-    <meta property="og:description" content="Sophisticated software systems under the hood" />
+    <meta property="og:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/" />
     <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
@@ -19,27 +19,25 @@
     <meta property="og:image:alt" content="Distributed Systems · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Distributed Systems · Praneeth&#39;s CS Field Notes" />
-    <meta name="twitter:description" content="Sophisticated software systems under the hood" />
+    <meta name="twitter:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta name="twitter:image:alt" content="Distributed Systems · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"Software engineer and AI developer/researcher","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/","name":"Distributed Systems · Praneeth's CS Field Notes","description":"Sophisticated software systems under the hood","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"SWE for Pros","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":3,"name":"Distributed Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/","name":"Distributed Systems · Praneeth's CS Field Notes","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Software Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":4,"name":"Distributed Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/distributed-systems/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
     <script>
       (() => {
         try {
           const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = document.documentElement.dataset.homePage === "true"
-            ? "dark"
-            : savedTheme === "light" || savedTheme === "dark"
-              ? savedTheme
-              : window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
+          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
           document.documentElement.dataset.theme = resolvedTheme;
         } catch (error) {
           // Theme preference is optional when storage is unavailable.
@@ -47,130 +45,74 @@
       })();
     </script>
     <link rel="stylesheet" href="/assets/site.css" />
-    <script>
-      window.MathJax = {
-        loader: {
-          paths: { mathjax: "/assets/vendor/mathjax" }
-        },
-        tex: {
-          inlineMath: [["\\(", "\\)"]],
-          displayMath: [["\\[", "\\]"]]
-        },
-        svg: { fontCache: "global" }
-      };
-    </script>
-    <script defer src="/assets/vendor/mathjax/tex-svg-full.js"></script>
   </head>
-  <body data-analytics-event="page_view">
+  <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <main class="layout">
+    <div class="layout">
       <header class="site-header">
-        <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Home</a>
-        <nav class="site-links" aria-label="Site navigation">
-          <a href="/start-here/" data-hotkey="S">Start</a>
-          <a href="/about/" data-hotkey="A">About</a>
-          <a href="/projects/" data-hotkey="P">Projects</a>
-          <a href="/notes/" data-hotkey="N">Notes</a>
-          <a href="/blog/" data-hotkey="B">Blog</a>
-          <a href="/contact/" data-hotkey="C">Contact</a>
-          <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/feed.xml" data-hotkey="R" data-analytics-event="rss_click" data-subscribe-source="header">RSS</a>
-          <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-        </nav>
+      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
+      <nav class="site-links" aria-label="Site navigation">
+        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
+        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
+      </nav>
+    </header>
+      <main id="main-content" tabindex="-1">
+      
+    <div class="note-layout">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Distributed Systems</li></ol></nav>
+      <header class="note-header">
+        <h1 class="site-title">Distributed Systems</h1>
+        <p class="topic-parent">In <a href="/topics/swe/">Software Systems</a></p>
+        
+        
       </header>
-      
-    <nav class="topic-nav" aria-label="Topic navigation"><a href="/" data-hotkey="H">Home</a><a class="" href="/topics/algorithms/" data-hotkey="1">Algorithms</a><a class="" href="/topics/agent-coding/" data-hotkey="2">Agentic Coding</a><a class="" href="/topics/os/" data-hotkey="3">Operating Systems</a><a class="" href="/topics/ai-engineer/" data-hotkey="4">AI Engineering</a><a class="active" href="/topics/swe/" data-hotkey="5">SWE for Pros</a><a class="" href="/topics/agent-build/" data-hotkey="6">Building Agents</a><a class="" href="/topics/c/" data-hotkey="7">C Deep Dive</a><a class="" href="/topics/cpp/" data-hotkey="8">C++ Deep Dive</a></nav>
-    <section id="main-content" class="panel notes-panel">
-      <h1 class="site-title">Distributed Systems</h1>
-      <p class="topic-parent">Subpage of SWE for Pros</p>
-      
-      <p class="topic-meta">Sophisticated software systems under the hood</p>
-      
-      
-    <section id="subscribe-topic-subpage-top" class="subscribe-panel subscribe-panel-compact" aria-labelledby="subscribe-title-topic-subpage-top">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage-top">Follow the work.</h2>
-          <p>Get the monthly research and project update by email request or RSS.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage-top">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage-top">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage-top">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-      <article class="note-article notion-page-content"><h1 class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-818f-8db9-f4d5cbd70836">The Core Idea: Embracing Chaos and Distribution</h1><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-817a-937f-e9def9fb9c77">In small-scale apps, your code lives on a single “island” (a server). If the island sinks, the app dies. In large-scale engineering, we assume <strong>islands will sink every day.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-818e-ae4a-c654b91777e5">The fundamental shift is moving from a “Pet” mindset (where you care for one server) to a “Cattle” mindset (where you treat infrastructure as replaceable, ephemeral resources). Large-scale systems are designed to be <strong>fault-tolerant, horizontally scalable, and decoupled.</strong></p><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b9-aa46-db1bb996f4f6">Real-World Example: Netflix</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8145-aef8-dbed7483ccef">Netflix isn’t just a video player; it’s a massive distributed system composed of over 1,000 microservices. When you click “Play,” one service handles your billing, another your history, another the subtitles, and another the video stream itself. If the “History” service goes down, Netflix doesn’t crash; it just hides your “Recently Watched” list and lets you keep watching. This is <strong>Graceful Degradation.</strong></p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-816e-b897-ef11854670e4" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81ad-ba4f-c6d2bb8a50e7">🛠 Platforms &amp; Tools</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f3-b79b-ddd4d2af3a1f">To build these “resilient webs,” the industry uses specific tools:
+      <aside class="reading-margin" aria-label="About this note">
+      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
+  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
+  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
+  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Unbroken`GoogleCloudPlatform/microservices-demo` heading exceeds mobile column.</li></ul></div>
+</aside>
+      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/swe/">Software Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/swe/under-the-hood-the-log/">Under the Hood: The log</a><p>Next step in the Software Systems reading path (Architecture).</p></div>
+    </aside>
+      <div class="note-body">
+        
+        <article class="note-article notion-page-content"><h2 class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-818f-8db9-f4d5cbd70836">The Core Idea: Embracing Chaos and Distribution</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-817a-937f-e9def9fb9c77">In small-scale apps, your code lives on a single “island” (a server). If the island sinks, the app dies. In large-scale engineering, we assume <strong>islands will sink every day.</strong></p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-818e-ae4a-c654b91777e5">The fundamental shift is moving from a “Pet” mindset (where you care for one server) to a “Cattle” mindset (where you treat infrastructure as replaceable, ephemeral resources). Large-scale systems are designed to be <strong>fault-tolerant, horizontally scalable, and decoupled.</strong></p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81b9-aa46-db1bb996f4f6">Real-World Example: Netflix</h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8145-aef8-dbed7483ccef">Netflix isn’t just a video player; it’s a massive distributed system composed of over 1,000 microservices. When you click “Play,” one service handles your billing, another your history, another the subtitles, and another the video stream itself. If the “History” service goes down, Netflix doesn’t crash; it just hides your “Recently Watched” list and lets you keep watching. This is <strong>Graceful Degradation.</strong></p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-816e-b897-ef11854670e4" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81ad-ba4f-c6d2bb8a50e7">🛠 Platforms &amp; Tools</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f3-b79b-ddd4d2af3a1f">To build these “resilient webs,” the industry uses specific tools:
 * <strong>Kubernetes (K8s):</strong> The “Operating System” for the cloud. It manages where your services run and restarts them if they fail.
 * <strong>gRPC / Protocol Buffers:</strong> A high-speed way for services to talk to each other. It’s much faster than the standard JSON/REST you use in small apps.
-* <strong>Terraform:</strong> A way to write code that “spawns” entire data centers in minutes.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81e9-9d00-ea0917b57d79" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-810d-8d47-f09d617c4462">💻 Code to Explore: The “Gold Standard”</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-810b-bd0e-d1ca55f6a0d3"><a href="https://github.com/GoogleCloudPlatform/microservices-demo" rel="noreferrer noopener">GoogleCloudPlatform/microservices-demo</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8120-9fc0-d33413dd0beb">This is an “Online Boutique” shop built with 11 different services in different languages (Go, Python, C#, etc.).
+* <strong>Terraform:</strong> A way to write code that “spawns” entire data centers in minutes.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81e9-9d00-ea0917b57d79" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-810d-8d47-f09d617c4462">💻 Code to Explore: The “Gold Standard”</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-810b-bd0e-d1ca55f6a0d3"><a href="https://github.com/GoogleCloudPlatform/microservices-demo" rel="noreferrer noopener">GoogleCloudPlatform/microservices-demo</a></h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8120-9fc0-d33413dd0beb">This is an “Online Boutique” shop built with 11 different services in different languages (Go, Python, C#, etc.).
 * <strong>What to look for:</strong>
 * <strong>The </strong><strong><code class="note-inline-code">pb/</code></strong><strong> directory:</strong> See how <code class="note-inline-code">proto</code> files define the “contracts” between services.
 * <strong>Kubernetes Manifests:</strong> Look at the <code class="note-inline-code">kubernetes-manifests/</code> folder to see how the services are connected and scaled.
-* <strong>Polyglot Architecture:</strong> Notice how the frontend is in Go while the recommendation engine might be in Python—this is the power of microservices.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8150-9d11-f79b227954a0" /><h2 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8127-9753-f665307d46b4">📚 Deep Dive Resources</h2><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8196-89f6-f3087b471f7d">🎥 Watch: “Mastering Chaos” (Netflix)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81b0-adb1-f3efc064c85a"><a href="https://www.youtube.com/watch?v=CZ3wIuvmHeM" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81be-9b59-d7395047a2da"><strong>How to use it:</strong> Watch this to understand the <em>philosophy</em> of why Netflix broke their monolith. Pay attention to how they handle “Cascading Failures.”</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-811c-849e-e1a3f6b84cd3">📝 Read: “The Log” (Jay Kreps)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81a5-a3a7-de61f73b8dca"><a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener"><strong>Technical Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8155-8349-c2e548608d4d"><strong>How to use it:</strong> This is the most famous blog post in data engineering. Read it to understand why “Append-Only Logs” (like Kafka) are the heartbeat of distributed systems.</li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8158-8364-e7a5740efcd6">📄 Research: “Time, Clocks, and the Ordering of Events” (Leslie Lamport)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8137-862d-e6de7d50f2f1"><a href="https://lamport.azurewebsites.net/pubs/time-clocks.pdf" rel="noreferrer noopener"><strong>Research Paper</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8193-aef8-fc8733d7476b"><strong>How to use it:</strong> This is the “Bible” of distributed systems. Don’t worry about the math—focus on the idea that <strong>there is no such thing as “simultaneous” in a distributed system.</strong></li></ul><h3 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816d-ad6e-ff3835046fc6">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81ae-a9a9-e79455559815">In large-scale systems, <strong>consistency is a choice, not a guarantee.</strong> You have to decide if you want your system to be “Always Correct” or “Always Online.” You can rarely have both during a network failure (this is the CAP Theorem).</p></article>
-      <nav class="next-reading" aria-label="Next reading">
-  <p class="section-kicker">/ Next</p>
-  <a class="next-reading-link" href="/topics/swe/swe-study-plan/">
-    <span>Next reading</span>
-    <strong>SWE Study Plan</strong>
-    <p>Continue inside SWE for Pros</p>
+* <strong>Polyglot Architecture:</strong> Notice how the frontend is in Go while the recommendation engine might be in Python—this is the power of microservices.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8150-9d11-f79b227954a0" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8127-9753-f665307d46b4">📚 Deep Dive Resources</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8196-89f6-f3087b471f7d">🎥 Watch: “Mastering Chaos” (Netflix)</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81b0-adb1-f3efc064c85a"><a href="https://www.youtube.com/watch?v=CZ3wIuvmHeM" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81be-9b59-d7395047a2da"><strong>How to use it:</strong> Watch this to understand the <em>philosophy</em> of why Netflix broke their monolith. Pay attention to how they handle “Cascading Failures.”</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-811c-849e-e1a3f6b84cd3">📝 Read: “The Log” (Jay Kreps)</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81a5-a3a7-de61f73b8dca"><a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener"><strong>Technical Blog</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8155-8349-c2e548608d4d"><strong>How to use it:</strong> This is the most famous blog post in data engineering. Read it to understand why “Append-Only Logs” (like Kafka) are the heartbeat of distributed systems.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8158-8364-e7a5740efcd6">📄 Research: “Time, Clocks, and the Ordering of Events” (Leslie Lamport)</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8137-862d-e6de7d50f2f1"><a href="https://lamport.azurewebsites.net/pubs/time-clocks.pdf" rel="noreferrer noopener"><strong>Research Paper</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8193-aef8-fc8733d7476b"><strong>How to use it:</strong> This is the “Bible” of distributed systems. Don’t worry about the math—focus on the idea that <strong>there is no such thing as “simultaneous” in a distributed system.</strong></li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816d-ad6e-ff3835046fc6">💡 The Big Idea to Take Away</h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81ae-a9a9-e79455559815">In large-scale systems, <strong>consistency is a choice, not a guarantee.</strong> You have to decide if you want your system to be “Always Correct” or “Always Online.” You can rarely have both during a network failure (this is the CAP Theorem).</p></article>
+        
+        <nav class="next-reading" aria-label="Next reading">
+  <a class="next-reading-link" href="/topics/swe/under-the-hood-the-log/">
+    <span class="next-reading-label">Next</span>
+    <strong>Under the Hood: The log</strong>
+    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
   </a>
+  <p>Next step in the Software Systems reading path (Architecture).</p>
 </nav>
-      
-    <section class="reading-trail" aria-labelledby="reading-trail-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Continue</p>
-        <h2 id="reading-trail-title-topic-subpage">Follow the technical trail.</h2>
-        <p>Use the dense notes as the source material, then move through the guided route, writing, or project proof when you want a cleaner entry point.</p>
       </div>
-      <div class="reading-trail-actions" aria-label="Reader next steps">
-        <a class="secondary-action" href="/start-here/">Start Here</a>
-        <a class="secondary-action" href="/blog/">Writing</a>
-        <a class="secondary-action" href="/projects/">Projects</a>
-        <a class="secondary-action" href="/subscribe/">Subscribe</a>
-      </div>
-    </section>
+    </div>
   
-      
-    <section id="subscribe-topic-subpage" class="subscribe-panel" aria-labelledby="subscribe-title-topic-subpage">
-      <div>
-        <p class="section-kicker">/ Subscribe</p>
-        <h2 id="subscribe-title-topic-subpage">Subscribe for monthly AI research/project updates.</h2>
-          <p>One rigorous AI research or project update every 3-4 weeks, with paper trails, mechanisms, experiments, and implementation tradeoffs in one place.</p>
-      </div>
-      <div class="subscribe-actions" aria-label="Subscription actions">
-        <span class="primary-action" data-contact-source="topic-subpage">praneeth[dot]suresh[dot]s [at] gmail[dot]com</span>
-        <a class="secondary-action" href="/subscribe/" data-analytics-event="newsletter_cta_click" data-subscribe-source="topic-subpage">Subscription options</a>
-        <a class="secondary-action" href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="topic-subpage">Subscribe by RSS</a>
-      </div>
-    </section>
-  
-    </section>
-  
+      </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <div>
-          <p class="section-kicker">/ Site map</p>
-          <p>Static notes, research trails, projects, writing, and contact routes for rigorous computer science reading.</p>
-        </div>
+        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/research-taste/">Research</a>
-          <a href="/notes/">Notes</a>
-          <a href="/projects/">Projects</a>
-          <a href="/blog/">Writing</a>
+          <a href="/start-here/">Start here</a>
           <a href="/contact/">Contact</a>
-          <a href="/start-here/">Start</a>
-          <a href="/about/">About</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
-          <a href="/subscribe/">Subscribe</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
+          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
           <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
-    </main>
+    </div>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -208,10 +150,9 @@
           themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
         }
 
-        if (themeToggle) {
-          if (!themeToggle.disabled) {
-            renderThemeToggle();
-            themeToggle.addEventListener("click", () => {
+        if (themeToggle && !themeToggle.disabled) {
+          renderThemeToggle();
+          themeToggle.addEventListener("click", () => {
             const nextTheme = currentTheme() === "dark" ? "light" : "dark";
             root.dataset.theme = nextTheme;
             try {
@@ -220,8 +161,7 @@
               // The selected theme still applies for this page when storage is unavailable.
             }
             renderThemeToggle();
-            });
-          }
+          });
         }
 
         function isEditableTarget(target) {
@@ -252,11 +192,13 @@
           const hotkey = event.key.toUpperCase();
           if (hotkey === "/") {
             const searchInput = document.getElementById("topic-search");
+            event.preventDefault();
             if (searchInput) {
-              event.preventDefault();
               searchInput.focus();
-              return;
+            } else {
+              window.location.href = "/notes/#topic-search";
             }
+            return;
           }
 
           const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
@@ -282,6 +224,31 @@
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
+      })();
+    </script>
+    <script>
+      (() => {
+        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
+        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
+        function openHashTarget() {
+          if (!window.location.hash) {
+            return;
+          }
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          if (target && target.tagName === "DETAILS") {
+            target.open = true;
+          }
+        }
+        openHashTarget();
+        window.addEventListener("hashchange", openHashTarget);
+        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
+          details.addEventListener("toggle", () => {
+            if (details.open && details.id) {
+              history.replaceState(history.state, "", "#" + details.id);
+            }
+          });
+        });
+
       })();
     </script>
   </body>

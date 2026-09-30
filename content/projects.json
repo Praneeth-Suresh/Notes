@@ -1,26 +1,22 @@
 {
   "projects": [
     {
-      "slug": "ai-society-corpus",
-      "title": "AI Society Corpus",
-      "status": "active · NUS AI Society",
-      "updatedAt": "2026-08-10",
-      "summary": "An interactive knowledge graph that turns NUS AI Society's AI/ML learning material into connected study paths rather than isolated pages.",
-      "problem": "AI/ML learners need to see how concepts depend on, resemble, and refer to one another—not merely read a long list of topics.",
-      "method": "Topics live in validated Markdown with structured frontmatter. A static Astro build derives prerequisite, tag-similarity, and WikiLink-backlink edges, then renders them through React and a D3 force graph.",
-      "result": "The corpus gives readers a navigable concept network alongside a reviewable contribution workflow, content validation, unit tests, and Playwright checks.",
-      "codeUrl": "https://github.com/NUSAISoc/aisoc-corpus",
-      "tags": ["knowledge-graph", "astro", "react", "d3", "ai-education"]
-    },
-    {
       "slug": "beryl",
       "title": "Beryl",
       "status": "active · developer tooling",
-      "updatedAt": "2026-08-10",
-      "summary": "A repository-owned guarantee layer for AI-assisted development: it makes workflow rules, checks, and review boundaries visible before agent output is trusted.",
-      "problem": "Scattered prompts and instruction files can guide an agent, but they do not provide one source of truth or evidence that repository rules were followed.",
-      "method": "Beryl installs a durable control plane for task routing, project context, deterministic checks, test-manifest protection, and optional local Git hooks—while preserving human review.",
-      "result": "Teams get a repeatable loop of intent, bounded changes, checks, evidence, and signoff that is inspectable in the repository instead of trapped in chat history.",
+      "updatedAt": "2026-09-30",
+      "summary": "An installable set of repository files and scripts that tell coding agents how to work in a project and check that some of those rules were actually followed.",
+      "role": "Author and maintainer. I designed and wrote Beryl; this site's repository uses it.",
+      "problem": "Instruction files such as AGENTS.md can guide an agent, but they give no evidence that the rules were followed, and different tools read different files.",
+      "method": "Beryl installs one canonical instruction set with task routing and project context, plus deterministic shell checks (Markdown sanity, secret scanning, test-manifest immutability, project tests) that run locally and in optional Git hooks.",
+      "decision": "Checks are plain shell scripts over files in the repository rather than a hosted service or agent plugin, so any agent, CI runner, or reviewer can run the same gate and read its output.",
+      "artifact": {
+        "label": "Real check output from this site's repository: a test file was edited without updating the test manifest, and the Beryl gate refused it.",
+        "kind": "code",
+        "content": "$ printf '\\n// weakened\\n' >> tests/update-topic-subtitle.test.js\n$ ./.beryl/scripts/check-tests-unchanged.sh\nERROR: check-tests: configured test scope differs from tests/.manifest.sha256. If intentional, run .beryl/scripts/update-test-manifest.sh and commit the updated manifest."
+      },
+      "limitation": "The checks detect changes; they do not prove an agent's change is correct, and anyone with write access can update the manifest. Beryl still depends on human review and branch protection.",
+      "result": "Used in this repository, where the check gate runs before every change; a benchmark of whether machine-readable policies improve agent outcomes is in progress as CP3106 independent research and has no results yet.",
       "codeUrl": "https://github.com/Praneeth-Suresh/Beryl",
       "writeupUrl": "/blog/beryl-02-what-i-built/",
       "tags": ["agentic-coding", "developer-tools", "testing", "code-review"]
@@ -29,26 +25,72 @@
       "slug": "notes",
       "title": "Notes — this site",
       "status": "active · current site",
-      "updatedAt": "2026-08-10",
-      "summary": "The site you are reading: a static technical-notes system that turns a personal study corpus into searchable, shareable, reliable public work.",
-      "problem": "Technical notes lose value when source structure, mathematical notation, code, navigation, and discovery break as they move from a private workspace to the web.",
-      "method": "A strict Notion ingestion pipeline normalizes topic trees at build time; separate rendering and styling boundaries publish static Cloudflare Pages routes, search, metadata, RSS, and portfolio evidence.",
-      "result": "The site preserves nested note paths, LaTeX, code blocks, and source formatting while producing a fast static archive with deterministic build checks.",
+      "updatedAt": "2026-09-30",
+      "summary": "The site you are reading: a static build that turns my Notion study notes into public, searchable pages while keeping math, code, and nested pages intact.",
+      "role": "Author and maintainer of the pipeline, templates, and notes.",
+      "problem": "Study notes lose value on the web when LaTeX, code indentation, nested pages, and images break, or when readers cannot tell a rough note from a checked one.",
+      "method": "A strict Notion ingestion step normalizes each topic tree to JSON and fails on unsupported blocks. A static build renders routes, search, RSS, and sitemap for Cloudflare, joining checked-in sidecars for publication status, corrections, and stable images.",
+      "decision": "Corrections and statuses live in checked-in sidecar files keyed by Notion block ids, not in the pulled JSON, so a fresh Notion pull cannot silently undo a fix.",
+      "artifact": {
+        "label": "One real block from the Advanced Dynamic Programming note: normalized JSON in, rendered HTML out; MathJax typesets the equation in the browser.",
+        "kind": "code",
+        "content": "{\"type\":\"equation\",\"blockId\":\"347d3a21-bb2d-80c2-ab57-e88305c8b7ac\",\n \"expression\":\"opt[i][j-1] ≤ opt[i][j] ≤ opt[i+1][j]\"}\n\n<div class=\"notion-block notion-equation\" data-notion-block-id=\"347d3a21-…\"\n     data-latex=\"opt[i][j-1] ≤ opt[i][j] ≤ opt[i+1][j]\">\\[opt[i][j-1] ≤ opt[i][j] ≤ opt[i+1][j]\\]</div>"
+      },
+      "limitation": "Most notes are unreviewed Working notes. Four images had to be redrawn because the Notion originals were no longer reachable. Page speed was measured only locally with a throttled phone profile (Home: about 0.6 s to largest paint, 47 KB transferred) and is not monitored in production.",
+      "result": "125 note pages and 19 posts build from checked-in data with deterministic tests; every note shows its publication status and substantive corrections are published on the Errata page.",
       "codeUrl": "https://github.com/Praneeth-Suresh/Notes",
       "writeupUrl": "/notes/",
-      "tags": ["static-site", "notion", "cloudflare-pages", "technical-writing"]
+      "tags": ["static-site", "notion", "cloudflare", "technical-writing"]
     },
     {
       "slug": "siap",
       "title": "SIAP",
-      "status": "active · research manuscript",
-      "updatedAt": "2026-08-10",
-      "summary": "Structure and Interpretation of Agentic Patterns: a theory-backed, publishable book for making agent orchestration more explicit, testable, and teachable.",
-      "problem": "Agent engineering is often held together by framework defaults, prompt folklore, and local craft knowledge, leaving objectives, memory, tool contracts, and failure modes under-specified.",
-      "method": "The manuscript teaches agent systems by construction: Markdown chapters connect decision theory, planning, retrieval, safety, and multi-agent coordination to interpreters for reasoning and tool-use loops. Python scripts produce a static reader and print-ready artifacts.",
-      "result": "SIAP publishes a navigable, MathJax-enabled web book and PDF outputs, with citation rules, editorial audits, and reproducible manuscript checks protecting the research program.",
+      "status": "active · manuscript in progress",
+      "updatedAt": "2026-09-30",
+      "summary": "Structure and Interpretation of Agentic Patterns: a book in progress that teaches agent systems by building interpreters for reasoning and tool-use loops.",
+      "role": "Author. I write the manuscript and maintain its build scripts.",
+      "problem": "Agent engineering is often held together by framework defaults and prompt folklore, leaving objectives, memory, tool contracts, and failure modes under-specified.",
+      "method": "Markdown chapters connect decision theory, planning, retrieval, safety, and multi-agent coordination to small interpreters. Python scripts build a static web reader and PDF, and audit citations and visuals.",
+      "decision": "Teach by construction: each pattern is introduced as a small interpreter the reader can run and break, rather than as a framework recipe.",
+      "artifact": {
+        "label": "Manuscript state from the repository on 2026-09-30.",
+        "kind": "list",
+        "items": [
+          "4 parts: Foundations of Agency, Reasoning Architectures, Tool Use and Embodiment, Multi-Agent Systems",
+          "36 chapter files, about 57,000 words of draft text",
+          "Web reader and PDF built by the repository's scripts"
+        ]
+      },
+      "limitation": "This is an unfinished draft with no external review or publisher; chapters vary in completeness and the interpreters have not been evaluated with readers.",
+      "result": "The draft is readable online and the build checks citation and visual rules on every change.",
       "codeUrl": "https://github.com/Praneeth-Suresh/SIAP",
+      "demoUrl": "https://praneeth-suresh.github.io/SIAP/",
       "tags": ["agentic-systems", "technical-writing", "decision-theory", "multi-agent-systems"]
+    },
+    {
+      "slug": "ai-society-corpus",
+      "title": "AI Society Corpus",
+      "status": "active · NUS AI Society",
+      "updatedAt": "2026-09-30",
+      "summary": "An interactive knowledge graph for NUS AI Society that links AI/ML study topics by prerequisites, shared tags, and backlinks.",
+      "role": "Initial author and main contributor: I wrote the first build and 30 of the 82 commits in the repository as of August 2026; other society members contribute topics and fixes.",
+      "problem": "AI/ML learners need to see how concepts depend on and relate to one another, not just read a long list of topics.",
+      "method": "Topics live in validated Markdown with structured frontmatter. A static Astro build derives prerequisite, tag-similarity (Jaccard), and WikiLink-backlink edges and renders them with React and a D3 force graph.",
+      "decision": "Relationships are computed at build time from the Markdown rather than curated by hand, so a new topic joins the graph through its frontmatter alone.",
+      "artifact": {
+        "label": "The live graph and its source.",
+        "kind": "list",
+        "items": [
+          "Live site: aisoc-corpus.aisocietysoc.workers.dev",
+          "Content validation, unit tests, and Playwright checks run in the repository",
+          "6 topic files published at the time of writing"
+        ]
+      },
+      "limitation": "The corpus is small so far, and tag-similarity edges are inferred: two topics that share tags are linked even when the relationship is weak.",
+      "result": "Readers can move through a navigable concept network, and contributors get a reviewable workflow with validation.",
+      "codeUrl": "https://github.com/NUSAISoc/aisoc-corpus",
+      "demoUrl": "https://aisoc-corpus.aisocietysoc.workers.dev/",
+      "tags": ["knowledge-graph", "astro", "react", "d3", "ai-education"]
     }
   ]
 }
