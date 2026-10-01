@@ -3,105 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Service Mesh · Praneeth&#39;s CS Field Notes</title>
+    <title>Service Mesh — Praneeth Suresh</title>
 
     <meta name="description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/" />
-    <meta property="og:title" content="Service Mesh · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Service Mesh · Praneeth Suresh" />
     <meta property="og:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Service Mesh · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Service Mesh · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Service Mesh · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Service Mesh · Praneeth Suresh" />
     <meta name="twitter:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Service Mesh · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Service Mesh · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/","name":"Service Mesh · Praneeth's CS Field Notes","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/","name":"Service Mesh · Praneeth Suresh","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Software Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":4,"name":"Service Mesh","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/service-mesh/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Service Mesh</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Service Mesh</h1>
-        <p class="topic-parent">In <a href="/topics/swe/">Software Systems</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Explains sidecars and tradeoffs; compare a case with and without a mesh.</li></ul></div>
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/swe/">Software Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/swe/distributed-systems/">Distributed Systems</a><p>Next step in the Software Systems reading path (Architecture).</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8074-a8ef-d1a351c6c610">A service mesh is essentially a dedicated “communication fabric” for microservices. It manages how services talk to each other, ensuring reliability, security, and observability without requiring developers to hard-code these concerns. </p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80c5-ac41-cdc47b04dc26">Implementing it in a real project usually involves deploying sidecar proxies (like Envoy) alongside each service and configuring a control plane (like Istio or Linkerd) to enforce policies, monitor traffic, and secure communication.</p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80fd-96eb-f3413011d853"><strong>Think of microservices as workers in a factory.</strong> Each worker (service) does a specific job but needs to coordinate with others. The service mesh is like the supervisor and communication system. It ensures messages are delivered correctly, securely, and efficiently. </p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80d8-8a7c-ce4b9cdf8dbc">Instead of embedding networking, logging, and security logic inside each service, the mesh abstracts these concerns into a separate infrastructure layer.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80bb-acf6-d90c7f0cd620">How a Service Mesh Works</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c3-9ec8-f0e4fd9bf107"><strong>Data Plane (Sidecar Proxies)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8055-93d4-f92aa84398e4">Each service runs with a lightweight proxy (e.g., Envoy).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80e4-8df4-df22234dccf7">All inbound/outbound traffic flows through the proxy.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8007-a8a0-db3864f5fe99">Proxies enforce policies like routing rules, retries, or encryption.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8058-adbd-f528dc114d53"><strong>Control Plane</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-8233-ddf756498319">Centralized management layer (e.g., Istio Pilot).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-807f-b392-d4a26386a3d3">Configures proxies, distributes policies, and aggregates telemetry.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80fe-925f-e8d3a85a8fab">Provides dashboards for monitoring and debugging.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8031-b1ba-fe5491c25d9b"><strong>Workflow Example:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80b2-a1b8-c6fce2fc4316">Service A calls Service B → Proxy A intercepts → forwards to Proxy B → Proxy B delivers to Service B.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a9-a257-f249e17ab901">Along the way, traffic can be split (e.g., 80% to v1, 20% to v2), encrypted, and logged.</li></ul><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8098-8118-d03af476de6f">Implementing a Service Mesh in a Real Project</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a2-a43e-c211f16eee1a"><strong>Choose a Service Mesh Tool</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802c-a193-db23fad2966a"><strong>Istio:</strong> Feature-rich, integrates with Kubernetes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8039-a491-ca3afd13aa08"><strong>Linkerd:</strong> Lightweight, simpler setup.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-8afa-e5c9db305604"><strong>Consul:</strong> Multi-platform, strong service discovery.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80b5-852c-f5be3c9e1da3"><strong>Set Up Your Environment</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-803b-97f4-d1dcb2e0db29">Typically requires <strong>Kubernetes</strong> or another container orchestration platform.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-95ad-cee093d027b3">Deploy your microservices as pods/containers.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8022-80d0-dfa6f0b463c5"><strong>Deploy the Service Mesh</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80af-bf34-f60e4178c113">Install Istio/Linkerd via Helm charts or operators.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802f-8285-e4bea0dd8c68">Inject sidecar proxies into each service pod automatically.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8015-8a4d-d7d65ea4614c"><strong>Configure Policies</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802a-895a-de487567f2ff">Define routing rules (e.g., canary deployments).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8054-908f-d9645a2207eb">Set up mTLS for secure communication.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c8-a60c-ecc489bc22da">Apply rate limits, retries, and circuit breakers.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-808a-9600-cbdd208f7e63"><strong>Monitor and Debug</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8034-bc1f-d6ac1aba3787">Use built-in observability tools (Prometheus, Grafana, Jaeger).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-801b-b65a-ec4789a551db">Track latency, error rates, and traffic flows.</li></ul></li></ol><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80d3-9f1b-febf3d2e4646">Risks &amp; Trade-Offs</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80da-bcf1-c75e6984ba24"><strong>Complexity:</strong> Adds operational overhead; steep learning curve with Istio.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-afb8-f25e064e5a9a"><strong>Performance:</strong> Proxies introduce slight latency.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8027-982c-c48c7f54843b"><strong>Resource Usage:</strong> Sidecars consume CPU/memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ae-ac1d-e5b2a45c150b"><strong>Best Fit:</strong> Large-scale, distributed systems where service-to-service communication is complex.</li></ul></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Service Mesh</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Service Mesh</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-05-25">2026-05-25</time></dd></div></dl><details class="note-known-gaps"><summary>Known gaps (1)</summary><ul><li>Not yet addressed from the September 2026 site review. Explains sidecars and tradeoffs; compare a case with and without a mesh.</li></ul></details></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#35517c95-99fd-80bb-acf6-d90c7f0cd620">How a Service Mesh Works</a></li><li class="outline-level-2"><a href="#35517c95-99fd-8098-8118-d03af476de6f">Implementing a Service Mesh in a Real Project</a></li><li class="outline-level-2"><a href="#35517c95-99fd-80d3-9f1b-febf3d2e4646">Risks &amp;amp; Trade-Offs</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8074-a8ef-d1a351c6c610">A service mesh is essentially a dedicated “communication fabric” for microservices. It manages how services talk to each other, ensuring reliability, security, and observability without requiring developers to hard-code these concerns. </p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80c5-ac41-cdc47b04dc26">Implementing it in a real project usually involves deploying sidecar proxies (like Envoy) alongside each service and configuring a control plane (like Istio or Linkerd) to enforce policies, monitor traffic, and secure communication.</p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80fd-96eb-f3413011d853"><strong>Think of microservices as workers in a factory.</strong> Each worker (service) does a specific job but needs to coordinate with others. The service mesh is like the supervisor and communication system. It ensures messages are delivered correctly, securely, and efficiently. </p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80d8-8a7c-ce4b9cdf8dbc">Instead of embedding networking, logging, and security logic inside each service, the mesh abstracts these concerns into a separate infrastructure layer.</p><h2 id="35517c95-99fd-80bb-acf6-d90c7f0cd620" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35517c95-99fd-80bb-acf6-d90c7f0cd620" data-source-heading-level="2">How a Service Mesh Works</h2><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c3-9ec8-f0e4fd9bf107"><strong>Data Plane (Sidecar Proxies)</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8055-93d4-f92aa84398e4">Each service runs with a lightweight proxy (e.g., Envoy).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80e4-8df4-df22234dccf7">All inbound/outbound traffic flows through the proxy.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8007-a8a0-db3864f5fe99">Proxies enforce policies like routing rules, retries, or encryption.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8058-adbd-f528dc114d53"><strong>Control Plane</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-8233-ddf756498319">Centralized management layer (e.g., Istio Pilot).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-807f-b392-d4a26386a3d3">Configures proxies, distributes policies, and aggregates telemetry.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80fe-925f-e8d3a85a8fab">Provides dashboards for monitoring and debugging.</li></ul></li></ol><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8031-b1ba-fe5491c25d9b"><strong>Workflow Example:</strong></p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80b2-a1b8-c6fce2fc4316">Service A calls Service B → Proxy A intercepts → forwards to Proxy B → Proxy B delivers to Service B.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a9-a257-f249e17ab901">Along the way, traffic can be split (e.g., 80% to v1, 20% to v2), encrypted, and logged.</li></ul><h2 id="35517c95-99fd-8098-8118-d03af476de6f" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35517c95-99fd-8098-8118-d03af476de6f" data-source-heading-level="2">Implementing a Service Mesh in a Real Project</h2><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a2-a43e-c211f16eee1a"><strong>Choose a Service Mesh Tool</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802c-a193-db23fad2966a"><strong>Istio:</strong> Feature-rich, integrates with Kubernetes.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8039-a491-ca3afd13aa08"><strong>Linkerd:</strong> Lightweight, simpler setup.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-8afa-e5c9db305604"><strong>Consul:</strong> Multi-platform, strong service discovery.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80b5-852c-f5be3c9e1da3"><strong>Set Up Your Environment</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-803b-97f4-d1dcb2e0db29">Typically requires <strong>Kubernetes</strong> or another container orchestration platform.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-95ad-cee093d027b3">Deploy your microservices as pods/containers.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8022-80d0-dfa6f0b463c5"><strong>Deploy the Service Mesh</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80af-bf34-f60e4178c113">Install Istio/Linkerd via Helm charts or operators.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802f-8285-e4bea0dd8c68">Inject sidecar proxies into each service pod automatically.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8015-8a4d-d7d65ea4614c"><strong>Configure Policies</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-802a-895a-de487567f2ff">Define routing rules (e.g., canary deployments).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8054-908f-d9645a2207eb">Set up mTLS for secure communication.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c8-a60c-ecc489bc22da">Apply rate limits, retries, and circuit breakers.</li></ul></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-808a-9600-cbdd208f7e63"><strong>Monitor and Debug</strong><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8034-bc1f-d6ac1aba3787">Use built-in observability tools (Prometheus, Grafana, Jaeger).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-801b-b65a-ec4789a551db">Track latency, error rates, and traffic flows.</li></ul></li></ol><h2 id="35517c95-99fd-80d3-9f1b-febf3d2e4646" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35517c95-99fd-80d3-9f1b-febf3d2e4646" data-source-heading-level="2">Risks &amp; Trade-Offs</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80da-bcf1-c75e6984ba24"><strong>Complexity:</strong> Adds operational overhead; steep learning curve with Istio.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-afb8-f25e064e5a9a"><strong>Performance:</strong> Proxies introduce slight latency.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8027-982c-c48c7f54843b"><strong>Resource Usage:</strong> Sidecars consume CPU/memory.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ae-ac1d-e5b2a45c150b"><strong>Best Fit:</strong> Large-scale, distributed systems where service-to-service communication is complex.</li></ul></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/swe/distributed-systems/">
     <span class="next-reading-label">Next</span>
     <strong>Distributed Systems</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next step in the Software Systems reading path (Architecture).</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -109,139 +77,98 @@
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

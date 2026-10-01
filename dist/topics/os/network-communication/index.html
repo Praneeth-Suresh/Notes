@@ -3,105 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Network Communication · Praneeth&#39;s CS Field Notes</title>
+    <title>Network Communication — Praneeth Suresh</title>
 
     <meta name="description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/" />
-    <meta property="og:title" content="Network Communication · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Network Communication · Praneeth Suresh" />
     <meta property="og:description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Network Communication · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Network Communication · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Network Communication · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Network Communication · Praneeth Suresh" />
     <meta name="twitter:description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Network Communication · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Network Communication · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/","name":"Network Communication · Praneeth's CS Field Notes","description":"Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/","name":"Network Communication · Praneeth Suresh","description":"Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":4,"name":"Network Communication","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/network-communication/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/os/">Operating Systems</a></li><li aria-current="page">Network Communication</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Network Communication</h1>
-        <p class="topic-parent">In <a href="/topics/os/">Operating Systems</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/os/">Operating Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/os/interprocess-communication/">Interprocess Communication</a><p>Next note in Operating Systems.</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8089-8940-f29a2408e527">The way in which network communication happens is very similar to Interprocess Communiucation.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-808b-ab61-ee16a605ecee">A network connection between two endpoints (say, A and B) involves <strong>two queues</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8064-abb7-f43f4e723eef">One for outgoing data (send buffer).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8021-9b7f-ecb4dfe8a468">One for incoming data (receive buffer).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8025-8430-ecb82ad2ac5f">These queues decouple the sender and receiver, allowing asynchronous communication.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-809a-8484-ffe97dc8b37b">When data arrives from the network, it is first stored in a <strong>network buffer</strong> managed by the operating system. If the receiving process has not yet issued a <code class="note-inline-code">read</code>, the data simply accumulates in the buffer. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8096-a673-feefd5b52d4c">Only when the process performs a read operation does the data get transferred from the buffer into the process’s memory space. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8098-b067-f2c9e58ab3f0">This buffering ensures that network communication can tolerate timing mismatches between sender and receiver, but it also introduces the need for careful <strong>protocol design</strong>.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-807a-b55f-fb0a6b314908">Protocol Design</h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bf-bd35-d84dc18a5857">Protocols become <strong>critical</strong> when communication spans across networks. They define how data is structured, transmitted, acknowledged, and retransmitted if errors occur. Without protocols, processes would have no agreed-upon rules for interpreting the raw bytes arriving in buffers.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bc-adbd-cf68c2b19c66">Examples include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b1-a652-d1a2d51ab6e0"><strong>TCP</strong> ensures reliable, ordered delivery of data streams.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-808a-a170-da177d81bfcd"><strong>UDP</strong> provides lightweight, connectionless communication but leaves reliability to the application.</li></ul><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-804d-9359-e2f5a20cdc47">Socket Abstraction</h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c8-ae5a-d59566f31865"><strong>Sockets</strong> are the standardized abstraction for network communication. They are the software endpoints for two-way communication between two programs running on a network. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a7-b87b-c7e7a20fb27d">Like &#39;Pipe&#39; is used to create pipes and sockets are created using &#39;socket&#39; system call. The socket provides bidirectional FIFO Communication facility over the network.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800a-a461-feb72eb00d20">They act as <strong>double-sided endpoints</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8030-808b-cab7ffc1797a">Each socket is bound to a port and an IP address.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80eb-bdd4-c10f402e9191">Together, they uniquely identify a communication channel.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803b-a248-db506db742f4">Pipes and shared memory queues are local IPC mechanisms. Sockets extend the same queue-based abstraction across machines.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8030-9a0f-ec292d845d15">Sockets are standardized across platforms, making them the universal interface for network programming. They provide the same abstraction whether you’re building a web server, chat application, or distributed database.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c3-8715-ce8f054b00a4">Think of sockets as <strong>mailboxes</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b5-abb4-cd5178fe3525">Each port is like a unique street address.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800b-a507-e76f6be7bbaa">The socket is the actual mailbox, holding letters (messages) until the resident (process) picks them up.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8095-9ee1-e727a40b08de">Protocols are the <strong>postal rules, </strong>ensuring letters arrive intact, in order, and to the right address.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f9-908a-c77cfb28d55d">Sockets are designed to look like <strong>file descriptors</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f5-a578-f23e15b0c87e"><code class="note-inline-code">write()</code> sends data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8048-8bc5-cd3735ff6aea"><code class="note-inline-code">read()</code> receives data.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8093-a79c-f1638dfb9485">This design leverages the Unix philosophy of treating “everything as a file,” simplifying the programming model.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803c-9eda-d2bafa4dc834">The simple socket model assumes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80be-86d5-f586b72659f8">No corruption in transmission.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800c-973d-faff8c64621d">Both reader and writer are active and synchronized.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-807c-962c-c7258f1dd099">In reality, networks can corrupt or lose packets or processes may crash or stall. Protocols like TCP handle these issues with checksums, retransmissions, and flow control.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-80e6-8186-ede23822dcd0">Ports and Multiplexing</h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bc-8a68-e6e434669473">A single machine may host multiple network services simultaneously (e.g., a web server, mail server, and database).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80e8-8409-d1bec3d6c6f4"><strong>Ports</strong> are numerical identifiers that allow the operating system to distinguish between these services. Each port represents a unique communication channel, enabling multiple concurrent connections without confusion.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801b-9a40-f720c7c800f4">A port is a <strong>16-bit number</strong> (range: 0–65535). Certain ports are <strong>well-known</strong> (e.g., 80 for HTTP, 443 for HTTPS). Others are dynamically allocated for client connections.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80e6-8d05-e698a1fd3d7c">Here is how a port differs from a socket:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e3-b11c-f236cc1928b4">A <strong>port</strong> is the identifier for a communication endpoint.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-809e-a080-d29d367ed785">A <strong>socket</strong> is the actual data structure maintained by the OS, holding buffers, state, and metadata.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8032-a218-d9567eb072f8">Unlike files, sockets don’t exist in a structured filesystem namespace. Instead, the <strong>namespace for sockets</strong> is defined by:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fe-9ea7-dfed05e2d691"><strong>IP address</strong>: identifies the host machine.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f9-b221-f67e42cb5853"><strong>Port number</strong>: identifies the specific communication channel on that host.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801a-9af0-d0ce36a6619c">Together, <code class="note-inline-code">(IP, Port)</code> uniquely identifies a socket endpoint.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-8029-a380-c60f52f3f46c">Connection Establishment</h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80cd-a707-de7372aab038">A server creates a <strong>listening socket</strong> bound to a well-known port. It waits for incoming connection requests. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80de-8446-f18edbf2c414">A listening socket is an application-level endpoint that waits for incoming client connections on a specific port. It uses <code class="note-inline-code">bind()</code> to associate with a port, <code class="note-inline-code">listen()</code> to monitor for incoming requests, and <code class="note-inline-code">accept()</code> to establish communication, enabling two-way data exchange via TCP.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a5-8992-d73c3ba392d5">Unlike client sockets that initiate connections, a listening server acts as a passive receptor.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803c-8686-cef34b7dceb2">A client initiates a connection, often using a randomly chosen ephemeral port. The request is validated against the server’s listening socket. Once accepted, the server creates a new socket dedicated to that client.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8025-bb97-cd8a9c046638">This allows the listening socket to continue accepting new requests. A connection is uniquely identified by a <strong>5-tuple</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f4-a85d-f74747b4d185">Source IP</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-806a-90c8-d43bf0aaba79">Source Port</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80cb-8e2d-ff3bd3714464">Destination IP</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800a-ae9c-c9066f53d6aa">Destination Port</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8097-ad4a-f87d1f0b884e">Protocol (e.g., TCP).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8076-8eeb-d7c5905c12d0">This ensures that multiple simultaneous connections can coexist without confusion.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35617c95-99fd-8013-8a23-e15a358a3a71">Concurrency in Servers</h3><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-804e-912d-cf65b43d493f">Servers must handle <strong>multiple clients simultaneously</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8001-8d32-dab9a5d72597">The standard design pattern to enable this is as follows:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-801b-9307-ce02051889cc">The server continues listening on the original socket.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a6-bf4f-c18be97ad659">For each new client, it spawns a <strong>new execution context</strong> (process or thread).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80d0-99e3-df5add09b871">The child context handles communication with that client, while the parent remains available for others.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c2-8f6b-ce7287f84b98">The creating of a child context can happen in two ways:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fe-8ff9-c8b507fe33b8"><strong>Forking processes</strong>:<p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-802a-826a-f0394829c818">Each client connection is handled by a separate process. This provides strong isolation (memory protection). But  this is expensive: process creation and context switching are costly.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-806d-9fe6-d97a12d6a3c0"><strong>Threads</strong>:<p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801e-b4a7-cc17b2e2b94d">Threads are lighter weight than processes. Threads share memory space, making communication easier. But they have weaker isolation: a bug in one thread can affect the entire server.</p></li></ul></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/os/">Operating Systems</a></li><li aria-current="page">Network Communication</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Network Communication</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-05-25">2026-05-25</time></dd></div></dl></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#35617c95-99fd-807a-b55f-fb0a6b314908">Protocol Design</a></li><li class="outline-level-2"><a href="#35617c95-99fd-804d-9359-e2f5a20cdc47">Socket Abstraction</a></li><li class="outline-level-2"><a href="#35617c95-99fd-80e6-8186-ede23822dcd0">Ports and Multiplexing</a></li><li class="outline-level-2"><a href="#35617c95-99fd-8029-a380-c60f52f3f46c">Connection Establishment</a></li><li class="outline-level-2"><a href="#35617c95-99fd-8013-8a23-e15a358a3a71">Concurrency in Servers</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8089-8940-f29a2408e527">The way in which network communication happens is very similar to Interprocess Communiucation.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-808b-ab61-ee16a605ecee">A network connection between two endpoints (say, A and B) involves <strong>two queues</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8064-abb7-f43f4e723eef">One for outgoing data (send buffer).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8021-9b7f-ecb4dfe8a468">One for incoming data (receive buffer).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8025-8430-ecb82ad2ac5f">These queues decouple the sender and receiver, allowing asynchronous communication.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-809a-8484-ffe97dc8b37b">When data arrives from the network, it is first stored in a <strong>network buffer</strong> managed by the operating system. If the receiving process has not yet issued a <code class="note-inline-code">read</code>, the data simply accumulates in the buffer. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8096-a673-feefd5b52d4c">Only when the process performs a read operation does the data get transferred from the buffer into the process’s memory space. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8098-b067-f2c9e58ab3f0">This buffering ensures that network communication can tolerate timing mismatches between sender and receiver, but it also introduces the need for careful <strong>protocol design</strong>.</p><h2 id="35617c95-99fd-807a-b55f-fb0a6b314908" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35617c95-99fd-807a-b55f-fb0a6b314908" data-source-heading-level="2">Protocol Design</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bf-bd35-d84dc18a5857">Protocols become <strong>critical</strong> when communication spans across networks. They define how data is structured, transmitted, acknowledged, and retransmitted if errors occur. Without protocols, processes would have no agreed-upon rules for interpreting the raw bytes arriving in buffers.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bc-adbd-cf68c2b19c66">Examples include:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b1-a652-d1a2d51ab6e0"><strong>TCP</strong> ensures reliable, ordered delivery of data streams.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-808a-a170-da177d81bfcd"><strong>UDP</strong> provides lightweight, connectionless communication but leaves reliability to the application.</li></ul><h2 id="35617c95-99fd-804d-9359-e2f5a20cdc47" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35617c95-99fd-804d-9359-e2f5a20cdc47" data-source-heading-level="2">Socket Abstraction</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c8-ae5a-d59566f31865"><strong>Sockets</strong> are the standardized abstraction for network communication. They are the software endpoints for two-way communication between two programs running on a network. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a7-b87b-c7e7a20fb27d">Like &#39;Pipe&#39; is used to create pipes and sockets are created using &#39;socket&#39; system call. The socket provides bidirectional FIFO Communication facility over the network.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-800a-a461-feb72eb00d20">They act as <strong>double-sided endpoints</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8030-808b-cab7ffc1797a">Each socket is bound to a port and an IP address.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80eb-bdd4-c10f402e9191">Together, they uniquely identify a communication channel.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803b-a248-db506db742f4">Pipes and shared memory queues are local IPC mechanisms. Sockets extend the same queue-based abstraction across machines.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8030-9a0f-ec292d845d15">Sockets are standardized across platforms, making them the universal interface for network programming. They provide the same abstraction whether you’re building a web server, chat application, or distributed database.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c3-8715-ce8f054b00a4">Think of sockets as <strong>mailboxes</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80b5-abb4-cd5178fe3525">Each port is like a unique street address.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800b-a507-e76f6be7bbaa">The socket is the actual mailbox, holding letters (messages) until the resident (process) picks them up.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8095-9ee1-e727a40b08de">Protocols are the <strong>postal rules, </strong>ensuring letters arrive intact, in order, and to the right address.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80f9-908a-c77cfb28d55d">Sockets are designed to look like <strong>file descriptors</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f5-a578-f23e15b0c87e"><code class="note-inline-code">write()</code> sends data.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8048-8bc5-cd3735ff6aea"><code class="note-inline-code">read()</code> receives data.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8093-a79c-f1638dfb9485">This design leverages the Unix philosophy of treating “everything as a file,” simplifying the programming model.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803c-9eda-d2bafa4dc834">The simple socket model assumes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80be-86d5-f586b72659f8">No corruption in transmission.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800c-973d-faff8c64621d">Both reader and writer are active and synchronized.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-807c-962c-c7258f1dd099">In reality, networks can corrupt or lose packets or processes may crash or stall. Protocols like TCP handle these issues with checksums, retransmissions, and flow control.</p><h2 id="35617c95-99fd-80e6-8186-ede23822dcd0" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35617c95-99fd-80e6-8186-ede23822dcd0" data-source-heading-level="2">Ports and Multiplexing</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80bc-8a68-e6e434669473">A single machine may host multiple network services simultaneously (e.g., a web server, mail server, and database).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80e8-8409-d1bec3d6c6f4"><strong>Ports</strong> are numerical identifiers that allow the operating system to distinguish between these services. Each port represents a unique communication channel, enabling multiple concurrent connections without confusion.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801b-9a40-f720c7c800f4">A port is a <strong>16-bit number</strong> (range: 0–65535). Certain ports are <strong>well-known</strong> (e.g., 80 for HTTP, 443 for HTTPS). Others are dynamically allocated for client connections.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80e6-8d05-e698a1fd3d7c">Here is how a port differs from a socket:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80e3-b11c-f236cc1928b4">A <strong>port</strong> is the identifier for a communication endpoint.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-809e-a080-d29d367ed785">A <strong>socket</strong> is the actual data structure maintained by the OS, holding buffers, state, and metadata.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8032-a218-d9567eb072f8">Unlike files, sockets don’t exist in a structured filesystem namespace. Instead, the <strong>namespace for sockets</strong> is defined by:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fe-9ea7-dfed05e2d691"><strong>IP address</strong>: identifies the host machine.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f9-b221-f67e42cb5853"><strong>Port number</strong>: identifies the specific communication channel on that host.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801a-9af0-d0ce36a6619c">Together, <code class="note-inline-code">(IP, Port)</code> uniquely identifies a socket endpoint.</p><h2 id="35617c95-99fd-8029-a380-c60f52f3f46c" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35617c95-99fd-8029-a380-c60f52f3f46c" data-source-heading-level="2">Connection Establishment</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80cd-a707-de7372aab038">A server creates a <strong>listening socket</strong> bound to a well-known port. It waits for incoming connection requests. </p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80de-8446-f18edbf2c414">A listening socket is an application-level endpoint that waits for incoming client connections on a specific port. It uses <code class="note-inline-code">bind()</code> to associate with a port, <code class="note-inline-code">listen()</code> to monitor for incoming requests, and <code class="note-inline-code">accept()</code> to establish communication, enabling two-way data exchange via TCP.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80a5-8992-d73c3ba392d5">Unlike client sockets that initiate connections, a listening server acts as a passive receptor.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-803c-8686-cef34b7dceb2">A client initiates a connection, often using a randomly chosen ephemeral port. The request is validated against the server’s listening socket. Once accepted, the server creates a new socket dedicated to that client.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8025-bb97-cd8a9c046638">This allows the listening socket to continue accepting new requests. A connection is uniquely identified by a <strong>5-tuple</strong>:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80f4-a85d-f74747b4d185">Source IP</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-806a-90c8-d43bf0aaba79">Source Port</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80cb-8e2d-ff3bd3714464">Destination IP</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-800a-ae9c-c9066f53d6aa">Destination Port</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-8097-ad4a-f87d1f0b884e">Protocol (e.g., TCP).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8076-8eeb-d7c5905c12d0">This ensures that multiple simultaneous connections can coexist without confusion.</p><h2 id="35617c95-99fd-8013-8a23-e15a358a3a71" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35617c95-99fd-8013-8a23-e15a358a3a71" data-source-heading-level="2">Concurrency in Servers</h2><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-804e-912d-cf65b43d493f">Servers must handle <strong>multiple clients simultaneously</strong>.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8001-8d32-dab9a5d72597">The standard design pattern to enable this is as follows:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-801b-9307-ce02051889cc">The server continues listening on the original socket.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80a6-bf4f-c18be97ad659">For each new client, it spawns a <strong>new execution context</strong> (process or thread).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80d0-99e3-df5add09b871">The child context handles communication with that client, while the parent remains available for others.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-80c2-8f6b-ce7287f84b98">The creating of a child context can happen in two ways:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-80fe-8ff9-c8b507fe33b8"><strong>Forking processes</strong>:<p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-802a-826a-f0394829c818">Each client connection is handled by a separate process. This provides strong isolation (memory protection). But  this is expensive: process creation and context switching are costly.</p></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35617c95-99fd-806d-9fe6-d97a12d6a3c0"><strong>Threads</strong>:<p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-801e-b4a7-cc17b2e2b94d">Threads are lighter weight than processes. Threads share memory space, making communication easier. But they have weaker isolation: a bug in one thread can affect the entire server.</p></li></ul></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/os/interprocess-communication/">
     <span class="next-reading-label">Next</span>
     <strong>Interprocess Communication</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next note in Operating Systems.</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -109,139 +77,98 @@
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

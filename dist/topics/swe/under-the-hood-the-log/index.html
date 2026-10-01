@@ -3,105 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Under the Hood: The log · Praneeth&#39;s CS Field Notes</title>
+    <title>Under the Hood: The log — Praneeth Suresh</title>
 
     <meta name="description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/" />
-    <meta property="og:title" content="Under the Hood: The log · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Under the Hood: The log · Praneeth Suresh" />
     <meta property="og:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Under the Hood: The log · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Under the Hood: The log · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Under the Hood: The log · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Under the Hood: The log · Praneeth Suresh" />
     <meta name="twitter:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Under the Hood: The log · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Under the Hood: The log · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/","name":"Under the Hood: The log · Praneeth's CS Field Notes","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/","name":"Under the Hood: The log · Praneeth Suresh","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Software Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":4,"name":"Under the Hood: The log","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/under-the-hood-the-log/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Under the Hood: The log</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Under the Hood: The log</h1>
-        <p class="topic-parent">In <a href="/topics/swe/">Software Systems</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Uses LinkedIn log article as a base; clearly attribute derived ideas and show one append/replay example.</li></ul></div>
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/swe/">Software Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/swe/testing/">Testing</a><p>Next step in the Software Systems reading path (Practice).</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80ba-9f66-d634c8eb2587">This draws material from the following excellent article: <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener">https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80f3-a823-e64dba90b8b4">Based on Jay Kreps’ seminal article, the log is not just a file format for errors. It is the fundamental backbone of distributed systems. </p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8086-8c0f-e3559d37ae5b">The Theory of the Log in Distributed Systems</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8020-baa2-d281a66b45cf">In distributed systems theory, the log is an <strong>append-only, totally-ordered sequence of records</strong>. While simple, it serves as the primary mechanism for managing the two hardest problems in the field: <strong>ordering</strong> and <strong>consistency</strong>.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80f4-91e9-dafc8c5fcc8a">1. The State Machine Replication (SMR) Principle</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8091-a6b7-ebcd6cb75eea">The academic core of the log is the State Machine Replication principle. It posits that:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8087-a3cd-e73eb94a0a95"><strong>The Law:</strong> If two identical, deterministic processes start in the same state and receive the same inputs in the same order, they will produce the same output and end in the same state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8073-b018-dcbdc3dee165"><strong>The Log’s Role:</strong> The log acts as the &quot;input sequencer.&quot; By forcing all incoming requests into a single, ordered log, you effectively &quot;squeeze out&quot; the non-determinism of a distributed network.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80b0-9b93-cbbe50b797d3">2. Physical vs. Logical Logging</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a7-8418-c9a3f7356ca9">The theory distinguishes between <em>what</em> you put in the log:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-9490-e8f13941d120"><strong>Logical Logging:</strong> Recording the operations themselves (e.g., &quot;Add 5 to account X&quot;). This is compact but requires deterministic execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a3-b6fb-f5b9f5e15773"><strong>Physical Logging:</strong> Recording the resulting state change (e.g., &quot;Account X is now 105&quot;). This is more robust against execution differences but requires more bandwidth.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-8091-94ab-ffeaf2ea07db">3. Table-Log Duality</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a3-b1bf-f31286b2597a">A profound theoretical takeaway is that <strong>tables and logs are duals</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-9f18-ef1bd2410353">A <strong>Table</strong> represents a snapshot of data at a point in time (State).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c1-b332-d0f214e323f8">A <strong>Log</strong> represents the transformation over time (Events).<p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8076-b963-f73b56f4a050">If you have a log, you can reconstruct the table at any point in history by &quot;replaying&quot; the events. If you have a table and record every change, you have a log.</p></li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ec-aea7-e480acbf32e5">4. The Log as a Consensus Abstraction</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8064-b7a4-edfe520a4a36">While researchers often focus on consensus algorithms like <strong>Paxos</strong> or <strong>Raft</strong>, the log is the practical application of those algorithms. Consensus is about agreeing on a single value; a distributed log is simply a sequence of consensus decisions—one for each &quot;slot&quot; in the log.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8047-adcc-d1a207ce2de4">Modern Platforms Relying on the Log</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800c-ab9f-cbe557fa9ded">Today’s most powerful data infrastructures are essentially &quot;logs-as-a-service&quot; or systems built entirely on log-centric principles.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-800e-ba82-d63ba0096f8e">1. Apache Kafka</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-808c-8aad-c899b0c21c75">Kafka is the direct realization of the ideas in the article. It treats the log as the primary architectural element rather than an implementation detail.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8044-b78d-daa195ca540b"><strong>How it uses the log:</strong> It provides a distributed, partitioned, and replicated commit log. Producers append events to the end of the log, and many different consumers (databases, search indexes, or microservices) read from the log at their own pace to build their own &quot;view&quot; of the world.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80dd-8a0f-ee6c1b71058d">2. Apache Flink</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80b9-bd77-ec8dcf445ccf">Flink is a stream processing framework that treats data as an infinite log of events.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809a-a7c9-e39785cacb55"><strong>How it uses the log:</strong> Flink uses the log for <strong>fault tolerance</strong>. It takes periodic &quot;savepoints&quot; of its state, but between those points, it relies on the replayability of the input log to recover and ensure &quot;exactly-once&quot; processing semantics.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-801d-94ea-c9df855189b8">3. CockroachDB / TiDB</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8059-9fdc-f3b6766ec53a">These are &quot;NewSQL&quot; distributed databases that provide global scalability with ACID guarantees.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-b4ad-dd87f2d89743"><strong>How it uses the log:</strong> They use the <strong>Raft consensus algorithm</strong> to maintain a distributed log across different geographic nodes. Every write must be appended to this log and acknowledged by a majority of nodes before it is considered &quot;committed,&quot; ensuring that the database remains consistent even if a data center goes offline.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80bc-b69c-c700a3681ff1">4. Elasticsearch</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800d-9cc3-fe1a7bbbf955">While primarily a search engine, Elasticsearch&#39;s reliability depends on a log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-984a-ddcc14444157"><strong>How it uses the log:</strong> It uses a <strong>Translog</strong> (Transaction Log). Because writing to the heavy search index (Lucene) is expensive, Elasticsearch first writes the operation to an append-only log. This ensures that if a node crashes, it can recover any data that was acknowledged but not yet fully indexed.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35517c95-99fd-80ff-85a5-cae0a5f451c4">5. Git (Version Control)</h4><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80dd-b0fc-d1f1a629e4d7">Though we think of it as a tool for code, Git is a pure implementation of a distributed log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80cc-9c59-ff925ecb42c5"><strong>How it uses the log:</strong> Every &quot;commit&quot; is a record in an immutable log. The &quot;state&quot; of your code at any branch is just the result of replaying the log of commits from the beginning. Merging and rebasing are simply operations that manipulate the order or structure of this log.</li></ul></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Under the Hood: The log</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Under the Hood: The log</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-05-25">2026-05-25</time></dd></div></dl><details class="note-known-gaps"><summary>Known gaps (1)</summary><ul><li>Not yet addressed from the September 2026 site review. Uses LinkedIn log article as a base; clearly attribute derived ideas and show one append/replay example.</li></ul></details></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#35517c95-99fd-8086-8c0f-e3559d37ae5b">The Theory of the Log in Distributed Systems</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80f4-91e9-dafc8c5fcc8a">1. The State Machine Replication (SMR) Principle</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80b0-9b93-cbbe50b797d3">2. Physical vs. Logical Logging</a></li><li class="outline-level-3"><a href="#35517c95-99fd-8091-94ab-ffeaf2ea07db">3. Table-Log Duality</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80ec-aea7-e480acbf32e5">4. The Log as a Consensus Abstraction</a></li><li class="outline-level-2"><a href="#35517c95-99fd-8047-adcc-d1a207ce2de4">Modern Platforms Relying on the Log</a></li><li class="outline-level-3"><a href="#35517c95-99fd-800e-ba82-d63ba0096f8e">1. Apache Kafka</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80dd-8a0f-ee6c1b71058d">2. Apache Flink</a></li><li class="outline-level-3"><a href="#35517c95-99fd-801d-94ea-c9df855189b8">3. CockroachDB / TiDB</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80bc-b69c-c700a3681ff1">4. Elasticsearch</a></li><li class="outline-level-3"><a href="#35517c95-99fd-80ff-85a5-cae0a5f451c4">5. Git (Version Control)</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80ba-9f66-d634c8eb2587">This draws material from the following excellent article: <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying" rel="noreferrer noopener">https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying</a></p><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80f3-a823-e64dba90b8b4">Based on Jay Kreps’ seminal article, the log is not just a file format for errors. It is the fundamental backbone of distributed systems. </p><h2 id="35517c95-99fd-8086-8c0f-e3559d37ae5b" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35517c95-99fd-8086-8c0f-e3559d37ae5b" data-source-heading-level="2">The Theory of the Log in Distributed Systems</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8020-baa2-d281a66b45cf">In distributed systems theory, the log is an <strong>append-only, totally-ordered sequence of records</strong>. While simple, it serves as the primary mechanism for managing the two hardest problems in the field: <strong>ordering</strong> and <strong>consistency</strong>.</p><h3 id="35517c95-99fd-80f4-91e9-dafc8c5fcc8a" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80f4-91e9-dafc8c5fcc8a" data-source-heading-level="3">1. The State Machine Replication (SMR) Principle</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8091-a6b7-ebcd6cb75eea">The academic core of the log is the State Machine Replication principle. It posits that:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8087-a3cd-e73eb94a0a95"><strong>The Law:</strong> If two identical, deterministic processes start in the same state and receive the same inputs in the same order, they will produce the same output and end in the same state.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8073-b018-dcbdc3dee165"><strong>The Log’s Role:</strong> The log acts as the &quot;input sequencer.&quot; By forcing all incoming requests into a single, ordered log, you effectively &quot;squeeze out&quot; the non-determinism of a distributed network.</li></ul><h3 id="35517c95-99fd-80b0-9b93-cbbe50b797d3" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80b0-9b93-cbbe50b797d3" data-source-heading-level="3">2. Physical vs. Logical Logging</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a7-8418-c9a3f7356ca9">The theory distinguishes between <em>what</em> you put in the log:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80ce-9490-e8f13941d120"><strong>Logical Logging:</strong> Recording the operations themselves (e.g., &quot;Add 5 to account X&quot;). This is compact but requires deterministic execution.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80a3-b6fb-f5b9f5e15773"><strong>Physical Logging:</strong> Recording the resulting state change (e.g., &quot;Account X is now 105&quot;). This is more robust against execution differences but requires more bandwidth.</li></ul><h3 id="35517c95-99fd-8091-94ab-ffeaf2ea07db" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-8091-94ab-ffeaf2ea07db" data-source-heading-level="3">3. Table-Log Duality</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80a3-b1bf-f31286b2597a">A profound theoretical takeaway is that <strong>tables and logs are duals</strong>.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809b-9f18-ef1bd2410353">A <strong>Table</strong> represents a snapshot of data at a point in time (State).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80c1-b332-d0f214e323f8">A <strong>Log</strong> represents the transformation over time (Events).<p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8076-b963-f73b56f4a050">If you have a log, you can reconstruct the table at any point in history by &quot;replaying&quot; the events. If you have a table and record every change, you have a log.</p></li></ul><h3 id="35517c95-99fd-80ec-aea7-e480acbf32e5" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80ec-aea7-e480acbf32e5" data-source-heading-level="3">4. The Log as a Consensus Abstraction</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8064-b7a4-edfe520a4a36">While researchers often focus on consensus algorithms like <strong>Paxos</strong> or <strong>Raft</strong>, the log is the practical application of those algorithms. Consensus is about agreeing on a single value; a distributed log is simply a sequence of consensus decisions—one for each &quot;slot&quot; in the log.</p><h2 id="35517c95-99fd-8047-adcc-d1a207ce2de4" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35517c95-99fd-8047-adcc-d1a207ce2de4" data-source-heading-level="2">Modern Platforms Relying on the Log</h2><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800c-ab9f-cbe557fa9ded">Today’s most powerful data infrastructures are essentially &quot;logs-as-a-service&quot; or systems built entirely on log-centric principles.</p><h3 id="35517c95-99fd-800e-ba82-d63ba0096f8e" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-800e-ba82-d63ba0096f8e" data-source-heading-level="3">1. Apache Kafka</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-808c-8aad-c899b0c21c75">Kafka is the direct realization of the ideas in the article. It treats the log as the primary architectural element rather than an implementation detail.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8044-b78d-daa195ca540b"><strong>How it uses the log:</strong> It provides a distributed, partitioned, and replicated commit log. Producers append events to the end of the log, and many different consumers (databases, search indexes, or microservices) read from the log at their own pace to build their own &quot;view&quot; of the world.</li></ul><h3 id="35517c95-99fd-80dd-8a0f-ee6c1b71058d" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80dd-8a0f-ee6c1b71058d" data-source-heading-level="3">2. Apache Flink</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80b9-bd77-ec8dcf445ccf">Flink is a stream processing framework that treats data as an infinite log of events.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-809a-a7c9-e39785cacb55"><strong>How it uses the log:</strong> Flink uses the log for <strong>fault tolerance</strong>. It takes periodic &quot;savepoints&quot; of its state, but between those points, it relies on the replayability of the input log to recover and ensure &quot;exactly-once&quot; processing semantics.</li></ul><h3 id="35517c95-99fd-801d-94ea-c9df855189b8" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-801d-94ea-c9df855189b8" data-source-heading-level="3">3. CockroachDB / TiDB</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-8059-9fdc-f3b6766ec53a">These are &quot;NewSQL&quot; distributed databases that provide global scalability with ACID guarantees.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80be-b4ad-dd87f2d89743"><strong>How it uses the log:</strong> They use the <strong>Raft consensus algorithm</strong> to maintain a distributed log across different geographic nodes. Every write must be appended to this log and acknowledged by a majority of nodes before it is considered &quot;committed,&quot; ensuring that the database remains consistent even if a data center goes offline.</li></ul><h3 id="35517c95-99fd-80bc-b69c-c700a3681ff1" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80bc-b69c-c700a3681ff1" data-source-heading-level="3">4. Elasticsearch</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-800d-9cc3-fe1a7bbbf955">While primarily a search engine, Elasticsearch&#39;s reliability depends on a log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-8060-984a-ddcc14444157"><strong>How it uses the log:</strong> It uses a <strong>Translog</strong> (Transaction Log). Because writing to the heavy search index (Lucene) is expensive, Elasticsearch first writes the operation to an append-only log. This ensures that if a node crashes, it can recover any data that was acknowledged but not yet fully indexed.</li></ul><h3 id="35517c95-99fd-80ff-85a5-cae0a5f451c4" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35517c95-99fd-80ff-85a5-cae0a5f451c4" data-source-heading-level="3">5. Git (Version Control)</h3><p class="notion-block notion-paragraph" data-notion-block-id="35517c95-99fd-80dd-b0fc-d1f1a629e4d7">Though we think of it as a tool for code, Git is a pure implementation of a distributed log.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35517c95-99fd-80cc-9c59-ff925ecb42c5"><strong>How it uses the log:</strong> Every &quot;commit&quot; is a record in an immutable log. The &quot;state&quot; of your code at any branch is just the result of replaying the log of commits from the beginning. Merging and rebasing are simply operations that manipulate the order or structure of this log.</li></ul></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/swe/testing/">
     <span class="next-reading-label">Next</span>
     <strong>Testing</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next step in the Software Systems reading path (Practice).</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -109,139 +77,98 @@
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

@@ -3,94 +3,67 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agents · Praneeth&#39;s CS Field Notes</title>
+    <title>Agents — Praneeth Suresh</title>
 
     <meta name="description" content="Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/" />
-    <meta property="og:title" content="Agents · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Agents · Praneeth Suresh" />
     <meta property="og:description" content="Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Agents · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Agents · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Agents · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Agents · Praneeth Suresh" />
     <meta name="twitter:description" content="Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Agents · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Agents · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/","name":"Agents · Praneeth's CS Field Notes","description":"Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/","name":"Agents · Praneeth Suresh","description":"Software-engineering principles for building agent applications (as opposed to using coding agents): when to use an agent, workflows, and memory.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Building Agents","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/"},{"@type":"ListItem","position":4,"name":"Agents","item":"https://notes.praneeth-suresh-s.workers.dev/topics/agent-build/agents/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/agent-build/">Building Agents</a></li><li aria-current="page">Agents</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Agents</h1>
-        <p class="topic-parent">In <a href="/topics/agent-build/">Building Agents</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/agent-build/">Building Agents</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/agent-build/advanced-agentic-engineering/">Advanced Agentic Engineering</a><p>Next step in the Building Agents reading path (In order).</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816d-b4a7-d3a3c210c90b">An agent is more than a workflow; it is an autonomous system that uses an LLM to decide which tools to use and how to handle unexpected results. In Python, the ecosystem is rapidly maturing, moving from experimental scripts to production-grade frameworks.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81dc-93c0-ee36ac3238d8">Choosing Your Framework</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-906c-e0bc19f30c32">For a seasoned engineer, the choice of framework depends on the required balance between <strong>Autonomy</strong> and <strong>Control</strong>.</p><div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table class="notion-block notion-table" data-notion-block-id="354d3a21-bb2d-8161-90f4-e7323e31f5b3"><tbody><tr><th>Framework</th><th>Mental Model</th><th>When to Use</th></tr><tr><td><strong>PydanticAI</strong></td><td>Type-Safe Functions</td><td>Use this for <strong>Production</strong>. It feels like FastAPI for agents. It uses Pydantic for strict validation, making it highly reliable and easy to debug.</td></tr><tr><td><strong>CrewAI</strong></td><td>Role-Based Agents</td><td>Use this for <strong>Business Logic</strong>. If you need an “Accountant Agent” and a “Manager Agent” to collaborate, CrewAI’s role-playing abstraction is powerful.</td></tr><tr><td><strong>LangGraph</strong></td><td>Cyclic Graphs</td><td>Use this for <strong>Custom Architectures</strong>. If you need to build a bespoke reasoning loop that doesn’t fit the standard ReAct pattern.</td></tr><tr><td><strong>AutoGen</strong></td><td>Conversational Agents</td><td>Use this for <strong>Creative Problem Solving</strong>. Ideal for multi-agent brainstorming or coding tasks.</td></tr></tbody></table></div><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81e6-862d-ca35c9fd23f4">The Tooling Revolution: Model Context Protocol (MCP)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-812e-b0d9-dfe936a4ad02">In the past, giving an agent a tool meant writing a custom wrapper for every API. The <strong>Model Context Protocol (MCP)</strong> changes this. It is a universal standard that allows agents to connect to tools and data sources seamlessly.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81fc-ad85-d04638af056a">Why MCP?</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-a950-edc38d1196af">An API allows you to <em>get</em> data. MCP allows you to <em>provide context</em>.
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/agent-build/">Building Agents</a></li><li aria-current="page">Agents</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Agents</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-07-06">2026-07-06</time></dd></div></dl></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#354d3a21-bb2d-81dc-93c0-ee36ac3238d8">Choosing Your Framework</a></li><li class="outline-level-2"><a href="#354d3a21-bb2d-81e6-862d-ca35c9fd23f4">The Tooling Revolution: Model Context Protocol (MCP)</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81fc-ad85-d04638af056a">Why MCP?</a></li><li class="outline-level-2"><a href="#354d3a21-bb2d-8155-ba55-d363cfe00a89">Production Considerations for Agents</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-810c-9b6d-ed546c70cbf4">State Management</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81db-a108-cc988bc52ea3">Failure Handling: The “Retry” isn’t enough</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-816e-8a2f-ddd77465d940">Evaluation &amp;amp; Observability</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81c7-9a43-c251ad0b6e11">Security: The “Sandboxing” Mandate</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81e4-a1b4-e2a83e220647">Cost / Latency Tradeoffs</a></li><li class="outline-level-2"><a href="#354d3a21-bb2d-81a7-8c5c-ef218958eb33">Engineering Heuristics for Performance</a></li><li class="outline-level-2"><a href="#354d3a21-bb2d-816c-a27d-f614adafe1a7">tep-by-Step Implementation: Pydantic AI + FastMCP</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-8192-a376-fd0daaf8bfd7">Precise Setup Steps</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-8106-a992-fd6a67b958c0">Code Implementation</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-813d-abea-f1056610f2ff">Part A: The MCP Tool Server ( server.py )</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81ed-bbba-de7ea6b8b5b3">Part B: The Pydantic AI Agent ( agent_app.py )</a></li><li class="outline-level-3"><a href="#354d3a21-bb2d-81ea-8a18-cbb45724243a">Factoring in Production Concepts</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816d-b4a7-d3a3c210c90b">An agent is more than a workflow; it is an autonomous system that uses an LLM to decide which tools to use and how to handle unexpected results. In Python, the ecosystem is rapidly maturing, moving from experimental scripts to production-grade frameworks.</p><h2 id="354d3a21-bb2d-81dc-93c0-ee36ac3238d8" class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-81dc-93c0-ee36ac3238d8" data-source-heading-level="2">Choosing Your Framework</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-906c-e0bc19f30c32">For a seasoned engineer, the choice of framework depends on the required balance between <strong>Autonomy</strong> and <strong>Control</strong>.</p><div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table class="notion-block notion-table" data-notion-block-id="354d3a21-bb2d-8161-90f4-e7323e31f5b3"><tbody><tr><th>Framework</th><th>Mental Model</th><th>When to Use</th></tr><tr><td><strong>PydanticAI</strong></td><td>Type-Safe Functions</td><td>Use this for <strong>Production</strong>. It feels like FastAPI for agents. It uses Pydantic for strict validation, making it highly reliable and easy to debug.</td></tr><tr><td><strong>CrewAI</strong></td><td>Role-Based Agents</td><td>Use this for <strong>Business Logic</strong>. If you need an “Accountant Agent” and a “Manager Agent” to collaborate, CrewAI’s role-playing abstraction is powerful.</td></tr><tr><td><strong>LangGraph</strong></td><td>Cyclic Graphs</td><td>Use this for <strong>Custom Architectures</strong>. If you need to build a bespoke reasoning loop that doesn’t fit the standard ReAct pattern.</td></tr><tr><td><strong>AutoGen</strong></td><td>Conversational Agents</td><td>Use this for <strong>Creative Problem Solving</strong>. Ideal for multi-agent brainstorming or coding tasks.</td></tr></tbody></table></div><h2 id="354d3a21-bb2d-81e6-862d-ca35c9fd23f4" class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-81e6-862d-ca35c9fd23f4" data-source-heading-level="2">The Tooling Revolution: Model Context Protocol (MCP)</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-812e-b0d9-dfe936a4ad02">In the past, giving an agent a tool meant writing a custom wrapper for every API. The <strong>Model Context Protocol (MCP)</strong> changes this. It is a universal standard that allows agents to connect to tools and data sources seamlessly.</p><h3 id="354d3a21-bb2d-81fc-ad85-d04638af056a" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81fc-ad85-d04638af056a" data-source-heading-level="3">Why MCP?</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815f-a950-edc38d1196af">An API allows you to <em>get</em> data. MCP allows you to <em>provide context</em>.
 * <strong>FastMCP:</strong> A framework that allows you to turn any Python function into an MCP-compatible tool in minutes.
-* <strong>Motivation:</strong> APIs are often too rigid for LLMs. MCP servers can expose not just functions, but also local files, database schemas, and even browser sessions in a way that the LLM can “understand” and navigate.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8155-ba55-d363cfe00a89">Production Considerations for Agents</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-810c-9b6d-ed546c70cbf4">State Management</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81dc-98c7-c5e830185214">State is the “memory” of your agent. In production, you must handle:
+* <strong>Motivation:</strong> APIs are often too rigid for LLMs. MCP servers can expose not just functions, but also local files, database schemas, and even browser sessions in a way that the LLM can “understand” and navigate.</p><h2 id="354d3a21-bb2d-8155-ba55-d363cfe00a89" class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-8155-ba55-d363cfe00a89" data-source-heading-level="2">Production Considerations for Agents</h2><h3 id="354d3a21-bb2d-810c-9b6d-ed546c70cbf4" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-810c-9b6d-ed546c70cbf4" data-source-heading-level="3">State Management</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81dc-98c7-c5e830185214">State is the “memory” of your agent. In production, you must handle:
 * <strong>Persistence:</strong> Saving the agent’s state to a database (Postgres/Redis) so it can resume after a crash.
-* <strong>Context Pruning:</strong> Agents can “forget” the original goal if the conversation gets too long. You must implement strategies to summarize old turns or “slide” the window of active context.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81db-a108-cc988bc52ea3">Failure Handling: The “Retry” isn’t enough</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815d-80e7-ccffdbc70fa5">In agentic engineering, a “failure” might be the LLM calling a tool with the wrong arguments.
+* <strong>Context Pruning:</strong> Agents can “forget” the original goal if the conversation gets too long. You must implement strategies to summarize old turns or “slide” the window of active context.</p><h3 id="354d3a21-bb2d-81db-a108-cc988bc52ea3" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81db-a108-cc988bc52ea3" data-source-heading-level="3">Failure Handling: The “Retry” isn’t enough</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-815d-80e7-ccffdbc70fa5">In agentic engineering, a “failure” might be the LLM calling a tool with the wrong arguments.
 * <strong>Self-Correction:</strong> Catch the error, pass it back to the LLM as a “Thought,” and let it try again with a different argument.
-* <strong>Fallback Models:</strong> If a cheap model (GPT-4o-mini) fails the reasoning task, automatically “escalate” the task to a more capable model (Claude 3.5 Sonnet).</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-816e-8a2f-ddd77465d940">Evaluation &amp; Observability</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8165-ba79-c0ab8e215671">You cannot “unit test” an agent’s path. You must use <strong>Traces</strong>.
+* <strong>Fallback Models:</strong> If a cheap model (GPT-4o-mini) fails the reasoning task, automatically “escalate” the task to a more capable model (Claude 3.5 Sonnet).</p><h3 id="354d3a21-bb2d-816e-8a2f-ddd77465d940" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-816e-8a2f-ddd77465d940" data-source-heading-level="3">Evaluation &amp; Observability</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8165-ba79-c0ab8e215671">You cannot “unit test” an agent’s path. You must use <strong>Traces</strong>.
 * <strong>LangSmith / Langfuse:</strong> These tools allow you to visualize the “Trajectory” of the agent. You can see exactly why an agent chose Tool A over Tool B.
-* <strong>Evals:</strong> Create a dataset of “Golden Trajectories”—expected sequences of tool calls for specific prompts—and run them against new versions of your agent to check for regressions.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81c7-9a43-c251ad0b6e11">Security: The “Sandboxing” Mandate</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a2-9a71-ed7eeca6a75c">Never give an agent direct access to your host shell.
+* <strong>Evals:</strong> Create a dataset of “Golden Trajectories”—expected sequences of tool calls for specific prompts—and run them against new versions of your agent to check for regressions.</p><h3 id="354d3a21-bb2d-81c7-9a43-c251ad0b6e11" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81c7-9a43-c251ad0b6e11" data-source-heading-level="3">Security: The “Sandboxing” Mandate</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-81a2-9a71-ed7eeca6a75c">Never give an agent direct access to your host shell.
 1. <strong>Code Interpreters:</strong> Use tools like <strong>E2B</strong> to run agent-generated code in a secure, isolated sandbox.
-2. <strong>Least Privilege:</strong> Scoped API keys are mandatory. If an agent only needs to read a Google Sheet, do not give it access to the entire Google Drive.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81e4-a1b4-e2a83e220647">Cost / Latency Tradeoffs</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8104-8668-e9f18f7363eb">Agents are expensive. A single user request might trigger 10 LLM calls.
+2. <strong>Least Privilege:</strong> Scoped API keys are mandatory. If an agent only needs to read a Google Sheet, do not give it access to the entire Google Drive.</p><h3 id="354d3a21-bb2d-81e4-a1b4-e2a83e220647" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81e4-a1b4-e2a83e220647" data-source-heading-level="3">Cost / Latency Tradeoffs</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8104-8668-e9f18f7363eb">Agents are expensive. A single user request might trigger 10 LLM calls.
 * <strong>Parallelism:</strong> If the LLM determines it needs to call three tools, use a framework that supports parallel tool execution.
-* <strong>Prefetching:</strong> Use “Cheap” models for classification and routing, and “Expensive” models only for the final reasoning or tool argument generation.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81a7-8c5c-ef218958eb33">Engineering Heuristics for Performance</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8193-b700-e282522f87e0"><strong>Prompt as Code:</strong> Treat your system prompts like code. Use version control. A one-word change can break an agent’s tool-calling capability.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a9-b701-f73daf921c79"><strong>Explicit Tool Descriptions:</strong> The LLM’s “vision” of a tool is its description. Be verbose. Instead of <code class="note-inline-code">get_data</code>, use <code class="note-inline-code">fetches_user_billing_history_as_json_for_the_last_30_days</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ed-a764-e5ef794e4fa5"><strong>Always Validate:</strong> If a tool returns data, validate it with Pydantic before the agent sees it. Garbage In, Garbage Out still applies to AI.</li></ol><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-816c-a27d-f614adafe1a7">tep-by-Step Implementation: Pydantic AI + FastMCP</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816e-bb05-fe8fa9c90e93">This section provides a concrete roadmap to building a production-ready agent that consumes external tools via MCP.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8192-a376-fd0daaf8bfd7">Precise Setup Steps</h4><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8109-aab9-e362e62d96ed"><strong>Environment:</strong> Create a virtual environment and install dependencies:
-<code class="note-inline-code">bash pip install pydantic-ai[mcp] mcp python-dotenv</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8102-9ef4-cdcebd45ba27"><strong>Build the Tool Server (FastMCP):</strong> Create a separate file <code class="note-inline-code">server.py</code> to host your tools. This isolates the “Execution Layer” from the “Intelligence Layer.”</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ec-bc8b-d2dbda492774"><strong>Define the Agent:</strong> Create <code class="note-inline-code">agent_app.py</code>, initialize the <code class="note-inline-code">Agent</code> with Pydantic validation for structured outputs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819e-ab82-d446a493dff2"><strong>Connect via Stdio:</strong> Use <code class="note-inline-code">MCPServerStdio</code> to allow the agent to launch and communicate with the tool server.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819a-ab5b-f084a61c7176"><strong>Inject Dependencies:</strong> Use Pydantic AI’s <code class="note-inline-code">RunContext</code> to pass stateful objects (like database connections) into tools.</li></ol><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-8106-a992-fd6a67b958c0">Code Implementation</h4><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-813d-abea-f1056610f2ff">Part A: The MCP Tool Server (<code class="note-inline-code">server.py</code>)</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-8ac9-db0e973ece4b">This follows the <strong>Least Privilege</strong> principle by only exposing specific functions.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81f2-806a-fb2df9be5a4b"><pre class="note-code-block" data-language="python" tabindex="0"><code class="language-python">from mcp.server.fastmcp import FastMCP
+* <strong>Prefetching:</strong> Use “Cheap” models for classification and routing, and “Expensive” models only for the final reasoning or tool argument generation.</p><h2 id="354d3a21-bb2d-81a7-8c5c-ef218958eb33" class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-81a7-8c5c-ef218958eb33" data-source-heading-level="2">Engineering Heuristics for Performance</h2><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8193-b700-e282522f87e0"><strong>Prompt as Code:</strong> Treat your system prompts like code. Use version control. A one-word change can break an agent’s tool-calling capability.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81a9-b701-f73daf921c79"><strong>Explicit Tool Descriptions:</strong> The LLM’s “vision” of a tool is its description. Be verbose. Instead of <code class="note-inline-code">get_data</code>, use <code class="note-inline-code">fetches_user_billing_history_as_json_for_the_last_30_days</code>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ed-a764-e5ef794e4fa5"><strong>Always Validate:</strong> If a tool returns data, validate it with Pydantic before the agent sees it. Garbage In, Garbage Out still applies to AI.</li></ol><h2 id="354d3a21-bb2d-816c-a27d-f614adafe1a7" class="notion-block notion-heading notion-heading-1" data-notion-block-id="354d3a21-bb2d-816c-a27d-f614adafe1a7" data-source-heading-level="2">tep-by-Step Implementation: Pydantic AI + FastMCP</h2><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-816e-bb05-fe8fa9c90e93">This section provides a concrete roadmap to building a production-ready agent that consumes external tools via MCP.</p><h3 id="354d3a21-bb2d-8192-a376-fd0daaf8bfd7" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8192-a376-fd0daaf8bfd7" data-source-heading-level="3">Precise Setup Steps</h3><ol class="notion-block notion-numbered-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8109-aab9-e362e62d96ed"><strong>Environment:</strong> Create a virtual environment and install dependencies:
+<code class="note-inline-code">bash pip install pydantic-ai[mcp] mcp python-dotenv</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8102-9ef4-cdcebd45ba27"><strong>Build the Tool Server (FastMCP):</strong> Create a separate file <code class="note-inline-code">server.py</code> to host your tools. This isolates the “Execution Layer” from the “Intelligence Layer.”</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81ec-bc8b-d2dbda492774"><strong>Define the Agent:</strong> Create <code class="note-inline-code">agent_app.py</code>, initialize the <code class="note-inline-code">Agent</code> with Pydantic validation for structured outputs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819e-ab82-d446a493dff2"><strong>Connect via Stdio:</strong> Use <code class="note-inline-code">MCPServerStdio</code> to allow the agent to launch and communicate with the tool server.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-819a-ab5b-f084a61c7176"><strong>Inject Dependencies:</strong> Use Pydantic AI’s <code class="note-inline-code">RunContext</code> to pass stateful objects (like database connections) into tools.</li></ol><h3 id="354d3a21-bb2d-8106-a992-fd6a67b958c0" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-8106-a992-fd6a67b958c0" data-source-heading-level="3">Code Implementation</h3><h3 id="354d3a21-bb2d-813d-abea-f1056610f2ff" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-813d-abea-f1056610f2ff" data-source-heading-level="3">Part A: The MCP Tool Server (<code class="note-inline-code">server.py</code>)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-818e-8ac9-db0e973ece4b">This follows the <strong>Least Privilege</strong> principle by only exposing specific functions.</p><figure class="notion-block notion-code code-block" data-notion-block-id="354d3a21-bb2d-81f2-806a-fb2df9be5a4b"><div class="code-block-header"><span class="code-language">python</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="python" tabindex="0" role="region" aria-label="python code"><code class="language-python">from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP(&quot;InventoryManager&quot;)
 
@@ -102,7 +75,7 @@ async def check_stock(item_id: str) -&gt; int:
     return inventory_db.get(item_id, 0)
 
 if __name__ == &quot;__main__&quot;:
-    mcp.run()</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ed-bbba-de7ea6b8b5b3">Part B: The Pydantic AI Agent (<code class="note-inline-code">agent_app.py</code>)</h4><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8111-9b05-f0b0d36b5bcd">This demonstrates <strong>State Management</strong>, <strong>Type Safety</strong>, and <strong>Observability</strong>.</p><figure class="notion-block notion-code" data-notion-block-id="354d3a21-bb2d-81b3-80f5-cbf639695638"><pre class="note-code-block" data-language="python" tabindex="0"><code class="language-python">import asyncio
+    mcp.run()</code></pre></figure><h3 id="354d3a21-bb2d-81ed-bbba-de7ea6b8b5b3" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81ed-bbba-de7ea6b8b5b3" data-source-heading-level="3">Part B: The Pydantic AI Agent (<code class="note-inline-code">agent_app.py</code>)</h3><p class="notion-block notion-paragraph" data-notion-block-id="354d3a21-bb2d-8111-9b05-f0b0d36b5bcd">This demonstrates <strong>State Management</strong>, <strong>Type Safety</strong>, and <strong>Observability</strong>.</p><figure class="notion-block notion-code code-block" data-notion-block-id="354d3a21-bb2d-81b3-80f5-cbf639695638"><div class="code-block-header"><span class="code-language">python</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="python" tabindex="0" role="region" aria-label="python code"><code class="language-python">import asyncio
 from pydantic import BaseModel
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.mcp import MCPServerStdio
@@ -139,31 +112,26 @@ async def main():
         print(f&quot;Reason:{result.data.reasoning}&quot;)
 
 if __name__ == &quot;__main__&quot;:
-    asyncio.run(main())</code></pre></figure><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="354d3a21-bb2d-81ea-8a18-cbb45724243a">Factoring in Production Concepts</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8151-9e4a-fbf7aa5e3cce"><strong>Stateful Dependencies:</strong> Use <code class="note-inline-code">RunContext</code> in Pydantic AI to pass a <code class="note-inline-code">User</code> object or a <code class="note-inline-code">DatabaseSession</code> to your local tools. This ensures the agent’s tools are grounded in the current <strong>State</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f2-aa3e-dec32a599638"><strong>Tool Validation:</strong> By using Pydantic models for <code class="note-inline-code">result_type</code>, the agent is forced to “Reason” toward a structured schema. If it fails, Pydantic AI’s internal <strong>Failure Handling</strong> will automatically retry the prompt with the validation error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8143-91f6-cebfeef25e38"><strong>Security:</strong> The FastMCP server runs in a separate process. You can further secure this by running the server in a <strong>Docker Sandbox</strong> while the agent remains in your primary application environment.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fc-be29-f32a55d07466"><strong>Cost/Latency:</strong> Notice that <code class="note-inline-code">check_stock</code> is a fast, local function. By using MCP, the agent only calls this tool when its “Intelligence” (GPT-4o) determines it is necessary, saving expensive tokens on unnecessary lookups.</li></ul></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+    asyncio.run(main())</code></pre></figure><h3 id="354d3a21-bb2d-81ea-8a18-cbb45724243a" class="notion-block notion-heading notion-heading-2" data-notion-block-id="354d3a21-bb2d-81ea-8a18-cbb45724243a" data-source-heading-level="3">Factoring in Production Concepts</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8151-9e4a-fbf7aa5e3cce"><strong>Stateful Dependencies:</strong> Use <code class="note-inline-code">RunContext</code> in Pydantic AI to pass a <code class="note-inline-code">User</code> object or a <code class="note-inline-code">DatabaseSession</code> to your local tools. This ensures the agent’s tools are grounded in the current <strong>State</strong>.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81f2-aa3e-dec32a599638"><strong>Tool Validation:</strong> By using Pydantic models for <code class="note-inline-code">result_type</code>, the agent is forced to “Reason” toward a structured schema. If it fails, Pydantic AI’s internal <strong>Failure Handling</strong> will automatically retry the prompt with the validation error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-8143-91f6-cebfeef25e38"><strong>Security:</strong> The FastMCP server runs in a separate process. You can further secure this by running the server in a <strong>Docker Sandbox</strong> while the agent remains in your primary application environment.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="354d3a21-bb2d-81fc-be29-f32a55d07466"><strong>Cost/Latency:</strong> Notice that <code class="note-inline-code">check_stock</code> is a fast, local function. By using MCP, the agent only calls this tool when its “Intelligence” (GPT-4o) determines it is necessary, saving expensive tokens on unnecessary lookups.</li></ul></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/agent-build/advanced-agentic-engineering/">
     <span class="next-reading-label">Next</span>
     <strong>Advanced Agentic Engineering</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next step in the Building Agents reading path (In order).</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -171,139 +139,98 @@ if __name__ == &quot;__main__&quot;:
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

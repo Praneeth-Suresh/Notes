@@ -3,109 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reliability · Praneeth&#39;s CS Field Notes</title>
+    <title>Reliability — Praneeth Suresh</title>
 
     <meta name="description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/" />
-    <meta property="og:title" content="Reliability · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Reliability · Praneeth Suresh" />
     <meta property="og:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Reliability · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Reliability · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Reliability · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Reliability · Praneeth Suresh" />
     <meta name="twitter:description" content="How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Reliability · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Reliability · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/","name":"Reliability · Praneeth's CS Field Notes","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/","name":"Reliability · Praneeth Suresh","description":"How production software is built and operated: services, logs and event streams, testing, reliability, security, and team practice.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Software Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/"},{"@type":"ListItem","position":4,"name":"Reliability","item":"https://notes.praneeth-suresh-s.workers.dev/topics/swe/reliability/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Reliability</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Reliability</h1>
-        <p class="topic-parent">In <a href="/topics/swe/">Software Systems</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  <div class="note-known-gaps"><p class="note-provenance-label">Known gaps</p><ul><li>Not yet addressed from the September 2026 site review. Observability resources; trace one incident from signal to diagnosis and recovery.</li></ul></div>
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/swe/">Software Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/swe/scalability/">Scalability</a><p>Next step in the Software Systems reading path (Practice).</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-810a-b0a7-e7ca17c78cb3">The Core Idea: You Can’t Fix What You Can’t See</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8158-bcd0-d0ef84504195">In a small app, you check the logs if something breaks. In a large system, “something” is <strong>always breaking.</strong> A hard drive fails, a network switch reboots, or a new deploy has a memory leak.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-814a-913b-c5eaef901e2e"><strong>Observability</strong> isn’t just about logs; it’s about asking <em>any</em> question of your system without shipping new code. It’s about <strong>Telemetry</strong> (Metrics, Logs, and Traces) working together to give you a “Map” of your system’s health.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-816c-b8a5-d9b4e016b76a">Real-World Example: Google’s SRE Teams</h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81df-ae2e-f0662ffbb067">Google invented the term <strong>SRE (Site Reliability Engineering).</strong> Their philosophy is that “100% uptime is the wrong target.” Why? Because users don’t notice the difference between 99.99% and 100%, and that 0.01% is where you can take risks and move fast. They use <strong>Error Budgets</strong> to decide when to slow down and focus on stability vs. when to ship new features.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a7-8add-e535acfcbfde" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81f3-b88e-d0a1073ed050">🛠 Platforms &amp; Tools</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f9-be02-ef6da2afdd48"><strong>Prometheus &amp; Grafana:</strong> The “Dashboard” for your system. Prometheus collects numbers (metrics), and Grafana turns them into beautiful, real-time graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8164-a767-f8de5be3444a"><strong>OpenTelemetry (OTel):</strong> A standard for “tagging” every request. If a user’s checkout fails, OTel lets you see exactly which service (of the hundreds involved) caused the error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8126-b361-dca58730bae1"><strong>PagerDuty:</strong> The tool that wakes you up at 3 AM if the system is actually on fire (and not just “warm”).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8188-b1c7-fad356c2a6f4" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81a0-b156-c8e06021250b">💻 Code to Explore: The “Eye” of the System</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-819a-a677-df02f0b2dbdc"><a href="https://github.com/prometheus/prometheus" rel="noreferrer noopener">prometheus/prometheus</a></h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8159-8dfd-ddb53a000954">See how a system designed for monitoring is built.
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/swe/">Software Systems</a></li><li aria-current="page">Reliability</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Reliability</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-05-25">2026-05-25</time></dd></div></dl><details class="note-known-gaps"><summary>Known gaps (1)</summary><ul><li>Not yet addressed from the September 2026 site review. Observability resources; trace one incident from signal to diagnosis and recovery.</li></ul></details></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#35417c95-99fd-810a-b0a7-e7ca17c78cb3">The Core Idea: You Can’t Fix What You Can’t See</a></li><li class="outline-level-3"><a href="#35417c95-99fd-816c-b8a5-d9b4e016b76a">Real-World Example: Google’s SRE Teams</a></li><li class="outline-level-2"><a href="#35417c95-99fd-81f3-b88e-d0a1073ed050">🛠 Platforms &amp;amp; Tools</a></li><li class="outline-level-2"><a href="#35417c95-99fd-81a0-b156-c8e06021250b">💻 Code to Explore: The “Eye” of the System</a></li><li class="outline-level-3"><a href="#35417c95-99fd-819a-a677-df02f0b2dbdc">prometheus/prometheus</a></li><li class="outline-level-3"><a href="#35417c95-99fd-815e-925f-cd5a3d2eb6af">open-telemetry/opentelemetry-collector</a></li><li class="outline-level-2"><a href="#35417c95-99fd-8148-9c7f-f4a5f22ee5cc">📚 Deep Dive Resources</a></li><li class="outline-level-3"><a href="#35417c95-99fd-8104-a16f-c79f88d6c4e5">📝 Read: “The Google SRE Book”</a></li><li class="outline-level-3"><a href="#35417c95-99fd-8140-8434-c72483d7a94f">🎥 Watch: “Observability: The Power of Why” (Charity Majors)</a></li><li class="outline-level-3"><a href="#35417c95-99fd-81a8-af9d-cbe473c96087">💡 The Big Idea to Take Away</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><h2 id="35417c95-99fd-810a-b0a7-e7ca17c78cb3" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-810a-b0a7-e7ca17c78cb3" data-source-heading-level="2">The Core Idea: You Can’t Fix What You Can’t See</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8158-bcd0-d0ef84504195">In a small app, you check the logs if something breaks. In a large system, “something” is <strong>always breaking.</strong> A hard drive fails, a network switch reboots, or a new deploy has a memory leak.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-814a-913b-c5eaef901e2e"><strong>Observability</strong> isn’t just about logs; it’s about asking <em>any</em> question of your system without shipping new code. It’s about <strong>Telemetry</strong> (Metrics, Logs, and Traces) working together to give you a “Map” of your system’s health.</p><h3 id="35417c95-99fd-816c-b8a5-d9b4e016b76a" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-816c-b8a5-d9b4e016b76a" data-source-heading-level="3">Real-World Example: Google’s SRE Teams</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81df-ae2e-f0662ffbb067">Google invented the term <strong>SRE (Site Reliability Engineering).</strong> Their philosophy is that “100% uptime is the wrong target.” Why? Because users don’t notice the difference between 99.99% and 100%, and that 0.01% is where you can take risks and move fast. They use <strong>Error Budgets</strong> to decide when to slow down and focus on stability vs. when to ship new features.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81a7-8add-e535acfcbfde" /><h2 id="35417c95-99fd-81f3-b88e-d0a1073ed050" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-81f3-b88e-d0a1073ed050" data-source-heading-level="2">🛠 Platforms &amp; Tools</h2><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f9-be02-ef6da2afdd48"><strong>Prometheus &amp; Grafana:</strong> The “Dashboard” for your system. Prometheus collects numbers (metrics), and Grafana turns them into beautiful, real-time graphs.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8164-a767-f8de5be3444a"><strong>OpenTelemetry (OTel):</strong> A standard for “tagging” every request. If a user’s checkout fails, OTel lets you see exactly which service (of the hundreds involved) caused the error.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8126-b361-dca58730bae1"><strong>PagerDuty:</strong> The tool that wakes you up at 3 AM if the system is actually on fire (and not just “warm”).</li></ul><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-8188-b1c7-fad356c2a6f4" /><h2 id="35417c95-99fd-81a0-b156-c8e06021250b" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-81a0-b156-c8e06021250b" data-source-heading-level="2">💻 Code to Explore: The “Eye” of the System</h2><h3 id="35417c95-99fd-819a-a677-df02f0b2dbdc" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-819a-a677-df02f0b2dbdc" data-source-heading-level="3"><a href="https://github.com/prometheus/prometheus" rel="noreferrer noopener">prometheus/prometheus</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8159-8dfd-ddb53a000954">See how a system designed for monitoring is built.
 * <strong>What to look for:</strong>
 * <strong>TSDB (Time Series Database):</strong> Look at how they store millions of data points per second. It’s a masterclass in efficient storage.
-* <strong>The Query Language (PromQL):</strong> See how they implemented a custom language just to ask questions about “Numbers over Time.”</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-815e-925f-cd5a3d2eb6af"><a href="https://github.com/open-telemetry/opentelemetry-collector" rel="noreferrer noopener">open-telemetry/opentelemetry-collector</a></h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-813a-833a-c8780eab8069">The industry standard for collecting traces.
-* <strong>What to look for:</strong> The “Pipeline” model. See how data is received, processed (sampled), and then exported to different backends. This is how you handle “Big Data” without overwhelming your monitoring system.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81aa-8a2d-eeb4028d6cca" /><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8148-9c7f-f4a5f22ee5cc">📚 Deep Dive Resources</h3><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8104-a16f-c79f88d6c4e5">📝 Read: “The Google SRE Book”</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81c5-bc29-d15e7d445115"><a href="https://sre.google/sre-book/table-of-contents/" rel="noreferrer noopener"><strong>Free Online Book</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f1-ac5c-d900a9fd6037"><strong>How to use it:</strong> Start with the “Service Level Objectives (SLOs)” chapter. It will change how you think about “Uptime” forever. This is the book that defined the industry.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-8140-8434-c72483d7a94f">🎥 Watch: “Observability: The Power of Why” (Charity Majors)</h4><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8114-9654-e893aef8fdce"><a href="https://www.youtube.com/results?search_query=charity%20majors%20observability" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d5-9bb1-cf40eb48e27c"><strong>How to use it:</strong> Charity is the “Godmother” of modern observability. Watch her talks to understand why “Logs” are dead and “Structured Events” are the future.</li></ul><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-81a8-af9d-cbe473c96087">💡 The Big Idea to Take Away</h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f6-b68b-f4e7faac48bd">Reliability is a <strong>statistical game.</strong> You aren’t trying to prevent all errors; you’re trying to make sure that when an error happens, it’s contained (Blast Radius) and easy to find (Mean Time to Resolution).</p></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+* <strong>The Query Language (PromQL):</strong> See how they implemented a custom language just to ask questions about “Numbers over Time.”</p><h3 id="35417c95-99fd-815e-925f-cd5a3d2eb6af" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-815e-925f-cd5a3d2eb6af" data-source-heading-level="3"><a href="https://github.com/open-telemetry/opentelemetry-collector" rel="noreferrer noopener">open-telemetry/opentelemetry-collector</a></h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-813a-833a-c8780eab8069">The industry standard for collecting traces.
+* <strong>What to look for:</strong> The “Pipeline” model. See how data is received, processed (sampled), and then exported to different backends. This is how you handle “Big Data” without overwhelming your monitoring system.</p><hr class="notion-block notion-divider" data-notion-block-id="35417c95-99fd-81aa-8a2d-eeb4028d6cca" /><h2 id="35417c95-99fd-8148-9c7f-f4a5f22ee5cc" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-8148-9c7f-f4a5f22ee5cc" data-source-heading-level="2">📚 Deep Dive Resources</h2><h3 id="35417c95-99fd-8104-a16f-c79f88d6c4e5" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8104-a16f-c79f88d6c4e5" data-source-heading-level="3">📝 Read: “The Google SRE Book”</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81c5-bc29-d15e7d445115"><a href="https://sre.google/sre-book/table-of-contents/" rel="noreferrer noopener"><strong>Free Online Book</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81f1-ac5c-d900a9fd6037"><strong>How to use it:</strong> Start with the “Service Level Objectives (SLOs)” chapter. It will change how you think about “Uptime” forever. This is the book that defined the industry.</li></ul><h3 id="35417c95-99fd-8140-8434-c72483d7a94f" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-8140-8434-c72483d7a94f" data-source-heading-level="3">🎥 Watch: “Observability: The Power of Why” (Charity Majors)</h3><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8114-9654-e893aef8fdce"><a href="https://www.youtube.com/results?search_query=charity%20majors%20observability" rel="noreferrer noopener"><strong>YouTube Link</strong></a></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-81d5-9bb1-cf40eb48e27c"><strong>How to use it:</strong> Charity is the “Godmother” of modern observability. Watch her talks to understand why “Logs” are dead and “Structured Events” are the future.</li></ul><h3 id="35417c95-99fd-81a8-af9d-cbe473c96087" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-81a8-af9d-cbe473c96087" data-source-heading-level="3">💡 The Big Idea to Take Away</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-81f6-b68b-f4e7faac48bd">Reliability is a <strong>statistical game.</strong> You aren’t trying to prevent all errors; you’re trying to make sure that when an error happens, it’s contained (Blast Radius) and easy to find (Mean Time to Resolution).</p></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/swe/scalability/">
     <span class="next-reading-label">Next</span>
     <strong>Scalability</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next step in the Software Systems reading path (Practice).</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -113,139 +81,98 @@
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

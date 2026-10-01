@@ -3,81 +3,54 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Threads · Praneeth&#39;s CS Field Notes</title>
+    <title>Threads — Praneeth Suresh</title>
 
     <meta name="description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/" />
-    <meta property="og:title" content="Threads · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="Threads · Praneeth Suresh" />
     <meta property="og:description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Threads · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="Threads · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Threads · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="Threads · Praneeth Suresh" />
     <meta name="twitter:description" content="Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="Threads · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="Threads · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/","name":"Threads · Praneeth's CS Field Notes","description":"Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/","name":"Threads · Praneeth Suresh","description":"Operating-system design from the kernel boundary up: processes, threads, scheduling, synchronisation, memory, and I/O. Some pages are study plans for topics not yet written.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"Operating Systems","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/"},{"@type":"ListItem","position":4,"name":"Threads","item":"https://notes.praneeth-suresh-s.workers.dev/topics/os/threads/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/os/">Operating Systems</a></li><li aria-current="page">Threads</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">Threads</h1>
-        <p class="topic-parent">In <a href="/topics/os/">Operating Systems</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/os/">Operating Systems</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/os/context-switching/">Context Switching</a><p>Next step in the Operating Systems reading path (Concurrency).</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35317c95-99fd-80cd-9c25-eddbbd5ef7cd">A thread is the smallest unit of CPU execution within a process. It represents a sequence of instructions that can be scheduled independently and it fully describes program state.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8040-a15d-f1614c7b3ef9">Each thread thus contains the following information:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8021-af95-f89ab17ff3ae">Thread Control Block</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e5-8d28-fdf964c541ef">Stack Information</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809d-a1c8-fdac4040305b">Saved Registers</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8076-bf65-da4735ba5ab8">Thread Metadata</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80de-a54d-e78a8ba61138">Stack (the same stack that maintains function calls with stack frames)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-9efd-e6f8263ed775">However, the heap, global variables and code are in a <strong>shared state</strong> which does not belong to a thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-806d-a110-dd3de99bd62b"></p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8022-b5f8-c6aafd7e3ea3">Threads allow concurrency within a process. Multiple threads can share memory but execute different tasks simultaneously (e.g., a browser rendering a page while downloading files).</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80ff-b057-f9f34931c19a">This is the idea of multi-threading. For example, in a multi-programmed system, you might run a compiler and a text editor simultaneously. With threads, the text editor itself can run multiple tasks (UI rendering, spell-checking, autosave) concurrently (multi-threading).</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-800c-8480-d0724f16ed54"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Protection is an orthogonal concept to multi-threading and does not relate to the study of the execution unit which is a thread.</div></aside></div><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-8003-bf43-f7ff9e95653d"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Multiprocessing refers to parallelism and concurrency, which means the processes can be executed on different cores. Multi programming only concerns with concurrency.</div></aside></div><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-808f-af95-fcab6f14a99b">Using Threads</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-804b-8da0-dfa4e99d8b8c">Threads are available at the programming layer to communicate to the processor that two tasks that we have don’t need to be executed sequentially, but can be made to run concurrently.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8039-b5d1-dc650c9fc039">To make a multithreaded process, the process can issue system calls to create new threads. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-bec9-fb8f1d1bb6c6">POSIX provides us an execution model through <code class="note-inline-code">pthreads</code> which allows us to handle threads directly. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80b1-82da-f8dea9c93a40">What this does is define a set of C programming types, functions and constants that handle the task of creating system calls that interface with the Kernel to create new threads. Using this, we can implement high level ideas in code such as the Fork-Join pattern.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809f-9476-e3501b59f978">Here is an example of a C++ code that computes the Parallel Sum of an Array using Fork-Join with <code class="note-inline-code">pthreads</code>:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f8-8bcc-e30a9cae5194"><pre class="note-code-block" data-language="c++" tabindex="0"><code class="language-c++">#include &lt;iostream&gt;
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/os/">Operating Systems</a></li><li aria-current="page">Threads</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">Threads</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-05-25">2026-05-25</time></dd></div></dl></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#35417c95-99fd-808f-af95-fcab6f14a99b">Using Threads</a></li><li class="outline-level-3"><a href="#35417c95-99fd-80a2-a195-c759db50faa4">Dealing with Concurrency</a></li><li class="outline-level-2"><a href="#35317c95-99fd-80e2-b274-f1b57cc3af3e">Naive Implementation</a></li><li class="outline-level-2"><a href="#35317c95-99fd-80de-9120-f97a34a195bd">Improvements</a></li><li class="outline-level-2"><a href="#35317c95-99fd-80cb-9fe0-ed11c207d937">Beyond Threads</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><blockquote class="notion-block notion-quote" data-notion-block-id="35317c95-99fd-80cd-9c25-eddbbd5ef7cd">A thread is the smallest unit of CPU execution within a process. It represents a sequence of instructions that can be scheduled independently and it fully describes program state.</blockquote><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8040-a15d-f1614c7b3ef9">Each thread thus contains the following information:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8021-af95-f89ab17ff3ae">Thread Control Block</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e5-8d28-fdf964c541ef">Stack Information</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809d-a1c8-fdac4040305b">Saved Registers</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8076-bf65-da4735ba5ab8">Thread Metadata</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80de-a54d-e78a8ba61138">Stack (the same stack that maintains function calls with stack frames)</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-9efd-e6f8263ed775">However, the heap, global variables and code are in a <strong>shared state</strong> which does not belong to a thread.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-806d-a110-dd3de99bd62b"></p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-8022-b5f8-c6aafd7e3ea3">Threads allow concurrency within a process. Multiple threads can share memory but execute different tasks simultaneously (e.g., a browser rendering a page while downloading files).</p><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80ff-b057-f9f34931c19a">This is the idea of multi-threading. For example, in a multi-programmed system, you might run a compiler and a text editor simultaneously. With threads, the text editor itself can run multiple tasks (UI rendering, spell-checking, autosave) concurrently (multi-threading).</p><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-800c-8480-d0724f16ed54"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Protection is an orthogonal concept to multi-threading and does not relate to the study of the execution unit which is a thread.</div></aside></div><div class="notion-block notion-callout notion-color-gray_background" data-notion-block-id="35417c95-99fd-8003-bf43-f7ff9e95653d"><aside class="note-callout"><span class="note-callout-icon" aria-hidden="true">⚠️</span><div class="note-callout-body">Multiprocessing refers to parallelism and concurrency, which means the processes can be executed on different cores. Multi programming only concerns with concurrency.</div></aside></div><h2 id="35417c95-99fd-808f-af95-fcab6f14a99b" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35417c95-99fd-808f-af95-fcab6f14a99b" data-source-heading-level="2">Using Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-804b-8da0-dfa4e99d8b8c">Threads are available at the programming layer to communicate to the processor that two tasks that we have don’t need to be executed sequentially, but can be made to run concurrently.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8039-b5d1-dc650c9fc039">To make a multithreaded process, the process can issue system calls to create new threads. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8002-bec9-fb8f1d1bb6c6">POSIX provides us an execution model through <code class="note-inline-code">pthreads</code> which allows us to handle threads directly. </p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80b1-82da-f8dea9c93a40">What this does is define a set of C programming types, functions and constants that handle the task of creating system calls that interface with the Kernel to create new threads. Using this, we can implement high level ideas in code such as the Fork-Join pattern.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-809f-9476-e3501b59f978">Here is an example of a C++ code that computes the Parallel Sum of an Array using Fork-Join with <code class="note-inline-code">pthreads</code>:</p><figure class="notion-block notion-code code-block" data-notion-block-id="35417c95-99fd-80f8-8bcc-e30a9cae5194"><div class="code-block-header"><span class="code-language">c++</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c++" tabindex="0" role="region" aria-label="c++ code"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;pthread.h&gt;
 #include &lt;vector&gt;
 
@@ -125,34 +98,29 @@ int main() {
 
     std::cout &lt;&lt; &quot;Total sum = &quot; &lt;&lt; total_sum &lt;&lt; std::endl;
     return 0;
-}</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d1-ba54-fd79631468c6"><strong>Fork</strong>: We split the array into chunks and assign each chunk to a thread.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e4-850c-e51216a790c3"><strong>Join</strong>: After all threads finish, we collect their partial sums into the final result.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80ea-80fa-ffb73ffd7c44">This fork-join model is intuitive for tasks like map-reduce, parallel search, or matrix operations.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-b13b-e8b045055715">However, remember that using threads introduces non-determinism  because the scheduler can run threads in any order and this makes testing difficult if we don’t prove that our code can work correctly with interleaving. We need good code by design that avoids <strong>race conditions</strong>.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="35417c95-99fd-80a2-a195-c759db50faa4">Dealing with Concurrency</h4><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80c3-b429-dda561910b5e">So when dealing with the concurrency afforded by threads, we need to think about:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809c-8119-e90836db310a"><strong>Synchronization</strong>: Coordination among threads</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-808f-8764-cb9e3744c8e3"><strong>Mutual Exclusion</strong>: Ensuring only one thread does a particular thing at a time (as a type of syncronisation)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803e-9159-d38721f6ffb0"><strong>Critical Section</strong>: Code exactly one thread can execute at once (such as code that accesses shared data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e6-b58c-dddcd53c6099"><strong>Lock</strong>: An object only one thread can hold at a time, as a way to provide mutual execution. <p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8060-b961-d487b01b95f1">Locks have a very simple interface with just two <strong>atomic </strong>operations: <code class="note-inline-code">acquire()</code> and <code class="note-inline-code">release()</code> to allow us to ensure that only one thread can do a particular thing at a time, based on lock possessions.</p></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-a665-db041a311d3c">A <strong>mutex is a (type of) lock</strong> that enforces <em>mutual exclusion</em> in concurrent programming, making sure shared resources are accessed safely.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80be-9bdc-f7c875145ae5">Here is an example of how the mutex can be used:</p><figure class="notion-block notion-code" data-notion-block-id="35417c95-99fd-80f8-a180-fceaa15520b7"><pre class="note-code-block" data-language="c++" tabindex="0"><code class="language-c++">    // Critical section: update global_sum
+}</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80d1-ba54-fd79631468c6"><strong>Fork</strong>: We split the array into chunks and assign each chunk to a thread.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e4-850c-e51216a790c3"><strong>Join</strong>: After all threads finish, we collect their partial sums into the final result.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80ea-80fa-ffb73ffd7c44">This fork-join model is intuitive for tasks like map-reduce, parallel search, or matrix operations.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-b13b-e8b045055715">However, remember that using threads introduces non-determinism  because the scheduler can run threads in any order and this makes testing difficult if we don’t prove that our code can work correctly with interleaving. We need good code by design that avoids <strong>race conditions</strong>.</p><h3 id="35417c95-99fd-80a2-a195-c759db50faa4" class="notion-block notion-heading notion-heading-2" data-notion-block-id="35417c95-99fd-80a2-a195-c759db50faa4" data-source-heading-level="3">Dealing with Concurrency</h3><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80c3-b429-dda561910b5e">So when dealing with the concurrency afforded by threads, we need to think about:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-809c-8119-e90836db310a"><strong>Synchronization</strong>: Coordination among threads</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-808f-8764-cb9e3744c8e3"><strong>Mutual Exclusion</strong>: Ensuring only one thread does a particular thing at a time (as a type of syncronisation)</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-803e-9159-d38721f6ffb0"><strong>Critical Section</strong>: Code exactly one thread can execute at once (such as code that accesses shared data).</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80e6-b58c-dddcd53c6099"><strong>Lock</strong>: An object only one thread can hold at a time, as a way to provide mutual execution. <p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8060-b961-d487b01b95f1">Locks have a very simple interface with just two <strong>atomic </strong>operations: <code class="note-inline-code">acquire()</code> and <code class="note-inline-code">release()</code> to allow us to ensure that only one thread can do a particular thing at a time, based on lock possessions.</p></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8035-a665-db041a311d3c">A <strong>mutex is a (type of) lock</strong> that enforces <em>mutual exclusion</em> in concurrent programming, making sure shared resources are accessed safely.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-80be-9bdc-f7c875145ae5">Here is an example of how the mutex can be used:</p><figure class="notion-block notion-code code-block" data-notion-block-id="35417c95-99fd-80f8-a180-fceaa15520b7"><div class="code-block-header"><span class="code-language">c++</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c++" tabindex="0" role="region" aria-label="c++ code"><code class="language-c++">    // Critical section: update global_sum
     pthread_mutex_lock(&amp;mutex);
     global_sum += local_sum;
-    pthread_mutex_unlock(&amp;mutex);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801f-9a1b-d88693444bf7">Only one thread is not allowed in this critical section at a time. For more, refer to <a href="https://www.notion.so/35617c9599fd80278eccebf8049d37f6" rel="noreferrer noopener">Synchronisation</a>.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80e2-b274-f1b57cc3af3e">Naive Implementation</h3><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80e6-986b-d7e7d3d29040">Early systems had only one thread per process (the process itself). Concurrency was achieved by running multiple processes, each with its own heavy memory footprint.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801a-9b5b-d8145505fb3a">A thread can be classified into the following 3 states:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-8ecc-f04b098aa371">Running - running</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807c-9d9c-fe9b22678de3">Ready - eligible to run</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a2-a931-f6eab521e9b2">Blocked - ineligible to run because it is waiting on something else</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8021-a5ae-d41c6793f290">A thread is running on a processor when it is resident in that processor’s registers. If it is not there, it is saved in a chunk of memory called a <strong>Thread Control Block (TCB)</strong>. However, it is important to think about how TCBs use memory otherwise there is a risk they will just crowd each other out of memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8043-839b-fdbef5871cf4">The Thread Control Block (TCB) is a data structure maintained by the operating system to track a thread’s state (program counter, registers, stack pointer, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8027-893e-cd84d24ac9d4">When a new thread is created, the OS initializes its TCB and allocates a stack.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80de-9120-f97a34a195bd">Improvements</h3><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-804b-b600-cba6373fa0c3">Threads are lightweight, sharing the same address space and resources. Modern OSs use efficient thread libraries, kernel-level scheduling, and thread pools to reduce overhead.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="35317c95-99fd-80cb-9fe0-ed11c207d937">Beyond Threads</h3><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-805f-a89a-c5a44d951383">Leads into <strong>synchronization</strong> (locks, semaphores), <strong>scheduling algorithms</strong>, and <strong>parallel programming models</strong>.</p></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+    pthread_mutex_unlock(&amp;mutex);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801f-9a1b-d88693444bf7">Only one thread is not allowed in this critical section at a time. For more, refer to <a href="https://www.notion.so/35617c9599fd80278eccebf8049d37f6" rel="noreferrer noopener">Synchronisation</a>.</p><h2 id="35317c95-99fd-80e2-b274-f1b57cc3af3e" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35317c95-99fd-80e2-b274-f1b57cc3af3e" data-source-heading-level="2">Naive Implementation</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-80e6-986b-d7e7d3d29040">Early systems had only one thread per process (the process itself). Concurrency was achieved by running multiple processes, each with its own heavy memory footprint.</p><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-801a-9b5b-d8145505fb3a">A thread can be classified into the following 3 states:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-8025-8ecc-f04b098aa371">Running - running</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-807c-9d9c-fe9b22678de3">Ready - eligible to run</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="35417c95-99fd-80a2-a931-f6eab521e9b2">Blocked - ineligible to run because it is waiting on something else</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="35417c95-99fd-8021-a5ae-d41c6793f290">A thread is running on a processor when it is resident in that processor’s registers. If it is not there, it is saved in a chunk of memory called a <strong>Thread Control Block (TCB)</strong>. However, it is important to think about how TCBs use memory otherwise there is a risk they will just crowd each other out of memory.</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8043-839b-fdbef5871cf4">The Thread Control Block (TCB) is a data structure maintained by the operating system to track a thread’s state (program counter, registers, stack pointer, etc.).</p><p class="notion-block notion-paragraph" data-notion-block-id="35617c95-99fd-8027-893e-cd84d24ac9d4">When a new thread is created, the OS initializes its TCB and allocates a stack.</p><h2 id="35317c95-99fd-80de-9120-f97a34a195bd" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35317c95-99fd-80de-9120-f97a34a195bd" data-source-heading-level="2">Improvements</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-804b-b600-cba6373fa0c3">Threads are lightweight, sharing the same address space and resources. Modern OSs use efficient thread libraries, kernel-level scheduling, and thread pools to reduce overhead.</p><h2 id="35317c95-99fd-80cb-9fe0-ed11c207d937" class="notion-block notion-heading notion-heading-1" data-notion-block-id="35317c95-99fd-80cb-9fe0-ed11c207d937" data-source-heading-level="2">Beyond Threads</h2><p class="notion-block notion-paragraph" data-notion-block-id="35317c95-99fd-805f-a89a-c5a44d951383">Leads into <strong>synchronization</strong> (locks, semaphores), <strong>scheduling algorithms</strong>, and <strong>parallel programming models</strong>.</p></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/os/context-switching/">
     <span class="next-reading-label">Next</span>
     <strong>Context Switching</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Explainer</span></span>
+    <span class="note-publication" aria-label="Working note, Explainer"><span class="note-type">Explainer</span></span>
   </a>
   <p>Next step in the Operating Systems reading path (Concurrency).</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -160,139 +128,98 @@ int main() {
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>

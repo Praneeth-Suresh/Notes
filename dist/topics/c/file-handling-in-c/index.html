@@ -3,85 +3,58 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>File handling in C · Praneeth&#39;s CS Field Notes</title>
+    <title>File handling in C — Praneeth Suresh</title>
 
     <meta name="description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/" />
-    <meta property="og:title" content="File handling in C · Praneeth&#39;s CS Field Notes" />
+    <meta property="og:title" content="File handling in C · Praneeth Suresh" />
     <meta property="og:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/" />
-    <meta property="og:site_name" content="Praneeth&#39;s CS Field Notes" />
+    <meta property="og:site_name" content="Praneeth Suresh" />
     <meta property="og:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="File handling in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta property="og:image:alt" content="File handling in C · Praneeth Suresh preview from Praneeth Suresh." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="File handling in C · Praneeth&#39;s CS Field Notes" />
+    <meta name="twitter:title" content="File handling in C · Praneeth Suresh" />
     <meta name="twitter:description" content="The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files." />
     <meta name="twitter:image" content="https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg" />
-    <meta name="twitter:image:alt" content="File handling in C · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes." />
+    <meta name="twitter:image:alt" content="File handling in C · Praneeth Suresh preview from Praneeth Suresh." />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"https://notes.praneeth-suresh-s.workers.dev/#person","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/about/","sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"],"jobTitle":"ML engineer and computer science student","knowsAbout":["AI research","Algorithms","Computer science","Software engineering","Agent reliability"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth's CS Field Notes","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#topic-search"},"query-input":"required name=search_term_string"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/","name":"File handling in C · Praneeth's CS Field Notes","description":"The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://notes.praneeth-suresh-s.workers.dev/#organization","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","logo":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg","founder":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"sameAs":["https://github.com/Praneeth-Suresh","https://www.linkedin.com/in/praneeth-suresh-a114aa250/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://notes.praneeth-suresh-s.workers.dev/#website","name":"Praneeth Suresh","url":"https://notes.praneeth-suresh-s.workers.dev/","inLanguage":"en","publisher":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#organization"},"author":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#person"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://notes.praneeth-suresh-s.workers.dev/notes/?q={search_term_string}#search"},"query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/#webpage","url":"https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/","name":"File handling in C · Praneeth Suresh","description":"The C language up close, built and tested with GCC on Linux: syntax, types, operators, pointers, memory, and files.","inLanguage":"en","isPartOf":{"@id":"https://notes.praneeth-suresh-s.workers.dev/#website"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://notes.praneeth-suresh-s.workers.dev/assets/social/theoretical-cs-preview.svg"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://notes.praneeth-suresh-s.workers.dev/"},{"@type":"ListItem","position":2,"name":"Notes","item":"https://notes.praneeth-suresh-s.workers.dev/notes/"},{"@type":"ListItem","position":3,"name":"C Deep Dive","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/"},{"@type":"ListItem","position":4,"name":"File handling in C","item":"https://notes.praneeth-suresh-s.workers.dev/topics/c/file-handling-in-c/"}]}</script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
-    <link rel="alternate" type="application/rss+xml" title="Praneeth&#39;s CS Field Notes RSS" href="/feed.xml" />
-    <script>
-      (() => {
-        try {
-          const savedTheme = window.localStorage.getItem("notes-theme");
-          const resolvedTheme = savedTheme === "light" || savedTheme === "dark"
-            ? savedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-          document.documentElement.dataset.theme = resolvedTheme;
-        } catch (error) {
-          // Theme preference is optional when storage is unavailable.
-        }
-      })();
-    </script>
+    <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
+    <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="note-page" data-analytics-event="page_view">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="layout">
       <header class="site-header">
-      <a class="brand-link" href="/" data-hotkey="H" aria-label="Praneeth&#39;s CS Field Notes home">Praneeth&#39;s CS Field Notes</a>
-      <nav class="site-links" aria-label="Site navigation">
-        <a href="/notes/" data-hotkey="N" aria-current="page">Notes</a><a href="/projects/" data-hotkey="P">Projects</a><a href="/blog/" data-hotkey="W">Writing</a><a href="/about/" data-hotkey="A">About</a>
-        <a class="site-search-link" href="/notes/#topic-search" aria-label="Search the notes (press /)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span></a>
-        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch color mode" title="Switch color mode"><svg class="theme-toggle-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="theme-toggle-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 15.5A8.5 8.5 0 0 1 8.5 3.3 8.5 8.5 0 1 0 20.7 15.5Z"/></svg></button>
-      </nav>
+      <div class="site-header-primary">
+        <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
+        <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <details class="mobile-menu">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile navigation"><a href="/notes/" aria-current="page">Notes</a><a href="/projects/">Projects</a><a href="/blog/">Writing</a><a href="/about/">About</a></nav>
+        </details>
+      </div>
     </header>
       <main id="main-content" tabindex="-1">
-      
-    <div class="note-layout">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/c/">C Deep Dive</a></li><li aria-current="page">File handling in C</li></ol></nav>
-      <header class="note-header">
-        <h1 class="site-title">File handling in C</h1>
-        <p class="topic-parent">In <a href="/topics/c/">C Deep Dive</a></p>
-        
-        
-      </header>
-      <aside class="reading-margin" aria-label="About this note">
-      <aside class="note-provenance note-provenance-working" aria-label="Publication status">
-  <dl class="note-provenance-facts"><div><dt>Status</dt><dd><span class="note-status note-status-working">Working note</span></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Reviewed</dt><dd>Not yet</dd></div></dl>
-  <p class="note-provenance-summary">Open notebook entry: incomplete or not yet checked. Known factual errors are still corrected.</p>
-  
-</aside>
-      <div class="margin-from"><p class="margin-label">From</p><a href="/topics/c/">C Deep Dive</a></div><div class="margin-next"><p class="margin-label">Next</p><a href="/topics/c/">C Deep Dive</a><p>Last note in this section; return to C Deep Dive for the full list.</p></div>
-    </aside>
-      <div class="note-body">
-        
-        <article class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808d-bc24-d6be4020e740">In C, we can set where the input and output go in two ways.</p><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80b5-82da-ee75e2a5a4d1">Redirecting Input</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d3-84d4-f479b4119ff4">This is the most common and simplest method, handled by your operating system&#39;s shell (like Bash or Command Prompt), not by special C code. Your C program simply reads from <code class="note-inline-code">stdin</code> or writes to <code class="note-inline-code">stdout</code> as usual. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-802b-9f73-d63b776567d1">For reading information, use the <code class="note-inline-code">&lt;</code> operator to feed the contents of a file as the standard input to your program.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8003-99e8-cbc240e65747"><strong>Syntax:</strong> <code class="note-inline-code">./your_program &lt; input_file.txt</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80fc-a5f8-d2abc48d37d7"><strong>In your C code:</strong> Use standard input functions like <code class="note-inline-code">scanf()</code>, <code class="note-inline-code">gets()</code>, <code class="note-inline-code">getchar()</code>, or <code class="note-inline-code">fgets()</code>. Your program won&#39;t &quot;know&quot; the input is from a file; it just reads from <code class="note-inline-code">stdin</code>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80cc-b72f-f22f137b925f">For writing information, use the <code class="note-inline-code">&gt;</code> or <code class="note-inline-code">&gt;&gt;</code> operators to send the program&#39;s standard output to a file.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8072-913d-f9c3bbb50345"><strong><code class="note-inline-code">&gt;</code></strong><strong>:</strong> Overwrites the file if it exists.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8054-895f-dc475ea3ff45"><strong><code class="note-inline-code">&gt;&gt;</code></strong><strong>:</strong> Appends the output to the end of the file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8033-b740-da1d1307fa66"><strong>Syntax:</strong> <code class="note-inline-code">./your_program &gt; output_file.txt</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8076-867d-dd81b0257ca5"><strong>In your C code:</strong> Use standard output functions like <code class="note-inline-code">printf()</code>, <code class="note-inline-code">puts()</code>, or <code class="note-inline-code">putchar()</code>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808f-8abd-db49443e5fc9"><strong>Piping</strong> also comes in useful. Use the <code class="note-inline-code">|</code> operator to send the <code class="note-inline-code">stdout</code> of one program to the <code class="note-inline-code">stdin</code> of another.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80fe-b925-e5be13f98c96"><strong>Syntax:</strong> <code class="note-inline-code">./program1 | ./program2</code></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8098-8f37-d4f747635c90">Here is a complex example of all of these put together:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-800c-a72b-cce0615d80d8"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">(./bermuda | ./geo2json) &lt; spooky.csv &gt; output.json</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f1-846e-d8df9a49dd1c">Input from <code class="note-inline-code">spooky.csv</code> is fed into <code class="note-inline-code">bermuda</code> followed by <code class="note-inline-code">geo2json</code> then written to <code class="note-inline-code">output.json</code>. The parentheses will make sure the data file is read by the Standard Input of the <code class="note-inline-code">bermuda</code> program.</p><h4 class="notion-block notion-heading notion-heading-3" data-notion-block-id="3b7d3a21-bb2d-80b4-8cc0-ff683018fdb9">Error Handling</h4><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a9-a80b-dd4cb237ee4e">One issue that comes up with this approach is handling error messages. A naive approach will just redirect all error messages to the file and we wouldn’t know that something even went wrong.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8005-9a04-fd59eb679aa5">To overcome this problem we can use the fact that the program returns a status that represents whether the code has run successfully. First, here is how we can access the status produced by the code:</p><div class="notion-column-list" data-notion-block-id="3b7d3a21-bb2d-8085-8ef0-c0459472cb96"><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-800c-926a-e6af71e8a9fb" style="--notion-column-width: 50%;"><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-808f-8bef-cb27c7c8effa"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash"># In MacOS/Linux
+      <div class="note-layout">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/notes/">Notes</a></li><li><a href="/topics/c/">C Deep Dive</a></li><li aria-current="page">File handling in C</li></ol></nav>
+    <header class="note-header"><h1 class="site-title">File handling in C</h1><section class="note-provenance note-provenance-working" aria-label="Publication status"><dl class="note-provenance-facts"><div><dt>Status</dt><dd><a href="/notes/#publication-status" class="note-status note-status-working">Working note</a></dd></div><div><dt>Type</dt><dd>Explainer</dd></div><div><dt>Updated</dt><dd><time datetime="2026-08-09">2026-08-09</time></dd></div></dl></section></header>
+    <div class="note-body"><nav class="document-outline" aria-label="On this page"><details><summary>On this page</summary><ol><li class="outline-level-2"><a href="#3b7d3a21-bb2d-80b5-82da-ee75e2a5a4d1">Redirecting Input</a></li><li class="outline-level-3"><a href="#3b7d3a21-bb2d-80b4-8cc0-ff683018fdb9">Error Handling</a></li><li class="outline-level-2"><a href="#3b7d3a21-bb2d-8052-a7a2-ea4c40ea91bc">Within the C program</a></li></ol></details></nav><article id="overview" class="note-article notion-page-content"><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808d-bc24-d6be4020e740">In C, we can set where the input and output go in two ways.</p><h2 id="3b7d3a21-bb2d-80b5-82da-ee75e2a5a4d1" class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b7d3a21-bb2d-80b5-82da-ee75e2a5a4d1" data-source-heading-level="2">Redirecting Input</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80d3-84d4-f479b4119ff4">This is the most common and simplest method, handled by your operating system&#39;s shell (like Bash or Command Prompt), not by special C code. Your C program simply reads from <code class="note-inline-code">stdin</code> or writes to <code class="note-inline-code">stdout</code> as usual. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-802b-9f73-d63b776567d1">For reading information, use the <code class="note-inline-code">&lt;</code> operator to feed the contents of a file as the standard input to your program.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8003-99e8-cbc240e65747"><strong>Syntax:</strong> <code class="note-inline-code">./your_program &lt; input_file.txt</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80fc-a5f8-d2abc48d37d7"><strong>In your C code:</strong> Use standard input functions like <code class="note-inline-code">scanf()</code>, <code class="note-inline-code">gets()</code>, <code class="note-inline-code">getchar()</code>, or <code class="note-inline-code">fgets()</code>. Your program won&#39;t &quot;know&quot; the input is from a file; it just reads from <code class="note-inline-code">stdin</code>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80cc-b72f-f22f137b925f">For writing information, use the <code class="note-inline-code">&gt;</code> or <code class="note-inline-code">&gt;&gt;</code> operators to send the program&#39;s standard output to a file.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8072-913d-f9c3bbb50345"><strong><code class="note-inline-code">&gt;</code></strong><strong>:</strong> Overwrites the file if it exists.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8054-895f-dc475ea3ff45"><strong><code class="note-inline-code">&gt;&gt;</code></strong><strong>:</strong> Appends the output to the end of the file.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8033-b740-da1d1307fa66"><strong>Syntax:</strong> <code class="note-inline-code">./your_program &gt; output_file.txt</code></li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8076-867d-dd81b0257ca5"><strong>In your C code:</strong> Use standard output functions like <code class="note-inline-code">printf()</code>, <code class="note-inline-code">puts()</code>, or <code class="note-inline-code">putchar()</code>.</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-808f-8abd-db49443e5fc9"><strong>Piping</strong> also comes in useful. Use the <code class="note-inline-code">|</code> operator to send the <code class="note-inline-code">stdout</code> of one program to the <code class="note-inline-code">stdin</code> of another.</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80fe-b925-e5be13f98c96"><strong>Syntax:</strong> <code class="note-inline-code">./program1 | ./program2</code></li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8098-8f37-d4f747635c90">Here is a complex example of all of these put together:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-800c-a72b-cce0615d80d8"><div class="code-block-header"><span class="code-language">bash</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="bash" tabindex="0" role="region" aria-label="bash code"><code class="language-bash">(./bermuda | ./geo2json) &lt; spooky.csv &gt; output.json</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f1-846e-d8df9a49dd1c">Input from <code class="note-inline-code">spooky.csv</code> is fed into <code class="note-inline-code">bermuda</code> followed by <code class="note-inline-code">geo2json</code> then written to <code class="note-inline-code">output.json</code>. The parentheses will make sure the data file is read by the Standard Input of the <code class="note-inline-code">bermuda</code> program.</p><h3 id="3b7d3a21-bb2d-80b4-8cc0-ff683018fdb9" class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-80b4-8cc0-ff683018fdb9" data-source-heading-level="3">Error Handling</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a9-a80b-dd4cb237ee4e">One issue that comes up with this approach is handling error messages. A naive approach will just redirect all error messages to the file and we wouldn’t know that something even went wrong.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8005-9a04-fd59eb679aa5">To overcome this problem we can use the fact that the program returns a status that represents whether the code has run successfully. First, here is how we can access the status produced by the code:</p><div class="notion-column-list" data-notion-block-id="3b7d3a21-bb2d-8085-8ef0-c0459472cb96"><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-800c-926a-e6af71e8a9fb" style="--notion-column-width: 50%;"><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-808f-8bef-cb27c7c8effa"><div class="code-block-header"><span class="code-language">bash</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="bash" tabindex="0" role="region" aria-label="bash code"><code class="language-bash"># In MacOS/Linux
 $ echo $?
-2</code></pre></figure></div><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-8099-8b1c-eeef2a6c57cd" style="--notion-column-width: 50%;"><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8067-a8a7-e630b8ad16cd"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash"># In Windows
+2</code></pre></figure></div><div class="notion-block notion-column" data-notion-block-id="3b7d3a21-bb2d-8099-8b1c-eeef2a6c57cd" style="--notion-column-width: 50%;"><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-8067-a8a7-e630b8ad16cd"><div class="code-block-header"><span class="code-language">bash</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="bash" tabindex="0" role="region" aria-label="bash code"><code class="language-bash"># In Windows
 C:\&gt; echo %ERRORLEVEL%
-2</code></pre></figure></div></div><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f2-a318-cff9a3f27eb4">Now it is important to remember that there are two output streams from all processes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80b7-8c3c-e61bd0a57b5a">Standard Output: <strong>stdout</strong> carries normal program results to the terminal (screen) by default</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8036-aa09-ed6c7eb1a414">Standard Error: <strong>stderr</strong> carries error messages or diagnostic info separately, allowing users to redirect or filter them independently (e.g., save output to a file but log errors to another) for better control and debugging. </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800f-a8bd-dd85cd8a952a">So to be able to do file handling with this approach, we need to be sure to redirect our error messages through the standard error stream. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8044-b6fd-f601f347f5d5">For this we use the <code class="note-inline-code">fprintf</code> function. This is the superset of <code class="note-inline-code">printf</code> which allows us to choose where you want to send text to. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8042-822c-dfbfa4b01bdb">The function prototype for <code class="note-inline-code">fprintf()</code> is included in the <code class="note-inline-code">&lt;stdio.h&gt;</code> header file:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8076-8e67-c59d021faa90"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">int fprintf(FILE *stream, const char *format, ...);</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8065-85e2-d5a808997090"><code class="note-inline-code">FILE *stream</code>: A pointer to the file object where the output will be written. This pointer is usually obtained using the <code class="note-inline-code">fopen()</code> function.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80d0-badf-e4d572c21618"><code class="note-inline-code">const char *format</code>: A C string that contains the text to be written, which can include format specifiers like <code class="note-inline-code">%d</code> (integer), <code class="note-inline-code">%f</code> (float), or <code class="note-inline-code">%s</code> (string).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a7-a819-e5200eaf5bfb">On success, <code class="note-inline-code">fprintf()</code> returns the number of characters successfully written to the stream. If a writing error occurs, it returns a negative value. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8066-8665-e393cb974163">If needed we can redirect the data we write to standard error using <code class="note-inline-code">2&gt;</code>. For example:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8055-9426-d32f96358f98"><pre class="note-code-block" data-language="bash" tabindex="0"><code class="language-bash">command &gt; stdout.txt 2&gt; stderr.txt</code></pre></figure><h3 class="notion-block notion-heading notion-heading-2" data-notion-block-id="3b7d3a21-bb2d-8052-a7a2-ea4c40ea91bc">Within the C program</h3><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a8-ae25-e70bb77f87c2">You can control redirection from inside your C code using the <code class="note-inline-code">freopen()</code> function from <code class="note-inline-code">stdio.h</code>. This is useful if you cannot use command line redirection or need to dynamically change streams during execution. </p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-80bc-b144-dfd3804160ae"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">#include &lt;stdio.h&gt;
+2</code></pre></figure></div></div><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80f2-a318-cff9a3f27eb4">Now it is important to remember that there are two output streams from all processes:</p><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80b7-8c3c-e61bd0a57b5a">Standard Output: <strong>stdout</strong> carries normal program results to the terminal (screen) by default</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8036-aa09-ed6c7eb1a414">Standard Error: <strong>stderr</strong> carries error messages or diagnostic info separately, allowing users to redirect or filter them independently (e.g., save output to a file but log errors to another) for better control and debugging. </li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-800f-a8bd-dd85cd8a952a">So to be able to do file handling with this approach, we need to be sure to redirect our error messages through the standard error stream. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8044-b6fd-f601f347f5d5">For this we use the <code class="note-inline-code">fprintf</code> function. This is the superset of <code class="note-inline-code">printf</code> which allows us to choose where you want to send text to. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8042-822c-dfbfa4b01bdb">The function prototype for <code class="note-inline-code">fprintf()</code> is included in the <code class="note-inline-code">&lt;stdio.h&gt;</code> header file:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-8076-8e67-c59d021faa90"><div class="code-block-header"><span class="code-language">c</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code"><code class="language-c">int fprintf(FILE *stream, const char *format, ...);</code></pre></figure><ul class="notion-block notion-bulleted-list note-list"><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-8065-85e2-d5a808997090"><code class="note-inline-code">FILE *stream</code>: A pointer to the file object where the output will be written. This pointer is usually obtained using the <code class="note-inline-code">fopen()</code> function.</li><li class="notion-block notion-list-item note-list-item" data-notion-block-id="3b7d3a21-bb2d-80d0-badf-e4d572c21618"><code class="note-inline-code">const char *format</code>: A C string that contains the text to be written, which can include format specifiers like <code class="note-inline-code">%d</code> (integer), <code class="note-inline-code">%f</code> (float), or <code class="note-inline-code">%s</code> (string).</li></ul><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a7-a819-e5200eaf5bfb">On success, <code class="note-inline-code">fprintf()</code> returns the number of characters successfully written to the stream. If a writing error occurs, it returns a negative value. </p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8066-8665-e393cb974163">If needed we can redirect the data we write to standard error using <code class="note-inline-code">2&gt;</code>. For example:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-8055-9426-d32f96358f98"><div class="code-block-header"><span class="code-language">bash</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="bash" tabindex="0" role="region" aria-label="bash code"><code class="language-bash">command &gt; stdout.txt 2&gt; stderr.txt</code></pre></figure><h2 id="3b7d3a21-bb2d-8052-a7a2-ea4c40ea91bc" class="notion-block notion-heading notion-heading-1" data-notion-block-id="3b7d3a21-bb2d-8052-a7a2-ea4c40ea91bc" data-source-heading-level="2">Within the C program</h2><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-80a8-ae25-e70bb77f87c2">You can control redirection from inside your C code using the <code class="note-inline-code">freopen()</code> function from <code class="note-inline-code">stdio.h</code>. This is useful if you cannot use command line redirection or need to dynamically change streams during execution. </p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-80bc-b144-dfd3804160ae"><div class="code-block-header"><span class="code-language">c</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code"><code class="language-c">#include &lt;stdio.h&gt;
 
 int main() {
     // Redirect stdout to a file named &quot;log.txt&quot;
@@ -101,10 +74,10 @@ int main() {
 
     return 0;
 }
-</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8056-a43e-d4ff11ac76c8">Another way to do this is by creating a data stream to a file:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8098-8f7f-e63e00d17d7f"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">FILE *in_file = fopen(&quot;input.txt&quot;, &quot;r&quot;);
-FILE *out_file = fopen(&quot;output.txt&quot;, &quot;w&quot;);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8000-92e4-df39b9631cb2">The <code class="note-inline-code">fopen()</code> function takes two parameters: a filename and a mode. The mode can be w to write to a file, r to read from a file, or a to append data to the end of a file. Pay attention to the type: <code class="note-inline-code">FILE</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8007-ae2b-f4e660e0200a">Once you’ve created a data stream, you can print to it using <code class="note-inline-code">fprintf()</code>, just like before. But what if you need to read from a file? Well, there’s also an <code class="note-inline-code">fscanf()</code> function to help you do that too:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-808c-b52c-e2505f04de0c"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">fprintf(out_file, &quot;Don&#39;t wear %s with %s&quot;, &quot;red&quot;, &quot;green&quot;);
-fscanf(in_file, &quot;%79[^\n]\n&quot;, sentence);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8014-99cc-f570a19f2718">Finally, when you’re finished with a data stream, you need to close it. The truth is that all data streams are automatically closed when the program ends, but it’s still a good idea to always close the data stream yourself:</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-8069-9846-e7360ff1b4aa"><pre class="note-code-block" data-language="c" tabindex="0"><code class="language-c">fclose(in_file);
-fclose(out_file);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8038-8115-ff18d61c46d3">Usually a process can have up to 256 data streams. The key thing is there’s a limited number of them, so make sure you close them when you’re done using them.</p><figure class="notion-block notion-code" data-notion-block-id="3b7d3a21-bb2d-809a-a392-fdd4a26e649b"><pre class="note-code-block" data-language="plain-text" tabindex="0"><code class="language-plain-text">// 1. Define the structure
+</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8056-a43e-d4ff11ac76c8">Another way to do this is by creating a data stream to a file:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-8098-8f7f-e63e00d17d7f"><div class="code-block-header"><span class="code-language">c</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code"><code class="language-c">FILE *in_file = fopen(&quot;input.txt&quot;, &quot;r&quot;);
+FILE *out_file = fopen(&quot;output.txt&quot;, &quot;w&quot;);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8000-92e4-df39b9631cb2">The <code class="note-inline-code">fopen()</code> function takes two parameters: a filename and a mode. The mode can be w to write to a file, r to read from a file, or a to append data to the end of a file. Pay attention to the type: <code class="note-inline-code">FILE</code>.</p><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8007-ae2b-f4e660e0200a">Once you’ve created a data stream, you can print to it using <code class="note-inline-code">fprintf()</code>, just like before. But what if you need to read from a file? Well, there’s also an <code class="note-inline-code">fscanf()</code> function to help you do that too:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-808c-b52c-e2505f04de0c"><div class="code-block-header"><span class="code-language">c</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code"><code class="language-c">fprintf(out_file, &quot;Don&#39;t wear %s with %s&quot;, &quot;red&quot;, &quot;green&quot;);
+fscanf(in_file, &quot;%79[^\n]\n&quot;, sentence);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8014-99cc-f570a19f2718">Finally, when you’re finished with a data stream, you need to close it. The truth is that all data streams are automatically closed when the program ends, but it’s still a good idea to always close the data stream yourself:</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-8069-9846-e7360ff1b4aa"><div class="code-block-header"><span class="code-language">c</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code"><code class="language-c">fclose(in_file);
+fclose(out_file);</code></pre></figure><p class="notion-block notion-paragraph" data-notion-block-id="3b7d3a21-bb2d-8038-8115-ff18d61c46d3">Usually a process can have up to 256 data streams. The key thing is there’s a limited number of them, so make sure you close them when you’re done using them.</p><figure class="notion-block notion-code code-block" data-notion-block-id="3b7d3a21-bb2d-809a-a392-fdd4a26e649b"><div class="code-block-header"><span class="code-language">plain-text</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="plain-text" tabindex="0" role="region" aria-label="plain-text code"><code class="language-plain-text">// 1. Define the structure
 struct Person {
 char name[50];
 int age;
@@ -115,31 +88,26 @@ void update_person_age(struct Person *person_ptr) {
 // 4. Access members using the arrow operator (-&gt;)
     person_ptr-&gt;age =30;
 // The arrow operator is a shorthand for (*person_ptr).age.
-}</code></pre></figure></article>
-        
-        <nav class="next-reading" aria-label="Next reading">
+}</code></pre></figure></article><nav class="next-reading" aria-label="Next reading">
   <a class="next-reading-link" href="/topics/c/">
     <span class="next-reading-label">Next</span>
     <strong>C Deep Dive</strong>
-    <span class="note-publication"><span class="note-status note-status-working">Working note</span><span class="note-type">Topic overview</span></span>
+    <span class="note-publication" aria-label="Working note, Topic overview"><span class="note-type">Topic overview</span></span>
   </a>
   <p>Last note in this section; return to C Deep Dive for the full list.</p>
-</nav>
-      </div>
-    </div>
-  
+</nav></div>
+  </div>
       </main>
       
       <footer class="site-footer" aria-label="Site footer">
-        <p>Praneeth Suresh · computer science notes, projects, and writing. Notes are public working material; each shows whether it has been reviewed.</p>
+        <span>Praneeth Suresh</span>
         <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/start-here/">Start here</a>
-          <a href="/contact/">Contact</a>
+          <a href="/about/#contact">Email</a>
+          <a href="https://github.com/Praneeth-Suresh" data-analytics-event="outbound_github_click">GitHub</a>
+          <a href="https://www.linkedin.com/in/praneeth-suresh-a114aa250/" data-analytics-event="outbound_linkedin_click">LinkedIn</a>
           <a href="/cv.pdf" data-analytics-event="cv_download_click">CV</a>
           <a href="/feed.xml" data-analytics-event="rss_click" data-subscribe-source="footer">RSS</a>
-          <a href="/research-taste/">Research questions</a>
           <a href="/errata/">Errata</a>
-          <a href="/sitemap.xml">Sitemap</a>
         </nav>
       </footer>
   
@@ -147,139 +115,98 @@ void update_person_age(struct Person *person_ptr) {
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
-
-        function recordAnalyticsEvent(name, detail = {}) {
-          const payload = {
-            name,
-            path: window.location.pathname,
-            detail,
-            recordedAt: new Date().toISOString(),
-          };
+        const recordAnalyticsEvent = (name, detail = {}) => {
+          const payload = { name, path: location.pathname, detail, recordedAt: new Date().toISOString() };
           window.notesAnalyticsEvents.push(payload);
           window.dispatchEvent(new CustomEvent("notes-analytics", { detail: payload }));
-        }
-
-        document.body.dataset.analyticsEvent = "page_view";
+        };
         recordAnalyticsEvent("page_view");
 
-        const themeToggle = document.querySelector(".theme-toggle");
-        const root = document.documentElement;
-        const systemDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
-
-        function currentTheme() {
-          return root.dataset.theme || (systemDarkMode.matches ? "dark" : "light");
-        }
-
-        function renderThemeToggle() {
-          if (!themeToggle) {
-            return;
-          }
-
-          const isDark = currentTheme() === "dark";
-          const nextTheme = isDark ? "light" : "dark";
-          themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-          themeToggle.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-        }
-
-        if (themeToggle && !themeToggle.disabled) {
-          renderThemeToggle();
-          themeToggle.addEventListener("click", () => {
-            const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-            root.dataset.theme = nextTheme;
-            try {
-              window.localStorage.setItem("notes-theme", nextTheme);
-            } catch (error) {
-              // The selected theme still applies for this page when storage is unavailable.
-            }
-            renderThemeToggle();
-          });
-        }
-
-        function isEditableTarget(target) {
-          if (!target || !(target instanceof HTMLElement)) {
-            return false;
-          }
-
-          return (
-            target.isContentEditable ||
-            target.tagName === "INPUT" ||
-            target.tagName === "TEXTAREA" ||
-            target.tagName === "SELECT"
-          );
-        }
-
+        const isEditable = (target) => target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.key.length !== 1 ||
-            isEditableTarget(event.target)
-          ) {
-            return;
-          }
-
-          const hotkey = event.key.toUpperCase();
-          if (hotkey === "/") {
-            const searchInput = document.getElementById("topic-search");
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
-            if (searchInput) {
-              searchInput.focus();
-            } else {
-              window.location.href = "/notes/#topic-search";
-            }
-            return;
-          }
-
-          const target = Array.from(document.querySelectorAll("[data-hotkey]")).find(
-            (element) => element.dataset.hotkey?.toUpperCase() === hotkey && element.href,
-          );
-
-          if (target) {
-            event.preventDefault();
-            target.click();
+            const input = document.getElementById("topic-search");
+            if (input) input.focus();
+            else location.href = "/notes/#search";
           }
         });
 
         document.addEventListener("click", (event) => {
-          const target = event.target instanceof Element
-            ? event.target.closest("[data-analytics-event]")
-            : null;
-          if (!target) {
-            return;
-          }
-
-          recordAnalyticsEvent(target.dataset.analyticsEvent, {
+          const target = event.target instanceof Element ? event.target.closest("[data-analytics-event]") : null;
+          if (target) recordAnalyticsEvent(target.dataset.analyticsEvent, {
             href: target.getAttribute("href") || "",
             subscribeSource: target.dataset.subscribeSource || "",
           });
         });
-      })();
-    </script>
-    <script>
-      (() => {
-        // In-place disclosure (reading paths, topic rows) stays hash-addressable:
-        // opening #path-x or #topic-x expands that section, and toggling updates the URL.
-        function openHashTarget() {
-          if (!window.location.hash) {
-            return;
+
+        const revealHashTarget = () => {
+          if (!location.hash) return;
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent.tagName === "DETAILS") parent.open = true;
+            parent = parent.parentElement;
           }
-          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-          if (target && target.tagName === "DETAILS") {
-            target.open = true;
-          }
-        }
-        openHashTarget();
-        window.addEventListener("hashchange", openHashTarget);
-        document.querySelectorAll("details[data-hash-disclosure]").forEach((details) => {
-          details.addEventListener("toggle", () => {
-            if (details.open && details.id) {
-              history.replaceState(history.state, "", "#" + details.id);
+          if (target.tagName === "DETAILS") target.open = true;
+        };
+        revealHashTarget();
+        addEventListener("hashchange", revealHashTarget);
+
+        const homeSections = Array.from(document.querySelectorAll("details[data-home-section]"));
+        let syncingHome = false;
+        const syncHomeHash = () => {
+          if (!homeSections.length) return;
+          const id = location.hash.slice(1);
+          syncingHome = true;
+          for (const section of homeSections) section.open = section.id === id;
+          syncingHome = false;
+        };
+        syncHomeHash();
+        addEventListener("popstate", syncHomeHash);
+        addEventListener("hashchange", syncHomeHash);
+        for (const section of homeSections) {
+          section.addEventListener("toggle", () => {
+            if (syncingHome) return;
+            if (section.open) {
+              syncingHome = true;
+              for (const other of homeSections) if (other !== section) other.open = false;
+              syncingHome = false;
+              if (location.hash !== "#" + section.id) history.pushState(history.state, "", "#" + section.id);
+            } else if (location.hash === "#" + section.id) {
+              history.replaceState(history.state, "", location.pathname + location.search);
             }
           });
-        });
+        }
 
+        const updateOverflow = (region) => {
+          const max = region.scrollWidth - region.clientWidth;
+          region.classList.toggle("is-overflowing", max > 1);
+          region.classList.toggle("is-at-end", max <= 1 || region.scrollLeft >= max - 1);
+        };
+        const overflowRegions = Array.from(document.querySelectorAll(".note-scroll, pre[tabindex], .notion-equation, mjx-container[display='true']"));
+        for (const region of overflowRegions) {
+          updateOverflow(region);
+          region.addEventListener("scroll", () => updateOverflow(region), { passive: true });
+        }
+        addEventListener("resize", () => overflowRegions.forEach(updateOverflow), { passive: true });
+
+        for (const button of document.querySelectorAll("[data-copy-code]")) {
+          button.addEventListener("click", async () => {
+            const code = button.closest(".code-block")?.querySelector("code");
+            const status = button.closest(".code-block")?.querySelector("[data-copy-status]");
+            if (!code || !status) return;
+            try {
+              await navigator.clipboard.writeText(code.textContent);
+              status.textContent = "Code copied.";
+            } catch (error) {
+              status.textContent = "Copy failed. Select the code to copy it manually.";
+            }
+          });
+        }
       })();
     </script>
   </body>
