@@ -39,6 +39,10 @@ const DEFAULT_MATHJAX_SOURCE_PATH = path.resolve(
 const MATHJAX_ASSET_PATH = path.join("assets", "vendor", "mathjax", "tex-svg-full.js");
 const SOCIAL_PREVIEW_SOURCE_PATH = path.join("content", "social", "theoretical-cs-preview.svg");
 const SOCIAL_PREVIEW_ASSET_PATH = path.join("assets", "social", "theoretical-cs-preview.svg");
+const INTER_FONT_SOURCE_PATH = path.join("content", "fonts", "inter-variable.woff2");
+const INTER_FONT_ASSET_PATH = path.join("assets", "fonts", "inter-variable.woff2");
+const INTER_LICENSE_SOURCE_PATH = path.join("content", "fonts", "LICENSE.txt");
+const INTER_LICENSE_ASSET_PATH = path.join("assets", "fonts", "LICENSE.txt");
 const CV_SOURCE_PATH = "cv.pdf";
 const CV_ASSET_PATH = "cv.pdf";
 const STATIC_ARTIFACTS = [
@@ -68,7 +72,7 @@ function parseArgs(argv) {
     projectsData: DEFAULT_PROJECTS_DATA_PATH,
     researchTasteData: DEFAULT_RESEARCH_TASTE_DATA_PATH,
     siteMetadata: DEFAULT_SITE_METADATA_PATH,
-    siteTitle: "Praneeth's CS Field Notes",
+    siteTitle: "Praneeth Suresh",
     siteUrl: DEFAULT_SITE_URL,
     publication: DEFAULT_PUBLICATION_PATH,
     corrections: DEFAULT_CORRECTIONS_PATH,
@@ -488,25 +492,17 @@ function cloneBlockForPage(block, childPageRecords, parentUrlPath) {
 
 const GATEWAY_ROUTES = [
   "/",
-  "/start-here/",
-  "/research-taste/",
   "/errata/",
-  "/subscribe/",
   "/about/",
   "/notes/",
   "/projects/",
-  "/contact/",
 ];
 const GATEWAY_TITLES = {
   "/": "Home",
-  "/start-here/": "Start here",
-  "/research-taste/": "Research questions",
   "/errata/": "Errata",
-  "/subscribe/": "Follow by RSS",
   "/about/": "About",
   "/notes/": "Notes",
   "/projects/": "Projects",
-  "/contact/": "Contact",
   "/blog/": "Writing",
 };
 
@@ -1142,19 +1138,20 @@ async function buildPagesSite({
     ...(Array.isArray(projectsData?.projects) ? projectsData.projects.map((project) => `/projects/${project.slug}/`) : []),
   ]);
   function resolveCuratedLink(step, label) {
-    if (!generatedRouteSet.has(step.href)) {
+    const targetPath = step.href.split("#")[0];
+    if (!generatedRouteSet.has(targetPath)) {
       throw new Error(`${label} links to ${step.href}, which the build does not generate.`);
     }
     const described = describeLink(step.href);
-    const blog = blogEntries.get(step.href);
+    const blog = blogEntries.get(targetPath);
     const project = Array.isArray(projectsData?.projects)
-      ? projectsData.projects.find((candidate) => `/projects/${candidate.slug}/` === step.href)
+      ? projectsData.projects.find((candidate) => `/projects/${candidate.slug}/` === targetPath)
       : null;
     return {
       href: step.href,
       note: step.note || "",
-      title: step.title || described.title || blog?.post.title || project?.title || GATEWAY_TITLES[step.href] || step.href,
-      kind: step.href.startsWith("/topics/") ? "Note" : blog ? "Writing" : project ? "Project" : "Page",
+      title: step.title || described.title || blog?.post.title || project?.title || GATEWAY_TITLES[targetPath] || step.href,
+      kind: targetPath.startsWith("/topics/") ? "Note" : blog ? "Writing" : project ? "Project" : "Page",
       publication: described.publication,
     };
   }
@@ -1188,6 +1185,10 @@ async function buildPagesSite({
   const buildOutputDir = await fs.mkdtemp(path.join(outputParentDir, `.${outputBaseName}.tmp-`));
   let committedOutput = false;
   const routeFingerprints = [];
+  const generatedFragments = new Map();
+  const rememberFragments = (urlPath, html) => {
+    generatedFragments.set(urlPath, new Set(Array.from(html.matchAll(/\sid="([^"]+)"/gu), (match) => match[1])));
+  };
 
   try {
     const cssPath = path.join(buildOutputDir, "assets", "site.css");
@@ -1203,6 +1204,18 @@ async function buildPagesSite({
       outputDir: buildOutputDir,
       outputRelativePath: SOCIAL_PREVIEW_ASSET_PATH,
       label: "social preview asset",
+    });
+    await copyFileToOutput({
+      sourcePath: INTER_FONT_SOURCE_PATH,
+      outputDir: buildOutputDir,
+      outputRelativePath: INTER_FONT_ASSET_PATH,
+      label: "Inter 4.1 variable web font",
+    });
+    await copyFileToOutput({
+      sourcePath: INTER_LICENSE_SOURCE_PATH,
+      outputDir: buildOutputDir,
+      outputRelativePath: INTER_LICENSE_ASSET_PATH,
+      label: "Inter SIL OFL license",
     });
     await copyFileToOutput({
       sourcePath: CV_SOURCE_PATH,
@@ -1297,20 +1310,18 @@ async function buildPagesSite({
       homeReadings,
       homeProjectSlugs,
       errataEntries,
+      blogManifest,
     };
     const gatewayPages = [
       ["/", "index.html", stylingContext.renderHomePage(gatewayContext)],
-      ["/start-here/", "start-here/index.html", stylingContext.renderStartHerePage(gatewayContext)],
-      ["/research-taste/", "research-taste/index.html", stylingContext.renderResearchTastePage({ siteTitle, siteUrl: normalizedSiteUrl, researchTasteData })],
       ["/errata/", "errata/index.html", stylingContext.renderErrataPage({ siteTitle, siteUrl: normalizedSiteUrl, errataEntries })],
-      ["/subscribe/", "subscribe/index.html", stylingContext.renderSubscribePage({ siteTitle, siteUrl: normalizedSiteUrl })],
-      ["/about/", "about/index.html", stylingContext.renderPersonalPage({ siteTitle, siteUrl: normalizedSiteUrl, portfolioData, projectsData })],
+      ["/about/", "about/index.html", stylingContext.renderPersonalPage({ siteTitle, siteUrl: normalizedSiteUrl, portfolioData, projectsData, researchTasteData })],
       ["/notes/", "notes/index.html", stylingContext.renderNotesIndexPage({ ...gatewayContext, searchEntries: searchIndex })],
       ["/projects/", "projects/index.html", stylingContext.renderProjectsIndexPage({ siteTitle, siteUrl: normalizedSiteUrl, projectsData })],
-      ["/contact/", "contact/index.html", stylingContext.renderContactPage({ siteTitle, siteUrl: normalizedSiteUrl })],
     ];
     for (const [urlPath, relativePath, html] of gatewayPages) {
       await writeUtf8File(path.join(buildOutputDir, relativePath), html);
+      rememberFragments(urlPath, html);
       routeFingerprints.push({ urlPath, fingerprint: htmlFingerprint(html), fallbackDate: siteLastModified });
     }
     await writeUtf8File(
@@ -1412,7 +1423,11 @@ async function buildPagesSite({
     }
 
     const sitemapItems = resolveRouteDates({ items: routeFingerprints, ledger: routeDatesLedger });
-    assertRedirectsConsistent({ redirects, generatedRoutes: sitemapItems.map((item) => item.urlPath) });
+    assertRedirectsConsistent({
+      redirects,
+      generatedRoutes: [...sitemapItems.map((item) => item.urlPath), "/feed.xml", "/cv.pdf"],
+      generatedFragments,
+    });
 
     await writeUtf8File(
       path.join(buildOutputDir, "search-index.json"),

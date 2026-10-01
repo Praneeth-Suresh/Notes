@@ -118,7 +118,7 @@ This is the practical value of theory. A hardness proof does not ship a feature,
 - Start with the [Algorithms pillar](/topics/algorithms/).
 - Read [The Traveling Salesperson Problem](/topics/algorithms/the-traveling-salesperson-problem-tsp/) for a concrete optimization problem with a decision version.
 - Read [Savitch's Algorithm](/topics/algorithms/savitchs-algorithm/) for another view of complexity classes and resource bounds.
-- Use the [research taste list](/research-taste/) for the broader source trail behind future theoretical-CS posts.
+- Use the [research questions and source list](/about/#research) for the broader source trail behind future theoretical-CS posts.
 
 ## Further reading
 

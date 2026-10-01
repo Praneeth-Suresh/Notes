@@ -252,6 +252,42 @@ function normalizeLanguageClass(language) {
   return safe.length > 0 ? safe : "plain-text";
 }
 
+
+function slugifyHeading(value) {
+  const slug = String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gu, "-")
+    .replace(/^-+|-+$/gu, "");
+  return slug || "section";
+}
+
+function prepareBlocksForRendering(blocks) {
+  const state = { firstSourceLevel: null, previousHtmlLevel: 1, ids: new Map() };
+  const uniqueId = (preferred) => {
+    const base = preferred || "section";
+    const count = state.ids.get(base) || 0;
+    state.ids.set(base, count + 1);
+    return count === 0 ? base : `${base}-${count + 1}`;
+  };
+  const visit = (items) => (items || []).map((block) => {
+    const prepared = { ...block };
+    if (block.type === "heading") {
+      const sourceLevel = Number.isInteger(block.level) ? Math.min(Math.max(block.level, 1), 6) : 2;
+      if (state.firstSourceLevel == null) state.firstSourceLevel = sourceLevel;
+      const relativeLevel = Math.max(2, Math.min(6, 2 + sourceLevel - state.firstSourceLevel));
+      prepared.htmlHeadingLevel = Math.min(relativeLevel, state.previousHtmlLevel + 1);
+      state.previousHtmlLevel = prepared.htmlHeadingLevel;
+      const blockId = typeof block.blockId === "string" && block.blockId.trim() ? block.blockId.trim() : "";
+      prepared.headingId = uniqueId(blockId || slugifyHeading(plainTextFromRichText(block.richText)));
+    }
+    if (Array.isArray(block.children)) prepared.children = visit(block.children);
+    return prepared;
+  });
+  return visit(blocks);
+}
+
 function renderBlock(block) {
   if (!block || typeof block !== "object") {
     throw new Error("Block must be an object.");
@@ -259,12 +295,11 @@ function renderBlock(block) {
 
   switch (block.type) {
     case "heading": {
-      const level = Number.isInteger(block.level) ? Math.min(Math.max(block.level, 1), 6) : 2;
-      // The page shell owns the single <h1> (the note title). Notion headings nest one
-      // level below it; the notion-heading-N class keeps Notion's visual hierarchy.
-      const htmlLevel = Math.min(level + 1, 6);
-      const classes = notionBlockClass(block, "heading", ` notion-heading-${level}`);
-      return `<h${htmlLevel} class="${classes}"${notionBlockIdAttribute(block)}>${renderRichText(block.richText ?? [])}</h${htmlLevel}>`;
+      const sourceLevel = Number.isInteger(block.level) ? Math.min(Math.max(block.level, 1), 6) : 2;
+      const htmlLevel = Number.isInteger(block.htmlHeadingLevel) ? block.htmlHeadingLevel : Math.min(sourceLevel + 1, 6);
+      const classes = notionBlockClass(block, "heading", ` notion-heading-${Math.max(1, htmlLevel - 1)}`);
+      const id = block.headingId || slugifyHeading(plainTextFromRichText(block.richText));
+      return `<h${htmlLevel} id="${escapeHtml(id)}" class="${classes}"${notionBlockIdAttribute(block)} data-source-heading-level="${sourceLevel}">${renderRichText(block.richText ?? [])}</h${htmlLevel}>`;
     }
     case "paragraph":
       return `<p class="${notionBlockClass(block, "paragraph")}"${notionBlockIdAttribute(block)}>${renderRichText(block.richText ?? [])}</p>`;
@@ -287,7 +322,7 @@ function renderBlock(block) {
 
       const language = normalizeLanguageClass(block.language);
       const caption = renderCaption(block.caption);
-      return `<figure class="${notionBlockClass(block, "code")}"${notionBlockIdAttribute(block)}><pre class="note-code-block" data-language="${escapeHtml(language)}" tabindex="0"><code class="language-${escapeHtml(language)}">${escapeHtml(block.code)}</code></pre>${caption}</figure>`;
+      return `<figure class="${notionBlockClass(block, "code", " code-block")}"${notionBlockIdAttribute(block)}><div class="code-block-header"><span class="code-language">${escapeHtml(language)}</span><button class="copy-action" type="button" data-copy-code>Copy</button><span class="visually-hidden" aria-live="polite" data-copy-status></span></div><pre class="note-code-block" data-language="${escapeHtml(language)}" tabindex="0" role="region" aria-label="${escapeHtml(language)} code"><code class="language-${escapeHtml(language)}">${escapeHtml(block.code)}</code></pre>${caption}</figure>`;
     }
     case "table":
       return renderTable(block);
@@ -451,10 +486,10 @@ function renderPublicationBadge(publication) {
   const type = typeof publication.contentType === "string" && publication.contentType !== ""
     ? `<span class="note-type">${escapeHtml(publication.contentType)}</span>`
     : "";
-  const reviewed = typeof publication.reviewedAt === "string" && publication.reviewedAt !== ""
-    ? ` <time datetime="${escapeHtml(publication.reviewedAt)}">${escapeHtml(publication.reviewedAt)}</time>`
-    : "";
-  return `<span class="note-publication"><span class="note-status note-status-${slug}">${escapeHtml(publication.status)}${reviewed}</span>${type}</span>`;
+  const visibleStatus = slug === "working"
+    ? ""
+    : `<span class="note-status note-status-${slug}">${escapeHtml(publication.status)}</span>`;
+  return `<span class="note-publication" aria-label="${escapeHtml(publication.status)}${publication.contentType ? `, ${escapeHtml(publication.contentType)}` : ""}">${visibleStatus}${type}</span>`;
 }
 
 function renderChildPage(block) {
@@ -657,7 +692,7 @@ function renderTopicBody(topicDocument) {
     throw new Error("topicDocument.blocks must be an array.");
   }
 
-  return `<article class="note-article notion-page-content">${renderBlocks(topicDocument.blocks)}</article>`;
+  return `<article id="overview" class="note-article notion-page-content">${renderBlocks(prepareBlocksForRendering(topicDocument.blocks))}</article>`;
 }
 
 function createSearchEntry({ slug, topicDocument }) {

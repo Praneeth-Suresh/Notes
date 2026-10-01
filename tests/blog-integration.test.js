@@ -31,7 +31,7 @@ function findSchemaByType(html, type) {
 test("renderBlogBody converts markdown headings to HTML", () => {
   const html = notesContent.renderBlogBody("# Hello\n\nParagraph here.");
   // The page shell owns the only <h1>; Markdown headings nest one level below it.
-  assert.ok(html.includes("<h2>Hello</h2>"));
+  assert.ok(html.includes('<h2 id="hello" data-source-heading-level="1">Hello</h2>'));
   assert.ok(!html.includes("<h1"));
   assert.ok(html.includes("<p>Paragraph here.</p>"));
   assert.ok(html.startsWith('<article class="blog-article">'));
@@ -145,7 +145,7 @@ test("renderBlogIndexPage produces valid HTML with sections and posts", () => {
   assert.ok(html.includes("Writing · Test Site"));
 
   const siteCss = siteStyling.getSiteCss();
-  assert.ok(siteCss.includes(".blog-post-list { list-style: none; padding-left: 0; margin: 0; }"));
+  assert.match(siteCss, /\.blog-post-list\s*\{[^}]*list-style:\s*none/u);
   assert.ok(!siteCss.includes(".blog-post-list li::marker"));
 });
 
@@ -184,7 +184,7 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
   assert.ok(html.includes('data-analytics-event="copy_share_link_click"'));
   // Should have next link but no prev (first post)
   assert.ok(html.includes('href="/blog/ch2/"'));
-  assert.ok(html.includes("Chapter 2 &rarr;") || html.includes("Chapter 2 →"));
+  assert.ok(html.includes("Older</span><br>Chapter 2"));
   // Back link
   assert.ok(html.includes('href="/blog/"'));
 });
@@ -216,15 +216,16 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes('rel="alternate" type="application/rss+xml"'));
     // Audit C7: no promotional subscribe or reading-trail panels around the archive.
     assert.ok(!blogIndex.includes("subscribe-panel"));
-    assert.ok(!blogIndex.includes("reading-trail"));
+    assert.ok(!blogIndex.includes('class="reading-trail"'));
     assert.ok(blogIndex.includes("Stable Diffusion XL"));
     assert.ok(blogIndex.includes('<time datetime="2026-07-01">2026-07-01</time>'));
-    assert.ok(blogIndex.includes("Start with these"));
+    assert.ok(!blogIndex.includes("Start with these"));
+    assert.ok(blogIndex.includes('<h2>2026</h2>'));
     assert.ok(!blogIndex.includes("blog_intro"), "the decorative intro image no longer precedes the archive");
     assert.ok(blogIndex.includes(`<meta name="description" content="Essays and project write-ups by Praneeth Suresh: AI research reading, engineering decisions, and project retrospectives." />`));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));
     // The public site name comes from content/site-metadata.json, not the caller (audit C12).
-    assert.ok(blogIndex.includes('<meta property="og:title" content="Writing · Praneeth&#39;s CS Field Notes" />'));
+    assert.ok(blogIndex.includes('<meta property="og:title" content="Writing · Praneeth Suresh" />'));
     assert.equal(
       findSchemaByType(blogIndex, "CollectionPage").url,
       "https://notes.praneeth-suresh-s.workers.dev/blog/",
@@ -238,9 +239,9 @@ test("build-pages emits blog routes when manifest exists", async () => {
       "utf8",
     );
     assert.ok(!postHtml.includes("subscribe-panel"));
-    assert.ok(!postHtml.includes("reading-trail"));
-    assert.ok(postHtml.includes('Published <time datetime="2026-06-04">2026-06-04</time>'));
-    assert.ok(postHtml.includes('content="Launching Off · Writing · Praneeth&#39;s CS Field Notes preview from Praneeth&#39;s CS Field Notes."'));
+    assert.ok(!postHtml.includes('class="reading-trail"'));
+    assert.ok(postHtml.includes('<dt>Published</dt><dd><time datetime="2026-06-04">2026-06-04</time>'));
+    assert.ok(postHtml.includes('content="Launching Off · Writing · Praneeth Suresh preview from Praneeth Suresh."'));
     assert.ok(!/newsletter|monthly/iu.test(postHtml), "no email newsletter is promised");
     assert.ok(postHtml.includes('href="https://nodejs.org/"'), "malformed Node.js link fixed");
     assert.ok(!postHtml.includes('href="http://node.js/"'));
@@ -313,7 +314,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(flagshipHtml.includes('href="/artifacts/deep-learning-paper-trail.md"'));
     assert.ok(!flagshipHtml.includes("subscribe-panel"));
     assert.ok(flagshipHtml.includes('href="/errata/"'));
-    assert.ok(flagshipHtml.includes('href="/research-taste/"'));
+    assert.ok(flagshipHtml.includes('href="/about/#research"'));
     assert.ok(flagshipHtml.includes("George Cybenko"));
     assert.ok(flagshipHtml.includes("Yann LeCun"));
     assert.ok(flagshipHtml.includes("Ashish Vaswani"));
@@ -393,7 +394,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     const sitemapXml = await fs.readFile(path.join(tmpOut, "sitemap.xml"), "utf8");
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/notes/</loc>"));
-    assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/subscribe/</loc>"));
+    assert.ok(!sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/subscribe/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/errata/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/unic-launching-off/</loc>"));
     assert.ok(sitemapXml.includes("<loc>https://notes.praneeth-suresh-s.workers.dev/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/</loc>"));
@@ -424,7 +425,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
 
     const homeHtml = await fs.readFile(path.join(tmpOut, "index.html"), "utf8");
     assert.ok(homeHtml.includes('href="/blog/"'));
-    assert.ok(homeHtml.includes("Start reading"));
+    assert.ok(homeHtml.includes('id="writing" name="home-index" data-home-section'));
 
     const algorithmsHtml = await fs.readFile(path.join(tmpOut, "topics", "algorithms", "index.html"), "utf8");
     assert.ok(!algorithmsHtml.includes("Flagship essay"));

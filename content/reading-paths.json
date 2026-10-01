@@ -12,7 +12,7 @@
         { "href": "/projects/beryl/", "note": "Repository checks for AI-assisted development, with a real check result." },
         { "href": "/projects/notes/", "note": "How this site turns Notion notes into static pages." },
         { "href": "/cv.pdf", "title": "CV (PDF)", "note": "Two-page résumé." },
-        { "href": "/contact/", "note": "Email, GitHub, and LinkedIn." }
+        { "href": "/about/#contact", "title": "Contact", "note": "Email, GitHub, and LinkedIn." }
       ]
     },
     {

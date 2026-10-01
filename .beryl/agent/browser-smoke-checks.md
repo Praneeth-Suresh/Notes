@@ -1,27 +1,25 @@
 # Browser Smoke Checks
 
-Use Playwright MCP against the production URL after deployment and after major UI changes.
+Use Playwright against a fresh generated build for UI changes, then repeat key navigation against production after deployment.
 
-Production base URL:
-
-```text
-https://notes.praneeth-suresh-s.workers.dev
-```
-
-## Primary Routes
+## Canonical route families
 
 | Route | Expected browser signal |
 | --- | --- |
-| `/` | Page loads, heading includes `Praneeth's CS Field Notes`, and header links for Start, About, Projects, Notes, Blog, Contact, and RSS are visible. |
-| `/start-here/` | Page loads, heading includes `A first path through the notes.`, and at least one primary/secondary action is visible. |
-| `/notes/` | Page loads, heading includes `Search the notes archive.`, notes search input is visible, and topic cards render. |
-| `/blog/` | Page loads, heading includes `A Developer's Story`, writing search input is visible, and blog post links render. |
-| `/projects/` | Page loads, heading includes `Selected projects`, and project cards render. |
-| `/contact/` | Page loads, heading includes `Contact`, and Email, GitHub, and LinkedIn links render. |
-| `/subscribe/` | Page loads, heading includes `Subscribe`, and email/RSS subscribe links render. |
-| `/about/` | Page loads, heading includes `Praneeth Suresh`, and GitHub/LinkedIn links render. |
-| `/collaborate/` | Page loads, heading includes `Collaboration and consulting`, and contact/collaboration CTAs render. |
+| `/` | One `Praneeth Suresh` H1; four closed disclosures (Projects, Notes, Writing, About); opening one closes another and updates/restores its hash. |
+| `/notes/` | Search field and topic disclosures remain browsable; loading, retry, empty, results, query restoration, and Cmd/Ctrl+K work without moving focus. |
+| `/topics/<topic>/` | Status properties, grouped Contents, direct overview link, source body, and sparse status legend. |
+| `/topics/<topic>/<note>/` | Status properties, optional known gaps/outline, stable heading anchors, local code/table/math overflow, copy feedback, related and Next rows. |
+| `/blog/` | Chronological year-grouped Writing archive with search. |
+| `/blog/<post>/` | Article properties, logical heading outline, copy-link feedback, and chronological newer/older links. |
+| `/projects/` | Compact project rows with role/date/status metadata. |
+| `/projects/<project>/` | Project properties plus Problem, What I built, Evidence when present, One hard decision, Where it stands, and Limits when present. |
+| `/about/` | Identity/experience/work plus complete `#research` and visible `#contact` content. |
+| `/errata/` | Dated affected-page rows with Original/Now callouts. |
+| `/404.html` | Concise recovery, Home/Notes links, and static Notes search form. |
 
-## Recent Verification
+Every canonical HTML route plus 404 must be checked at 320, 390, 768, and 1440 px in light/dark system themes for one H1, logical headings, assets, local-only technical overflow, no page overflow, and usable controls. Also inspect reduced motion, 200% zoom, keyboard-only navigation, no-JavaScript, font fallback, print, direct fragments, and Back/Forward.
 
-2026-07-04: TinyFish/Playwright automation confirmed all primary routes above load successfully from production.
+## Compatibility routes
+
+Verify permanent HTTP redirects in a Cloudflare-compatible local preview: `/start-here/` → `/#notes`; `/contact/` and `/collaborate/` → `/about/#contact`; `/research-taste/` → `/about/#research`; `/subscribe/` → `/feed.xml`; renamed note routes → their final note. There must be no chain.

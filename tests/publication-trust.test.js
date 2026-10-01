@@ -346,23 +346,25 @@ test("real build: every note route and search result carries an explicit status;
   }
 });
 
-test("real build: status shows on topic listings, the notes search payload, and curated reading paths", async () => {
+test("real build: sparse status is accessible on topic listings, search payloads, and guided paths", async () => {
   const { outDir } = await buildRealSite();
   const algorithms = await readPage(outDir, "/topics/algorithms/");
   const notes = await readPage(outDir, "/notes/");
 
   assert.match(
     algorithms,
-    /class="note-child-page-link" href="\/topics\/algorithms\/a-search\/">A\* Search<\/a><span class="note-publication"><span class="note-status note-status-working">Working note<\/span><span class="note-type">Stub<\/span>/u,
+    /class="note-child-page-link" href="\/topics\/algorithms\/a-search\/">A\* Search<\/a><span class="note-publication" aria-label="Working note, Stub"><span class="note-type">Stub<\/span>/u,
   );
-  assert.ok(algorithms.includes('<a class="topic-pillar-link" href="/topics/algorithms/dijkstra/">Dijkstra</a><span class="note-publication"><span class="note-status note-status-working">Working note</span>'));
-  // Search results render status from the lazily loaded index.
+  assert.ok(algorithms.includes('href="/topics/algorithms/dijkstra/"'));
+  assert.ok(algorithms.includes('aria-label="Working note, Explainer"'));
+  assert.ok(algorithms.includes("Unmarked notes are working notes: public, not yet reviewed."));
   assert.ok(notes.includes("function statusBadge(entry)"));
+  assert.ok(notes.includes("slug === \"working\" ? \"\""));
   const searchIndex = JSON.parse(await fs.readFile(path.join(outDir, "search-index.json"), "utf8"));
   assert.equal(searchIndex.find((entry) => entry.urlPath === "/topics/algorithms/dijkstra/").status, "Working note");
-  assert.ok(notes.includes('<a href="/topics/algorithms/dijkstra/">Dijkstra</a><span class="note-publication"><span class="note-status note-status-working">Working note</span>'));
-  const startHere = await readPage(outDir, "/start-here/");
-  assert.ok(startHere.includes('<a href="/topics/algorithms/binary-search/">Binary Search</a><span class="note-publication"><span class="note-status note-status-working">Working note</span>'));
+  assert.ok(notes.includes('href="/topics/algorithms/dijkstra/"'));
+  assert.ok(notes.includes('aria-label="Working note, Explainer"'));
+  assert.ok(notes.includes('href="/topics/algorithms/binary-search/"'));
 
   const stub = await readPage(outDir, "/topics/algorithms/a-search/");
   assert.ok(stub.includes("No definition, algorithm, or worked example yet."));

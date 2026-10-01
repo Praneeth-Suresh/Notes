@@ -100,12 +100,20 @@ test("real build: the exact-title Dijkstra note ranks first and /notes/ stays sm
 // One H1 and local scrolling (audit C5, C6)
 // ---------------------------------------------------------------------------
 
-test("Notion and Markdown headings nest under the page title", () => {
+test("Notion and Markdown headings normalize relative hierarchy under the page title", () => {
   const html = renderTopicBody({
-    blocks: [{ type: "heading", level: 1, richText: [{ type: "text", content: "Big", annotations: {}, href: null }] }],
+    blocks: [
+      { type: "heading", level: 4, blockId: "stable-heading", richText: [{ type: "text", content: "First", annotations: {}, href: null }] },
+      { type: "heading", level: 6, richText: [{ type: "text", content: "Deep", annotations: {}, href: null }] },
+      { type: "heading", level: 5, richText: [{ type: "text", content: "Middle", annotations: {}, href: null }] },
+    ],
   });
-  assert.ok(html.includes('<h2 class="notion-block notion-heading notion-heading-1"'));
-  assert.ok(renderBlogBody("# A\n\n## B").includes("<h2>A</h2><h3>B</h3>".replace("</h2><h3>", "</h2>\n<h3>")));
+  assert.ok(html.includes('<h2 id="stable-heading"'));
+  assert.ok(html.includes('data-source-heading-level="4"'));
+  assert.ok(html.includes('<h3 id="deep"'));
+  assert.ok(html.includes('<h3 id="middle"'));
+  const blog = renderBlogBody("## A\n\n#### B\n\n### C\n\n###### D");
+  assert.match(blog, /<h2 id="a"[^>]*>A<\/h2>[\s\S]*<h3 id="b"[^>]*>B<\/h3>[\s\S]*<h3 id="c"[^>]*>C<\/h3>[\s\S]*<h4 id="d"[^>]*>D<\/h4>/u);
 });
 
 test("tables and code blocks scroll inside focusable regions", () => {
@@ -116,21 +124,25 @@ test("tables and code blocks scroll inside focusable regions", () => {
     ],
   });
   assert.ok(notes.includes('<div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table'));
-  assert.ok(notes.includes('<pre class="note-code-block" data-language="c" tabindex="0">'));
-  const blog = renderBlogBody("| a | b |\n|---|---|\n| 1 | 2 |\n\n```\ncode\n```");
+  assert.ok(notes.includes('<pre class="note-code-block" data-language="c" tabindex="0" role="region" aria-label="c code">'));
+  assert.ok(notes.includes('data-copy-code>Copy</button>'));
+  const blog = renderBlogBody("| a | b |\n|---|---|\n| 1 | 2 |\n\n```js\ncode\n```");
   assert.ok(blog.includes('<div class="note-scroll note-table-scroll" role="region" aria-label="Table" tabindex="0"><table>'));
-  assert.ok(blog.includes('<pre tabindex="0">'));
+  assert.ok(blog.includes('<pre tabindex="0" role="region" aria-label="js code">'));
+  assert.ok(blog.includes('data-copy-status'));
 });
 
 test("real build: every HTML page has exactly one h1 and no subscribe panel", async () => {
   const { outDir } = await buildRealSite();
   const files = await listHtml(outDir);
-  assert.ok(files.length >= 159);
+  const sitemap = await fs.readFile(path.join(outDir, "sitemap.xml"), "utf8");
+  const canonicalCount = (sitemap.match(/<loc>/gu) || []).length;
+  assert.equal(files.length, canonicalCount + 1, "canonical sitemap routes plus custom 404");
   for (const file of files) {
     const html = await fs.readFile(file, "utf8");
     assert.equal((html.match(/<h1[\s>]/gu) || []).length, 1, `h1 count in ${path.relative(outDir, file)}`);
     assert.ok(!html.includes("subscribe-panel"), `subscribe panel in ${path.relative(outDir, file)}`);
-    assert.ok(!html.includes("reading-trail"), `reading trail in ${path.relative(outDir, file)}`);
+    assert.ok(!html.includes('class="reading-trail"'), `reading trail in ${path.relative(outDir, file)}`);
   }
 });
 
@@ -188,16 +200,20 @@ test("a reading path link to a note that does not exist fails the build", async 
 // Redirects and renamed notes (audit C11, ledger)
 // ---------------------------------------------------------------------------
 
-test("redirects must leave live pages alone and point at generated routes", () => {
-  const redirects = validateRedirects({ redirects: [{ from: "/old/", to: "/new/", reason: "renamed" }] });
-  assert.throws(() => assertRedirectsConsistent({ redirects, generatedRoutes: ["/old/", "/new/"] }), /still a generated page/u);
-  assert.throws(() => assertRedirectsConsistent({ redirects, generatedRoutes: [] }), /does not generate/u);
-  assert.doesNotThrow(() => assertRedirectsConsistent({ redirects, generatedRoutes: ["/new/"] }));
-  assert.equal(renderRedirectsFile(redirects).split("\n")[1], "/old/ /new/ 301");
+test("redirects validate generated page fragments and files without chains", () => {
+  const redirects = validateRedirects({ redirects: [{ from: "/old/", to: "/new/#section", reason: "moved" }, { from: "/follow/", to: "/feed.xml", reason: "rss" }] });
+  const fragments = new Map([["/new/", new Set(["section"])]]);
+  assert.throws(() => assertRedirectsConsistent({ redirects, generatedRoutes: ["/old/", "/new/", "/feed.xml"], generatedFragments: fragments }), /still a generated page/u);
+  assert.throws(() => assertRedirectsConsistent({ redirects, generatedRoutes: [], generatedFragments: fragments }), /does not generate/u);
+  assert.doesNotThrow(() => assertRedirectsConsistent({ redirects, generatedRoutes: ["/new/", "/feed.xml"], generatedFragments: fragments }));
+  assert.throws(() => assertRedirectsConsistent({ redirects, generatedRoutes: ["/new/", "/feed.xml"], generatedFragments: new Map() }), /missing fragment/u);
+  const chain = validateRedirects({ redirects: [{ from: "/a/", to: "/b/", reason: "one" }, { from: "/b/", to: "/new/", reason: "two" }] });
+  assert.throws(() => assertRedirectsConsistent({ redirects: chain, generatedRoutes: ["/new/"] }), /chain or cycle/u);
+  assert.equal(renderRedirectsFile(redirects).split("\n")[1], "/old/ /new/#section 301");
   assert.throws(() => validateRedirects({ redirects: [{ from: "/a/", to: "/b/", reason: "" }] }), /reason is required/u);
 });
 
-test("real build: renamed notes and /collaborate/ redirect to live routes", async () => {
+test("real build: renamed and retired routes redirect directly to final targets", async () => {
   const { outDir } = await buildRealSite();
   const redirects = await fs.readFile(path.join(outDir, "_redirects"), "utf8");
   const expected = [
@@ -206,17 +222,17 @@ test("real build: renamed notes and /collaborate/ redirect to live routes", asyn
     ["/topics/os/address-space-2/", "/topics/os/address-space-study-plan/"],
     ["/topics/os/network-communcation/", "/topics/os/network-communication/"],
     ["/topics/ai-engineer/kernal-and-os-optimisations/", "/topics/ai-engineer/kernel-and-os-optimisations/"],
-    ["/collaborate/", "/contact/"],
+    ["/start-here/", "/#notes"], ["/contact/", "/about/#contact"], ["/research-taste/", "/about/#research"],
+    ["/subscribe/", "/feed.xml"], ["/collaborate/", "/about/#contact"],
   ];
   for (const [from, to] of expected) {
     assert.ok(redirects.includes(`${from} ${to} 301`), `${from} redirect`);
-    await fs.access(path.join(outDir, ...to.split("/").filter(Boolean), "index.html"));
     await assert.rejects(fs.access(path.join(outDir, ...from.split("/").filter(Boolean), "index.html")));
   }
+  await fs.access(path.join(outDir, "about", "index.html"));
+  await fs.access(path.join(outDir, "feed.xml"));
   const titles = [];
-  for (const file of await listHtml(path.join(outDir, "topics"))) {
-    titles.push((await fs.readFile(file, "utf8")).match(/<h1 class="site-title">([^<]*)<\/h1>/u)[1]);
-  }
+  for (const file of await listHtml(path.join(outDir, "topics"))) titles.push((await fs.readFile(file, "utf8")).match(/<h1 class="site-title">([^<]*)<\/h1>/u)[1]);
   const duplicates = titles.filter((title, index) => titles.indexOf(title) !== index);
   assert.deepEqual(duplicates.filter((title) => ["Scheduling", "Address Space"].includes(title)), []);
 });

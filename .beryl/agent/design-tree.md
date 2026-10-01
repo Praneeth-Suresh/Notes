@@ -10,16 +10,18 @@ Use three bounded contexts with a Cloudflare Pages composition boundary:
 
 The Pages build contract composes these contexts into static deploy artifacts so reliability and scalability are handled at build time, not runtime.
 Formatting fidelity is a hard requirement: notion-authored structure, especially LaTeX and code blocks, must be preserved exactly through publish artifacts.
-Since 2026-09-30 (website audit) the site uses a quiet, Notion-inspired reading surface for recruiters and collaborators: paper/ink tokens with one blue accent and an amber Working-note status, one H1 per page, a reading margin that shows each note's status and from/next links, and Colin Moy-style in-place disclosure only for curated reading paths and topic rows. Older Stripe- and Apple-inspired decisions below are superseded where they conflict.
+Since 2026-09-30 (approved redesign), the public identity is **Praneeth Suresh** and the site is a personal technical notebook. Home is an oversized four-disclosure index (Projects, Notes, Writing, About); archives are compact row lists; topic roots expose grouped Contents; notes and posts use a centred 708 px measure with concise properties, stable heading anchors, and local technical overflow. Self-hosted Inter uses three interface weights, links stay ink-coloured, blue is reserved for focus/selection, and dark mode follows the system with no stored override. Working status is explicit on direct note pages but unmarked in listings, where one visible legend explains the default; Reviewed and Archived remain visible tags. Start Here, Contact, Research Taste, Subscribe, and Collaborate are retired with direct permanent redirects after their content moved into Home, Notes, About, and RSS. The previous sticky Reading Margin, manual theme control, Stripe/Apple Home treatments, card walls, decorative images, and permanent dot-matrix wordmark are superseded.
 
 ## Open Decisions
+
+> **Historical decision log:** rows below retain earlier implementation history. Where they conflict with the 2026-09-30 approved redesign entry above, the redesign entry is authoritative; retired routes, theme storage, single-key hotkeys, showcase motion, card surfaces, and the Reading Margin are no longer active decisions.
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
 | Portfolio source fidelity | Static curated facts from approved profile/repo pages vs. runtime profile fetch vs. user-authenticated scrape | Static curated facts from approved public GitHub pages, with LinkedIn unavailable if auth-walled | Keeps Cloudflare Pages static and avoids inventing inaccessible LinkedIn-only details. |
 | Portfolio repository refresh source | Manual local GitHub API refresh vs. Pages Function runtime fetch vs. Cloudflare Worker trigger | Manual local GitHub API refresh | The maintainer wants manual local triggering; Cloudflare Pages builds must consume checked-in static JSON and never call GitHub directly. |
 | Notion database label rendering | Render all database properties vs. manifest-configured select/multi-select properties vs. infer labels from page text | Manifest-configured select/multi-select properties | Keeps labels explicit, avoids noisy database metadata, and preserves Notion property intent. |
-| Keyboard shortcut scope | Global single-key navigation vs. modifier-based shortcuts vs. no executable shortcuts | Global single-key navigation outside editable controls | Matches visible hotkey labels while protecting search and text input. |
+| Keyboard shortcut scope | Modifier-based search entry vs. global single-key navigation | Cmd+K on macOS and Ctrl+K elsewhere; no global single-key route shortcuts | Search remains quick without hijacking typing, IME composition, or native browser behavior. |
 
 ## Settled Decisions
 
@@ -106,13 +108,14 @@ Since 2026-09-30 (website audit) the site uses a quiet, Notion-inspired reading 
 | About page continuous layout | Remove the bordered block-by-block section treatment from `/about/` and use a continuous editorial flow: the dot-matrix hero remains the identity anchor, while subsequent sections align on an open label/content rail with whitespace, type scale, and lightweight separators instead of boxed panels. | 2026-07-14 | n/a |
 | Beryl repository control-plane layout | Use the current `.beryl/` layout for agent instructions, scripts, driver, and githooks; root shims are generated from `.beryl/agent/tool-instruction-template.md`, and deterministic gates run through `./.beryl/scripts/check.sh`. | 2026-07-06 | n/a |
 
-- 2026-09-30 (audit Phases 3–7), superseding the homepage showcase, subscribe, and Stripe-styling rows above:
-  - Visual system: Notion-like tokens in `site-styling/internal/css.js`; no forced dark Home, no per-section themes, no decorative Home imagery; motion limited to 150 ms colour transitions and removed under reduced motion.
-  - Navigation: primary Notes, Projects, Writing (route stays `/blog/`), About, plus Search; Start here, Contact, CV, RSS, Research questions, Errata in the footer. `/collaborate/` is a 301 to `/contact/`.
-  - Notes: one H1 (Notion/Markdown headings shift down a level), local scrolling for code, tables, and math; next reading comes from curated reading paths (`scripts/lib/reading-paths.js`), not build order.
-  - Search: ranking and snippets in `site-styling/internal/notes-search.js`; `/notes/` fetches the index lazily.
-  - Follow: RSS only; no email newsletter (owner decision 2026-09-30).
-  - Sitemap dates come from a fingerprinted ledger, and renames go through `_redirects` (ADR 0009).
+- 2026-09-30 (approved redesign implementation), superseding conflicting homepage, theme, navigation, wordmark, and listing-status rows above:
+  - Visual system: self-hosted Inter 4.1 (SIL OFL), Notion-like light/dark tokens, 708 px centred reading measure, ink links, no cards/gradients/shadows/decorative Home assets, and only disclosure/row/underline transitions removed under reduced motion.
+  - Navigation: Praneeth Suresh identity; desktop Notes, Projects, Writing, About, Search; below 768 px the same destinations live in a native normal-flow Menu while Search remains visible. Cmd/Ctrl+K is the only advertised shortcut.
+  - Home and disclosure: Home has four oversized hash-addressable native disclosures with real data. Topic roots and Notes use the same triangle/row vocabulary without overwriting article fragments.
+  - Notes and posts: one H1, relative heading normalization with stable IDs, concise publication/article properties, local keyboard-reachable code/table/math overflow, copy feedback, print expansion, and a browsable no-JavaScript fallback.
+  - Publication status: direct notes always show status; listing/search rows visually tag only Reviewed and Archived, expose full status accessibly, and explain unmarked Working notes once per result/listing context.
+  - Consolidation: `/start-here/` → `/#notes`, `/contact/` and `/collaborate/` → `/about/#contact`, `/research-taste/` → `/about/#research`, `/subscribe/` → `/feed.xml`; guided paths and source material moved before generators were removed. Redirects reject chains, cycles, missing routes, and missing fragments (ADR 0009).
+  - Search remains lazy and static; RSS remains the only follow mechanism; sitemap dates remain fingerprint-ledger controlled.
 - 2026-09-30 (audit Phase 1–2): Publication status, content corrections, and note media are checked-in sidecars joined by `pages-build`, never written into normalized ingestion output. Every note defaults to Working note; Reviewed note needs a hand-written `reviewedAt`. Substantive corrections are published on `/errata/` and linked from the note's status block. See ADR 0008.
 
 ## Pressure Points
@@ -121,7 +124,7 @@ Since 2026-09-30 (website audit) the site uses a quiet, Notion-inspired reading 
 - Topic manifest, navigation tree, and search index must stay consistent as topics grow.
 - Static child-page route slugs are derived from Notion child page titles, so duplicate sibling titles need deterministic disambiguation.
 - Cross-context imports must remain one-way through public entry points only.
-- Stripe-inspired visual density must not make technical notes harder to read, especially wide tables, code blocks, toggles, child databases, and LaTeX output.
+- Shared notebook density must not make technical notes harder to read, especially wide tables, code blocks, toggles, child databases, and LaTeX output.
 - Generated motion must respect static deployment and should avoid distracting users who prefer reduced motion.
 - The personal portfolio must not overclaim beyond public GitHub/LinkedIn source evidence; LinkedIn may remain unavailable behind an auth wall.
 - The portfolio layout should feel distinct from topic pages while reusing the same design tokens and static-friendly visual language.

@@ -93,7 +93,7 @@ This is why I want the website to reflect AI research throughout. Algorithms, sy
 
 ## Internal trail
 
-- Use the [research taste list](/research-taste/) for the broader AI paper trail behind future notes.
+- Use the [research questions and source list](/about/#research) for the broader AI paper trail behind future notes.
 - Read [Peeking Inside the Black Box](/blog/peeking-inside-the-black-box/) for the interpretability direction.
 - Read [Diving Deep into interpretability](/blog/more-on-interpretability/) for the deployment and evaluation angle.
 - Browse [AI Engineering](/topics/ai-engineer/) for systems notes around accelerating AI.

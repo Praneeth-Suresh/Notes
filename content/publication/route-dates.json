@@ -3,15 +3,15 @@
   "description": "Per-route sitemap dates. A route's date changes only when the fingerprint of its authoritative content changes. Maintained by scripts/update-route-dates.js; the build fails if this file is stale.",
   "routes": {
     "/": {
-      "fingerprint": "b079274264543053ad2db4a86ff6bddf",
+      "fingerprint": "74e661460d2630f3ccbcc82a45a13aa7",
       "lastModified": "2026-09-30"
     },
     "/about/": {
-      "fingerprint": "166147e3b3cddfab83921e2dc1349e56",
+      "fingerprint": "2ee6b83d6c963fcb7341fdac03a24a86",
       "lastModified": "2026-09-30"
     },
     "/blog/": {
-      "fingerprint": "863395ac227490ebee041177941c5202",
+      "fingerprint": "aa554819849e30285bfa0c8a6847b5e0",
       "lastModified": "2026-09-30"
     },
     "/blog/a-research-program-for-inspectable-ml/": {
@@ -63,8 +63,8 @@
       "lastModified": "2026-06-04"
     },
     "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/": {
-      "fingerprint": "c3b9940c75a0a7246e91a08919d062d9",
-      "lastModified": "2026-06-19"
+      "fingerprint": "0180a36b44d3e2ace75d5f1188e36b10",
+      "lastModified": "2026-09-30"
     },
     "/blog/peeking-inside-the-black-box/": {
       "fingerprint": "604fae755700df8d6cea239309a50708",
@@ -79,8 +79,8 @@
       "lastModified": "2026-06-04"
     },
     "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/": {
-      "fingerprint": "691bc9911457d2d83a950a050c9cfa5a",
-      "lastModified": "2026-07-04"
+      "fingerprint": "67a211847a16e26d89c4fdb465de575e",
+      "lastModified": "2026-09-30"
     },
     "/blog/unic-launching-off/": {
       "fingerprint": "9106d89ea4906d304281d5086f22645a",
@@ -90,20 +90,16 @@
       "fingerprint": "eb14effc981b3423ecd8e88e56c1a2b5",
       "lastModified": "2026-06-04"
     },
-    "/contact/": {
-      "fingerprint": "3bd3e39544bb08c861034b905cdd3120",
-      "lastModified": "2026-09-30"
-    },
     "/errata/": {
-      "fingerprint": "c7d0b2c3eef2050a0ca935d252dad69f",
+      "fingerprint": "5888ce0dfd321d712c5a532fc1bcb6ee",
       "lastModified": "2026-09-30"
     },
     "/notes/": {
-      "fingerprint": "e6aba9ffc0d6570f62fd96523b7300ef",
+      "fingerprint": "a4a04fdb5e025b006bd1eb93d263c8bc",
       "lastModified": "2026-09-30"
     },
     "/projects/": {
-      "fingerprint": "11c09980321d8597d3ba16d002ecc936",
+      "fingerprint": "da01976365b8f35ecd1b0c5d60cd17db",
       "lastModified": "2026-09-30"
     },
     "/projects/ai-society-corpus/": {
@@ -120,18 +116,6 @@
     },
     "/projects/siap/": {
       "fingerprint": "0edcfd96b7bc0bf613cea4ce06a85a7a",
-      "lastModified": "2026-09-30"
-    },
-    "/research-taste/": {
-      "fingerprint": "ebaabb10a1305e1cab49edb6328b3e49",
-      "lastModified": "2026-09-30"
-    },
-    "/start-here/": {
-      "fingerprint": "38a68578d08b2974f12c4e56596386f0",
-      "lastModified": "2026-09-30"
-    },
-    "/subscribe/": {
-      "fingerprint": "f077722806448e62f438510b5645b45a",
       "lastModified": "2026-09-30"
     },
     "/topics/agent-build/": {

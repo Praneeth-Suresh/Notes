@@ -300,7 +300,9 @@ test("renders notion-compatible formatting structure for layout and annotations"
 
   assert.ok(html.includes('class="note-article notion-page-content"'));
   assert.ok(html.includes('data-notion-block-id="heading-4"'));
-  assert.ok(html.includes('class="notion-block notion-heading notion-heading-4 notion-color-blue_background"'));
+  assert.ok(html.includes('id="heading-4"'));
+  assert.ok(html.includes('class="notion-block notion-heading notion-heading-1 notion-color-blue_background"'));
+  assert.ok(html.includes('data-source-heading-level="4"'));
   assert.ok(html.includes('class="notion-rich-text notion-color-red"'));
   assert.ok(html.includes('class="notion-block notion-paragraph notion-color-gray"'));
   assert.ok(html.includes('class="notion-block notion-to-do notion-to-do-checked"'));
