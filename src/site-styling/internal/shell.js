@@ -289,7 +289,8 @@ function renderSiteHeader({ activeSection }) {
       <div class="site-header-primary">
         <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
         <nav class="site-links site-links-desktop" aria-label="Primary navigation">${links}</nav>
-        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)" aria-haspopup="dialog" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode" title="Switch light or dark mode" hidden><svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg><svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a8.5 8.5 0 1 0 11.7 11.7Z"/></svg></button>
         <details class="mobile-menu">
           <summary>Menu</summary>
           <nav aria-label="Mobile navigation">${links}</nav>
@@ -314,6 +315,159 @@ function renderSiteFooter() {
   `;
 }
 
+// Result markup shared by the /notes/ search and the search dialog, so both show the
+// same title, location, status, and highlighted passage for an entry.
+const SEARCH_CLIENT_HELPERS = `
+        function escapeHtml(value) {
+          return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#39;");
+        }
+
+        function highlight(text, terms) {
+          let html = escapeHtml(text);
+          for (const term of terms || []) {
+            if (term.length < 2) continue;
+            const pattern = new RegExp("(" + term.replace(/[.*+?^\${}()|[\\]\\\\]/g, "\\\\$&") + ")", "gi");
+            html = html.replace(pattern, "<mark>$1</mark>");
+          }
+          return html;
+        }
+
+        function statusBadge(entry) {
+          const type = entry.contentType ? '<span class="note-type">' + escapeHtml(entry.contentType) + "</span>" : "";
+          if (!entry.status) return type ? '<span class="note-publication" aria-label="' + escapeHtml(entry.contentType) + '">' + type + "</span>" : "";
+          const map = { "Working note": "working", "Reviewed note": "reviewed", Archived: "archived" };
+          const slug = map[entry.status] || "working";
+          const visible = slug === "working" ? "" : '<span class="note-status note-status-' + slug + '">' + escapeHtml(entry.status) + "</span>";
+          return '<span class="note-publication" aria-label="' + escapeHtml(entry.status + (entry.contentType ? ", " + entry.contentType : "")) + '">' + visible + type + "</span>";
+        }
+
+        function renderResult(entry, query) {
+          const snippet = buildSearchSnippet(entry, query, 90);
+          const where = [entry.topicTitle, entry.parentTitle && entry.parentTitle !== entry.topicTitle ? entry.parentTitle : ""].filter(Boolean).join(" › ");
+          return '<li class="search-result"><a class="search-result-link" href="' + escapeHtml(entry.urlPath) + '">' + escapeHtml(entry.title) + "</a>" +
+            '<p class="search-result-meta">' + (where ? '<span>' + escapeHtml(where) + "</span>" : "") + statusBadge(entry) + "</p>" +
+            '<p class="search-result-snippet">' + highlight(snippet.text, snippet.terms) + "</p></li>";
+        }`;
+
+// Cmd/Ctrl+K opens a modal search over the current page. It uses the same index,
+// ranking, and result markup as /notes/; Escape or a click outside the panel closes it.
+const SEARCH_DIALOG_HTML = `
+    <dialog class="search-dialog" id="search-dialog" aria-label="Search notes and essays">
+      <div class="search-dialog-panel">
+        <form class="search-dialog-form" role="search" action="/notes/" method="get">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="search-dialog-input" class="search-dialog-input" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search notes and essays…" aria-label="Search notes and essays" aria-describedby="search-dialog-status" aria-controls="search-dialog-results" />
+          <button class="search-dialog-close" type="button" data-search-close aria-label="Close search">Esc</button>
+        </form>
+        <p id="search-dialog-status" class="search-dialog-status" aria-live="polite">Type to search every note and essay.</p>
+        <ol id="search-dialog-results" class="search-dialog-results"></ol>
+        <footer class="search-dialog-footer"><span><kbd>↑</kbd><kbd>↓</kbd> Move</span><span><kbd>↵</kbd> Open</span><span><kbd>Esc</kbd> Close</span><a href="/notes/" data-search-dialog-all>Open the full search page</a></footer>
+      </div>
+    </dialog>`;
+
+const SEARCH_DIALOG_SCRIPT = `
+        const dialog = document.getElementById("search-dialog");
+        if (!dialog || typeof dialog.showModal !== "function") return null;
+        ${rankSearchEntries.toString()}
+        ${buildSearchSnippet.toString()}
+${SEARCH_CLIENT_HELPERS}
+        const input = document.getElementById("search-dialog-input");
+        const status = document.getElementById("search-dialog-status");
+        const results = document.getElementById("search-dialog-results");
+        const allLink = dialog.querySelector("[data-search-dialog-all]");
+        let entries = null;
+        let loading = null;
+
+        function load() {
+          if (entries) return Promise.resolve(entries);
+          if (!loading) {
+            loading = fetch("/search-index.json")
+              .then((response) => {
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                return response.json();
+              })
+              .then((data) => { entries = data; return entries; })
+              .catch((error) => { loading = null; throw error; });
+          }
+          return loading;
+        }
+
+        function render() {
+          const query = input.value.trim();
+          allLink.href = "/notes/" + (query ? "?q=" + encodeURIComponent(query) : "");
+          if (!query) {
+            results.innerHTML = "";
+            status.textContent = "Type to search every note and essay.";
+            return;
+          }
+          if (!entries) {
+            status.textContent = "Loading the search index…";
+            load().then(render).catch(() => {
+              status.innerHTML = 'The search index could not be loaded. <button type="button" class="text-button" data-retry-search-dialog>Try again</button>';
+            });
+            return;
+          }
+          const ranked = rankSearchEntries(entries, query, 40);
+          if (ranked.length === 0) {
+            const roots = entries.filter((entry) => !entry.parentTitle && entry.urlPath.startsWith("/topics/") && entry.urlPath.split("/").length === 4);
+            status.innerHTML = 'No notes match “' + escapeHtml(query) + '”. Try a shorter or more general term, check the spelling, or browse a topic:';
+            results.innerHTML = '<li class="search-empty"><ul class="search-suggestions">' + roots.map((root) => '<li><a href="' + escapeHtml(root.urlPath) + '">' + escapeHtml(root.title) + "</a></li>").join("") + "</ul></li>";
+            return;
+          }
+          status.textContent = ranked.length + (ranked.length === 1 ? " result" : " results") + (ranked.length === 40 ? " (showing the best 40)" : "");
+          results.innerHTML = ranked.map((entry) => renderResult(entry, query)).join("");
+        }
+
+        function open() {
+          if (!dialog.open) dialog.showModal();
+          input.focus();
+          input.select();
+          load().catch(() => {});
+          render();
+        }
+
+        input.addEventListener("input", render);
+        dialog.querySelector("form").addEventListener("submit", (event) => {
+          const first = results.querySelector(".search-result-link");
+          if (first) {
+            event.preventDefault();
+            location.href = first.href;
+          }
+        });
+        dialog.addEventListener("keydown", (event) => {
+          const links = Array.from(results.querySelectorAll("a"));
+          const index = links.indexOf(document.activeElement);
+          if (event.key === "Escape") {
+            event.preventDefault();
+            dialog.close();
+          } else if (event.key === "ArrowDown" && links.length && index < links.length - 1) {
+            event.preventDefault();
+            links[index + 1].focus();
+          } else if (event.key === "ArrowUp" && index !== -1) {
+            event.preventDefault();
+            (index === 0 ? input : links[index - 1]).focus();
+          }
+        });
+        // The panel fills the dialog box, so a click whose target is the dialog itself
+        // landed on the backdrop.
+        dialog.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (target === dialog || (target && target.closest("[data-search-close]"))) dialog.close();
+          else if (target && target.closest("[data-retry-search-dialog]")) render();
+        });
+        for (const link of document.querySelectorAll("[data-search-open]")) {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            open();
+          });
+        }
+        return open;`;
+
 const CLIENT_SCRIPT = `
     <script>
       (() => {
@@ -325,12 +479,41 @@ const CLIENT_SCRIPT = `
         };
         recordAnalyticsEvent("page_view");
 
+        const root = document.documentElement;
+        const themeToggle = document.querySelector(".theme-toggle");
+        if (themeToggle) {
+          const systemDark = matchMedia("(prefers-color-scheme: dark)");
+          const currentTheme = () => root.dataset.theme || (systemDark.matches ? "dark" : "light");
+          const syncToggle = () => themeToggle.setAttribute("aria-pressed", currentTheme() === "dark" ? "true" : "false");
+          themeToggle.hidden = false;
+          syncToggle();
+          systemDark.addEventListener("change", syncToggle);
+          themeToggle.addEventListener("click", () => {
+            const next = currentTheme() === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try {
+              localStorage.setItem("notes-theme", next);
+            } catch (error) {
+              // The choice still applies to this page when storage is unavailable.
+            }
+            syncToggle();
+          });
+        }
+
+        const openSearch = (() => {${SEARCH_DIALOG_SCRIPT}
+        })();
+
         const isEditable = (target) => target instanceof HTMLElement &&
           (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey) return;
           if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
+            if (openSearch) {
+              openSearch();
+              return;
+            }
+            if (isEditable(event.target)) return;
             const input = document.getElementById("topic-search");
             if (input) input.focus();
             else location.href = "/notes/#search";
@@ -483,6 +666,7 @@ ${metadataHtml}
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="${escapeHtml(siteTitle)} RSS" href="/feed.xml" />
     <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <script>try{const t=localStorage.getItem("notes-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
     <link rel="stylesheet" href="/assets/site.css" />${mathHtml}
   </head>
   <body${bodyAttributes}>
@@ -493,7 +677,7 @@ ${metadataHtml}
       ${contentHtml}
       </main>
       ${renderSiteFooter()}
-    </div>${CLIENT_SCRIPT}${extraScripts}
+    </div>${SEARCH_DIALOG_HTML}${CLIENT_SCRIPT}${extraScripts}
   </body>
 </html>`;
 }
@@ -754,34 +938,7 @@ function renderSearchScript(topics) {
         let entries = null;
         let loading = null;
         let urlTimer = null;
-
-        function escapeHtml(value) {
-          return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#39;");
-        }
-
-        function highlight(text, terms) {
-          let html = escapeHtml(text);
-          for (const term of terms || []) {
-            if (term.length < 2) continue;
-            const pattern = new RegExp("(" + term.replace(/[.*+?^\${}()|[\\]\\\\]/g, "\\\\$&") + ")", "gi");
-            html = html.replace(pattern, "<mark>$1</mark>");
-          }
-          return html;
-        }
-
-        function statusBadge(entry) {
-          const type = entry.contentType ? '<span class="note-type">' + escapeHtml(entry.contentType) + "</span>" : "";
-          if (!entry.status) return type ? '<span class="note-publication" aria-label="' + escapeHtml(entry.contentType) + '">' + type + "</span>" : "";
-          const map = { "Working note": "working", "Reviewed note": "reviewed", Archived: "archived" };
-          const slug = map[entry.status] || "working";
-          const visible = slug === "working" ? "" : '<span class="note-status note-status-' + slug + '">' + escapeHtml(entry.status) + "</span>";
-          return '<span class="note-publication" aria-label="' + escapeHtml(entry.status + (entry.contentType ? ", " + entry.contentType : "")) + '">' + visible + type + "</span>";
-        }
+${SEARCH_CLIENT_HELPERS}
 
         function load() {
           if (entries) return Promise.resolve(entries);
@@ -838,13 +995,7 @@ function renderSearchScript(topics) {
             return;
           }
           status.textContent = ranked.length + (ranked.length === 1 ? " result" : " results") + " for “" + trimmed + "”" + (ranked.length === 40 ? " (showing the best 40)" : "") + ".";
-          results.innerHTML = '<li class="status-legend search-status-legend">Unmarked notes are working notes: public, not yet reviewed. Essays are labelled separately.</li>' + ranked.map((entry) => {
-            const snippet = buildSearchSnippet(entry, trimmed, 90);
-            const where = [entry.topicTitle, entry.parentTitle && entry.parentTitle !== entry.topicTitle ? entry.parentTitle : ""].filter(Boolean).join(" › ");
-            return '<li class="search-result"><a class="search-result-link" href="' + escapeHtml(entry.urlPath) + '">' + escapeHtml(entry.title) + "</a>" +
-              '<p class="search-result-meta">' + (where ? '<span>' + escapeHtml(where) + "</span>" : "") + statusBadge(entry) + "</p>" +
-              '<p class="search-result-snippet">' + highlight(snippet.text, snippet.terms) + "</p></li>";
-          }).join("");
+          results.innerHTML = '<li class="status-legend search-status-legend">Unmarked notes are working notes: public, not yet reviewed. Essays are labelled separately.</li>' + ranked.map((entry) => renderResult(entry, trimmed)).join("");
         }
 
         function run(query, { updateUrl = true } = {}) {
@@ -1157,9 +1308,19 @@ function renderProjectSummary(project, { headingLevel = 2 } = {}) {
 </article>`;
 }
 
+function renderProjectCard(project) {
+  return `<li><a class="project-card" href="/projects/${escapeHtml(project.slug)}/" data-project="${escapeHtml(project.slug)}">
+  <span class="project-card-status">${escapeHtml(project.status)}</span>
+  <h2 class="project-card-title">${escapeHtml(project.title)}</h2>
+  ${project.summary ? `<span class="project-card-summary">${escapeHtml(project.summary)}</span>` : ""}
+  ${project.role ? `<span class="project-card-role">${escapeHtml(project.role)}</span>` : ""}
+  <span class="project-card-footer"><span class="project-card-link">Read the dossier <span aria-hidden="true">→</span></span>${project.updatedAt ? `<time datetime="${escapeHtml(project.updatedAt)}">Updated ${escapeHtml(project.updatedAt)}</time>` : ""}</span>
+</a></li>`;
+}
+
 function renderProjectsIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, projectsData = DEFAULT_PROJECTS_DATA }) {
   const projects = getProjectItems(projectsData);
-  const rows = projects.length ? `<ul class="project-list page-rows">${projects.map((project) => `<li class="page-row"><a href="/projects/${escapeHtml(project.slug)}/"><span class="page-row-title">${escapeHtml(project.title)}</span>${project.summary ? `<span class="page-row-description">${escapeHtml(project.summary)}</span>` : ""}<span class="page-row-meta">${escapeHtml([project.role, project.updatedAt, project.status].filter(Boolean).join(" · "))}</span></a></li>`).join("")}</ul>` : `<p>No projects are listed yet.</p>`;
+  const rows = projects.length ? `<ul class="project-grid">${projects.map(renderProjectCard).join("")}</ul>` : `<p>No projects are listed yet.</p>`;
   const content = `${renderPageHeader({ title: "Projects", id: "projects-title", intro: "Inspectable project dossiers: the constraint, what I built, published evidence, and stated limits." })}<section class="projects-index" aria-label="Projects">${rows}</section>`;
   return renderLayout({ pageTitle: `Projects · ${siteTitle}`, siteTitle, contentHtml: content, bodyClass: "projects-page", activeSection: "projects", description: PROJECTS_DESCRIPTION, canonicalUrl: absoluteUrl(siteUrl, "/projects/"), ogTitle: `Projects · ${siteTitle}`, ogDescription: PROJECTS_DESCRIPTION, pageSchemaType: "CollectionPage" });
 }
@@ -1430,21 +1591,32 @@ const FEATURED_POST_SLUGS = [
   "np-completeness-formal-definition-proof-sketches-and-reductions",
 ];
 
+function blogSectionId(title) {
+  return `topic-${String(title || "").toLowerCase().replace(/[^a-z0-9]+/gu, "-").replace(/^-|-$/gu, "") || "untitled"}`;
+}
+
+function blogChapterLabel(post) {
+  return Number.isInteger(post.chapter) ? String(post.chapter).padStart(2, "0") : "";
+}
+
+// Writing is grouped by topic (the manifest sections) in manifest order, so each series
+// reads as its own shelf; chapter numbers appear only where a section is a numbered series.
 function renderBlogIndexPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, blogManifest, homeContentHtml = "" }) {
-  const allPosts = (blogManifest?.sections || []).flatMap((section) => (section.posts || []).map((post) => ({ post, section })));
-  allPosts.sort((a, b) => String(b.post.publishedAt || "").localeCompare(String(a.post.publishedAt || "")) || a.post.title.localeCompare(b.post.title));
-  const years = new Map();
-  for (const item of allPosts) {
-    const year = /^\d{4}/u.test(item.post.publishedAt || "") ? item.post.publishedAt.slice(0, 4) : "Undated";
-    years.set(year, [...(years.get(year) || []), item]);
-  }
-  const archive = allPosts.length ? Array.from(years, ([year, items]) => `<section class="blog-year" data-blog-section><h2>${escapeHtml(year)}</h2><ul class="blog-post-list page-rows">${items.map(({ post, section }) => {
-    const tags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
-    const searchable = `${section.title} ${section.subtitle || ""} ${post.title} ${post.description || ""} ${tags.join(" ")}`.toLowerCase();
-    return `<li class="blog-post-item page-row" data-blog-search="${escapeHtml(searchable)}"><a href="/blog/${escapeHtml(post.slug)}/"><span class="page-row-title">${escapeHtml(post.title)}</span>${post.description ? `<span class="page-row-description">${escapeHtml(post.description)}</span>` : ""}<span class="page-row-meta">${post.publishedAt ? `<time datetime="${escapeHtml(post.publishedAt)}">${escapeHtml(post.publishedAt)}</time>` : ""}${post.publishedAt && section.title ? " · " : ""}${escapeHtml(section.title || "")}</span></a></li>`;
-  }).join("")}</ul></section>`).join("") : `<p>No writing has been published yet.</p>`;
-  const content = `${renderPageHeader({ title: "Writing", id: "blog-title", intro: "Research essays, engineering write-ups, and project stories, listed by publication date." })}${homeContentHtml ? `<div class="blog-home-content">${homeContentHtml}</div>` : ""}<section id="blog-posts" class="blog-toc" aria-labelledby="blog-archive-title"><h2 id="blog-archive-title">Archive</h2><label class="topic-search-label" for="blog-search">Search writing</label><input id="blog-search" class="topic-search" type="search" placeholder="Try interpretability, proofs, project story…" aria-describedby="blog-search-status" /><p id="blog-search-status" class="topic-search-status" aria-live="polite">Showing all ${escapeHtml(countWord(allPosts.length, "post"))}.</p><div aria-label="Writing archive">${archive}</div></section><p class="blog-acknowledgements">Unless otherwise noted, blog illustrations were generated with Stable Diffusion XL under the CreativeML Open RAIL++-M License.</p>
-  <script>(() => { const input=document.getElementById("blog-search"); const status=document.getElementById("blog-search-status"); const items=Array.from(document.querySelectorAll(".blog-post-item")); const sections=Array.from(document.querySelectorAll("[data-blog-section]")); const initial=new URLSearchParams(window.location.search).get("topic"); function update(){const q=input.value.trim().toLowerCase();let shown=0;for(const item of items){const match=!q||item.dataset.blogSearch.includes(q);item.hidden=!match;if(match)shown++;}for(const section of sections)section.hidden=!Array.from(section.querySelectorAll(".blog-post-item")).some(item=>!item.hidden);status.textContent=q?(shown?shown+" result"+(shown===1?"":"s")+" shown.":"No writing matches this search. Clear it to restore the archive."):"Showing all "+items.length+" posts.";}if(initial)input.value=initial;input.addEventListener("input",update);update(); })();</script>`;
+  const sections = (blogManifest?.sections || []).filter((section) => Array.isArray(section.posts) && section.posts.length > 0);
+  const postCount = sections.reduce((sum, section) => sum + section.posts.length, 0);
+  const topicIndex = sections.length > 1 ? `<nav class="blog-topic-index" aria-label="Writing topics">${sections.map((section) => `<a href="#${escapeHtml(blogSectionId(section.title))}" data-blog-topic-link>${escapeHtml(section.title)} <span>${section.posts.length}</span></a>`).join("")}</nav>` : "";
+  const archive = sections.length ? sections.map((section) => {
+    const id = blogSectionId(section.title);
+    const items = section.posts.map((post) => {
+      const tags = Array.isArray(post.tags) ? post.tags.filter((tag) => typeof tag === "string") : [];
+      const searchable = `${section.title} ${section.subtitle || ""} ${post.title} ${post.description || ""} ${tags.join(" ")}`.toLowerCase();
+      const chapter = blogChapterLabel(post);
+      return `<li class="blog-post-item" data-blog-search="${escapeHtml(searchable)}"><a class="blog-post-link" href="/blog/${escapeHtml(post.slug)}/"><span class="blog-post-chapter"${chapter ? ` aria-label="Chapter ${post.chapter}"` : ' aria-hidden="true"'}>${chapter || "·"}</span><span class="blog-post-text"><span class="blog-post-title">${escapeHtml(post.title)}</span>${post.description ? `<span class="blog-post-description">${escapeHtml(post.description)}</span>` : ""}</span>${post.publishedAt ? `<time datetime="${escapeHtml(post.publishedAt)}">${escapeHtml(post.publishedAt)}</time>` : ""}</a></li>`;
+    }).join("");
+    return `<section class="blog-section-group" id="${escapeHtml(id)}" data-blog-section aria-labelledby="${escapeHtml(id)}-title"><header class="blog-section-header"><h2 class="blog-section-heading" id="${escapeHtml(id)}-title">${escapeHtml(section.title)}</h2><span class="blog-section-count">${escapeHtml(countWord(section.posts.length, "post"))}</span>${section.subtitle ? `<p class="blog-section-subtitle">${escapeHtml(section.subtitle)}</p>` : ""}</header><ul class="blog-post-list">${items}</ul></section>`;
+  }).join("") : `<p>No writing has been published yet.</p>`;
+  const content = `<header class="page-header blog-index-header"><p class="blog-kicker">${escapeHtml(countWord(sections.length, "topic"))} · ${escapeHtml(countWord(postCount, "post"))}</p><h1 id="blog-title">Writing</h1><p class="page-intro">Research essays, engineering write-ups, and project stories, grouped by topic.</p></header>${homeContentHtml ? `<div class="blog-home-content">${homeContentHtml}</div>` : ""}<section id="blog-posts" class="blog-toc" aria-label="Writing by topic"><label class="topic-search-label" for="blog-search">Search writing</label><input id="blog-search" class="topic-search" type="search" placeholder="Try interpretability, proofs, project story…" aria-describedby="blog-search-status" /><p id="blog-search-status" class="topic-search-status" aria-live="polite">Showing all ${escapeHtml(countWord(postCount, "post"))}.</p>${topicIndex}<div class="blog-sections">${archive}</div></section><p class="blog-acknowledgements">Unless otherwise noted, blog illustrations were generated with Stable Diffusion XL under the CreativeML Open RAIL++-M License.</p>
+  <script>(() => { const input=document.getElementById("blog-search"); const status=document.getElementById("blog-search-status"); const items=Array.from(document.querySelectorAll(".blog-post-item")); const sections=Array.from(document.querySelectorAll("[data-blog-section]")); const topicLinks=Array.from(document.querySelectorAll("[data-blog-topic-link]")); const initial=new URLSearchParams(window.location.search).get("topic"); function update(){const q=input.value.trim().toLowerCase();let shown=0;for(const item of items){const match=!q||item.dataset.blogSearch.includes(q);item.hidden=!match;if(match)shown++;}for(const section of sections)section.hidden=!Array.from(section.querySelectorAll(".blog-post-item")).some(item=>!item.hidden);for(const link of topicLinks){const section=document.getElementById(link.hash.slice(1));link.hidden=!section||section.hidden;}status.textContent=q?(shown?shown+" result"+(shown===1?"":"s")+" shown.":"No writing matches this search. Clear it to restore the archive."):"Showing all "+items.length+" posts.";}if(initial)input.value=initial;input.addEventListener("input",update);update(); })();</script>`;
   return renderLayout({ pageTitle: `Writing · ${siteTitle}`, siteTitle, contentHtml: content, bodyClass: "blog-page", activeSection: "writing", description: BLOG_INDEX_DESCRIPTION, canonicalUrl: absoluteUrl(siteUrl, "/blog/"), ogTitle: `Writing · ${siteTitle}`, ogDescription: BLOG_INDEX_DESCRIPTION, pageSchemaType: "CollectionPage" });
 }
 
@@ -1519,15 +1691,15 @@ function renderBlogPostPage({ siteTitle, siteUrl = DEFAULT_SITE_URL, post, secti
     <div class="blog-reading-panel">
       ${renderBreadcrumb([{ name: "Writing", href: "/blog/" }, { name: post.title, href: `/blog/${post.slug}/` }])}
       <header class="blog-post-header">
+        <p class="blog-post-kicker"><a href="/blog/#${escapeHtml(blogSectionId(section))}">${escapeHtml(section)}</a>${blogChapterLabel(post) ? ` <span>· Chapter ${escapeHtml(blogChapterLabel(post))}</span>` : ""}</p>
         <h1>${escapeHtml(post.title)}</h1>
         <dl class="post-properties">
           ${publishedAt ? `<div><dt>Published</dt><dd><time datetime="${escapeHtml(publishedAt)}">${escapeHtml(publishedAt)}</time></dd></div>` : ""}
           ${updatedAt && updatedAt !== publishedAt ? `<div><dt>Updated</dt><dd><time datetime="${escapeHtml(updatedAt)}">${escapeHtml(updatedAt)}</time></dd></div>` : ""}
-          <div><dt>Section</dt><dd>${escapeHtml(section)}</dd></div>
-          ${blogTags.length ? `<div><dt>Tags</dt><dd>${renderBlogTagLinks(blogTags, "Post topics")}</dd></div>` : ""}
         </dl>
         <div class="blog-post-meta-actions">
-          <button class="blog-share-button copy-action" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
+          ${renderBlogTagLinks(blogTags, "Post topics")}
+          <button class="blog-share-button" type="button" data-share-url="${escapeHtml(canonicalUrl)}" data-analytics-event="copy_share_link_click">Copy link</button>
           <span class="copy-status" aria-live="polite" data-share-status></span>
         </div>
       </header>

@@ -30,6 +30,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3ECS%3C/text%3E%3C/svg%3E" />
     <link rel="alternate" type="application/rss+xml" title="Praneeth Suresh RSS" href="/feed.xml" />
     <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <script>try{const t=localStorage.getItem("notes-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
     <link rel="stylesheet" href="/assets/site.css" />
   </head>
   <body class="blog-page blog-post-page" data-analytics-event="page_view">
@@ -39,7 +40,8 @@
       <div class="site-header-primary">
         <a class="brand-link" href="/" aria-label="Praneeth Suresh home">Praneeth Suresh</a>
         <nav class="site-links site-links-desktop" aria-label="Primary navigation"><a href="/notes/">Notes</a><a href="/projects/">Projects</a><a href="/blog/" aria-current="page">Writing</a><a href="/about/">About</a></nav>
-        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <a class="site-search-link" href="/notes/#search" aria-label="Search (Control K or Command K)" aria-haspopup="dialog" data-search-open><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>Search</span><kbd aria-hidden="true">⌘K</kbd></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode" title="Switch light or dark mode" hidden><svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg><svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5a8.5 8.5 0 1 0 11.7 11.7Z"/></svg></button>
         <details class="mobile-menu">
           <summary>Menu</summary>
           <nav aria-label="Mobile navigation"><a href="/notes/">Notes</a><a href="/projects/">Projects</a><a href="/blog/" aria-current="page">Writing</a><a href="/about/">About</a></nav>
@@ -51,15 +53,15 @@
     <div class="blog-reading-panel">
       <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/blog/">Writing</a></li><li aria-current="page">Best Case, Worst Case</li></ol></nav>
       <header class="blog-post-header">
+        <p class="blog-post-kicker"><a href="/blog/#topic-a-developer-s-memoir">A Developer&#39;s Memoir</a> <span>· Chapter 03</span></p>
         <h1>Best Case, Worst Case</h1>
         <dl class="post-properties">
           <div><dt>Published</dt><dd><time datetime="2026-06-04">2026-06-04</time></dd></div>
           
-          <div><dt>Section</dt><dd>A Developer&#39;s Memoir</dd></div>
-          <div><dt>Tags</dt><dd><div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=forecasting#blog-posts">forecasting</a><a class="topic-label topic-label-default" href="/blog/?topic=ethics#blog-posts">ethics</a><a class="topic-label topic-label-default" href="/blog/?topic=project%20story#blog-posts">project story</a></div></dd></div>
         </dl>
         <div class="blog-post-meta-actions">
-          <button class="blog-share-button copy-action" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/" data-analytics-event="copy_share_link_click">Copy link</button>
+          <div class="topic-labels blog-topic-links" aria-label="Post topics"><a class="topic-label topic-label-default" href="/blog/?topic=forecasting#blog-posts">forecasting</a><a class="topic-label topic-label-default" href="/blog/?topic=ethics#blog-posts">ethics</a><a class="topic-label topic-label-default" href="/blog/?topic=project%20story#blog-posts">project story</a></div>
+          <button class="blog-share-button" type="button" data-share-url="https://notes.praneeth-suresh-s.workers.dev/blog/best-case-worst-case/" data-analytics-event="copy_share_link_click">Copy link</button>
           <span class="copy-status" aria-live="polite" data-share-status></span>
         </div>
       </header>
@@ -135,6 +137,18 @@
       </footer>
   
     </div>
+    <dialog class="search-dialog" id="search-dialog" aria-label="Search notes and essays">
+      <div class="search-dialog-panel">
+        <form class="search-dialog-form" role="search" action="/notes/" method="get">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="search-dialog-input" class="search-dialog-input" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search notes and essays…" aria-label="Search notes and essays" aria-describedby="search-dialog-status" aria-controls="search-dialog-results" />
+          <button class="search-dialog-close" type="button" data-search-close aria-label="Close search">Esc</button>
+        </form>
+        <p id="search-dialog-status" class="search-dialog-status" aria-live="polite">Type to search every note and essay.</p>
+        <ol id="search-dialog-results" class="search-dialog-results"></ol>
+        <footer class="search-dialog-footer"><span><kbd>↑</kbd><kbd>↓</kbd> Move</span><span><kbd>↵</kbd> Open</span><span><kbd>Esc</kbd> Close</span><a href="/notes/" data-search-dialog-all>Open the full search page</a></footer>
+      </div>
+    </dialog>
     <script>
       (() => {
         window.notesAnalyticsEvents = window.notesAnalyticsEvents || [];
@@ -145,12 +159,293 @@
         };
         recordAnalyticsEvent("page_view");
 
+        const root = document.documentElement;
+        const themeToggle = document.querySelector(".theme-toggle");
+        if (themeToggle) {
+          const systemDark = matchMedia("(prefers-color-scheme: dark)");
+          const currentTheme = () => root.dataset.theme || (systemDark.matches ? "dark" : "light");
+          const syncToggle = () => themeToggle.setAttribute("aria-pressed", currentTheme() === "dark" ? "true" : "false");
+          themeToggle.hidden = false;
+          syncToggle();
+          systemDark.addEventListener("change", syncToggle);
+          themeToggle.addEventListener("click", () => {
+            const next = currentTheme() === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            try {
+              localStorage.setItem("notes-theme", next);
+            } catch (error) {
+              // The choice still applies to this page when storage is unavailable.
+            }
+            syncToggle();
+          });
+        }
+
+        const openSearch = (() => {
+        const dialog = document.getElementById("search-dialog");
+        if (!dialog || typeof dialog.showModal !== "function") return null;
+        function rankSearchEntries(entries, query, limit) {
+  const normalizedQuery = String(query || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9+#]+/g, " ").trim();
+  if (!normalizedQuery) {
+    return [];
+  }
+  const terms = normalizedQuery.split(" ").filter(Boolean);
+  const norm = (value) => String(value || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9+#]+/g, " ").trim();
+  const aliasesOf = (title) => {
+    const raw = String(title || "");
+    const list = (raw.match(/\(([^)]+)\)/g) || []).map(norm);
+    list.push(norm(raw.replace(/\([^)]*\)/g, "")));
+    return list.filter(Boolean);
+  };
+  const countOccurrences = (haystack, needle) => {
+    let count = 0;
+    let index = haystack.indexOf(needle);
+    while (index !== -1 && count < 50) {
+      count += 1;
+      index = haystack.indexOf(needle, index + needle.length);
+    }
+    return count;
+  };
+
+  const scored = [];
+  for (const entry of entries) {
+    const title = norm(entry.title);
+    const titleWords = title.split(" ");
+    const aliases = aliasesOf(entry.title);
+    const context = norm(`${entry.parentTitle || ""} ${entry.topicTitle || ""}`);
+    const body = norm(entry.searchableText);
+    let score = 0;
+
+    if (title === normalizedQuery || aliases.includes(normalizedQuery)) {
+      score += 1000;
+    } else if (title.startsWith(normalizedQuery) || aliases.some((alias) => alias.startsWith(normalizedQuery))) {
+      score += 600;
+    }
+
+    let allTermsFound = true;
+    let titleTermHits = 0;
+    for (const term of terms) {
+      const inTitle = titleWords.some((word) => word.startsWith(term)) || aliases.some((alias) => alias.split(" ").some((word) => word.startsWith(term)));
+      const inContext = context.includes(term);
+      const bodyCount = countOccurrences(body, term);
+      if (!inTitle && !inContext && bodyCount === 0) {
+        allTermsFound = false;
+        break;
+      }
+      if (inTitle) {
+        titleTermHits += 1;
+      }
+      if (inContext) {
+        score += 30;
+      }
+      score += Math.min(40, 8 * Math.log2(1 + bodyCount));
+    }
+    if (!allTermsFound) {
+      continue;
+    }
+    if (titleTermHits === terms.length) {
+      score += 300;
+    } else {
+      score += 80 * titleTermHits;
+    }
+    if (terms.length > 1 && body.includes(normalizedQuery)) {
+      score += 30;
+    }
+    if (!entry.parentTitle) {
+      score += 5;
+    }
+    scored.push({ entry, score });
+  }
+
+  scored.sort((a, b) =>
+    b.score - a.score ||
+    String(a.entry.title).length - String(b.entry.title).length ||
+    String(a.entry.title).localeCompare(String(b.entry.title)),
+  );
+  return scored.slice(0, limit || 50).map((item) => item.entry);
+}
+        function buildSearchSnippet(entry, query, radius) {
+  const text = String(entry.searchableText || "");
+  const width = radius || 90;
+  const terms = String(query || "").toLowerCase().split(/[^a-z0-9+#]+/).filter((term) => term.length > 1);
+  const lower = text.toLowerCase();
+  // Skip the title/description prefix that search entries start with.
+  let skip = 0;
+  for (const prefix of [String(entry.title || ""), String(entry.description || "")]) {
+    const candidate = lower.slice(skip).trimStart();
+    if (prefix && candidate.startsWith(prefix.toLowerCase())) {
+      skip = lower.length - candidate.length + prefix.length;
+    }
+  }
+  let index = -1;
+  const phrase = String(query || "").toLowerCase().trim();
+  if (phrase) {
+    index = lower.indexOf(phrase, skip);
+  }
+  for (const term of terms) {
+    if (index !== -1) {
+      break;
+    }
+    index = lower.indexOf(term, skip);
+  }
+  if (index === -1) {
+    const fallback = String(entry.description || text.slice(skip, skip + width * 2)).trim();
+    return { text: fallback.length > width * 2 ? `${fallback.slice(0, width * 2)}…` : fallback, terms };
+  }
+  let start = Math.max(skip, index - Math.floor(width * 0.6));
+  let end = Math.min(text.length, index + width * 1.4);
+  if (start > skip) {
+    const space = text.indexOf(" ", start);
+    start = space !== -1 && space < index ? space + 1 : start;
+  }
+  if (end < text.length) {
+    const space = text.lastIndexOf(" ", end);
+    end = space > index ? space : end;
+  }
+  return {
+    text: `${start > skip ? "…" : ""}${text.slice(start, end).trim()}${end < text.length ? "…" : ""}`,
+    terms,
+  };
+}
+
+        function escapeHtml(value) {
+          return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#39;");
+        }
+
+        function highlight(text, terms) {
+          let html = escapeHtml(text);
+          for (const term of terms || []) {
+            if (term.length < 2) continue;
+            const pattern = new RegExp("(" + term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+            html = html.replace(pattern, "<mark>$1</mark>");
+          }
+          return html;
+        }
+
+        function statusBadge(entry) {
+          const type = entry.contentType ? '<span class="note-type">' + escapeHtml(entry.contentType) + "</span>" : "";
+          if (!entry.status) return type ? '<span class="note-publication" aria-label="' + escapeHtml(entry.contentType) + '">' + type + "</span>" : "";
+          const map = { "Working note": "working", "Reviewed note": "reviewed", Archived: "archived" };
+          const slug = map[entry.status] || "working";
+          const visible = slug === "working" ? "" : '<span class="note-status note-status-' + slug + '">' + escapeHtml(entry.status) + "</span>";
+          return '<span class="note-publication" aria-label="' + escapeHtml(entry.status + (entry.contentType ? ", " + entry.contentType : "")) + '">' + visible + type + "</span>";
+        }
+
+        function renderResult(entry, query) {
+          const snippet = buildSearchSnippet(entry, query, 90);
+          const where = [entry.topicTitle, entry.parentTitle && entry.parentTitle !== entry.topicTitle ? entry.parentTitle : ""].filter(Boolean).join(" › ");
+          return '<li class="search-result"><a class="search-result-link" href="' + escapeHtml(entry.urlPath) + '">' + escapeHtml(entry.title) + "</a>" +
+            '<p class="search-result-meta">' + (where ? '<span>' + escapeHtml(where) + "</span>" : "") + statusBadge(entry) + "</p>" +
+            '<p class="search-result-snippet">' + highlight(snippet.text, snippet.terms) + "</p></li>";
+        }
+        const input = document.getElementById("search-dialog-input");
+        const status = document.getElementById("search-dialog-status");
+        const results = document.getElementById("search-dialog-results");
+        const allLink = dialog.querySelector("[data-search-dialog-all]");
+        let entries = null;
+        let loading = null;
+
+        function load() {
+          if (entries) return Promise.resolve(entries);
+          if (!loading) {
+            loading = fetch("/search-index.json")
+              .then((response) => {
+                if (!response.ok) throw new Error("HTTP " + response.status);
+                return response.json();
+              })
+              .then((data) => { entries = data; return entries; })
+              .catch((error) => { loading = null; throw error; });
+          }
+          return loading;
+        }
+
+        function render() {
+          const query = input.value.trim();
+          allLink.href = "/notes/" + (query ? "?q=" + encodeURIComponent(query) : "");
+          if (!query) {
+            results.innerHTML = "";
+            status.textContent = "Type to search every note and essay.";
+            return;
+          }
+          if (!entries) {
+            status.textContent = "Loading the search index…";
+            load().then(render).catch(() => {
+              status.innerHTML = 'The search index could not be loaded. <button type="button" class="text-button" data-retry-search-dialog>Try again</button>';
+            });
+            return;
+          }
+          const ranked = rankSearchEntries(entries, query, 40);
+          if (ranked.length === 0) {
+            const roots = entries.filter((entry) => !entry.parentTitle && entry.urlPath.startsWith("/topics/") && entry.urlPath.split("/").length === 4);
+            status.innerHTML = 'No notes match “' + escapeHtml(query) + '”. Try a shorter or more general term, check the spelling, or browse a topic:';
+            results.innerHTML = '<li class="search-empty"><ul class="search-suggestions">' + roots.map((root) => '<li><a href="' + escapeHtml(root.urlPath) + '">' + escapeHtml(root.title) + "</a></li>").join("") + "</ul></li>";
+            return;
+          }
+          status.textContent = ranked.length + (ranked.length === 1 ? " result" : " results") + (ranked.length === 40 ? " (showing the best 40)" : "");
+          results.innerHTML = ranked.map((entry) => renderResult(entry, query)).join("");
+        }
+
+        function open() {
+          if (!dialog.open) dialog.showModal();
+          input.focus();
+          input.select();
+          load().catch(() => {});
+          render();
+        }
+
+        input.addEventListener("input", render);
+        dialog.querySelector("form").addEventListener("submit", (event) => {
+          const first = results.querySelector(".search-result-link");
+          if (first) {
+            event.preventDefault();
+            location.href = first.href;
+          }
+        });
+        dialog.addEventListener("keydown", (event) => {
+          const links = Array.from(results.querySelectorAll("a"));
+          const index = links.indexOf(document.activeElement);
+          if (event.key === "Escape") {
+            event.preventDefault();
+            dialog.close();
+          } else if (event.key === "ArrowDown" && links.length && index < links.length - 1) {
+            event.preventDefault();
+            links[index + 1].focus();
+          } else if (event.key === "ArrowUp" && index !== -1) {
+            event.preventDefault();
+            (index === 0 ? input : links[index - 1]).focus();
+          }
+        });
+        // The panel fills the dialog box, so a click whose target is the dialog itself
+        // landed on the backdrop.
+        dialog.addEventListener("click", (event) => {
+          const target = event.target instanceof Element ? event.target : null;
+          if (target === dialog || (target && target.closest("[data-search-close]"))) dialog.close();
+          else if (target && target.closest("[data-retry-search-dialog]")) render();
+        });
+        for (const link of document.querySelectorAll("[data-search-open]")) {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            open();
+          });
+        }
+        return open;
+        })();
+
         const isEditable = (target) => target instanceof HTMLElement &&
           (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
         document.addEventListener("keydown", (event) => {
-          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey || isEditable(event.target)) return;
+          if (event.defaultPrevented || event.isComposing || event.altKey || event.shiftKey) return;
           if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
             event.preventDefault();
+            if (openSearch) {
+              openSearch();
+              return;
+            }
+            if (isEditable(event.target)) return;
             const input = document.getElementById("topic-search");
             if (input) input.focus();
             else location.href = "/notes/#search";

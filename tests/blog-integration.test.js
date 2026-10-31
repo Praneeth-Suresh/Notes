@@ -175,6 +175,7 @@ test("renderBlogPostPage produces valid post HTML with nav", () => {
   assert.ok(html.includes("blog-page"));
   assert.ok(html.includes("Chapter 1"));
   assert.ok(html.includes("Dev Memoir"));
+  assert.ok(html.includes('<p class="blog-post-kicker"><a href="/blog/#topic-dev-memoir">Dev Memoir</a> <span>· Chapter 01</span></p>'));
   assert.ok(html.includes("<p>Post body here</p>"));
   assert.ok(html.includes("project story"));
   assert.ok(html.includes('class="blog-post-meta-actions"'));
@@ -220,7 +221,11 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(blogIndex.includes("Stable Diffusion XL"));
     assert.ok(blogIndex.includes('<time datetime="2026-07-01">2026-07-01</time>'));
     assert.ok(!blogIndex.includes("Start with these"));
-    assert.ok(blogIndex.includes('<h2>2026</h2>'));
+    // Issue #15: writing is grouped by topic (manifest section), not by year.
+    assert.ok(blogIndex.includes('<h2 class="blog-section-heading" id="topic-ai-research-deep-dives-title">AI Research Deep Dives</h2>'));
+    assert.ok(blogIndex.includes('<a href="#topic-a-developer-s-memoir" data-blog-topic-link>'));
+    assert.ok(blogIndex.includes('<span class="blog-post-chapter" aria-label="Chapter 1">01</span>'));
+    assert.ok(!blogIndex.includes('<h2>2026</h2>'));
     assert.ok(!blogIndex.includes("blog_intro"), "the decorative intro image no longer precedes the archive");
     assert.ok(blogIndex.includes(`<meta name="description" content="Essays and project write-ups by Praneeth Suresh: AI research reading, engineering decisions, and project retrospectives." />`));
     assert.ok(blogIndex.includes('<link rel="canonical" href="https://notes.praneeth-suresh-s.workers.dev/blog/" />'));

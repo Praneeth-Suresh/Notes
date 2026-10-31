@@ -16,11 +16,11 @@ This website uses a **personal technical notebook** direction for recruiters, co
 6. **Read in the notebook shell**: Topic roots, notes, and posts use one centred 708 px reading measure, concise publication properties, logical anchored headings, and local scrolling for code, tables, and display math while all Notion-derived blocks retain their rendered structure.
 7. **Explore the maintainer portfolio**: User should navigate from the home page to a separate personal portfolio page that uses the same visual language but a distinct layout, then return to the home page or continue into notes without losing orientation.
 8. **Refresh portfolio repository evidence**: I (maintainer) should be able to run a local deterministic repository refresh command that retrieves my current public GitHub repositories, writes checked-in portfolio data, and lets Cloudflare Pages publish the refreshed personal page through the normal Git push-to-main flow.
-9. **Use keyboard navigation intentionally**: Native links, disclosures, mobile Menu, local overflow regions, and copy controls work with standard keyboard behavior. Cmd+K on macOS and Ctrl+K elsewhere focus or route to Notes search without hijacking editable fields or IME composition.
+9. **Use keyboard navigation intentionally**: Native links, disclosures, mobile Menu, local overflow regions, and copy controls work with standard keyboard behavior. Cmd+K on macOS and Ctrl+K elsewhere open a search dialog over the current page (Escape or a click outside closes it) without hijacking IME composition.
 
 ## Success Conditions
 
-1. Home, indexes, topic roots, notes, posts, projects, About, Errata, and 404 are recognizable page families within one Inter-based notebook system: oversized Home disclosures, compact listing rows, a centred reading measure, hairline rules, ink links, and system light/dark themes.
+1. Home, indexes, topic roots, notes, posts, projects, About, Errata, and 404 are recognizable page families within one Inter-based notebook system: oversized Home disclosures, compact listing rows, a centred reading measure, hairline rules, ink links, and light/dark themes that follow the system until the reader chooses one.
 2. The core notes structure is preserved: topic hierarchy, child-page routes, search, and all supported Notion block renderers continue to work.
 3. The generated site remains deployable as static Cloudflare Pages artifacts without remote font, animation, or API dependencies.
 4. The personal portfolio page truthfully presents Praneeth Suresh's public software engineering, AI research/development, project, and philosophy signals using only the approved LinkedIn and GitHub sources; inaccessible source details must not be invented.

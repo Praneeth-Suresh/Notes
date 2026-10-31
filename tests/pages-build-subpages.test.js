@@ -70,12 +70,20 @@ async function withTempDir(callback) {
   }
 }
 
-test("shared shell follows system color preference and exposes complete mobile navigation", () => {
+test("shared shell follows system color preference with a light/dark override and exposes complete mobile navigation", () => {
   const html = renderPersonalPage({ siteTitle: "Praneeth Suresh" });
-  assert.ok(!html.includes("theme-toggle"));
-  assert.ok(!html.includes("notes-theme"));
-  assert.ok(!html.includes("localStorage"));
-  assert.ok(!html.includes("data-theme"));
+  // Issue #18: light mode is reachable from any system setting; the choice persists.
+  assert.ok(html.includes('class="theme-toggle"'));
+  assert.ok(html.includes('localStorage.getItem("notes-theme")'));
+  assert.ok(html.includes('localStorage.setItem("notes-theme", next)'));
+  assert.match(SITE_CSS, /:root\[data-theme="dark"\]/u);
+  assert.match(SITE_CSS, /:root:not\(\[data-theme="light"\]\)/u);
+  assert.match(SITE_CSS, /--paper: #f2f2ed;/u);
+  // Issue #16: Cmd/Ctrl+K opens a search dialog over the current page on every route.
+  assert.ok(html.includes('<dialog class="search-dialog" id="search-dialog"'));
+  assert.ok(html.includes('fetch("/search-index.json")'));
+  assert.ok(html.includes("dialog.showModal()"));
+  assert.ok(html.includes("if (target === dialog"), "a backdrop click closes the dialog");
   assert.ok(html.includes('<details class="mobile-menu">'));
   for (const destination of ["/notes/", "/projects/", "/blog/", "/about/"]) {
     assert.ok(html.includes(`href="${destination}"`), destination);
@@ -484,7 +492,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(!homeHtml.includes("home-actions"));
     assert.ok(!homeHtml.includes("home-projects"));
     assert.ok(!homeHtml.includes("<img"), "Home carries no decorative imagery");
-    assert.ok(!homeHtml.includes("theme-toggle"), "system color preference needs no control");
+    assert.ok(homeHtml.includes('class="theme-toggle"'), "light/dark override is available on every page");
     assert.ok(!homeHtml.includes("tex-svg-full.js"), "MathJax only loads on pages that can contain LaTeX");
     assert.ok(homeHtml.includes('rel="alternate" type="application/rss+xml"'));
     assert.ok(homeHtml.includes('<link rel="canonical" href="https://example.test/" />'));
@@ -533,6 +541,11 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(projectsHtml.includes('href="/projects/notes/"'));
     assert.ok(projectsHtml.includes('href="/projects/siap/"'));
     assert.ok(projectsHtml.includes("active · current site"));
+    // Issue #17: projects render as a card grid, and shared rows cap their meta column.
+    assert.ok(projectsHtml.includes('<ul class="project-grid">'));
+    assert.ok(projectsHtml.includes('<a class="project-card" href="/projects/beryl/" data-project="beryl">'));
+    assert.ok(!projectsHtml.includes('class="page-row"'));
+    assert.match(siteCss, /\.page-row > a \{[^}]*grid-template-columns: minmax\(0, 1fr\) fit-content\(40%\)/u);
     assert.ok(!projectsHtml.includes('href="/projects/agentic-coding/"'));
     assert.ok(!projectsHtml.includes('href="/projects/computer-science-notes/"'));
     assert.ok(projectsHtml.includes('<link rel="canonical" href="https://example.test/projects/" />'));
@@ -576,7 +589,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.equal(findSchemaByType(personalHtml, "ProfilePage").url, "https://example.test/about/");
 
     // Stylesheet: approved tokens, reading measure, local scrolling, system theme, reduced motion.
-    assert.ok(siteCss.includes("--paper: #ffffff;"));
+    assert.ok(siteCss.includes("--paper: #f2f2ed;"));
     assert.ok(siteCss.includes("--ink: #2c2c2b;"));
     assert.ok(siteCss.includes("--measure: 44.25rem;"));
     assert.ok(siteCss.includes("@font-face"));
