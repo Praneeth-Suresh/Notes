@@ -3,16 +3,16 @@
   "description": "Per-route sitemap dates. A route's date changes only when the fingerprint of its authoritative content changes. Maintained by scripts/update-route-dates.js; the build fails if this file is stale.",
   "routes": {
     "/": {
-      "fingerprint": "74e661460d2630f3ccbcc82a45a13aa7",
-      "lastModified": "2026-09-30"
+      "fingerprint": "397295ef2958deb3c964b24a411aa092",
+      "lastModified": "2026-10-31"
     },
     "/about/": {
-      "fingerprint": "2ee6b83d6c963fcb7341fdac03a24a86",
-      "lastModified": "2026-09-30"
+      "fingerprint": "59b0827e7327829fc4cedb33aa5ab4db",
+      "lastModified": "2026-10-31"
     },
     "/blog/": {
-      "fingerprint": "aa554819849e30285bfa0c8a6847b5e0",
-      "lastModified": "2026-09-30"
+      "fingerprint": "ba8046756c5a1292568536ff765d809a",
+      "lastModified": "2026-10-31"
     },
     "/blog/a-research-program-for-inspectable-ml/": {
       "fingerprint": "258cb22b1173cf94d78a25f372468b0d",
@@ -91,16 +91,16 @@
       "lastModified": "2026-06-04"
     },
     "/errata/": {
-      "fingerprint": "5888ce0dfd321d712c5a532fc1bcb6ee",
-      "lastModified": "2026-09-30"
+      "fingerprint": "56c84ef2c0289e77a911d0bd061a56af",
+      "lastModified": "2026-10-31"
     },
     "/notes/": {
-      "fingerprint": "a4a04fdb5e025b006bd1eb93d263c8bc",
-      "lastModified": "2026-09-30"
+      "fingerprint": "c58115c3f4f79d25ddb0c1bac75292b3",
+      "lastModified": "2026-10-31"
     },
     "/projects/": {
-      "fingerprint": "da01976365b8f35ecd1b0c5d60cd17db",
-      "lastModified": "2026-09-30"
+      "fingerprint": "f168d5842b2c2abd6dfbf676968d00c4",
+      "lastModified": "2026-10-31"
     },
     "/projects/ai-society-corpus/": {
       "fingerprint": "42e7751099e0d6232d7bffca54c43bb8",
