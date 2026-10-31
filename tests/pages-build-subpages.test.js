@@ -95,6 +95,48 @@ test("shared shell follows system color preference with a light/dark override an
   assert.match(SITE_CSS, /--measure: 44\.25rem/u);
 })
 
+test("notes interaction hooks and errata rules apply at all widths, not only inside the mobile media query", () => {
+  // Isolate the max-width mobile media query block by brace matching.
+  const start = SITE_CSS.lastIndexOf("@media (max-width: 47.99rem)");
+  assert.ok(start !== -1, "mobile media query exists");
+  let depth = 0;
+  let end = start;
+  for (let i = start; i < SITE_CSS.length; i += 1) {
+    const c = SITE_CSS[i];
+    if (c === "{") depth += 1;
+    else if (c === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        end = i;
+        break;
+      }
+    }
+  }
+  const mobileBlock = SITE_CSS.slice(start, end + 1);
+  // These rules style elements that exist at every width; trapping them inside the
+  // mobile query (the bug this test guards) leaves desktop code headers, outlines,
+  // known gaps, contents groups, and errata callouts unstyled and the visually-hidden
+  // copy-status text visible. Keep them as top-level rules.
+  const globalSelectors = [
+    ".visually-hidden",
+    ".code-block-header",
+    ".copy-action",
+    ".document-outline",
+    ".note-known-gaps",
+    ".contents-group",
+    ".errata-change",
+  ];
+  for (const selector of globalSelectors) {
+    assert.ok(
+      !mobileBlock.includes(selector),
+      `${selector} must be a top-level rule, not nested in the mobile media query`,
+    );
+    assert.ok(SITE_CSS.includes(selector), `${selector} must still be defined`);
+  }
+  // Note-shell text wraps long identifiers so narrow screens don't overflow.
+  assert.match(SITE_CSS, /\.note-known-gaps :is\(li, p\)[^}]*overflow-wrap: anywhere/u);
+})
+
 test("Home is the four-section oversized disclosure index", () => {
   const html = renderHomePage({
     siteTitle: "Praneeth Suresh",

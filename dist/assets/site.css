@@ -296,6 +296,8 @@ mark { background: var(--working-bg); color: var(--working-ink); }
   :root[data-theme="dark"] .notion-color-purple { color: #c7a6e8; } :root[data-theme="dark"] .notion-color-pink { color: #e58dbd; } :root[data-theme="dark"] .notion-color-red { color: #f08e87; }
 /* Long tokens wrap; MathJax's hidden MathML copy stays inside its container. */
 .notion-page-content :is(p, li, td, th, dd, figcaption, blockquote, summary, h2, h3, h4, h5, h6), .blog-article :is(p, li, td, th, blockquote, h2, h3, h4), .errata-entry, .page-row, .project-page, .about-section { overflow-wrap: anywhere; }
+/* Note-shell text (gaps, outline, related, provenance, search results) can hold long identifiers; wrap them on narrow screens. */
+.note-known-gaps :is(li, p), .document-outline li, .note-related :is(li, p), .note-provenance, .next-reading, .search-result, .topic-row-note, .reading-path-steps :is(li, p) { overflow-wrap: anywhere; }
 .note-inline-code, .blog-article :not(pre) > code { overflow-wrap: anywhere; }
 .note-callout-body, .notion-column, .code-block, .notion-code { min-width: 0; }
 mjx-container { position: relative; }
@@ -408,27 +410,13 @@ mjx-assistive-mml { max-width: 100%; right: 0; overflow: hidden; }
 .experience-list li, .research-question, .errata-entry { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
 .experience-list p, .research-question p, .errata-entry p { margin: .375rem 0; }
 .errata-original, .errata-entry-meta { color: var(--ink-2); }
-.repo-group h3, .research-topic h3 { font-size: var(--t-body); }
-
-@media (max-width: 47.99rem) {
-  :root { --t-title: 2rem; }
-  .layout { padding-inline: 1.25rem; }
-  .site-header { margin-bottom: 2rem; }
-  .site-header-primary { flex-wrap: wrap; gap: 0 1rem; padding-block: .375rem; }
-  .site-links-desktop { display: none; }
-  .site-search-link { margin-left: auto; }
-  .site-search-link kbd { display: none; }
-  .mobile-menu { display: block; order: 4; width: 100%; }
-
-
 .errata-change { margin-top: .75rem; padding: .75rem 1rem; border-radius: 3px; background: var(--wash); }
 .errata-change p { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }
 .errata-change span { font-weight: 600; color: var(--ink); }
-  .mobile-menu > summary { min-height: 2.75rem; display: flex; align-items: center; justify-content: flex-end; list-style: none; }
-  .mobile-menu > nav { display: grid; border-top: 1px solid var(--rule); }
-  .mobile-menu > nav a { min-height: 2.75rem; display: flex; align-items: center; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.repo-group h3, .research-topic h3 { font-size: var(--t-body); }
 
-/* Technical interaction hooks added by notes-content. */
+/* Technical interaction hooks added by notes-content. These apply at every width;
+   they must stay out of the mobile media query below. */
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; border: 0 !important; }
 .code-block-header { min-height: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .25rem .5rem; color: var(--ink-2); font-size: var(--t-caption); }
 .code-block-header + pre { margin-top: 0; }
@@ -444,11 +432,25 @@ mjx-assistive-mml { max-width: 100%; right: 0; overflow: hidden; }
 .contents-groups { border-top: 1px solid var(--rule); }
 .contents-group { border-bottom: 1px solid var(--rule); }
 .contents-group > summary { min-height: 2.75rem; display: grid; grid-template-columns: 1.5rem 1fr auto; align-items: center; list-style: none; }
+.contents-group > summary::-webkit-details-marker { display: none; }
 .contents-group > summary::before { content: "▸"; grid-column: 1; color: var(--ink-2); transition: transform 150ms; }
 .contents-group[open] > summary::before { transform: rotate(90deg); }
 .contents-group > summary > span { grid-column: 2; font-weight: 600; }
 .contents-group > summary > small { grid-column: 3; color: var(--ink-2); font-size: var(--t-small); }
 .contents-group .page-rows { margin-left: 1.5rem; }
+
+@media (max-width: 47.99rem) {
+  :root { --t-title: 2rem; }
+  .layout { padding-inline: 1.25rem; }
+  .site-header { margin-bottom: 2rem; }
+  .site-header-primary { flex-wrap: wrap; gap: 0 1rem; padding-block: .375rem; }
+  .site-links-desktop { display: none; }
+  .site-search-link { margin-left: auto; }
+  .site-search-link kbd { display: none; }
+  .mobile-menu { display: block; order: 4; width: 100%; }
+  .mobile-menu > summary { min-height: 2.75rem; display: flex; align-items: center; justify-content: flex-end; list-style: none; }
+  .mobile-menu > nav { display: grid; border-top: 1px solid var(--rule); }
+  .mobile-menu > nav a { min-height: 2.75rem; display: flex; align-items: center; text-decoration: none; border-bottom: 1px solid var(--rule); }
   .site-footer { margin-top: 4rem; padding-inline: 0; }
   .home-disclosures > details > summary { min-height: 4.5rem; grid-template-columns: 1.5rem minmax(0, 1fr) auto; }
   .home-disclosures > details > summary::before { font-size: 1rem; }
