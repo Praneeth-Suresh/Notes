@@ -118,6 +118,8 @@ main:focus { outline: 0; }
 .notes-search, .notes-topics, .notes-paths, .notes-activity, .not-found-search,
 .not-found-page main > nav { width: min(100%, var(--measure)); margin-inline: auto; }
 .page-header { margin-bottom: 2rem; }
+.about-photo { width: min(100%, var(--measure)); margin: 0 auto; }
+.about-photo img { display: block; width: 100%; height: auto; }
 h1, .page-header h1, .note-header h1, .blog-post-header h1, .home-title { margin: 0 0 .75rem; font-size: var(--t-title); line-height: 1.2; font-weight: 700; letter-spacing: -.025em; overflow-wrap: anywhere; }
 h2 { margin: 3rem 0 1rem; font-size: var(--t-section); line-height: 1.3; font-weight: 600; }
 h3 { margin: 2rem 0 .75rem; font-size: var(--t-subsection); line-height: 1.3; font-weight: 600; }
