@@ -1223,6 +1223,12 @@ async function buildPagesSite({
       outputRelativePath: CV_ASSET_PATH,
       label: "CV",
     });
+    await copyFileToOutput({
+      sourcePath: path.join("content", "about", "images", "hackerschool-talk.webp"),
+      outputDir: buildOutputDir,
+      outputRelativePath: path.join("assets", "about", "hackerschool-talk.webp"),
+      label: "About page photo",
+    });
     for (const artifactFile of STATIC_ARTIFACTS) {
       await copyFileToOutput({
         sourcePath: path.join("content", "artifacts", artifactFile),
