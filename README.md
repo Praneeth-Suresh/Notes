@@ -7,6 +7,30 @@
 
 Static [Computer Science notes site](https://notes.praneeth-suresh-s.workers.dev/) built for Cloudflare Pages, with a strict Notion ingestion pipeline that prioritizes formatting fidelity, LaTeX fidelity, code block fidelity, subpage navigation, and static search.
 
+## Preview Locally
+
+You only need Node.js 20+ and Python 3 to build and preview the checked-in notes. The current manifest uses checked-in content, so this preview does not need a Notion token or a Cloudflare account.
+
+Build the site, then serve the generated `dist/` directory:
+
+```bash
+node scripts/build-pages.js --manifest content/topic-manifest.json --out dist
+python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
+```
+
+Open:
+
+```text
+http://127.0.0.1:4173/
+```
+
+Useful manual checks:
+
+- Home page search should find root topics and subpages.
+- `/topics/algorithms/` should include links for child pages from the Algorithms database.
+- Child pages should be available at static routes such as `/topics/algorithms/sorting/`.
+- LaTeX and code blocks should render without losing source formatting.
+
 ## System Flow
 
 ```mermaid
@@ -33,29 +57,21 @@ flowchart LR
 - `content/topic-manifest.json`: manifest for topics and data sources.
 - `content/portfolio-repositories.json`: generated static repository data used by the personal portfolio page.
 
-## Prerequisites
+## Maintainer Setup: Refresh from Notion
 
-1. Node.js 20+ (Node 25 also works).
-2. A Notion integration token (for pulling from Notion and/or build-time Notion reads).
-3. A Cloudflare account (for deployment).
+A Notion integration token is only required when refreshing content from Notion, or when building with a direct Notion source. A Cloudflare account is only required for deployment.
 
-## Local/Virtual Environment Setup
-
-This project reads secrets from environment variables (`process.env`).
-
-1. Create a local env file:
+1. Create or edit the ignored `.env.local` file and add this setting. Do not commit a real token:
 
 ```bash
-cat > .env.local <<'EOF'
 NOTION_API_TOKEN=your_notion_integration_token
-EOF
 ```
 
 2. Load it in your shell session:
 
 ```bash
 set -a
-source .env
+source ./.env.local
 set +a
 ```
 
@@ -310,28 +326,6 @@ The build emits `dist/feed.xml` from topic overviews and posts. RSS is the only 
 - Sitemap dates: `content/publication/route-dates.json` records a content fingerprint and date per route. The build fails when a route changed without a new date; run `node scripts/update-route-dates.js` (today's date for changed routes only).
 - Renames and retired pages: `content/publication/redirects.json` becomes `dist/_redirects` (Cloudflare static assets). A retitle in `corrections.json` changes a note's slug, so add a redirect from the old path.
 - Blog images: run `python3 scripts/optimize-images.py` (needs Pillow) after pulling new images; the build serves the WebP copies in `content/blog/images-optimized/` with their dimensions.
-
-## Preview Locally
-
-Build the site, then serve the generated `dist/` directory:
-
-```bash
-node scripts/build-pages.js --manifest content/topic-manifest.json --out dist
-python3 -m http.server 4173 --directory dist
-```
-
-Open:
-
-```text
-http://localhost:4173/
-```
-
-Useful manual checks:
-
-- Home page search should find root topics and subpages.
-- `/topics/algorithms/` should include links for child pages from the Algorithms database.
-- Child pages should be available at static routes such as `/topics/algorithms/sorting/`.
-- LaTeX and code blocks should render without losing source formatting.
 
 ## Publication Status, Corrections, and Note Media
 
