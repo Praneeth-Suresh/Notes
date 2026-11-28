@@ -319,7 +319,7 @@ test("build-pages emits blog routes when manifest exists", async () => {
     assert.ok(flagshipHtml.includes('href="/artifacts/deep-learning-paper-trail.md"'));
     assert.ok(!flagshipHtml.includes("subscribe-panel"));
     assert.ok(flagshipHtml.includes('href="/errata/"'));
-    assert.ok(flagshipHtml.includes('href="/about/#research"'));
+    assert.ok(flagshipHtml.includes('href="/about/research/"'));
     assert.ok(flagshipHtml.includes("George Cybenko"));
     assert.ok(flagshipHtml.includes("Yann LeCun"));
     assert.ok(flagshipHtml.includes("Ashish Vaswani"));

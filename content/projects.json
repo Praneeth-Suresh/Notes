@@ -1,6 +1,51 @@
 {
   "projects": [
     {
+      "slug": "policy-trace-lab",
+      "title": "Policy Trace Lab",
+      "status": "active · robot learning",
+      "updatedAt": "2026-11-28",
+      "summary": "A workbench that checks whether a new robot policy is worse than the old one, and opens the replay at the timestep where it went wrong.",
+      "role": "I built Policy Trace Lab on a research codebase for guided robot policies that I share with collaborators. Puming (Oscar) Jiang and mywang44 wrote the original Push-T and Robomimic policy code.",
+      "problem": "Robot policy results often come from a few rollouts, different start states, and a success rule chosen after the fact. That makes it hard to tell whether a change to a policy made it better or worse, and where it failed.",
+      "method": "The lab checks demonstration data for problems such as NaN values, shape mismatches, and time running backwards. It then runs a baseline and a candidate policy from the same start states and seeds, compares them pair by pair, and applies a pass/fail rule that was committed before the run. The HTML report opens at the first timestep where the candidate breaks the rule, with both rollouts side by side.",
+      "decision": "Every stage reads and writes one versioned episode-trace format, and each simulator plugs in as a separate task pack checked by a conformance kit. Data checks, comparisons, and replay therefore agree on what an episode is, and a new simulator needs no change to the core.",
+      "artifact": {
+        "label": "Real CPU run from the repository README: Diffusion Policy on Push-T with guidance on (baseline) and off (candidate), seeds 0 to 4. The rule was declared before the run. The verdict says nothing about which method is better in general.",
+        "kind": "code",
+        "content": "$ gsp lab gate out/real/compare/compare.json --gate lab/gates/pusht_v1.json --out out/real/gate\nPolicy Trace Lab gate: REGRESSION (exit 1)\nFAIL success_not_worse: candidate=0.00 baseline=0.40 delta=-0.40 threshold=-0.10 fraction of completed pairs\nFAIL separation_proxy: candidate=4.11 baseline=7.91 delta=-3.80 threshold=30.72 px\nfailing rules: success_not_worse, separation_proxy\nfirst violation: static seed 0 step 3 t=0.30"
+      },
+      "limitation": "Only Push-T runs through the lab today; Robomimic is available only through the research scripts. The real run above has five seeds per variant, which is too few for a benchmark claim, and the separation check uses a distance proxy rather than detected contact.",
+      "result": "The lab runs five registered Push-T policies (diffusion, flow matching, and three streaming-policy variants), and an offline demo reproduces a seeded regression on a laptop CPU with no downloads.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/robot-policy",
+      "tags": ["robot-learning", "diffusion-policy", "evaluation", "python"]
+    },
+    {
+      "slug": "frag-tax",
+      "title": "frag-tax",
+      "status": "active · ML systems",
+      "updatedAt": "2026-11-28",
+      "summary": "A measurement of how much GPU memory PyTorch's caching allocator loses to fragmentation, and how much a better allocator could save.",
+      "role": "Author and maintainer. I started the project in November 2026.",
+      "problem": "Training and inference jobs run out of GPU memory while the GPU is only partly full. The usual advice is to turn on expandable segments and hope, because nobody knows how much memory fragmentation actually costs on a given workload.",
+      "method": "frag-tax replays recorded allocation and free events through a byte-exact, CPU-only model of the native CUDA caching allocator in PyTorch v2.15.0. It compares the memory PyTorch reserves with provable lower bounds on what any allocator would need for the same sequence, and replays the same trace through other allocator designs such as size classes, buddy allocation, and best fit. Workloads cover Hugging Face training, FSDP2, variable-length inference, and LoRA adapter swapping.",
+      "decision": "The simulator re-implements PyTorch's rules on the CPU, and every rule cites the source line it copies. That makes the measurement cheap to repeat without a GPU, and a test checks that each citation still points at the rule.",
+      "artifact": {
+        "label": "Peak memory above the lower bound on the four bundled synthetic traces, from the repository README. These traces are shaped like real workloads but were not measured on a GPU, so they are not findings.",
+        "kind": "list",
+        "items": [
+          "Training-like: PyTorch default +9.3%, expandable segments +1.6%",
+          "FSDP-like (delayed frees on a second stream): default +30.1%, expandable segments +21.1%",
+          "Inference-like (growing KV caches): default +318.2%, expandable segments +17.5%",
+          "LoRA-like (adapter swapping): default +14.5%, expandable segments +1.1%"
+        ]
+      },
+      "limitation": "No GPU traces have been recorded yet, so there are no measured results. The simulator is checked against 20 hand-derived traces, golden tests, and property tests, but not yet against a live GPU.",
+      "result": "The simulator, bounds, policies, Slurm sweep templates, and report generator are built and tested on the CPU. The plan for recording GPU traces, with pass/fail criteria, is written down in the repository.",
+      "codeUrl": "https://github.com/Praneeth-Suresh/frag-tax",
+      "tags": ["pytorch", "gpu-memory", "ml-systems", "python"]
+    },
+    {
       "slug": "beryl",
       "title": "Beryl",
       "status": "active · developer tooling",

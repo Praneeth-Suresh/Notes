@@ -3,11 +3,15 @@
   "description": "Per-route sitemap dates. A route's date changes only when the fingerprint of its authoritative content changes. Maintained by scripts/update-route-dates.js; the build fails if this file is stale.",
   "routes": {
     "/": {
-      "fingerprint": "397295ef2958deb3c964b24a411aa092",
-      "lastModified": "2026-10-31"
+      "fingerprint": "65bf520e2ed7301f3d277c15968e9489",
+      "lastModified": "2026-11-28"
     },
     "/about/": {
-      "fingerprint": "5488779837e232b026062a934cf7747d",
+      "fingerprint": "c3ddf62e992ae754a94cb8d6655d649e",
+      "lastModified": "2026-11-28"
+    },
+    "/about/research/": {
+      "fingerprint": "c86a7329639d2010b61086d11bbeaee4",
       "lastModified": "2026-11-28"
     },
     "/blog/": {
@@ -63,8 +67,8 @@
       "lastModified": "2026-06-04"
     },
     "/blog/np-completeness-formal-definition-proof-sketches-and-reductions/": {
-      "fingerprint": "0180a36b44d3e2ace75d5f1188e36b10",
-      "lastModified": "2026-09-30"
+      "fingerprint": "6290fc0deccd2c69125ba68ce188f1f8",
+      "lastModified": "2026-11-28"
     },
     "/blog/peeking-inside-the-black-box/": {
       "fingerprint": "604fae755700df8d6cea239309a50708",
@@ -79,8 +83,8 @@
       "lastModified": "2026-06-04"
     },
     "/blog/tracing-the-mental-models-of-deep-learning-lessons-from-foundational-papers/": {
-      "fingerprint": "67a211847a16e26d89c4fdb465de575e",
-      "lastModified": "2026-09-30"
+      "fingerprint": "f163711c45f4adb942e12ab747213441",
+      "lastModified": "2026-11-28"
     },
     "/blog/unic-launching-off/": {
       "fingerprint": "9106d89ea4906d304281d5086f22645a",
@@ -99,8 +103,8 @@
       "lastModified": "2026-10-31"
     },
     "/projects/": {
-      "fingerprint": "f168d5842b2c2abd6dfbf676968d00c4",
-      "lastModified": "2026-10-31"
+      "fingerprint": "8ea22dc9fdd96dfb4a271d87104eec0d",
+      "lastModified": "2026-11-28"
     },
     "/projects/ai-society-corpus/": {
       "fingerprint": "42e7751099e0d6232d7bffca54c43bb8",
@@ -110,9 +114,17 @@
       "fingerprint": "e204fff879e411c35810fb38fc4d7712",
       "lastModified": "2026-09-30"
     },
+    "/projects/frag-tax/": {
+      "fingerprint": "ee86973dc732169582b081673811d6ac",
+      "lastModified": "2026-11-28"
+    },
     "/projects/notes/": {
       "fingerprint": "ad24177960e4ac37bf389764850c37bf",
       "lastModified": "2026-09-30"
+    },
+    "/projects/policy-trace-lab/": {
+      "fingerprint": "ccadc60595c99d8f3d1edff3fbcc4133",
+      "lastModified": "2026-11-28"
     },
     "/projects/siap/": {
       "fingerprint": "0edcfd96b7bc0bf613cea4ce06a85a7a",

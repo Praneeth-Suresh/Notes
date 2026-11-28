@@ -222,7 +222,7 @@ test("real build: renamed and retired routes redirect directly to final targets"
     ["/topics/os/address-space-2/", "/topics/os/address-space-study-plan/"],
     ["/topics/os/network-communcation/", "/topics/os/network-communication/"],
     ["/topics/ai-engineer/kernal-and-os-optimisations/", "/topics/ai-engineer/kernel-and-os-optimisations/"],
-    ["/start-here/", "/#notes"], ["/contact/", "/about/#contact"], ["/research-taste/", "/about/#research"],
+    ["/start-here/", "/#notes"], ["/contact/", "/about/#contact"], ["/research-taste/", "/about/research/"],
     ["/subscribe/", "/feed.xml"], ["/collaborate/", "/about/#contact"],
   ];
   for (const [from, to] of expected) {
