@@ -1,6 +1,40 @@
 {
   "currentQuestions": [
     {
+      "question": "How can a robot adapt to unfamiliar objects and situations without retraining its base policy?",
+      "why": "I want to work on AI beyond language modelling, on models of the physical world. Generative policies trained by diffusion or flow matching can be steered at inference time by a guidance signal, such as a cost for getting close to an obstacle, without changing their weights. If that steering is reliable, a robot could handle a new object or obstacle without new demonstrations or retraining.",
+      "wouldChangeMyView": "Evidence that guidance mostly lowers task success compared with a short fine-tune on the new situation, or that it only works when the new object or obstacle is close to what the policy saw in training.",
+      "links": [
+        {
+          "label": "robot-policy repository",
+          "href": "https://github.com/Praneeth-Suresh/robot-policy"
+        },
+        {
+          "label": "Chi et al., Diffusion Policy",
+          "href": "https://arxiv.org/abs/2303.04137"
+        },
+        {
+          "label": "Jiang, Ancha et al., Streaming Flow Policy",
+          "href": "https://arxiv.org/abs/2505.21851"
+        }
+      ]
+    },
+    {
+      "question": "Which parts of a coding agent's setup make passing but insecure code more likely?",
+      "why": "In my CP3106 study, prompt wording alone did not separate failure rates at about 20 trials per condition. The model, the harness, and the available tools are still untested, and they are what teams actually change.",
+      "wouldChangeMyView": "If much larger trial budgets still show no differences between setups, insecure-but-passing code is better treated as a base rate of the model than as something the environment controls.",
+      "links": [
+        {
+          "label": "Pearce et al., Asleep at the Keyboard?",
+          "href": "https://arxiv.org/abs/2108.09293"
+        },
+        {
+          "label": "Kapoor et al., AI Agents That Matter",
+          "href": "https://arxiv.org/abs/2407.01502"
+        }
+      ]
+    },
+    {
       "question": "Can interpretability become a cheap, standard part of model evaluation instead of a research project per model?",
       "why": "My position essay argues that explanation methods are rarely used in real evaluation because they are too costly and not meaningful enough. Probing and representation analysis on frozen models are the most promising candidates because they do not change the model being explained.",
       "wouldChangeMyView": "Evidence that frozen-model probes routinely disagree with causal interventions on the same model, or that they add nothing over held-out accuracy when choosing between models.",
@@ -12,36 +46,6 @@
         {
           "label": "Hewitt and Liang, Designing and Interpreting Probes with Control Tasks",
           "href": "https://arxiv.org/abs/1909.03368"
-        }
-      ]
-    },
-    {
-      "question": "Do machine-readable repository policies, enforced by deterministic checks, make coding agents more reliable than the same rules written in prose?",
-      "why": "This is the question behind Beryl and my CP3106 independent research. Prose instructions are easy to write but give no evidence they were followed.",
-      "wouldChangeMyView": "If agents given equivalent natural-language guidance pass as many hidden tests and policy checks as agents given enforced policies, the extra machinery is not earning its cost.",
-      "links": [
-        {
-          "label": "Beryl project page",
-          "href": "/projects/beryl/"
-        },
-        {
-          "label": "Kapoor et al., AI Agents That Matter",
-          "href": "https://arxiv.org/abs/2407.01502"
-        }
-      ]
-    },
-    {
-      "question": "Is learning usefully described as finding a low-rank representation of the data, and does that make learned knowledge easier to read out?",
-      "why": "LoRA and distillation suggest much of what large models store can be re-encoded compactly. If that is general, a compact representation should be convertible into something a person can inspect.",
-      "wouldChangeMyView": "Tasks where adaptation needs high-rank updates to reach full-fine-tuning quality, or where compact representations stay no more interpretable than the full model.",
-      "links": [
-        {
-          "label": "What exactly are we doing?",
-          "href": "/blog/what-exactly-are-we-doing/"
-        },
-        {
-          "label": "Hu et al., LoRA",
-          "href": "https://arxiv.org/abs/2106.09685"
         }
       ]
     }

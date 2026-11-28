@@ -299,7 +299,7 @@ The public site name lives in `content/site-metadata.json` (`siteTitle`) and is 
 
 The build emits `dist/feed.xml` from topic overviews and posts. RSS is the only follow option; there is no email newsletter, and pages carry no subscribe panels (the footer links the feed). Pages expose provider-neutral analytics hooks that buffer events in `window.notesAnalyticsEvents` and dispatch a `notes-analytics` browser event:
 
-- `data-analytics-event="page_view"`, `rss_click`, `cv_download_click`, `copy_share_link_click`
+- `data-analytics-event="page_view"`, `rss_click`, `cv_download_click`, `talk_slides_click`, `copy_share_link_click`
 - `data-analytics-event="outbound_github_click"`, `outbound_linkedin_click`
 
 ## Navigation, Search, Sitemap Dates, and Redirects

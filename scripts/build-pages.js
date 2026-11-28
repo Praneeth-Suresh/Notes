@@ -45,6 +45,14 @@ const INTER_LICENSE_SOURCE_PATH = path.join("content", "fonts", "LICENSE.txt");
 const INTER_LICENSE_ASSET_PATH = path.join("assets", "fonts", "LICENSE.txt");
 const CV_SOURCE_PATH = "cv.pdf";
 const CV_ASSET_PATH = "cv.pdf";
+// Workshop slide decks linked from the About page; served at /talks/<file>.
+const TALK_SLIDE_FILES = [
+  "explainable-ai-primer.pdf",
+  "architecting-agentic-systems.pdf",
+  "steal-this-research-idea.pdf",
+  "beyond-dynamic-programming.pdf",
+];
+const TALK_SLIDE_ROUTES = TALK_SLIDE_FILES.map((file) => `/talks/${file}`);
 const STATIC_ARTIFACTS = [
   "deep-learning-paper-trail.md",
   "np-completeness-reduction-template.tex",
@@ -1135,6 +1143,7 @@ async function buildPagesSite({
     ...GATEWAY_ROUTES,
     "/blog/",
     "/cv.pdf",
+    ...TALK_SLIDE_ROUTES,
     ...(Array.isArray(projectsData?.projects) ? projectsData.projects.map((project) => `/projects/${project.slug}/`) : []),
   ]);
   function resolveCuratedLink(step, label) {
@@ -1223,6 +1232,14 @@ async function buildPagesSite({
       outputRelativePath: CV_ASSET_PATH,
       label: "CV",
     });
+    for (const talkFile of TALK_SLIDE_FILES) {
+      await copyFileToOutput({
+        sourcePath: path.join("content", "talks", talkFile),
+        outputDir: buildOutputDir,
+        outputRelativePath: path.join("talks", talkFile),
+        label: `talk slides ${talkFile}`,
+      });
+    }
     await copyFileToOutput({
       sourcePath: path.join("content", "about", "images", "hackerschool-original.jpg"),
       outputDir: buildOutputDir,
@@ -1431,7 +1448,7 @@ async function buildPagesSite({
     const sitemapItems = resolveRouteDates({ items: routeFingerprints, ledger: routeDatesLedger });
     assertRedirectsConsistent({
       redirects,
-      generatedRoutes: [...sitemapItems.map((item) => item.urlPath), "/feed.xml", "/cv.pdf"],
+      generatedRoutes: [...sitemapItems.map((item) => item.urlPath), "/feed.xml", "/cv.pdf", ...TALK_SLIDE_ROUTES],
       generatedFragments,
     });
 

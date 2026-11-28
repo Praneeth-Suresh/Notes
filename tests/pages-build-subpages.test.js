@@ -629,6 +629,22 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes('class="brand-link" href="/"'));
     assert.ok(personalHtml.includes("https://www.linkedin.com/in/praneeth-suresh-a114aa250/"));
     assert.equal(findSchemaByType(personalHtml, "ProfilePage").url, "https://example.test/about/");
+    // About: workshop slides are served like the CV, and the page links each shared deck.
+    for (const talkFile of [
+      "explainable-ai-primer.pdf",
+      "architecting-agentic-systems.pdf",
+      "steal-this-research-idea.pdf",
+      "beyond-dynamic-programming.pdf",
+    ]) {
+      const talkStat = await fs.stat(path.join(outDir, "talks", talkFile));
+      assert.ok(talkStat.size > 0, `${talkFile} is copied to /talks/`);
+      assert.ok(personalHtml.includes(`href="/talks/${talkFile}" data-analytics-event="talk_slides_click"`));
+    }
+    assert.ok(personalHtml.includes('id="talks"'));
+    assert.ok(personalHtml.includes('id="hackathons"'));
+    assert.ok(personalHtml.includes("CS1231S"));
+    assert.ok(personalHtml.includes('href="https://github.com/Praneeth-Suresh/robot-policy"'));
+    assert.ok(personalHtml.includes('href="https://github.com/Praneeth-Suresh/frag-tax"'));
 
     // Stylesheet: approved tokens, reading measure, local scrolling, system theme, reduced motion.
     assert.ok(siteCss.includes("--paper: #f2f2ed;"));
