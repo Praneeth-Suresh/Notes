@@ -400,6 +400,11 @@ mjx-assistive-mml { max-width: 100%; right: 0; overflow: hidden; }
 .experience-list, .errata-log { list-style: none; padding: 0; }
 .experience-list li, .research-question, .errata-entry { padding: 1rem 0; border-bottom: 1px solid var(--rule); }
 .experience-list p, .research-question p, .errata-entry p { margin: .375rem 0; }
+/* About and Research: the site accent (burnt orange, lighter in dark mode) marks the few things a reader should catch first. */
+.experience-role > span:not(.about-tag) { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.about-highlight { color: var(--accent); }
+.about-tag { display: inline-block; margin-left: .375rem; padding: 0 .45rem; border: 1px solid currentColor; border-radius: 999px; color: var(--accent); font: 500 var(--t-caption)/1.6 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; white-space: nowrap; }
+.about-now { padding-left: 1rem; border-left: 2px solid var(--accent); }
 .errata-original, .errata-entry-meta { color: var(--ink-2); }
 .errata-change { margin-top: .75rem; padding: .75rem 1rem; border-radius: 3px; background: var(--wash); }
 .errata-change p { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; }

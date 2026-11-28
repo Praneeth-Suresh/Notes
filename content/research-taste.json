@@ -52,6 +52,24 @@
   ],
   "topics": [
     {
+      "title": "Steering and monitoring generative robot policies",
+      "rationale": "These papers adapt or check a pretrained robot policy without retraining it, which is the question behind my current research.",
+      "sources": [
+        {
+          "label": "Wagenmaker et al., Steering Your Diffusion Policy with Latent Space Reinforcement Learning (DSRL)",
+          "href": "https://arxiv.org/abs/2506.15799"
+        },
+        {
+          "label": "Temporal Logic Guidance for Action-Only Diffusion Policies with World Models",
+          "href": "https://arxiv.org/abs/2606.22729"
+        },
+        {
+          "label": "Agia et al., Unpacking Failure Modes of Generative Policies: Runtime Monitoring of Consistency and Progress",
+          "href": "https://arxiv.org/abs/2410.04640"
+        }
+      ]
+    },
+    {
       "title": "Deep learning foundations",
       "rationale": "The first AI research thread is the question behind neural networks themselves: what kinds of functions can trainable systems represent, and what architectural biases make that representation practical?",
       "sources": [
