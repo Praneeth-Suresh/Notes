@@ -502,6 +502,7 @@ const GATEWAY_ROUTES = [
   "/",
   "/errata/",
   "/about/",
+  "/about/research/",
   "/notes/",
   "/projects/",
 ];
@@ -509,6 +510,7 @@ const GATEWAY_TITLES = {
   "/": "Home",
   "/errata/": "Errata",
   "/about/": "About",
+  "/about/research/": "Research",
   "/notes/": "Notes",
   "/projects/": "Projects",
   "/blog/": "Writing",
@@ -1338,7 +1340,8 @@ async function buildPagesSite({
     const gatewayPages = [
       ["/", "index.html", stylingContext.renderHomePage(gatewayContext)],
       ["/errata/", "errata/index.html", stylingContext.renderErrataPage({ siteTitle, siteUrl: normalizedSiteUrl, errataEntries })],
-      ["/about/", "about/index.html", stylingContext.renderPersonalPage({ siteTitle, siteUrl: normalizedSiteUrl, portfolioData, projectsData, researchTasteData })],
+      ["/about/", "about/index.html", stylingContext.renderPersonalPage({ siteTitle, siteUrl: normalizedSiteUrl, portfolioData, projectsData })],
+      ["/about/research/", "about/research/index.html", stylingContext.renderResearchPage({ siteTitle, siteUrl: normalizedSiteUrl, researchTasteData })],
       ["/notes/", "notes/index.html", stylingContext.renderNotesIndexPage({ ...gatewayContext, searchEntries: searchIndex })],
       ["/projects/", "projects/index.html", stylingContext.renderProjectsIndexPage({ siteTitle, siteUrl: normalizedSiteUrl, projectsData })],
     ];

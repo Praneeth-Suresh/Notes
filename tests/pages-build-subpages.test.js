@@ -390,6 +390,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     const notesHtml = await fs.readFile(path.join(outDir, "notes", "index.html"), "utf8");
     const errataHtml = await fs.readFile(path.join(outDir, "errata", "index.html"), "utf8");
     const personalHtml = await fs.readFile(path.join(outDir, "about", "index.html"), "utf8");
+    const researchHtml = await fs.readFile(path.join(outDir, "about", "research", "index.html"), "utf8");
     const projectsHtml = await fs.readFile(path.join(outDir, "projects", "index.html"), "utf8");
     const corpusProjectHtml = await fs.readFile(
       path.join(outDir, "projects", "ai-society-corpus", "index.html"),
@@ -566,11 +567,13 @@ test("builds child_page routes and makes subpages searchable", async () => {
     // Retired route content is preserved in the approved destinations.
     assert.ok(homeHtml.includes('id="projects"'));
     assert.ok(homeHtml.includes('id="notes"'));
-    assert.ok(personalHtml.includes('id="research"'));
-    assert.ok(personalHtml.includes("Reading list archive (2 themes)"));
-    assert.ok(personalHtml.includes("Deep learning foundations"));
-    assert.ok(personalHtml.includes("Mechanistic interpretability"));
-    assert.ok(personalHtml.includes("George Cybenko, Approximation by Superpositions of a Sigmoidal Function"));
+    assert.ok(personalHtml.includes('href="/about/research/"'));
+    assert.ok(researchHtml.includes("Papers I recommend"));
+    assert.ok(researchHtml.includes("Show 2 themes"));
+    assert.ok(!researchHtml.includes("Reading list archive"));
+    assert.ok(researchHtml.includes("Deep learning foundations"));
+    assert.ok(researchHtml.includes("Mechanistic interpretability"));
+    assert.ok(researchHtml.includes("George Cybenko, Approximation by Superpositions of a Sigmoidal Function"));
     assert.ok(personalHtml.includes('id="contact"'));
     assert.ok(personalHtml.includes('id="collaboration-fit"'));
     assert.ok(personalHtml.includes("What I am open to"));
@@ -621,7 +624,7 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("Experience"));
     assert.ok(personalHtml.includes("Agile Counsel"));
     assert.ok(!/1,000\+|sub-200|20%|~40%|GPA/u.test(personalHtml), "unverified metrics stay off the About page");
-    assert.ok(personalHtml.includes('id="research"'));
+    assert.ok(personalHtml.includes('href="/about/research/"'));
     assert.ok(personalHtml.includes('href="/notes/"'));
     assert.ok(personalHtml.includes("NewRepo"));
     assert.ok(personalHtml.includes('data-analytics-event="outbound_github_click"'));
@@ -645,6 +648,15 @@ test("builds child_page routes and makes subpages searchable", async () => {
     assert.ok(personalHtml.includes("CS1231S"));
     assert.ok(personalHtml.includes('href="https://github.com/Praneeth-Suresh/robot-policy"'));
     assert.ok(personalHtml.includes('href="https://github.com/Praneeth-Suresh/frag-tax"'));
+    assert.ok(personalHtml.includes("an undergraduate course offered by the NUS School of Computing"));
+    // About section order: Now, Experience, Teaching and workshops, Hackathons, then the rest.
+    const sectionOrder = ["about-now-title", "about-experience-title", "about-talks-title", "about-hackathons-title", "about-work-title", "about-contact-title"].map((id) => personalHtml.indexOf(`id="${id}"`));
+    assert.ok(sectionOrder.every((position, index) => position > 0 && (index === 0 || position > sectionOrder[index - 1])), "About sections render in the agreed order");
+    // Research has its own page under About, with open questions and recommended papers.
+    assert.equal((researchHtml.match(/<h1[\s>]/gu) || []).length, 1);
+    assert.ok(researchHtml.includes('<h1 id="research-title">Research</h1>'));
+    assert.ok(researchHtml.includes('id="research-questions-title">Open questions</h2>'));
+    assert.ok(researchHtml.includes('<link rel="canonical" href="https://example.test/about/research/" />'));
 
     // Stylesheet: approved tokens, reading measure, local scrolling, system theme, reduced motion.
     assert.ok(siteCss.includes("--paper: #f2f2ed;"));
